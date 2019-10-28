@@ -1,0 +1,18 @@
+{ 
+    "r.lsp.path": "/usr/bin/R",
+    "r.lsp.debug": false,
+    "r.lsp.diagnostics": false,
+    "list.normalMappings": {
+        "t": "action:tabe",
+        "v": "action:vsplit",
+        "s": "action:split",
+        "d": "expr:GetDeleteAction"
+    },
+    "list.insertMappings": {
+        "<C-t>": "action:tabe",
+        "<C-w>": "command:wincmd k"
+    },
+	"list.source.symbols.defaultOptions": ["--normal", "--number-select"],
+    "suggest.snippetIndicator": "►"
+}
+

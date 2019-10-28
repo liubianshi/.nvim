@@ -1,0 +1,33 @@
+snippet "(\w+).par" "Parenthesis (postfix)" r
+(`!p snip.rv = match.group(1)`$1)$0
+endsnippet
+
+snippet "\(([^()]*)\)\_" "Parenthesis (postfix)" r
+（`!p snip.rv = match.group(1)`）$0
+endsnippet
+
+snippet printf
+printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet "([#*])(\d)" "输入各级标题" rw
+`!p snip.rv = int(match.group(2))*match.group(1)+ ' '`
+endsnippet
+
+snippet "([,.!:;\\?\[\]\(\)])\ " "修正标点符号" r
+`!p
+def E_trans_to_C(string):
+	E_pun = u',.!?[]()<>"\';\\:'
+	C_pun = u'，。！？【】（）《》“‘；、：'
+	table= {ord(f):ord(t) for f,t in zip(E_pun,C_pun)}
+	return string.translate(table)
+snip.rv = E_trans_to_C(match.group(1))`
+endsnippet
+
+snippet LW "数字签名" b
+------
+南开大学 APEC 研究中心
+天津市南开区卫津路 94 号南开大学文科创新楼 A108 室（300071）
+Tel:  86-22-2349 7558
+E-mail:  weiluonk@gmail.com
+endsnippet

@@ -1,0 +1,28 @@
+# markdown snippets
+
+snippet code "code block" b
+\`\`\`$1
+$2
+\`\`\`
+$0
+endsnippet
+
+snippet head "Header" b
+---
+title: "`!p snip.rv = snip.basename`"
+author: "罗伟"
+date: `date +%Y-%m-%d`
+# bibliography: "`!p snip.rv = snip.basename`.bib"
+output:
+  pdf_document:
+    includes:
+      in_header: "/home/liubianshi/useScript/header.tex"
+    latex_engine: xelatex
+---
+endsnippet
+
+snippet ] "inline code"
+`${1:${VISUAL}}`$0
+endsnippet
+
+
