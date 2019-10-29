@@ -14,6 +14,7 @@ function! RunDoLines()
 endfun
 
 " 通过 Alt + 1 在运行当前行
-autocmd FileType stata imap <buffer> <A-1> <Esc>V:call RunDoLines()<cr>
-autocmd FileType stata nmap <buffer> <A-1> V:call RunDoLines()<cr>
-autocmd FileType stata vmap <buffer> <A-1> :<C-U>call RunDoLines()<cr>
+autocmd FileType stata inoremap <buffer> <A-1> <esc>V:<c-u>call RunDoLines()<cr>
+autocmd FileType stata nnoremap <buffer> <A-1> V:call RunDoLines()<cr>
+autocmd FileType stata vnoremap <buffer> <A-1> :<C-U>call RunDoLines()<cr>
+autocmd FileType stata nnoremap <buffer> ;l V:<c-u>call RunDoLines()<cr>
