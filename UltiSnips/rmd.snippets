@@ -14,11 +14,11 @@ snippet rmd "Header" b
 ---
 title: "`!p snip.rv = snip.basename`"
 author: "罗伟"
-date: `date +%Y-%m-%d`
+date: "\`r Sys.Date()\`"
 # bibliography: "`!p snip.rv = snip.basename`.bib"
-fontsize: 12pt
+fontsize: 11pt
 output:
-	pdf_document:
+	bookdown::pdf_document2:
 		template: "~/useScript/default-rmd.latex"
 		includes:
 			in_header:
@@ -28,18 +28,36 @@ output:
 			- "--listings"
 		latex_engine: xelatex
 		keep_tex: false
-	word_document: 
+	bookdown::word_document2: 
 		pandoc_args: ["--from=markdown+east_asian_line_breaks"]
+	bookdown::html_document2: 
+		css: ~/useScript/vue.css
 ---
+$0
+endsnippet
+
+snippet bookdown "Header" b
+---
+title: "$1"
+author: "罗伟"
+date: "\`r Sys.Date()\`"
+documentclass: article
+bibliography: "ref.bib"
+fontsize: 10pt
+biblio-style: apalike
+link-citations: yes
+colorlinks: yes
+toc: false
+---
+$0
 endsnippet
 
 snippet setup "Header" b
 \`\`\`\{r setup, include = F\}
 library("tidyverse")
 library("showtext")
-knitr::opts_chunk$set(echo = F, message = F, warning = F,
-					  error = F, results = "as-is",
-					  fig.showtext = TRUE)
+knitr::opts_chunk$set(echo = F, message = F, warning = F, error = F,
+	results = "as-is", fig.showtext = TRUE)
 \`\`\`
 endsnippet
 

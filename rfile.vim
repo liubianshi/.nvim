@@ -44,7 +44,17 @@ augroup r_setup
     vmap , <Plug>REDSendSelection
     nmap <LocalLeader>: :RSend 
     imap <A-;> <Esc>:RSend 
-    autocmd FileType rmd,rmarkdown nmap ;kb
+    autocmd FileType rmd,rmarkdown nnoremap ;kbp
         \ :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::pdf_book")<cr>
+    autocmd FileType rmd,rmarkdown nnoremap ;kbh
+        \ :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::html_book")<cr>
+    autocmd FileType rmd,rmarkdown nnoremap ;kbo
+        \ :<c-u>! xdg-open ./_book/draft.pdf<cr> 
+    autocmd FileType rmd,rmarkdown nnoremap ;kbv
+        \ :<c-u>RSend bookdown::preview_chapter(%)<cr>
+    autocmd FileType rmd,rmarkdown nnoremap ;P
+        \ :<c-u>call RMakeRmd("bookdown::pdf_document2")<cr>
+    autocmd FileType rmd,rmarkdown nnoremap ;H
+        \ :<c-u>call RMakeRmd("bookdown::html_document2")<cr>
 augroup END
      
