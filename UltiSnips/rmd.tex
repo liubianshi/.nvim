@@ -1,0 +1,176 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{}
+    \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+snippet cbr ``Codeblock'' b
+```\{r \$\{1:noname\}, cache = F\}
+\$2
+```
+\$0
+endsnippet
+
+snippet cbl ``Codeline'' w
+`r \$1`
+\$0
+endsnippet
+
+\hypertarget{snippet-rmd-header-b}{%
+\subsection{snippet rmd ``Header'' b}\label{snippet-rmd-header-b}}
+
+title: ``\texttt{!p\ snip.rv\ =\ snip.basename}''
+author: ``罗伟''
+date: ```r Sys.Date()`''
+\# bibliography: ``\texttt{!p\ snip.rv\ =\ snip.basename}.bib''
+fontsize: 11pt
+language:
+label:
+fig: ``图''
+tab: ``表''\\
+output:
+bookdown::pdf\_document2:
+template: ``\textasciitilde/useScript/default-rmd.latex''
+includes:
+in\_header:
+- ``/home/liubianshi/useScript/header.tex''
+- ``/home/liubianshi/useScript/code.tex''
+pandoc\_args:
+- ``--listings''
+latex\_engine: xelatex
+keep\_tex: false
+toc: false
+bookdown::word\_document2:
+pandoc\_args: {[}``--from=markdown+east\_asian\_line\_breaks''{]}
+bookdown::html\_document2:
+css: \textasciitilde/useScript/vue.css
+---
+\$0
+endsnippet
+
+\hypertarget{snippet-bookdown-header-b}{%
+\subsection{snippet bookdown ``Header'' b}\label{snippet-bookdown-header-b}}
+
+title: ``\$1''
+author: ``罗伟''
+date: ```r Sys.Date()`''
+documentclass: article
+bibliography: ``ref.bib''
+fontsize: 10pt
+biblio-style: apalike
+link-citations: yes
+colorlinks: yes
+toc: false
+---
+\$0
+endsnippet
+
+snippet setup ``Header'' b
+```\{r setup, include = F\}
+library(``tidyverse'')
+library(``showtext'')
+knitr::opts\_chunk\$set(echo = F, message = F, warning = F, error = F,
+results = ``as-is'', fig.showtext = TRUE)
+```
+endsnippet
+
+\hypertarget{snippet-bhead-rmarkdown-beamer-header-b}{%
+\subsection{snippet bhead ``Rmarkdown Beamer Header'' b}\label{snippet-bhead-rmarkdown-beamer-header-b}}
+
+title: ``\texttt{!p\ snip.rv\ =\ snip.basename}''
+author: ``罗伟''
+date: \texttt{date\ +\%Y-\%m-\%d}
+output:
+beamer\_presentation:
+latex\_engine: xelatex
+theme: Madrid
+template: ``\textasciitilde/useScript/beamerChinese.latex''
+fonttheme: structurebold
+---
+endsnippet
+
+
+\end{document}

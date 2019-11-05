@@ -33,15 +33,15 @@ set tabstop=4		" 设置编辑时制表符占用空格数
 set shiftwidth=4	" 设置格式化时制表符占用空格数
 set smarttab        " Be Smart When using tabs 
 set shiftround      " 运用 > < 推广缩进至 tabs 整数倍
-set ai              " 自动缩进
-set si              " 智能缩进
-set wrap            " 代码折行
 set wrapmargin=2    " 指定拆行处与编辑窗口右边缘之间空出的字符数
 set laststatus=2    " 状态栏显示
 
 set nolinebreak
 set breakindent
 set brk='/\()"':,.;<>~!@#$%^&*|+=[]{}`?-…，。、‘’“”：；'
+set ai              " 自动缩进
+set si              " 智能缩进
+set wrap            " 代码折行
 set formatoptions+=m
 set formatoptions+=B
 

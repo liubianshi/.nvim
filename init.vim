@@ -76,6 +76,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'gaalcaras/ncm-R'        " R 语言自动补全
     Plug 'ncm2/ncm2-ultisnips'    " ncm ultisnips 插件
     Plug 'tpope/vim-fugitive'     " git 插件
+
+    Plug 'poliquin/stata-vim'     " stata 语法高亮
 call plug#end()
 
 
