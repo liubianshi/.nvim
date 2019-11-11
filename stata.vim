@@ -18,3 +18,6 @@ autocmd FileType stata inoremap <buffer> <A-1> <esc>V:<c-u>call RunDoLines()<cr>
 autocmd FileType stata nnoremap <buffer> <A-1> V:call RunDoLines()<cr>
 autocmd FileType stata vnoremap <buffer> <A-1> :<C-U>call RunDoLines()<cr>
 autocmd FileType stata nnoremap <buffer> ;l V:<c-u>call RunDoLines()<cr>
+
+" 自动完成
+autocmd FileType stata let b:AutoPairs = {'`': "'"} 

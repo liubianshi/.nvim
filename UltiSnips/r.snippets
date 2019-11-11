@@ -1,12 +1,15 @@
 snippet head "Rscript Header" b
 #> $1
-#> Description: $2 
+#> Description: ${2:$1} 
 #> Created by: Luo Wei (liu.bian.shi@gmail.com)
 #> Created Date: `date +%y-%m-%d`
 #> Version: 1.0
 
-library(tidyverse)
-library(readxl)
-library(haven)
-library(glue)
+library('tidyverse')
+library('data.table')
+endsnippet
+
+snippet '"c'  "Change string to string vector" r
+" %>% str_trim() %>% str_split("\\\\s+") %>% flatten_chr()
+$0
 endsnippet

@@ -1,0 +1,38 @@
+snippet head "do file header" b
+di "************************* 运行系统设置 *************************"
+global Dropbox: env DROPBOX
+global NutStore: env NUTSTORE
+global Data: env DATA
+adopath + "$Dropbox/Backup/ado/personal"
+global G_WP = "$1"
+cd "$G_WP"
+$0
+endsnippet
+
+snippet trace "trace on" b
+set tracedepth 1
+set trace on
+$1
+set trace off
+endsnippet
+
+snippet blocom "block comment" b
+/***********************************************************
+$1
+************************************************************/
+$0
+endsnippet
+
+snippet note "add note" b
+note: ------ \$S_DATE | \$S_TIME | Luo W ------
+note: 数据处理命令："$1"
+note: 数据来源："$2"
+$0
+endsnippet
+
+snippet snapNO "snapshot save" b
+if $G_Snap + 1 != 1 cap snapshot erase $G_Snap
+snapshot save
+global G_Snap = r(snapshot)
+$0
+endsnippet
