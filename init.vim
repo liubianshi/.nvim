@@ -1,6 +1,10 @@
 " Neovim 配置文件
 call plug#begin('~/.local/share/nvim/plugged')
-    Plug 'lilydjwg/fcitx.vim'       " Linux 下优化中文输入法切换
+    if(has("mac"))
+        Plug 'CodeFalling/fcitx-vim-osx'
+    else
+        Plug 'lilydjwg/fcitx.vim'       " Linux 下优化中文输入法切换
+    endif
     Plug 'hotoo/pangu.vim'
     Plug 'vim-airline/vim-airline'  " 状态栏插件
     Plug 'vim-airline/vim-airline-themes'
@@ -93,9 +97,14 @@ source ~/.config/nvim/KeyMap.vim
 source ~/.config/nvim/fzfConifg.vim
 
 let g:python_host_skip_check=1
-let g:python_host_prog = '/usr/bin/python2'
 let g:python3_host_skip_check=1
-let g:python3_host_prog = '/usr/bin/python'
+if(has("mac"))
+    let g:python3_host_prog = '/usr/local/bin/python3'
+    let g:python_host_prog = '/usr/bin/python'
+else
+    let g:python_host_prog = '/usr/bin/python2'
+    let g:python3_host_prog = '/usr/bin/python'
+endif
 let g:auto_save = 1                         " 总 Vim 启动时即开启自动保存
 let g:auto_save_envets = ["BufLeave", "FocusLost", "WinLeave"]
 
