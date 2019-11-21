@@ -1,6 +1,6 @@
 let R_app = "radian"
 let R_cmd = "R"
-let R_hl_term = 1
+let R_hl_term = 0
 let R_args = []  " if you had set any
 let R_openpdf = 1
 let R_bracketed_paste = 1
@@ -10,7 +10,7 @@ let R_hi_fun_globenv = 1
 let R_assign = 0
 
 let R_in_buffer = 1
-let R_csv_app = 'terminal:sc-im'
+"let R_csv_app = 'terminal:sc-im'
 let R_csv_delim = ','
 "let R_csv_app = 'tmux new-window sc-im --txtdelim="\t"'
 
@@ -25,7 +25,7 @@ augroup r_setup
     autocmd FileType rmd,rmarkdown nnoremap <leader>nc
         \ :RNrrw<cr>:set filetype=r<cr>
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown 
-        \ setlocal textwidth=79 formatoptions=tqcnmB1j
+        \ setlocal textwidth=79 formatoptions=tqcnmB1jo
     " Keymap
     autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
         \ inoremap <buffer> <A-\> <Esc>:normal! a%>%<CR>a
@@ -56,5 +56,8 @@ augroup r_setup
         \ :<c-u>call RMakeRmd("bookdown::pdf_document2")<cr>
     autocmd FileType rmd,rmarkdown nnoremap ;H
         \ :<c-u>call RMakeRmd("bookdown::html_document2")<cr>
+
+    autocmd FileType r nnoremap ;dl :<c-u>RSend devtools::load_all()<cr>
+    autocmd FileType r nnoremap ;dd :<c-u>RSend devtools::document()<cr>
 augroup END
      

@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/home/liubianshi/kablest/R'
 let g:netrw_dirhist_3='/home/liubianshi/useScript'
 let g:netrw_dirhist_2='/home/liubianshi/Nutstore Files/Nutstore/Programming/bookdown/reading_script'
 let g:netrw_dirhist_1='/home/liubianshi/useScript'
