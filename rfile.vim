@@ -48,15 +48,20 @@ augroup r_setup
         \ :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::pdf_book")<cr>
     autocmd FileType rmd,rmarkdown nnoremap ;kbh
         \ :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::html_book")<cr>
-    autocmd FileType rmd,rmarkdown nnoremap ;kbo
-        \ :<c-u>! xdg-open ./_book/draft.pdf<cr> 
+    if(has("mac"))
+        autocmd FileType rmd,rmarkdown nnoremap ;kbo
+            \ :<c-u>! open ./_book/draft.pdf<cr> 
+    else
+        autocmd FileType rmd,rmarkdown nnoremap ;kbo
+            \ :<c-u>! xdg-open ./_book/draft.pdf<cr> 
+    endif
     autocmd FileType rmd,rmarkdown nnoremap ;kbv
         \ :<c-u>RSend bookdown::preview_chapter(%)<cr>
     autocmd FileType rmd,rmarkdown nnoremap ;P
         \ :<c-u>call RMakeRmd("bookdown::pdf_document2")<cr>
     autocmd FileType rmd,rmarkdown nnoremap ;H
         \ :<c-u>call RMakeRmd("bookdown::html_document2")<cr>
-
+    " R package development
     autocmd FileType r nnoremap ;dl :<c-u>RSend devtools::load_all()<cr>
     autocmd FileType r nnoremap ;dd :<c-u>RSend devtools::document()<cr>
 augroup END

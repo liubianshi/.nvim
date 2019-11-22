@@ -27,7 +27,11 @@ noremap <A-o> o<Esc>
 noremap <A-O> O<Esc>
 
 nnoremap <leader>w :w!<cr>
-nnoremap <leader>O :! xdg-open "%"<cr>
+if(has("mac"))
+    nnoremap <leader>O :! open "%"<cr>
+else
+    nnoremap <leader>O :! xdg-open "%"<cr>
+endif
 nnoremap <silent> <leader><cr> :noh<cr>
 
 
@@ -124,15 +128,25 @@ autocmd FileType pandoc,md,markdown nnoremap <leader>pp
     \ :silent Pandoc pdf -H ~/useScript/header.tex<cr>
 autocmd BufEnter,BufNewFile *.[Rr]md nnoremap <leader>pp
     \ :RMarkdown pdf<cr>
-autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po
-    \ :! xdg-open "%:r.pdf"<cr> 
+if(has("mac"))
+    autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po
+        \ :! xdg-open "%:r.pdf"<cr> 
+else
+    autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po
+        \ :! open "%:r.pdf"<cr> 
+endif
 autocmd FileType pandoc,md,markdown,rmarkdown inoremap ;j
     \ $$<esc>i
 autocmd FileType pandoc,md,markdown,rmarkdown inoremap ;k
     \ ``<esc>i
 " Bib 相关
-autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>ab
-    \ :<c-u>!xsel -ob >> %:r.bib<cr>
-
+if(has("mac"))
+    autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>ab
+        \ :<c-u>!xsel -ob >> %:r.bib<cr>
+else
+    autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>ab
+        \ :<c-u>!xsel -ob >> "%:p:h/ref.bib"<cr>
+    nnoremap <leader>ab :<c-u>!xsel -ob >> %:p:h/ref.bib<cr>
+endif
 
 
