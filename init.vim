@@ -1,6 +1,7 @@
 " Neovim 配置文件
 call plug#begin('~/.local/share/nvim/plugged')
     if(has("mac"))
+        "Plug 'ybian/smartim'
         Plug 'CodeFalling/fcitx-vim-osx'
     else
         Plug 'lilydjwg/fcitx.vim'       " Linux 下优化中文输入法切换
