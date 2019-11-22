@@ -16,15 +16,24 @@ nnoremap J <C-w>j
 nnoremap K <C-w>k
 nnoremap H <C-w>h
 nnoremap L <C-w>l
+if(has("mac"))
+    nnoremap ∆ <Esc>Vj
+    nnoremap ˚ <Esc>Vk
+    nnoremap ˙ <Esc>v^
+    nnoremap ¬ <Esc>v$
+    nnoremap ø o<Esc>
+    nnoremap  Ø O<Esc>
 
-nnoremap <A-j> <Esc>Vj
-nnoremap <A-k> <Esc>Vk
-nnoremap <A-h> <Esc>v^
-nnoremap <A-l> <Esc>v$
+else
+    nnoremap <A-j> <Esc>Vj
+    nnoremap <A-k> <Esc>Vk
+    nnoremap <A-h> <Esc>v^
+    nnoremap <A-l> <Esc>v$
+    noremap <A-o> o<Esc>
+    noremap <A-O> O<Esc>
+endif
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
-noremap <A-o> o<Esc>
-noremap <A-O> O<Esc>
 
 nnoremap <leader>w :w!<cr>
 if(has("mac"))
