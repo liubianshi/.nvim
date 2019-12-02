@@ -1,6 +1,12 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =4
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/etc/X11/xorg.conf.d'
+let g:netrw_dirhist_2='/home/liubianshi/.config/ranger/ranger_devicons'
+let g:netrw_dirhist_1='/home/liubianshi/.config'
+let g:netrw_dirhist_0='/home/liubianshi/.config/google-chrome'
+let g:netrw_dirhist_9='/home/liubianshi/Downloads'
+let g:netrw_dirhist_8='/home/liubianshi/.config/polybar'
+let g:netrw_dirhist_7='/etc/skel/.config'
+let g:netrw_dirhist_6='/home/liubianshi/.config'
+let g:netrw_dirhist_5='/home/liubianshi/.surf/styles'
 let g:netrw_dirhist_4='/home/liubianshi/kablest/R'
-let g:netrw_dirhist_3='/home/liubianshi/useScript'
-let g:netrw_dirhist_2='/home/liubianshi/Nutstore Files/Nutstore/Programming/bookdown/reading_script'
-let g:netrw_dirhist_1='/home/liubianshi/useScript'

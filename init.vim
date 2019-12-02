@@ -51,6 +51,7 @@ call plug#begin('~/.local/share/nvim/plugged')
         let g:pandoc#biblio#use_bibtool = 1 
         let g:pandoc#completion#bib#mode = "citeproc"  
         let g:pandoc#biblio#sources = ["byc"]
+        let g:pandoc#folding#fold_yaml = 1
     Plug 'vim-pandoc/vim-pandoc-syntax'
         let g:pandoc#modules#disabled = ["spell"]
         let g:tex_conceal = ""
