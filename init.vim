@@ -21,8 +21,6 @@ call plug#begin('~/.local/share/nvim/plugged')
         let g:UltiSnipsEditSplit = "tabdo"
         let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
     Plug 'honza/vim-snippets'      " 配置 snippets 需要
-
-
    "Plug 'neoclide/coc.nvim', {'branch': 'release'}             " coc 代码补全插件
     Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
     Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' }
