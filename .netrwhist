@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =5
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='/home/liubianshi/.config/fcitx/rime/build'
 let g:netrw_dirhist_5='/home/liubianshi/R/kablest'
 let g:netrw_dirhist_4='/home/liubianshi/.config/qutebrowser'
 let g:netrw_dirhist_3='/etc/X11/xorg.conf.d'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_0='/home/liubianshi/.config/google-chrome'
 let g:netrw_dirhist_9='/home/liubianshi/Downloads'
 let g:netrw_dirhist_8='/home/liubianshi/.config/polybar'
 let g:netrw_dirhist_7='/etc/skel/.config'
-let g:netrw_dirhist_6='/home/liubianshi/.config'

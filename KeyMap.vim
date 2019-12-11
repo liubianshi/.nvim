@@ -39,7 +39,7 @@ nnoremap <leader>w :w!<cr>
 if(has("mac"))
     nnoremap <leader>O :! open "%"<cr>
 else
-    nnoremap <leader>O :! xdg-open "%"<cr>
+    nnoremap <leader>O :<silent>! xdg-open "%" &<cr>
 endif
 nnoremap <silent> <leader><cr> :noh<cr>
 
@@ -158,4 +158,6 @@ else
     nnoremap <leader>ab :<c-u>!xsel -ob >> %:p:h/ref.bib<cr>
 endif
 
+autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown nnoremap <silent> <leader>pi
+    \ :<c-u>call mdip#MarkdownClipboardImage()<CR>
 

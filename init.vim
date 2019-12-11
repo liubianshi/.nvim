@@ -54,6 +54,9 @@ call plug#begin('~/.local/share/nvim/plugged')
         let g:pandoc#modules#disabled = ["spell"]
         let g:tex_conceal = ""
     Plug 'vim-pandoc/vim-rmarkdown', {'for': ['rmd', 'rmarkdown']}
+    Plug 'ferrine/md-img-paste.vim'
+        let g:mdip_imgdir = 'assets'
+        let g:mdip_imgname = 'image'
 
     Plug '907th/vim-auto-save'     " 自动保存
     Plug 'flazz/vim-colorschemes'  " 主题管理
@@ -106,7 +109,7 @@ else
     let g:python3_host_prog = '/usr/bin/python'
 endif
 let g:auto_save = 1                         " 总 Vim 启动时即开启自动保存
-let g:auto_save_envets = ["BufLeave", "FocusLost", "WinLeave"]
+let g:auto_save_events = ["BufLeave", "FocusLost", "WinLeave"]
 
 " previm 配置
 " open with Google Chrome
