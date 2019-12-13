@@ -85,6 +85,14 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-fugitive'     " git 插件
 
     Plug 'poliquin/stata-vim'     " stata 语法高亮
+    Plug 'easymotion/vim-easymotion' " 高效移动指标插件
+        let g:EasyMotion_do_mapping = 0 " Disable default mappings
+        let g:EasyMotion_smartcase = 1
+    Plug 'haya14busa/incsearch.vim' " 加强版实时高亮
+        map /  <Plug>(incsearch-forward)
+        map ?  <Plug>(incsearch-backward)
+        map g/ <Plug>(incsearch-stay)
+    Plug 'terryma/vim-multiple-cursors'
 call plug#end()
 
 
@@ -126,6 +134,9 @@ call which_key#register(';', "g:which_key_local")
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ';'<CR>
+vnoremap <silent> <localleader> :<c-u>WhichKeyVisual ';'<CR>
+nnoremap <silent> s :<c-u>WhichKey  's'<CR>
+vnoremap <silent> s :<c-u>WhichKeyVisual 's'<CR>
 
 let g:which_key_map = {}
 let g:which_key_map.f = {
