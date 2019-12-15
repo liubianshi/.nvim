@@ -1,6 +1,6 @@
 let R_app = "radian"
 let R_cmd = "R"
-let R_hl_term = 0
+let R_hl_term = 1
 let R_args = []  " if you had set any
 let R_openpdf = 1
 let R_bracketed_paste = 1
@@ -25,7 +25,7 @@ augroup r_setup
     autocmd FileType rmd,rmarkdown nnoremap <leader>nc
         \ :RNrrw<cr>:set filetype=r<cr>
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown 
-        \ setlocal textwidth=79 formatoptions=tqcnmB1jo
+        \ setlocal formatoptions=tqcnmB1jo
     " UltiSnips
     autocmd FileType rmd,rmarkdown :UltiSnipsAddFiletypes rmd.markdown
     " Abbreviate

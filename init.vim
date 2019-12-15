@@ -119,14 +119,14 @@ endif
 let g:auto_save = 1                         " 总 Vim 启动时即开启自动保存
 let g:auto_save_events = ["BufLeave", "FocusLost", "WinLeave"]
 
-" previm 配置
+" Markdown 相关文件 
 " open with Google Chrome
 " let g:previm_open_cmd = 'xdg-open'
 " .vimrc
 " Instead of using the default CSS and apply only your own CSS
 "let g:previm_disable_default_css = 1
 let g:previm_custom_css_path = '/home/liubianshi/Dropbox/Backup/markdown CSS/vue.css'
-
+autocmd BufNewFile,BufRead *.md g:UltiSnipsAddFiletypes markdown.md.pandoc
 
 " 快捷键查询
 call which_key#register('<Space>', "g:which_key_map")

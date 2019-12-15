@@ -14,10 +14,18 @@ author: "罗伟"
 date: `date +%Y-%m-%d`
 # bibliography: "`!p snip.rv = snip.basename`.bib"
 output:
-  pdf_document:
-    includes:
-      in_header: "/home/liubianshi/useScript/header.tex"
-    latex_engine: xelatex
+	pdf_document:
+		includes:
+			in_header:
+				- "/home/liubianshi/useScript/header.tex"
+				- "/home/liubianshi/useScript/code.tex"
+		latex_engine: xelatex
+		pandoc_args: 
+			- "--listings"
+	word_document: 
+		pandoc_args: ["--from=markdown+east_asian_line_breaks"]
+	html_document: 
+		css: ~/useScript/vue.css
 ---
 endsnippet
 

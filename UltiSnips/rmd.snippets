@@ -1,5 +1,5 @@
 snippet cbr "Codeblock" b
-\`\`\`\{r ${1:noname}, cache = F\}
+\`\`\`\{r, cache = F\}
 $2
 \`\`\`
 $0
@@ -35,6 +35,28 @@ output:
 		css: ~/useScript/vue.css
 ---
 $0
+endsnippet
+
+snippet head "Header" b
+---
+title: "`!p snip.rv = snip.basename`"
+author: "罗伟"
+date: `date +%Y-%m-%d`
+# bibliography: "`!p snip.rv = snip.basename`.bib"
+output:
+	pdf_document:
+		includes:
+			in_header:
+				- "/home/liubianshi/useScript/header.tex"
+				- "/home/liubianshi/useScript/code.tex"
+		latex_engine: xelatex
+		pandoc_args: 
+			- "--listings"
+	word_document: 
+		pandoc_args: ["--from=markdown+east_asian_line_breaks"]
+	html_document: 
+		css: ~/useScript/vue.css
+---
 endsnippet
 
 snippet bookdown "Header" b

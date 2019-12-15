@@ -134,9 +134,12 @@ nnoremap <silent> <space>lp  :<C-u>CocListResume<CR>
 
 " 处理 Markdown 和 Rmarkdown 文档
 autocmd FileType pandoc,md,markdown nnoremap <leader>pp
-    \ :silent Pandoc pdf -H ~/useScript/header.tex<cr>
+    \ :Pandoc pdf -H ~/useScript/header.tex<cr>
 autocmd BufEnter,BufNewFile *.[Rr]md nnoremap <leader>pp
     \ :RMarkdown pdf<cr>
+autocmd FileType pandoc,md,markdown nnoremap <leader>ph
+    \ :Pandoc html<cr>
+
 if(has("mac"))
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po
         \ :! xdg-open "%:r.pdf"<cr> 
@@ -144,6 +147,7 @@ else
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po
         \ :! open "%:r.pdf"<cr> 
 endif
+
 autocmd FileType pandoc,md,markdown,rmarkdown inoremap ;j
     \ $$<esc>i
 autocmd FileType pandoc,md,markdown,rmarkdown inoremap ;k
