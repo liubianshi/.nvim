@@ -107,8 +107,8 @@ else
     let g:python3_host_prog = '/usr/bin/python'
 endif
 let g:auto_save = 1                         " 总 Vim 启动时即开启自动保存
-let g:auto_save_envets = ["BufLeave", "FocusLost", "WinLeave"]
-
+"let g:auto_save_envets = ["BufLeave", "FocusLost", "WinLeave"]
+let g:auto_save_envets = ["BufLeave", "WinLeave"]
 " previm 配置
 " open with Google Chrome
 " let g:previm_open_cmd = 'xdg-open'
