@@ -1,6 +1,6 @@
 let R_app = "radian"
 let R_cmd = "R"
-let R_hl_term = 0
+let R_hl_term = 1
 let R_args = []  " if you had set any
 let R_openpdf = 1
 let R_bracketed_paste = 1
@@ -25,16 +25,7 @@ augroup r_setup
     autocmd FileType rmd,rmarkdown nnoremap <leader>nc
         \ :RNrrw<cr>:set filetype=r<cr>
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown 
-        \ setlocal textwidth=79 formatoptions=tqcnmB1jo
-    " Keymap
-    autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
-        \ inoremap <buffer> <A-\> <Esc>:normal! a%>%<CR>a
-    autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown 
-        \ inoremap <buffer> <A-=> <Esc>:normal! a<-<CR>a 
-    autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
-        \ inoremap <buffer> <A-1> <Esc><Plug>RDSendLine<CR>
-    autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
-        \ nnoremap <buffer> <A-1> <Plug>RDSendLine<CR>
+        \ setlocal formatoptions=tqcnmB1jo
     " UltiSnips
     autocmd FileType rmd,rmarkdown :UltiSnipsAddFiletypes rmd.markdown
     " Abbreviate
@@ -43,7 +34,6 @@ augroup r_setup
     nmap , <Plug>RDSendLine
     vmap , <Plug>REDSendSelection
     nmap <LocalLeader>: :RSend 
-    imap <A-;> <Esc>:RSend 
     autocmd FileType rmd,rmarkdown nnoremap ;kbp
         \ :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::pdf_book")<cr>
     autocmd FileType rmd,rmarkdown nnoremap ;kbh
@@ -51,9 +41,28 @@ augroup r_setup
     if(has("mac"))
         autocmd FileType rmd,rmarkdown nnoremap ;kbo
             \ :<c-u>! open ./_book/draft.pdf<cr> 
-    else
+        autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
+            \ inoremap <buffer> « <Esc>:normal! a%>%<CR>a
+        autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown 
+            \ inoremap <buffer> ≠ <Esc>:normal! a<-<CR>a 
+        autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
+            \ inoremap <buffer> ¡ <Esc><Plug>RDSendLine<CR>
+        autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
+            \ nnoremap <buffer> ¡ <Plug>RDSendLine<CR>
+        imap … <Esc>:RSend 
+    else 
         autocmd FileType rmd,rmarkdown nnoremap ;kbo
             \ :<c-u>! xdg-open ./_book/draft.pdf<cr> 
+        " Keymap
+        autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
+            \ inoremap <buffer> <A-\> <Esc>:normal! a%>%<CR>a
+        autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown 
+            \ inoremap <buffer> <A-=> <Esc>:normal! a<-<CR>a 
+        autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
+            \ inoremap <buffer> <A-1> <Esc><Plug>RDSendLine<CR>
+        autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
+            \ nnoremap <buffer> <A-1> <Plug>RDSendLine<CR>
+        imap <A-;> <Esc>:RSend 
     endif
     autocmd FileType rmd,rmarkdown nnoremap ;kbv
         \ :<c-u>RSend bookdown::preview_chapter(%)<cr>

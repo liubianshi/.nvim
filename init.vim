@@ -21,8 +21,6 @@ call plug#begin('~/.local/share/nvim/plugged')
         let g:UltiSnipsEditSplit = "tabdo"
         let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
     Plug 'honza/vim-snippets'      " 配置 snippets 需要
-
-
    "Plug 'neoclide/coc.nvim', {'branch': 'release'}             " coc 代码补全插件
     Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
     Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' }
@@ -51,10 +49,14 @@ call plug#begin('~/.local/share/nvim/plugged')
         let g:pandoc#biblio#use_bibtool = 1 
         let g:pandoc#completion#bib#mode = "citeproc"  
         let g:pandoc#biblio#sources = ["byc"]
+        let g:pandoc#folding#fold_yaml = 1
     Plug 'vim-pandoc/vim-pandoc-syntax'
         let g:pandoc#modules#disabled = ["spell"]
         let g:tex_conceal = ""
     Plug 'vim-pandoc/vim-rmarkdown', {'for': ['rmd', 'rmarkdown']}
+    Plug 'ferrine/md-img-paste.vim'
+        let g:mdip_imgdir = 'assets'
+        let g:mdip_imgname = 'image'
 
     Plug '907th/vim-auto-save'     " 自动保存
     Plug 'flazz/vim-colorschemes'  " 主题管理
@@ -83,6 +85,14 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-fugitive'     " git 插件
 
     Plug 'poliquin/stata-vim'     " stata 语法高亮
+    Plug 'easymotion/vim-easymotion' " 高效移动指标插件
+        let g:EasyMotion_do_mapping = 0 " Disable default mappings
+        let g:EasyMotion_smartcase = 1
+    Plug 'haya14busa/incsearch.vim' " 加强版实时高亮
+        map /  <Plug>(incsearch-forward)
+        map ?  <Plug>(incsearch-backward)
+        map g/ <Plug>(incsearch-stay)
+    Plug 'terryma/vim-multiple-cursors'
 call plug#end()
 
 
@@ -107,16 +117,18 @@ else
     let g:python3_host_prog = '/usr/bin/python'
 endif
 let g:auto_save = 1                         " 总 Vim 启动时即开启自动保存
-"let g:auto_save_envets = ["BufLeave", "FocusLost", "WinLeave"]
 let g:auto_save_envets = ["BufLeave", "WinLeave"]
 " previm 配置
+let g:auto_save_events = ["BufLeave", "FocusLost", "WinLeave"]
+
+" Markdown 相关文件 
 " open with Google Chrome
 " let g:previm_open_cmd = 'xdg-open'
 " .vimrc
 " Instead of using the default CSS and apply only your own CSS
 "let g:previm_disable_default_css = 1
 let g:previm_custom_css_path = '/home/liubianshi/Dropbox/Backup/markdown CSS/vue.css'
-
+autocmd BufNewFile,BufRead *.md g:UltiSnipsAddFiletypes markdown.md.pandoc
 
 " 快捷键查询
 call which_key#register('<Space>', "g:which_key_map")
@@ -124,6 +136,9 @@ call which_key#register(';', "g:which_key_local")
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ';'<CR>
+vnoremap <silent> <localleader> :<c-u>WhichKeyVisual ';'<CR>
+nnoremap <silent> s :<c-u>WhichKey  's'<CR>
+vnoremap <silent> s :<c-u>WhichKeyVisual 's'<CR>
 
 let g:which_key_map = {}
 let g:which_key_map.f = {

@@ -1,6 +1,12 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =4
-let g:netrw_dirhist_4='/home/liubianshi/kablest/R'
-let g:netrw_dirhist_3='/home/liubianshi/useScript'
-let g:netrw_dirhist_2='/home/liubianshi/Nutstore Files/Nutstore/Programming/bookdown/reading_script'
-let g:netrw_dirhist_1='/home/liubianshi/useScript'
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/home/liubianshi/.local/share'
+let g:netrw_dirhist_7='/home/liubianshi/Nutstore Files/Nutstore/Sync'
+let g:netrw_dirhist_6='/home/liubianshi/.config/mutt'
+let g:netrw_dirhist_5='/home/liubianshi/.Mail'
+let g:netrw_dirhist_4='/home/liubianshi/.config/mutt'
+let g:netrw_dirhist_3='/home/liubianshi/.config/rofi'
+let g:netrw_dirhist_2='/home/liubianshi/.config/fcitx/rime/build'
+let g:netrw_dirhist_1='/home/liubianshi/.config/fcitx/rime'
+let g:netrw_dirhist_0='/home/liubianshi/.config/fcitx/Rime/build'
+let g:netrw_dirhist_9='/home/liubianshi/.config/fcitx/Rime'

@@ -39,7 +39,7 @@ nnoremap <leader>w :w!<cr>
 if(has("mac"))
     nnoremap <leader>O :! open "%"<cr>
 else
-    nnoremap <leader>O :! xdg-open "%"<cr>
+    nnoremap <leader>O :<silent>! xdg-open "%" &<cr>
 endif
 nnoremap <silent> <leader><cr> :noh<cr>
 
@@ -134,9 +134,12 @@ nnoremap <silent> <space>lp  :<C-u>CocListResume<CR>
 
 " 处理 Markdown 和 Rmarkdown 文档
 autocmd FileType pandoc,md,markdown nnoremap <leader>pp
-    \ :silent Pandoc pdf -H ~/useScript/header.tex<cr>
+    \ :Pandoc pdf -H ~/useScript/header.tex<cr>
 autocmd BufEnter,BufNewFile *.[Rr]md nnoremap <leader>pp
     \ :RMarkdown pdf<cr>
+autocmd FileType pandoc,md,markdown nnoremap <leader>ph
+    \ :Pandoc html<cr>
+
 if(has("mac"))
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po
         \ :! xdg-open "%:r.pdf"<cr> 
@@ -144,6 +147,7 @@ else
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po
         \ :! open "%:r.pdf"<cr> 
 endif
+
 autocmd FileType pandoc,md,markdown,rmarkdown inoremap ;j
     \ $$<esc>i
 autocmd FileType pandoc,md,markdown,rmarkdown inoremap ;k
@@ -158,4 +162,30 @@ else
     nnoremap <leader>ab :<c-u>!xsel -ob >> %:p:h/ref.bib<cr>
 endif
 
+autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown nnoremap <silent> <leader>pi
+    \ :<c-u>call mdip#MarkdownClipboardImage()<CR>
 
+" Easymotion Related
+nmap ss <Plug>(easymotion-overwin-f2)
+nmap sS <Plug>(easymotion-overwin-line)
+nmap sl <Plug>(easymotion-sl)
+nmap sf <Plug>(easymotion-lineforward)
+nmap sb <Plug>(easymotion-linebackward)
+nmap sj <plug>(easymotion-j)
+nmap sJ <plug>(easymotion-eol-j)
+nmap sk <plug>(easymotion-k)
+nmap sK <plug>(easymotion-eol-K)
+nmap sn <Plug>(easymotion-n)
+nmap sN <Plug>(easymotion-N)
+nmap sf <Plug>(easymotion-f2)
+nmap sF <Plug>(easymotion-F2)
+nmap st <Plug>(easymotion-t2)
+nmap sT <Plug>(easymotion-T2)
+nmap sw <Plug>(easymotion-w)
+nmap sW <Plug>(easymotion-W)
+nmap sb <Plug>(easymotion-b)
+nmap sB <Plug>(easymotion-B)
+nmap se <Plug>(easymotion-e)
+nmap sE <Plug>(easymotion-E)
+nmap sge <Plug>(easymotion-ge)
+nmap sgE <Plug>(easymotion-gE)
