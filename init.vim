@@ -119,7 +119,6 @@ endif
 let g:auto_save = 1                         " 总 Vim 启动时即开启自动保存
 let g:auto_save_envets = ["BufLeave", "WinLeave"]
 " previm 配置
-let g:auto_save_events = ["BufLeave", "FocusLost", "WinLeave"]
 
 " Markdown 相关文件 
 " open with Google Chrome
