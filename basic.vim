@@ -31,7 +31,7 @@ set t_vb=           " 置空错误铃声的终端代码
 set expandtab		" 将制表符扩展为空格
 set tabstop=4		" 设置编辑时制表符占用空格数
 set shiftwidth=4	" 设置格式化时制表符占用空格数
-set smarttab        " Be Smart When using tabs 
+set smarttab        " Be Smart When using tabs
 set shiftround      " 运用 > < 推广缩进至 tabs 整数倍
 set laststatus=2    " 状态栏显示
 
@@ -70,3 +70,5 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsRemoveSelectModeMappings = 0
 
+" trim
+autocmd BufWritePre *.{md,pl,p6,rmd,r,do} :%s/\s\+$//e
