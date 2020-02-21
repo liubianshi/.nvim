@@ -10,6 +10,8 @@ snippet cbl "Codeline" w
 $0
 endsnippet
 
+
+
 snippet rmd "Header" b
 ---
 title: "`!p snip.rv = snip.basename`"
@@ -75,6 +77,21 @@ toc: false
 $0
 endsnippet
 
+snippet hugo "Header" b
+---
+title: "`!p snip.rv = snip.basename`"
+author: "Econ.Code"
+date: "\`r Sys.Date()\`"
+bibliography: "ref.bib"
+categories: ["$1"]
+tags: ["$2"]
+output:
+	blogdown::html2_page:
+		toc: ture
+---
+$0
+endsnippet
+
 snippet setup "Header" b
 \`\`\`\{r setup, include = F\}
 library("tidyverse")
@@ -87,6 +104,34 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F, error = F,
 	results = "asis", fig.showtext = TRUE)
 \`\`\`
 endsnippet
+
+snippet setup_raku "Raku Engine Setup" b
+\`\`\`\{r setup, include = F\}
+library("tidyverse")
+library("data.table")
+library("knitr")
+library("kableExtra")
+library("broom")
+library("showtext")
+knitr::opts_chunk$set(echo = T, message = F, warning = F, error = F,
+	fig.showtext = TRUE)
+eng_raku <- function(options) {
+	# create a temporary file
+	f <- basename(tempfile("raku", '.', paste('.', "raku", sep = '')))
+	on.exit(unlink(f)) # cleanup temp file on function exit
+	writeLines(options$code, f)
+	out <- ''
+	# if eval != FALSE compile/run the code, preserving output
+	if (options$eval) {
+		out <- system(sprintf('perl6 %s', paste(f, options$engine.opts)), intern=TRUE)
+	}
+	# spit back stuff to the user
+	engine_output(options, options$code, out)
+}
+knitr::knit_engines$set(raku=eng_raku)
+\`\`\`
+endsnippet
+
 
 snippet bhead "Rmarkdown Beamer Header" b
 ---
@@ -104,17 +149,32 @@ endsnippet
 
 snippet cols "beamer cols" b
 \begincols
-  \begincol{.48\textwidth}
+\begincol{.48\textwidth}
 
 $1
 
-  \endcol
+\endcol
 \begincol{.48\textwidth}
 
 $2
 
-  \endcol
+\endcol
 \endcols
 
 $0
 endsnippet
+
+
+snippet raku_run "raku rmarkdown" b
+\`\`\`\{r, engine = raku\}
+$2
+\`\`\`
+$0
+endsnippet
+
+snippet ```raku "raku rmarkdown" b
+\`\`\`\{r, engine = 'raku'\}
+endsnippet
+
+
+

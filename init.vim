@@ -94,9 +94,9 @@ call plug#begin('~/.local/share/nvim/plugged')
         map ?  <Plug>(incsearch-backward)
         map g/ <Plug>(incsearch-stay)
     Plug 'terryma/vim-multiple-cursors'
-    Plug 'vim-perl/vim-perl', { 'for': 'perl' }
-    Plug 'vim-perl/vim-perl6', { 'for': ['per6', 'raku'] }
-        let g:perl6_unicode_abbrevs = 1
+    Plug 'Raku/vim-raku', { 'for': 'raku'}
+        let g:raku_unicode_abbrevs = 0
+        au BufNewFile,BufRead *.raku,*.p6,*.rakudoc,*.rakutest,*.pl6,*.p6 set filetype=raku.perl6
 call plug#end()
 
 
@@ -120,8 +120,9 @@ else
     let g:python_host_prog = '/usr/bin/python2'
     let g:python3_host_prog = '/usr/bin/python'
 endif
-let g:auto_save = 1                         " 总 Vim 启动时即开启自动保存
-let g:auto_save_envets = ["BufLeave", "WinLeave"]
+let g:auto_save = 0                         " 总 Vim 启动时即开启自动保存
+let g:auto_save_envets = ["WinLeave"]
+let g:auto_save_silent = 1
 " previm 配置
 
 " Markdown 相关文件

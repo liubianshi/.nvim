@@ -40,7 +40,7 @@ nnoremap <leader>w :w!<cr>
 if(has("mac"))
     nnoremap <leader>O :! open "%"<cr>
 else
-    nnoremap <leader>O :<silent>! xdg-open "%" &<cr>
+    nnoremap <leader>O :! xdg-open "%"<cr>
 endif
 nnoremap <silent> <leader><cr> :noh<cr>
 
@@ -89,6 +89,7 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>:
 
 vnoremap <silent> <leader>T :TranslateVisual<CR>:b Translation<CR>y$:b #<CR>
 nnoremap <silent> <leader>T :TranslateClear<CR>:set nopaste<CR>
+
 " 4. 命令模式下
 cnoremap sw w !sudo tee >/dev/null % 
 
@@ -142,19 +143,27 @@ autocmd BufEnter,BufNewFile *.[Rr]md nnoremap <leader>rp
     \ :! ~/useScript/rmarkdown.sh %<cr>
 autocmd BufEnter,BufNewFile *.[Rr]md nnoremap <leader>rh
     \ :! ~/useScript/rmarkdown.sh -o bookdown::html_document2 %<cr>
+autocmd FileType pandoc,rmd,rmarkdown,raku,perl6,markdown
+    \ inoremap ;<CR> <Esc>A;<CR>
+autocmd FileType pandoc,rmd,rmarkdown,raku,perl6,markdown
+    \ nnoremap ;<CR> <Esc>A;<CR>
 
 if(has("mac"))
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po
-        \ :! xdg-open "%:r.pdf"<cr> 
+        \ :! open "%:r.pdf"<cr> 
 else
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po
-        \ :! open "%:r.pdf"<cr> 
+        \ :! xdg-open "%:r.pdf"<cr> 
 endif
 
 autocmd FileType pandoc,md,markdown,rmarkdown inoremap ;j
     \ $$<esc>i
 autocmd FileType pandoc,md,markdown,rmarkdown inoremap ;k
     \ ``<esc>i
+autocmd FileType pandoc,md,markdown,rmarkdown inoremap ;i
+    \ **<esc>i
+autocmd FileType pandoc,md,markdown,rmarkdown inoremap ;b
+    \ ****<esc>hi
 " Bib 相关
 if(has("mac"))
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>ab
@@ -165,8 +174,15 @@ else
     nnoremap <leader>ab :<c-u>!xsel -ob >> %:p:h/ref.bib<cr>
 endif
 
-autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown nnoremap <silent> <leader>pi
+function! RmdClipBoardImage()
+    execute "normal! i```{r, out.width = '70%', fig.pos = 'h', fig.show = 'hold'}\n"
+    call mdip#MarkdownClipboardImage()
+    execute "normal! g_\"iyi)VCknitr::include_graphics('')\<esc>F'\"iPo```\n" 
+endfunction
+autocmd FileType pandoc,markdown,md nnoremap <silent> <leader>pi
     \ :<c-u>call mdip#MarkdownClipboardImage()<CR>
+autocmd FileType rmd,rmarkdown,rmd.rmarkdown nnoremap <silent> <leader>pi
+    \ :<c-u>call RmdClipBoardImage()<CR>
 
 " Easymotion Related
 nmap ss <Plug>(easymotion-overwin-f2)
@@ -192,3 +208,19 @@ nmap se <Plug>(easymotion-e)
 nmap sE <Plug>(easymotion-E)
 nmap sge <Plug>(easymotion-ge)
 nmap sgE <Plug>(easymotion-gE)
+
+" Z - cd to recent / frequent directories
+command! -nargs=* Z :call Z(<f-args>)
+function! Z(...)
+  let cmd = 'fasd -d -e printf'
+  for arg in a:000
+    let cmd = cmd . ' ' . arg
+  endfor
+  let path = system(cmd)
+  if isdirectory(path)
+    echo path
+    exec 'cd' fnameescape(path)
+  endif
+endfunction
+
+
