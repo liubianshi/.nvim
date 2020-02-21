@@ -2,6 +2,7 @@
 let mapleader = " "
 let maplocalleader = ';'
 let g:ctrlp_map = '<c-f>'
+nnoremap <leader><leader> :!<space>
 inoremap ;<space> <Esc>
 inoremap <Down> <Esc>
 inoremap ;; ;
@@ -109,36 +110,38 @@ noremap <leader>Q vipJVgq
 
 " 文件操作 lf-vim 相关快捷键
 noremap <leader>nt :NERDTreeToggle<cr>
-noremap <leader>rr :Lf<cr>
-noremap <leader>rs :split +Lf<cr>
-noremap <leader>rv :vertical split +Lf<cr>
-noremap <leader>rt :LfNewTab<cr>
+noremap <leader>lr :Lf<cr>
+noremap <leader>ls :split +Lf<cr>
+noremap <leader>lv :vertical split +Lf<cr>
+noremap <leader>lt :LfNewTab<cr>
 
 " Coc.nvim 相关
 " Remap for format selected region
-xnoremap <leader>F  <Plug>(coc-format-selected)
-nnoremap <leader>F  <Plug>(coc-format-selected)
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>la  :<C-u>CocList --normal diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>le  :<C-u>CocList --normal extensions<cr>
-" Show commands
-nnoremap <silent> <space>lc  :<C-u>CocList --normal commands<cr>
-" Show snippet
-nnoremap <silent> <space>ls  :<C-u>CocList snippets<cr>
-" Show files 
-nnoremap <silent> <space>lf  :<C-u>CocList --normal --number-select files<cr>
-" Resume latest coc list
-nnoremap <silent> <space>lp  :<C-u>CocListResume<CR>
+"xnoremap <leader>F  <Plug>(coc-format-selected)
+"nnoremap <leader>F  <Plug>(coc-format-selected)
+"" Using CocList
+"" Show all diagnostics
+"nnoremap <silent> <space>la  :<C-u>CocList --normal diagnostics<cr>
+"" Manage extensions
+"nnoremap <silent> <space>le  :<C-u>CocList --normal extensions<cr>
+"" Show commands
+"nnoremap <silent> <space>lc  :<C-u>CocList --normal commands<cr>
+"" Show snippet
+"nnoremap <silent> <space>ls  :<C-u>CocList snippets<cr>
+"" Show files 
+"nnoremap <silent> <space>lf  :<C-u>CocList --normal --number-select files<cr>
+"" Resume latest coc list
+"nnoremap <silent> <space>lp  :<C-u>CocListResume<CR>
 
 " 处理 Markdown 和 Rmarkdown 文档
 autocmd FileType pandoc,md,markdown nnoremap <leader>pp
     \ :Pandoc pdf -H ~/useScript/header.tex<cr>
-autocmd BufEnter,BufNewFile *.[Rr]md nnoremap <leader>pp
-    \ :RMarkdown pdf<cr>
 autocmd FileType pandoc,md,markdown nnoremap <leader>ph
     \ :Pandoc html<cr>
+autocmd BufEnter,BufNewFile *.[Rr]md nnoremap <leader>rp
+    \ :! ~/useScript/rmarkdown.sh %<cr>
+autocmd BufEnter,BufNewFile *.[Rr]md nnoremap <leader>rh
+    \ :! ~/useScript/rmarkdown.sh -o bookdown::html_document2 %<cr>
 
 if(has("mac"))
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po

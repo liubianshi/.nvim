@@ -15,9 +15,9 @@ call plug#begin('~/.local/share/nvim/plugged')
         "let g:airline#extensions#tabline#left_alt_sep = '|'
         "let g:airline#extensions#tabline#buffer_nr_show = 1
         let g:airline_theme='deus'
-    Plug 'liuchengxu/vim-which-key'  
+    Plug 'liuchengxu/vim-which-key'
     Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmd', 'rmarkdown']}
-    Plug 'sirver/UltiSnips'         
+    Plug 'sirver/UltiSnips'
         let g:UltiSnipsEditSplit = "tabdo"
         let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
     Plug 'honza/vim-snippets'      " 配置 snippets 需要
@@ -44,13 +44,12 @@ call plug#begin('~/.local/share/nvim/plugged')
         let g:nrrw_rgn_wdth = 80
         let g:nrrw_topbot_leftright = 'botright'
     "Plug 'yianwillis/vimcdoc'             " Vim 中文帮助文档
-    
     Plug 'vim-pandoc/vim-pandoc'
         let g:pandoc#filetypes#handled = ["pandoc", "markdown"]
         let g:pandoc#filetypes#pandoc_markdown = 1
         let g:pandoc#biblio#bibs = ["/home/liubianshi/Documents/paper_ref.bib"]
-        let g:pandoc#biblio#use_bibtool = 1 
-        let g:pandoc#completion#bib#mode = "citeproc"  
+        let g:pandoc#biblio#use_bibtool = 1
+        let g:pandoc#completion#bib#mode = "citeproc"
         let g:pandoc#biblio#sources = ["byc"]
         let g:pandoc#folding#fold_yaml = 1
     Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -73,8 +72,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'jiangmiao/auto-pairs'    " 自动引号/括号补全
         let g:AutoPairsMapBS = 0
     Plug 'VincentCordobes/vim-translate'
-    Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' } 
-    Plug 'lervag/vimtex' 
+    Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+    Plug 'lervag/vimtex'
         let g:vimtex_compiler_progname = 'nvr'          " 调用 neovim-remote
 
     Plug 'roxma/nvim-yarp'         " ncm2 依赖的插件
@@ -86,6 +85,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'gaalcaras/ncm-R'        " R 语言自动补全
     Plug 'ncm2/ncm2-ultisnips'    " ncm ultisnips 插件
     Plug 'tpope/vim-fugitive'     " git 插件
+    Plug 'tpope/vim-obsession'    " tmux Backup needed
 
     Plug 'poliquin/stata-vim'     " stata 语法高亮
     Plug 'easymotion/vim-easymotion' " 高效移动指标插件
@@ -96,6 +96,9 @@ call plug#begin('~/.local/share/nvim/plugged')
         map ?  <Plug>(incsearch-backward)
         map g/ <Plug>(incsearch-stay)
     Plug 'terryma/vim-multiple-cursors'
+    Plug 'vim-perl/vim-perl', { 'for': 'perl' }
+    Plug 'vim-perl/vim-perl6', { 'for': ['per6', 'raku'] }
+        let g:perl6_unicode_abbrevs = 1
 call plug#end()
 
 
@@ -123,7 +126,7 @@ endif
 let g:auto_save = 0      " 总 Vim 启动时即开启自动保存
 let g:auto_save_events = ["BufLeave", "FocusLost", "WinLeave"]
 
-" Markdown 相关文件 
+" Markdown 相关文件
 " open with Google Chrome
 " let g:previm_open_cmd = 'xdg-open'
 " .vimrc
@@ -163,8 +166,8 @@ let g:which_key_map.t = { 'name' : '+tabHandle' }
 let g:which_key_map.b = { 'name' : '+buffer' }
 let g:which_key_map.c = { 'name' : '+NerdCommander' }
 let g:which_key_map.e = { 'name' : '+EditFile' }
-let g:which_key_map.r = { 'name' : '+Ranger' }
-let g:which_key_map.l = { 'name' : '+CocList' }
+let g:which_key_map.r = { 'name' : '+Rmarkdown' }
+let g:which_key_map.l = { 'name' : '+LfList' }
 
 let g:which_key_local = {}
 let g:which_key_local.a = { 'name' : '+R_File' }
