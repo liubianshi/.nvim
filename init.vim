@@ -1,7 +1,7 @@
 " Neovim 配置文件
 call plug#begin('~/.local/share/nvim/plugged')
     if(has("mac"))
-        "Plug 'ybian/smartim'
+        ""Plug 'ybian/smartim'
         Plug 'CodeFalling/fcitx-vim-osx'
     else
         Plug 'lilydjwg/fcitx.vim'       " Linux 下优化中文输入法切换
@@ -30,9 +30,12 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'rbgrouleff/bclose.vim'          " lf.vim 插件依赖
     Plug 'ptzz/lf.vim'                    " 文件管理
         let g:lf_map_keys = 0
-
     "Plug 'machakann/vim-highlightedyank'  " 高亮显示复制区域
-    Plug '/usr/bin/fzf'                   " 在 vim 中使用 fzf
+    if(has("mac"))
+        Plug 'junegunn/fzf.vim', { 'do': './install --bin' }
+    else
+        Plug '/usr/bin/fzf'                   " 在 vim 中使用 fzf
+    endif
     Plug 'junegunn/fzf.vim'               " 安装相关插件
     "Plug 'vim-scripts/mru.vim'            " 最近打开文档
     Plug 'junegunn/goyo.vim'              " zen 模式:
@@ -40,7 +43,7 @@ call plug#begin('~/.local/share/nvim/plugged')
         let g:nrrw_rgn_vert = 0
         let g:nrrw_rgn_wdth = 80
         let g:nrrw_topbot_leftright = 'botright'
-    Plug 'yianwillis/vimcdoc'             " Vim 中文帮助文档
+    "Plug 'yianwillis/vimcdoc'             " Vim 中文帮助文档
     
     Plug 'vim-pandoc/vim-pandoc'
         let g:pandoc#filetypes#handled = ["pandoc", "markdown"]
@@ -106,6 +109,7 @@ source ~/.config/nvim/rfile.vim
 source ~/.config/nvim/basic.vim
 source ~/.config/nvim/KeyMap.vim
 source ~/.config/nvim/fzfConifg.vim
+source ~/.config/nvim/python.vim
 
 let g:python_host_skip_check=1
 let g:python3_host_skip_check=1
@@ -116,7 +120,7 @@ else
     let g:python_host_prog = '/usr/bin/python2'
     let g:python3_host_prog = '/usr/bin/python'
 endif
-let g:auto_save = 1                         " 总 Vim 启动时即开启自动保存
+let g:auto_save = 0      " 总 Vim 启动时即开启自动保存
 let g:auto_save_events = ["BufLeave", "FocusLost", "WinLeave"]
 
 " Markdown 相关文件 
