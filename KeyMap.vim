@@ -148,6 +148,7 @@ autocmd FileType pandoc,rmd,rmarkdown,raku,perl6,markdown
 autocmd FileType pandoc,rmd,rmarkdown,raku,perl6,markdown
     \ nnoremap ;<CR> <Esc>A;<CR>
 
+
 if(has("mac"))
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po
         \ :! open "%:r.pdf"<cr> 
@@ -183,6 +184,8 @@ autocmd FileType pandoc,markdown,md nnoremap <silent> <leader>pi
     \ :<c-u>call mdip#MarkdownClipboardImage()<CR>
 autocmd FileType rmd,rmarkdown,rmd.rmarkdown nnoremap <silent> <leader>pi
     \ :<c-u>call RmdClipBoardImage()<CR>
+
+autocmd FileType pandoc,md,markdown,Rmd,rmd,rmarkdown nmap <leader>ic ysiW`
 
 " Easymotion Related
 nmap ss <Plug>(easymotion-overwin-f2)

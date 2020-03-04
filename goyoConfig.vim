@@ -8,7 +8,7 @@ function! s:goyo_enter()
   endif
   set noshowmode
   set noshowcmd
-  set nolinebreak
+  set linebreak
   set scrolloff=999
   " ...
 endfunction
@@ -20,7 +20,7 @@ function! s:goyo_leave()
   endif
   set showmode
   set showcmd
-  set nolinebreak
+  set linebreak
   set scrolloff=5
   " ...
 endfunction

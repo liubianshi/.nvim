@@ -10,11 +10,13 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'vim-airline/vim-airline'  " 状态栏插件
     Plug 'vim-airline/vim-airline-themes'
         let g:airline_powerline_fonts = 1
-        "let g:airline#extensions#tabline#enabled = 1
-        "let g:airline#extensions#tabline#left_sep = ' '
-        "let g:airline#extensions#tabline#left_alt_sep = '|'
-        "let g:airline#extensions#tabline#buffer_nr_show = 1
-        let g:airline_theme='deus'
+        let g:airline_left_sep = ''
+        let g:airline_right_sep = ''
+        let g:airline#extensions#tabline#enabled = 0
+        let g:airline#extensions#tabline#left_sep = ' '
+        let g:airline#extensions#tabline#left_alt_sep = '|'
+        let g:airline#extensions#tabline#buffer_nr_show = 1
+        let g:airline_theme='gruvbox'
     Plug 'liuchengxu/vim-which-key'
     Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmd', 'rmarkdown']}
     Plug 'sirver/UltiSnips'
@@ -45,6 +47,7 @@ call plug#begin('~/.local/share/nvim/plugged')
         let g:nrrw_topbot_leftright = 'botright'
     "Plug 'yianwillis/vimcdoc'             " Vim 中文帮助文档
     Plug 'vim-pandoc/vim-pandoc'
+        let g:pandoc#folding#fdc = 0
         let g:pandoc#filetypes#handled = ["pandoc", "markdown"]
         let g:pandoc#filetypes#pandoc_markdown = 1
         let g:pandoc#biblio#bibs = ["/home/liubianshi/Documents/paper_ref.bib"]
@@ -97,10 +100,9 @@ call plug#begin('~/.local/share/nvim/plugged')
         map g/ <Plug>(incsearch-stay)
     Plug 'terryma/vim-multiple-cursors'
     Plug 'Raku/vim-raku', { 'for': 'raku'}
-        let g:raku_unicode_abbrevs = 0
+        let g:raku_unicode_abbrevs = 1
         au BufNewFile,BufRead *.raku,*.p6,*.rakudoc,*.rakutest,*.pl6,*.p6 set filetype=raku.perl6
 call plug#end()
-
 
 source ~/.config/nvim/goyoConfig.vim
 source ~/.config/nvim/ChineseSymbol.vim
@@ -185,5 +187,3 @@ let g:which_key_local.k = { 'name' : '+R_Knit' }
 let g:which_key_local.o = { 'name' : '+R_Open' }
 let g:which_key_local.g = { 'name' : '+R_Goto' }
 let g:which_key_local.x = { 'name' : '+R_Comment' }
-
-
