@@ -35,15 +35,17 @@ set shiftround             " 运用 > < 推广缩进至 tabs 整数倍
 
 " 折行相关设置
 set wrap                   " 代码折行
+set sidescroll=5
+set listchars+=precedes:<,extends:>
 set formatoptions=tqcnmB1jo
-set wrapmargin=2           " 指定拆行处与编辑窗口右边缘之间空出的字符数
+set wrapmargin=0           " 指定拆行处与编辑窗口右边缘之间空出的字符数
 set textwidth=0
 set ai              " 自动缩进
 set si              " 智能缩进
 set linebreak
 set breakindent
-let &brk = " ^I!@*-+;:,./?，。、”’；：《》——）？"
-let &showbreak = '+ '
+let &brk = " ^I!@*-+;:,./?"
+let &showbreak = ''
 
 
 " coc.nvim 推荐设置
@@ -74,7 +76,13 @@ let g:UltiSnipsRemoveSelectModeMappings = 0
 autocmd BufWritePre *.{md,pl,p6,rmd,r,do} :%s/\s\+$//e
 
 " 模拟 goyo 模式
-set foldcolumn=2
-highlight FoldColumn guibg=#282828
+set foldcolumn=3
+highlight FoldColumn guifg=#282828 guibg=#282828
 autocmd VimEnter * set laststatus=1
 set laststatus=1           " 总是显示状态栏
+set fdl=0
+set fdls=0
+
+" 高亮当前行
+autocmd InsertLeave,WinEnter * set cursorline
+autocmd InsertEnter,WinLeave * set nocursorline

@@ -6,7 +6,8 @@ nnoremap <leader><leader> :!<space>
 inoremap ;<space> <Esc>
 inoremap <Down> <Esc>
 inoremap ;; ;
-inoremap <Esc> <nop>
+"inoremap <Esc> <nop>
+inoremap <C-j> <esc>A;<cr>
 
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>ek :vsplit ~/.config/nvim/KeyMap.vim<cr>

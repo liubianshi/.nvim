@@ -1,4 +1,4 @@
-let R_app = "radian"
+"let R_app = "radian"
 let R_cmd = "R"
 let R_hl_term = 1
 let R_args = []  " if you had set any
@@ -26,6 +26,11 @@ augroup r_setup
         \ :RNrrw<cr>:set filetype=r<cr>
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown 
         \ setlocal formatoptions=tqcnmB1jo
+    "autocmd BufNewFile,BufRead,BufEnter *.[Rr]md PandocHighlight raku
+    "autocmd BufNewFile,BufRead,BufEnter *.[Rr]md PandocHighlight r
+    "autocmd BufNewFile,BufRead,BufEnter *.[Rr]md PandocHighlight stata
+    "autocmd BufNewFile,BufRead,BufEnter *.[Rr]md PandocHighlight sh
+
     " UltiSnips
     autocmd FileType rmd,rmarkdown :UltiSnipsAddFiletypes rmd.markdown
     " Abbreviate

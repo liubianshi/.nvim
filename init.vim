@@ -45,18 +45,19 @@ call plug#begin('~/.local/share/nvim/plugged')
         let g:nrrw_rgn_vert = 0
         let g:nrrw_rgn_wdth = 80
         let g:nrrw_topbot_leftright = 'botright'
-    "Plug 'yianwillis/vimcdoc'             " Vim 中文帮助文档
+    Plug 'yianwillis/vimcdoc'             " Vim 中文帮助文档
     Plug 'vim-pandoc/vim-pandoc'
-        let g:pandoc#folding#fdc = 0
+        let g:pandoc#modules#disabled = ["spell"]
         let g:pandoc#filetypes#handled = ["pandoc", "markdown"]
         let g:pandoc#filetypes#pandoc_markdown = 1
         let g:pandoc#biblio#bibs = ["/home/liubianshi/Documents/paper_ref.bib"]
         let g:pandoc#biblio#use_bibtool = 1
         let g:pandoc#completion#bib#mode = "citeproc"
         let g:pandoc#biblio#sources = ["byc"]
+        let g:pandoc#folding#fdc = 0
         let g:pandoc#folding#fold_yaml = 1
+        let g:pandoc#folding#fold_fenced_codeblocks = 0
     Plug 'vim-pandoc/vim-pandoc-syntax'
-        let g:pandoc#modules#disabled = ["spell"]
         let g:tex_conceal = ""
     Plug 'vim-pandoc/vim-rmarkdown', {'for': ['rmd', 'rmarkdown']}
     Plug 'ferrine/md-img-paste.vim'
@@ -68,7 +69,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'morhetz/gruvbox'         " 主题
     Plug 'jacoborus/tender.vim'    " 主题
 
-    "Plug 'mileszs/ack.vim'         " 在 Vim 中使用 Ack 或 Ag 检索
+    Plug 'mileszs/ack.vim'         " 在 Vim 中使用 Ack 或 Ag 检索
+        let g:ackprg = 'ag --column'
     Plug 'godlygeek/tabular'       " 对齐文本插件
     Plug 'tpope/vim-surround'      " 快速给词加环绕符号
     Plug 'tpope/vim-repeat'        " 重复插件操作
@@ -116,6 +118,8 @@ source ~/.config/nvim/KeyMap.vim
 source ~/.config/nvim/fzfConifg.vim
 source ~/.config/nvim/python.vim
 
+" quickfix 默认位置
+autocmd FileType qf wincmd J
 let g:python_host_skip_check=1
 let g:python3_host_skip_check=1
 if(has("mac"))
@@ -148,6 +152,8 @@ nnoremap <silent> <localleader> :<c-u>WhichKey  ';'<CR>
 vnoremap <silent> <localleader> :<c-u>WhichKeyVisual ';'<CR>
 nnoremap <silent> s :<c-u>WhichKey  's'<CR>
 vnoremap <silent> s :<c-u>WhichKeyVisual 's'<CR>
+"nnoremap <silent> z :<c-u>WhichKey  'z'<CR>
+"vnoremap <silent> z :<c-u>WhichKeyVisual 'z'<CR>
 
 let g:which_key_map = {}
 let g:which_key_map.f = {
