@@ -1,6 +1,6 @@
-"let R_app = "radian"
+let R_app = "radian"
 let R_cmd = "R"
-let R_hl_term = 1
+let R_hl_term = 0
 let R_args = []  " if you had set any
 let R_openpdf = 1
 let R_bracketed_paste = 1
@@ -11,8 +11,9 @@ let R_assign = 0
 
 let R_in_buffer = 1
 "let R_csv_app = 'terminal:sc-im'
-let R_csv_delim = ','
-"let R_csv_app = 'tmux new-window sc-im --txtdelim="\t"'
+"let R_csv_delim = '\t'
+"let R_csv_app = 'tmux new-window sc-im'
+let R_csv_app = "tmux new-window /home/liubianshi/useScript/viewdata"
 
 " 配置语法高亮的函数
 let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,data.table,fread,ggplot2,dplyr,tibble,stringr,forcats,readr,tidyr,purrr,fread,readxl,tidyverse'
@@ -26,15 +27,13 @@ augroup r_setup
         \ :RNrrw<cr>:set filetype=r<cr>
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown 
         \ setlocal formatoptions=tqcnmB1jo
-    "autocmd BufNewFile,BufRead,BufEnter *.[Rr]md PandocHighlight raku
-    "autocmd BufNewFile,BufRead,BufEnter *.[Rr]md PandocHighlight r
-    "autocmd BufNewFile,BufRead,BufEnter *.[Rr]md PandocHighlight stata
-    "autocmd BufNewFile,BufRead,BufEnter *.[Rr]md PandocHighlight sh
 
     " UltiSnips
     autocmd FileType rmd,rmarkdown :UltiSnipsAddFiletypes rmd.markdown
     " Abbreviate
-    autocmd FileType r,rmd,rmarkdown,rmd.rmarkdown :iabbrev <buffer> iff if ()<left>
+    autocmd FileType r,rmd,rmarkdown,rmd.rmarkdown 
+        \ :iabbrev <buffer> iff if ()<left>
+
     " Nvim-R
     nmap , <Plug>RDSendLine
     vmap , <Plug>REDSendSelection

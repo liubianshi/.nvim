@@ -1,13 +1,19 @@
 " Neovim 配置文件
 call plug#begin('~/.local/share/nvim/plugged')
+" 中文输入法 {{{
     if(has("mac"))
         ""Plug 'ybian/smartim'
         Plug 'CodeFalling/fcitx-vim-osx'
     else
         Plug 'lilydjwg/fcitx.vim'       " Linux 下优化中文输入法切换
     endif
-    Plug 'hotoo/pangu.vim'
-    Plug 'vim-airline/vim-airline'  " 状态栏插件
+"}}}
+
+" 美化 {{{
+    Plug 'flazz/vim-colorschemes'       " 主题管理
+    Plug 'morhetz/gruvbox'              " 主题
+    Plug 'jacoborus/tender.vim'         " 主题
+    Plug 'vim-airline/vim-airline'      " 状态栏插件
     Plug 'vim-airline/vim-airline-themes'
         let g:airline_powerline_fonts = 1
         let g:airline_left_sep = ''
@@ -17,35 +23,30 @@ call plug#begin('~/.local/share/nvim/plugged')
         let g:airline#extensions#tabline#left_alt_sep = '|'
         let g:airline#extensions#tabline#buffer_nr_show = 1
         let g:airline_theme='gruvbox'
-    Plug 'liuchengxu/vim-which-key'
-    Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmd', 'rmarkdown']}
-    Plug 'sirver/UltiSnips'
-        let g:UltiSnipsEditSplit = "tabdo"
-        let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
-    Plug 'honza/vim-snippets'      " 配置 snippets 需要
-   "Plug 'neoclide/coc.nvim', {'branch': 'release'}             " coc 代码补全插件
+"}}}
+
+" 文件管理
     Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
     Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' }
-    "Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on':  'NERDTreeToggle' }
-    "Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeToggle' }
-    Plug 'scrooloose/nerdcommenter'       " 注释插件
     Plug 'rbgrouleff/bclose.vim'          " lf.vim 插件依赖
     Plug 'ptzz/lf.vim'                    " 文件管理
         let g:lf_map_keys = 0
-    "Plug 'machakann/vim-highlightedyank'  " 高亮显示复制区域
+    Plug 'mileszs/ack.vim'                " 在 Vim 中使用 Ack 或 Ag 检索
+        let g:ackprg = 'ag --column'
+
+" 模糊搜索加管理
     if(has("mac"))
         Plug 'junegunn/fzf.vim', { 'do': './install --bin' }
     else
-        Plug '/usr/bin/fzf'                   " 在 vim 中使用 fzf
+        Plug '/usr/bin/fzf'               " 在 vim 中使用 fzf
     endif
     Plug 'junegunn/fzf.vim'               " 安装相关插件
-    "Plug 'vim-scripts/mru.vim'            " 最近打开文档
+    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+        let g:clap_provider_grep_executable = 'ag'
+
+" 优化写作体验
     Plug 'junegunn/goyo.vim'              " zen 模式:
-    Plug 'chrisbra/NrrwRgn'               " 形成小 buffer
-        let g:nrrw_rgn_vert = 0
-        let g:nrrw_rgn_wdth = 80
-        let g:nrrw_topbot_leftright = 'botright'
-    Plug 'yianwillis/vimcdoc'             " Vim 中文帮助文档
+    Plug 'hotoo/pangu.vim'
     Plug 'vim-pandoc/vim-pandoc'
         let g:pandoc#modules#disabled = ["spell"]
         let g:pandoc#filetypes#handled = ["pandoc", "markdown"]
@@ -56,54 +57,75 @@ call plug#begin('~/.local/share/nvim/plugged')
         let g:pandoc#biblio#sources = ["byc"]
         let g:pandoc#folding#fdc = 0
         let g:pandoc#folding#fold_yaml = 1
-        let g:pandoc#folding#fold_fenced_codeblocks = 0
+        let g:pandoc#folding#fold_fenced_codeblocks = 1
     Plug 'vim-pandoc/vim-pandoc-syntax'
         let g:tex_conceal = ""
     Plug 'vim-pandoc/vim-rmarkdown', {'for': ['rmd', 'rmarkdown']}
     Plug 'ferrine/md-img-paste.vim'
         let g:mdip_imgdir = 'assets'
         let g:mdip_imgname = 'image'
+    Plug 'vimwiki/vimwiki'
+        let g:vimwiki_list = [ {'path': "$NUTSTORE/Sync/wiki_note",
+            \ 'syntax': 'default', 'ext': '.wiki'}, {'path': "$NUTSTORE/Sync/awesomeApp", 'syntax': 'markdown', 'ext': '.md'},
+        \]
 
-    Plug '907th/vim-auto-save'     " 自动保存
-    Plug 'flazz/vim-colorschemes'  " 主题管理
-    Plug 'morhetz/gruvbox'         " 主题
-    Plug 'jacoborus/tender.vim'    " 主题
-
-    Plug 'mileszs/ack.vim'         " 在 Vim 中使用 Ack 或 Ag 检索
-        let g:ackprg = 'ag --column'
-    Plug 'godlygeek/tabular'       " 对齐文本插件
-    Plug 'tpope/vim-surround'      " 快速给词加环绕符号
-    Plug 'tpope/vim-repeat'        " 重复插件操作
-    Plug 'jiangmiao/auto-pairs'    " 自动引号/括号补全
-        let g:AutoPairsMapBS = 0
-    Plug 'VincentCordobes/vim-translate'
-    Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-    Plug 'lervag/vimtex'
-        let g:vimtex_compiler_progname = 'nvr'          " 调用 neovim-remote
-
-    Plug 'roxma/nvim-yarp'         " ncm2 依赖的插件
-    Plug 'ncm2/ncm2'              " 自动补全方案
-    Plug 'ncm2/ncm2-bufword'      " 基于 Buffer 中的内容补全
-    Plug 'ncm2/ncm2-path'         " 基于路径自动补全
-    Plug 'ncm2/ncm2-tmux'
-    Plug 'ncm2/ncm2-vim'
-    Plug 'gaalcaras/ncm-R'        " R 语言自动补全
-    Plug 'ncm2/ncm2-ultisnips'    " ncm ultisnips 插件
-    Plug 'tpope/vim-fugitive'     " git 插件
-    Plug 'tpope/vim-obsession'    " tmux Backup needed
-
-    Plug 'poliquin/stata-vim'     " stata 语法高亮
-    Plug 'easymotion/vim-easymotion' " 高效移动指标插件
+" 文本对象操作
+    Plug 'godlygeek/tabular'            " 对齐文本插件
+    Plug 'tpope/vim-surround'           " 快速给词加环绕符号
+    Plug 'tpope/vim-repeat'             " 重复插件操作
+    Plug 'scrooloose/nerdcommenter'     " 注释插件
+    Plug 'easymotion/vim-easymotion'    " 高效移动指标插件
         let g:EasyMotion_do_mapping = 0 " Disable default mappings
         let g:EasyMotion_smartcase = 1
-    Plug 'haya14busa/incsearch.vim' " 加强版实时高亮
+    Plug 'wellle/targets.vim'           " 扩展 vim 文本对象
+
+" 自动补全
+    Plug 'jiangmiao/auto-pairs'      " 自动引号/括号补全
+        let g:AutoPairsMapBS = 0
+    Plug 'roxma/nvim-yarp'           " ncm2 依赖的插件
+    Plug 'ncm2/ncm2'                 " 自动补全方案
+    Plug 'ncm2/ncm2-bufword'         " 基于 Buffer 中的内容补全
+    Plug 'ncm2/ncm2-path'            " 基于路径自动补全
+    Plug 'ncm2/ncm2-tmux'
+    Plug 'ncm2/ncm2-vim'
+    Plug 'gaalcaras/ncm-R'           " R 语言自动补全
+    Plug 'ncm2/ncm2-ultisnips'       " ncm ultisnips 插件
+    Plug 'sirver/UltiSnips'
+        let g:UltiSnipsEditSplit =   "tabdo"
+        let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
+    Plug 'honza/vim-snippets'        " 配置 snippets 需要
+
+" 模拟IDE
+    Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmd', 'rmarkdown']}
+    Plug 'lervag/vimtex'
+        let g:vimtex_compiler_progname = 'nvr'          " 调用 neovim-remote
+    Plug 'poliquin/stata-vim'                           " stata 语法高亮
+    Plug 'Raku/vim-raku', { 'for': 'raku'}
+        let g:raku_unicode_abbrevs = 1
+        au BufNewFile,BufRead *.raku,*.p6,*.pl6,*.p6 set filetype=raku.perl6
+
+" 其他小工具
+    Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
+        let g:asyncrun_open = 8
+    Plug 'liuchengxu/vim-which-key'
+    Plug 'machakann/vim-highlightedyank'  " 高亮显示复制区域
+    Plug 'haya14busa/incsearch.vim'       " 加强版实时高亮
         map /  <Plug>(incsearch-forward)
         map ?  <Plug>(incsearch-backward)
         map g/ <Plug>(incsearch-stay)
-    Plug 'terryma/vim-multiple-cursors'
-    Plug 'Raku/vim-raku', { 'for': 'raku'}
-        let g:raku_unicode_abbrevs = 1
-        au BufNewFile,BufRead *.raku,*.p6,*.rakudoc,*.rakutest,*.pl6,*.p6 set filetype=raku.perl6
+    Plug 'tpope/vim-fugitive'             " git 插件
+    Plug 'tpope/vim-obsession'            " tmux Backup needed
+    Plug 'VincentCordobes/vim-translate'  " 翻译工具
+    Plug 'yianwillis/vimcdoc'             " Vim 中文帮助文档
+
+    "Plug 'neoclide/coc.nvim'             " coc 代码补全插件
+    "Plug '907th/vim-auto-save'           " 自动保存
+    "Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+    "Plug 'chrisbra/NrrwRgn'              " 形成小 buffer
+        "let g:nrrw_rgn_vert = 0
+        "let g:nrrw_rgn_wdth = 80
+        "let g:nrrw_topbot_leftright = 'botright'
+    "Plug 'terryma/vim-multiple-cursors'
 call plug#end()
 
 source ~/.config/nvim/goyoConfig.vim
@@ -193,3 +215,5 @@ let g:which_key_local.k = { 'name' : '+R_Knit' }
 let g:which_key_local.o = { 'name' : '+R_Open' }
 let g:which_key_local.g = { 'name' : '+R_Goto' }
 let g:which_key_local.x = { 'name' : '+R_Comment' }
+
+

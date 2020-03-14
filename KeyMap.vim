@@ -2,7 +2,8 @@
 let mapleader = " "
 let maplocalleader = ';'
 let g:ctrlp_map = '<c-f>'
-nnoremap <leader><leader> :!<space>
+nnoremap <leader><leader> :AsyncRun<space>
+nnoremap <leader>pwd :silent execute ":lcd" . expand("%:p:h")<cr>
 inoremap ;<space> <Esc>
 inoremap <Down> <Esc>
 inoremap ;; ;
@@ -58,7 +59,7 @@ nnoremap <leader>tl :tabs<cr>
 " buffer managing
 nnoremap <leader>bn :bn<cr>
 nnoremap <leader>bp :bp<cr>
-nnoremap <leader>bl :ls!
+nnoremap <leader>bl :<c-u>Clap buffers<cr>
 
 
 " 缩进
@@ -141,9 +142,9 @@ autocmd FileType pandoc,md,markdown nnoremap <leader>pp
 autocmd FileType pandoc,md,markdown nnoremap <leader>ph
     \ :Pandoc html<cr>
 autocmd BufEnter,BufNewFile *.[Rr]md nnoremap <leader>rp
-    \ :! ~/useScript/rmarkdown.sh %<cr>
+    \ :AsyncRun ~/useScript/rmarkdown.sh %<cr>
 autocmd BufEnter,BufNewFile *.[Rr]md nnoremap <leader>rh
-    \ :! ~/useScript/rmarkdown.sh -o bookdown::html_document2 %<cr>
+    \ :AsyncRun ~/useScript/rmarkdown.sh -o bookdown::html_document2 %<cr>
 autocmd FileType pandoc,rmd,rmarkdown,raku,perl6,markdown
     \ inoremap ;<CR> <Esc>A;<CR>
 autocmd FileType pandoc,rmd,rmarkdown,raku,perl6,markdown
@@ -192,7 +193,7 @@ autocmd FileType pandoc,md,markdown,Rmd,rmd,rmarkdown nmap <leader>ic ysiW`
 nmap ss <Plug>(easymotion-overwin-f2)
 nmap sS <Plug>(easymotion-overwin-line)
 nmap sl <Plug>(easymotion-sl)
-nmap sf <Plug>(easymotion-lineforward)
+"nmap sf <Plug>(easymotion-lineforward)
 nmap sb <Plug>(easymotion-linebackward)
 nmap sj <plug>(easymotion-j)
 nmap sJ <plug>(easymotion-eol-j)
@@ -213,18 +214,18 @@ nmap sE <Plug>(easymotion-E)
 nmap sge <Plug>(easymotion-ge)
 nmap sgE <Plug>(easymotion-gE)
 
-" Z - cd to recent / frequent directories
-command! -nargs=* Z :call Z(<f-args>)
-function! Z(...)
-  let cmd = 'fasd -d -e printf'
-  for arg in a:000
-    let cmd = cmd . ' ' . arg
-  endfor
-  let path = system(cmd)
-  if isdirectory(path)
-    echo path
-    exec 'cd' fnameescape(path)
-  endif
-endfunction
+function! SearchChinese() 
+    silent execute '!fcitx-remote -o'
+    call EasyMotion#S(2,0,0)
+    silent exe '!fcitx-remote -c'
+endfunction 
+function! SearchChineseLine() 
+    silent execute '!fcitx-remote -o'
+    call EasyMotion#SL(1,0,0)
+    silent exe '!fcitx-remote -c'
+endfunction 
+nmap sc :<c-u>call SearchChineseLine()<cr>
+nmap sC :<c-u>call SearchChinese()<cr>
+
 
 

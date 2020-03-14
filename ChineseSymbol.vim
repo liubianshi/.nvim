@@ -24,4 +24,3 @@ imap ;< <C-v>u300A
 " 右书名号
 imap ;> <C-v>u300B
 
-

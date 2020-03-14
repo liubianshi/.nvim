@@ -44,7 +44,7 @@ set ai              " 自动缩进
 set si              " 智能缩进
 set linebreak
 set breakindent
-let &brk = " ^I!@*-+;:,./?"
+"let &brk = " ^I!@*-+;:,./?"
 let &showbreak = ''
 
 
@@ -78,11 +78,12 @@ autocmd BufWritePre *.{md,pl,p6,rmd,r,do} :%s/\s\+$//e
 " 模拟 goyo 模式
 set foldcolumn=3
 highlight FoldColumn guifg=#282828 guibg=#282828
-autocmd VimEnter * set laststatus=1
-set laststatus=1           " 总是显示状态栏
+autocmd VimEnter * set laststatus=0
+set laststatus=0           " 总是显示状态栏
 set fdl=0
 set fdls=0
 
 " 高亮当前行
 autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
+
