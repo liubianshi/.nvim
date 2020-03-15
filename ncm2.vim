@@ -20,6 +20,19 @@ augroup my_cm_setup
         \ 'word_pattern': '[\w.]+',
         \ 'on_complete': ['ncm2_bufword#on_complete'],
         \ })
+
+        "\ 'word_pattern': "[A-Za-z_]([\-\']?\w+)*",
+    autocmd FileType raku,perl6 call ncm2#register_source({
+        \ 'name': 'raku',
+        \ 'priority': 8,
+        \ 'auto_popup': 1,
+        \ 'complete_length': 2,
+        \ 'scope': ['raku', 'perl6'],
+        \ 'mark': 'raku',
+        \ 'enable': 1,
+        \ 'word_pattern': "[A-Za-z_]([\-\']?\w+)*",
+        \ 'on_complete': ['ncm2_bufword#on_complete#'],
+        \ })
     " vimtex 配置
     autocmd Filetype tex call ncm2#register_source({
             \ 'name' : 'vimtex-cmds',

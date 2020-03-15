@@ -101,7 +101,7 @@ call plug#begin('~/.local/share/nvim/plugged')
         let g:vimtex_compiler_progname = 'nvr'          " 调用 neovim-remote
     Plug 'poliquin/stata-vim'                           " stata 语法高亮
     Plug 'Raku/vim-raku', { 'for': 'raku'}
-        let g:raku_unicode_abbrevs = 1
+        let g:raku_unicode_abbrevs = 0
         au BufNewFile,BufRead *.raku,*.p6,*.pl6,*.p6 set filetype=raku.perl6
 
 " 其他小工具
