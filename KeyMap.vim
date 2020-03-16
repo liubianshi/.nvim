@@ -2,6 +2,8 @@
 let mapleader = " "
 let maplocalleader = ';'
 let g:ctrlp_map = '<c-f>'
+
+nnoremap <leader>zz :<c-u>call Status()<CR>
 nnoremap <leader><leader> :AsyncRun<space>
 nnoremap <leader>pwd :silent execute ":lcd" . expand("%:p:h")<cr>
 inoremap ;<space> <Esc>
@@ -97,6 +99,7 @@ cnoremap sw w !sudo tee >/dev/null %
 
 " 5. 终端模式下
 tnoremap ;<space> <C-\><C-n>
+
 
 " Goyo and zenroom2
 nnoremap <leader>z :Goyo<cr>

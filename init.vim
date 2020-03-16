@@ -127,11 +127,11 @@ call plug#begin('~/.local/share/nvim/plugged')
         "let g:clap_provider_grep_executable = 'ag'
 call plug#end()
 
-function! Status () " 开启状态栏
+function! Status() " 开启状态栏
     call plug#load('vim-colorschemes', 'vim-airline', 'vim-airline-themes')
     set laststatus=1
 endfunction
-nnoremap <silent> <leader>Z :<c-u> call Status()<cr>
+
 
 augroup load_enter
   autocmd!
