@@ -32,6 +32,7 @@ autocmd FileType stata vnoremap <buffer> , :<C-U>call RunDoLines()<cr>
 autocmd FileType stata nnoremap <buffer> ;l V:<c-u>call RunDoLines()<cr>
 
 " 自动完成
-autocmd FileType stata let b:AutoPairs = {'`': "'"} 
+autocmd FileType stata let b:AutoPairs = g:AutoPairs
+autocmd FileType stata let b:AutoPairs['`']="'" 
 autocmd FileType stata set foldmethod=marker
 autocmd FileType stata set foldmarker={,}

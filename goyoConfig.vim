@@ -22,8 +22,8 @@ function! s:goyo_leave()
   set showcmd
   set linebreak
   set foldcolumn=3
+  highlight SignColumn guibg=#282828
   highlight FoldColumn guifg=#282828 guibg=#282828
-  set laststatus=1           " 总是显示状态栏
   set scrolloff=5
   " ...
 endfunction

@@ -53,6 +53,7 @@ set hidden
 set nobackup
 set nowritebackup
 set updatetime=300
+set signcolumn=yes
 
 
 " IMPORTANT: :help Ncm2PopupOpen for more information
@@ -76,14 +77,16 @@ let g:UltiSnipsRemoveSelectModeMappings = 0
 autocmd BufWritePre *.{md,pl,p6,rmd,r,do} :%s/\s\+$//e
 
 " 模拟 goyo 模式
-set foldcolumn=3
-highlight FoldColumn guifg=#282828 guibg=#282828
+set foldcolumn=1
+highlight FoldColumn guibg=#282828 guifg=#282828
+highlight SignColumn guibg=#282828
+set signcolumn=yes
 autocmd VimEnter * set laststatus=0
 set laststatus=0           " 总是显示状态栏
 set fdl=0
 set fdls=0
 
 " 高亮当前行
-autocmd InsertLeave,WinEnter * set cursorline
-autocmd InsertEnter,WinLeave * set nocursorline
+"autocmd InsertLeave,WinEnter * set cursorline
+"autocmd InsertEnter,WinLeave * set nocursorline
 

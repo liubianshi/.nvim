@@ -3,18 +3,17 @@ call plug#begin('~/.local/share/nvim/plugged')
 " 中文输入法 {{{
     if(has("mac"))
         ""Plug 'ybian/smartim'
-        Plug 'CodeFalling/fcitx-vim-osx'
+        Plug 'CodeFalling/fcitx-vim-osx', { 'on': [] }
     else
-        Plug 'lilydjwg/fcitx.vim'       " Linux 下优化中文输入法切换
+        Plug 'lilydjwg/fcitx.vim', { 'on': [] }       " Linux 下优化中文输入法切换
     endif
 "}}}
 
 " 美化 {{{
-    Plug 'flazz/vim-colorschemes'       " 主题管理
-    Plug 'morhetz/gruvbox'              " 主题
-    Plug 'jacoborus/tender.vim'         " 主题
-    Plug 'vim-airline/vim-airline'      " 状态栏插件
-    Plug 'vim-airline/vim-airline-themes'
+    Plug 'morhetz/gruvbox'                          " 主题
+    Plug 'flazz/vim-colorschemes', { 'on': [] }     " 主题管理
+    Plug 'vim-airline/vim-airline', { 'on': [] }    " 状态栏插件
+    Plug 'vim-airline/vim-airline-themes', { 'on': [] }
         let g:airline_powerline_fonts = 1
         let g:airline_left_sep = ''
         let g:airline_right_sep = ''
@@ -26,12 +25,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 "}}}
 
 " 文件管理
-    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-    Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' }
     Plug 'rbgrouleff/bclose.vim'          " lf.vim 插件依赖
     Plug 'ptzz/lf.vim'                    " 文件管理
         let g:lf_map_keys = 0
-    Plug 'mileszs/ack.vim'                " 在 Vim 中使用 Ack 或 Ag 检索
+    Plug 'mileszs/ack.vim', {'on': 'Ack'}  " 在 Vim 中使用 Ack 或 Ag 检索
         let g:ackprg = 'ag --column'
 
 " 模糊搜索加管理
@@ -41,13 +38,11 @@ call plug#begin('~/.local/share/nvim/plugged')
         Plug '/usr/bin/fzf'               " 在 vim 中使用 fzf
     endif
     Plug 'junegunn/fzf.vim'               " 安装相关插件
-    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-        let g:clap_provider_grep_executable = 'ag'
 
 " 优化写作体验
-    Plug 'junegunn/goyo.vim'              " zen 模式:
-    Plug 'hotoo/pangu.vim'
-    Plug 'vim-pandoc/vim-pandoc'
+    Plug 'junegunn/goyo.vim', {'for': ['rmd', 'rmarkdown']}              " zen 模式:
+    Plug 'hotoo/pangu.vim', {'for': ['rmd', 'rmarkdown']}
+    Plug 'vim-pandoc/vim-pandoc', {'for': ['rmd', 'rmarkdown']}
         let g:pandoc#modules#disabled = ["spell"]
         let g:pandoc#filetypes#handled = ["pandoc", "markdown"]
         let g:pandoc#filetypes#pandoc_markdown = 1
@@ -58,10 +53,10 @@ call plug#begin('~/.local/share/nvim/plugged')
         let g:pandoc#folding#fdc = 0
         let g:pandoc#folding#fold_yaml = 1
         let g:pandoc#folding#fold_fenced_codeblocks = 1
-    Plug 'vim-pandoc/vim-pandoc-syntax'
+    Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['rmd', 'rmarkdown']}
         let g:tex_conceal = ""
     Plug 'vim-pandoc/vim-rmarkdown', {'for': ['rmd', 'rmarkdown']}
-    Plug 'ferrine/md-img-paste.vim'
+    Plug 'ferrine/md-img-paste.vim', {'for': ['rmd', 'rmarkdown']}
         let g:mdip_imgdir = 'assets'
         let g:mdip_imgname = 'image'
     Plug 'vimwiki/vimwiki'
@@ -82,27 +77,26 @@ call plug#begin('~/.local/share/nvim/plugged')
 " 自动补全
     Plug 'jiangmiao/auto-pairs'      " 自动引号/括号补全
         let g:AutoPairsMapBS = 0
-    Plug 'roxma/nvim-yarp'           " ncm2 依赖的插件
-    Plug 'ncm2/ncm2'                 " 自动补全方案
-    Plug 'ncm2/ncm2-bufword'         " 基于 Buffer 中的内容补全
-    Plug 'ncm2/ncm2-path'            " 基于路径自动补全
-    Plug 'ncm2/ncm2-tmux'
-    Plug 'ncm2/ncm2-vim'
-    Plug 'gaalcaras/ncm-R'           " R 语言自动补全
-    Plug 'ncm2/ncm2-ultisnips'       " ncm ultisnips 插件
-    Plug 'sirver/UltiSnips'
-        let g:UltiSnipsEditSplit =   "tabdo"
+    Plug 'neoclide/coc.nvim', { 'branch': 'release' }  " coc 代码补全插件
+    Plug 'roxma/nvim-yarp', { 'on': [] } " ncm2 依赖的插件
+    Plug 'roxma/ncm2', { 'on': [] } 
+    Plug 'gaalcaras/ncm-R', { 'on': [] }
+    Plug 'ncm2/ncm2-bufword', { 'on': [] }
+    Plug 'ncm2/ncm2-path', { 'on': [] }
+    Plug 'ncm2/ncm2-ultisnips', { 'on': [] }
+    Plug 'sirver/UltiSnips', { 'on': [] }
+        let g:UltiSnipsEditSplit = "tabdo"
         let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
-    Plug 'honza/vim-snippets'        " 配置 snippets 需要
+    Plug 'honza/vim-snippets', { 'on': [] }        " 配置 snippets 需要
 
 " 模拟IDE
-    Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmd', 'rmarkdown']}
-    Plug 'lervag/vimtex'
+    Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmarkdown', 'rmd'] }
+    Plug 'lervag/vimtex', {'for': ['tex', 'plaintex']}
         let g:vimtex_compiler_progname = 'nvr'          " 调用 neovim-remote
-    Plug 'poliquin/stata-vim'                           " stata 语法高亮
+    Plug 'poliquin/stata-vim', { 'for': 'stata' }       " stata 语法高亮
     Plug 'Raku/vim-raku', { 'for': 'raku'}
         let g:raku_unicode_abbrevs = 0
-        au BufNewFile,BufRead *.raku,*.p6,*.pl6,*.p6 set filetype=raku.perl6
+        au BufNewFile,BufRead *.raku,*.p6,*.pl6,*.p6 set filetype=raku
 
 " 其他小工具
     Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
@@ -118,7 +112,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'VincentCordobes/vim-translate'  " 翻译工具
     Plug 'yianwillis/vimcdoc'             " Vim 中文帮助文档
 
-    "Plug 'neoclide/coc.nvim'             " coc 代码补全插件
+    "Plug 'ncm2/ncm2-tmux'
+    "Plug 'ncm2/ncm2-vim'
+    "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    "Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' }
     "Plug '907th/vim-auto-save'           " 自动保存
     "Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
     "Plug 'chrisbra/NrrwRgn'              " 形成小 buffer
@@ -126,22 +123,40 @@ call plug#begin('~/.local/share/nvim/plugged')
         "let g:nrrw_rgn_wdth = 80
         "let g:nrrw_topbot_leftright = 'botright'
     "Plug 'terryma/vim-multiple-cursors'
+    "Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+        "let g:clap_provider_grep_executable = 'ag'
 call plug#end()
+
+function! Status () " 开启状态栏
+    call plug#load('vim-colorschemes', 'vim-airline', 'vim-airline-themes')
+    set laststatus=1
+endfunction
+nnoremap <silent> <leader>Z :<c-u> call Status()<cr>
+
+augroup load_enter
+  autocmd!
+  if(has("mac"))
+      autocmd InsertEnter * call plug#load('fcitx-vim-osx')
+  else
+      autocmd InsertEnter * call plug#load('fcitx.vim')
+  endif
+  autocmd InsertEnter * call plug#load('UltiSnips')
+  autocmd InsertEnter * call plug#load('vim-snippets')
+augroup END
 
 source ~/.config/nvim/goyoConfig.vim
 source ~/.config/nvim/ChineseSymbol.vim
-source ~/.config/nvim/nerdtree.vim
 source ~/.config/nvim/stata.vim
 source ~/.config/nvim/vimtex.vim
-source ~/.config/nvim/ncm2.vim
+source ~/.config/nvim/raku.vim
+source ~/.config/nvim/coc.vim
 source ~/.config/nvim/rfile.vim
 source ~/.config/nvim/basic.vim
 source ~/.config/nvim/KeyMap.vim
 source ~/.config/nvim/fzfConifg.vim
 source ~/.config/nvim/python.vim
+"source ~/.config/nvim/nerdtree.vim
 
-" quickfix 默认位置
-autocmd FileType qf wincmd J
 let g:python_host_skip_check=1
 let g:python3_host_skip_check=1
 if(has("mac"))
@@ -151,19 +166,9 @@ else
     let g:python_host_prog = '/usr/bin/python2'
     let g:python3_host_prog = '/usr/bin/python'
 endif
-" previm 配置
-let g:auto_save = 0    " 总 Vim 启动时即开启自动保存
-let g:auto_save_silent = 1
-let g:auto_save_events = ["BufLeave", "FocusLost", "WinLeave"]
 
-" Markdown 相关文件
-" open with Google Chrome
-" let g:previm_open_cmd = 'xdg-open'
-" .vimrc
-" Instead of using the default CSS and apply only your own CSS
-"let g:previm_disable_default_css = 1
-let g:previm_custom_css_path = '/home/liubianshi/Dropbox/Backup/markdown CSS/vue.css'
-autocmd BufNewFile,BufRead *.md g:UltiSnipsAddFiletypes markdown.md.pandoc
+" markdown 配置
+autocmd BufNewFile,BufRead *.md UltiSnipsAddFiletypes markdown.md.pandoc
 
 " 快捷键查询
 call which_key#register('<Space>', "g:which_key_map")
@@ -187,7 +192,7 @@ let g:which_key_map.f = {
       \ 'h' : 'v:oldfiles and open buffers',
       \ ':' : 'Command history',
       \ '/' : 'Search history',
-      \ 's' : 'Snippets (UltiSnips)',
+      \ 's' : 'Snippets(UltiSnips)',
       \ 'm' : 'Commands',
       \ 'l' : 'Lines in the current buffer',
       \ 'L' : 'Lines in loaded buffers',
@@ -215,5 +220,4 @@ let g:which_key_local.k = { 'name' : '+R_Knit' }
 let g:which_key_local.o = { 'name' : '+R_Open' }
 let g:which_key_local.g = { 'name' : '+R_Goto' }
 let g:which_key_local.x = { 'name' : '+R_Comment' }
-
 

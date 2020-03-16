@@ -13,7 +13,7 @@ let R_in_buffer = 1
 "let R_csv_app = 'terminal:sc-im'
 "let R_csv_delim = '\t'
 "let R_csv_app = 'tmux new-window sc-im'
-let R_csv_app = "tmux new-window /home/liubianshi/useScript/viewdata"
+let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"
 
 " 配置语法高亮的函数
 let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,data.table,fread,ggplot2,dplyr,tibble,stringr,forcats,readr,tidyr,purrr,fread,readxl,tidyverse'
@@ -25,14 +25,30 @@ augroup r_setup
     autocmd BufNewFile,BufRead *.[Rr]md set filetype=rmd
     autocmd FileType rmd,rmarkdown nnoremap <leader>nc
         \ :RNrrw<cr>:set filetype=r<cr>
-    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown 
-        \ setlocal formatoptions=tqcnmB1jo
+    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
+        \ formatoptions=tqcnmB1jo
+    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
+        \ tabstop=2
+    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
+        \ shiftwidth=2
+    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
+        \ breakat=
 
     " UltiSnips
     autocmd FileType rmd,rmarkdown :UltiSnipsAddFiletypes rmd.markdown
     " Abbreviate
     autocmd FileType r,rmd,rmarkdown,rmd.rmarkdown 
         \ :iabbrev <buffer> iff if ()<left>
+
+    " 切换补全工具
+    function! SourceNCM2 ()
+        call plug#load('nvim-yarp', 'ncm2', 'ncm-R', 'ncm2-bufword', 'ncm2-path', 'ncm2-ultisnips')
+        let b:coc_suggest_disable = 1 
+        call ncm2#enable_for_buffer()
+    endfunction
+    autocmd FileType r,rmd,rmarkdown nnoremap <silent> <localleader>S
+        \ :<c-u> call SourceNCM2()<cr>
+     
 
     " Nvim-R
     nmap , <Plug>RDSendLine

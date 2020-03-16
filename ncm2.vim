@@ -1,6 +1,11 @@
 augroup my_cm_setup
     autocmd!
-    autocmd FileType * call ncm2#enable_for_buffer()
+    autocmd FileType r,rmd,rmarkdown let b:coc_suggest_disable = 1 
+    autocmd FileType r,rmd,rmarkdown call ncm2#enable_for_buffer()
+    autocmd FileType r,rmd,rmarkdown let 
+        \ b:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)" 
+    autocmd FileType r,rmd,rmarkdown
+        \ inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
     set completeopt=noinsert,menuone,noselect
     "" Pandoc-Vim
     autocmd Filetype pandoc,rmd,rmarkdown,rmd.rmarkdown call ncm2#register_source({

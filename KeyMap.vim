@@ -120,21 +120,21 @@ noremap <leader>lt :LfNewTab<cr>
 
 " Coc.nvim 相关
 " Remap for format selected region
-"xnoremap <leader>F  <Plug>(coc-format-selected)
-"nnoremap <leader>F  <Plug>(coc-format-selected)
-"" Using CocList
-"" Show all diagnostics
-"nnoremap <silent> <space>la  :<C-u>CocList --normal diagnostics<cr>
-"" Manage extensions
-"nnoremap <silent> <space>le  :<C-u>CocList --normal extensions<cr>
-"" Show commands
-"nnoremap <silent> <space>lc  :<C-u>CocList --normal commands<cr>
-"" Show snippet
-"nnoremap <silent> <space>ls  :<C-u>CocList snippets<cr>
-"" Show files 
-"nnoremap <silent> <space>lf  :<C-u>CocList --normal --number-select files<cr>
-"" Resume latest coc list
-"nnoremap <silent> <space>lp  :<C-u>CocListResume<CR>
+xnoremap <leader>F  <Plug>(coc-format-selected)
+nnoremap <leader>F  <Plug>(coc-format-selected)
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>la  :<C-u>CocList --normal diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>le  :<C-u>CocList --normal extensions<cr>
+" Show commands
+nnoremap <silent> <space>lc  :<C-u>CocList --normal commands<cr>
+" Show snippet
+nnoremap <silent> <space>lS  :<C-u>CocList snippets<cr>
+" Show files 
+nnoremap <silent> <space>lf  :<C-u>CocList --normal --number-select files<cr>
+" Resume latest coc list
+nnoremap <silent> <space>lp  :<C-u>CocListResume<CR>
 
 " 处理 Markdown 和 Rmarkdown 文档
 autocmd FileType pandoc,md,markdown nnoremap <leader>pp
