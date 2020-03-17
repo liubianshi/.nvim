@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =0
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/home/liubianshi/Downloads'
 let g:netrw_dirhist_0='/home/liubianshi/Nutstore Files/Nutstore/工作相关/20200316 自课申请/注意事项.Rmd'
 let g:netrw_dirhist_9='/home/liubianshi'
 let g:netrw_dirhist_8='/home/liubianshi/.config/BaiduPCS-Go'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_5='/home/liubianshi/Nutstore Files/Nutstore/工作相关/202
 let g:netrw_dirhist_4='/home/liubianshi/Nutstore Files/Nutstore/Diary/191019_RMarkdown_做学术研究_cache'
 let g:netrw_dirhist_3='/home/liubianshi/Documents/econc/content/post'
 let g:netrw_dirhist_2='/home/liubianshi/Documents/econc/public'
-let g:netrw_dirhist_1='/home/liubianshi/Documents/econc/themes/Mainroad/static/js'

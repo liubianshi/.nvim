@@ -54,24 +54,8 @@ set nobackup
 set nowritebackup
 set updatetime=300
 set signcolumn=yes
-
-
-" IMPORTANT: :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
-" use <TAB> to select the popup menu:
-inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" UltiSnips 相关配置
-imap <c-u> <Plug>(ultisnips_expand)
-smap <c-u> <Plug>(ultisnips_expand)
-xmap <c-u> <Plug>(ultisnips_expand)
-let g:UltiSnipsExpandTrigger="<Plug>(ultisnips_expand)"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-let g:UltiSnipsUsePythonVersion = 3
-let g:UltiSnipsRemoveSelectModeMappings = 0
 
 " trim 尾部空格
 autocmd BufWritePre *.{md,pl,p6,rmd,r,do} :%s/\s\+$//e

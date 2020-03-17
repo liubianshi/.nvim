@@ -1,5 +1,5 @@
 " Neovim 配置文件
-call plug#begin('~/.local/share/nvim/plugged')
+    call plug#begin('~/.local/share/nvim/plugged')
 " 中文输入法 {{{
     if(has("mac"))
         ""Plug 'ybian/smartim'
@@ -53,6 +53,7 @@ call plug#begin('~/.local/share/nvim/plugged')
         let g:pandoc#folding#fdc = 0
         let g:pandoc#folding#fold_yaml = 1
         let g:pandoc#folding#fold_fenced_codeblocks = 1
+        autocmd BufNewFile,BufRead *.md UltiSnipsAddFiletypes markdown.md.pandoc
     Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['rmd', 'rmarkdown']}
         let g:tex_conceal = ""
     Plug 'vim-pandoc/vim-rmarkdown', {'for': ['rmd', 'rmarkdown']}
@@ -131,7 +132,7 @@ function! Status() " 开启状态栏
     call plug#load('vim-colorschemes', 'vim-airline', 'vim-airline-themes')
     set laststatus=1
 endfunction
-
+autocmd WinNew * call Status()
 
 augroup load_enter
   autocmd!
@@ -144,6 +145,9 @@ augroup load_enter
   autocmd InsertEnter * call plug#load('vim-snippets')
 augroup END
 
+let mapleader = " "
+let maplocalleader = ';'
+source ~/.config/nvim/basic.vim
 source ~/.config/nvim/goyoConfig.vim
 source ~/.config/nvim/ChineseSymbol.vim
 source ~/.config/nvim/stata.vim
@@ -151,10 +155,10 @@ source ~/.config/nvim/vimtex.vim
 source ~/.config/nvim/raku.vim
 source ~/.config/nvim/coc.vim
 source ~/.config/nvim/rfile.vim
-source ~/.config/nvim/basic.vim
 source ~/.config/nvim/KeyMap.vim
 source ~/.config/nvim/fzfConifg.vim
 source ~/.config/nvim/python.vim
+source ~/.config/nvim/whichkey.vim
 "source ~/.config/nvim/nerdtree.vim
 
 let g:python_host_skip_check=1
@@ -166,58 +170,3 @@ else
     let g:python_host_prog = '/usr/bin/python2'
     let g:python3_host_prog = '/usr/bin/python'
 endif
-
-" markdown 配置
-autocmd BufNewFile,BufRead *.md UltiSnipsAddFiletypes markdown.md.pandoc
-
-" 快捷键查询
-call which_key#register('<Space>', "g:which_key_map")
-call which_key#register(';', "g:which_key_local")
-nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ';'<CR>
-vnoremap <silent> <localleader> :<c-u>WhichKeyVisual ';'<CR>
-nnoremap <silent> s :<c-u>WhichKey  's'<CR>
-vnoremap <silent> s :<c-u>WhichKeyVisual 's'<CR>
-"nnoremap <silent> z :<c-u>WhichKey  'z'<CR>
-"vnoremap <silent> z :<c-u>WhichKeyVisual 'z'<CR>
-
-let g:which_key_map = {}
-let g:which_key_map.f = {
-      \ 'name' : '+FzfCommand',
-      \ 'f' : 'Files'    ,
-      \ 'b' : 'Open buffers',
-      \ 'c' : 'Color schemes',
-      \ 'a' : 'ag search result',
-      \ 'h' : 'v:oldfiles and open buffers',
-      \ ':' : 'Command history',
-      \ '/' : 'Search history',
-      \ 's' : 'Snippets(UltiSnips)',
-      \ 'm' : 'Commands',
-      \ 'l' : 'Lines in the current buffer',
-      \ 'L' : 'Lines in loaded buffers',
-      \ 't' : 'Tags in the current buffer',
-      \ 'T' : 'Tags in the project',
-      \ }
-let g:which_key_map.t = { 'name' : '+tabHandle' }
-let g:which_key_map.b = { 'name' : '+buffer' }
-let g:which_key_map.c = { 'name' : '+NerdCommander' }
-let g:which_key_map.e = { 'name' : '+EditFile' }
-let g:which_key_map.r = { 'name' : '+Rmarkdown' }
-let g:which_key_map.l = { 'name' : '+LfList' }
-
-let g:which_key_local = {}
-let g:which_key_local.a = { 'name' : '+R_File' }
-let g:which_key_local.b = { 'name' : '+R_Block' }
-let g:which_key_local.c = { 'name' : '+R_Chunk' }
-let g:which_key_local.f = { 'name' : '+R_Function' }
-let g:which_key_local.s = { 'name' : '+R_Selection_Sweave' }
-let g:which_key_local.p = { 'name' : '+R_Paragraph' }
-let g:which_key_local.r = { 'name' : '+R_Command' }
-let g:which_key_local.v = { 'name' : '+R_View' }
-let g:which_key_local.t = { 'name' : '+R_TabOutput' }
-let g:which_key_local.k = { 'name' : '+R_Knit' }
-let g:which_key_local.o = { 'name' : '+R_Open' }
-let g:which_key_local.g = { 'name' : '+R_Goto' }
-let g:which_key_local.x = { 'name' : '+R_Comment' }
-

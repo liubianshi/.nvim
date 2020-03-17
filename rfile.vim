@@ -54,12 +54,12 @@ augroup r_setup
     nmap , <Plug>RDSendLine
     vmap , <Plug>REDSendSelection
     nmap <LocalLeader>: :RSend 
-    autocmd FileType rmd,rmarkdown nnoremap ;kbp
+    autocmd FileType rmd,rmarkdown nnoremap <localleader>kbp
         \ :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::pdf_book")<cr>
-    autocmd FileType rmd,rmarkdown nnoremap ;kbh
+    autocmd FileType rmd,rmarkdown nnoremap <localleader>kbh
         \ :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::html_book")<cr>
     if(has("mac"))
-        autocmd FileType rmd,rmarkdown nnoremap ;kbo
+        autocmd FileType rmd,rmarkdown nnoremap <localleader>kbo
             \ :<c-u>! open ./_book/draft.pdf<cr> 
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
             \ inoremap <buffer> « <Esc>:normal! a%>%<CR>a
@@ -71,7 +71,7 @@ augroup r_setup
             \ nnoremap <buffer> ¡ <Plug>RDSendLine<CR>
         imap … <Esc>:RSend 
     else 
-        autocmd FileType rmd,rmarkdown nnoremap ;kbo
+        autocmd FileType rmd,rmarkdown nnoremap <localleader>kbo
             \ :<c-u>! xdg-open ./_book/draft.pdf<cr> 
         " Keymap
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
@@ -84,14 +84,14 @@ augroup r_setup
             \ nnoremap <buffer> <A-1> <Plug>RDSendLine<CR>
         imap <A-;> <Esc>:RSend 
     endif
-    autocmd FileType rmd,rmarkdown nnoremap ;kbv
+    autocmd FileType rmd,rmarkdown nnoremap <localleader>kbv
         \ :<c-u>RSend bookdown::preview_chapter(%)<cr>
-    autocmd FileType rmd,rmarkdown nnoremap ;P
+    autocmd FileType rmd,rmarkdown nnoremap <localleader>P
         \ :<c-u>call RMakeRmd("bookdown::pdf_document2")<cr>
-    autocmd FileType rmd,rmarkdown nnoremap ;H
+    autocmd FileType rmd,rmarkdown nnoremap <localleader>H
         \ :<c-u>call RMakeRmd("bookdown::html_document2")<cr>
     " R package development
-    autocmd FileType r nnoremap ;dl :<c-u>RSend devtools::load_all()<cr>
-    autocmd FileType r nnoremap ;dd :<c-u>RSend devtools::document()<cr>
+    autocmd FileType r nnoremap <localleader>dl :<c-u>RSend devtools::load_all()<cr>
+    autocmd FileType r nnoremap <localleader>dd :<c-u>RSend devtools::document()<cr>
 augroup END
      

@@ -1,19 +1,26 @@
-" Key Map Config
-let mapleader = " "
-let maplocalleader = ';'
-let g:ctrlp_map = '<c-f>'
+" IMPORTANT: :help Ncm2PopupOpen for more information
+" use <TAB> to select the popup menu:
+inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<down>"
+inoremap <expr> <Up> pumvisible() ? "\<C-p>" : "\<up>"
 
+" UltiSnips 相关配置
+imap <c-u> <Plug>(ultisnips_expand)
+smap <c-u> <Plug>(ultisnips_expand)
+xmap <c-u> <Plug>(ultisnips_expand)
+let g:UltiSnipsExpandTrigger="<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsUsePythonVersion = 3
+let g:UltiSnipsRemoveSelectModeMappings = 0
+" Key Map Config
 nnoremap <leader>zz :<c-u>call Status()<CR>
 nnoremap <leader><leader> :AsyncRun<space>
 nnoremap <leader>pwd :silent execute ":lcd" . expand("%:p:h")<cr>
-inoremap ;<space> <Esc>
-inoremap <Down> <Esc>
-inoremap ;; ;
-"inoremap <Esc> <nop>
-inoremap <C-j> <esc>A;<cr>
+inoremap <tab><space> <Esc>
+inoremap <A-space> <Esc>
 
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>ek :vsplit ~/.config/nvim/KeyMap.vim<cr>
+nnoremap <leader>ev :tabedit $MYVIMRC<cr>
+nnoremap <leader>ek :tabedit ~/.config/nvim/KeyMap.vim<cr>
 nnoremap <leader>eV :source $MYVIMRC<cr>
 
 " 1. Normal 模式下
@@ -37,37 +44,34 @@ else
     noremap <A-o> o<Esc>
     noremap <A-O> O<Esc>
 endif
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
 
 nnoremap <leader>w :w!<cr>
+nnoremap <leader>q :q<cr>
+nnoremap <leader>p "0p
+
 if(has("mac"))
-    nnoremap <leader>O :! open "%"<cr>
+    nnoremap <leader>O :AsyncRun open "%"<cr>
 else
-    nnoremap <leader>O :! xdg-open "%"<cr>
+    nnoremap <leader>O :AsyncRun xdg-open "%"<cr>
 endif
 nnoremap <silent> <leader><cr> :noh<cr>
 
-
 " tab managing
-nnoremap <leader>tt :tabnew<cr>
-nnoremap <leader>td :tabclose<cr>
-nnoremap <leader>tn :tabnext<cr>
-nnoremap <leader>tp :tabprevious<cr>
-nnoremap <leader>tN :tablast<cr>
-nnoremap <leader>tP :tabfirst<cr>
-nnoremap <leader>tl :tabs<cr>
+nnoremap <tab>n :tabnew<cr>
+nnoremap <tab>x :tabclose<cr>
+nnoremap <tab>k :tabnext<cr>
+nnoremap <tab>j :tabprevious<cr>
 
 " buffer managing
-nnoremap <leader>bn :bn<cr>
-nnoremap <leader>bp :bp<cr>
-nnoremap <leader>bl :<c-u>Clap buffers<cr>
-
+nnoremap <space>bk :<c-u>bn<cr>
+nnoremap <space>bj :<c-u>bp<cr>
 
 " 缩进
-nnoremap <tab> V>
-nnoremap <s-tab> V<
+inoremap <tab> noh
+nnoremap <tab><tab> V>
 vnoremap <tab> >gv
+nnoremap <s-tab> V<
 vnoremap <s-tab> <gv
 
 " Visual mode pressing * or # searches for the current selection
@@ -98,8 +102,11 @@ nnoremap <silent> <leader>T :TranslateClear<CR>:set nopaste<CR>
 cnoremap sw w !sudo tee >/dev/null % 
 
 " 5. 终端模式下
-tnoremap ;<space> <C-\><C-n>
-
+if(has('mac'))
+    tnoremap <A-space> <C-\><C-n>
+else
+    tnoremap <A-space> <C-\><C-n>
+endif
 
 " Goyo and zenroom2
 nnoremap <leader>z :Goyo<cr>
@@ -107,15 +114,12 @@ nnoremap <leader>z :Goyo<cr>
 " 行操作
 noremap j gj
 noremap k gk
-noremap <Down> gj
-noremap <Up> gk
 
 " 格式化
 noremap <leader>q Vgq
 noremap <leader>Q vipJVgq
 
 " 文件操作 lf-vim 相关快捷键
-noremap <leader>nt :NERDTreeToggle<cr>
 noremap <leader>lr :Lf<cr>
 noremap <leader>ls :split +Lf<cr>
 noremap <leader>lv :vertical split +Lf<cr>
@@ -127,17 +131,17 @@ xnoremap <leader>F  <Plug>(coc-format-selected)
 nnoremap <leader>F  <Plug>(coc-format-selected)
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> <space>la  :<C-u>CocList --normal diagnostics<cr>
+nnoremap <silent> <leader>la  :<C-u>CocList --normal diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <space>le  :<C-u>CocList --normal extensions<cr>
+nnoremap <silent> <leader>le  :<C-u>CocList --normal extensions<cr>
 " Show commands
-nnoremap <silent> <space>lc  :<C-u>CocList --normal commands<cr>
+nnoremap <silent> <leader>lc  :<C-u>CocList --normal commands<cr>
 " Show snippet
-nnoremap <silent> <space>lS  :<C-u>CocList snippets<cr>
+nnoremap <silent> <leader>lS  :<C-u>CocList snippets<cr>
 " Show files 
-nnoremap <silent> <space>lf  :<C-u>CocList --normal --number-select files<cr>
+nnoremap <silent> <leader>lf  :<C-u>CocList --normal --number-select files<cr>
 " Resume latest coc list
-nnoremap <silent> <space>lp  :<C-u>CocListResume<CR>
+nnoremap <silent> <leader>lp  :<C-u>CocListResume<CR>
 
 " 处理 Markdown 和 Rmarkdown 文档
 autocmd FileType pandoc,md,markdown nnoremap <leader>pp
@@ -149,27 +153,23 @@ autocmd BufEnter,BufNewFile *.[Rr]md nnoremap <leader>rp
 autocmd BufEnter,BufNewFile *.[Rr]md nnoremap <leader>rh
     \ :AsyncRun ~/useScript/rmarkdown.sh -o bookdown::html_document2 %<cr>
 autocmd FileType pandoc,rmd,rmarkdown,raku,perl6,markdown
-    \ inoremap ;<CR> <Esc>A;<CR>
+    \ inoremap <tab><CR> <Esc>A;<CR>
 autocmd FileType pandoc,rmd,rmarkdown,raku,perl6,markdown
-    \ nnoremap ;<CR> <Esc>A;<CR>
+    \ nnoremap <tab><CR> <Esc>A;<CR>
 
 
 if(has("mac"))
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po
-        \ :! open "%:r.pdf"<cr> 
+        \ :AsyncRun open "%:r.pdf"<cr> 
+    autocmd BufEnter,BufNewFile *.[Rr]md,*.md nnoremap <leader>ho
+        \ :AsyncRun open "%:r.html"<cr> 
 else
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po
-        \ :! xdg-open "%:r.pdf"<cr> 
+        \ :AsyncRun xdg-open "%:r.pdf"<cr> 
+    autocmd BufEnter,BufNewFile *.[Rr]md,*.md nnoremap <leader>ho
+        \ :AsyncRun xdg-open "%:r.html"<cr> 
 endif
 
-autocmd FileType pandoc,md,markdown,rmarkdown inoremap ;j
-    \ $$<esc>i
-autocmd FileType pandoc,md,markdown,rmarkdown inoremap ;k
-    \ ``<esc>i
-autocmd FileType pandoc,md,markdown,rmarkdown inoremap ;i
-    \ **<esc>i
-autocmd FileType pandoc,md,markdown,rmarkdown inoremap ;b
-    \ ****<esc>hi
 " Bib 相关
 if(has("mac"))
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>ab
@@ -185,23 +185,20 @@ function! RmdClipBoardImage()
     call mdip#MarkdownClipboardImage()
     execute "normal! g_\"iyi)VCknitr::include_graphics('')\<esc>F'\"iPo```\n" 
 endfunction
-autocmd FileType pandoc,markdown,md nnoremap <silent> <leader>pi
+autocmd FileType pandoc,markdown,md nnoremap <silent> <localleader>pi
     \ :<c-u>call mdip#MarkdownClipboardImage()<CR>
-autocmd FileType rmd,rmarkdown,rmd.rmarkdown nnoremap <silent> <leader>pi
+autocmd FileType rmd,rmarkdown,rmd.rmarkdown nnoremap <silent> <localleader>pi
     \ :<c-u>call RmdClipBoardImage()<CR>
-
-autocmd FileType pandoc,md,markdown,Rmd,rmd,rmarkdown nmap <leader>ic ysiW`
+autocmd FileType pandoc,md,markdown,Rmd,rmd,rmarkdown nmap <localleader>ic ysiW`
 
 " Easymotion Related
 nmap ss <Plug>(easymotion-overwin-f2)
 nmap sS <Plug>(easymotion-overwin-line)
 nmap sl <Plug>(easymotion-sl)
-"nmap sf <Plug>(easymotion-lineforward)
-nmap sb <Plug>(easymotion-linebackward)
 nmap sj <plug>(easymotion-j)
 nmap sJ <plug>(easymotion-eol-j)
 nmap sk <plug>(easymotion-k)
-nmap sK <plug>(easymotion-eol-K)
+nmap sK <plug>(easymotion-eol-k)
 nmap sn <Plug>(easymotion-n)
 nmap sN <Plug>(easymotion-N)
 nmap sf <Plug>(easymotion-f2)
@@ -219,12 +216,12 @@ nmap sgE <Plug>(easymotion-gE)
 
 function! SearchChinese() 
     silent execute '!fcitx-remote -o'
-    call EasyMotion#S(2,0,0)
+    call EasyMotion#S(2,0,2)
     silent exe '!fcitx-remote -c'
 endfunction 
 function! SearchChineseLine() 
     silent execute '!fcitx-remote -o'
-    call EasyMotion#SL(1,0,0)
+    call EasyMotion#SL(1,0,2)
     silent exe '!fcitx-remote -c'
 endfunction 
 nmap sc :<c-u>call SearchChineseLine()<cr>
