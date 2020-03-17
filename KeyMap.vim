@@ -68,7 +68,10 @@ nnoremap <space>bk :<c-u>bn<cr>
 nnoremap <space>bj :<c-u>bp<cr>
 
 " 缩进
-inoremap <tab> <Nop>
+inoremap <tab>2 <space><space>
+inoremap <tab>4 <tab>
+inoremap <tab>6 <esc>6i<space><esc>a
+inoremap <tab>8 <esc>8i<space><esc>a
 nnoremap <tab><tab> V>
 vnoremap <tab> >gv
 nnoremap <s-tab> V<

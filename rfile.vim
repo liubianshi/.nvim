@@ -29,9 +29,9 @@ augroup r_setup
         \ formatoptions=tqcnmB1jo
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
         \ tabstop=2
-    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
+    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
         \ shiftwidth=2
-    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
+    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
         \ breakat=
 
     " UltiSnips
