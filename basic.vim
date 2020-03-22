@@ -38,14 +38,15 @@ set wrap                   " 代码折行
 set sidescroll=5
 set listchars+=precedes:<,extends:>
 set formatoptions=tqcnmB1jo
-set wrapmargin=0           " 指定拆行处与编辑窗口右边缘之间空出的字符数
+set wrapmargin=2           " 指定拆行处与编辑窗口右边缘之间空出的字符数
 set textwidth=0
 set ai              " 自动缩进
 set si              " 智能缩进
 set linebreak
 set breakindent
-"let &brk = " ^I!@*-+;:,./?"
-let &showbreak = ''
+let &brk = " ^I!@*-+;:,./?"
+let &showbreak = '» '
+set foldmethod=marker
 
 
 " coc.nvim 推荐设置
@@ -73,4 +74,7 @@ set fdls=0
 " 高亮当前行
 "autocmd InsertLeave,WinEnter * set cursorline
 "autocmd InsertEnter,WinLeave * set nocursorline
+
+" 字典
+set dictionary=~/.config/nvim/paper.dict
 

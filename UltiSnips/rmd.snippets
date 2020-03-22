@@ -10,14 +10,12 @@ snippet cbl "Codeline" w
 $0
 endsnippet
 
-
-
 snippet rmd "Header" b
 ---
 title: "`!p snip.rv = snip.basename`"
 author: "罗伟"
 date: "\`r Sys.Date()\`"
-# bibliography: "`!p snip.rv = snip.basename`.bib"
+bibliography: "ref.bib"
 fontsize: 11pt
 output:
 	bookdown::pdf_document2:

@@ -1,3 +1,4 @@
+" Nvim-R 变量设置{{{
 let R_app = "radian"
 let R_cmd = "R"
 let R_hl_term = 0
@@ -6,51 +7,47 @@ let R_openpdf = 1
 let R_bracketed_paste = 1
 let R_rcomment_string = '#> '
 let R_hi_fun_globenv = 1
-"let R_assign_map = '<A-=>'
 let R_assign = 0
-
 let R_in_buffer = 1
+let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"
+"let R_assign_map = '<A-=>'
 "let R_csv_app = 'terminal:sc-im'
 "let R_csv_delim = '\t'
 "let R_csv_app = 'tmux new-window sc-im'
-let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"
-
 " 配置语法高亮的函数
 let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,data.table,fread,ggplot2,dplyr,tibble,stringr,forcats,readr,tidyr,purrr,fread,readxl,tidyverse'
-
-" 设置 R 和 Rmarkdown 文档
+"}}}
+" 自动启动命令组 {{{
 augroup r_setup
     autocmd!
-    " Format
+" Format Setting{{{
     autocmd BufNewFile,BufRead *.[Rr]md set filetype=rmd
     autocmd FileType rmd,rmarkdown nnoremap <leader>nc
         \ :RNrrw<cr>:set filetype=r<cr>
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
         \ formatoptions=tqcnmB1jo
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
-        \ tabstop=2
+        \ tabstop=4
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
-        \ shiftwidth=2
+        \ shiftwidth=4
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
-        \ breakat=
-
-    " UltiSnips
-    autocmd FileType rmd,rmarkdown :UltiSnipsAddFiletypes rmd.markdown
-    " Abbreviate
-    autocmd FileType r,rmd,rmarkdown,rmd.rmarkdown 
-        \ :iabbrev <buffer> iff if ()<left>
-
-    " 切换补全工具
-    function! SourceNCM2 ()
-        call plug#load('nvim-yarp', 'ncm2', 'ncm-R', 'ncm2-bufword', 'ncm2-path', 'ncm2-ultisnips')
-        let b:coc_suggest_disable = 1 
-        call ncm2#enable_for_buffer()
-    endfunction
-    autocmd FileType r,rmd,rmarkdown nnoremap <silent> <localleader>S
-        \ :<c-u> call SourceNCM2()<cr>
-     
-
-    " Nvim-R
+        \ breakat=""
+"}}}
+" 便捷符号输入{{{
+    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown
+        \ inoremap <tab>- <esc>m0^d0i-<space><esc>`0a
+    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown
+        \ inoremap <tab>= <esc>m0^d0i1.<space><esc>`0a
+    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown
+        \ inoremap <tab>_ <esc>m0^d0i<tab>-<space><esc>`0a
+    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown
+        \ inoremap <tab>+ <esc>m0^d0i<tab>1.<space><esc>`0a
+    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown 
+        \ inoremap <tab>0 ` `<C-o>F <c-o>x
+    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown 
+        \ inoremap <tab>9 $ $<C-o>F <c-o>x
+"}}}
+" Nvim-R 相关的快捷键{{{
     nmap , <Plug>RDSendLine
     vmap , <Plug>REDSendSelection
     nmap <LocalLeader>: :RSend 
@@ -93,5 +90,16 @@ augroup r_setup
     " R package development
     autocmd FileType r nnoremap <localleader>dl :<c-u>RSend devtools::load_all()<cr>
     autocmd FileType r nnoremap <localleader>dd :<c-u>RSend devtools::document()<cr>
+"}}}
+" view dataframe{{{
+    function! R_view_df(row, method)
+        let dfname = expand("<cword>")
+        call g:SendCmdToR('fViewDFonVim("' . dfname . '", ' . a:row . ', "' . a:method . '")')
+    endfunction
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>tv :<c-u>call R_view_df(40, 'ht')<cr>
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>tr :<c-u>call R_view_df(40, 'r')<cr>
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>th :<c-u>call R_view_df(40, 'h')<cr>
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>tt :<c-u>call R_view_df(40, 't')<cr>
+"}}}
 augroup END
-     
+     "}}}

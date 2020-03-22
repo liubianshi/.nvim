@@ -1,0 +1,859 @@
+
+
+
+   <M-n>       *@:call AutoPairsJump()<CR>
+	最近修改于 ~/.local/share/nvim/plugged/auto-pairs/plugin/auto-pairs.vim line 577
+   <M-p>       *@:call AutoPairsToggle()<CR>
+	最近修改于 ~/.local/share/nvim/plugged/auto-pairs/plugin/auto-pairs.vim line 572
+s  <C-H>       * <C-G>"_c
+	最近修改于 ~/.local/share/nvim/plugged/UltiSnips/autoload/UltiSnips/map_keys.vim line 72
+s  <Tab>       * <Esc>:call UltiSnips#ExpandSnippet()<CR>
+	最近修改于 ~/.local/share/nvim/plugged/UltiSnips/autoload/UltiSnips/map_keys.vim line 62
+n  <Tab>p      * "0p
+	最近修改于 ~/.config/nvim/KeyMap.vim line 103
+n  <Tab><Tab>  * V>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 99
+n  <Tab>j      * :tabprevious<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 91
+n  <Tab>k      * :tabnext<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 90
+n  <Tab>x      * :tabclose<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 89
+n  <Tab>n      * :tabnew<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 88
+x  <Tab>       * :call UltiSnips#SaveLastVisualSelection()<CR>gvs
+	最近修改于 ~/.local/share/nvim/plugged/UltiSnips/autoload/UltiSnips/map_keys.vim line 64
+n  <Tab>       * :<C-U>WhichKey  '<Tab>'
+	最近修改于 ~/.config/nvim/whichkey.vim line 55
+s  <C-R>       * <C-G>"_c<C-R>
+	最近修改于 ~/.local/share/nvim/plugged/UltiSnips/autoload/UltiSnips/map_keys.vim line 73
+n  <Space>ca     <Plug>NERDCommenterAltDelims
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+x  <Space>cu     <Plug>NERDCommenterUncomment
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+n  <Space>cu     <Plug>NERDCommenterUncomment
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+x  <Space>cb     <Plug>NERDCommenterAlignBoth
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+n  <Space>cb     <Plug>NERDCommenterAlignBoth
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+x  <Space>cl     <Plug>NERDCommenterAlignLeft
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+n  <Space>cl     <Plug>NERDCommenterAlignLeft
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+n  <Space>cA     <Plug>NERDCommenterAppend
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+x  <Space>cy     <Plug>NERDCommenterYank
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+n  <Space>cy     <Plug>NERDCommenterYank
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+x  <Space>cs     <Plug>NERDCommenterSexy
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+n  <Space>cs     <Plug>NERDCommenterSexy
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+x  <Space>ci     <Plug>NERDCommenterInvert
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+n  <Space>ci     <Plug>NERDCommenterInvert
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+n  <Space>c$     <Plug>NERDCommenterToEOL
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+x  <Space>cn     <Plug>NERDCommenterNested
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+n  <Space>cn     <Plug>NERDCommenterNested
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+x  <Space>cm     <Plug>NERDCommenterMinimal
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+n  <Space>cm     <Plug>NERDCommenterMinimal
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+x  <Space>c<Space>   <Plug>NERDCommenterToggle
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+n  <Space>c<Space>   <Plug>NERDCommenterToggle
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+x  <Space>cc     <Plug>NERDCommenterComment
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+n  <Space>cc     <Plug>NERDCommenterComment
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3175
+n  <Space>w<Space>w   <Plug>(wiki-journal)
+	最近修改于 ~/.local/share/nvim/plugged/wiki.vim/autoload/wiki/init.vim line 34
+n  <Space>wn     <Plug>(wiki-open)
+	最近修改于 ~/.local/share/nvim/plugged/wiki.vim/autoload/wiki/init.vim line 34
+n  <Space>ww     <Plug>(wiki-index)
+	最近修改于 ~/.local/share/nvim/plugged/wiki.vim/autoload/wiki/init.vim line 34
+n  <Space>wx     <Plug>(wiki-reload)
+	最近修改于 ~/.local/share/nvim/plugged/wiki.vim/autoload/wiki/init.vim line 34
+n  <Space>bd   * :Bclose<CR>
+	最近修改于 ~/.local/share/nvim/plugged/bclose.vim/plugin/bclose.vim line 79
+   <Space>FQ   * vipJVgq
+	最近修改于 ~/.config/nvim/KeyMap.vim line 53
+   <Space>Fq   * Vgq
+	最近修改于 ~/.config/nvim/KeyMap.vim line 52
+   <Space>lt   * :LfNewTab<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 48
+   <Space>lv   * :vertical split +Lf<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 47
+   <Space>ls   * :split +Lf<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 46
+   <Space>lr   * :Lf<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 45
+n  <Space>T    * :TranslateClear<CR>:set nopaste<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 42
+v  <Space>T    * :TranslateVisual<CR>:b Translation<CR>y$:b #<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 41
+n  <Space>bj   * :<C-U>bp<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 38
+n  <Space>bk   * :<C-U>bn<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 37
+n  <Space>z    * :Goyo<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 34
+n  <Space><CR> * :noh<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 31
+n  <Space>eV   * :source $MYVIMRC<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 30
+n  <Space>ek   * :tabedit ~/.config/nvim/KeyMap.vim<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 29
+n  <Space>ev   * :tabedit $MYVIMRC<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 28
+n  <Space>O    * :AsyncRun xdg-open "%"<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 24
+n  <Space>q    * :call QuickfixToggle()<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 7
+n  <Space>x    * :q<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 5
+n  <Space>C    * :<C-U> call ChangeCompleteEngine()<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 4
+n  <Space>p    * :<C-U>execute "cd" expand("%:p:h")<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 3
+n  <Space>w    * :w!<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 2
+n  <Space><Space> * :AsyncRun<Space>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 1
+v  <Space>     * :<C-U>WhichKeyVisual ' '<CR>
+	最近修改于 ~/.config/nvim/whichkey.vim line 5
+n  <Space>     * :<C-U>WhichKey ' '<CR>
+	最近修改于 ~/.config/nvim/whichkey.vim line 4
+n  <Space>fT   * :FzfTags<CR>
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 27
+n  <Space>ft   * :FzfBTags<CR>
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 26
+n  <Space>fL   * :FzfLines<CR>
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 25
+n  <Space>fl   * :FzfBLines<CR>
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 24
+n  <Space>fm   * :FzfCommands<CR>
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 23
+n  <Space>fs   * :FzfSnippets<CR>
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 22
+n  <Space>f/   * :FzfHistory/<CR>
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 21
+n  <Space>f:   * :FzfHistory:<CR>
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 20
+n  <Space>fh   * :FzfHistory<CR>
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 19
+n  <Space>fa   * :<C-U>FzfAg<Space>
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 18
+n  <Space>fc   * :FzfColors<CR>
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 17
+n  <Space>fb   * :FzfBuffers<CR>
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 16
+n  <Space>ff   * :FzfFiles<CR>
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 15
+o  <Space><Tab>   <Plug>(fzf-maps-o)
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 6
+x  <Space><Tab>   <Plug>(fzf-maps-x)
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 5
+n  <Space><Tab>   <Plug>(fzf-maps-n)
+	最近修改于 ~/.config/nvim/fzfConifg.vim line 4
+v  #           * :<C-U>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>:
+	最近修改于 ~/.config/nvim/KeyMap.vim line 124
+o  %             <Plug>(MatchitOperationForward)
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 60
+x  %             <Plug>(MatchitVisualForward)
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 58
+n  %             <Plug>(MatchitNormalForward)
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 56
+v  *           * :<C-U>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 123
+v  ,             <Plug>REDSendSelection
+	最近修改于 ~/.config/nvim/rfile.vim line 43
+n  ,             <Plug>RDSendLine
+	最近修改于 ~/.config/nvim/rfile.vim line 42
+   /             <Plug>(incsearch-forward)
+	最近修改于 ~/.config/nvim/init.vim line 136
+v  ;           * :<C-U>WhichKeyVisual ';'<CR>
+	最近修改于 ~/.config/nvim/whichkey.vim line 33
+n  ;           * :<C-U>WhichKey  ';'<CR>
+	最近修改于 ~/.config/nvim/whichkey.vim line 32
+n  ;:            :RSend<Space>
+	最近修改于 ~/.config/nvim/rfile.vim line 44
+   ?             <Plug>(incsearch-backward)
+	最近修改于 ~/.config/nvim/init.vim line 137
+x  @(targets)  * :<C-U>call targets#do()<CR>
+	最近修改于 ~/.local/share/nvim/plugged/targets.vim/plugin/targets.vim line 43
+o  @(targets)  * :<C-U>call targets#do()<CR>
+	最近修改于 ~/.local/share/nvim/plugged/targets.vim/plugin/targets.vim line 42
+x  A             targets#e('o', 'A', 'A')
+	最近修改于 ~/.local/share/nvim/plugged/targets.vim/plugin/targets.vim line 33
+o  A             targets#e('o', 'A', 'A')
+	最近修改于 ~/.local/share/nvim/plugged/targets.vim/plugin/targets.vim line 32
+n  H           * <C-W>h
+	最近修改于 ~/.config/nvim/KeyMap.vim line 67
+x  I             targets#e('o', 'I', 'I')
+	最近修改于 ~/.local/share/nvim/plugged/targets.vim/plugin/targets.vim line 33
+o  I             targets#e('o', 'I', 'I')
+	最近修改于 ~/.local/share/nvim/plugged/targets.vim/plugin/targets.vim line 32
+n  J           * <C-W>j
+	最近修改于 ~/.config/nvim/KeyMap.vim line 65
+n  K           * <C-W>k
+	最近修改于 ~/.config/nvim/KeyMap.vim line 66
+n  L           * <C-W>l
+	最近修改于 ~/.config/nvim/KeyMap.vim line 68
+x  S             <Plug>VSurround
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 608
+o  [%            <Plug>(MatchitOperationMultiBackward)
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 75
+x  [%            <Plug>(MatchitVisualMultiBackward)
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 73
+n  [%            <Plug>(MatchitNormalMultiBackward)
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 71
+o  ]%            <Plug>(MatchitOperationMultiForward)
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 76
+x  ]%            <Plug>(MatchitVisualMultiForward)
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 74
+n  ]%            <Plug>(MatchitNormalMultiForward)
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 72
+x  a%            <Plug>(MatchitVisualTextObject)
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 80
+x  a             targets#e('o', 'a', 'a')
+	最近修改于 ~/.local/share/nvim/plugged/targets.vim/plugin/targets.vim line 33
+o  a             targets#e('o', 'a', 'a')
+	最近修改于 ~/.local/share/nvim/plugged/targets.vim/plugin/targets.vim line 32
+n  cS            <Plug>CSurround
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 602
+n  cs            <Plug>Csurround
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 601
+n  ds            <Plug>Dsurround
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 600
+v  gx            <Plug>NetrwBrowseXVis
+	最近修改于 /usr/share/nvim/runtime/plugin/netrwPlugin.vim line 88
+n  gx            <Plug>NetrwBrowseX
+	最近修改于 /usr/share/nvim/runtime/plugin/netrwPlugin.vim line 82
+o  g%            <Plug>(MatchitOperationBackward)
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 61
+x  g%            <Plug>(MatchitVisualBackward)
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 59
+n  g%            <Plug>(MatchitNormalBackward)
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 57
+x  gS            <Plug>VgSurround
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 609
+   g/            <Plug>(incsearch-stay)
+	最近修改于 ~/.config/nvim/init.vim line 138
+x  i             targets#e('o', 'i', 'i')
+	最近修改于 ~/.local/share/nvim/plugged/targets.vim/plugin/targets.vim line 33
+o  i             targets#e('o', 'i', 'i')
+	最近修改于 ~/.local/share/nvim/plugged/targets.vim/plugin/targets.vim line 32
+   j           * gj
+	最近修改于 ~/.config/nvim/KeyMap.vim line 130
+   k           * gk
+	最近修改于 ~/.config/nvim/KeyMap.vim line 131
+n  sC            :<C-U>call SearchChinese()<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 210
+n  sc            :<C-U>call SearchChineseLine()<CR>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 209
+n  sgE           <Plug>(easymotion-gE)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 197
+n  sge           <Plug>(easymotion-ge)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 196
+n  sE            <Plug>(easymotion-E)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 195
+n  se            <Plug>(easymotion-e)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 194
+n  sB            <Plug>(easymotion-B)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 193
+n  sb            <Plug>(easymotion-b)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 192
+n  sW            <Plug>(easymotion-W)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 191
+n  sw            <Plug>(easymotion-w)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 190
+n  sT            <Plug>(easymotion-T2)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 189
+n  st            <Plug>(easymotion-t2)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 188
+n  sF            <Plug>(easymotion-F2)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 187
+n  sf            <Plug>(easymotion-f2)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 186
+n  sN            <Plug>(easymotion-N)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 185
+n  sn            <Plug>(easymotion-n)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 184
+n  sK            <Plug>(easymotion-eol-k)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 183
+n  sk            <Plug>(easymotion-k)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 182
+n  sJ            <Plug>(easymotion-eol-j)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 181
+n  sj            <Plug>(easymotion-j)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 180
+n  sl            <Plug>(easymotion-sl)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 179
+n  sS            <Plug>(easymotion-overwin-line)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 178
+n  ss            <Plug>(easymotion-overwin-f2)
+	最近修改于 ~/.config/nvim/KeyMap.vim line 177
+v  s           * :<C-U>WhichKeyVisual 's'<CR>
+	最近修改于 ~/.config/nvim/whichkey.vim line 50
+n  s           * :<C-U>WhichKey  's'<CR>
+	最近修改于 ~/.config/nvim/whichkey.vim line 49
+n  y<C-G>      & :<C-U>call setreg(v:register, fugitive#Object(@%))<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-fugitive/plugin/fugitive.vim line 519
+n  ySS           <Plug>YSsurround
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 607
+n  ySs           <Plug>YSsurround
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 606
+n  yss           <Plug>Yssurround
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 605
+n  yS            <Plug>YSurround
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 604
+n  ys            <Plug>Ysurround
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 603
+n  <SNR>112_:  * :<C-U><C-R>=v:count ? v:count : ''<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-fugitive/autoload/fugitive.vim line 5840
+v  <Plug>NetrwBrowseXVis * :<C-U>call netrw#BrowseXVis()<CR>
+	最近修改于 /usr/share/nvim/runtime/plugin/netrwPlugin.vim line 90
+n  <Plug>NetrwBrowseX * :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())<CR>
+	最近修改于 /usr/share/nvim/runtime/plugin/netrwPlugin.vim line 84
+v  <Plug>(MatchitVisualTextObject)   <Plug>(MatchitVisualMultiBackward)o<Plug>(MatchitVisualMultiForward)
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 79
+o  <Plug>(MatchitOperationMultiForward) * :<C-U>call matchit#MultiMatch("W",  "o")<CR>
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 69
+o  <Plug>(MatchitOperationMultiBackward) * :<C-U>call matchit#MultiMatch("bW", "o")<CR>
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 68
+v  <Plug>(MatchitVisualMultiForward) * :<C-U>call matchit#MultiMatch("W",  "n")<CR>m'gv``
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 67
+v  <Plug>(MatchitVisualMultiBackward) * :<C-U>call matchit#MultiMatch("bW", "n")<CR>m'gv``
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 66
+n  <Plug>(MatchitNormalMultiForward) * :<C-U>call matchit#MultiMatch("W",  "n")<CR>
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 65
+n  <Plug>(MatchitNormalMultiBackward) * :<C-U>call matchit#MultiMatch("bW", "n")<CR>
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 64
+o  <Plug>(MatchitOperationBackward) * :<C-U>call matchit#Match_wrapper('',0,'o')<CR>
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 54
+o  <Plug>(MatchitOperationForward) * :<C-U>call matchit#Match_wrapper('',1,'o')<CR>
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 53
+v  <Plug>(MatchitVisualBackward) * :<C-U>call matchit#Match_wrapper('',0,'v')<CR>m'gv``
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 52
+v  <Plug>(MatchitVisualForward) * :<C-U>call matchit#Match_wrapper('',1,'v')<CR>m'gv``
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 51
+n  <Plug>(MatchitNormalBackward) * :<C-U>call matchit#Match_wrapper('',0,'n')<CR>
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 50
+n  <Plug>(MatchitNormalForward) * :<C-U>call matchit#Match_wrapper('',1,'n')<CR>
+	最近修改于 /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim line 49
+n  <Plug>TranslateReplace * :set operatorfunc=translate#replace_operator<CR>g@
+	最近修改于 ~/.local/share/nvim/plugged/vim-translate/plugin/translate.vim line 13
+n  <Plug>Translate * :set operatorfunc=translate#operator<CR>g@
+	最近修改于 ~/.local/share/nvim/plugged/vim-translate/plugin/translate.vim line 12
+   <Plug>(_incsearch-g#) * g#
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 72
+   <Plug>(_incsearch-g*) * g*
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 71
+   <Plug>(_incsearch-#) * #
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 70
+   <Plug>(_incsearch-*) * *
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 69
+   <Plug>(_incsearch-N) * g:incsearch#consistent_n_direction && !v:searchforward ? 'n' : 'N'
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 68
+   <Plug>(_incsearch-n) * g:incsearch#consistent_n_direction && !v:searchforward ? 'N' : 'n'
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 67
+   <Plug>(incsearch-nohl-g#)   <Plug>(incsearch-nohl)<Plug>(_incsearch-g#)
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 63
+   <Plug>(incsearch-nohl-g*)   <Plug>(incsearch-nohl)<Plug>(_incsearch-g*)
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 62
+   <Plug>(incsearch-nohl-#)   <Plug>(incsearch-nohl)<Plug>(_incsearch-#)
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 61
+   <Plug>(incsearch-nohl-*)   <Plug>(incsearch-nohl)<Plug>(_incsearch-*)
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 60
+   <Plug>(incsearch-nohl-N)   <Plug>(incsearch-nohl)<Plug>(_incsearch-N)
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 59
+   <Plug>(incsearch-nohl-n)   <Plug>(incsearch-nohl)<Plug>(_incsearch-n)
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 58
+   <Plug>(incsearch-nohl2) * incsearch#autocmd#auto_nohlsearch(2)
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 55
+   <Plug>(incsearch-nohl0) * incsearch#autocmd#auto_nohlsearch(0)
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 54
+   <Plug>(incsearch-nohl) * incsearch#autocmd#auto_nohlsearch(1)
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 53
+   <Plug>(incsearch-stay) * incsearch#go({'command': '/', 'is_stay': 1})
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 44
+   <Plug>(incsearch-backward) * incsearch#go({'command': '?'})
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 43
+   <Plug>(incsearch-forward) * incsearch#go({'command': '/'})
+	最近修改于 ~/.local/share/nvim/plugged/incsearch.vim/plugin/incsearch.vim line 42
+s  <Del>       * <C-G>"_c
+	最近修改于 ~/.local/share/nvim/plugged/UltiSnips/autoload/UltiSnips/map_keys.vim line 71
+s  <BS>        * <C-G>"_c
+	最近修改于 ~/.local/share/nvim/plugged/UltiSnips/autoload/UltiSnips/map_keys.vim line 70
+s  <C-Tab>     * <Esc>:call UltiSnips#ListSnippets()<CR>
+	最近修改于 ~/.local/share/nvim/plugged/UltiSnips/autoload/UltiSnips/map_keys.vim line 67
+x  <Plug>(easymotion-activate) * :<C-U>call EasyMotion#activate(1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 234
+nos<Plug>(easymotion-activate) * :<C-U>call EasyMotion#activate(0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 233
+   <Plug>(easymotion-dotrepeat) * :<C-U>call EasyMotion#DotRepeat()<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 230
+x  <Plug>(easymotion-repeat) * <Esc>:<C-U>call EasyMotion#Repeat(1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 227
+nos<Plug>(easymotion-repeat) * :<C-U>call EasyMotion#Repeat(0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 225
+x  <Plug>(easymotion-prev) * :<C-U>call EasyMotion#NextPrevious(1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 220
+nos<Plug>(easymotion-prev) * :<C-U>call EasyMotion#NextPrevious(0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 218
+x  <Plug>(easymotion-next) * :<C-U>call EasyMotion#NextPrevious(1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 215
+nos<Plug>(easymotion-next) * :<C-U>call EasyMotion#NextPrevious(0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 213
+x  <Plug>(easymotion-wl) * <Esc>:<C-U>call EasyMotion#WBL(1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-wl) * :<C-U>call EasyMotion#WBL(0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-lineforward) * <Esc>:<C-U>call EasyMotion#LineAnywhere(1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-lineforward) * :<C-U>call EasyMotion#LineAnywhere(0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-lineanywhere) * <Esc>:<C-U>call EasyMotion#LineAnywhere(1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-lineanywhere) * :<C-U>call EasyMotion#LineAnywhere(0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-wl) * <Esc>:<C-U>call EasyMotion#WBL(1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-wl) * :<C-U>call EasyMotion#WBL(0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-linebackward) * <Esc>:<C-U>call EasyMotion#LineAnywhere(1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-linebackward) * :<C-U>call EasyMotion#LineAnywhere(0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bl) * <Esc>:<C-U>call EasyMotion#WBL(1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bl) * :<C-U>call EasyMotion#WBL(0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-el) * <Esc>:<C-U>call EasyMotion#EL(1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-el) * :<C-U>call EasyMotion#EL(0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-gel) * <Esc>:<C-U>call EasyMotion#EL(1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-gel) * :<C-U>call EasyMotion#EL(0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-el) * <Esc>:<C-U>call EasyMotion#EL(1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-el) * :<C-U>call EasyMotion#EL(0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-jumptoanywhere) * <Esc>:<C-U>call EasyMotion#JumpToAnywhere(1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-jumptoanywhere) * :<C-U>call EasyMotion#JumpToAnywhere(0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-vim-n) * <Esc>:<C-U>call EasyMotion#Search(1,0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-vim-n) * :<C-U>call EasyMotion#Search(0,0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-n) * <Esc>:<C-U>call EasyMotion#Search(1,0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-n) * :<C-U>call EasyMotion#Search(0,0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-n) * <Esc>:<C-U>call EasyMotion#Search(1,2,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-n) * :<C-U>call EasyMotion#Search(0,2,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-vim-N) * <Esc>:<C-U>call EasyMotion#Search(1,1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-vim-N) * :<C-U>call EasyMotion#Search(0,1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-N) * <Esc>:<C-U>call EasyMotion#Search(1,1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-N) * :<C-U>call EasyMotion#Search(0,1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-eol-j) * <Esc>:<C-U>call EasyMotion#Eol(1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-eol-j) * :<C-U>call EasyMotion#Eol(0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-sol-k) * <Esc>:<C-U>call EasyMotion#Sol(1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-sol-k) * :<C-U>call EasyMotion#Sol(0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-sol-j) * <Esc>:<C-U>call EasyMotion#Sol(1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-sol-j) * :<C-U>call EasyMotion#Sol(0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-k) * <Esc>:<C-U>call EasyMotion#JK(1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-k) * :<C-U>call EasyMotion#JK(0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-j) * <Esc>:<C-U>call EasyMotion#JK(1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-j) * :<C-U>call EasyMotion#JK(0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-jk) * <Esc>:<C-U>call EasyMotion#JK(1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-jk) * :<C-U>call EasyMotion#JK(0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-eol-bd-jk) * <Esc>:<C-U>call EasyMotion#Eol(1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-eol-bd-jk) * :<C-U>call EasyMotion#Eol(0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-sol-bd-jk) * <Esc>:<C-U>call EasyMotion#Sol(1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-sol-bd-jk) * :<C-U>call EasyMotion#Sol(0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-eol-k) * <Esc>:<C-U>call EasyMotion#Eol(1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-eol-k) * :<C-U>call EasyMotion#Eol(0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-iskeyword-ge) * <Esc>:<C-U>call EasyMotion#EK(1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-iskeyword-ge) * :<C-U>call EasyMotion#EK(0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-w) * <Esc>:<C-U>call EasyMotion#WB(1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-w) * :<C-U>call EasyMotion#WB(0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-W) * <Esc>:<C-U>call EasyMotion#WBW(1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-W) * :<C-U>call EasyMotion#WBW(0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-iskeyword-w) * <Esc>:<C-U>call EasyMotion#WBK(1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-iskeyword-w) * :<C-U>call EasyMotion#WBK(0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-gE) * <Esc>:<C-U>call EasyMotion#EW(1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-gE) * :<C-U>call EasyMotion#EW(0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-e) * <Esc>:<C-U>call EasyMotion#E(1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-e) * :<C-U>call EasyMotion#E(0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-E) * <Esc>:<C-U>call EasyMotion#EW(1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-E) * :<C-U>call EasyMotion#EW(0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-iskeyword-e) * <Esc>:<C-U>call EasyMotion#EK(1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-iskeyword-e) * :<C-U>call EasyMotion#EK(0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-b) * <Esc>:<C-U>call EasyMotion#WB(1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-b) * :<C-U>call EasyMotion#WB(0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-iskeyword-b) * <Esc>:<C-U>call EasyMotion#WBK(1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-iskeyword-b) * :<C-U>call EasyMotion#WBK(0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-iskeyword-bd-w) * <Esc>:<C-U>call EasyMotion#WBK(1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-iskeyword-bd-w) * :<C-U>call EasyMotion#WBK(0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-W) * <Esc>:<C-U>call EasyMotion#WBW(1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-W) * :<C-U>call EasyMotion#WBW(0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-w) * <Esc>:<C-U>call EasyMotion#WB(1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-w) * :<C-U>call EasyMotion#WB(0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-iskeyword-bd-e) * <Esc>:<C-U>call EasyMotion#EK(1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-iskeyword-bd-e) * :<C-U>call EasyMotion#EK(0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-ge) * <Esc>:<C-U>call EasyMotion#E(1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-ge) * :<C-U>call EasyMotion#E(0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-E) * <Esc>:<C-U>call EasyMotion#EW(1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-E) * :<C-U>call EasyMotion#EW(0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-e) * <Esc>:<C-U>call EasyMotion#E(1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-e) * :<C-U>call EasyMotion#E(0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-B) * <Esc>:<C-U>call EasyMotion#WBW(1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-B) * :<C-U>call EasyMotion#WBW(0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+n  <Plug>(easymotion-overwin-w) * :<C-U>call EasyMotion#overwin#w()<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 139
+n  <Plug>(easymotion-overwin-line) * :<C-U>call EasyMotion#overwin#line()<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 138
+n  <Plug>(easymotion-overwin-f2) * :<C-U>call EasyMotion#OverwinF(2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 137
+n  <Plug>(easymotion-overwin-f) * :<C-U>call EasyMotion#OverwinF(1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 136
+x  <Plug>(easymotion-Tln) * <Esc>:<C-U>call EasyMotion#TL(-1,1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-Tln) * :<C-U>call EasyMotion#TL(-1,0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-t2) * <Esc>:<C-U>call EasyMotion#T(2,1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-t2) * :<C-U>call EasyMotion#T(2,0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-t) * <Esc>:<C-U>call EasyMotion#T(1,1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-t) * :<C-U>call EasyMotion#T(1,0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-s) * <Esc>:<C-U>call EasyMotion#S(1,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-s) * :<C-U>call EasyMotion#S(1,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-tn) * <Esc>:<C-U>call EasyMotion#T(-1,1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-tn) * :<C-U>call EasyMotion#T(-1,0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-t2) * <Esc>:<C-U>call EasyMotion#T(2,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-t2) * :<C-U>call EasyMotion#T(2,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-tl) * <Esc>:<C-U>call EasyMotion#TL(1,1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-tl) * :<C-U>call EasyMotion#TL(1,0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-tn) * <Esc>:<C-U>call EasyMotion#T(-1,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-tn) * :<C-U>call EasyMotion#T(-1,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-fn) * <Esc>:<C-U>call EasyMotion#S(-1,1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-fn) * :<C-U>call EasyMotion#S(-1,0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-tl) * <Esc>:<C-U>call EasyMotion#TL(1,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-tl) * :<C-U>call EasyMotion#TL(1,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-fl) * <Esc>:<C-U>call EasyMotion#SL(1,1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-fl) * :<C-U>call EasyMotion#SL(1,0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-tl2) * <Esc>:<C-U>call EasyMotion#TL(2,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-tl2) * :<C-U>call EasyMotion#TL(2,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-fn) * <Esc>:<C-U>call EasyMotion#S(-1,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-fn) * :<C-U>call EasyMotion#S(-1,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-f) * <Esc>:<C-U>call EasyMotion#S(1,1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-f) * :<C-U>call EasyMotion#S(1,0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-fl) * <Esc>:<C-U>call EasyMotion#SL(1,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-fl) * :<C-U>call EasyMotion#SL(1,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-Fl2) * <Esc>:<C-U>call EasyMotion#SL(2,1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-Fl2) * :<C-U>call EasyMotion#SL(2,0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-tl2) * <Esc>:<C-U>call EasyMotion#TL(2,1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-tl2) * :<C-U>call EasyMotion#TL(2,0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-f2) * <Esc>:<C-U>call EasyMotion#S(2,1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-f2) * :<C-U>call EasyMotion#S(2,0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-Fln) * <Esc>:<C-U>call EasyMotion#SL(-1,1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-Fln) * :<C-U>call EasyMotion#SL(-1,0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-sln) * <Esc>:<C-U>call EasyMotion#SL(-1,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-sln) * :<C-U>call EasyMotion#SL(-1,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-tln) * <Esc>:<C-U>call EasyMotion#TL(-1,1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-tln) * :<C-U>call EasyMotion#TL(-1,0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-fl2) * <Esc>:<C-U>call EasyMotion#SL(2,1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-fl2) * :<C-U>call EasyMotion#SL(2,0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-fl2) * <Esc>:<C-U>call EasyMotion#SL(2,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-fl2) * :<C-U>call EasyMotion#SL(2,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-T2) * <Esc>:<C-U>call EasyMotion#T(2,1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-T2) * :<C-U>call EasyMotion#T(2,0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-tln) * <Esc>:<C-U>call EasyMotion#TL(-1,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-tln) * :<C-U>call EasyMotion#TL(-1,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-T) * <Esc>:<C-U>call EasyMotion#T(1,1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-T) * :<C-U>call EasyMotion#T(1,0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-t) * <Esc>:<C-U>call EasyMotion#T(1,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-t) * :<C-U>call EasyMotion#T(1,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-Tn) * <Esc>:<C-U>call EasyMotion#T(-1,1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-Tn) * :<C-U>call EasyMotion#T(-1,0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-s2) * <Esc>:<C-U>call EasyMotion#S(2,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-s2) * :<C-U>call EasyMotion#S(2,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-Tl) * <Esc>:<C-U>call EasyMotion#TL(1,1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-Tl) * :<C-U>call EasyMotion#TL(1,0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-sn) * <Esc>:<C-U>call EasyMotion#S(-1,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-sn) * :<C-U>call EasyMotion#S(-1,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-Fn) * <Esc>:<C-U>call EasyMotion#S(-1,1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-Fn) * :<C-U>call EasyMotion#S(-1,0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-sl) * <Esc>:<C-U>call EasyMotion#SL(1,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-sl) * :<C-U>call EasyMotion#SL(1,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-Fl) * <Esc>:<C-U>call EasyMotion#SL(1,1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-Fl) * :<C-U>call EasyMotion#SL(1,0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-sl2) * <Esc>:<C-U>call EasyMotion#SL(2,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-sl2) * :<C-U>call EasyMotion#SL(2,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-fln) * <Esc>:<C-U>call EasyMotion#SL(-1,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-fln) * :<C-U>call EasyMotion#SL(-1,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-F) * <Esc>:<C-U>call EasyMotion#S(1,1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-F) * :<C-U>call EasyMotion#S(1,0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-f) * <Esc>:<C-U>call EasyMotion#S(1,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-f) * :<C-U>call EasyMotion#S(1,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-F2) * <Esc>:<C-U>call EasyMotion#S(2,1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-F2) * :<C-U>call EasyMotion#S(2,0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-bd-f2) * <Esc>:<C-U>call EasyMotion#S(2,1,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-bd-f2) * :<C-U>call EasyMotion#S(2,0,2)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-Tl2) * <Esc>:<C-U>call EasyMotion#TL(2,1,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-Tl2) * :<C-U>call EasyMotion#TL(2,0,1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+x  <Plug>(easymotion-fln) * <Esc>:<C-U>call EasyMotion#SL(-1,1,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 80
+nos<Plug>(easymotion-fln) * :<C-U>call EasyMotion#SL(-1,0,0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim line 78
+n  <Plug>NERDCommenterAltDelims * :call <SNR>39_SwitchToAlternativeDelimiters(1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3206
+x  <Plug>NERDCommenterUncomment * :call NERDComment("x", "Uncomment")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+n  <Plug>NERDCommenterUncomment * :call NERDComment("n", "Uncomment")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+x  <Plug>NERDCommenterAlignBoth * :call NERDComment("x", "AlignBoth")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+n  <Plug>NERDCommenterAlignBoth * :call NERDComment("n", "AlignBoth")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+x  <Plug>NERDCommenterAlignLeft * :call NERDComment("x", "AlignLeft")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+n  <Plug>NERDCommenterAlignLeft * :call NERDComment("n", "AlignLeft")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+n  <Plug>NERDCommenterAppend * :call NERDComment("n", "Append")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+x  <Plug>NERDCommenterYank * :call NERDComment("x", "Yank")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+n  <Plug>NERDCommenterYank * :call NERDComment("n", "Yank")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+x  <Plug>NERDCommenterSexy * :call NERDComment("x", "Sexy")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+n  <Plug>NERDCommenterSexy * :call NERDComment("n", "Sexy")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+x  <Plug>NERDCommenterInvert * :call NERDComment("x", "Invert")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+n  <Plug>NERDCommenterInvert * :call NERDComment("n", "Invert")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+n  <Plug>NERDCommenterToEOL * :call NERDComment("n", "ToEOL")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+x  <Plug>NERDCommenterNested * :call NERDComment("x", "Nested")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+n  <Plug>NERDCommenterNested * :call NERDComment("n", "Nested")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+x  <Plug>NERDCommenterMinimal * :call NERDComment("x", "Minimal")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+n  <Plug>NERDCommenterMinimal * :call NERDComment("n", "Minimal")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+x  <Plug>NERDCommenterToggle * :call NERDComment("x", "Toggle")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+n  <Plug>NERDCommenterToggle * :call NERDComment("n", "Toggle")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+x  <Plug>NERDCommenterComment * :call NERDComment("x", "Comment")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+n  <Plug>NERDCommenterComment * :call NERDComment("n", "Comment")<CR>
+	最近修改于 ~/.local/share/nvim/plugged/nerdcommenter/plugin/NERD_commenter.vim line 3173
+v  <Plug>VgSurround * :<C-U>call <SNR>38_opfunc(visualmode(),visualmode() ==# 'V' ? 0 : 1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 595
+v  <Plug>VSurround * :<C-U>call <SNR>38_opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 594
+n  <Plug>YSurround * <SNR>38_opfunc2('setup')
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 593
+n  <Plug>Ysurround * <SNR>38_opfunc('setup')
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 592
+n  <Plug>YSsurround * <SNR>38_opfunc2('setup').'_'
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 591
+n  <Plug>Yssurround * '^'.v:count1.<SNR>38_opfunc('setup').'g_'
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 590
+n  <Plug>CSurround * :<C-U>call <SNR>38_changesurround(1)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 589
+n  <Plug>Csurround * :<C-U>call <SNR>38_changesurround()<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 588
+n  <Plug>Dsurround * :<C-U>call <SNR>38_dosurround(<SNR>38_inputtarget())<CR>
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 587
+n  <Plug>SurroundRepeat * .
+	最近修改于 ~/.local/share/nvim/plugged/vim-surround/plugin/surround.vim line 586
+n  <Plug>(wiki-fzf-tags) * :WikiFzfTags<CR>
+	最近修改于 ~/.local/share/nvim/plugged/wiki.vim/plugin/wiki.vim line 66
+n  <Plug>(wiki-fzf-pages) * :WikiFzfPages<CR>
+	最近修改于 ~/.local/share/nvim/plugged/wiki.vim/plugin/wiki.vim line 65
+n  <Plug>(wiki-reload) * :WikiReload<CR>
+	最近修改于 ~/.local/share/nvim/plugged/wiki.vim/plugin/wiki.vim line 64
+n  <Plug>(wiki-journal) * :WikiJournal<CR>
+	最近修改于 ~/.local/share/nvim/plugged/wiki.vim/plugin/wiki.vim line 63
+n  <Plug>(wiki-open) * :WikiOpen<CR>
+	最近修改于 ~/.local/share/nvim/plugged/wiki.vim/plugin/wiki.vim line 62
+n  <Plug>(wiki-index) * :WikiIndex<CR>
+	最近修改于 ~/.local/share/nvim/plugged/wiki.vim/plugin/wiki.vim line 61
+o  <Plug>(fzf-maps-o) * <C-C>:<C-U>call fzf#vim#maps('o', 0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/fzf.vim/plugin/fzf.vim line 153
+x  <Plug>(fzf-maps-x) * :<C-U>call fzf#vim#maps('x', 0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/fzf.vim/plugin/fzf.vim line 152
+n  <Plug>(fzf-maps-n) * :<C-U>call fzf#vim#maps('n', 0)<CR>
+	最近修改于 ~/.local/share/nvim/plugged/fzf.vim/plugin/fzf.vim line 150
+v  <S-Tab>     * <gv
+	最近修改于 ~/.config/nvim/KeyMap.vim line 102
+n  <S-Tab>     * V<
+	最近修改于 ~/.config/nvim/KeyMap.vim line 101
+   <M-O>       * O<Esc>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 83
+   <M-o>       * o<Esc>
+	最近修改于 ~/.config/nvim/KeyMap.vim line 82
+n  <M-l>       * <Esc>v$
+	最近修改于 ~/.config/nvim/KeyMap.vim line 81
+n  <M-h>       * <Esc>v^
+	最近修改于 ~/.config/nvim/KeyMap.vim line 80
+n  <M-k>       * <Esc>Vk
+	最近修改于 ~/.config/nvim/KeyMap.vim line 79
+n  <M-j>       * <Esc>Vj
+	最近修改于 ~/.config/nvim/KeyMap.vim line 78

@@ -6,10 +6,11 @@ function! s:goyo_enter()
     silent !tmux set status off
     silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
   endif
-  set noshowmode
-  set noshowcmd
-  set linebreak
-  set scrolloff=999
+  setlocal noshowmode
+  setlocal noshowcmd
+  setlocal linebreak
+  setlocal brk=""
+  setlocal scrolloff=999
   " ...
 endfunction
 
@@ -18,13 +19,12 @@ function! s:goyo_leave()
     silent !tmux set status on
     silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
   endif
-  set showmode
-  set showcmd
-  set linebreak
-  set foldcolumn=3
+  setlocal showmode
+  setlocal showcmd
+  setlocal linebreak
   highlight SignColumn guibg=#282828
   highlight FoldColumn guifg=#282828 guibg=#282828
-  set scrolloff=5
+  setlocal scrolloff=5
   " ...
 endfunction
 
