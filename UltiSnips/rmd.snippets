@@ -15,15 +15,15 @@ snippet rmd "Header" b
 title: "`!p snip.rv = snip.basename`"
 author: "罗伟"
 date: "\`r Sys.Date()\`"
-bibliography: "ref.bib"
+bibliography: "\`r Sys.getenv('HOME')\`/Documents/paper_ref.bib"
 fontsize: 11pt
 output:
 	bookdown::pdf_document2:
-		template: "~/useScript/default-rmd.latex"
+		template: "\`r Sys.getenv('HOME')\`/useScript/default-rmd.latex"
 		includes:
 			in_header:
-				- "/home/liubianshi/useScript/header.tex"
-				- "/home/liubianshi/useScript/code.tex"
+				- "\`r Sys.getenv('HOME')\`/useScript/header.tex"
+				- "\`r Sys.getenv('HOME')\`/useScript/code.tex"
 		pandoc_args: 
 			- "--listings"
 		latex_engine: xelatex

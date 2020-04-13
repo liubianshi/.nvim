@@ -2,8 +2,8 @@
 set clipboard+=unnamedplus " 剪切板的整合
 set encoding=utf-8         " 设置编码格式
 set termguicolors          " 真彩色
-colorscheme gruvbox
 set background=dark        " 设置颜色模式
+colorscheme ayu 
 filetype on                " 开启文件类型侦测
 filetype plugin on         " 根据侦测到的不同类型加载对应插件支持
 syntax enable              " 语法高亮
@@ -17,7 +17,7 @@ set mouse=a                " 支持使用鼠标
 set cmdheight=1            " 命令行高度
 set so=7                   " 设置 j/k 滚动的行数
 set showmatch              " 高亮显示匹配括号
-set mat=2                  " 设置匹配括号时闪缩的时f
+set mat=2                  " 设置匹配括号时闪缩的时
 set hlsearch               " 高亮显示搜索结果
 set incsearch              " 开启实时搜索功能
 set ignorecase             " 设置查找时大小不敏感
@@ -38,14 +38,15 @@ set wrap                   " 代码折行
 set sidescroll=5
 set listchars+=precedes:<,extends:>
 set formatoptions=tqcnmB1jo
-set wrapmargin=2           " 指定拆行处与编辑窗口右边缘之间空出的字符数
+set wrapmargin=0           " 指定拆行处与编辑窗口右边缘之间空出的字符数
 set textwidth=0
 set ai              " 自动缩进
 set si              " 智能缩进
 set linebreak
 set breakindent
-let &brk = " ^I!@*-+;:,./?"
-let &showbreak = '» '
+let &brk = ""
+"let &brk = " ^I!@*-+;:,./?"
+let &showbreak = ''
 set foldmethod=marker
 
 
@@ -60,11 +61,12 @@ set shortmess+=c
 
 " trim 尾部空格
 autocmd BufWritePre *.{md,pl,p6,rmd,r,do} :%s/\s\+$//e
+autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex let &brk = ''
 
 " 模拟 goyo 模式
 set foldcolumn=1
-highlight FoldColumn guibg=#282828 guifg=#282828
-highlight SignColumn guibg=#282828
+highlight FoldColumn guibg=bg guifg=bg
+highlight SignColumn guibg=bg
 set signcolumn=yes
 autocmd VimEnter * set laststatus=0
 set laststatus=0           " 总是显示状态栏

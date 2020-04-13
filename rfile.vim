@@ -1,7 +1,7 @@
 " Nvim-R 变量设置{{{
-let R_app = "radian"
+"let R_app = "radian"
 let R_cmd = "R"
-let R_hl_term = 0
+let R_hl_term = 1
 let R_args = []  " if you had set any
 let R_openpdf = 1
 let R_bracketed_paste = 1
@@ -30,8 +30,8 @@ augroup r_setup
         \ tabstop=4
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
         \ shiftwidth=4
-    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
-        \ breakat=""
+    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown 
+        \ let &brk = ""
 "}}}
 " 便捷符号输入{{{
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown
@@ -46,6 +46,10 @@ augroup r_setup
         \ inoremap <tab>0 ` `<C-o>F <c-o>x
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown 
         \ inoremap <tab>9 $ $<C-o>F <c-o>x
+    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown 
+        \ inoremap <tab>I * *<C-o>F <c-o>x
+    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown 
+        \ inoremap <tab>B ** **<C-o>F <c-o>x
 "}}}
 " Nvim-R 相关的快捷键{{{
     nmap , <Plug>RDSendLine
@@ -87,6 +91,8 @@ augroup r_setup
         \ :<c-u>call RMakeRmd("bookdown::pdf_document2")<cr>
     autocmd FileType rmd,rmarkdown nnoremap <localleader>H
         \ :<c-u>call RMakeRmd("bookdown::html_document2")<cr>
+    autocmd FileType rmd,rmarkdown nnoremap <localleader>W
+        \ :<c-u>call RMakeRmd("bookdown::word_document2")<cr>
     " R package development
     autocmd FileType r nnoremap <localleader>dl :<c-u>RSend devtools::load_all()<cr>
     autocmd FileType r nnoremap <localleader>dd :<c-u>RSend devtools::document()<cr>

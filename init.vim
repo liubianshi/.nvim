@@ -11,7 +11,14 @@
 
 " 美化 {{{
     Plug 'morhetz/gruvbox'                          " 主题
-    Plug 'flazz/vim-colorschemes', { 'on': [] }     " 主题管理
+    Plug 'rakr/vim-one'
+        let g:one_allow_italics = 1 " I love italic for comments
+    Plug 'NLKNguyen/papercolor-theme'
+    Plug 'ayu-theme/ayu-vim'
+        "let ayucolor="light"  " for light version of theme
+        let ayucolor="mirage" " for mirage version of theme
+        "let ayucolor="dark"   " for dark version of theme
+    "Plug 'flazz/vim-colorschemes' , { 'on': [] }    " 主题管理
     Plug 'vim-airline/vim-airline', { 'on': [] }    " 状态栏插件
     Plug 'vim-airline/vim-airline-themes', { 'on': [] }
         let g:airline_powerline_fonts = 1
@@ -49,7 +56,7 @@
         let g:pandoc#biblio#bibs = ["/home/liubianshi/Documents/paper_ref.bib"]
         let g:pandoc#biblio#use_bibtool = 1
         let g:pandoc#completion#bib#mode = "citeproc"
-        let g:pandoc#biblio#sources = ["byc"]
+        let g:pandoc#biblio#sources = ["bycg"]
         let g:pandoc#folding#fdc = 0
         let g:pandoc#folding#fold_yaml = 1
         let g:pandoc#folding#fold_fenced_codeblocks = 0
@@ -102,7 +109,7 @@
     Plug 'ncm2/ncm2-syntax', { 'on': [] }
         let g:pandoc_source = {
             \ 'name': 'pandoc',
-            \ 'priority': 8,
+            \ 'priority': 9,
             \ 'scope': ['pandoc', 'markdown', 'rmarkdown', 'rmd'],
             \ 'mark': 'pandoc',
             \ 'word_pattern': '\w+',
@@ -138,7 +145,7 @@
 
 " 其他小工具
     Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
-        let g:asyncrun_open =6
+        let g:asyncrun_open = 0
     Plug 'liuchengxu/vim-which-key'
     Plug 'machakann/vim-highlightedyank'  " 高亮显示复制区域
     Plug 'haya14busa/incsearch.vim'       " 加强版实时高亮
@@ -187,7 +194,7 @@ function! Ncm2CompleteEngine()
         \ )
     let b:coc_suggest_disable = 1 
     call ncm2#enable_for_buffer()
-    call ncm2#register_source(g:pandoc_source) 
+    "call ncm2#register_source(g:pandoc_source) 
     call ncm2#register_source(g:raku_source) 
 endfunction
 function! ChangeCompleteEngine()
@@ -228,12 +235,12 @@ source ~/.config/nvim/KeyMap.vim
 "source ~/.config/nvim/python.vim
 "source ~/.config/nvim/nerdtree.vim
 
-"let g:python_host_skip_check=1
+let g:python_host_skip_check=1
 let g:python3_host_skip_check=1
 if(has("mac"))
     let g:python3_host_prog = '/usr/local/bin/python3'
-    "let g:python_host_prog = '/usr/bin/python'
+    let g:python_host_prog = '/usr/bin/python'
 else
-    "let g:python_host_prog = '/usr/bin/python2'
+    let g:python_host_prog = '/usr/bin/python2'
     let g:python3_host_prog = '/usr/bin/python'
 endif

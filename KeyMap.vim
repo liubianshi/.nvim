@@ -216,10 +216,8 @@ nmap sc :<c-u>call SearchChineseLine()<cr>
 nmap sC :<c-u>call SearchChinese()<cr>
 "}}}
 " wiki.vim{{{
-nnoremap <leader>wj :<c-u>WikiJournal<cr>
 let g:wiki_mappings_global = {
     \ '<plug>(wiki-index)'   : '<tab>ww',
-    \ '<plug>(wiki-journal)' : '<tab>wj',
     \ '<plug>(wiki-oen)'     : '<tab>wn',
     \ '<plug>(wiki-reload)'  : '<tab>wx',
     \}
@@ -238,4 +236,5 @@ let g:wiki_mappings_local = {
         \ '<plug>(wiki-link-prev)'       : '<tab><up>',
         \}
 "}}}
-
+" dot file related
+autocmd FileType dot nnoremap <localleader>d :<c-u>AsyncRun dot -Tpdf % -o "%:r.pdf"<cr> 
