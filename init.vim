@@ -1,15 +1,14 @@
 " Neovim 配置文件
+" 安装插件 {{{1
     call plug#begin('~/.local/share/nvim/plugged')
-" 中文输入法 {{{
+" 中文输入法 {{{2
     if(has("mac"))
         ""Plug 'ybian/smartim'
         Plug 'CodeFalling/fcitx-vim-osx', { 'on': [] }
     else
         Plug 'lilydjwg/fcitx.vim', { 'on': [] }       " Linux 下优化中文输入法切换
     endif
-"}}}
-
-" 美化 {{{
+" 美化 {{{2
     Plug 'morhetz/gruvbox'                          " 主题
     Plug 'rakr/vim-one'
         let g:one_allow_italics = 1 " I love italic for comments
@@ -29,26 +28,23 @@
         let g:airline#extensions#tabline#left_alt_sep = '|'
         let g:airline#extensions#tabline#buffer_nr_show = 1
         let g:airline_theme='gruvbox'
-"}}}
-
-" 文件管理
+" 文件管理{{{2
     Plug 'rbgrouleff/bclose.vim'          " lf.vim 插件依赖
     Plug 'ptzz/lf.vim'                    " 文件管理
         let g:lf_map_keys = 0
     Plug 'mileszs/ack.vim', {'on': 'Ack'}  " 在 Vim 中使用 Ack 或 Ag 检索
         let g:ackprg = 'ag --column'
-
-" 模糊搜索加管理
+" 模糊搜索加管理{{{2
     if(has("mac"))
         Plug 'junegunn/fzf.vim', { 'do': './install --bin' }
     else
         Plug '/usr/bin/fzf'               " 在 vim 中使用 fzf
     endif
     Plug 'junegunn/fzf.vim'               " 安装相关插件
-
-" 优化写作体验
+" 优化写作体验{{{2
     Plug 'junegunn/goyo.vim',       {'for': ['md', 'pandoc','rmd', 'rmarkdown']} " zen 模式:
     Plug 'hotoo/pangu.vim',         {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
+" Pandoc 和 Rmarkdown {{{3
     Plug 'vim-pandoc/vim-pandoc',   {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
         let g:pandoc#modules#disabled = ["spell"]
         let g:pandoc#filetypes#handled = ["pandoc", "markdown"]
@@ -57,15 +53,18 @@
         let g:pandoc#biblio#use_bibtool = 1
         let g:pandoc#completion#bib#mode = "citeproc"
         let g:pandoc#biblio#sources = ["bycg"]
-        let g:pandoc#folding#fdc = 0
+        let g:pandoc#folding#fdc = 1
         let g:pandoc#folding#fold_yaml = 1
+        let g:pandoc#folding#fastfolds = 1
         let g:pandoc#folding#fold_fenced_codeblocks = 0
     Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
         let g:tex_conceal = ""
     Plug 'vim-pandoc/vim-rmarkdown',     {'for': ['rmd', 'rmarkdown']}
+"}}}
     Plug 'ferrine/md-img-paste.vim',     {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
         let g:mdip_imgdir = 'assets'
         let g:mdip_imgname = 'image'
+" wiki.vim {{{3
     Plug 'lervag/wiki.vim'
         autocmd BufNewFile,BufRead *.wiki set filetype=rmd
         let g:wiki_root = "~/Nutstore Files/Nutstore/Diary/Knowledge" 
@@ -82,9 +81,8 @@
             \   'monthly' : '%Y_m%m',
             \ },
             \}
-        
-
-" 文本对象操作
+"}}}
+" 文本对象操作{{{2
     Plug 'godlygeek/tabular'            " 对齐文本插件
     Plug 'tpope/vim-surround'           " 快速给词加环绕符号
     Plug 'tpope/vim-repeat'             " 重复插件操作
@@ -93,12 +91,12 @@
         let g:EasyMotion_do_mapping = 0 " Disable default mappings
         let g:EasyMotion_smartcase = 1
     Plug 'wellle/targets.vim'           " 扩展 vim 文本对象
-
-" 自动补全
+" 自动补全{{{2
     Plug 'jiangmiao/auto-pairs'      " 自动引号/括号补全
         let g:AutoPairsMapBS = 0
     Plug 'neoclide/coc.nvim', { 'branch': 'release', 'on': [] }  " coc 代码补全插件
     Plug 'roxma/nvim-yarp', { 'on': [] } " ncm2 依赖的插件
+" ncm2 及相关插件 {{{3
     Plug 'roxma/ncm2', { 'on': [] } 
     Plug 'gaalcaras/ncm-R', { 'on': [] }
     Plug 'ncm2/ncm2-bufword', { 'on': [] }
@@ -127,14 +125,16 @@
             \ 'word_pattern': "[A-za-z_]([\'\-]?[A-Za-z_]+)*",
             \ 'on_complete': 'ncm2_bufword#on_complete',
             \ }
+"}}}
+" Snippets 相关 {{{3
     Plug 'sirver/UltiSnips'
         let g:UltiSnipsEditSplit = "tabdo"
         let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
         autocmd FileType rmd,rmarkdown :UltiSnipsAddFiletypes rmd.markdown
         autocmd BufNewFile,BufRead *.md UltiSnipsAddFiletypes markdown.md.pandoc
     Plug 'honza/vim-snippets', { 'on': [] }        " 配置 snippets 需要
-
-" 模拟IDE
+"}}}
+" 模拟IDE{{{2
     Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmarkdown', 'rmd'] }
     Plug 'lervag/vimtex',       {'for': ['tex', 'plaintex']}
         let g:vimtex_compiler_progname = 'nvr'          " 调用 neovim-remote
@@ -142,8 +142,10 @@
     Plug 'Raku/vim-raku', { 'for': 'raku'}
         let g:raku_unicode_abbrevs = 0
         au BufNewFile,BufRead *.raku,*.p6,*.pl6,*.p6 set filetype=raku
-
-" 其他小工具
+    Plug 'kovetskiy/sxhkd-vim', { 'for': 'sxhkd' }
+        au BufNewFile,BufRead sxhkdrc set filetype=sxhkd
+"}}}
+" 其他小工具{{{2
     Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
         let g:asyncrun_open = 0
     Plug 'liuchengxu/vim-which-key'
@@ -156,9 +158,39 @@
     Plug 'tpope/vim-obsession', { 'on': [] }            " tmux Backup needed
     Plug 'VincentCordobes/vim-translate'                " 翻译工具
     Plug 'yianwillis/vimcdoc', { 'on': [] }             " Vim 中文帮助文档
-    Plug 'mechatroner/rainbow_csv', { 
+    Plug 'mechatroner/rainbow_csv', {                   
         \ 'for': ['csv', 'tsv', 'csv_semicolon', 'csv_whitespace', 'rfc_csv', 'rfc_semicolon'] 
         \ }
+" vimcmdline {{{3
+    Plug 'jalvesaq/vimcmdline'                               " vim/neovim 终端函数
+        " vimcmdline mappings
+        let cmdline_map_start          = '<LocalLeader>s'
+        let cmdline_map_send           = '<LocalLeader>l'
+        let cmdline_map_send_and_stay  = '<LocalLeader><Space>'
+        let cmdline_map_source_fun     = '<LocalLeader>f'
+        let cmdline_map_send_paragraph = '<LocalLeader>p'
+        let cmdline_map_send_block     = '<LocalLeader>b'
+        let cmdline_map_quit           = '<LocalLeader>qq'
+
+        " vimcmdline options
+        let cmdline_vsplit      = 1      " Split the window vertically
+        let cmdline_esc_term    = 1      " Remap <Esc> to :stopinsert in Neovim's terminal
+        let cmdline_in_buffer   = 1      " Start the interpreter in a Neovim's terminal
+        let cmdline_term_height = 15     " Initial height of interpreter window or pane
+        let cmdline_term_width  = 90    " Initial width of interpreter window or pane
+        let cmdline_tmp_dir     = '/tmp' " Temporary directory to save files
+        let cmdline_outhl       = 1      " Syntax highlight the output
+        let cmdline_auto_scroll = 1      " Keep the cursor at the end of terminal (nvim)
+        
+        let cmdline_app           = {}
+        let cmdline_app['ruby']   = 'pry'
+        let cmdline_app['sh']     = 'bash'
+        let cmdline_app['stata']  = 'stata-mp'
+
+        " Color
+        let cmdline_follow_colorscheme = 1   
+"}}}
+" 以前用过暂时不用将来可能用到的工具{{{2
     "Plug 'ncm2/ncm2-tmux'
     "Plug 'ncm2/ncm2-vim'
     "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -172,15 +204,16 @@
     "Plug 'terryma/vim-multiple-cursors'
     "Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
         "let g:clap_provider_grep_executable = 'ag'
+        "}}}
 call plug#end()
-
-function! Status() " 开启状态栏
-    call plug#load('vim-colorschemes', 'vim-airline', 'vim-airline-themes')
+" 初始设置相关 {{{1
+" 状态栏{{{2
+function! Status() 
+    call plug#load('vim-airline', 'vim-airline-themes')
     set laststatus=1
 endfunction
 autocmd WinNew * call Status()
-
-" 切换补全工具
+" 切换补全工具{{{2
 function! CocCompleteEngine()
     call plug#load('coc.nvim')
     call ncm2#disable_for_buffer()
@@ -205,7 +238,7 @@ function! ChangeCompleteEngine()
     endif
 endfunction
 autocmd BufNewFile,BufRead * call Ncm2CompleteEngine()
-
+" 进入插入模式启动的插件{{{2
 augroup load_enter
   autocmd!
   if(has("mac"))
@@ -218,12 +251,10 @@ augroup load_enter
   autocmd InsertEnter * call plug#load('vim-obsession')
   autocmd InsertEnter * call plug#load('vimcdoc')
 augroup END
-
-let mapleader = " "
-let maplocalleader = ';'
+" 导入外部文件{{{1
 source ~/.config/nvim/basic.vim
+source ~/.config/nvim/lbs_function.vim  
 source ~/.config/nvim/ChineseSymbol.vim
-source ~/.config/nvim/stata.vim
 source ~/.config/nvim/vimtex.vim
 source ~/.config/nvim/raku.vim
 source ~/.config/nvim/rfile.vim
@@ -231,16 +262,9 @@ source ~/.config/nvim/fzfConifg.vim
 source ~/.config/nvim/whichkey.vim
 source ~/.config/nvim/goyoConfig.vim
 source ~/.config/nvim/KeyMap.vim
+"source ~/.config/nvim/stata.vim
 "source ~/.config/nvim/coc.vim
 "source ~/.config/nvim/python.vim
 "source ~/.config/nvim/nerdtree.vim
+"}}}
 
-let g:python_host_skip_check=1
-let g:python3_host_skip_check=1
-if(has("mac"))
-    let g:python3_host_prog = '/usr/local/bin/python3'
-    let g:python_host_prog = '/usr/bin/python'
-else
-    let g:python_host_prog = '/usr/bin/python2'
-    let g:python3_host_prog = '/usr/bin/python'
-endif

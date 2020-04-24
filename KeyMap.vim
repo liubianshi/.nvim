@@ -236,5 +236,7 @@ let g:wiki_mappings_local = {
         \ '<plug>(wiki-link-prev)'       : '<tab><up>',
         \}
 "}}}
+" NeoTerm 相关
+nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
 " dot file related
 autocmd FileType dot nnoremap <localleader>d :<c-u>AsyncRun dot -Tpdf % -o "%:r.pdf"<cr> 

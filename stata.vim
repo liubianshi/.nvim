@@ -13,7 +13,7 @@ function! RunDoLines()
     if(has("mac"))
         silent exec "!open /tmp/statacmd.do" 
     else
-        silent exec "!bash ~/.config/nvim/runStata.sh"
+        silent exec "! nohup bash ~/.config/nvim/runStata.sh >/dev/null 2>&1 &"
     endif
 endfun
 

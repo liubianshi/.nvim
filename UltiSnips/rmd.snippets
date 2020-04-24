@@ -19,11 +19,11 @@ bibliography: "\`r Sys.getenv('HOME')\`/Documents/paper_ref.bib"
 fontsize: 11pt
 output:
 	bookdown::pdf_document2:
-		template: "\`r Sys.getenv('HOME')\`/useScript/default-rmd.latex"
+		template: "~/useScript/default-rmd.latex"
 		includes:
 			in_header:
-				- "\`r Sys.getenv('HOME')\`/useScript/header.tex"
-				- "\`r Sys.getenv('HOME')\`/useScript/code.tex"
+				- "~/useScript/header.tex"
+				- "~/useScript/code.tex"
 		pandoc_args: 
 			- "--listings"
 		latex_engine: xelatex
