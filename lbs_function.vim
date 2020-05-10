@@ -1,12 +1,27 @@
-"   来自 Lilydjwg 的函数 [[[1
-"   删除所有未显示且无修改的缓冲区以减少内存占用[[[2
+"   自定义函数 {{{1
+"   代码格式化 {{{2
+function Lbs_RFormat() range
+    if g:rplugin.nvimcom_port == 0
+        return
+    endif
+    let lns = getline(a:firstline, a:lastline)
+    call writefile(lns, g:rplugin.tmpdir . "/unformatted_code")
+    call AddForDeletion(g:rplugin.tmpdir . "/unformatted_code")
+    let cmd = "styler::style_text(readLines(\"" . g:rplugin.tmpdir . "/unformatted_code\"), strict = FALSE)"
+    silent exe a:firstline . "," . a:lastline . "delete"
+    "silent exe ':normal k' 
+    call RInsert(cmd, "here") 
+endfunction
+command! -range=% LbsRF <line1>,<line2>:call Lbs_RFormat()
+"   来自 Lilydjwg 的函数 {{{1
+"   删除所有未显示且无修改的缓冲区以减少内存占用{{{2
 function Lilydjwg_cleanbufs()
   for bufNr in filter(range(1, bufnr('$')),
         \ 'buflisted(v:val) && !bufloaded(v:val)')
     execute bufNr . 'bdelete'
   endfor
 endfunction
-"   将当前窗口置于屏幕中间（全屏时用）[[[2
+"   将当前窗口置于屏幕中间（全屏时用）{{{2
 function Lilydjwg_CenterFull()
   on
   vs
@@ -24,7 +39,7 @@ function Lilydjwg_CenterFull()
   winc h
   redr!
 endfunction
-"  切换 ambiwidth [[[2
+"  切换 ambiwidth {{{2
 function Lilydjwg_toggle_ambiwidth()
   if &ambiwidth == 'double'
     let &ambiwidth = 'single'
@@ -32,7 +47,7 @@ function Lilydjwg_toggle_ambiwidth()
     let &ambiwidth = 'double'
   endif
 endfunction
-"   关闭某个窗口[[[2
+"   关闭某个窗口{{{2
 function Lilydjwg_close(winnr)
   let winnum = bufwinnr(a:winnr)
   if winnum == -1
@@ -51,11 +66,7 @@ function Lilydjwg_close(winnr)
   endif
   return 1
 endfunction
-
-
-
-" ]]]
-"   复制缓冲区到新标签页[[[2
+"   复制缓冲区到新标签页{{{2
 function Lilydjwg_copy_to_newtab()
   let temp = tempname()
   try
@@ -68,21 +79,7 @@ function Lilydjwg_copy_to_newtab()
     call delete(temp)
   endtry
 endfunction
-
-
-
-
-
-
-
-
-
-
-
-
-
-" vim:fdm=marker:fmr=[[[,]]]
-" 使用 colorpicker 程序获取颜色值(hex/rgba)[[[2
+" 使用 colorpicker 程序获取颜色值(hex/rgba){{{2
 function Lilydjwg_colorpicker()
   if exists("g:last_color")
     let color = substitute(system("colorpicker ".shellescape(g:last_color)), '\n', '', '')
@@ -100,7 +97,8 @@ function Lilydjwg_colorpicker()
     return color
   endif
 endfunction
-" 更改光标下的颜色值(hex/rgba/rgb)[[[2
+
+" 更改光标下的颜色值(hex/rgba/rgb){{{2
 function Lilydjwg_changeColor()
   let color = Lilydjwg_get_pattern_at_cursor('\v\#[[:xdigit:]]{6}(\D|$)@=|<rgba\((\d{1,3},\s*){3}[.0-9]+\)|<rgb\((\d{1,3},\s*){2}\d{1,3}\)')
   if color == ""
@@ -114,3 +112,5 @@ function Lilydjwg_changeColor()
   exe 'normal! eF'.color[0]
   call setline('.', substitute(getline('.'), '\%'.col('.').'c\V'.color, g:last_color, ''))
 endfunction
+
+

@@ -27,7 +27,7 @@
         let g:airline#extensions#tabline#left_sep = ' '
         let g:airline#extensions#tabline#left_alt_sep = '|'
         let g:airline#extensions#tabline#buffer_nr_show = 1
-        let g:airline_theme='gruvbox'
+        let g:airline_theme='ayu'
 " 文件管理{{{2
     Plug 'rbgrouleff/bclose.vim'          " lf.vim 插件依赖
     Plug 'ptzz/lf.vim'                    " 文件管理
@@ -66,12 +66,12 @@
         let g:mdip_imgname = 'image'
 " wiki.vim {{{3
     Plug 'lervag/wiki.vim'
-        autocmd BufNewFile,BufRead *.wiki set filetype=rmd
-        let g:wiki_root = "~/Nutstore Files/Nutstore/Diary/Knowledge" 
-        let g:wiki_cache_root = "~/.cache/wiki.vim"
+        "autocmd BufNewFile,BufRead *.wiki set filetype=rmd
+        let g:wiki_root = '/home/liubianshi/Documents/WikiHome' 
+        let g:wiki_cache_root = '~/.cache/wiki.vim'
         let g:wiki_link_target_type = 'md'
         let g:wiki_filetypes = ['Rmd']
-        let g:wiki_mappings_use_defaults = 0
+        let g:wiki_mappings_use_defaults = 'none' 
         let g:wiki_journal = {
             \ 'name': 'journal',
             \ 'frequency': 'daily',
@@ -135,6 +135,14 @@
     Plug 'honza/vim-snippets', { 'on': [] }        " 配置 snippets 需要
 "}}}
 " 模拟IDE{{{2
+    " SQL{{{3
+    Plug 'tpope/vim-dadbod'   " Modern database interface for Vim
+    Plug 'kristijanhusak/vim-dadbod-ui'  " Simple UI for vim-dadbod
+        let g:dbs = { 
+        \  'foods': 'sqlite:/home/liubianshi/Documents/ProgramLearning/SQLite/foods.db',
+        \ }
+        let g:db_ui_save_location = "~/.config/diySync/db_ui_queries"
+    "}}}
     Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmarkdown', 'rmd'] }
     Plug 'lervag/vimtex',       {'for': ['tex', 'plaintex']}
         let g:vimtex_compiler_progname = 'nvr'          " 调用 neovim-remote
@@ -167,13 +175,17 @@
         " let g:ale_lint_on_enter = 0
         "使用clang对c和c++进行语法检查，对python使用pylint进行语法检查
         let g:ale_linters = {
-            \   'sh': ['shellcheck'],
-            \   'c': ['clang'],
-            \   'r': ['lintr'],
-            \   'perl': ['perl -c'],
-            \   'raku': ['raku -c'],
-            \}
-        let g:ale_r_lintr_options = "with_defaults(line_length_linter(120))"
+                    \   'sh': ['shellcheck'],
+                    \   'c': ['clang'],
+                    \   'r': ['lintr'],
+                    \   'perl': ['perl -c'],
+                    \   'raku': ['raku -c'],
+                    \}
+        let g:ale_fixers = {
+                    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+                    \   'r': ['styler'],
+                    \ }
+        let g:ale_r_lintr_options = "with_defaults(line_length_linter(80))"
 " 其他小工具{{{2
     Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
         let g:asyncrun_open = 0
@@ -202,7 +214,7 @@
         let cmdline_map_quit           = '<LocalLeader>qq'
 
         " vimcmdline options
-        let cmdline_vsplit      = 1      " Split the window vertically
+            let cmdline_vsplit      = 1      " Split the window vertically
         let cmdline_esc_term    = 1      " Remap <Esc> to :stopinsert in Neovim's terminal
         let cmdline_in_buffer   = 1      " Start the interpreter in a Neovim's terminal
         let cmdline_term_height = 15     " Initial height of interpreter window or pane
@@ -245,7 +257,9 @@ autocmd WinNew * call Status()
 " 切换补全工具{{{2
 function! CocCompleteEngine()
     call plug#load('coc.nvim')
-    call ncm2#disable_for_buffer()
+    if exists("*ncm2#disable_for_buffer")
+        call ncm2#disable_for_buffer()
+    endif
     let b:coc_suggest_disable = 0
 endfunction
 function! Ncm2CompleteEngine()
@@ -266,7 +280,10 @@ function! ChangeCompleteEngine()
         call CocCompleteEngine()
     endif
 endfunction
-autocmd BufNewFile,BufRead * call Ncm2CompleteEngine()
+autocmd BufNewFile,BufRead *.[Rr]md,*.vim,*.[Rr] call Ncm2CompleteEngine()
+autocmd FileType raku call Ncm2CompleteEngine()
+autocmd FileType sql call CocCompleteEngine()
+
 " 进入插入模式启动的插件{{{2
 augroup load_enter
   autocmd!
@@ -296,4 +313,3 @@ source ~/.config/nvim/KeyMap.vim
 "source ~/.config/nvim/python.vim
 "source ~/.config/nvim/nerdtree.vim
 "}}}
-

@@ -51,11 +51,11 @@ noremap <leader>ls :split +Lf<cr>
 noremap <leader>lv :vertical split +Lf<cr>
 noremap <leader>lt :LfNewTab<cr>
 "}}}
-" 格式化{{{
-noremap <leader>Fq Vgq
-noremap <leader>FQ vipJVgq
+"   格式化{{{
+inoremap <tab>f    <esc>gwip
+inoremap <tab>F    <esc>gww
 "}}}
-" 5. UltiSnips 相关 {{{
+" UltiSnips 相关 {{{
 inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <silent><expr> <tab>  pumvisible() ? "\<C-n>" : "\<tab>"
 inoremap <silent><expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
@@ -166,7 +166,7 @@ endif
 function! RmdClipBoardImage()
     execute "normal! i```{r, out.width = '70%', fig.pos = 'h', fig.show = 'hold'}\n"
     call mdip#MarkdownClipboardImage()
-    execute "normal! g_\"iyi)VCknitr::include_graphics('')\<esc>F'\"iPo```\n" 
+    execute "normal! \<esc>g_\"iyi)VCknitr::include_graphics(\"\")\<esc>F\"\"iPo```\n" 
 endfunction
 autocmd FileType pandoc,markdown,md nnoremap <silent> <localleader>pi
     \ :<c-u>call mdip#MarkdownClipboardImage()<CR>
@@ -235,8 +235,21 @@ let g:wiki_mappings_local = {
         \ '<plug>(wiki-link-next)'       : '<tab><down>',
         \ '<plug>(wiki-link-prev)'       : '<tab><up>',
         \}
-"}}}
-" NeoTerm 相关
-nnoremap <leader>tl :<c-u>exec v:count.'Tclear'<cr>
-" dot file related
+
+" dot file related{{{
 autocmd FileType dot nnoremap <localleader>d :<c-u>AsyncRun dot -Tpdf % -o "%:r.pdf"<cr> 
+
+" vim-dadbod 相关{{{
+autocmd FileType sql  vnoremap <buffer> <localleader>l :DB<cr>
+autocmd FileType sql  nnoremap <buffer> <localleader>l V:DB<cr>
+autocmd FileType sql  nnoremap <buffer> <localleader>L :<c-u>DB < "%"<cr>
+autocmd FileType sql  nmap <buffer> <localleader>E <Plug>(DBUI_EditBindParameters) 
+autocmd FileType sql  nmap <buffer> <localleader>W <Plug>(DBUI_SaveQuery) 
+autocmd FileType dbui nmap <buffer> v <Plug>(DBUI_SelectLineVsplit)
+"
+"   注释 {{{ 
+noremap <tab>ff A {{{
+noremap <tab>f1 A {{{1
+noremap <tab>f2 A {{{2
+noremap <tab>f3 A {{{3
+

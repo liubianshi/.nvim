@@ -1,12 +1,14 @@
 " Nvim-R 变量设置{{{
-let R_app = "radian"
-let R_cmd = "R"
-let R_hl_term = 0
+"let R_app = "R"
+"let R_cmd = "R"
+let R_hl_term = 1
 let R_args = []  " if you had set any
 let R_openpdf = 1
-let R_bracketed_paste = 1
+let R_bracketed_paste = 0
 let R_rcomment_string = '#> '
-let R_hi_fun_globenv = 1
+let Rout_more_colors = 1
+let R_hi_fun_globenv = 0
+let R_hi_fun_paren = 1
 let R_assign = 0
 let R_in_buffer = 1
 let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"
@@ -25,6 +27,8 @@ augroup r_setup
     autocmd FileType rmd,rmarkdown nnoremap <leader>nc
         \ :RNrrw<cr>:set filetype=r<cr>
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
+        \ tw=78
+    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
         \ formatoptions=tqcnmB1jo
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal 
         \ tabstop=4
@@ -32,6 +36,14 @@ augroup r_setup
         \ shiftwidth=4
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown 
         \ let &brk = ""
+    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown,r
+        \ setlocal formatprg=r-format
+    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown
+        \ inoremap <tab>rq <esc>vap:LbsRF<cr>
+    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown
+        \ nnoremap <tab>rq vap:LbsRF<cr>
+    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown
+        \ vnoremap <tab>rq :LbsRF<cr>
 "}}}
 " 便捷符号输入{{{
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown
@@ -67,9 +79,9 @@ augroup r_setup
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown 
             \ inoremap <buffer> ≠ <Esc>:normal! a<-<CR>a 
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
-            \ inoremap <buffer> ¡ <Esc><Plug>RDSendLine<CR>
+            \ imap <buffer> ¡ <Esc><Plug>RDSendLine<CR>
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
-            \ nnoremap <buffer> ¡ <Plug>RDSendLine<CR>
+            \ nmap <buffer> ¡ <Plug>RDSendLine<CR>
         imap … <Esc>:RSend 
     else 
         autocmd FileType rmd,rmarkdown nnoremap <localleader>kbo
@@ -80,9 +92,9 @@ augroup r_setup
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown 
             \ inoremap <buffer> <A-=> <Esc>:normal! a<-<CR>a 
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
-            \ inoremap <buffer> <A-1> <Esc><Plug>RDSendLine<CR>
+            \ imap <buffer> <A-1> <Esc><Plug>RDSendLine<CR>
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
-            \ nnoremap <buffer> <A-1> <Plug>RDSendLine<CR>
+            \ nmap <buffer> <A-1> <Plug>RDSendLine<CR>
         imap <A-;> <Esc>:RSend 
     endif
     autocmd FileType rmd,rmarkdown nnoremap <localleader>kbv

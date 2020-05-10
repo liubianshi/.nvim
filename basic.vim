@@ -25,16 +25,15 @@ set shortmess+=c
 
 "}}}
 " 显示相关{{{1
+colorscheme ayu 
 set termguicolors          " 真彩色
 set background=dark        " 设置颜色模式
-colorscheme gruvbox
-"colorscheme ayu 
 filetype on                " 开启文件类型侦测
 filetype plugin on         " 根据侦测到的不同类型加载对应插件支持
 syntax enable              " 语法高亮
 syntax on                  " 允许用指定语法高亮配色方案替换默认方案
-set nonumber               " 开启行号显示
-set norelativenumber       " 相对行号
+set number               " 开启行号显示
+set relativenumber       " 相对行号
 set ruler                  " 显示光标当前位置
 set cmdheight=1            " 命令行高度
 "}}}
@@ -53,9 +52,9 @@ set smarttab               " Be Smart When using tabs
 set shiftround             " 运用 > < 推广缩进至 tabs 整数倍
 set wrap                   " 代码折行
 set wrapmargin=0           " 指定拆行处与编辑窗口右边缘之间空出的字符数
-set textwidth=0
-set ai              " 自动缩进
-set si              " 智能缩进
+set textwidth=0            " 行宽，自动排版所需
+set ai                     " 自动缩进
+set si                     " 智能缩进
 set linebreak
 set breakindent
 let &brk = ""
@@ -63,7 +62,7 @@ let &brk = ""
 let &showbreak = ''
 "}}}
 " 折叠相关{{{1
-set formatoptions=tqcnmB1jo
+set formatoptions=t,n1mp,Bj,coq
 set foldmethod=marker
 set foldcolumn=1
 "}}}
