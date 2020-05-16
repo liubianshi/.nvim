@@ -4,13 +4,11 @@ $2
 \`\`\`
 $0
 endsnippet
-
 snippet cbl "Codeline" w
 \`r $1\`
 $0
 endsnippet
-
-snippet rmd "Header" b
+snippet rmd "Header Bookdown Document" b
 ---
 title: "`!p snip.rv = snip.basename`"
 author: "罗伟"
@@ -36,8 +34,7 @@ output:
 ---
 $0
 endsnippet
-
-snippet head "Header" b
+snippet head "Header Normal Document" b
 ---
 title: "`!p snip.rv = snip.basename`"
 author: "罗伟"
@@ -58,7 +55,6 @@ output:
 		css: ~/useScript/vue.css
 ---
 endsnippet
-
 snippet bookdown "Header" b
 ---
 title: "$1"
@@ -74,8 +70,7 @@ toc: false
 ---
 $0
 endsnippet
-
-snippet hugo "Header" b
+snippet hugo "Header Hugo" b
 ---
 title: "`!p snip.rv = snip.basename`"
 author: "Econ.Code"
@@ -89,8 +84,7 @@ output:
 ---
 $0
 endsnippet
-
-snippet setup "Header" b
+snippet setup "Rmd Setup" b
 \`\`\`\{r setup, include = F\}
 library("tidyverse")
 library("data.table")
@@ -102,7 +96,6 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F, error = F,
 	results = "asis", fig.showtext = TRUE)
 \`\`\`
 endsnippet
-
 snippet setup_raku "Raku Engine Setup" b
 \`\`\`\{r setup, include = F\}
 library("tidyverse")
@@ -129,8 +122,6 @@ eng_raku <- function(options) {
 knitr::knit_engines$set(raku=eng_raku)
 \`\`\`
 endsnippet
-
-
 snippet bhead "Rmarkdown Beamer Header" b
 ---
 title: "`!p snip.rv = snip.basename`"
@@ -144,7 +135,6 @@ output:
 		fonttheme: structurebold
 ---
 endsnippet				  
-
 snippet cols "beamer cols" b
 \begincols
 \begincol{.48\textwidth}
@@ -161,15 +151,12 @@ $2
 
 $0
 endsnippet
-
-
 snippet raku_run "raku rmarkdown" b
 \`\`\`\{r, engine = raku\}
 $2
 \`\`\`
 $0
 endsnippet
-
 snippet ```raku "raku rmarkdown" b
 \`\`\`\{r, engine = 'raku'\}
 endsnippet

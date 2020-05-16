@@ -1,5 +1,5 @@
 " Nvim-R 变量设置{{{
-"let R_app = "R"
+"let R_app = "/usr/bin/radian"
 "let R_cmd = "R"
 let R_hl_term = 1
 let R_args = []  " if you had set any
@@ -10,6 +10,7 @@ let Rout_more_colors = 1
 let R_hi_fun_globenv = 0
 let R_hi_fun_paren = 1
 let R_assign = 0
+let R_rmdchunk = 0
 let R_in_buffer = 1
 let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"
 "let R_assign_map = '<A-=>'
@@ -17,7 +18,7 @@ let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"
 "let R_csv_delim = '\t'
 "let R_csv_app = 'tmux new-window sc-im'
 " 配置语法高亮的函数
-let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,data.table,fread,ggplot2,dplyr,tibble,stringr,forcats,readr,tidyr,purrr,fread,readxl,tidyverse'
+let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,data.table,fread,ggplot2,dplyr,tibble,stringr,forcats,readr,tidyr,purrr,fread,readxl,tidyverse,rlang'
 "}}}
 " 自动启动命令组 {{{
 augroup r_setup
@@ -37,7 +38,11 @@ augroup r_setup
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown 
         \ let &brk = ""
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown,r
+        \ setlocal formatexpr=""
+    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown,r
         \ setlocal formatprg=r-format
+    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown,r
+        \ UltiSnipsAddFiletype=rmd.r.markdown
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown
         \ inoremap <tab>rq <esc>vap:LbsRF<cr>
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown
@@ -82,20 +87,18 @@ augroup r_setup
             \ imap <buffer> ¡ <Esc><Plug>RDSendLine<CR>
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
             \ nmap <buffer> ¡ <Plug>RDSendLine<CR>
-        imap … <Esc>:RSend 
     else 
         autocmd FileType rmd,rmarkdown nnoremap <localleader>kbo
             \ :<c-u>! xdg-open ./_book/draft.pdf<cr> 
         " Keymap
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
-            \ inoremap <buffer> <A-\> <Esc>:normal! a%>%<CR>a
+            \ inoremap <buffer> <A-\> %>%<cr>
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown 
-            \ inoremap <buffer> <A-=> <Esc>:normal! a<-<CR>a 
+            \ inoremap <buffer> <A-=> <-<Space>
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
             \ imap <buffer> <A-1> <Esc><Plug>RDSendLine<CR>
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
             \ nmap <buffer> <A-1> <Plug>RDSendLine<CR>
-        imap <A-;> <Esc>:RSend 
     endif
     autocmd FileType rmd,rmarkdown nnoremap <localleader>kbv
         \ :<c-u>RSend bookdown::preview_chapter(%)<cr>

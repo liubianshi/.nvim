@@ -9,7 +9,7 @@ function Lbs_RFormat() range
     call AddForDeletion(g:rplugin.tmpdir . "/unformatted_code")
     let cmd = "styler::style_text(readLines(\"" . g:rplugin.tmpdir . "/unformatted_code\"), strict = FALSE)"
     silent exe a:firstline . "," . a:lastline . "delete"
-    "silent exe ':normal k' 
+    silent exe ':normal k' 
     call RInsert(cmd, "here") 
 endfunction
 command! -range=% LbsRF <line1>,<line2>:call Lbs_RFormat()

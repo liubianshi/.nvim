@@ -14,6 +14,7 @@ else
 endif
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>
 nnoremap <leader>ek :tabedit ~/.config/nvim/KeyMap.vim<cr>
+nnoremap <leader>er :tabedit ~/.config/nvim/rfile.vim<cr>
 nnoremap <leader>eV :source $MYVIMRC<cr>
 nnoremap <silent> <leader><cr> :noh<cr>
 "}}}
@@ -136,9 +137,6 @@ endfunction
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>:
 "}}}
-" 4. 命令模式下{{{
-cnoremap sw w !sudo tee >/dev/null % 
-"}}}
 " 处理 Markdown 和 Rmarkdown 文档{{{
 autocmd FileType pandoc,md,markdown nnoremap <leader>pp
     \ :Pandoc pdf -H ~/useScript/header.tex<cr>
@@ -245,11 +243,13 @@ autocmd FileType sql  nnoremap <buffer> <localleader>l V:DB<cr>
 autocmd FileType sql  nnoremap <buffer> <localleader>L :<c-u>DB < "%"<cr>
 autocmd FileType sql  nmap <buffer> <localleader>E <Plug>(DBUI_EditBindParameters) 
 autocmd FileType sql  nmap <buffer> <localleader>W <Plug>(DBUI_SaveQuery) 
-autocmd FileType dbui nmap <buffer> v <Plug>(DBUI_SelectLineVsplit)
-"
+autocmd FileType dbui nmap <buffer> v <Plug>(DBUI_SelectLineVsplit)  
+
 "   注释 {{{ 
-noremap <tab>ff A {{{
-noremap <tab>f1 A {{{1
-noremap <tab>f2 A {{{2
-noremap <tab>f3 A {{{3
+nnoremap <tab>ff g_a <esc>3a{<esc>
+nnoremap <tab>f1 g_a <esc>3a{<esc>a1<esc>
+nnoremap <tab>f2 g_a <esc>3a{<esc>a2<esc>
+nnoremap <tab>f3 g_a <esc>3a{<esc>a3<esc>
+
+
 

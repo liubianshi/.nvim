@@ -9,6 +9,7 @@
         Plug 'lilydjwg/fcitx.vim', { 'on': [] }       " Linux 下优化中文输入法切换
     endif
 " 美化 {{{2
+    "Plug 'flazz/vim-colorschemes' , { 'on': [] }    " 主题管理
     Plug 'morhetz/gruvbox'                          " 主题
     Plug 'rakr/vim-one'
         let g:one_allow_italics = 1 " I love italic for comments
@@ -17,7 +18,7 @@
         "let ayucolor="light"  " for light version of theme
         let ayucolor="mirage" " for mirage version of theme
         "let ayucolor="dark"   " for dark version of theme
-    "Plug 'flazz/vim-colorschemes' , { 'on': [] }    " 主题管理
+" Airline {{{3
     Plug 'vim-airline/vim-airline', { 'on': [] }    " 状态栏插件
     Plug 'vim-airline/vim-airline-themes', { 'on': [] }
         let g:airline_powerline_fonts = 1
@@ -29,7 +30,7 @@
         let g:airline#extensions#tabline#buffer_nr_show = 1
         let g:airline_theme='ayu'
 " 文件管理{{{2
-    Plug 'rbgrouleff/bclose.vim'          " lf.vim 插件依赖
+    Plug 'rbgrouleff/bclose.vim'          " lf.vim 插件依赖，关闭 buffer，但关闭 buffer 所在窗口
     Plug 'ptzz/lf.vim'                    " 文件管理
         let g:lf_map_keys = 0
     Plug 'mileszs/ack.vim', {'on': 'Ack'}  " 在 Vim 中使用 Ack 或 Ag 检索
@@ -86,6 +87,7 @@
     Plug 'godlygeek/tabular'            " 对齐文本插件
     Plug 'tpope/vim-surround'           " 快速给词加环绕符号
     Plug 'tpope/vim-repeat'             " 重复插件操作
+    Plug 'tpope/vim-abolish'            " 高效的文本替换工具
     Plug 'scrooloose/nerdcommenter'     " 注释插件
     Plug 'easymotion/vim-easymotion'    " 高效移动指标插件
         let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -162,17 +164,10 @@
         let g:ale_echo_msg_error_str = 'E'
         let g:ale_echo_msg_warning_str = 'W'
         let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-        "普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
-        nmap sp <Plug>(ale_previous_wrap)
-        nmap sn <Plug>(ale_next_wrap)
-        "<Leader>s触发/关闭语法检查
-        nmap <Leader>s :ALEToggle<CR>
-        "<Leader>d查看错误或警告的详细信息
-        nmap <Leader>d :ALEDetail<CR>
         " 文件内容发生变化时不进行检查
-        " let g:ale_lint_on_text_changed = 'never'
+        let g:ale_lint_on_text_changed = 'never'
         " 打开文件时不进行检查
-        " let g:ale_lint_on_enter = 0
+        let g:ale_lint_on_enter = 0
         "使用clang对c和c++进行语法检查，对python使用pylint进行语法检查
         let g:ale_linters = {
                     \   'sh': ['shellcheck'],
@@ -247,6 +242,7 @@
         "let g:clap_provider_grep_executable = 'ag'
         "}}}
 call plug#end()
+
 " 初始设置相关 {{{1
 " 状态栏{{{2
 function! Status() 
@@ -313,3 +309,4 @@ source ~/.config/nvim/KeyMap.vim
 "source ~/.config/nvim/python.vim
 "source ~/.config/nvim/nerdtree.vim
 "}}}
+
