@@ -94,10 +94,10 @@
         let g:EasyMotion_smartcase = 1
     Plug 'wellle/targets.vim'           " 扩展 vim 文本对象
 " 自动补全{{{2
-    Plug 'jiangmiao/auto-pairs'      " 自动引号/括号补全
+    Plug 'jiangmiao/auto-pairs'         " 自动引号/括号补全
         let g:AutoPairsMapBS = 0
-    Plug 'neoclide/coc.nvim', { 'branch': 'release', 'on': [] }  " coc 代码补全插件
-    Plug 'roxma/nvim-yarp', { 'on': [] } " ncm2 依赖的插件
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}     " coc 代码补全插件
+    Plug 'roxma/nvim-yarp'              " ncm2 依赖的插件
 " ncm2 及相关插件 {{{3
     Plug 'roxma/ncm2', { 'on': [] } 
     Plug 'gaalcaras/ncm-R', { 'on': [] }
@@ -279,6 +279,7 @@ endfunction
 autocmd BufNewFile,BufRead *.[Rr]md,*.vim,*.[Rr] call Ncm2CompleteEngine()
 autocmd FileType raku call Ncm2CompleteEngine()
 autocmd FileType sql call CocCompleteEngine()
+autocmd FileType gitignore call CocCompleteEngine()
 
 " 进入插入模式启动的插件{{{2
 augroup load_enter

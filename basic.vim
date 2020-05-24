@@ -32,10 +32,13 @@ filetype on                " 开启文件类型侦测
 filetype plugin on         " 根据侦测到的不同类型加载对应插件支持
 syntax enable              " 语法高亮
 syntax on                  " 允许用指定语法高亮配色方案替换默认方案
-set number               " 开启行号显示
-set relativenumber       " 相对行号
+set number                 " 开启行号显示
+set relativenumber         " 相对行号
 set ruler                  " 显示光标当前位置
 set cmdheight=1            " 命令行高度
+
+set list
+set listchars=tab:<->,trail:-
 "}}}
 " 搜索相关{{{1
 set hlsearch               " 高亮显示搜索结果
