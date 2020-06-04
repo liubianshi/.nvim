@@ -42,6 +42,7 @@
         Plug '/usr/bin/fzf'               " 在 vim 中使用 fzf
     endif
     Plug 'junegunn/fzf.vim'               " 安装相关插件
+    Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 " 优化写作体验{{{2
     Plug 'junegunn/goyo.vim',       {'for': ['md', 'pandoc','rmd', 'rmarkdown']} " zen 模式:
     Plug 'hotoo/pangu.vim',         {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
@@ -154,6 +155,36 @@
         au BufNewFile,BufRead *.raku,*.p6,*.pl6,*.p6 set filetype=raku
     Plug 'kovetskiy/sxhkd-vim', { 'for': 'sxhkd' }
         au BufNewFile,BufRead sxhkdrc set filetype=sxhkd
+    " tags and preview {{{3
+    Plug 'ludovicchabant/vim-gutentags'
+    Plug 'skywind3000/gutentags_plus'
+    Plug 'skywind3000/vim-preview'
+        " gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
+        let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+        " 所生成的数据文件的名称
+        let g:gutentags_ctags_tagfile = '.tags'
+        " 同时开启 ctags 和 gtags 支持：
+        let g:gutentags_modules = []
+        if executable('ctags')
+            let g:gutentags_modules += ['ctags']
+        endif
+        if executable('gtags-cscope') && executable('gtags')
+            let g:gutentags_modules += ['gtags_cscope']
+        endif
+        " 将自动生成的 ctags/gtags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+        let g:gutentags_cache_dir = expand('~/.cache/.LfCache/gtags')
+
+        " 配置 ctags 的参数，老的 Exuberant-ctags 不能有 --extra=+q，注意
+        let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+        let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+        let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+        " 如果使用 universal ctags 需要增加下面一行，老的 Exuberant-ctags 不能加下一行
+        let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+
+        " 禁用 gutentags 自动加载 gtags 数据库的行为
+        let g:gutentags_auto_add_gtags_cscope = 0
+
     " Syntax checking {{{3
     Plug 'dense-analysis/ale'                      
         let g:ale_sign_column_always = 1
@@ -182,6 +213,10 @@
                     \ }
         let g:ale_r_lintr_options = "with_defaults(line_length_linter(80))"
 " 其他小工具{{{2
+    Plug 'chrisbra/NrrwRgn'              " 形成小 buffer
+        let g:nrrw_rgn_vert = 0
+        let g:nrrw_rgn_wdth = 80
+        let g:nrrw_topbot_leftright = 'botright'
     Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
         let g:asyncrun_open = 0
     Plug 'liuchengxu/vim-which-key'
@@ -209,7 +244,7 @@
         let cmdline_map_quit           = '<LocalLeader>qq'
 
         " vimcmdline options
-            let cmdline_vsplit      = 1      " Split the window vertically
+        let cmdline_vsplit      = 1      " Split the window vertically
         let cmdline_esc_term    = 1      " Remap <Esc> to :stopinsert in Neovim's terminal
         let cmdline_in_buffer   = 1      " Start the interpreter in a Neovim's terminal
         let cmdline_term_height = 15     " Initial height of interpreter window or pane
@@ -302,6 +337,7 @@ source ~/.config/nvim/vimtex.vim
 source ~/.config/nvim/raku.vim
 source ~/.config/nvim/rfile.vim
 source ~/.config/nvim/fzfConifg.vim
+source ~/.config/nvim/LeaderfConifg.vim
 source ~/.config/nvim/whichkey.vim
 source ~/.config/nvim/goyoConfig.vim
 source ~/.config/nvim/KeyMap.vim

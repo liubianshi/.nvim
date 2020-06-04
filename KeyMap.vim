@@ -233,10 +233,10 @@ let g:wiki_mappings_local = {
         \ '<plug>(wiki-link-next)'       : '<tab><down>',
         \ '<plug>(wiki-link-prev)'       : '<tab><up>',
         \}
-
+"}}}
 " dot file related{{{
 autocmd FileType dot nnoremap <localleader>d :<c-u>AsyncRun dot -Tpdf % -o "%:r.pdf"<cr> 
-
+"}}}
 " vim-dadbod 相关{{{
 autocmd FileType sql  vnoremap <buffer> <localleader>l :DB<cr>
 autocmd FileType sql  nnoremap <buffer> <localleader>l V:DB<cr>
@@ -244,12 +244,38 @@ autocmd FileType sql  nnoremap <buffer> <localleader>L :<c-u>DB < "%"<cr>
 autocmd FileType sql  nmap <buffer> <localleader>E <Plug>(DBUI_EditBindParameters) 
 autocmd FileType sql  nmap <buffer> <localleader>W <Plug>(DBUI_SaveQuery) 
 autocmd FileType dbui nmap <buffer> v <Plug>(DBUI_SelectLineVsplit)  
-
+"}}}
 "   注释 {{{ 
 nnoremap <tab>ff g_a <esc>3a{<esc>
 nnoremap <tab>f1 g_a <esc>3a{<esc>a1<esc>
 nnoremap <tab>f2 g_a <esc>3a{<esc>a2<esc>
 nnoremap <tab>f3 g_a <esc>3a{<esc>a3<esc>
+"}}}
+" vim-preview {{{
+autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+noremap [u :PreviewScroll -1<cr>
+noremap ]u :PreviewScroll +1<cr>
+"}}}
+" fuzzy search {{{
+let g:Lf_ShortcutF = '<C-p>'
+let g:Lf_ShortcutB = '<leader>fb'
+noremap <silent> <leader>fa :<C-U><C-R>=printf("Leaderf! rg -e %s", expand("<cword>"))<CR><CR>
+noremap <silent> <leader>fc :<C-U><C-R>=printf("Leaderf! command %s", "")<CR><CR>
+noremap <silent> <leader>fC :<C-U><C-R>=printf("Leaderf! colorscheme %s", "")<CR><CR>
+noremap <silent> <leader>ff :<C-U><C-R>=printf("Leaderf! function %s", "")<CR><CR>
+noremap <silent> <leader>ft :<C-U><C-R>=printf("Leaderf! bufTag %s", "")<CR><CR>
+noremap <silent> <leader>fm :<C-U><C-R>=printf("Leaderf! mru %s", "")<CR><CR>
+noremap <silent> <leader>fw  :WikiFzfPages<CR>
+noremap <silent> <leader>fl :<C-U><C-R>=printf("Leaderf! line %s", "")<CR><CR>
+noremap <silent> <leader>f: :<C-U><C-R>=printf("Leaderf! cmdHistory %s", "")<CR><CR>
+noremap <silent> <leader>f/ :<C-U><C-R>=printf("Leaderf! searchHistory %s", "")<CR><CR>
+noremap <silent> <leader>fs  :FzfSnippets<CR>
+noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR><CR>
+noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s", "")<CR>
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
+noremap go :<C-U>Leaderf! rg --recall<CR>
+"}}}
 
 
 

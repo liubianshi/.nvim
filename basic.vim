@@ -78,8 +78,11 @@ set laststatus=0           " 总是显示状态栏
 set fdl=0
 set fdls=0
 "}}}
-" 字典{{{
+" 字典和标签相关 {{{
 set dictionary=~/.config/nvim/paper.dict
+set tags=./.tags;.tags
+let $GTAGSLABEL = 'native-pygments'
+let $GTAGSCONF = "/usr/share/gtags/gtags.conf"
 "}}}
 " Python 相关设置 {{{1
 let g:python_host_skip_check=1
