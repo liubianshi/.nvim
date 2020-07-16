@@ -25,17 +25,20 @@ set shortmess+=c
 
 "}}}
 " 显示相关{{{1
-colorscheme ayu 
+colorscheme gruvbox
 set termguicolors          " 真彩色
 set background=dark        " 设置颜色模式
 filetype on                " 开启文件类型侦测
 filetype plugin on         " 根据侦测到的不同类型加载对应插件支持
 syntax enable              " 语法高亮
 syntax on                  " 允许用指定语法高亮配色方案替换默认方案
-set number               " 开启行号显示
-set relativenumber       " 相对行号
+set number                 " 开启行号显示
+set relativenumber         " 相对行号
 set ruler                  " 显示光标当前位置
 set cmdheight=1            " 命令行高度
+
+set list
+set listchars=tab:<->,trail:-
 "}}}
 " 搜索相关{{{1
 set hlsearch               " 高亮显示搜索结果
@@ -67,7 +70,7 @@ set foldmethod=marker
 set foldcolumn=1
 "}}}
 " 模拟 goyo 模式{{{1
-set signcolumn=yes
+set signcolumn=no
 highlight FoldColumn guibg=bg
 highlight SignColumn guibg=bg
 autocmd VimEnter * set laststatus=0
@@ -75,8 +78,11 @@ set laststatus=0           " 总是显示状态栏
 set fdl=0
 set fdls=0
 "}}}
-" 字典{{{
+" 字典和标签相关 {{{
 set dictionary=~/.config/nvim/paper.dict
+"set tags=./.tags;.tags
+let $GTAGSLABEL = 'native-pygments'
+"let $GTAGSCONF = $HOME . "/.globalrc"
 "}}}
 " Python 相关设置 {{{1
 let g:python_host_skip_check=1
@@ -92,6 +98,7 @@ endif
 " 自动启动命令{{{1
 autocmd BufWritePre *.{md,pl,p6,rmd,r,do} :%s/\s\+$//e
 autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex let &brk = ''
+autocmd filetype mail set tw=0 wrap
 "autocmd InsertLeave,WinEnter * set cursorline
 "autocmd InsertEnter,WinLeave * set nocursorline
 "}}}

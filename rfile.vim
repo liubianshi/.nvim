@@ -1,13 +1,12 @@
 " Nvim-R 变量设置{{{
 "let R_app = "/usr/bin/radian"
-"let R_cmd = "R"
+let R_cmd = "R"
 let R_hl_term = 1
-let R_args = []  " if you had set any
 let R_openpdf = 1
 let R_bracketed_paste = 0
 let R_rcomment_string = '#> '
 let Rout_more_colors = 1
-let R_hi_fun_globenv = 0
+let R_hi_fun_globenv = 1
 let R_hi_fun_paren = 1
 let R_assign = 0
 let R_rmdchunk = 0
@@ -18,7 +17,7 @@ let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"
 "let R_csv_delim = '\t'
 "let R_csv_app = 'tmux new-window sc-im'
 " 配置语法高亮的函数
-let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,data.table,fread,ggplot2,dplyr,tibble,stringr,forcats,readr,tidyr,purrr,fread,readxl,tidyverse,rlang'
+let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,rlang,data.table,fread,readxl,tidyverse,haven'
 "}}}
 " 自动启动命令组 {{{
 augroup r_setup
@@ -112,14 +111,26 @@ augroup r_setup
     autocmd FileType r nnoremap <localleader>dd :<c-u>RSend devtools::document()<cr>
 "}}}
 " view dataframe{{{
-    function! R_view_df(row, method)
-        let dfname = expand("<cword>")
-        call g:SendCmdToR('fViewDFonVim("' . dfname . '", ' . a:row . ', "' . a:method . '")')
+    function! R_view_df(dfname, row, method, max_width)
+        call g:SendCmdToR('fViewDFonVim("' . a:dfname . '", ' . a:row . ', "' . a:method . '", ' . a:max_width . ')')
     endfunction
-    autocmd FileType r,rmd,rmarkdown nmap <localleader>tv :<c-u>call R_view_df(40, 'ht')<cr>
-    autocmd FileType r,rmd,rmarkdown nmap <localleader>tr :<c-u>call R_view_df(40, 'r')<cr>
-    autocmd FileType r,rmd,rmarkdown nmap <localleader>th :<c-u>call R_view_df(40, 'h')<cr>
-    autocmd FileType r,rmd,rmarkdown nmap <localleader>tt :<c-u>call R_view_df(40, 't')<cr>
+    function! R_view_df_sample(method)
+        let dfname = expand("<cword>")
+        let row = 40
+        let max_width = 30
+        return R_view_df(dfname, row, a:method, max_width)
+    endfunction
+    function! R_view_df_full(max_width)
+        let dfname = expand("<cword>")
+        let row = 0 
+        let method = 'ht'
+        return R_view_df(dfname, row, method, a:max_width)
+    endfunction
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>tv :<c-u>call R_view_df_sample('ht')<cr>
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>tr :<c-u>call R_view_df_sample('r')<cr>
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>th :<c-u>call R_view_df_sample('h')<cr>
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>tt :<c-u>call R_view_df_sample('t')<cr>
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>tV :<c-u>call R_view_df_full(60)<cr>
 "}}}
 augroup END
      "}}}
