@@ -8,9 +8,10 @@ win_active=$(xdotool getactivewindow | head -1)
 win_stata=$(xdotool search --name "Stata/MP 14.1" | head -1)
 
 if [[ -z $win_stata ]]; then
-    st -t "Stata/MP 14.1" -c "Stata-mp" -e sh -c 'stata-mp -q' \
-        || { echo "Error: Cannot open xstata-mp" >&2; exit 1; } &
-    sleep 0.2 
+    #st -t "Stata/MP 14.1" -c "Stata-mp" -e sh -c 'stata-mp -q' \
+        #|| { echo "Error: Cannot open xstata-mp" >&2; exit 1; } &
+    xstata-mp
+    sleep 0.5
     win_stata=$(xdotool getactivewindow | head -1)
 fi
 

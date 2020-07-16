@@ -1,5 +1,5 @@
 " 基础命令{{{
-nnoremap <silent> <leader><leader> :AsyncRun 
+nnoremap <leader>R :<C-U><C-R>=printf("AsyncRun %s", "%")<CR> 
 nnoremap <silent> <leader>p :<c-u>execute "cd" expand("%:p:h")<cr>
 nnoremap <silent> <leader>C :<c-u> call ChangeCompleteEngine()<cr>
 nnoremap <silent> <leader>w :<c-u>:w<cr>
@@ -108,7 +108,7 @@ nnoremap <tab>j :tabprevious<cr>
 inoremap <tab> <space><bs>
 inoremap <tab><tab> <tab>
 inoremap <s-tab> <esc>^d0i
-inoremap <tab>2 <esc>4i<space><esc>a
+inoremap <tab>2 <esc>2i<space><esc>a
 inoremap <tab>3 <esc>3i<space><esc>a
 inoremap <tab>4 <esc>4i<space><esc>a
 nnoremap <tab><tab> V>
@@ -116,6 +116,7 @@ vnoremap <tab> >gv
 nnoremap <s-tab> V<
 vnoremap <s-tab> <gv
 nnoremap <tab>p "0p
+nnoremap <tab>P "*p
 "}}}
 " Visual mode pressing * or # searches for the current selection{{{
 " Super useful! From an idea by Michael Naumann
@@ -258,24 +259,36 @@ noremap [u :PreviewScroll -1<cr>
 noremap ]u :PreviewScroll +1<cr>
 "}}}
 " fuzzy search {{{
-let g:Lf_ShortcutF = '<C-p>'
-let g:Lf_ShortcutB = '<leader>fb'
+let g:Lf_ShortcutF = '<leader>fF'
 noremap <silent> <leader>fa :<C-U><C-R>=printf("Leaderf! rg -e %s", expand("<cword>"))<CR><CR>
-noremap <silent> <leader>fc :<C-U><C-R>=printf("Leaderf! command %s", "")<CR><CR>
-noremap <silent> <leader>fC :<C-U><C-R>=printf("Leaderf! colorscheme %s", "")<CR><CR>
-noremap <silent> <leader>ff :<C-U><C-R>=printf("Leaderf! function %s", "")<CR><CR>
-noremap <silent> <leader>ft :<C-U><C-R>=printf("Leaderf! bufTag %s", "")<CR><CR>
-noremap <silent> <leader>fm :<C-U><C-R>=printf("Leaderf! mru %s", "")<CR><CR>
+let g:Lf_ShortcutB = '<leader>fb'
+noremap <silent> <leader>fc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
+noremap <silent> <leader>fC :<C-U><C-R>=printf("Leaderf colorscheme %s", "")<CR><CR>
+noremap <silent> <leader>fd :<C-U><C-R>=printf("Leaderf gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <silent> <leader>ff :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
+noremap <silent> <leader>fF :<C-U><C-R>=printf("Leaderf function --all %s", "")<CR><CR>
+noremap <silent> <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <silent> <leader>fT :<C-U><C-R>=printf("Leaderf bufTag --all %s", "")<CR><CR>
+noremap <silent> <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <silent> <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
 noremap <silent> <leader>fw  :WikiFzfPages<CR>
-noremap <silent> <leader>fl :<C-U><C-R>=printf("Leaderf! line %s", "")<CR><CR>
-noremap <silent> <leader>f: :<C-U><C-R>=printf("Leaderf! cmdHistory %s", "")<CR><CR>
-noremap <silent> <leader>f/ :<C-U><C-R>=printf("Leaderf! searchHistory %s", "")<CR><CR>
+noremap <silent> <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+noremap <silent> <leader>fo :<C-U><C-R>=printf("Leaderf gtags --recall %s", "")<CR><CR>
+noremap <silent> <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+noremap <silent> <leader>fr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
 noremap <silent> <leader>fs  :FzfSnippets<CR>
-noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR><CR>
-noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s", "")<CR>
+noremap <silent> <leader>f: :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
+noremap <silent> <leader>f/ :<C-U><C-R>=printf("Leaderf searchHistory %s", "")<CR><CR>
+noremap <C-B> :<C-U><C-R>=printf("Leaderf rg --current-buffer -e %s ", expand("<cword>"))<CR><CR>
+noremap <C-F> :<C-U><C-R>=printf("Leaderf rg -e %s", "")<CR>
 xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
 noremap go :<C-U>Leaderf! rg --recall<CR>
 "}}}
+" 日常编辑相关
+noremap <silent> <leader>nh :w !pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
+
+"
+" gtags 相关
 
 
 

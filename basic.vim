@@ -25,7 +25,7 @@ set shortmess+=c
 
 "}}}
 " 显示相关{{{1
-colorscheme ayu 
+colorscheme gruvbox
 set termguicolors          " 真彩色
 set background=dark        " 设置颜色模式
 filetype on                " 开启文件类型侦测
@@ -70,7 +70,7 @@ set foldmethod=marker
 set foldcolumn=1
 "}}}
 " 模拟 goyo 模式{{{1
-set signcolumn=yes
+set signcolumn=no
 highlight FoldColumn guibg=bg
 highlight SignColumn guibg=bg
 autocmd VimEnter * set laststatus=0
@@ -80,9 +80,9 @@ set fdls=0
 "}}}
 " 字典和标签相关 {{{
 set dictionary=~/.config/nvim/paper.dict
-set tags=./.tags;.tags
+"set tags=./.tags;.tags
 let $GTAGSLABEL = 'native-pygments'
-let $GTAGSCONF = "/usr/share/gtags/gtags.conf"
+"let $GTAGSCONF = $HOME . "/.globalrc"
 "}}}
 " Python 相关设置 {{{1
 let g:python_host_skip_check=1
@@ -98,6 +98,7 @@ endif
 " 自动启动命令{{{1
 autocmd BufWritePre *.{md,pl,p6,rmd,r,do} :%s/\s\+$//e
 autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex let &brk = ''
+autocmd filetype mail set tw=0 wrap
 "autocmd InsertLeave,WinEnter * set cursorline
 "autocmd InsertEnter,WinLeave * set nocursorline
 "}}}
