@@ -76,29 +76,28 @@ augroup r_setup
         \ :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::pdf_book")<cr>
     autocmd FileType rmd,rmarkdown nnoremap <localleader>kbh
         \ :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::html_book")<cr>
+    autocmd FileType rmd,rmarkdown nnoremap <localleader>kbo
+        \ :<c-u>! xdg-open ./_book/draft.pdf<cr> 
+    " Keymap
+    autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
+        \ inoremap <buffer> <A-\> %>%<cr>
+    autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown 
+        \ inoremap <buffer> <A-=> <-<Space>
+    autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
+        \ imap <buffer> <A-1> <Esc><Plug>RDSendLine<CR>
+    autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
+        \ nmap <buffer> <A-1> <Plug>RDSendLine<CR>
     if(has("mac"))
         autocmd FileType rmd,rmarkdown nnoremap <localleader>kbo
             \ :<c-u>! open ./_book/draft.pdf<cr> 
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
-            \ inoremap <buffer> « <Esc>:normal! a%>%<CR>a
+            \ inoremap <buffer> « %>%<cr>
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown 
-            \ inoremap <buffer> ≠ <Esc>:normal! a<-<CR>a 
+            \ inoremap <buffer> ≠ <-<cr> 
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
             \ imap <buffer> ¡ <Esc><Plug>RDSendLine<CR>
         autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
             \ nmap <buffer> ¡ <Plug>RDSendLine<CR>
-    else 
-        autocmd FileType rmd,rmarkdown nnoremap <localleader>kbo
-            \ :<c-u>! xdg-open ./_book/draft.pdf<cr> 
-        " Keymap
-        autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
-            \ inoremap <buffer> <A-\> %>%<cr>
-        autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown 
-            \ inoremap <buffer> <A-=> <-<Space>
-        autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
-            \ imap <buffer> <A-1> <Esc><Plug>RDSendLine<CR>
-        autocmd FileType r,rmd,rmarkdown,rnoweb,rmd.rmarkdown
-            \ nmap <buffer> <A-1> <Plug>RDSendLine<CR>
     endif
     autocmd FileType rmd,rmarkdown nnoremap <localleader>kbv
         \ :<c-u>RSend bookdown::preview_chapter(%)<cr>

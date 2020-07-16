@@ -4,13 +4,11 @@ nnoremap <silent> <leader>p :<c-u>execute "cd" expand("%:p:h")<cr>
 nnoremap <silent> <leader>C :<c-u> call ChangeCompleteEngine()<cr>
 nnoremap <silent> <leader>w :<c-u>:w<cr>
 nnoremap <silent> <leader>x :<c-u>:q<cr>
+nnoremap <leader>O :AsyncRun xdg-open "%"<cr>
+inoremap <A-space> <Esc>
+tnoremap <A-space> <C-\><C-n>
 if(has("mac"))
     nnoremap <leader>O :AsyncRun open "%"<cr>
-    tnoremap <A-space> <C-\><C-n>
-else
-    nnoremap <leader>O :AsyncRun xdg-open "%"<cr>
-    inoremap <A-space> <Esc>
-    tnoremap <A-space> <C-\><C-n>
 endif
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>
 nnoremap <leader>ek :tabedit ~/.config/nvim/KeyMap.vim<cr>
@@ -72,6 +70,12 @@ nnoremap J <C-w>j
 nnoremap K <C-w>k
 nnoremap H <C-w>h
 nnoremap L <C-w>l
+nnoremap <A-j> <Esc>Vj
+nnoremap <A-k> <Esc>Vk
+nnoremap <A-h> <Esc>v^
+nnoremap <A-l> <Esc>v$
+noremap <A-o> o<Esc>
+noremap <A-O> O<Esc>
 if(has("mac"))
     nnoremap ∆ <Esc>Vj
     nnoremap ˚ <Esc>Vk
@@ -79,14 +83,6 @@ if(has("mac"))
     nnoremap ¬ <Esc>v$
     noremap ø o<Esc>
     noremap  Ø O<Esc>
-
-else
-    nnoremap <A-j> <Esc>Vj
-    nnoremap <A-k> <Esc>Vk
-    nnoremap <A-h> <Esc>v^
-    nnoremap <A-l> <Esc>v$
-    noremap <A-o> o<Esc>
-    noremap <A-O> O<Esc>
 endif
 nnoremap ]b :<c-u>bnext<cr>
 nnoremap [b :<c-u>bprevious<cr>
