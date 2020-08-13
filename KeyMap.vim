@@ -1,5 +1,5 @@
 " 基础命令{{{
-nnoremap <leader>R :<C-U><C-R>=printf("AsyncRun %s", "%")<CR> 
+nnoremap <leader><leader> :<C-U><C-R>=printf("AsyncRun %s", "")<CR> 
 nnoremap <silent> <leader>p :<c-u>execute "cd" expand("%:p:h")<cr>
 nnoremap <silent> <leader>C :<c-u> call ChangeCompleteEngine()<cr>
 nnoremap <silent> <leader>w :<c-u>:w<cr>
@@ -50,14 +50,12 @@ noremap <leader>ls :split +Lf<cr>
 noremap <leader>lv :vertical split +Lf<cr>
 noremap <leader>lt :LfNewTab<cr>
 "}}}
-"   格式化{{{
-inoremap <tab>f    <esc>gwip
-inoremap <tab>F    <esc>gww
-"}}}
 " UltiSnips 相关 {{{
 inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <silent><expr> <tab>  pumvisible() ? "\<C-n>" : "\<tab>"
 inoremap <silent><expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <silent><expr> <tab>  pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <silent><expr> <s-tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 let g:UltiSnipsExpandTrigger		= "<c-u>"
 let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
@@ -100,13 +98,8 @@ nnoremap <tab>x :tabclose<cr>
 nnoremap <tab>k :tabnext<cr>
 nnoremap <tab>j :tabprevious<cr>
 "}}}
+
 " 缩进{{{
-inoremap <tab> <space><bs>
-inoremap <tab><tab> <tab>
-inoremap <s-tab> <esc>^d0i
-inoremap <tab>2 <esc>2i<space><esc>a
-inoremap <tab>3 <esc>3i<space><esc>a
-inoremap <tab>4 <esc>4i<space><esc>a
 nnoremap <tab><tab> V>
 vnoremap <tab> >gv
 nnoremap <s-tab> V<
@@ -144,7 +137,7 @@ autocmd FileType rmd nnoremap <leader>rp
 autocmd FileType rmd nnoremap <leader>rh
     \ :AsyncRun ~/useScript/rmarkdown.sh -o bookdown::html_document2 %<cr>
 autocmd FileType pandoc,rmd,rmarkdown,raku,perl6,markdown
-    \ inoremap <tab><CR> <Esc>A;<CR>
+    \ inoremap ;<CR> <Esc>A;<CR>
 autocmd FileType pandoc,rmd,rmarkdown,raku,perl6,markdown
     \ nnoremap <tab><CR> <Esc>A;<CR>
 if(has("mac"))

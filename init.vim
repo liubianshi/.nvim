@@ -320,7 +320,7 @@ source ~/.config/nvim/LeaderfConifg.vim
 source ~/.config/nvim/whichkey.vim
 source ~/.config/nvim/goyoConfig.vim
 source ~/.config/nvim/KeyMap.vim
-source ~/.config/nvim/stata.vim
+"source ~/.config/nvim/stata.vim
 "source ~/.config/nvim/coc.vim
 "source ~/.config/nvim/python.vim
 "source ~/.config/nvim/nerdtree.vim

@@ -60,7 +60,7 @@ nnoremap <silent> <tab>m :call fzf#run({
                         \ 'up': '40%',
                         \ 'options': '--ansi --layout=reverse-list --multi --prompt "Markdown> "'})<CR>
 
-inoremap <silent> <tab>@ <c-g>u<c-o>:call fzf#run({
+inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
                         \ 'source': Bibtex_ls(),
                         \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
                         \ 'up': '40%',
