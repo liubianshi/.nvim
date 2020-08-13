@@ -43,7 +43,7 @@ augroup r_setup
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown,r
         \ UltiSnipsAddFiletype=rmd.r.markdown
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown
-        \ inoremap <tab>rq <esc>vap:LbsRF<cr>
+        \ inoremap ;rq <esc>vap:LbsRF<cr>
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown
         \ nnoremap <tab>rq vap:LbsRF<cr>
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown
@@ -51,21 +51,21 @@ augroup r_setup
 "}}}
 " 便捷符号输入{{{
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown
-        \ inoremap <tab>- <esc>m0^d0i-<space><esc>`0a
+        \ inoremap ;- <esc>m0^d0i-<space><esc>`0a
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown
-        \ inoremap <tab>= <esc>m0^d0i1.<space><esc>`0a
+        \ inoremap ;= <esc>m0^d0i1.<space><esc>`0a
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown
-        \ inoremap <tab>_ <esc>m0^d0i<tab>-<space><esc>`0a
+        \ inoremap ;_ <esc>m0^d0i<tab>-<space><esc>`0a
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown
-        \ inoremap <tab>+ <esc>m0^d0i<tab>1.<space><esc>`0a
+        \ inoremap ;+ <esc>m0^d0i<tab>1.<space><esc>`0a
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown 
-        \ inoremap <tab>0 ` `<C-o>F <c-o>x
+        \ inoremap ;0 ` `<C-o>F <c-o>x
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown 
-        \ inoremap <tab>9 $ $<C-o>F <c-o>x
+        \ inoremap ;9 $ $<C-o>F <c-o>x
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown 
-        \ inoremap <tab>I * *<C-o>F <c-o>x
+        \ inoremap ;I * *<C-o>F <c-o>x
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown 
-        \ inoremap <tab>B ** **<C-o>F <c-o>x
+        \ inoremap ;B ** **<C-o>F <c-o>x
 "}}}
 " Nvim-R 相关的快捷键{{{
     nmap , <Plug>RDSendLine

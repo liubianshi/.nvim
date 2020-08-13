@@ -74,7 +74,7 @@ set signcolumn=no
 highlight FoldColumn guibg=bg
 highlight SignColumn guibg=bg
 autocmd VimEnter * set laststatus=0
-set laststatus=0           " 总是显示状态栏
+set laststatus=1           " 总是显示状态栏
 set fdl=0
 set fdls=0
 "}}}

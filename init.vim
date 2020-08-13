@@ -284,30 +284,26 @@ function! ChangeCompleteEngine()
     endif
 endfunction
 
-autocmd BufNewFile,BufRead *.[Rr]md,*.[Rr] call Ncm2CompleteEngine()
-autocmd FileType raku      call Ncm2CompleteEngine()
-autocmd FileType md        call Ncm2CompleteEngine()
-autocmd FileType mail      call Ncm2CompleteEngine()
-autocmd FileType pandoc    call Ncm2CompleteEngine()
-autocmd FileType vim       call Ncm2CompleteEngine()
-autocmd FileType perl6     call Ncm2CompleteEngine()
-autocmd FileType sh        call Ncm2CompleteEngine()
-"autocmd FileType sql call CocCompleteEngine()
-"autocmd FileType gitignore call CocCompleteEngine()
-
 " 进入插入模式启动的插件{{{2
 augroup load_enter
   autocmd!
   if(has("mac"))
-      autocmd InsertEnter * call plug#load('fcitx-vim-osx')
+      autocmd BufNewFile,BufRead * call plug#load('fcitx-vim-osx')
   else
-      autocmd InsertEnter * call plug#load('fcitx.vim')
+      autocmd BufNewFile,BufRead * call plug#load('fcitx.vim')
   endif
-  autocmd InsertEnter * call plug#load('vim-snippets')
-  autocmd InsertEnter * call plug#load('vim-fugitive')
-  autocmd InsertEnter * call plug#load('vim-obsession')
-  autocmd InsertEnter * call plug#load('vimcdoc')
+  autocmd BufNewFile,BufRead * call plug#load('vim-snippets')
+  autocmd BufNewFile,BufRead * call plug#load('vim-fugitive')
+  autocmd BufNewFile,BufRead * call plug#load('vim-obsession')
+  autocmd BufNewFile,BufRead * call plug#load('vimcdoc')
+  autocmd BufNewFile,BufRead * call CocCompleteEngine()
 augroup END
+
+" 自动补全框架
+"
+autocmd BufNewFile,BufRead *.[Rr]md,*.[Rr] call Ncm2CompleteEngine()
+
+
 " 导入外部文件{{{1
 source ~/.config/nvim/basic.vim
 source ~/.config/nvim/lbs_function.vim  
@@ -320,7 +316,7 @@ source ~/.config/nvim/LeaderfConifg.vim
 source ~/.config/nvim/whichkey.vim
 source ~/.config/nvim/goyoConfig.vim
 source ~/.config/nvim/KeyMap.vim
-source ~/.config/nvim/stata.vim
+"source ~/.config/nvim/stata.vim
 "source ~/.config/nvim/coc.vim
 "source ~/.config/nvim/python.vim
 "source ~/.config/nvim/nerdtree.vim

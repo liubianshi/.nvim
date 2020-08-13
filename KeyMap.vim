@@ -53,14 +53,26 @@ noremap <leader>ls :split +Lf<cr>
 noremap <leader>lv :vertical split +Lf<cr>
 noremap <leader>lt :LfNewTab<cr>
 "}}}
-"   格式化{{{
-inoremap <tab>f    <esc>gwip
-inoremap <tab>F    <esc>gww
-"}}}
-" UltiSnips 相关 {{{
+" 补全相关 {{{
 inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <silent><expr> <tab>  pumvisible() ? "\<C-n>" : "\<tab>"
 inoremap <silent><expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
 let g:UltiSnipsExpandTrigger		= "<c-u>"
 let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
@@ -104,12 +116,6 @@ nnoremap <tab>k :tabnext<cr>
 nnoremap <tab>j :tabprevious<cr>
 "}}}
 " 缩进{{{
-inoremap <tab> <space><bs>
-inoremap <tab><tab> <tab>
-inoremap <s-tab> <esc>^d0i
-inoremap <tab>2 <esc>2i<space><esc>a
-inoremap <tab>3 <esc>3i<space><esc>a
-inoremap <tab>4 <esc>4i<space><esc>a
 nnoremap <tab><tab> V>
 vnoremap <tab> >gv
 nnoremap <s-tab> V<
@@ -147,7 +153,7 @@ autocmd FileType rmd nnoremap <leader>rp
 autocmd FileType rmd nnoremap <leader>rh
     \ :AsyncRun ~/useScript/rmarkdown.sh -o bookdown::html_document2 %<cr>
 autocmd FileType pandoc,rmd,rmarkdown,raku,perl6,markdown
-    \ inoremap <tab><CR> <Esc>A;<CR>
+    \ inoremap ;<CR> <Esc>A;<CR>
 autocmd FileType pandoc,rmd,rmarkdown,raku,perl6,markdown
     \ nnoremap <tab><CR> <Esc>A;<CR>
 if(has("mac"))
@@ -285,6 +291,7 @@ noremap go :<C-U>Leaderf! rg --recall<CR>
 "}}}
 " 日常编辑相关
 noremap <silent> <leader>nh :w !pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
+
 
 "
 " gtags 相关

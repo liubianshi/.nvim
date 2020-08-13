@@ -19,9 +19,9 @@ augroup reku_setup
         autocmd FileType raku inoremap <buffer> <A-\> ==><cr>
         autocmd FileType raku inoremap <buffer> <A-=> => 
         autocmd FileType raku inoremap <buffer> <A--> -> 
-        autocmd FileType raku inoremap <buffer> <tab>i $
-        autocmd FileType raku inoremap <buffer> <tab>o ~
-        autocmd FileType raku inoremap <buffer> <tab>l <esc>A
+        autocmd FileType raku inoremap <buffer> ;i $
+        autocmd FileType raku inoremap <buffer> ;o ~
+        autocmd FileType raku inoremap <buffer> ;l <esc>A
     endif
 augroup END
 
