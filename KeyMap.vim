@@ -1,5 +1,5 @@
 " 基础命令{{{
-nnoremap <leader>R :<C-U><C-R>=printf("AsyncRun %s", "%")<CR> 
+nnoremap <leader><leader> :<C-U><C-R>=printf("AsyncRun %s", "")<CR> 
 nnoremap <silent> <leader>p :<c-u>execute "cd" expand("%:p:h")<cr>
 nnoremap <silent> <leader>C :<c-u> call ChangeCompleteEngine()<cr>
 nnoremap <silent> <leader>w :<c-u>:w<cr>
@@ -9,6 +9,9 @@ inoremap <A-space> <Esc>
 tnoremap <A-space> <C-\><C-n>
 if(has("mac"))
     nnoremap <leader>O :AsyncRun open "%"<cr>
+else
+    nnoremap <A-d> 10j
+    nnoremap <A-u> 10k
 endif
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>
 nnoremap <leader>ek :tabedit ~/.config/nvim/KeyMap.vim<cr>

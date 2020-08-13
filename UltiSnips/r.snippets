@@ -1,7 +1,7 @@
 global !p
-word = re.compile(r'\s+((?:[^\s\\]|\\\\|\\\s)+)')
-quote = re.compile(r'\s+((["\'])([^\2]+)\2|[^"\'\s]+)')
-
+re_word = re.compile(r'\s+((?:[^\s\\]|\\\\|\\\s)+)')
+re_quote = re.compile(r'\s+((["\'])([^\2]+)\2|[^"\'\s]+)')
+re_map = re.compile(r';([^;]+)')
 endglobal
 
 snippet head "Rscript Header" b
@@ -18,14 +18,21 @@ endsnippet
 snippet '"c'  "Change string to string vector" r
 " %>%
 	str_trim() %>% str_split("\\\\s+") %>% flatten_chr()
-$0""
+$0
 endsnippet
 
-snippet ': *((?:[^\s\\]|\\\\|\\\s)+)((\s+(?:[^\s\\]|\\\\|\\\s)+)*)'  "perl style string vector" r
-(`!p snip.rv = '"' + match.group(1) + '"' + re.compile(r'\\\s').sub(' ', word.sub(r', "\1"', match.group(2)))`)$0
+snippet ':((?:[^\s\\]|\\\\|\\\s)+)((\s+(?:[^\s\\]|\\\\|\\\s)+)*)'  "perl style string vector" r
+(`!p snip.rv = '"' + match.group(1) + '"' + re.compile(r'\\\s').sub(' ', re_word.sub(r', "\1"', match.group(2)))`)$0
 endsnippet
 
-snippet '; *((["\'])[^\2]+\2|[^"\'\s]+)((?:\s+(?:(["\'])[^\4]+\4|[^"\'\s]+))*)'  "R vector" r
-(`!p snip.rv = match.group(1) + quote.sub(r', \1', match.group(3))`)$0
+#snippet ';((["\'])[^\2]+\2|[^"\'\s]+)((?:\s+(?:(["\'])[^\4]+\4|[^"\'\s]+))*)'  "R vector" r
+#(`!p snip.rv = match.group(1) + re_quote.sub(r', \1', match.group(3))`)$0
+#endsnippet
+
+snippet ';([^;]+)((?:;[^;]+)*)' "R list" r
+(`!p snip.rv = match.group(1) + re_map.sub(r',\1', match.group(2))`)$0
 endsnippet
 
+snippet '([\w.]+)=(.*)' "map" r
+`!p snip.rv = match.group(1) + " = " + '"' + match.group(2) + '"'`$0
+endsnippet
