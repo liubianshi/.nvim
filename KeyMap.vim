@@ -231,7 +231,6 @@ let g:wiki_mappings_local = {
         \ '<plug>(wiki-page-delete)'     : '<tab>wd',
         \ '<plug>(wiki-page-rename)'     : '<tab>wr',
         \ '<plug>(wiki-list-toggle)'     : '<tab><c-s>',
-        \ 'i_<plug>(wiki-list-toggle)'   : '<tab><c-s>',
         \ '<plug>(wiki-page-toc)'        : '<tab>wt',
         \ '<plug>(wiki-page-toc-local)'  : '<tab>wT',
         \ '<plug>(wiki-link-open)'       : '<tab><cr>',
