@@ -163,7 +163,6 @@
         map g/ <Plug>(incsearch-stay)
     Plug 'tpope/vim-fugitive', { 'on': [] }             " git 插件
     Plug 'tpope/vim-obsession', { 'on': [] }            " tmux Backup needed
-    Plug 'VincentCordobes/vim-translate'                " 翻译工具
     Plug 'yianwillis/vimcdoc', { 'on': [] }             " Vim 中文帮助文档
     Plug 'mechatroner/rainbow_csv', {                   
         \ 'for': ['csv', 'tsv', 'csv_semicolon', 'csv_whitespace', 'rfc_csv', 'rfc_semicolon'] 
@@ -200,6 +199,7 @@
 " 自动补全{{{2
     Plug 'jiangmiao/auto-pairs'         " 自动引号/括号补全
         let g:AutoPairsMapBS = 0
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'on': []}
 " ncm2 及相关插件 {{{3
     Plug 'roxma/nvim-yarp'              " ncm2 依赖的插件
     Plug 'roxma/ncm2'
@@ -245,8 +245,8 @@
     "Plug 'terryma/vim-multiple-cursors'
     "Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
         "let g:clap_provider_grep_executable = 'ag'
+    "Plug 'VincentCordobes/vim-translate'                " 翻译工具
     "Plug 'neoclide/coc.nvim', {'branch': 'release'}     " coc 代码补全插件
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'on': []}
 "}}}
 call plug#end()
 
