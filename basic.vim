@@ -26,7 +26,9 @@ set shortmess+=c
 "}}}
 " 显示相关{{{1
 colorscheme gruvbox
-set termguicolors          " 真彩色
+if $TERM != "dvtm-256color"
+    set termguicolors          " 真彩色
+endif
 set background=dark        " 设置颜色模式
 filetype on                " 开启文件类型侦测
 filetype plugin on         " 根据侦测到的不同类型加载对应插件支持

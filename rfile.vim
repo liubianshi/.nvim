@@ -38,7 +38,7 @@ augroup r_setup
         \ let &brk = ""
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown,r
         \ setlocal formatexpr=""
-    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown,r
+    autocmd FileType rmd,rmarkdown,rmd.rmarkdown,r
         \ setlocal formatprg=r-format
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown,r
         \ UltiSnipsAddFiletype=rmd.r.markdown

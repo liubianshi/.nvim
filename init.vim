@@ -6,7 +6,7 @@
         ""Plug 'ybian/smartim'
         Plug 'CodeFalling/fcitx-vim-osx', { 'on': [] }
     else
-        Plug 'lilydjwg/fcitx.vim', { 'on': [] }       " Linux 下优化中文输入法切换
+        Plug 'lilydjwg/fcitx.vim'   " Linux 下优化中文输入法切换
     endif
 " 美化 {{{2
     "Plug 'flazz/vim-colorschemes' , { 'on': [] }    " 主题管理
@@ -154,7 +154,7 @@
         let g:nrrw_rgn_wdth = 80
         let g:nrrw_topbot_leftright = 'botright'
     Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
-        let g:asyncrun_open = 4
+        let g:asyncrun_open = 6
     Plug 'liuchengxu/vim-which-key'
     Plug 'machakann/vim-highlightedyank'  " 高亮显示复制区域
     Plug 'haya14busa/incsearch.vim'       " 加强版实时高亮

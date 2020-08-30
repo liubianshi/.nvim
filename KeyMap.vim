@@ -44,8 +44,9 @@ nnoremap <silent> <leader>bw :w<cr>
 nnoremap <silent> <leader>bW :w!<cr>
 "}}}
 " 翻译{{{
-vnoremap <silent> <leader>T :TranslateVisual<CR>:b Translation<CR>y$:b #<CR>
-nnoremap <silent> <leader>T :TranslateClear<CR>:set nopaste<CR>
+vnoremap <silent> <leader>T :AsyncRun tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
+nnoremap <silent> <leader>T vip:AsyncRun tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
+
 "}}}
 " 文件操作 lf-vim 相关快捷键{{{
 noremap <leader>lr :Lf<cr>
@@ -207,14 +208,14 @@ nmap sge <Plug>(easymotion-ge)
 nmap sgE <Plug>(easymotion-gE)
 
 function! SearchChinese() 
-    silent execute '!fcitx-remote -o'
+    silent execute '!fcitx5-remote -o'
     call EasyMotion#S(2,0,2)
-    silent exe '!fcitx-remote -c'
+    silent exe '!fcitx5-remote -c'
 endfunction 
 function! SearchChineseLine() 
-    silent execute '!fcitx-remote -o'
+    silent execute '!fcitx5-remote -o'
     call EasyMotion#SL(1,0,2)
-    silent exe '!fcitx-remote -c'
+    silent exe '!fcitx5-remote -c'
 endfunction 
 nmap sc :<c-u>call SearchChineseLine()<cr>
 nmap sC :<c-u>call SearchChinese()<cr>
@@ -222,6 +223,7 @@ nmap sC :<c-u>call SearchChinese()<cr>
 " wiki.vim{{{
 let g:wiki_mappings_global = {
     \ '<plug>(wiki-index)'   : '<tab>ww',
+    \ '<plug>(wiki-journal)' : '<tab>wj',
     \ '<plug>(wiki-oen)'     : '<tab>wn',
     \ '<plug>(wiki-reload)'  : '<tab>wx',
     \}
@@ -264,12 +266,12 @@ noremap [u :PreviewScroll -1<cr>
 noremap ]u :PreviewScroll +1<cr>
 "}}}
 " fuzzy search {{{
-let g:Lf_ShortcutF = '<leader>fF'
 noremap <silent> <leader>fa :<C-U><C-R>=printf("Leaderf! rg -e %s", expand("<cword>"))<CR><CR>
 let g:Lf_ShortcutB = '<leader>fb'
 noremap <silent> <leader>fc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 noremap <silent> <leader>fC :<C-U><C-R>=printf("Leaderf colorscheme %s", "")<CR><CR>
 noremap <silent> <leader>fd :<C-U><C-R>=printf("Leaderf gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <silent> <leader>fe  :FzfFiles<CR>
 noremap <silent> <leader>ff :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
 noremap <silent> <leader>fF :<C-U><C-R>=printf("Leaderf function --all %s", "")<CR><CR>
 noremap <silent> <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
