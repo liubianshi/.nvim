@@ -141,7 +141,7 @@
         let g:ale_linters = {
                     \   'sh': ['shellcheck'],
                     \   'c': ['clang'],
-                    \   'r': ['lintr'],
+                    \   'r': ['styler'],
                     \   'perl': ['perl -c'],
                     \   'raku': ['raku -c'],
                     \}
@@ -234,8 +234,8 @@
 " 以前用过暂时不用将来可能用到的工具{{{2
     "Plug 'ncm2/ncm2-tmux'
     "Plug 'ncm2/ncm2-vim'
-    "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-    "Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' }
+    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' }
     "Plug '907th/vim-auto-save'           " 自动保存
     "Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
     "Plug 'chrisbra/NrrwRgn'              " 形成小 buffer
@@ -316,9 +316,9 @@ source ~/.config/nvim/LeaderfConifg.vim
 source ~/.config/nvim/whichkey.vim
 source ~/.config/nvim/goyoConfig.vim
 source ~/.config/nvim/KeyMap.vim
+source ~/.config/nvim/nerdtree.vim
 "source ~/.config/nvim/stata.vim
 "source ~/.config/nvim/coc.vim
 "source ~/.config/nvim/python.vim
-"source ~/.config/nvim/nerdtree.vim
 "}}}
 

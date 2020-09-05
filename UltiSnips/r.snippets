@@ -30,9 +30,14 @@ endsnippet
 #endsnippet
 
 snippet ';([^;]+)((?:;[^;]+)*)' "R list" r
-(`!p snip.rv = match.group(1) + re_map.sub(r',\1', match.group(2))`)$0
+(`!p snip.rv = match.group(1) + re_map.sub(r', \1', match.group(2))`)$0
 endsnippet
 
 snippet '([\w.]+)=(.*)' "map" r
 `!p snip.rv = match.group(1) + " = " + '"' + match.group(2) + '"'`$0
 endsnippet
+
+snippet '\b(my)\s+([\w.]+)' "Perl Style my statement" r
+`!p snip.rv = match.group(1) + "$" + match.group(2) + " "`$0
+endsnippet
+	

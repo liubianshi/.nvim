@@ -16,16 +16,17 @@ command! -range=% LbsRF <line1>,<line2>:call Lbs_RFormat()
 "   来自 Lilydjwg 的函数 {{{1
 "   删除所有未显示且无修改的缓冲区以减少内存占用{{{2
 function Lilydjwg_cleanbufs()
-  for bufNr in filter(range(1, bufnr('$')),
-        \ 'buflisted(v:val) && !bufloaded(v:val)')
-    execute bufNr . 'bdelete'
+  for bufNr in filter(range(1, bufnr('$')), 'buflisted(v:val) && bufwinnr(v:val) == -1')
+    if getbufinfo(bufNr)[0]['changed'] == 0
+        execute bufNr . 'bdelete'
+    endif
   endfor
 endfunction
 "   将当前窗口置于屏幕中间（全屏时用）{{{2
 function Lilydjwg_CenterFull()
-  on
-  vs
-  ene
+  only
+  vsplit
+  enew
   setl nocul
   setl nonu
   40winc |

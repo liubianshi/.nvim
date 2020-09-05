@@ -38,9 +38,13 @@ set number                 " 开启行号显示
 set relativenumber         " 相对行号
 set ruler                  " 显示光标当前位置
 set cmdheight=1            " 命令行高度
-
+set laststatus=1           " 总是显示状态栏
 set list
 set listchars=tab:<->,trail:-
+set foldcolumn=2
+set signcolumn=auto
+highlight FoldColumn guibg=bg
+highlight SignColumn guibg=bg
 "}}}
 " 搜索相关{{{1
 set hlsearch               " 高亮显示搜索结果
@@ -69,16 +73,6 @@ let &showbreak = ''
 " 折叠相关{{{1
 set formatoptions=t,n1mp,Bj,coq
 set foldmethod=marker
-set foldcolumn=1
-"}}}
-" 模拟 goyo 模式{{{1
-set signcolumn=no
-highlight FoldColumn guibg=bg
-highlight SignColumn guibg=bg
-autocmd VimEnter * set laststatus=0
-set laststatus=1           " 总是显示状态栏
-set fdl=0
-set fdls=0
 "}}}
 " 字典和标签相关 {{{
 set dictionary=~/.config/nvim/paper.dict

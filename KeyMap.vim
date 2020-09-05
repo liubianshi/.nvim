@@ -32,27 +32,28 @@ function! QuickfixToggle()
     endif
 endfunction
 "}}}
-" Goyo and zenroom2{{{
-nnoremap <leader>z :Goyo<cr>
-"}}}
 " buffer managing{{{
-nnoremap <silent> <leader>bk :<c-u>bn<cr>
+nnoremap <silent> <leader>bc :<c-u>call Lilydjwg_cleanbufs()<cr>
+nnoremap <silent> <leader>bd :<c-u>Bclose<cr>
 nnoremap <silent> <leader>bj :<c-u>bp<cr>
+nnoremap <silent> <leader>bk :<c-u>bn<cr>
 nnoremap <silent> <leader>bq :q<cr>
 nnoremap <silent> <leader>bQ :q!<cr>
 nnoremap <silent> <leader>bw :w<cr>
 nnoremap <silent> <leader>bW :w!<cr>
 "}}}
 " 翻译{{{
-vnoremap <silent> <leader>T :AsyncRun tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
-nnoremap <silent> <leader>T vip:AsyncRun tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
-
+vnoremap <silent> <leader>tt "*y:AsyncRun xclip -o \| tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
+nnoremap <silent> <leader>tt vip:AsyncRun tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
+vnoremap <silent> <leader>te "*y:AsyncRun xclip -o \| tr "\n" " " \| trans -b --no-ansi zh:en \| tee >(xclip -i -sel clip)<CR>
+nnoremap <silent> <leader>te vip:AsyncRun tr "\n" " " \| trans -b --no-ansi zh:en \| tee >(xclip -i -sel clip)<CR>
 "}}}
 " 文件操作 lf-vim 相关快捷键{{{
 noremap <leader>lr :Lf<cr>
 noremap <leader>ls :split +Lf<cr>
 noremap <leader>lv :vertical split +Lf<cr>
 noremap <leader>lt :LfNewTab<cr>
+noremap <leader>lw :NERDTreeToggle<cr>
 "}}}
 " 补全相关 {{{
 inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
@@ -266,6 +267,7 @@ noremap ]u :PreviewScroll +1<cr>
 "}}}
 " fuzzy search {{{
 noremap <silent> <leader>fa :<C-U><C-R>=printf("Leaderf! rg -e %s", expand("<cword>"))<CR><CR>
+let g:Lf_ShortcutF = '<leader>fE'
 let g:Lf_ShortcutB = '<leader>fb'
 noremap <silent> <leader>fc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 noremap <silent> <leader>fC :<C-U><C-R>=printf("Leaderf colorscheme %s", "")<CR><CR>
@@ -290,12 +292,31 @@ noremap <C-F> :<C-U><C-R>=printf("Leaderf rg -e %s", "")<CR>
 xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
 noremap go :<C-U>Leaderf! rg --recall<CR>
 "}}}
-" 日常编辑相关
-noremap <silent> <leader>nh :w !pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
+" 日常编辑相关 {{{
+noremap <silent> <leader>nH :w !pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
+noremap <silent> <leader>nh :r !xsel -o -t text/html -sel clip \| pandoc -f html -t markdown_strict<cr>
+"}}}
+" zen-mod {{{
+function ToggleZenMode()
+    if &number == 1
+        setlocal nonumber
+        setlocal norelativenumber
+        setlocal foldcolumn=4
+        highlight FoldColumn guifg=bg
+        return 0
+    endif
+    if &number == 0
+        highlight FoldColumn guifg=grey
+        setlocal foldcolumn=2
+        setlocal number
+        setlocal relativenumber
+        return 0
+    endif
+endfunction
+nnoremap <leader>z :<c-u>call ToggleZenMode()<cr>
+nnoremap <leader>Z :Goyo<cr>
+"}}}
 
-
-"
-" gtags 相关
 
 
 

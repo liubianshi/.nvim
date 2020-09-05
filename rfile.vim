@@ -115,22 +115,27 @@ augroup r_setup
         call g:SendCmdToR('fViewDFonVim("' . a:dfname . '", ' . a:row . ', "' . a:method . '", ' . a:max_width . ')')
     endfunction
     function! R_view_df_sample(method)
-        let dfname = expand("<cword>")
+        let dfname = @"
         let row = 40
         let max_width = 30
         return R_view_df(dfname, row, a:method, max_width)
     endfunction
-    function! R_view_df_full(max_width)
-        let dfname = expand("<cword>")
+    function! R_view_df_full(max_width, dfname)
+        let dfname = @"
         let row = 0 
         let method = 'ht'
         return R_view_df(dfname, row, method, a:max_width)
     endfunction
-    autocmd FileType r,rmd,rmarkdown nmap <localleader>tv :<c-u>call R_view_df_sample('ht')<cr>
-    autocmd FileType r,rmd,rmarkdown nmap <localleader>tr :<c-u>call R_view_df_sample('r')<cr>
-    autocmd FileType r,rmd,rmarkdown nmap <localleader>th :<c-u>call R_view_df_sample('h')<cr>
-    autocmd FileType r,rmd,rmarkdown nmap <localleader>tt :<c-u>call R_view_df_sample('t')<cr>
-    autocmd FileType r,rmd,rmarkdown nmap <localleader>tV :<c-u>call R_view_df_full(60)<cr>
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>tv yiw:<c-u>call R_view_df_sample('ht')<cr>
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>tr yiw:<c-u>call R_view_df_sample('r')<cr>
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>th yiw:<c-u>call R_view_df_sample('h')<cr>
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>tt yiw:<c-u>call R_view_df_sample('t')<cr>
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>tV yiw:<c-u>call R_view_df_full(60)<cr>
+    autocmd FileType r,rmd,rmarkdown vmap <localleader>tv y:<c-u>call R_view_df_sample('ht')<cr>
+    autocmd FileType r,rmd,rmarkdown vmap <localleader>tr y:<c-u>call R_view_df_sample('r')<cr>
+    autocmd FileType r,rmd,rmarkdown vmap <localleader>th y:<c-u>call R_view_df_sample('h')<cr>
+    autocmd FileType r,rmd,rmarkdown vmap <localleader>tt y:<c-u>call R_view_df_sample('t')<cr>
+    autocmd FileType r,rmd,rmarkdown vmap <localleader>tV y:<c-u>call R_view_df_full(60)<cr>
 "}}}
 augroup END
      "}}}
