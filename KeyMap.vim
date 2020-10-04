@@ -49,11 +49,12 @@ vnoremap <silent> <leader>te "*y:AsyncRun xclip -o \| tr "\n" " " \| trans -b --
 nnoremap <silent> <leader>te vip:AsyncRun tr "\n" " " \| trans -b --no-ansi zh:en \| tee >(xclip -i -sel clip)<CR>
 "}}}
 " 文件操作 lf-vim 相关快捷键{{{
-noremap <leader>lr :Lf<cr>
-noremap <leader>ls :split +Lf<cr>
-noremap <leader>lv :vertical split +Lf<cr>
-noremap <leader>lt :LfNewTab<cr>
-noremap <leader>lw :NERDTreeToggle<cr>
+nnoremap <silent> <leader>lr :Lf<cr>
+nnoremap <silent> <leader>ls :split +Lf<cr>
+nnoremap <silent> <leader>lv :vertical split +Lf<cr>
+nnoremap <silent> <leader>lt :LfNewTab<cr>
+nnoremap <silent> <leader>lw :NERDTreeToggle<cr>
+nnoremap <silent> <leader>nn :NnnPicker '%:p:h'<CR>
 "}}}
 " 补全相关 {{{
 inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
@@ -294,7 +295,7 @@ noremap go :<C-U>Leaderf! rg --recall<CR>
 "}}}
 " 日常编辑相关 {{{
 noremap <silent> <leader>nH :w !pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
-noremap <silent> <leader>nh :r !xsel -o -t text/html -sel clip \| pandoc -f html -t markdown_strict<cr>
+noremap <silent> <leader>nh :r !xclip -o -t text/html -sel clip \| pandoc -f html -t markdown_strict<cr>
 "}}}
 " zen-mod {{{
 function ToggleZenMode()

@@ -17,7 +17,7 @@ let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"
 "let R_csv_delim = '\t'
 "let R_csv_app = 'tmux new-window sc-im'
 " 配置语法高亮的函数
-let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,rlang,data.table,fread,readxl,tidyverse,haven'
+let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,rlang,data.table,fread,readxl,tidyverse,haven,lbs'
 "}}}
 " 自动启动命令组 {{{
 augroup r_setup
@@ -120,7 +120,7 @@ augroup r_setup
         let max_width = 30
         return R_view_df(dfname, row, a:method, max_width)
     endfunction
-    function! R_view_df_full(max_width, dfname)
+    function! R_view_df_full(max_width)
         let dfname = @"
         let row = 0 
         let method = 'ht'
@@ -130,12 +130,12 @@ augroup r_setup
     autocmd FileType r,rmd,rmarkdown nmap <localleader>tr yiw:<c-u>call R_view_df_sample('r')<cr>
     autocmd FileType r,rmd,rmarkdown nmap <localleader>th yiw:<c-u>call R_view_df_sample('h')<cr>
     autocmd FileType r,rmd,rmarkdown nmap <localleader>tt yiw:<c-u>call R_view_df_sample('t')<cr>
-    autocmd FileType r,rmd,rmarkdown nmap <localleader>tV yiw:<c-u>call R_view_df_full(60)<cr>
+    autocmd FileType r,rmd,rmarkdown nmap <localleader>tV yiw:<c-u>call R_view_df_full(0)<cr>
     autocmd FileType r,rmd,rmarkdown vmap <localleader>tv y:<c-u>call R_view_df_sample('ht')<cr>
     autocmd FileType r,rmd,rmarkdown vmap <localleader>tr y:<c-u>call R_view_df_sample('r')<cr>
     autocmd FileType r,rmd,rmarkdown vmap <localleader>th y:<c-u>call R_view_df_sample('h')<cr>
     autocmd FileType r,rmd,rmarkdown vmap <localleader>tt y:<c-u>call R_view_df_sample('t')<cr>
-    autocmd FileType r,rmd,rmarkdown vmap <localleader>tV y:<c-u>call R_view_df_full(60)<cr>
+    autocmd FileType r,rmd,rmarkdown vmap <localleader>tV y:<c-u>call R_view_df_full(0)<cr>
 "}}}
 augroup END
      "}}}

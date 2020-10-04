@@ -37,7 +37,7 @@ snippet '([\w.]+)=(.*)' "map" r
 `!p snip.rv = match.group(1) + " = " + '"' + match.group(2) + '"'`$0
 endsnippet
 
-snippet '\b(my)\s+([\w.]+)' "Perl Style my statement" r
+snippet '\b(my|tmp|ENV)\s+([\w.]+)' "Perl Style my statement" r
 `!p snip.rv = match.group(1) + "$" + match.group(2) + " "`$0
 endsnippet
 	

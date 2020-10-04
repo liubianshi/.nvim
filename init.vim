@@ -35,6 +35,14 @@
         let g:lf_map_keys = 0
     Plug 'mileszs/ack.vim', {'on': 'Ack'}  " 在 Vim 中使用 Ack 或 Ag 检索
         let g:ackprg = 'ag --column'
+    Plug 'mcchrish/nnn.vim'
+        let g:nnn#set_default_mappings = 0
+        let g:nnn#layout = { 'left': '~30%' } " or right, up, down
+        let g:nnn#action = {
+            \ '<c-t>': 'tab split',
+            \ '<c-x>': 'split',
+            \ '<c-v>': 'vsplit' }
+
 " 模糊搜索加管理{{{2
     if(has("mac"))
         Plug 'junegunn/fzf.vim', { 'do': './install --bin' }
@@ -107,7 +115,7 @@
     Plug 'tpope/vim-dadbod'   " Modern database interface for Vim
     Plug 'kristijanhusak/vim-dadbod-ui'  " Simple UI for vim-dadbod
         let g:dbs = { 
-        \  'dataRepo': 'sqlite:/home/liubianshi/Documents/SRDM/srdm_dataRepo.db',
+        \  'dataRepo': 'sqlite:/home/liubianshi/Documents/SRDM/srdm_dataRepo.sqlite',
         \ }
         let g:db_ui_save_location = "~/.config/diySync/db_ui_queries"
     Plug 'kristijanhusak/vim-dadbod-completion', { 'for': 'sql' }
@@ -122,6 +130,18 @@
     Plug 'kovetskiy/sxhkd-vim', { 'for': 'sxhkd' }
         au BufNewFile,BufRead sxhkdrc set filetype=sxhkd
     " tags and preview {{{3
+    Plug 'ludovicchabant/vim-gutentags'
+        let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+        let s:vim_tags = expand('~/.cache/tags')
+        let g:gutentags_cache_dir = s:vim_tags
+        " 配置 ctags 的参数
+        let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+        let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+        let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+        " 检测 ~/.cache/tags 不存在就新建
+        if !isdirectory(s:vim_tags)
+            silent! call mkdir(s:vim_tags, 'p')
+        endif
     Plug 'skywind3000/vim-preview'
     " Syntax checking {{{3
     Plug 'dense-analysis/ale'                      

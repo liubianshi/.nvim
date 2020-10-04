@@ -74,11 +74,11 @@ let &showbreak = ''
 set formatoptions=t,n1mp,Bj,coq
 set foldmethod=marker
 "}}}
-" 字典和标签相关 {{{
+" 字典 和 tags 相关 {{{
 set dictionary=~/.config/nvim/paper.dict
-"set tags=./.tags;.tags
+set tags=./.tags;.tags
 let $GTAGSLABEL = 'native-pygments'
-"let $GTAGSCONF = $HOME . "/.globalrc"
+let $GTAGSCONF = $HOME . "/.globalrc"
 "}}}
 " Python 相关设置 {{{1
 let g:python_host_skip_check=1
@@ -95,6 +95,12 @@ endif
 autocmd BufWritePre *.{md,pl,p6,rmd,r,do} :%s/\s\+$//e
 autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex let &brk = ''
 autocmd filetype mail set tw=0 wrap
+
+augroup custom_term
+    autocmd!
+    autocmd TermOpen * setlocal nonumber norelativenumber bufhidden=hide
+augroup END
 "autocmd InsertLeave,WinEnter * set cursorline
 "autocmd InsertEnter,WinLeave * set nocursorline
 "}}}
+
