@@ -6,22 +6,22 @@ inoremap ;] <C-v>u2018 <C-v>u2019<C-o>F <c-o>x
 " 成对双引号
 inoremap ;} <C-v>u201C <C-v>u201D<C-o>F <c-o>x
 " 逗号
-imap ;, <C-v>uFF0C
+inoremap ;, <C-v>uFF0C
 " 句号
-imap ;. <C-v>u3002
+inoremap ;. <C-v>u3002
 " 顿号
-imap ;\ <C-v>u3001
+inoremap ;\ <C-v>u3001
 " 问号
-imap ;? <C-v>uFF1F
+inoremap ;? <C-v>uFF1F
 " 冒号
-imap ;: <C-v>uFF1A
+inoremap ;: <C-v>uFF1A
 " 破折号
-imap ;- <C-v>u2014
+inoremap ;- <C-v>u2014
 " 省略号
-imap ;^ <C-v>u2026
+inoremap ;^ <C-v>u2026
 " 左书名号
-imap ;< <C-v>u300A
+inoremap ;< <C-v>u300A
 " 右书名号
-imap ;> <C-v>u300B
+inoremap ;> <C-v>u300B<BS>
 
 

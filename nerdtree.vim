@@ -5,7 +5,9 @@ let NERDTreeShowBookmarks=1
 " 打开vim时如果没有文件自动打开NERDTree
 "autocmd vimenter * if !argc() | NERDTree | endif
 " 当NERDTree为剩下的唯一窗口时自动关闭
+augroup NERDTREE
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+augroup END
 
 
 "" NERDTree git

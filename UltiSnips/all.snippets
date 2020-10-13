@@ -2,26 +2,47 @@ snippet "(\w+).par" "Parenthesis (postfix)" r
 (`!p snip.rv = match.group(1)`$1)$0
 endsnippet
 
-snippet "\(([^()]*)\)\_" "Parenthesis (postfix)" r
+snippet "\(([^()]*)\)" "修改括号" r
 （`!p snip.rv = match.group(1)`）$0
 endsnippet
+
+snippet '"([^"]*)"' "修改双引号" r
+“`!p snip.rv = match.group(1)`”$0
+endsnippet
+
+snippet "'([^']*)'" "修改单引号" r
+‘`!p snip.rv = match.group(1)`’$0
+endsnippet
+
+snippet "([,.!:;\\?\[\]\(\)]+)\ " "修正标点符号" r
+`!p
+def E_trans_to_C(string):
+	E_pun = u'-^,.!?[]()<>"\';\\:'
+	C_pun = u'—…，。！？【】（）《》“‘；、：'
+	table= {ord(f):ord(t) for f,t in zip(E_pun,C_pun)}
+	return string.translate(table)
+snip.rv = E_trans_to_C(match.group(1))`
+endsnippet
+
+snippet '^(\s*[-+*])' "insert ul marker" rb
+`!p snip.rv = match.group(1)`   $0
+endsnippet
+
+snippet '^(\s*[1-9])' "insert ol marker" rb
+`!p snip.rv = match.group(1)`.  $0
+endsnippet
+
+snippet '^(\s*[1-9][0-9])' "insert ol" rb
+`!p snip.rv = match.group(1)`. $0
+endsnippet
+
 
 snippet printf
 printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
 endsnippet
 
-snippet "([#*])(\d)" "输入各级标题" rw
+snippet "([#*])(\d)" "输入各级标题" rb
 `!p snip.rv = int(match.group(2))*match.group(1)+ ' '`
-endsnippet
-
-snippet "([,.!:;\\?\[\]\(\)])\ " "修正标点符号" r
-`!p
-def E_trans_to_C(string):
-	E_pun = u',.!?[]()<>"\';\\:'
-	C_pun = u'，。！？【】（）《》“‘；、：'
-	table= {ord(f):ord(t) for f,t in zip(E_pun,C_pun)}
-	return string.translate(table)
-snip.rv = E_trans_to_C(match.group(1))`
 endsnippet
 
 snippet LW "数字签名" b
@@ -31,3 +52,5 @@ snippet LW "数字签名" b
 Tel:  86-22-2349 7558
 E-mail:  weiluonk@gmail.com
 endsnippet
+
+

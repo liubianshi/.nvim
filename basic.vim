@@ -75,7 +75,7 @@ set formatoptions=t,n1mp,Bj,coq
 set foldmethod=marker
 "}}}
 " 字典 和 tags 相关 {{{
-set dictionary=~/.config/nvim/paper.dict
+set dictionary+=~/.config/nvim/paper.dict,~/.config/nvim/dict
 set tags=./.tags;.tags
 let $GTAGSLABEL = 'native-pygments'
 let $GTAGSCONF = $HOME . "/.globalrc"
@@ -91,16 +91,10 @@ else
     let g:python3_host_prog = '/usr/bin/python'
 endif
 "}}}
-" 自动启动命令{{{1
-autocmd BufWritePre *.{md,pl,p6,rmd,r,do} :%s/\s\+$//e
-autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex let &brk = ''
-autocmd filetype mail set tw=0 wrap
-
-augroup custom_term
-    autocmd!
-    autocmd TermOpen * setlocal nonumber norelativenumber bufhidden=hide
-augroup END
-"autocmd InsertLeave,WinEnter * set cursorline
-"autocmd InsertEnter,WinLeave * set nocursorline
+" diff 相关 {{{1
+map <silent> <leader>d1 :diffget 1<CR> :diffupdate<CR>
+map <silent> <leader>d2 :diffget 2<CR> :diffupdate<CR>
+map <silent> <leader>d3 :diffget 3<CR> :diffupdate<CR>
+map <silent> <leader>d4 :diffget 4<CR> :diffupdate<CR>
 "}}}
 

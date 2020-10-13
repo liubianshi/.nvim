@@ -15,17 +15,14 @@ augroup my_cm_setup
         \ 'complete_pattern': ['@'],
         \ 'on_complete': ['ncm2#on_complete#omni', 'pandoc#completion#Complete'],
         \ })
-
     autocmd FileType r,rmd,rmarkdown,rmd.rmarkdown call ncm2#register_source({
         \ 'name': 'r',
         \ 'priority': 9,
-        \ 'scope': ['r', 'rmd', 'rmarkdown'],
+        \ 'scope': ['r', 'Rmd', 'rmd', 'rmarkdown'],
         \ 'mark': 'r',
         \ 'word_pattern': '[\w.]+',
         \ 'on_complete': ['ncm2_bufword#on_complete'],
         \ })
-
-        "\ 'word_pattern': "[A-Za-z_]([\-\']?\w+)*",
     autocmd FileType raku,perl6 call ncm2#register_source({
         \ 'name': 'raku',
         \ 'priority': 8,

@@ -119,6 +119,14 @@
         \ }
         let g:db_ui_save_location = "~/.config/diySync/db_ui_queries"
     Plug 'kristijanhusak/vim-dadbod-completion', { 'for': 'sql' }
+        " Source is automatically added, you just need to include it in the chain complete list
+        let g:completion_chain_complete_list = {
+            \   'sql': [ {'complete_items': ['vim-dadbod-completion']} ]
+            \ }
+        " Make sure `substring` is part of this list. Other items are optional for this completion source
+        let g:completion_matching_strategy_list = ['exact', 'substring']
+        " Useful if there's a lot of camel case items
+        let g:completion_matching_ignore_case = 1
     "}}}
     Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmarkdown', 'rmd'] }
     Plug 'lervag/vimtex',       {'for': ['tex', 'plaintex']}
@@ -230,16 +238,16 @@
     Plug 'yuki-ycino/ncm2-dictionary', { 'on': [] }
     Plug 'Shougo/neco-syntax', { 'on': [] }
     Plug 'ncm2/ncm2-syntax', { 'on': [] }
-        "let g:pandoc_source = {
-            "\ 'name': 'pandoc',
-            "\ 'priority': 9,
-            "\ 'scope': ['pandoc', 'markdown', 'rmarkdown', 'rmd'],
-            "\ 'mark': 'pandoc',
-            "\ 'word_pattern': '\w+',
-            "\ 'complete_pattern': ['@'],
-            "\ 'on_complete': ['ncm2#on_complete#omni', 'pandoc#completion#Complete'],
-            "\ }
-        let g:raku_source = {
+        let g:ncm2_pandoc_source = {
+            \ 'name': 'pandoc',
+            \ 'priority': 9,
+            \ 'scope': ['pandoc', 'markdown', 'rmarkdown', 'rmd'],
+            \ 'mark': 'pandoc',
+            \ 'word_pattern': '\w+',
+            \ 'complete_pattern': ['@'],
+            \ 'on_complete': ['ncm2#on_complete#omni', 'pandoc#completion#Complete'],
+            \ }
+        let g:ncm2_raku_source = {
             \ 'name': 'raku',
             \ 'priority': 8,
             \ 'auto_popup': 1,
@@ -249,6 +257,16 @@
             \ 'enable': 1,
             \ 'word_pattern': "[A-za-z_]([\'\-]?[A-Za-z_]+)*",
             \ 'on_complete': 'ncm2_bufword#on_complete',
+            \ }
+        let g:ncm2_r_source = {
+            \ 'name': 'r',
+            \ 'priority': 9,
+            \ 'auto_popup': 1,
+            \ 'complete_length': 2,
+            \ 'scope': ['r', 'R','Rmd', 'rmd', 'rmarkdown'],
+            \ 'mark': 'r',
+            \ 'word_pattern': '[\w.]+',
+            \ 'on_complete': ['ncm2_bufword#on_complete'],
             \ }
 "}}}
 " 以前用过暂时不用将来可能用到的工具{{{2
@@ -276,7 +294,7 @@ function! Status()
     call plug#load('vim-airline', 'vim-airline-themes')
     set laststatus=1
 endfunction
-autocmd WinNew * call Status()
+
 " 切换补全工具{{{2
 function! CocCompleteEngine()
     call plug#load('coc.nvim')
@@ -293,8 +311,9 @@ function! Ncm2CompleteEngine()
          \ )
     let b:coc_suggest_disable = 1 
     call ncm2#enable_for_buffer()
-    "call ncm2#register_source(g:pandoc_source) 
-    call ncm2#register_source(g:raku_source) 
+    call ncm2#register_source(g:ncm2_pandoc_source) 
+    call ncm2#register_source(g:ncm2_r_source) 
+    call ncm2#register_source(g:ncm2_raku_source) 
 endfunction
 function! ChangeCompleteEngine()
     if !exists("b:coc_suggest_disable") || b:coc_suggest_disable == 0
@@ -305,24 +324,30 @@ function! ChangeCompleteEngine()
 endfunction
 
 " 进入插入模式启动的插件{{{2
-augroup load_enter
-  autocmd!
-  if(has("mac"))
-      autocmd BufNewFile,BufRead * call plug#load('fcitx-vim-osx')
-  else
-      autocmd BufNewFile,BufRead * call plug#load('fcitx.vim')
-  endif
-  autocmd BufNewFile,BufRead * call plug#load('vim-snippets')
-  autocmd BufNewFile,BufRead * call plug#load('vim-fugitive')
-  autocmd BufNewFile,BufRead * call plug#load('vim-obsession')
-  autocmd BufNewFile,BufRead * call plug#load('vimcdoc')
-  autocmd BufNewFile,BufRead * call CocCompleteEngine()
+augroup LOAD_ENTER
+    autocmd!
+    if(has("mac"))
+        autocmd BufNewFile,BufRead * call plug#load('fcitx-vim-osx')
+    else
+        autocmd BufNewFile,BufRead * call plug#load('fcitx.vim')
+    endif
+    autocmd BufNewFile,BufRead * call plug#load('vim-snippets')
+    autocmd BufNewFile,BufRead * call plug#load('vim-fugitive')
+    autocmd BufNewFile,BufRead * call plug#load('vim-obsession')
+    autocmd BufNewFile,BufRead * call plug#load('vimcdoc')
+    autocmd BufNewFile,BufRead * call CocCompleteEngine()
+
+    autocmd WinNew * call Status()
+    autocmd BufNewFile,BufRead *.[Rr]md,*.[Rr] call Ncm2CompleteEngine()
+
+    autocmd BufWritePre *.{md,pl,p6,raku,Rmd,rmd,r,do,ado} :%s/\s\+$//e
+    autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex let &brk = ''
+    autocmd filetype mail set tw=0 wrap
+    autocmd TermOpen * setlocal nonumber norelativenumber bufhidden=hide
+    autocmd InsertLeave,WinEnter * set cursorline
+    autocmd InsertEnter,WinLeave * set nocursorline
+"}}}
 augroup END
-
-" 自动补全框架
-"
-autocmd BufNewFile,BufRead *.[Rr]md,*.[Rr] call Ncm2CompleteEngine()
-
 
 " 导入外部文件{{{1
 source ~/.config/nvim/basic.vim
