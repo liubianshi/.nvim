@@ -54,7 +54,7 @@ nnoremap <silent> <leader>ls :split +Lf<cr>
 nnoremap <silent> <leader>lv :vertical split +Lf<cr>
 nnoremap <silent> <leader>lt :LfNewTab<cr>
 nnoremap <silent> <leader>lw :NERDTreeToggle<cr>
-nnoremap <silent> <leader>nn :NnnPicker '%:p:h'<CR>
+nnoremap <silent> <leader>nn :NnnPicker "%:p:h"<CR>
 
 " 补全相关 {{{1
 inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"

@@ -76,6 +76,7 @@ set foldmethod=marker
 "}}}
 " 字典 和 tags 相关 {{{
 set dictionary+=~/.config/nvim/paper.dict,~/.config/nvim/dict
+set complete+=k 
 set tags=./.tags;.tags
 let $GTAGSLABEL = 'native-pygments'
 let $GTAGSCONF = $HOME . "/.globalrc"

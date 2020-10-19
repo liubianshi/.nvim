@@ -54,6 +54,7 @@
 " 优化写作体验{{{2
     Plug 'junegunn/goyo.vim',       {'for': ['md', 'pandoc','rmd', 'rmarkdown']} " zen 模式:
     Plug 'hotoo/pangu.vim',         {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
+    Plug 'mg979/vim-visual-multi',  {'branch': 'master'}
 " Pandoc 和 Rmarkdown {{{3
     Plug 'vim-pandoc/vim-pandoc',   {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
         let g:pandoc#modules#disabled = ["spell"]
@@ -362,7 +363,7 @@ source ~/.config/nvim/whichkey.vim
 source ~/.config/nvim/goyoConfig.vim
 source ~/.config/nvim/KeyMap.vim
 source ~/.config/nvim/nerdtree.vim
-"source ~/.config/nvim/stata.vim
+source ~/.config/nvim/stata.vim
 "source ~/.config/nvim/coc.vim
 "source ~/.config/nvim/python.vim
 "}}}
