@@ -4,9 +4,9 @@
 " 中文输入法 {{{2
     if(has("mac"))
         ""Plug 'ybian/smartim'
-        Plug 'CodeFalling/fcitx-vim-osx', { 'on': [] }
+        Plug 'CodeFalling/fcitx-vim-osx'
     else
-        Plug 'lilydjwg/fcitx.vim', { 'on': [] }       " Linux 下优化中文输入法切换
+        Plug 'lilydjwg/fcitx.vim'       " Linux 下优化中文输入法切换
     endif
 " 美化 {{{2
     "Plug 'flazz/vim-colorschemes' , { 'on': [] }    " 主题管理
@@ -287,11 +287,6 @@ endfunction
 " 进入插入模式启动的插件{{{2
 augroup load_enter
   autocmd!
-  if(has("mac"))
-      autocmd BufNewFile,BufRead * call plug#load('fcitx-vim-osx')
-  else
-      autocmd BufNewFile,BufRead * call plug#load('fcitx.vim')
-  endif
   autocmd BufNewFile,BufRead * call plug#load('vim-snippets')
   autocmd BufNewFile,BufRead * call plug#load('vim-fugitive')
   autocmd BufNewFile,BufRead * call plug#load('vim-obsession')
