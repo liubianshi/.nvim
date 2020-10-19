@@ -6,7 +6,7 @@
         ""Plug 'ybian/smartim'
         Plug 'CodeFalling/fcitx-vim-osx'
     else
-        Plug 'lilydjwg/fcitx.vim'       " Linux 下优化中文输入法切换
+        Plug 'lilydjwg/fcitx.vim'   " Linux 下优化中文输入法切换
     endif
 " 美化 {{{2
     "Plug 'flazz/vim-colorschemes' , { 'on': [] }    " 主题管理
@@ -35,6 +35,14 @@
         let g:lf_map_keys = 0
     Plug 'mileszs/ack.vim', {'on': 'Ack'}  " 在 Vim 中使用 Ack 或 Ag 检索
         let g:ackprg = 'ag --column'
+    Plug 'mcchrish/nnn.vim'
+        let g:nnn#set_default_mappings = 0
+        let g:nnn#layout = { 'left': '~30%' } " or right, up, down
+        let g:nnn#action = {
+            \ '<c-t>': 'tab split',
+            \ '<c-x>': 'split',
+            \ '<c-v>': 'vsplit' }
+
 " 模糊搜索加管理{{{2
     if(has("mac"))
         Plug 'junegunn/fzf.vim', { 'do': './install --bin' }
@@ -46,6 +54,7 @@
 " 优化写作体验{{{2
     Plug 'junegunn/goyo.vim',       {'for': ['md', 'pandoc','rmd', 'rmarkdown']} " zen 模式:
     Plug 'hotoo/pangu.vim',         {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
+    Plug 'mg979/vim-visual-multi',  {'branch': 'master'}
 " Pandoc 和 Rmarkdown {{{3
     Plug 'vim-pandoc/vim-pandoc',   {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
         let g:pandoc#modules#disabled = ["spell"]
@@ -107,10 +116,18 @@
     Plug 'tpope/vim-dadbod'   " Modern database interface for Vim
     Plug 'kristijanhusak/vim-dadbod-ui'  " Simple UI for vim-dadbod
         let g:dbs = { 
-        \  'dataRepo': 'sqlite:/home/liubianshi/Documents/SRDM/srdm_dataRepo.db',
+        \  'dataRepo': 'sqlite:/home/liubianshi/Documents/SRDM/srdm_dataRepo.sqlite',
         \ }
         let g:db_ui_save_location = "~/.config/diySync/db_ui_queries"
     Plug 'kristijanhusak/vim-dadbod-completion', { 'for': 'sql' }
+        " Source is automatically added, you just need to include it in the chain complete list
+        let g:completion_chain_complete_list = {
+            \   'sql': [ {'complete_items': ['vim-dadbod-completion']} ]
+            \ }
+        " Make sure `substring` is part of this list. Other items are optional for this completion source
+        let g:completion_matching_strategy_list = ['exact', 'substring']
+        " Useful if there's a lot of camel case items
+        let g:completion_matching_ignore_case = 1
     "}}}
     Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmarkdown', 'rmd'] }
     Plug 'lervag/vimtex',       {'for': ['tex', 'plaintex']}
@@ -122,6 +139,18 @@
     Plug 'kovetskiy/sxhkd-vim', { 'for': 'sxhkd' }
         au BufNewFile,BufRead sxhkdrc set filetype=sxhkd
     " tags and preview {{{3
+    Plug 'ludovicchabant/vim-gutentags'
+        let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+        let s:vim_tags = expand('~/.cache/tags')
+        let g:gutentags_cache_dir = s:vim_tags
+        " 配置 ctags 的参数
+        let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+        let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+        let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+        " 检测 ~/.cache/tags 不存在就新建
+        if !isdirectory(s:vim_tags)
+            silent! call mkdir(s:vim_tags, 'p')
+        endif
     Plug 'skywind3000/vim-preview'
     " Syntax checking {{{3
     Plug 'dense-analysis/ale'                      
@@ -141,7 +170,7 @@
         let g:ale_linters = {
                     \   'sh': ['shellcheck'],
                     \   'c': ['clang'],
-                    \   'r': ['lintr'],
+                    \   'r': ['styler'],
                     \   'perl': ['perl -c'],
                     \   'raku': ['raku -c'],
                     \}
@@ -154,7 +183,7 @@
         let g:nrrw_rgn_wdth = 80
         let g:nrrw_topbot_leftright = 'botright'
     Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
-        let g:asyncrun_open = 4
+        let g:asyncrun_open = 6
     Plug 'liuchengxu/vim-which-key'
     Plug 'machakann/vim-highlightedyank'  " 高亮显示复制区域
     Plug 'haya14busa/incsearch.vim'       " 加强版实时高亮
@@ -163,7 +192,6 @@
         map g/ <Plug>(incsearch-stay)
     Plug 'tpope/vim-fugitive', { 'on': [] }             " git 插件
     Plug 'tpope/vim-obsession', { 'on': [] }            " tmux Backup needed
-    Plug 'VincentCordobes/vim-translate'                " 翻译工具
     Plug 'yianwillis/vimcdoc', { 'on': [] }             " Vim 中文帮助文档
     Plug 'mechatroner/rainbow_csv', {                   
         \ 'for': ['csv', 'tsv', 'csv_semicolon', 'csv_whitespace', 'rfc_csv', 'rfc_semicolon'] 
@@ -200,6 +228,7 @@
 " 自动补全{{{2
     Plug 'jiangmiao/auto-pairs'         " 自动引号/括号补全
         let g:AutoPairsMapBS = 0
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'on': []}
 " ncm2 及相关插件 {{{3
     Plug 'roxma/nvim-yarp'              " ncm2 依赖的插件
     Plug 'roxma/ncm2'
@@ -210,16 +239,16 @@
     Plug 'yuki-ycino/ncm2-dictionary', { 'on': [] }
     Plug 'Shougo/neco-syntax', { 'on': [] }
     Plug 'ncm2/ncm2-syntax', { 'on': [] }
-        "let g:pandoc_source = {
-            "\ 'name': 'pandoc',
-            "\ 'priority': 9,
-            "\ 'scope': ['pandoc', 'markdown', 'rmarkdown', 'rmd'],
-            "\ 'mark': 'pandoc',
-            "\ 'word_pattern': '\w+',
-            "\ 'complete_pattern': ['@'],
-            "\ 'on_complete': ['ncm2#on_complete#omni', 'pandoc#completion#Complete'],
-            "\ }
-        let g:raku_source = {
+        let g:ncm2_pandoc_source = {
+            \ 'name': 'pandoc',
+            \ 'priority': 9,
+            \ 'scope': ['pandoc', 'markdown', 'rmarkdown', 'rmd'],
+            \ 'mark': 'pandoc',
+            \ 'word_pattern': '\w+',
+            \ 'complete_pattern': ['@'],
+            \ 'on_complete': ['ncm2#on_complete#omni', 'pandoc#completion#Complete'],
+            \ }
+        let g:ncm2_raku_source = {
             \ 'name': 'raku',
             \ 'priority': 8,
             \ 'auto_popup': 1,
@@ -230,12 +259,22 @@
             \ 'word_pattern': "[A-za-z_]([\'\-]?[A-Za-z_]+)*",
             \ 'on_complete': 'ncm2_bufword#on_complete',
             \ }
+        let g:ncm2_r_source = {
+            \ 'name': 'r',
+            \ 'priority': 9,
+            \ 'auto_popup': 1,
+            \ 'complete_length': 2,
+            \ 'scope': ['r', 'R','Rmd', 'rmd', 'rmarkdown'],
+            \ 'mark': 'r',
+            \ 'word_pattern': '[\w.]+',
+            \ 'on_complete': ['ncm2_bufword#on_complete'],
+            \ }
 "}}}
 " 以前用过暂时不用将来可能用到的工具{{{2
     "Plug 'ncm2/ncm2-tmux'
     "Plug 'ncm2/ncm2-vim'
-    "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-    "Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' }
+    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' }
     "Plug '907th/vim-auto-save'           " 自动保存
     "Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
     "Plug 'chrisbra/NrrwRgn'              " 形成小 buffer
@@ -245,8 +284,8 @@
     "Plug 'terryma/vim-multiple-cursors'
     "Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
         "let g:clap_provider_grep_executable = 'ag'
+    "Plug 'VincentCordobes/vim-translate'                " 翻译工具
     "Plug 'neoclide/coc.nvim', {'branch': 'release'}     " coc 代码补全插件
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'on': []}
 "}}}
 call plug#end()
 
@@ -256,7 +295,7 @@ function! Status()
     call plug#load('vim-airline', 'vim-airline-themes')
     set laststatus=1
 endfunction
-autocmd WinNew * call Status()
+
 " 切换补全工具{{{2
 function! CocCompleteEngine()
     call plug#load('coc.nvim')
@@ -273,8 +312,9 @@ function! Ncm2CompleteEngine()
          \ )
     let b:coc_suggest_disable = 1 
     call ncm2#enable_for_buffer()
-    "call ncm2#register_source(g:pandoc_source) 
-    call ncm2#register_source(g:raku_source) 
+    call ncm2#register_source(g:ncm2_pandoc_source) 
+    call ncm2#register_source(g:ncm2_r_source) 
+    call ncm2#register_source(g:ncm2_raku_source) 
 endfunction
 function! ChangeCompleteEngine()
     if !exists("b:coc_suggest_disable") || b:coc_suggest_disable == 0
@@ -285,19 +325,30 @@ function! ChangeCompleteEngine()
 endfunction
 
 " 进入插入模式启动的插件{{{2
-augroup load_enter
-  autocmd!
-  autocmd BufNewFile,BufRead * call plug#load('vim-snippets')
-  autocmd BufNewFile,BufRead * call plug#load('vim-fugitive')
-  autocmd BufNewFile,BufRead * call plug#load('vim-obsession')
-  autocmd BufNewFile,BufRead * call plug#load('vimcdoc')
-  autocmd BufNewFile,BufRead * call CocCompleteEngine()
+augroup LOAD_ENTER
+    autocmd!
+    if(has("mac"))
+        autocmd BufNewFile,BufRead * call plug#load('fcitx-vim-osx')
+    else
+        autocmd BufNewFile,BufRead * call plug#load('fcitx.vim')
+    endif
+    autocmd BufNewFile,BufRead * call plug#load('vim-snippets')
+    autocmd BufNewFile,BufRead * call plug#load('vim-fugitive')
+    autocmd BufNewFile,BufRead * call plug#load('vim-obsession')
+    autocmd BufNewFile,BufRead * call plug#load('vimcdoc')
+    autocmd BufNewFile,BufRead * call CocCompleteEngine()
+
+    autocmd WinNew * call Status()
+    autocmd BufNewFile,BufRead *.[Rr]md,*.[Rr] call Ncm2CompleteEngine()
+
+    autocmd BufWritePre *.{md,pl,p6,raku,Rmd,rmd,r,do,ado} :%s/\s\+$//e
+    autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex let &brk = ''
+    autocmd filetype mail set tw=0 wrap
+    autocmd TermOpen * setlocal nonumber norelativenumber bufhidden=hide
+    autocmd InsertLeave,WinEnter * set cursorline
+    autocmd InsertEnter,WinLeave * set nocursorline
+"}}}
 augroup END
-
-" 自动补全框架
-"
-autocmd BufNewFile,BufRead *.[Rr]md,*.[Rr] call Ncm2CompleteEngine()
-
 
 " 导入外部文件{{{1
 source ~/.config/nvim/basic.vim
@@ -311,9 +362,9 @@ source ~/.config/nvim/LeaderfConifg.vim
 source ~/.config/nvim/whichkey.vim
 source ~/.config/nvim/goyoConfig.vim
 source ~/.config/nvim/KeyMap.vim
-"source ~/.config/nvim/stata.vim
+source ~/.config/nvim/nerdtree.vim
+source ~/.config/nvim/stata.vim
 "source ~/.config/nvim/coc.vim
 "source ~/.config/nvim/python.vim
-"source ~/.config/nvim/nerdtree.vim
 "}}}
 

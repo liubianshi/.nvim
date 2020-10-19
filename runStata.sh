@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ev
 
 # 获取当前系统所使用窗口管理器，如果是 dwm，需要做额外的处理
 wm=$(wmctrl -m | grep 'Name' | cut -d' ' -f2)

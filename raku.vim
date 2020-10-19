@@ -1,5 +1,6 @@
 
 augroup reku_setup
+    autocmd!
     function! Rakudo()
         let b:AutoPairs = g:AutoPairs
         "let b:AutoPairs['<']=">"
