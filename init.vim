@@ -332,15 +332,14 @@ augroup LOAD_ENTER
     else
         autocmd BufNewFile,BufRead * call plug#load('fcitx.vim')
     endif
+    autocmd WinNew * call Status()
     autocmd BufNewFile,BufRead * call plug#load('vim-snippets')
     autocmd BufNewFile,BufRead * call plug#load('vim-fugitive')
     autocmd BufNewFile,BufRead * call plug#load('vim-obsession')
     autocmd BufNewFile,BufRead * call plug#load('vimcdoc')
     autocmd BufNewFile,BufRead * call CocCompleteEngine()
 
-    autocmd WinNew * call Status()
-    autocmd BufNewFile,BufRead *.[Rr]md,*.[Rr] call Ncm2CompleteEngine()
-
+    autocmd BufNewFile,BufRead *.csv set ft=csv
     autocmd BufWritePre *.{md,pl,p6,raku,Rmd,rmd,r,do,ado} :%s/\s\+$//e
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex let &brk = ''
     autocmd filetype mail set tw=0 wrap
