@@ -41,14 +41,10 @@ augroup r_setup
     autocmd BufNewFile,BufRead *.[Rr]md,*.[Rr] call Ncm2CompleteEngine()
     autocmd BufNewFile,BufRead *.[Rr]md set filetype=rmd
     autocmd FileType rmd,rmarkdown nnoremap <leader>nc    :RNrrw<cr>:set filetype=r<cr>
-    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal tw=78
-    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal formatoptions=tqcnmB1jo
-    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal tabstop=4
-    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal shiftwidth=4
-    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown   let &brk = ""
-    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal formatexpr=""
-    autocmd FileType r,rmd,rmarkdown,rmd.rmarkdown        setlocal formatprg=r-format
-    autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown,r UltiSnipsAddFiletype=rmd.r.markdown
+    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal
+        \ tw=78 formatoptions=tqcnmB1jo tabstop=4 shiftwidth=4
+        \ brk= formatexpr="" formatprg=r-format
+    autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown UltiSnipsAddFiletype=rmd.r.markdown
 
 " 便捷符号输入{{{2
     autocmd FileType rmd,rmarkdown,pandoc,rmd.rmarkdown   inoremap ;- <esc>^d0i-<tab><esc>A

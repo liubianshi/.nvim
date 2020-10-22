@@ -225,6 +225,7 @@ endfunction
 nmap sc :<c-u>call SearchChineseLine()<cr>
 nmap sC :<c-u>call SearchChinese()<cr>
 
+
 " wiki.vim{{{1
 let g:wiki_mappings_global = {
     \ '<plug>(wiki-index)'   : '<tab>ww',
@@ -327,6 +328,15 @@ function ToggleZenMode()
 endfunction
 nnoremap <leader>z :<c-u>call ToggleZenMode()<cr>
 nnoremap <leader>Z :Goyo<cr>
+
+" 中英文切换 {{{1
+inoremap <nowait> f f
+imap fj <C-R>=system("fcitx5-remote -o")<cr>
+imap ff <C-R>=system("fcitx5-remote -c")<cr>
+
+
+
+
 
 
 

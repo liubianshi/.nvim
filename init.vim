@@ -232,22 +232,13 @@
 " ncm2 及相关插件 {{{3
     Plug 'roxma/nvim-yarp'              " ncm2 依赖的插件
     Plug 'roxma/ncm2'
-    Plug 'liubianshi/ncm-R', { 'for': ['r', 'rmarkdown', 'rmd']  }
+    Plug 'liubianshi/ncm-R', { 'on': []  }
     Plug 'ncm2/ncm2-bufword', { 'on': [] }
     Plug 'ncm2/ncm2-path', { 'on': [] }
     Plug 'ncm2/ncm2-ultisnips', { 'on': [] }
     Plug 'yuki-ycino/ncm2-dictionary', { 'on': [] }
     Plug 'Shougo/neco-syntax', { 'on': [] }
     Plug 'ncm2/ncm2-syntax', { 'on': [] }
-        let g:ncm2_pandoc_source = {
-            \ 'name': 'pandoc',
-            \ 'priority': 9,
-            \ 'scope': ['pandoc', 'markdown', 'rmarkdown', 'rmd'],
-            \ 'mark': 'pandoc',
-            \ 'word_pattern': '\w+',
-            \ 'complete_pattern': ['@'],
-            \ 'on_complete': ['ncm2#on_complete#omni', 'pandoc#completion#Complete'],
-            \ }
         let g:ncm2_raku_source = {
             \ 'name': 'raku',
             \ 'priority': 8,
@@ -312,7 +303,6 @@ function! Ncm2CompleteEngine()
          \ )
     let b:coc_suggest_disable = 1 
     call ncm2#enable_for_buffer()
-    call ncm2#register_source(g:ncm2_pandoc_source) 
     call ncm2#register_source(g:ncm2_r_source) 
     call ncm2#register_source(g:ncm2_raku_source) 
 endfunction
@@ -339,13 +329,14 @@ augroup LOAD_ENTER
     autocmd BufNewFile,BufRead * call plug#load('vimcdoc')
     autocmd BufNewFile,BufRead * call CocCompleteEngine()
 
+    autocmd InsertLeave,WinEnter * set cursorline
+    autocmd InsertEnter,WinLeave * set nocursorline
+
     autocmd BufNewFile,BufRead *.csv set ft=csv
     autocmd BufWritePre *.{md,pl,p6,raku,Rmd,rmd,r,do,ado} :%s/\s\+$//e
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex let &brk = ''
     autocmd filetype mail set tw=0 wrap
     autocmd TermOpen * setlocal nonumber norelativenumber bufhidden=hide
-    autocmd InsertLeave,WinEnter * set cursorline
-    autocmd InsertEnter,WinLeave * set nocursorline
 "}}}
 augroup END
 
