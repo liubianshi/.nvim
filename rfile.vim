@@ -16,7 +16,9 @@ function! R_view_df_full(max_width)
 endfunction
 
 " Nvim-R 变量设置{{{1
+let r_syntax_folding = 1
 let R_cmd = "R"
+let R_app = "~/.local/bin/radian"
 let R_hl_term = 1
 let R_openpdf = 1
 let R_bracketed_paste = 0
@@ -27,13 +29,15 @@ let R_hi_fun_paren = 1
 let R_assign = 0
 let R_rmdchunk = 0
 let R_in_buffer = 1
+let R_external_term = 'st -n R -e'
 let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"
 let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,rlang,data.table,fread,readxl,tidyverse,haven,lbs'
-"let R_app = "/usr/bin/radian"
 "let R_assign_map = '<A-=>'
 "let R_csv_app = 'terminal:sc-im'
 "let R_csv_delim = '\t'
 "let R_csv_app = 'tmux new-window sc-im'
+"在普通 buffer 开启 nvim-r 的方法
+command RStart let oldft=&ft | set ft=r | exe 'set ft='.oldft | let b:IsInRCode = function("DefaultIsInRCode") | normal <LocalLeader>rf
 
 " 自动启动命令组 {{{1
 augroup r_setup
@@ -42,8 +46,8 @@ augroup r_setup
     autocmd BufNewFile,BufRead *.[Rr]md set filetype=rmd
     autocmd FileType rmd,rmarkdown nnoremap <leader>nc    :RNrrw<cr>:set filetype=r<cr>
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown setlocal
-        \ tw=78 formatoptions=tqcnmB1jo tabstop=4 shiftwidth=4
-        \ brk= formatexpr="" formatprg=r-format
+        \ tw=78 formatoptions=tcroqlnmB1j tabstop=4 shiftwidth=4
+        \ brk= formatexpr= formatprg=r-format indentexpr=
     autocmd FileType r,rmd,rmarkdown,pandoc,rmd.rmarkdown UltiSnipsAddFiletype=rmd.r.markdown
 
 " 便捷符号输入{{{2
