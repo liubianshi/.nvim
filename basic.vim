@@ -3,7 +3,8 @@ let mapleader = " "
 let maplocalleader = ';'
 set mouse=a                " 支持使用鼠标
 set clipboard+=unnamedplus " 剪切板的整合
-set encoding=utf-8 fileencodings=ucs-bom,utf-8,cp936         " 设置编码格式
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936,gb2312,gb18030,big5,enc-jp,enc-krlatin1
 set autoread               " 在文件在外部被修改后自动加载
 set wildmenu               " vim 自身命令行模式只能补全
 set so=7                   " 设置 j/k 滚动的行数
