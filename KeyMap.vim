@@ -1,5 +1,5 @@
 " 基础命令{{{1
-nnoremap <leader><leader> :<C-U><C-R>=printf("AsyncRun %s", "")<CR> 
+"nnoremap <leader><leader> :<C-U><C-R>=printf("AsyncRun %s", "")<CR> 
 nnoremap <silent> <leader>p :<c-u>execute "cd" expand("%:p:h")<cr>
 nnoremap <silent> <leader>C :<c-u> call ChangeCompleteEngine()<cr>
 nnoremap <silent> <leader>w :<c-u>:w<cr>
@@ -54,7 +54,7 @@ nnoremap <silent> <leader>ls :split +Lf<cr>
 nnoremap <silent> <leader>lv :vertical split +Lf<cr>
 nnoremap <silent> <leader>lt :LfNewTab<cr>
 nnoremap <silent> <leader>lw :NERDTreeToggle<cr>
-nnoremap <silent> <leader>nn :NnnPicker "%:p:h"<CR>
+nnoremap <silent> <leader>nn :NnnPicker<CR>
 
 " 补全相关 {{{1
 function! s:check_back_space() abort
@@ -332,7 +332,17 @@ inoremap <nowait> f f
 imap fj <C-R>=system("fcitx5-remote -o")<cr>
 imap ff <C-R>=system("fcitx5-remote -c")<cr>
 
-
+" Floaterm {{{1
+let g:floaterm_keymap_toggle = '<leader>;'
+noremap <leader><leader> :<C-R>=printf("FloatermSend%s", "")<CR> 
+noremap <leader>: :<C-U><C-R>=printf("FloatermNew%s", "")<CR> 
+command! RUN FloatermNew --name=repl --wintype=normal --position=right
+augroup FLOAT
+    autocmd!
+    autocmd FileType floaterm nnoremap <leader>r :<C-U>FloatermUpdate --wintype=normal --position=right<cr>
+    autocmd FileType floaterm nnoremap <leader>l :<C-U>FloatermUpdate --wintype=normal --position=left<cr>
+    autocmd FileType floaterm nnoremap <leader>f :<C-U>FloatermUpdate --wintype=floating --position=topright<cr>
+augroup END
 
 
 

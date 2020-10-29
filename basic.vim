@@ -46,6 +46,7 @@ set foldcolumn=2
 set signcolumn=auto
 highlight FoldColumn guibg=bg
 highlight SignColumn guibg=bg
+highlight FloatermBorder guifg=Cyan
 "}}}
 " 搜索相关{{{1
 set hlsearch               " 高亮显示搜索结果

@@ -30,6 +30,8 @@
         let g:airline#extensions#tabline#buffer_nr_show = 1
         let g:airline_theme='ayu'
 " 文件管理{{{2
+    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' }
     Plug 'rbgrouleff/bclose.vim'          " lf.vim 插件依赖，关闭 buffer，但关闭 buffer 所在窗口
     Plug 'ptzz/lf.vim'                    " 文件管理
         let g:lf_map_keys = 0
@@ -135,9 +137,7 @@
     Plug 'poliquin/stata-vim', { 'for': 'stata' }       " stata 语法高亮
     Plug 'Raku/vim-raku', { 'for': 'raku'}
         let g:raku_unicode_abbrevs = 0
-        au BufNewFile,BufRead *.raku,*.p6,*.pl6,*.p6 set filetype=raku
     Plug 'kovetskiy/sxhkd-vim', { 'for': 'sxhkd' }
-        au BufNewFile,BufRead sxhkdrc set filetype=sxhkd
     " tags and preview {{{3
     Plug 'ludovicchabant/vim-gutentags'
         let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
@@ -178,10 +178,9 @@
                     \   '*': ['remove_trailing_lines', 'trim_whitespace'],
                     \ }
 " 其他小工具{{{2
-    Plug 'chrisbra/NrrwRgn'              " 形成小 buffer
-        let g:nrrw_rgn_vert = 0
-        let g:nrrw_rgn_wdth = 80
-        let g:nrrw_topbot_leftright = 'botright'
+    Plug 'voldikss/vim-floaterm'
+        let g:floaterm_rootmarkers = ['.project', '.git', '.hg', '.svn', '.root', '.gitignore']
+        let g:floaterm_position = 'topright'
     Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
         let g:asyncrun_open = 6
     Plug 'liuchengxu/vim-which-key'
@@ -223,7 +222,7 @@
         let cmdline_app['stata']  = 'stata-mp'
 
         " Color
-        let cmdline_follow_colorscheme = 1   
+        let cmdline_follow_colorscheme = 1
 "}}}
 " 自动补全{{{2
     Plug 'jiangmiao/auto-pairs'         " 自动引号/括号补全
@@ -264,8 +263,6 @@
 " 以前用过暂时不用将来可能用到的工具{{{2
     "Plug 'ncm2/ncm2-tmux'
     "Plug 'ncm2/ncm2-vim'
-    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-    Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' }
     "Plug '907th/vim-auto-save'           " 自动保存
     "Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
     "Plug 'chrisbra/NrrwRgn'              " 形成小 buffer
@@ -277,6 +274,10 @@
         "let g:clap_provider_grep_executable = 'ag'
     "Plug 'VincentCordobes/vim-translate'                " 翻译工具
     "Plug 'neoclide/coc.nvim', {'branch': 'release'}     " coc 代码补全插件
+    "Plug 'chrisbra/NrrwRgn'              " 形成小 buffer
+        "let g:nrrw_rgn_vert = 0
+        "let g:nrrw_rgn_wdth = 80
+        "let g:nrrw_topbot_leftright = 'botright'
 "}}}
 call plug#end()
 
@@ -322,6 +323,9 @@ augroup LOAD_ENTER
     else
         autocmd BufNewFile,BufRead * call plug#load('fcitx.vim')
     endif
+    if exists('$TMUX')
+        autocmd BufNewFile,BufRead * call plug#load('vim-obsession')
+    endif
     autocmd WinNew * call Status()
     autocmd BufNewFile,BufRead * call plug#load('vim-snippets')
     autocmd BufNewFile,BufRead * call plug#load('vim-fugitive')
@@ -332,11 +336,14 @@ augroup LOAD_ENTER
     autocmd InsertLeave,WinEnter * set cursorline
     autocmd InsertEnter,WinLeave * set nocursorline
 
-    autocmd BufNewFile,BufRead *.csv set ft=csv
     autocmd BufWritePre *.{md,pl,p6,raku,Rmd,rmd,r,do,ado} :%s/\s\+$//e
     autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex let &brk = ''
     autocmd filetype mail set tw=0 wrap
     autocmd TermOpen * setlocal nonumber norelativenumber bufhidden=hide
+
+    autocmd BufNewFile,BufRead *.csv set filetype=csv
+    autocmd BufNewFile,BufRead *.raku,*.p6,*.pl6,*.p6 set filetype=raku
+    autocmd BufNewFile,BufRead sxhkdrc set filetype=sxhkd
 "}}}
 augroup END
 
@@ -357,4 +364,5 @@ source ~/.config/nvim/stata.vim
 "source ~/.config/nvim/coc.vim
 "source ~/.config/nvim/python.vim
 "}}}
+
 

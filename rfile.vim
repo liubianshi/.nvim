@@ -38,7 +38,7 @@ let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,rlang,data.table
 "let R_csv_delim = '\t'
 "let R_csv_app = 'tmux new-window sc-im'
 "在普通 buffer 开启 nvim-r 的方法
-command RStart let oldft=&ft | set ft=r | exe 'set ft='.oldft | let b:IsInRCode = function("DefaultIsInRCode") | normal <LocalLeader>rf
+command! RStart let oldft=&ft | set ft=r | exe 'set ft='.oldft | let b:IsInRCode = function("DefaultIsInRCode") | normal <LocalLeader>rf
 
 " 自动启动命令组 {{{1
 augroup r_setup
