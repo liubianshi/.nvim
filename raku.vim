@@ -10,7 +10,7 @@ augroup reku_setup
     endfunction
 
     au FileType raku call Rakudo()
-    au FileType raku nnoremap <silent> <localleader>r :<c-u>AsyncRun raku "%"<cr>
+    au FileType raku 
     au FileType raku nnoremap <silent> <localleader>R :<c-u>AsyncRun raku "%"
     
     if(has("mac"))

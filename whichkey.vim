@@ -5,7 +5,6 @@ call which_key#register('<Space>', "g:which_key_map")
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 let g:which_key_map = {}
-let g:which_key_map.f = { 'name' : '+FzfCommand' }
 
 let g:which_key_map.t = { 'name' : '+translate' }
 let g:which_key_map.b = { 'name' : '+buffer' }
@@ -35,32 +34,23 @@ let g:which_key_local.o = { 'name' : '+R_Open' }
 let g:which_key_local.g = { 'name' : '+R_Goto' }
 let g:which_key_local.x = { 'name' : '+R_Comment' }
 
+call which_key#register('<tab>', "g:which_key_tab")
+nnoremap <silent> <tab> :<c-u>execute "WhichKey '\<tab\>'"<CR>
+vnoremap <silent> <tab> :<c-u>execute "WhichKey '\<tab\>'"<CR>
+let g:which_key_tab = {}
+let g:which_key_tab.f = { 'name' : '+Foloder_Makrder' }
+let g:which_key_tab.w = { 'name' : '+Vim_Wiki' }
+
+call which_key#register('<F9>', "g:which_key_vm")
+nnoremap <silent> <F9> :<c-u>execute "WhichKey '\<F9\>'"<CR>
+vnoremap <silent> <F9> :<c-u>execute "WhichKey '\<F9\>'"<CR>
+let g:which_key_vm = {}
+let g:which_key_vm.g = { 'name' : '+Visual-Mulit-Go' }
+
 nnoremap <silent> s :<c-u>WhichKey  's'<CR>
 vnoremap <silent> s :<c-u>WhichKeyVisual 's'<CR>
+nnoremap <silent> ] :<c-u>WhichKey  ']'<CR>
+vnoremap <silent> ] :<c-u>WhichKeyVisual ']'<CR>
+nnoremap <silent> [ :<c-u>WhichKey  '['<CR>
+vnoremap <silent> [ :<c-u>WhichKeyVisual '['<CR>
 
-
-"call which_key#register('z', "g:which_key_fold")
-"nnoremap <silent> z :<c-u>WhichKey  'z'<CR>
-"let g:which_key_fold = {}
-"let g:which_key_fold.a = {'a': 'Toggle one fold'}
-"let g:which_key_fold.A = {'A': 'Toggle all folds'}
-"let g:which_key_fold.c = {'c': 'Close one fold'}
-"let g:which_key_fold.C = {'C': 'Close all folds'}
-"let g:which_key_fold.d = {'d': 'Delete one fold'}
-"let g:which_key_fold.D = {'D': 'Delete folds recursively at the cursor'}
-"let g:which_key_fold.f = {'f': 'Create a folder'}
-"let g:which_key_fold.F = {'F': 'Create a folder for [count] lines'}
-"let g:which_key_fold.j = {'j': 'Move downwords to the end of the previous fold'}
-"let g:which_key_fold.k = {'k': 'Move upwords to the end of the previous fold'}
-"let g:which_key_fold.r = {'r': 'Reduce'}
-"let g:which_key_fold.R = {'R': 'Open all folds'}
-
-"nnoremap <silent> <Tab> :<c-u>WhichKey  'TAB'<CR>
-"call which_key#register('TAB', "g:which_key_tab")
-"let g:which_key_tab = {}
-"let g:which_key_tab.n = {'name': ':tabnew'}
-"let g:which_key_tab.j = {'name': ':tabprevious'}
-"let g:which_key_tab.k = {'name': ':tabnext'}
-"let g:which_key_tab.x = {'name': ':tabclose'}
-"let g:which_key_tab.p = {'name': '"0p'}
-"let g:which_key_tab.TAB = {'name': 'V>'}

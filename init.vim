@@ -30,7 +30,24 @@
         let g:airline#extensions#tabline#buffer_nr_show = 1
         let g:airline_theme='ayu'
 " 文件管理{{{2
-    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " {{{3
+        let g:NERDTreeIgnore = ['\.pyc$', '\.swp', '\.swo', '\.vscode', '__pycache__']
+        let g:NERDTreeDirArrowExpandable = '▸'
+        let g:NERDTreeDirArrowCollapsible = '▾'
+        let g:NERDTreeShowBookmarks=1
+        let g:NERDTreeIndicatorMapCustom = {
+            \ "Modified"  : "✹",
+            \ "Staged"    : "✚",
+            \ "Untracked" : "✭",
+            \ "Renamed"   : "➜",
+            \ "Unmerged"  : "═",
+            \ "Deleted"   : "✖",
+            \ "Dirty"     : "✗",
+            \ "Clean"     : "✔︎",
+            \ "Ignored"   : "☒",
+            \ "Unknown"   : "?"
+            \ }
+    "}}}
     Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' }
     Plug 'rbgrouleff/bclose.vim'          " lf.vim 插件依赖，关闭 buffer，但关闭 buffer 所在窗口
     Plug 'ptzz/lf.vim'                    " 文件管理
@@ -52,7 +69,34 @@
         Plug '/usr/bin/fzf'               " 在 vim 中使用 fzf
     endif
     Plug 'junegunn/fzf.vim'               " 安装相关插件
-    Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+    Plug 'Yggdroot/LeaderF', { 'do': './install.sh' } " {{{3
+        let g:Lf_HideHelp = 1
+        let g:Lf_UseCache = 1
+        let g:Lf_CacheDirectory = expand('~/.cache/')
+        let g:Lf_UseVersionControlTool = 1
+        let g:Lf_IgnoreCurrentBufferName = 1
+
+        let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git', '.hg']
+        let g:LF_Ctags = "ctags"
+        let g:Lf_GtagsAutoGenerate = 1
+        let g:Lf_Gtagslabel = 'native-pygments'
+        let g:Lf_GtagsSource = 0
+
+        let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+        let g:Lf_WorkingDirectoryMode = 'Ac'
+        let g:Lf_WindowHeight = 0.50
+        let g:Lf_ShowRelativePath = 0
+        let g:Lf_PreviewResult = {'File': 0, 'Buffer': 0,'Function': 1, 'BufTag': 0 }
+        let g:Lf_WindowPosition = 'bottom'
+        let g:Lf_PreviewInPopup = 1
+        let g:Lf_PopupShowStatusline = 1
+        let g:Lf_PopupPreviewPosition = 'bottom'
+        let g:Lf_PreviewHorizontalPosition = 'right'
+        let g:Lf_PopupColorscheme = 'default'
+        let g:Lf_AutoResize = 1
+        let g:Lf_PopupWidth = &columns * 3 / 4
+        let g:Lf_PopupHeight = 0.75
+
 " 优化写作体验{{{2
     Plug 'junegunn/goyo.vim',       {'for': ['md', 'pandoc','rmd', 'rmarkdown']} " zen 模式:
     Plug 'hotoo/pangu.vim',         {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
@@ -110,8 +154,6 @@
     Plug 'sirver/UltiSnips'
         let g:UltiSnipsEditSplit = "tabdo"
         let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
-        autocmd FileType rmd,rmarkdown :UltiSnipsAddFiletypes rmd.markdown
-        autocmd BufNewFile,BufRead *.md UltiSnipsAddFiletypes markdown.md.pandoc
     Plug 'honza/vim-snippets', { 'on': [] }        " 配置 snippets 需要
 "}}}
 " 模拟IDE{{{2
@@ -135,6 +177,31 @@
     Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmarkdown', 'rmd'] }
     Plug 'lervag/vimtex',       {'for': ['tex', 'plaintex']}
         let g:vimtex_compiler_progname = 'nvr'          " 调用 neovim-remote
+        let g:vimtex_compiler_latexmk = {
+            \ 'background' : 1,
+            \ 'build_dir' : 'tex_tmp',
+            \ 'callback' : 1,
+            \ 'continuous' : 0,
+            \ 'executable' : 'latexmk',
+            \ 'hooks' : [],
+            \ 'options' : [
+            \   '-verbose',
+            \   '-file-line-error',
+            \   '-synctex=1',
+            \   '-interaction=nonstopmode',
+            \ ],
+            \}
+        let g:vimtex_compiler_latexmk_engines = {
+            \ '_'                : '-xelatex',
+            \ 'pdflatex'         : '-pdf',
+            \ 'dvipdfex'         : '-pdfdvi',
+            \ 'lualatex'         : '-lualatex',
+            \ 'xelatex'          : '-xelatex',
+            \ 'context (pdftex)' : '-pdf -pdflatex=texexec',
+            \ 'context (luatex)' : '-pdf -pdflatex=context',
+            \ 'context (xetex)'  : '-pdf -pdflatex=''texexec --xtx''',
+            \}
+
     Plug 'poliquin/stata-vim', { 'for': 'stata' }       " stata 语法高亮
     Plug 'Raku/vim-raku', { 'for': 'raku'}
         let g:raku_unicode_abbrevs = 0
@@ -282,86 +349,15 @@
 "}}}
 call plug#end()
 
-" 初始设置相关 {{{1
-" 状态栏{{{2
-function! Status() 
-    call plug#load('vim-airline', 'vim-airline-themes')
-    set laststatus=1
-endfunction
-
-" 切换补全工具{{{2
-function! CocCompleteEngine()
-    call plug#load('coc.nvim')
-    if exists("*ncm2#disable_for_buffer")
-        call ncm2#disable_for_buffer()
-    endif
-    let b:coc_suggest_disable = 0
-endfunction
-function! Ncm2CompleteEngine()
-    call plug#load(
-         \ 'ncm2', 'ncm-R', 'ncm2-bufword',
-         \ 'ncm2-path', 'ncm2-ultisnips', 'ncm2-dictionary',
-         \ 'neco-syntax', 'ncm2-syntax',
-         \ )
-    let b:coc_suggest_disable = 1 
-    call ncm2#enable_for_buffer()
-    call ncm2#register_source(g:ncm2_r_source) 
-    call ncm2#register_source(g:ncm2_raku_source) 
-endfunction
-function! ChangeCompleteEngine()
-    if !exists("b:coc_suggest_disable") || b:coc_suggest_disable == 0
-        call Ncm2CompleteEngine() 
-    else
-        call CocCompleteEngine()
-    endif
-endfunction
-
-" 进入插入模式启动的插件{{{2
-augroup LOAD_ENTER
-    autocmd!
-    if(has("mac"))
-        autocmd BufNewFile,BufRead * call plug#load('fcitx-vim-osx')
-    else
-        autocmd BufNewFile,BufRead * call plug#load('fcitx.vim')
-    endif
-    if exists('$TMUX')
-        autocmd BufNewFile,BufRead * call plug#load('vim-obsession')
-    endif
-    autocmd WinNew * call Status()
-    autocmd BufNewFile,BufRead * call plug#load('vim-snippets')
-    autocmd BufNewFile,BufRead * call plug#load('vim-fugitive')
-    autocmd BufNewFile,BufRead * call plug#load('vim-obsession')
-    autocmd BufNewFile,BufRead * call plug#load('vimcdoc')
-    autocmd BufNewFile,BufRead * call CocCompleteEngine()
-
-    autocmd InsertLeave,WinEnter * set cursorline
-    autocmd InsertEnter,WinLeave * set nocursorline
-
-    autocmd BufWritePre *.{md,pl,p6,raku,Rmd,rmd,r,do,ado} :%s/\s\+$//e
-    autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex let &brk = ''
-    autocmd filetype mail set tw=0 wrap
-    autocmd TermOpen * setlocal nonumber norelativenumber bufhidden=hide
-
-    autocmd BufNewFile,BufRead *.csv set filetype=csv
-    autocmd BufNewFile,BufRead *.raku,*.p6,*.pl6,*.p6 set filetype=raku
-    autocmd BufNewFile,BufRead sxhkdrc set filetype=sxhkd
-"}}}
-augroup END
-
 " 导入外部文件{{{1
 source ~/.config/nvim/basic.vim
 source ~/.config/nvim/lbs_function.vim  
-source ~/.config/nvim/ChineseSymbol.vim
-source ~/.config/nvim/vimtex.vim
-source ~/.config/nvim/raku.vim
 source ~/.config/nvim/rfile.vim
 source ~/.config/nvim/fzfConifg.vim
-source ~/.config/nvim/LeaderfConifg.vim
 source ~/.config/nvim/whichkey.vim
 source ~/.config/nvim/goyoConfig.vim
 source ~/.config/nvim/KeyMap.vim
-source ~/.config/nvim/nerdtree.vim
-source ~/.config/nvim/stata.vim
+source ~/.config/nvim/autocmd.vim
 "source ~/.config/nvim/coc.vim
 "source ~/.config/nvim/python.vim
 "}}}

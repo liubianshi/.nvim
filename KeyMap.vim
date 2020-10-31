@@ -21,16 +21,6 @@ nnoremap <silent> <leader><cr> :noh<cr>
 
 " 管理 quickfix {{{1
 nnoremap <leader>q :call QuickfixToggle()<cr>
-let g:quickfix_is_open = 0
-function! QuickfixToggle()
-    if g:quickfix_is_open
-        cclose
-        let g:quickfix_is_open = 0
-    else
-        copen
-        let g:quickfix_is_open = 1
-    endif
-endfunction
 
 " buffer managing{{{1
 nnoremap <silent> <leader>bc :<c-u>call Lilydjwg_cleanbufs()<cr>
@@ -57,15 +47,13 @@ nnoremap <silent> <leader>lw :NERDTreeToggle<cr>
 nnoremap <silent> <leader>nn :NnnPicker<CR>
 
 " 补全相关 {{{1
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
+let g:UltiSnipsExpandTrigger		= "<c-u>"
+let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
 inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <silent><expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <silent><expr> <Tab>  pumvisible() ? "\<C-n>" : "\<Tab>"
-
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 if exists('*complete_info')
@@ -73,11 +61,6 @@ if exists('*complete_info')
 else
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
-
-let g:UltiSnipsExpandTrigger		= "<c-u>"
-let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
-let g:UltiSnipsRemoveSelectModeMappings = 0
 
 " Navigation {{{1
 noremap j gj
@@ -88,8 +71,6 @@ nnoremap H <C-w>h
 nnoremap L <C-w>l
 nnoremap <A-j> <Esc>Vj
 nnoremap <A-k> <Esc>Vk
-nnoremap <A-h> <Esc>v^
-nnoremap <A-l> <Esc>v$
 noremap <A-o> o<Esc>
 noremap <A-O> O<Esc>
 if(has("mac"))
@@ -125,67 +106,8 @@ nnoremap <tab>p "0p
 nnoremap <tab>P "*p
 
 " Visual mode pressing * or # searches for the current selection{{{1
-" Super useful! From an idea by Michael Naumann
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'gv'
-        call CmdLine("Ack '" . l:pattern . "' " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>:
-
-" 处理 Markdown 和 Rmarkdown 文档{{{1
-function! RmdClipBoardImage()
-    execute "normal! i```{r, out.width = '70%', fig.pos = 'h', fig.show = 'hold'}\n"
-    call mdip#MarkdownClipboardImage()
-    execute "normal! \<esc>g_\"iyi)VCknitr::include_graphics(\"\")\<esc>F\"\"iPo```\n" 
-endfunction
-
-augroup MARKDOWN
-    autocmd!
-    autocmd FileType pandoc,md,markdown nnoremap <leader>pp
-        \ :Pandoc pdf -H ~/useScript/header.tex<cr>
-    autocmd FileType pandoc,md,markdown nnoremap <leader>ph
-        \ :Pandoc html<cr>
-    autocmd FileType rmd nnoremap <leader>rp
-        \ :AsyncRun ~/useScript/rmarkdown.sh %<cr>
-    autocmd FileType rmd nnoremap <leader>rh
-        \ :AsyncRun ~/useScript/rmarkdown.sh -o bookdown::html_document2 %<cr>
-    autocmd FileType pandoc,rmd,rmarkdown,raku,perl6,markdown
-        \ inoremap ;<CR> <Esc>A;<CR>
-    autocmd FileType pandoc,rmd,rmarkdown,raku,perl6,markdown
-        \ nnoremap <tab><CR> <Esc>A;<CR>
-    if(has("mac"))
-        autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po
-            \ :AsyncRun open "%:r.pdf"<cr> 
-        autocmd BufEnter,BufNewFile *.[Rr]md,*.md nnoremap <leader>ho
-            \ :AsyncRun open "%:r.html"<cr> 
-    else
-        autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex nnoremap <leader>po
-            \ :AsyncRun xdg-open "%:r.pdf"<cr> 
-        autocmd BufEnter,BufNewFile *.[Rr]md,*.md nnoremap <leader>ho
-            \ :AsyncRun xdg-open "%:r.html"<cr> 
-    endif
-    autocmd FileType pandoc,markdown,md nnoremap <silent> <localleader>pi
-        \ :<c-u>call mdip#MarkdownClipboardImage()<CR>
-    autocmd FileType rmd,rmarkdown,rmd.rmarkdown nnoremap <silent> <localleader>pi
-        \ :<c-u>call RmdClipBoardImage()<CR>
-    autocmd FileType pandoc,md,markdown,Rmd,rmd,rmarkdown nmap <localleader>ic ysiW`
-
-    autocmd BufEnter,BufNewFile *.[Rr]md,*.md,*.tex
-        \ nnoremap <leader>ab :<c-u>AsyncRun 
-        \ xsel -ob >> %:p:h/ref.bib; xsel -ob \| perl -ne 'print "\@$1\n" if ($_ =~ /^\@\w+\{([^,]+)\,/)' >> ~/.config/nvim/paper.dict<cr>
-augroup END
 
 " Easymotion Related{{{1
 nmap ss <Plug>(easymotion-overwin-f2)
@@ -210,27 +132,27 @@ nmap sE <Plug>(easymotion-E)
 nmap sge <Plug>(easymotion-ge)
 nmap sgE <Plug>(easymotion-gE)
 
-function! SearchChinese() 
+function! s:searchChinese() 
     silent execute '!fcitx5-remote -o'
     call EasyMotion#S(2,0,2)
     silent exe '!fcitx5-remote -c'
 endfunction 
-function! SearchChineseLine() 
+function! s:searchChineseLine() 
     silent execute '!fcitx5-remote -o'
     call EasyMotion#SL(1,0,2)
     silent exe '!fcitx5-remote -c'
 endfunction 
-nmap sc :<c-u>call SearchChineseLine()<cr>
-nmap sC :<c-u>call SearchChinese()<cr>
+nmap sc :<c-u>call s:searchChineseLine()<cr>
+nmap sC :<c-u>call s:searchChinese()<cr>
 
 
 " wiki.vim{{{1
 let g:wiki_mappings_global = {
-    \ '<plug>(wiki-index)'   : '<tab>ww',
-    \ '<plug>(wiki-journal)' : '<tab>wj',
-    \ '<plug>(wiki-oen)'     : '<tab>wn',
-    \ '<plug>(wiki-reload)'  : '<tab>wx',
-    \}
+        \ '<plug>(wiki-index)'   : '<tab>ww',
+        \ '<plug>(wiki-journal)' : '<tab>wj',
+        \ '<plug>(wiki-oen)'     : '<tab>wn',
+        \ '<plug>(wiki-reload)'  : '<tab>wx',
+        \}
 let g:wiki_mappings_local = {
         \ '<plug>(wiki-page-delete)'     : '<tab>wd',
         \ '<plug>(wiki-page-rename)'     : '<tab>wr',
@@ -245,36 +167,12 @@ let g:wiki_mappings_local = {
         \ '<plug>(wiki-link-prev)'       : '<tab><up>',
         \}
 
-" dot file related{{{1
-augroup DOTFILE
-    autocmd FileType dot nnoremap <localleader>d :<c-u>AsyncRun dot -Tpdf % -o "%:r.pdf"<cr> 
-augroup END
-
-" vim-dadbod 相关{{{1
-augroup VIMDADBOD
-    autocmd!
-    autocmd FileType sql  vnoremap <buffer> <localleader>l :DB<cr>
-    autocmd FileType sql  nnoremap <buffer> <localleader>l V:DB<cr>
-    autocmd FileType sql  nnoremap <buffer> <localleader>L :<c-u>DB < "%"<cr>
-    autocmd FileType sql  nmap <buffer> <localleader>E <Plug>(DBUI_EditBindParameters) 
-    autocmd FileType sql  nmap <buffer> <localleader>W <Plug>(DBUI_SaveQuery) 
-    autocmd FileType dbui nmap <buffer> v <Plug>(DBUI_SelectLineVsplit)  
-augroup END
-
 " 注释 {{{1
 nnoremap <tab>ff g_a <esc>3a{<esc>
 nnoremap <tab>f1 g_a <esc>3a{<esc>a1<esc>
 nnoremap <tab>f2 g_a <esc>3a{<esc>a2<esc>
 nnoremap <tab>f3 g_a <esc>3a{<esc>a3<esc>
 
-" vim-preview {{{1
-augroup VIMPREVIW
-    autocmd!
-    autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-    autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
-augroup END
-noremap [u :PreviewScroll -1<cr>
-noremap ]u :PreviewScroll +1<cr>
 
 " fuzzy search {{{1
 noremap <silent> <leader>fa :<C-U><C-R>=printf("Leaderf! rg -e %s", expand("<cword>"))<CR><CR>
@@ -303,27 +201,7 @@ noremap <C-F> :<C-U><C-R>=printf("Leaderf rg -e %s", "")<CR>
 xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
 noremap go :<C-U>Leaderf! rg --recall<CR>
 
-" 日常编辑相关 {{{1
-noremap <silent> <leader>nH :w !pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
-noremap <silent> <leader>nh :r !xclip -o -t text/html -sel clip \| pandoc -f html -t markdown_strict<cr>
-
 " zen-mod {{{1
-function ToggleZenMode()
-    if &number == 1
-        setlocal nonumber
-        setlocal norelativenumber
-        setlocal foldcolumn=4
-        highlight FoldColumn guifg=bg
-        return 0
-    endif
-    if &number == 0
-        highlight FoldColumn guifg=grey
-        setlocal foldcolumn=2
-        setlocal number
-        setlocal relativenumber
-        return 0
-    endif
-endfunction
 nnoremap <leader>z :<c-u>call ToggleZenMode()<cr>
 nnoremap <leader>Z :Goyo<cr>
 
@@ -337,13 +215,32 @@ let g:floaterm_keymap_toggle = '<leader>;'
 noremap <leader><leader> :<C-R>=printf("FloatermSend%s", "")<CR> 
 noremap <leader>: :<C-U><C-R>=printf("FloatermNew%s", "")<CR> 
 command! RUN FloatermNew --name=repl --wintype=normal --position=right
-augroup FLOAT
-    autocmd!
-    autocmd FileType floaterm nnoremap <leader>r :<C-U>FloatermUpdate --wintype=normal --position=right<cr>
-    autocmd FileType floaterm nnoremap <leader>l :<C-U>FloatermUpdate --wintype=normal --position=left<cr>
-    autocmd FileType floaterm nnoremap <leader>f :<C-U>FloatermUpdate --wintype=floating --position=topright<cr>
-augroup END
 
+" 快捷标点符号输入 {{{1
+" 成对括号
+inoremap ;) <C-v>uFF08 <C-v>uFF09<C-o>F <c-o>x
+" 成对单引号
+inoremap ;] <C-v>u2018 <C-v>u2019<C-o>F <c-o>x
+" 成对双引号
+inoremap ;} <C-v>u201C <C-v>u201D<C-o>F <c-o>x
+" 逗号
+inoremap ;, <C-v>uFF0C
+" 句号
+inoremap ;. <C-v>u3002
+" 顿号
+inoremap ;\ <C-v>u3001
+" 问号
+inoremap ;? <C-v>uFF1F
+" 冒号
+inoremap ;: <C-v>uFF1A
+" 破折号
+inoremap ;- <C-v>u2014
+" 省略号
+inoremap ;^ <C-v>u2026
+" 左书名号
+inoremap ;< <C-v>u300A
+" 右书名号
+inoremap ;> <C-v>u300B<BS>
 
 
 

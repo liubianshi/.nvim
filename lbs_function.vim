@@ -114,4 +114,94 @@ function Lilydjwg_changeColor()
   call setline('.', substitute(getline('.'), '\%'.col('.').'c\V'.color, g:last_color, ''))
 endfunction
 
+" insert rmd-style picture {{{1
+function! RmdClipBoardImage()
+    execute "normal! i```{r, out.width = '70%', fig.pos = 'h', fig.show = 'hold'}\n"
+    call mdip#MarkdownClipboardImage()
+    execute "normal! \<esc>g_\"iyi)VCknitr::include_graphics(\"\")\<esc>F\"\"iPo```\n" 
+endfunction
+
+" Super useful! From an idea by Michael Naumann {{{1
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+" quickfix managing {{{1
+let g:quickfix_is_open = 0
+function! QuickfixToggle()
+    if g:quickfix_is_open
+        cclose
+        let g:quickfix_is_open = 0
+    else
+        copen
+        let g:quickfix_is_open = 1
+    endif
+endfunction
+
+" Zen {{{1 
+function ToggleZenMode()
+    if &number == 1
+        setlocal nonumber
+        setlocal norelativenumber
+        setlocal foldcolumn=4
+        highlight FoldColumn guifg=bg
+        return 0
+    endif
+    if &number == 0
+        highlight FoldColumn guifg=grey
+        setlocal foldcolumn=2
+        setlocal number
+        setlocal relativenumber
+        return 0
+    endif
+endfunction
+
+" R 语言函数定义 {{{1
+function! R_view_df(dfname, row, method, max_width)
+    call g:SendCmdToR('fViewDFonVim("' . a:dfname . '", ' . a:row . ', "' . a:method . '", ' . a:max_width . ')')
+endfunction
+function! R_view_df_sample(method)
+    let dfname = @"
+    let row = 40
+    let max_width = 30
+    return R_view_df(dfname, row, a:method, max_width)
+endfunction
+function! R_view_df_full(max_width)
+    let dfname = @"
+    let row = 0 
+    let method = 'ht'
+    return R_view_df(dfname, row, method, a:max_width)
+endfunction
+
+" Stata dolines {{{1
+function! RunDoLines()
+    let selectedLines = getbufline('%', line("'<"), line("'>"))
+    if col("'>") < strlen(getline(line("'>")))
+        let selectedLines[-1] = strpart(selectedLines[-1], 0, col("'>"))
+    endif
+    if col("'<") != 1
+        let selectedLines[0] = strpart(selectedLines[0], col("'<")-1)
+    endif
+    let temp = "/tmp/statacmd.do"
+    call writefile(selectedLines, temp)
+
+	" *** CHANGE PATH AND NAME TO REFLECT YOUR SETUP. USE \\ INSTEAD OF \ ***
+    if(has("mac"))
+        silent exec "!open /tmp/statacmd.do" 
+    else
+        silent exec "! nohup bash ~/.config/nvim/runStata.sh >/dev/null 2>&1 &"
+    endif
+endfun
 
