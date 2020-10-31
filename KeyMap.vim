@@ -15,9 +15,9 @@ else
 endif
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>
 nnoremap <leader>ek :tabedit ~/.config/nvim/KeyMap.vim<cr>
-nnoremap <leader>er :tabedit ~/.config/nvim/rfile.vim<cr>
 nnoremap <leader>eV :source $MYVIMRC<cr>
 nnoremap <silent> <leader><cr> :noh<cr>
+nnoremap <silent> <leader>B :call Status()<cr>
 
 " 管理 quickfix {{{1
 nnoremap <leader>q :call QuickfixToggle()<cr>
@@ -242,7 +242,30 @@ inoremap ;< <C-v>u300A
 " 右书名号
 inoremap ;> <C-v>u300B<BS>
 
+" fzf-bibtex {{{1
+" bring up fzf to insert citation to selected items.
+nnoremap <silent> <tab>c :call fzf#run({
+                        \ 'source': Bibtex_ls(),
+                        \ 'sink*': function('<sid>bibtex_cite_sink'),
+                        \ 'up': '40%',
+                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
+" bring up fzf to insert pretty markdown versions of selected items.
+nnoremap <silent> <tab>m :call fzf#run({
+                        \ 'source': Bibtex_ls(),
+                        \ 'sink*': function('<sid>bibtex_markdown_sink'),
+                        \ 'up': '40%',
+                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Markdown> "'})<CR>
 
+inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
+                        \ 'source': Bibtex_ls(),
+                        \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
+                        \ 'up': '40%',
+                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
+
+" fzf-map {{{1
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 
 
 

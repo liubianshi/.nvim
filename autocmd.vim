@@ -174,7 +174,8 @@ autocmd BufNewFile,BufRead   *                          call s:filetype_init()
 autocmd InsertLeave,WinEnter *                          setlocal cursorline
 autocmd InsertEnter,WinLeave *                          setlocal nocursorline
 autocmd TermOpen             *                          setlocal nonumber norelativenumber bufhidden=hide
-autocmd bufenter             *                          if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd BufEnter             *                          if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd BufEnter             *                          call Status()
 
 " cmd: 中文输入法切换 {{{1
 if(has("mac"))

@@ -1,5 +1,4 @@
-"   自定义函数 {{{1
-"   代码格式化 {{{2
+" 代码格式化 {{{1
 function Lbs_RFormat() range
     if g:rplugin.nvimcom_port == 0
         return
@@ -13,6 +12,7 @@ function Lbs_RFormat() range
     call RInsert(cmd, "here") 
 endfunction
 command! -range=% LbsRF <line1>,<line2>:call Lbs_RFormat()
+
 "   来自 Lilydjwg 的函数 {{{1
 "   删除所有未显示且无修改的缓冲区以减少内存占用{{{2
 function Lilydjwg_cleanbufs()
@@ -121,7 +121,7 @@ function! RmdClipBoardImage()
     execute "normal! \<esc>g_\"iyi)VCknitr::include_graphics(\"\")\<esc>F\"\"iPo```\n" 
 endfunction
 
-" Super useful! From an idea by Michael Naumann {{{1
+" 选择光标下文字 Super useful! From an idea by Michael Naumann {{{1
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
     execute "normal! vgvy"
@@ -197,11 +197,77 @@ function! RunDoLines()
     let temp = "/tmp/statacmd.do"
     call writefile(selectedLines, temp)
 
-	" *** CHANGE PATH AND NAME TO REFLECT YOUR SETUP. USE \\ INSTEAD OF \ ***
     if(has("mac"))
         silent exec "!open /tmp/statacmd.do" 
     else
         silent exec "! nohup bash ~/.config/nvim/runStata.sh >/dev/null 2>&1 &"
     endif
 endfun
+
+" 状态栏{{{1
+function! Status()
+    if &laststatus == 0
+        call plug#load('vim-airline', 'vim-airline-themes')
+        let &laststatus = 2
+    else
+        let &laststatus = 0
+    endif
+endfunction
+
+" 切换补全工具{{{1
+function! CocCompleteEngine()
+    call plug#load('coc.nvim')
+    if exists("*ncm2#disable_for_buffer")
+        call ncm2#disable_for_buffer()
+    endif
+    let b:coc_suggest_disable = 0
+endfunction
+function! Ncm2CompleteEngine()
+    call plug#load(
+         \ 'ncm2', 'ncm-R', 'ncm2-bufword',
+         \ 'ncm2-path', 'ncm2-ultisnips', 'ncm2-dictionary',
+         \ 'neco-syntax', 'ncm2-syntax',
+         \ )
+    let b:coc_suggest_disable = 1 
+    call ncm2#enable_for_buffer()
+    call ncm2#register_source(g:ncm2_r_source) 
+    call ncm2#register_source(g:ncm2_raku_source) 
+endfunction
+function! ChangeCompleteEngine()
+    if !exists("b:coc_suggest_disable") || b:coc_suggest_disable == 0
+        call Ncm2CompleteEngine() 
+    else
+        call CocCompleteEngine()
+    endif
+endfunction
+
+" fzf-bibtex {{{1
+function! Bibtex_ls()
+  let bibfiles = (
+      \ globpath('~/Documents', '*ref.bib', v:true, v:true) +
+      \ globpath('.', '*.bib', v:true, v:true) +
+      \ globpath('..', '*.bib', v:true, v:true) +
+      \ globpath('*/', '*.bib', v:true, v:true)
+      \ )
+  let bibfiles = join(bibfiles, ' ')
+  let source_cmd = 'bibtex-ls '.bibfiles
+  return source_cmd
+endfunction
+
+function! s:bibtex_cite_sink(lines)
+    let r=system("bibtex-cite ", a:lines)
+    execute ':normal! a' . r
+endfunction
+
+function! s:bibtex_markdown_sink(lines)
+    let r=system("bibtex-markdown ", a:lines)
+    execute ':normal! a' . r
+endfunction
+
+function! s:bibtex_cite_sink_insert(lines)
+    let r=system("bibtex-cite -prefix='@' -postfix='' -separator='; @'", a:lines)
+    "let r=system("bibtex-cite ", a:lines)
+    execute ':normal! a' . r
+    call feedkeys('a', 'n')
+endfunction
 
