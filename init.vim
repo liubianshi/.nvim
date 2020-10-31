@@ -57,6 +57,7 @@
     Plug 'junegunn/goyo.vim',       {'for': ['md', 'pandoc','rmd', 'rmarkdown']} " zen 模式:
     Plug 'hotoo/pangu.vim',         {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
     Plug 'mg979/vim-visual-multi',  {'branch': 'master'}
+        let g:VM_leader = "<F9>" 
 " Pandoc 和 Rmarkdown {{{3
     Plug 'vim-pandoc/vim-pandoc',   {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
         let g:pandoc#modules#disabled = ["spell"]
