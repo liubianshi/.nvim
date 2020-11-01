@@ -209,5 +209,6 @@ autocmd FileType qf                               call s:qf()
 autocmd FileType dbui nmap <buffer> v <Plug>(DBUI_SelectLineVsplit)<cr>
 autocmd filetype mail setlocal tw=0 wrap
 
+
 " cmd: restore {{{1
 augroup END

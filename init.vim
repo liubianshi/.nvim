@@ -69,17 +69,14 @@ Plug 'mcchrish/nnn.vim'
         \ '<c-v>': 'vsplit' }
 
 " fzf {{{2
-if(has("mac"))
-    Plug 'junegunn/fzf.vim', { 'do': './install --bin' }
-else
-    Plug '/usr/bin/fzf'               " 在 vim 中使用 fzf
-endif
-Plug 'junegunn/fzf.vim'               " 安装相关插件
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
     let g:fzf_command_prefix = 'Fzf'    " 给 fzf.vim 命令加前缀
     let g:fzf_action = {
         \ 'ctrl-t': 'tab split',
         \ 'ctrl-x': 'split',
         \ 'ctrl-v': 'vsplit' }
+
 " leaderF {{{2
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     let g:Lf_HideHelp = 1
@@ -157,7 +154,7 @@ Plug 'lervag/wiki.vim'
         \   'monthly' : '%Y_m%m',
         \ },
         \}
-" 文本对象操作{{{2
+" text objects {{{2
 Plug 'godlygeek/tabular'            " 对齐文本插件
 Plug 'tpope/vim-surround'           " 快速给词加环绕符号
 Plug 'tpope/vim-repeat'             " 重复插件操作
