@@ -1,9 +1,9 @@
-" Liubianshi 的 Neovim 配置文件
+" Liubianshi's Neovim
 
 " load package {{{1
 call plug#begin('~/.local/share/nvim/plugged')
 
-" 中文输入法 {{{2
+" fcitx {{{2
 if(has("mac"))
     ""Plug 'ybian/smartim'
     Plug 'CodeFalling/fcitx-vim-osx'
@@ -106,18 +106,19 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     let g:Lf_PopupWidth = &columns * 3 / 4
     let g:Lf_PopupHeight = 0.75
 
-" 优化写作体验{{{2
+" visual_effects {{{2
 Plug 'junegunn/goyo.vim',       {'for': ['md', 'pandoc','rmd', 'rmarkdown']} " zen 模式:
 Plug 'hotoo/pangu.vim',         {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
-Plug 'mg979/vim-visual-multi',  {'branch': 'master'}
-    let g:VM_leader = "<F9>" 
 Plug 'machakann/vim-highlightedyank'  " 高亮显示复制区域
 Plug 'haya14busa/incsearch.vim'       " 加强版实时高亮
     map /  <Plug>(incsearch-forward)
     map ?  <Plug>(incsearch-backward)
     map g/ <Plug>(incsearch-stay)
 
-" Pandoc 和 Rmarkdown {{{2
+" visual multi {{{2
+Plug 'mg979/vim-visual-multi',  {'branch': 'master'}
+    let g:VM_leader = "<F9>" 
+" Pandoc and Rmarkdown {{{2
 Plug 'vim-pandoc/vim-pandoc',   {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
     let g:pandoc#modules#disabled = ["spell"]
     let g:pandoc#filetypes#handled = ["pandoc", "markdown"]
@@ -165,7 +166,7 @@ Plug 'easymotion/vim-easymotion'    " 高效移动指标插件
     let g:EasyMotion_smartcase = 1
 Plug 'wellle/targets.vim'           " 扩展 vim 文本对象
 
-" Snippets 相关 {{{2
+" Snippets {{{2
 Plug 'sirver/UltiSnips'
     let g:UltiSnipsEditSplit = "tabdo"
     let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
@@ -333,14 +334,14 @@ Plug 'jalvesaq/vimcmdline'                               " vim/neovim 终端函�
     " Color
     let cmdline_follow_colorscheme = 1
 
-" 自动引号/括号补全 {{{2
+" auto-pairs {{{2
 Plug 'jiangmiao/auto-pairs'         
     let g:AutoPairsMapBS = 0
 
 " coc {{{2
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'on': []}
 
-" ncm2 及相关插件 {{{2
+" ncm2 complete system {{{2
 Plug 'roxma/nvim-yarp'              " ncm2 依赖的插件
 Plug 'roxma/ncm2'
 Plug 'liubianshi/ncm-R', { 'on': []  }
@@ -378,7 +379,7 @@ Plug 'tpope/vim-fugitive', { 'on': [] }             " git 插件
 Plug 'liuchengxu/vim-which-key'
 Plug 'yianwillis/vimcdoc', { 'on': [] }             " Vim 中文帮助文档
 
-" 以前用过暂时不用将来可能用到的工具{{{2
+" used plugs {{{2
     "Plug 'ncm2/ncm2-tmux'
     "Plug 'ncm2/ncm2-vim'
     "Plug '907th/vim-auto-save'           " 自动保存
@@ -391,6 +392,8 @@ Plug 'yianwillis/vimcdoc', { 'on': [] }             " Vim 中文帮助文档
     "Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
         "let g:clap_provider_grep_executable = 'ag'
     "Plug 'VincentCordobes/vim-translate'                " 翻译工具
+
+" plug end {{{2
 call plug#end()
 
 " source external files {{{1
