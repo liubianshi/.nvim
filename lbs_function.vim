@@ -271,3 +271,19 @@ function! s:bibtex_cite_sink_insert(lines)
     call feedkeys('a', 'n')
 endfunction
 
+" EasyMotion Chinese {{{1
+function! SearchChinese_forward() 
+     silent execute '!fcitx5-remote -o'
+     call EasyMotion#S(2,0,0)
+     silent exe '!fcitx5-remote -c'
+ endfunction 
+function! SearchChinese_backword() 
+     silent execute '!fcitx5-remote -o'
+     call EasyMotion#S(2,0,1)
+     silent exe '!fcitx5-remote -c'
+ endfunction 
+function! SearchChineseLine() 
+     silent execute '!fcitx5-remote -o'
+     call EasyMotion#SL(2,0,2)
+     silent exe '!fcitx5-remote -c'
+ endfunction 

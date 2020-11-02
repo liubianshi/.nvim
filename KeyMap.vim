@@ -132,18 +132,9 @@ nmap sE <Plug>(easymotion-E)
 nmap sge <Plug>(easymotion-ge)
 nmap sgE <Plug>(easymotion-gE)
 
-function! s:searchChinese() 
-    silent execute '!fcitx5-remote -o'
-    call EasyMotion#S(2,0,2)
-    silent exe '!fcitx5-remote -c'
-endfunction 
-function! s:searchChineseLine() 
-    silent execute '!fcitx5-remote -o'
-    call EasyMotion#SL(1,0,2)
-    silent exe '!fcitx5-remote -c'
-endfunction 
-nmap sc :<c-u>call s:searchChineseLine()<cr>
-nmap sC :<c-u>call s:searchChinese()<cr>
+nmap sc :<c-u>call SearchChinese_forward()<cr>
+nmap sC :<c-u>call SearchChinese_backword()<cr>
+nmap sL :<c-u>call SearchChineseLine()<cr>
 
 
 " wiki.vim{{{1
