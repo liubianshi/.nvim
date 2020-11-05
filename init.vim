@@ -128,6 +128,7 @@ Plug 'vim-pandoc/vim-pandoc',   {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
     let g:pandoc#completion#bib#mode = "citeproc"
     let g:pandoc#biblio#sources = ["bycg"]
     let g:pandoc#folding#fdc = 1
+    let g:pandoc#folding#level = 1
     let g:pandoc#folding#fold_yaml = 1
     let g:pandoc#folding#fastfolds = 1
     let g:pandoc#folding#fold_fenced_codeblocks = 0
