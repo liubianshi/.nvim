@@ -1,5 +1,24 @@
+" function: add sybol at the end of current line {{{1 
+function! s:AddDash(symbol)
+    substitute/\s*$//g
+    if &l:textwidth == 0
+        let w = 79
+    else
+        let w = &l:textwidth
+    endif
+    if virtcol('$') >= w
+        return 0
+    endif
+    let l = (w - virtcol('$')) / strlen(a:symbol)
+    let back = @"
+    let @" = a:symbol
+    exec "normal! A \<esc>" . l . '""p'
+    let @" = back
+endfunction
+
 " 基础命令{{{1
 "nnoremap <leader><leader> :<C-U><C-R>=printf("AsyncRun %s", "")<CR> 
+nnoremap <silent> <leader>a :<c-u>call <sid>AddDash("-")<cr>
 nnoremap <silent> <leader>p :<c-u>execute "cd" expand("%:p:h")<cr>
 nnoremap <silent> <leader>C :<c-u> call ChangeCompleteEngine()<cr>
 nnoremap <silent> <leader>w :<c-u>:w<cr>
@@ -47,9 +66,9 @@ nnoremap <silent> <leader>lw :NERDTreeToggle<cr>
 nnoremap <silent> <leader>nn :NnnPicker<CR>
 
 " 补全相关 {{{1
-let g:UltiSnipsExpandTrigger		= "<c-u>"
-let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+let g:UltiSnipsExpandTrigger		    = "<c-u>"
+let g:UltiSnipsJumpForwardTrigger	    = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger	    = "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
 inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <silent><expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
@@ -71,8 +90,8 @@ nnoremap H <C-w>h
 nnoremap L <C-w>l
 nnoremap <A-j> <Esc>Vj
 nnoremap <A-k> <Esc>Vk
-noremap <A-o> o<Esc>
-noremap <A-O> O<Esc>
+noremap  <A-o> o<Esc>
+noremap  <A-O> O<Esc>
 if(has("mac"))
     nnoremap ∆ <Esc>Vj
     nnoremap ˚ <Esc>Vk
@@ -99,11 +118,11 @@ nnoremap <tab>j :tabprevious<cr>
 
 " 缩进{{{1
 nnoremap <tab><tab> V>
-vnoremap <tab> >gv
-nnoremap <s-tab> V<
-vnoremap <s-tab> <gv
-nnoremap <tab>p "0p
-nnoremap <tab>P "*p
+vnoremap <tab>      >gv
+nnoremap <s-tab>    V<
+vnoremap <s-tab>    <gv
+nnoremap <tab>p     "0p
+nnoremap <tab>P     "*p
 
 " Visual mode pressing * or # searches for the current selection{{{1
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
@@ -132,10 +151,24 @@ nmap sE <Plug>(easymotion-E)
 nmap sge <Plug>(easymotion-ge)
 nmap sgE <Plug>(easymotion-gE)
 
-nmap sc :<c-u>call SearchChinese_forward()<cr>
-nmap sC :<c-u>call SearchChinese_backword()<cr>
-nmap sL :<c-u>call SearchChineseLine()<cr>
-
+nmap sc :<c-u>call <sid>SearchChinese_forward()<cr>
+nmap sC :<c-u>call <sid>SearchChinese_backword()<cr>
+nmap sL :<c-u>call <sid>SearchChineseLine()<cr>
+function! s:SearchChinese_forward() 
+     silent execute '!fcitx5-remote -o'
+     call EasyMotion#S(2,0,0)
+     silent exe '!fcitx5-remote -c'
+ endfunction 
+function! s:SearchChinese_backword() 
+     silent execute '!fcitx5-remote -o'
+     call EasyMotion#S(2,0,1)
+     silent exe '!fcitx5-remote -c'
+ endfunction 
+function! s:SearchChineseLine() 
+     silent execute '!fcitx5-remote -o'
+     call EasyMotion#SL(2,0,2)
+     silent exe '!fcitx5-remote -c'
+ endfunction 
 
 " wiki.vim{{{1
 let g:wiki_mappings_global = {
@@ -196,11 +229,6 @@ noremap go :<C-U>Leaderf! rg --recall<CR>
 nnoremap <leader>z :<c-u>call ToggleZenMode()<cr>
 nnoremap <leader>Z :Goyo<cr>
 
-" 中英文切换 {{{1
-inoremap <nowait> f f
-imap fj <C-R>=system("fcitx5-remote -o")<cr>
-imap ff <C-R>=system("fcitx5-remote -c")<cr>
-
 " Floaterm {{{1
 let g:floaterm_keymap_toggle = '<leader>;'
 noremap <leader><leader> :<C-R>=printf("FloatermSend%s", "")<CR> 
@@ -236,27 +264,57 @@ inoremap ;> <C-v>u300B<BS>
 " fzf-bibtex {{{1
 " bring up fzf to insert citation to selected items.
 nnoremap <silent> <tab>c :call fzf#run({
-                        \ 'source': Bibtex_ls(),
+                        \ 'source': <sid>Bibtex_ls(),
                         \ 'sink*': function('<sid>bibtex_cite_sink'),
                         \ 'up': '40%',
                         \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
 " bring up fzf to insert pretty markdown versions of selected items.
 nnoremap <silent> <tab>m :call fzf#run({
-                        \ 'source': Bibtex_ls(),
+                        \ 'source': <sid>Bibtex_ls(),
                         \ 'sink*': function('<sid>bibtex_markdown_sink'),
                         \ 'up': '40%',
                         \ 'options': '--ansi --layout=reverse-list --multi --prompt "Markdown> "'})<CR>
-
 inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
-                        \ 'source': Bibtex_ls(),
+                        \ 'source': <sid>Bibtex_ls(),
                         \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
                         \ 'up': '40%',
                         \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
+
+function! s:Bibtex_ls()
+  let bibfiles = (
+      \ globpath('~/Documents', '*ref.bib', v:true, v:true) +
+      \ globpath('.', '*.bib', v:true, v:true) +
+      \ globpath('..', '*.bib', v:true, v:true) +
+      \ globpath('*/', '*.bib', v:true, v:true)
+      \ )
+  let bibfiles = join(bibfiles, ' ')
+  let source_cmd = 'bibtex-ls '.bibfiles
+  return source_cmd
+endfunction
+function! s:bibtex_cite_sink(lines)
+    let r=system("bibtex-cite ", a:lines)
+    execute ':normal! a' . r
+endfunction
+function! s:bibtex_markdown_sink(lines)
+    let r=system("bibtex-markdown ", a:lines)
+    execute ':normal! a' . r
+endfunction
+function! s:bibtex_cite_sink_insert(lines)
+    let r=system("bibtex-cite -prefix='@' -postfix='' -separator='; @'", a:lines)
+    "let r=system("bibtex-cite ", a:lines)
+    execute ':normal! a' . r
+    call feedkeys('a', 'n')
+endfunction
+
 
 " fzf-map {{{1
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
-
+" diff 相关 {{{1
+map <silent> <leader>d1 :diffget 1<CR> :diffupdate<CR>
+map <silent> <leader>d2 :diffget 2<CR> :diffupdate<CR>
+map <silent> <leader>d3 :diffget 3<CR> :diffupdate<CR>
+map <silent> <leader>d4 :diffget 4<CR> :diffupdate<CR>
 

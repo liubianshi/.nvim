@@ -92,15 +92,15 @@ endsnippet
 
 snippet setup "Rmd Setup" b
 \`\`\`\{r setup, include = F\}
-library("tidyverse")
+library("magrittr")
 library("data.table")
 library("knitr")
-library("kableExtra")
-library("broom")
 library("showtext")
-knitr::opts_chunk$set(echo = F, message = F, warning = F, error = F,
-					  results = "asis", dpi = 210, dev = "svg",
-					  fig.showtext = TRUE)
+knitr::opts_chunk$set(
+	include = F, echo = F, eval = T,
+	message = F, warning = F, error = F,
+	dpi = 210, dev = "svg",
+	fig.showtext = T)
 \`\`\`
 endsnippet
 

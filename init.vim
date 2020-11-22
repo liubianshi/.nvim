@@ -145,7 +145,7 @@ Plug 'lervag/wiki.vim'
     let g:wiki_root = '/home/liubianshi/Documents/WikiHome'
     let g:wiki_cache_root = '~/.cache/wiki.vim'
     let g:wiki_link_target_type = 'md'
-    let g:wiki_filetypes = ['md', 'Rmd', 'tex']
+    let g:wiki_filetypes = ['md', 'pandoc', 'Rmd', 'tex']
     let g:wiki_mappings_use_defaults = 'none' 
     let g:wiki_journal = {
         \ 'name': 'journal',
@@ -198,7 +198,7 @@ Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmarkdown', 'rmd'] }
     let R_app = "radian"
     let R_hl_term = 1
     let R_openpdf = 1
-    let R_bracketed_paste = 0
+    let R_bracketed_paste = 1
     let R_rcomment_string = '#> '
     let R_nvimpager = "vertical"
     let Rout_more_colors = 1
@@ -206,8 +206,8 @@ Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmarkdown', 'rmd'] }
     let R_hi_fun_paren = 1
     let R_assign = 0
     let R_rmdchunk = 0
-    let R_in_buffer = 1
     let R_external_term = 'st -n R -e'
+    let R_notmuxconf = 1
     let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"
     let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,rlang,data.table,fread,readxl,tidyverse,haven,lbs'
     command! RStart let oldft=&ft
@@ -404,5 +404,6 @@ source ~/.config/nvim/KeyMap.vim
 source ~/.config/nvim/whichkey.vim
 source ~/.config/nvim/goyoConfig.vim
 source ~/.config/nvim/autocmd.vim
+source ~/.config/nvim/abbr.vim
 
 

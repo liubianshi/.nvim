@@ -5,14 +5,10 @@ re_map = re.compile(r';([^;]+)')
 endglobal
 
 snippet head "Rscript Header" b
-#> $1
-#> Description: ${2:$1}
-#> Created by: Luo Wei (liu.bian.shi@gmail.com)
-#> Created Date: `date +%Y-%m-%d`
-#> Version: 1.0
-
-library("tidyverse")
+library("magrittr")
+library("stringr")
 library("data.table")
+my <- new.env(parent = emptyenv())
 endsnippet
 
 snippet '"c'  "Change string to string vector" r
@@ -21,8 +17,9 @@ snippet '"c'  "Change string to string vector" r
 $0
 endsnippet
 
-snippet ':((?:[^\s\\]|\\\\|\\\s)+)((\s+(?:[^\s\\]|\\\\|\\\s)+)*)'  "perl style string vector" r
-(`!p snip.rv = '"' + match.group(1) + '"' + re.compile(r'\\\s').sub(' ', re_word.sub(r', "\1"', match.group(2)))`)$0
+snippet ':((?:[^\s:\\]|\\\\|\\\s)+)((\s+(?:[^\s:\\]|\\\\|\\\s)+)*)'  "perl style string vector" r
+(`!p snip.rv = '"' + re.compile(r'\\([\s\\])').sub(r'\1', match.group(1)) + \
+'"' + re.compile(r'\\([\s\\])').sub(r'\1', re_word.sub(r', "\1"', match.group(2)))`)$0
 endsnippet
 
 #snippet ';((["\'])[^\2]+\2|[^"\'\s]+)((?:\s+(?:(["\'])[^\4]+\4|[^"\'\s]+))*)'  "R vector" r
@@ -37,7 +34,16 @@ snippet '([\w.]+)=(.*)' "map" r
 `!p snip.rv = match.group(1) + " = " + '"' + match.group(2) + '"'`$0
 endsnippet
 
-snippet '\b(my|tmp|ENV)\s+([\w.]+)' "Perl Style my statement" r
+snippet '\b(my|tmp|ENV|G)\s+([\w.]+)' "Perl Style my statement" r
 `!p snip.rv = match.group(1) + "$" + match.group(2) + " "`$0
 endsnippet
+
+snippet local "local function" w
+local({
+	$1
+})
+$0
+endsnippet
+
 	
+

@@ -1,5 +1,5 @@
 " function: r and rmd {{{1
-function! s:r_rmd()
+function! s:R_Rmd()
     nmap <buffer> <localleader>tv yiw:<c-u>call R_view_df_sample('ht')<cr>
     nmap <buffer> <localleader>tr yiw:<c-u>call R_view_df_sample('r')<cr>
     nmap <buffer> <localleader>th yiw:<c-u>call R_view_df_sample('h')<cr>
@@ -27,8 +27,13 @@ function! s:r_rmd()
     nnoremap <buffer> <tab><CR> <Esc>A;<CR>
 endfunction
 
+function! s:Rscript()
+    nnoremap <localleader>dl :<c-u>RSend devtools::load_all()<cr>
+    nnoremap <localleader>dd :<c-u>RSend devtools::document()<cr>
+endfunction
+
 " function: md and rmd {{{1
-function! s:md_rmd()
+function! s:Markdown_Rmd()
     inoremap <buffer> ;-              <esc>^d0i-<tab><esc>A
     inoremap <buffer> ;_              <esc>^d0i<tab>-<tab><esc>A
     inoremap <buffer> ;=              <esc>^d0i1.<tab><esc>A
@@ -50,7 +55,7 @@ function! s:md_rmd()
 endfunction  
              
 " function: rmd {{{1
-function! s:rmd()
+function! s:Rmd()
     nnoremap <buffer> <leader>rp               :AsyncRun ~/useScript/rmarkdown.sh %<cr>
     nnoremap <buffer> <leader>rh               :AsyncRun ~/useScript/rmarkdown.sh -o bookdown::html_document2 %<cr>
     nnoremap <buffer> <leader>nc               :RNrrw<cr>:set filetype=r<cr>
@@ -72,15 +77,15 @@ function! s:rmd()
     endif
 endfunction
 
-" function: markdown {{{1
-function! s:markdown()
+" function: Markdown {{{1
+function! s:Markdown()
     nnoremap <buffer> <leader>pp               :Pandoc pdf -H ~/useScript/header.tex<cr>
     nnoremap <buffer> <leader>ph               :Pandoc html<cr>
     nnoremap <buffer> <silent> <localleader>pi :<c-u>call mdip#MarkdownClipboardImage()<CR>
 endfunction
 
 " function: stata {{{1
-function! s:stata()
+function! s:Stata()
     if(has("mac"))
         inoremap <buffer> ¡ <esc>V:<c-u>call RunDoLines()<cr>
         nnoremap <buffer> ¡ V:call RunDoLines()<cr>
@@ -100,7 +105,7 @@ function! s:stata()
 endfunction
 
 " function: sql {{{1
-function! s:sql()
+function! s:Sql()
     vnoremap <buffer> <localleader>l :DB<cr>
     nnoremap <buffer> <localleader>l V:DB<cr>
     nnoremap <buffer> <localleader>L :<c-u>DB < "%"<cr>
@@ -109,7 +114,7 @@ function! s:sql()
 endfunction
 
 " function: qf {{{1
-function! s:qf()
+function! s:Qf()
     nnoremap <silent><buffer> p :PreviewQuickfix<cr>
     nnoremap <silent><buffer> P :PreviewClose<cr>
     noremap <buffer> [u :PreviewScroll -1<cr>
@@ -117,12 +122,12 @@ function! s:qf()
 endfunction
 
 " function: dot {{{1
-function! s:dot()
+function! s:Dot()
     nnoremap <buffer> <localleader>d :<c-u>AsyncRun dot -Tpdf % -o "%:r.pdf"<cr> 
 endfunction
 
 " function: complete_init {{{1
-function! s:filetype_init()
+function! s:FileType_init()
     if &ft =~ 'r\|rmd\|rmarkdown\|Rmd\|Rmarkdown'
         call Ncm2CompleteEngine()
     else
@@ -131,12 +136,11 @@ function! s:filetype_init()
     if ! &ft =~ 'ruby\|javascript\|perl'
         %s/\s\+$//e
     endif
-
     return 0
 endfunction
 
 " function: raku {{{1
-function! s:raku() 
+function! s:Raku() 
     let b:AutoPairs = g:AutoPairs
     let b:AutoPairs['<']=">"
     abbr << « 
@@ -166,11 +170,10 @@ autocmd BufNewFile,BufRead   *.csv                      setlocal filetype=csv
 autocmd BufNewFile,BufRead   sxhkdrc                    setlocal filetype=sxhkd
 autocmd BufNewFile,BufRead   */cheatsheets/personal/R/* setlocal filetype=r
 autocmd BufNewFile,BufRead   *.[Rr]md,*.[Rr]markdown    setlocal filetype=rmd
-
 autocmd BufNewFile,BufRead   *                          call plug#load('vim-snippets')
 autocmd BufNewFile,BufRead   *                          call plug#load('vim-fugitive')
 autocmd BufNewFile,BufRead   *                          call plug#load('vimcdoc')
-autocmd BufNewFile,BufRead   *                          call s:filetype_init() 
+autocmd BufNewFile,BufRead   *                          call <sid>FileType_init() 
 autocmd InsertLeave,WinEnter *                          setlocal cursorline
 autocmd InsertEnter,WinLeave *                          setlocal nocursorline
 autocmd TermOpen             *                          setlocal nonumber norelativenumber bufhidden=hide
@@ -189,23 +192,21 @@ if exists('$TMUX')
     autocmd BufNewFile,BufRead * call plug#load('vim-obsession')
 endif
 
-
 " cmd: floaterm {{{1
 autocmd FileType floaterm nnoremap <buffer> <leader>r :<C-U>FloatermUpdate --wintype=normal --position=right<cr>
 autocmd FileType floaterm nnoremap <buffer> <leader>l :<C-U>FloatermUpdate --wintype=normal --position=left<cr>
 autocmd FileType floaterm nnoremap <buffer> <leader>f :<C-U>FloatermUpdate --wintype=floating --position=topright<cr>
 
-
-
 " cmd: filetype {{{1
-autocmd FileType pandoc,md,markdown,rmd,rmarkdown call s:md_rmd()
-autocmd FileType pandoc,md,markdown               call s:markdown()
-autocmd FileType rmd,rmarkdown                    call s:rmd()
-autocmd FileType r,rmd,rmarkdown                  call s:r_rmd()
-autocmd FileType stata                            call s:stata()
-autocmd FileType sql                              call s:sql()
-autocmd FileType dot                              call s:dot()
-autocmd FileType qf                               call s:qf()
+autocmd FileType pandoc,md,markdown,rmd,rmarkdown call <sid>Markdown_Rmd()
+autocmd FileType pandoc,md,markdown               call <sid>Markdown()
+autocmd FileType r,rmd,rmarkdown                  call <sid>Rscript()
+autocmd FileType rmd,rmarkdown                    call <sid>Rmd()
+autocmd FileType r,rmd,rmarkdown                  call <sid>R_Rmd()
+autocmd FileType stata                            call <sid>Stata()
+autocmd FileType sql                              call <sid>Sql()
+autocmd FileType dot                              call <sid>Dot()
+autocmd FileType qf                               call <sid>Qf()
 autocmd FileType dbui nmap <buffer> v <Plug>(DBUI_SelectLineVsplit)<cr>
 autocmd filetype mail setlocal tw=0 wrap
 
