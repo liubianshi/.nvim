@@ -184,6 +184,20 @@ function! R_view_df_full(max_width)
     let method = 'ht'
     return R_view_df(dfname, row, method, a:max_width)
 endfunction
+function! R_view_srdm_table()
+    let dfname = "srdm_tables"
+    let row = 0 
+    let method = 'ht'
+    let max_width = 40
+    return R_view_df(dfname, row, method, max_width)
+endfunction
+function! R_view_srdm_var()
+    let dfname = "srdm_vars"
+    let row = 0 
+    let method = 'ht'
+    let max_width = 40
+    return R_view_df(dfname, row, method, max_width)
+endfunction
 
 " Stata dolines {{{1
 function! RunDoLines()

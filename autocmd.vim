@@ -10,6 +10,8 @@ function! s:R_Rmd()
     vmap <buffer> <localleader>th y:<c-u>call R_view_df_sample('h')<cr>
     vmap <buffer> <localleader>tt y:<c-u>call R_view_df_sample('t')<cr>
     vmap <buffer> <localleader>tV y:<c-u>call R_view_df_full(30)<cr>
+    nmap <buffer> <localleader>t1 :<c-u>call R_view_srdm_table()<cr>
+    nmap <buffer> <localleader>t2 :<c-u>call R_view_srdm_var()<cr>
 
     inoremap <buffer> <A-\>          %>%<cr>
     inoremap <buffer> <A-=>          <-<Space>
@@ -28,8 +30,9 @@ function! s:R_Rmd()
 endfunction
 
 function! s:Rscript()
-    nnoremap <localleader>dl :<c-u>RSend devtools::load_all()<cr>
-    nnoremap <localleader>dd :<c-u>RSend devtools::document()<cr>
+    nnoremap <localleader>L :<c-u>RSend devtools::load_all()<cr>
+    nnoremap <localleader>D :<c-u>RSend devtools::document()<cr>
+    nnoremap <localleader>T :<c-u>RSend devtools::test()<cr>
 endfunction
 
 " function: md and rmd {{{1

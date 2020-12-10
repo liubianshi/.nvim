@@ -133,7 +133,7 @@ Plug 'vim-pandoc/vim-pandoc',   {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
     let g:pandoc#folding#fastfolds = 1
     let g:pandoc#folding#fold_fenced_codeblocks = 0
 Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
-    let g:tex_conceal = ""
+    let g:tex_conceal = "ads"
 Plug 'vim-pandoc/vim-rmarkdown',     {'for': ['rmd', 'rmarkdown']}
 Plug 'ferrine/md-img-paste.vim',     {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
     let g:mdip_imgdir = 'assets'
@@ -202,8 +202,9 @@ Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmarkdown', 'rmd'] }
     let R_rcomment_string = '#> '
     let R_nvimpager = "vertical"
     let Rout_more_colors = 1
-    let R_hi_fun_globenv = 1
-    let R_hi_fun_paren = 1
+    let R_hi_fun = 1
+    let R_hi_fun_globenv = 2
+    let R_hi_fun_paren = 0
     let R_assign = 0
     let R_rmdchunk = 0
     let R_external_term = 'st -n R -e'

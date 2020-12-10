@@ -318,3 +318,7 @@ map <silent> <leader>d2 :diffget 2<CR> :diffupdate<CR>
 map <silent> <leader>d3 :diffget 3<CR> :diffupdate<CR>
 map <silent> <leader>d4 :diffget 4<CR> :diffupdate<CR>
 
+" visual multi
+nmap <leader>j <Plug>(VM-Add-Cursor-Down)
+nmap <leader>k <Plug>(VM-Add-Cursor-Up)
+
