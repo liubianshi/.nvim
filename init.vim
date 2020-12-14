@@ -95,15 +95,15 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     let g:Lf_WorkingDirectoryMode = 'Ac'
     let g:Lf_WindowHeight = 0.50
     let g:Lf_ShowRelativePath = 0
-    let g:Lf_PreviewResult = {'File': 0, 'Buffer': 0,'Function': 1, 'BufTag': 0 }
-    let g:Lf_WindowPosition = 'bottom'
+    let g:Lf_PreviewResult = {'File': 1, 'Buffer': 1,'Function': 1, 'BufTag': 1 }
+    let g:Lf_WindowPosition = 'popup'
     let g:Lf_PreviewInPopup = 1
     let g:Lf_PopupShowStatusline = 1
     let g:Lf_PopupPreviewPosition = 'bottom'
     let g:Lf_PreviewHorizontalPosition = 'right'
-    let g:Lf_PopupColorscheme = 'default'
+    let g:Lf_PopupColorscheme = 'gruvbox_material'
     let g:Lf_AutoResize = 1
-    let g:Lf_PopupWidth = &columns * 3 / 4
+    let g:Lf_PopupWidth = &columns * 4 / 5
     let g:Lf_PopupHeight = 0.75
 
 " visual_effects {{{2

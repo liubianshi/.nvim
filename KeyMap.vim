@@ -208,6 +208,7 @@ noremap <silent> <leader>fd :<C-U><C-R>=printf("Leaderf gtags -d %s --auto-jump"
 noremap <silent> <leader>fe  :FzfFiles<CR>
 noremap <silent> <leader>ff :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
 noremap <silent> <leader>fF :<C-U><C-R>=printf("Leaderf function --all %s", "")<CR><CR>
+noremap <silent> <leader>fg :<C-U><C-R>=printf("Leaderf gtags --all %s", "")<CR><CR>
 noremap <silent> <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <silent> <leader>fT :<C-U><C-R>=printf("Leaderf bufTag --all %s", "")<CR><CR>
 noremap <silent> <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
@@ -218,6 +219,8 @@ noremap <silent> <leader>fo :<C-U><C-R>=printf("Leaderf gtags --recall %s", "")<
 noremap <silent> <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 noremap <silent> <leader>fr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
 noremap <silent> <leader>fs  :FzfSnippets<CR>
+noremap <silent> <leader>fv  :PreviewTag<CR>
+noremap <silent> <leader>fV  :PreviewClose<CR>
 noremap <silent> <leader>f: :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
 noremap <silent> <leader>f/ :<C-U><C-R>=printf("Leaderf searchHistory %s", "")<CR><CR>
 noremap <C-B> :<C-U><C-R>=printf("Leaderf rg --current-buffer -e %s ", expand("<cword>"))<CR><CR>
