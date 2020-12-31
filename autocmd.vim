@@ -1,3 +1,9 @@
+" function: c anc c++ {{{1
+function! s:C_CPP()
+    nnoremap <buffer><silent> <localleader>D :<c-u>AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"<cr>
+    nnoremap <buffer><silent> <localleader>L :<c-u>AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"<cr>
+endfunction
+
 " function: r and rmd {{{1
 function! s:R_Rmd()
     nmap <buffer> <localleader>tv yiw:<c-u>call R_view_df_sample('ht')<cr>
@@ -176,7 +182,7 @@ autocmd BufNewFile,BufRead   *.[Rr]md,*.[Rr]markdown    setlocal filetype=rmd
 autocmd BufNewFile,BufRead   *                          call plug#load('vim-snippets')
 autocmd BufNewFile,BufRead   *                          call plug#load('vim-fugitive')
 autocmd BufNewFile,BufRead   *                          call plug#load('vimcdoc')
-autocmd BufNewFile,BufRead   *                          call <sid>FileType_init() 
+autocmd BufNewFile,BufRead   *                          call <sid>FileType_init()
 autocmd InsertLeave,WinEnter *                          setlocal cursorline
 autocmd InsertEnter,WinLeave *                          setlocal nocursorline
 autocmd TermOpen             *                          setlocal nonumber norelativenumber bufhidden=hide
@@ -210,6 +216,7 @@ autocmd FileType stata                            call <sid>Stata()
 autocmd FileType sql                              call <sid>Sql()
 autocmd FileType dot                              call <sid>Dot()
 autocmd FileType qf                               call <sid>Qf()
+autocmd FileType c                                call <sid>C_CPP()
 autocmd FileType dbui nmap <buffer> v <Plug>(DBUI_SelectLineVsplit)<cr>
 autocmd filetype mail setlocal tw=0 wrap
 

@@ -94,12 +94,12 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
     let g:Lf_WorkingDirectoryMode = 'Ac'
     let g:Lf_WindowHeight = 0.50
-    let g:Lf_ShowRelativePath = 0
+    let g:Lf_ShowRelativePath = 1
     let g:Lf_PreviewResult = {'File': 1, 'Buffer': 1,'Function': 1, 'BufTag': 1 }
     let g:Lf_WindowPosition = 'popup'
     let g:Lf_PreviewInPopup = 1
     let g:Lf_PopupShowStatusline = 1
-    let g:Lf_PopupPreviewPosition = 'bottom'
+    let g:Lf_PopupPreviewPosition = 'top'
     let g:Lf_PreviewHorizontalPosition = 'right'
     let g:Lf_PopupColorscheme = 'gruvbox_material'
     let g:Lf_AutoResize = 1
@@ -204,10 +204,12 @@ Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmarkdown', 'rmd'] }
     let Rout_more_colors = 1
     let R_hi_fun = 1
     let R_hi_fun_globenv = 2
-    let R_hi_fun_paren = 0
+    let R_hi_fun_paren = 1
     let R_assign = 0
     let R_rmdchunk = 0
-    let R_external_term = 'st -n R -e'
+    if ($SSH_CLIENT == "")
+        let R_external_term = 'st -n R -e'
+    endif
     let R_notmuxconf = 1
     let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"
     let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,rlang,data.table,fread,readxl,tidyverse,haven,lbs'
@@ -380,6 +382,19 @@ Plug 'tpope/vim-fugitive', { 'on': [] }             " git 插件
 " help {{{2
 Plug 'liuchengxu/vim-which-key'
 Plug 'yianwillis/vimcdoc', { 'on': [] }             " Vim 中文帮助文档
+
+" FastFold: Speed up Vim by updating folds only when called-for {{{2
+Plug 'Konfekt/FastFold'
+let g:tex_fold_enabled=1
+let g:vimsyn_folding='af'
+let g:xml_syntax_folding = 1
+let g:javaScript_fold = 1
+let g:ruby_fold = 1
+let g:sh_fold_enabled= 7
+let g:php_folding = 1
+let g:perl_fold = 1
+let g:r_syntax_folding = 1
+let g:markdown_folding = 1
 
 " used plugs {{{2
     "Plug 'ncm2/ncm2-tmux'

@@ -191,11 +191,14 @@ let g:wiki_mappings_local = {
         \ '<plug>(wiki-link-prev)'       : '<tab><up>',
         \}
 
-" 注释 {{{1
+" Fold: 折叠 {{{1
 nnoremap <tab>ff g_a <esc>3a{<esc>
 nnoremap <tab>f1 g_a <esc>3a{<esc>a1<esc>
 nnoremap <tab>f2 g_a <esc>3a{<esc>a2<esc>
 nnoremap <tab>f3 g_a <esc>3a{<esc>a3<esc>
+nmap zuz <Plug>(FastFoldUpdate)
+xnoremap iz :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zv[z<cr>
+xnoremap az :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zV[z<cr>
 
 
 " fuzzy search {{{1
