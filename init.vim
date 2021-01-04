@@ -376,12 +376,16 @@ Plug 'ncm2/ncm2-syntax', { 'on': [] }
         \ 'word_pattern': '[\w.]+',
         \ 'on_complete': ['ncm2_bufword#on_complete'],
         \ }
-" Git {{{2
+" Git: {{{2
 Plug 'tpope/vim-fugitive', { 'on': [] }             " git 插件
 
-" help {{{2
+" Help: {{{2
 Plug 'liuchengxu/vim-which-key'
 Plug 'yianwillis/vimcdoc', { 'on': [] }             " Vim 中文帮助文档
+
+" Stay: Stay at my cursor, boy! {{{2
+Plug 'zhimsel/vim-stay'
+    set viewoptions=cursor,folds,slash,unix
 
 " FastFold: Speed up Vim by updating folds only when called-for {{{2
 Plug 'Konfekt/FastFold'

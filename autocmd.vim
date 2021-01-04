@@ -19,7 +19,7 @@ function! s:R_Rmd()
     nmap <buffer> <localleader>t1 :<c-u>call R_view_srdm_table()<cr>
     nmap <buffer> <localleader>t2 :<c-u>call R_view_srdm_var()<cr>
 
-    inoremap <buffer> <A-\>          %>%<cr>
+    inoremap <buffer> <A-\>          %>%
     inoremap <buffer> <A-=>          <-<Space>
     imap     <buffer> <A-1>          <Esc><Plug>RDSendLine<CR>
     nmap     <buffer> <A-1>          <Plug>RDSendLine<CR>
