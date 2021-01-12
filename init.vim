@@ -19,8 +19,8 @@ Plug 'rakr/vim-one'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'ayu-theme/ayu-vim'
     "let ayucolor="light"  " for light version of theme
-    let ayucolor="mirage" " for mirage version of theme
-    "let ayucolor="dark"   " for dark version of theme
+    "let ayucolor="mirage" " for mirage version of theme
+    let ayucolor="dark"   " for dark version of theme
     
 " Airline {{{2
 Plug 'vim-airline/vim-airline', { 'on': [] }    " 状态栏插件
@@ -133,7 +133,7 @@ Plug 'vim-pandoc/vim-pandoc',   {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
     let g:pandoc#folding#fastfolds = 1
     let g:pandoc#folding#fold_fenced_codeblocks = 0
 Plug 'vim-pandoc/vim-pandoc-syntax', {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
-    let g:tex_conceal = "ads"
+    let g:tex_conceal = "admgs"
 Plug 'vim-pandoc/vim-rmarkdown',     {'for': ['rmd', 'rmarkdown']}
 Plug 'ferrine/md-img-paste.vim',     {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
     let g:mdip_imgdir = 'assets'

@@ -23,14 +23,16 @@ set updatetime=300
 set signcolumn=no
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
-set foldlevel=1             " 折叠层级
+set foldlevel=0             " 折叠层级
 
 " 显示相关{{{1
-colorscheme gruvbox
+set background=light        " 设置颜色模式
+colorscheme PaperColor
+let g:airline_theme='papercolor'
+
 if $TERM != "dvtm-256color"
     set termguicolors      " 真彩色
 endif
-set background=dark        " 设置颜色模式
 filetype on                " 开启文件类型侦测
 filetype plugin on         " 根据侦测到的不同类型加载对应插件支持
 syntax enable              " 语法高亮
@@ -42,9 +44,11 @@ set cmdheight=1            " 命令行高度
 set laststatus=1           " 总是显示状态栏
 set list
 set listchars=tab:<->,trail:-
-set foldcolumn=2
+set foldcolumn=1
+set fillchars=fold:\ 
 set signcolumn=auto
 highlight FoldColumn guibg=bg
+highlight Folded guibg=bg
 highlight SignColumn guibg=bg
 highlight FloatermBorder guifg=Cyan
 
@@ -71,8 +75,12 @@ let &showbreak = ''        " 会绕行放置在开头的字符串
 set nolinebreak            " 折行
 
 " 折叠相关{{{1
+function! MyFoldText()
+  return " " . foldtext() . " ... "
+endfunction
 set formatoptions=t,n1mp,Bj,coq
 set foldmethod=marker
+set foldtext=MyFoldText()
 
 " 字典 和 tags 相关 {{{
 set dictionary+=~/.config/nvim/paper.dict,~/.config/nvim/dict
@@ -91,5 +99,4 @@ else
     let g:python_host_prog = '/usr/bin/python2'
     let g:python3_host_prog = '/usr/bin/python'
 endif
-
 
