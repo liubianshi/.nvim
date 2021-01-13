@@ -32,7 +32,7 @@ Plug 'vim-airline/vim-airline-themes', { 'on': [] }
     let g:airline#extensions#tabline#left_sep = ' '
     let g:airline#extensions#tabline#left_alt_sep = '|'
     let g:airline#extensions#tabline#buffer_nr_show = 1
-    let g:airline_theme='ayu'
+    let g:airline_theme='papercolor'
 
 " nerdtree {{{2
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } "
@@ -376,6 +376,7 @@ Plug 'ncm2/ncm2-syntax', { 'on': [] }
         \ 'word_pattern': '[\w.]+',
         \ 'on_complete': ['ncm2_bufword#on_complete'],
         \ }
+
 " Git: {{{2
 Plug 'tpope/vim-fugitive', { 'on': [] }             " git 插件
 
@@ -389,16 +390,20 @@ Plug 'zhimsel/vim-stay'
 
 " FastFold: Speed up Vim by updating folds only when called-for {{{2
 Plug 'Konfekt/FastFold'
-let g:tex_fold_enabled=1
-let g:vimsyn_folding='af'
-let g:xml_syntax_folding = 1
-let g:javaScript_fold = 1
-let g:ruby_fold = 1
-let g:sh_fold_enabled= 7
-let g:php_folding = 1
-let g:perl_fold = 1
-let g:r_syntax_folding = 1
-let g:markdown_folding = 1
+    let g:tex_fold_enabled=1
+    let g:vimsyn_folding='af'
+    let g:xml_syntax_folding = 1
+    let g:javaScript_fold = 1
+    let g:ruby_fold = 1
+    let g:sh_fold_enabled= 7
+    let g:php_folding = 1
+    let g:perl_fold = 1
+    let g:r_syntax_folding = 1
+    let g:markdown_folding = 1
+
+" Rainbow Parentheses {{{2
+Plug 'kien/rainbow_parentheses.vim'
+    au VimEnter * RainbowParenthesesToggle
 
 " used plugs {{{2
     "Plug 'ncm2/ncm2-tmux'

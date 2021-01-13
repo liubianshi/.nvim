@@ -28,7 +28,6 @@ set foldlevel=0             " 折叠层级
 " 显示相关{{{1
 set background=light        " 设置颜色模式
 colorscheme PaperColor
-let g:airline_theme='papercolor'
 
 if $TERM != "dvtm-256color"
     set termguicolors      " 真彩色
@@ -76,7 +75,7 @@ set nolinebreak            " 折行
 
 " 折叠相关{{{1
 function! MyFoldText()
-  return " " . foldtext() . " ... "
+  return " " . foldtext() . " ··· "
 endfunction
 set formatoptions=t,n1mp,Bj,coq
 set foldmethod=marker
