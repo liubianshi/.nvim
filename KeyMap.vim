@@ -324,7 +324,13 @@ map <silent> <leader>d2 :diffget 2<CR> :diffupdate<CR>
 map <silent> <leader>d3 :diffget 3<CR> :diffupdate<CR>
 map <silent> <leader>d4 :diffget 4<CR> :diffupdate<CR>
 
-" visual multi
+" visual multi {{{1
 nmap <leader>j <Plug>(VM-Add-Cursor-Down)
 nmap <leader>k <Plug>(VM-Add-Cursor-Up)
+
+" preview {{{1
+noremap <m-u> :PreviewScroll -1<cr>
+noremap <m-d> :PreviewScroll +1<cr>
+inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
+inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
 

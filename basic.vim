@@ -26,8 +26,8 @@ set shortmess+=c
 set foldlevel=0             " 折叠层级
 
 " 显示相关{{{1
-set background=light        " 设置颜色模式
-colorscheme PaperColor
+set background=dark        " 设置颜色模式
+colorscheme PaperColor 
 
 if $TERM != "dvtm-256color"
     set termguicolors      " 真彩色
@@ -98,4 +98,10 @@ else
     let g:python_host_prog = '/usr/bin/python2'
     let g:python3_host_prog = '/usr/bin/python'
 endif
+
+" Perl {{{1
+let g:perl_host_prog = '/usr/bin/perl'
+
+
+
 

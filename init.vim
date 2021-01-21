@@ -21,7 +21,7 @@ Plug 'ayu-theme/ayu-vim'
     "let ayucolor="light"  " for light version of theme
     "let ayucolor="mirage" " for mirage version of theme
     let ayucolor="dark"   " for dark version of theme
-    
+
 " Airline {{{2
 Plug 'vim-airline/vim-airline', { 'on': [] }    " 状态栏插件
 Plug 'vim-airline/vim-airline-themes', { 'on': [] }
@@ -29,10 +29,10 @@ Plug 'vim-airline/vim-airline-themes', { 'on': [] }
     let g:airline_left_sep = ''
     let g:airline_right_sep = ''
     let g:airline#extensions#tabline#enabled = 0
-    let g:airline#extensions#tabline#left_sep = ' '
+    let g:airline#extensions#tabline#left_sep = ''
     let g:airline#extensions#tabline#left_alt_sep = '|'
     let g:airline#extensions#tabline#buffer_nr_show = 1
-    let g:airline_theme='papercolor'
+    "let g:airline_theme='papercolor'
 
 " nerdtree {{{2
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } "
@@ -78,7 +78,10 @@ Plug 'junegunn/fzf.vim'
         \ 'ctrl-v': 'vsplit' }
 
 " leaderF {{{2
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+    highlight Lf_hl_rgHighlight guifg=#FFFF00 guibg=NONE ctermfg=yellow ctermbg=NONE
+    highlight Lf_hl_match gui=bold guifg=Red cterm=bold ctermfg=21
+    highlight Lf_hl_matchRefine  gui=bold guifg=Magenta cterm=bold ctermfg=201
     let g:Lf_HideHelp = 1
     let g:Lf_UseCache = 1
     let g:Lf_CacheDirectory = expand('~/.cache/')
@@ -95,13 +98,14 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     let g:Lf_WorkingDirectoryMode = 'Ac'
     let g:Lf_WindowHeight = 0.50
     let g:Lf_ShowRelativePath = 1
-    let g:Lf_PreviewResult = {'File': 1, 'Buffer': 1,'Function': 1, 'BufTag': 1 }
+    let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2",
+                            \ 'font': "DejaVu Sans Mono Nerd Font" }
+    let g:Lf_PreviewResult = {'File': 1, 'Buffer': 1,'Function': 0, 'BufTag': 0 }
     let g:Lf_WindowPosition = 'popup'
     let g:Lf_PreviewInPopup = 1
     let g:Lf_PopupShowStatusline = 1
     let g:Lf_PopupPreviewPosition = 'top'
     let g:Lf_PreviewHorizontalPosition = 'right'
-    let g:Lf_PopupColorscheme = 'gruvbox_material'
     let g:Lf_AutoResize = 1
     let g:Lf_PopupWidth = &columns * 4 / 5
     let g:Lf_PopupHeight = 0.75
@@ -404,6 +408,25 @@ Plug 'Konfekt/FastFold'
 " Rainbow Parentheses {{{2
 Plug 'kien/rainbow_parentheses.vim'
     au VimEnter * RainbowParenthesesToggle
+
+" StarupTime {{{2
+Plug 'dstein64/vim-startuptime'
+
+" vim-table-mode
+Plug 'dhruvasagar/vim-table-mode'
+    let g:table_mode_corner='|'
+    function! s:isAtStartOfLine(mapping)
+        let text_before_cursor = getline('.')[0 : col('.')-1]
+        let mapping_pattern = '\V' . escape(a:mapping, '\')
+        let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+        return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+    endfunction
+    inoreabbrev <expr> <bar><bar>
+            \ <SID>isAtStartOfLine('\|\|') ?
+            \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+    inoreabbrev <expr> __
+            \ <SID>isAtStartOfLine('__') ?
+            \ '<c-o>:silent! TableModeDisable<cr>' : '__'
 
 " used plugs {{{2
     "Plug 'ncm2/ncm2-tmux'
