@@ -23,11 +23,12 @@ set updatetime=300
 set signcolumn=no
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
-set foldlevel=0             " 折叠层级
+set foldlevel=2             " 折叠层级
 
 " 显示相关{{{1
 set background=dark        " 设置颜色模式
-colorscheme PaperColor 
+colorscheme sonokai
+let g:airline_theme = "sonokai"
 
 if $TERM != "dvtm-256color"
     set termguicolors      " 真彩色

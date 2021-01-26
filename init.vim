@@ -21,6 +21,10 @@ Plug 'ayu-theme/ayu-vim'
     "let ayucolor="light"  " for light version of theme
     "let ayucolor="mirage" " for mirage version of theme
     let ayucolor="dark"   " for dark version of theme
+Plug 'sainnhe/sonokai'
+    let g:sonokai_style = 'default'
+    let g:sonokai_enable_italic = 1
+    let g:sonokai_disable_italic_comment = 1
 
 " Airline {{{2
 Plug 'vim-airline/vim-airline', { 'on': [] }    " 状态栏插件
@@ -32,7 +36,6 @@ Plug 'vim-airline/vim-airline-themes', { 'on': [] }
     let g:airline#extensions#tabline#left_sep = ''
     let g:airline#extensions#tabline#left_alt_sep = '|'
     let g:airline#extensions#tabline#buffer_nr_show = 1
-    "let g:airline_theme='papercolor'
 
 " nerdtree {{{2
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } "
@@ -82,6 +85,8 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
     highlight Lf_hl_rgHighlight guifg=#FFFF00 guibg=NONE ctermfg=yellow ctermbg=NONE
     highlight Lf_hl_match gui=bold guifg=Red cterm=bold ctermfg=21
     highlight Lf_hl_matchRefine  gui=bold guifg=Magenta cterm=bold ctermfg=201
+    let g:Lf_ShortcutF = ""
+    let g:Lf_ShortcutB = ""
     let g:Lf_HideHelp = 1
     let g:Lf_UseCache = 1
     let g:Lf_CacheDirectory = expand('~/.cache/')
@@ -89,26 +94,21 @@ Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
     let g:Lf_IgnoreCurrentBufferName = 1
 
     let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git', '.hg']
-    let g:LF_Ctags = "ctags"
-    let g:Lf_GtagsAutoGenerate = 1
+    let g:Lf_Ctags = "ctags"
+    let g:Lf_CtagsFuncOpts = {
+                \ 'r': '--kinds-R=-v',
+                \ }
+    let g:Lf_GtagsAutoGenerate = 0
+    let g:Lf_GtagsGutentags    = 1
     let g:Lf_Gtagslabel = 'native-pygments'
-    let g:Lf_GtagsSource = 0
 
-    let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-    let g:Lf_WorkingDirectoryMode = 'Ac'
-    let g:Lf_WindowHeight = 0.50
     let g:Lf_ShowRelativePath = 1
     let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2",
                             \ 'font': "DejaVu Sans Mono Nerd Font" }
-    let g:Lf_PreviewResult = {'File': 1, 'Buffer': 1,'Function': 0, 'BufTag': 0 }
+    let g:Lf_PreviewResult = {'File': 1, 'Buffer': 1,'Mru': 1, 'BufTag': 1 }
     let g:Lf_WindowPosition = 'popup'
     let g:Lf_PreviewInPopup = 1
-    let g:Lf_PopupShowStatusline = 1
-    let g:Lf_PopupPreviewPosition = 'top'
-    let g:Lf_PreviewHorizontalPosition = 'right'
-    let g:Lf_AutoResize = 1
-    let g:Lf_PopupWidth = &columns * 4 / 5
-    let g:Lf_PopupHeight = 0.75
+
 
 " visual_effects {{{2
 Plug 'junegunn/goyo.vim',       {'for': ['md', 'pandoc','rmd', 'rmarkdown']} " zen 模式:
@@ -132,7 +132,7 @@ Plug 'vim-pandoc/vim-pandoc',   {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
     let g:pandoc#completion#bib#mode = "citeproc"
     let g:pandoc#biblio#sources = ["bycg"]
     let g:pandoc#folding#fdc = 1
-    let g:pandoc#folding#level = 1
+    let g:pandoc#folding#level = 2
     let g:pandoc#folding#fold_yaml = 1
     let g:pandoc#folding#fastfolds = 1
     let g:pandoc#folding#fold_fenced_codeblocks = 0
@@ -201,7 +201,7 @@ Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmarkdown', 'rmd'] }
     let R_cmd = "R"
     let R_app = "radian"
     let R_hl_term = 1
-    let R_openpdf = 1
+    let R_openpdf = 0
     let R_bracketed_paste = 1
     let R_rcomment_string = '#> '
     let R_nvimpager = "vertical"
@@ -267,12 +267,30 @@ Plug 'mechatroner/rainbow_csv', {
 " tags {{{2
 Plug 'ludovicchabant/vim-gutentags'
     let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-    let s:vim_tags = expand('~/.cache/tags')
+    " 同时开启 ctags 和 gtags 支持：
+    let g:gutentags_modules = []
+    if executable('ctags')
+        let g:gutentags_modules += ['ctags']
+    endif
+    if executable('gtags-cscope') && executable('gtags')
+        let g:gutentags_modules += ['gtags_cscope']
+    endif
+
+    let s:vim_tags = expand('~/.cache/.LfCache/gtags')
     let g:gutentags_cache_dir = s:vim_tags
+
     " 配置 ctags 的参数
     let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
     let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
     let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+    let g:gutentags_ctags_extra_args += ['--r-kinds=fgls']
+    " 如果使用 universal ctags 需要增加下面一行，
+    " 老的 Exuberant-ctags 不能加下一行
+    let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+
+    " 禁用 gutentags 自动加载 gtags 数据库的行为
+    let g:gutentags_auto_add_gtags_cscope = 0
+
     " 检测 ~/.cache/tags 不存在就新建
     if !isdirectory(s:vim_tags)
         silent! call mkdir(s:vim_tags, 'p')
@@ -282,6 +300,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/vim-preview'
 
 " Syntax checking {{{2
+Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'                      
     let g:ale_sign_column_always = 1
     let g:ale_set_highlights = 0
@@ -347,8 +366,7 @@ Plug 'jiangmiao/auto-pairs'
     let g:AutoPairsMapBS = 0
 
 " coc {{{2
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'on': []}
-
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
 " ncm2 complete system {{{2
 Plug 'roxma/nvim-yarp'              " ncm2 依赖的插件
 Plug 'roxma/ncm2'

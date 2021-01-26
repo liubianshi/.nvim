@@ -21,15 +21,15 @@ echo 'do /tmp/statacmd.do' | xclip -sel clip
 
 # 根据窗口管理器，选择合适的跳转方式
 if [[ $wm == 'dwm' ]]; then
-    xdotool set_window --urgency 1 $win_stata
+    xdotool set_window --urgency 1 "$win_stata"
     dwmc focusurgent
 else
-    xdotool windowactivate $win_stata
-    xdotool windowfocus $win_stata
+    xdotool windowactivate "$win_stata"
+    xdotool windowfocus "$win_stata"
 fi
 
 # 在 Focus Stata 后，运行命令，根据 Stata 是否为 GUI，选择不同的处理方法
-if [[ $(xprop -id $win_stata | grep -c "Xstata-mp") == 1 ]]; then
+if [[ $(xprop -id "$win_stata" | grep -c "Xstata-mp") == 1 ]]; then
     xdotool key ctrl+1
     xdotool key ctrl+a
     xdotool key ctrl+v
@@ -41,10 +41,10 @@ fi
 
 # 跳转到原来而窗口
 if [[ $wm == 'dwm' ]]; then
-    xdotool set_window --urgency 1 $win_active
+    xdotool set_window --urgency 1 "$win_active"
     dwmc focusurgent
 else
-    xdotool windowactivate $win_active
+    xdotool windowactivate "$win_active"
 fi
 
 

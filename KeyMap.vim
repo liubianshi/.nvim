@@ -1,4 +1,4 @@
-" function: add sybol at the end of current line {{{1 
+" function: add symbol at the end of current line {{{1 
 function! s:AddDash(symbol)
     substitute/\s*$//g
     if &l:textwidth == 0
@@ -202,34 +202,21 @@ xnoremap az :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zV[z<cr>
 
 
 " fuzzy search {{{1
-noremap <silent> <leader>fa :<C-U><C-R>=printf("Leaderf! rg -e %s", expand("<cword>"))<CR><CR>
-let g:Lf_ShortcutF = '<leader>fE'
-let g:Lf_ShortcutB = '<leader>fb'
+noremap <silent> <leader>fb  :FzfBuffer<CR>
 noremap <silent> <leader>fc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 noremap <silent> <leader>fC :<C-U><C-R>=printf("Leaderf colorscheme %s", "")<CR><CR>
-noremap <silent> <leader>fd :<C-U><C-R>=printf("Leaderf gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
 noremap <silent> <leader>fe  :FzfFiles<CR>
-noremap <silent> <leader>ff :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
-noremap <silent> <leader>fF :<C-U><C-R>=printf("Leaderf function --all %s", "")<CR><CR>
 noremap <silent> <leader>fg :<C-U><C-R>=printf("Leaderf gtags --all %s", "")<CR><CR>
+noremap <silent> <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <silent> <leader>fw  :WikiFzfPages<CR>
 noremap <silent> <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <silent> <leader>fT :<C-U><C-R>=printf("Leaderf bufTag --all %s", "")<CR><CR>
-noremap <silent> <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
-noremap <silent> <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-noremap <silent> <leader>fw  :WikiFzfPages<CR>
 noremap <silent> <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-noremap <silent> <leader>fo :<C-U><C-R>=printf("Leaderf gtags --recall %s", "")<CR><CR>
-noremap <silent> <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
-noremap <silent> <leader>fr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
 noremap <silent> <leader>fs  :FzfSnippets<CR>
-noremap <silent> <leader>fv  :PreviewTag<CR>
-noremap <silent> <leader>fV  :PreviewClose<CR>
 noremap <silent> <leader>f: :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
 noremap <silent> <leader>f/ :<C-U><C-R>=printf("Leaderf searchHistory %s", "")<CR><CR>
 noremap <C-B> :<C-U><C-R>=printf("Leaderf rg --current-buffer -e %s ", expand("<cword>"))<CR><CR>
 noremap <C-F> :<C-U><C-R>=printf("Leaderf rg -e %s", "")<CR>
-xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
-noremap go :<C-U>Leaderf! rg --recall<CR>
 
 " zen-mod {{{1
 nnoremap <leader>z :<c-u>call ToggleZenMode()<cr>
@@ -329,8 +316,19 @@ nmap <leader>j <Plug>(VM-Add-Cursor-Down)
 nmap <leader>k <Plug>(VM-Add-Cursor-Up)
 
 " preview {{{1
-noremap <m-u> :PreviewScroll -1<cr>
-noremap <m-d> :PreviewScroll +1<cr>
+noremap <silent> gv  :PreviewTag<CR>
+noremap <silent> gq  :PreviewClose<CR>
+noremap  <m-u> :PreviewScroll -1<cr>
+noremap  <m-d> :PreviewScroll +1<cr>
 inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
 inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
+
+" ctags and gtags {{{1
+noremap <silent> gd :<C-U><C-R>=printf("Leaderf gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <silent> gf :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
+noremap <silent> gF :<C-U><C-R>=printf("Leaderf function --all %s", "")<CR><CR>
+noremap <silent> gn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+noremap <silent> go :<C-U><C-R>=printf("Leaderf gtags --recall %s", "")<CR><CR>
+noremap <silent> gp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+noremap <silent> gr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
 
