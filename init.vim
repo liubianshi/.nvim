@@ -22,7 +22,6 @@ Plug 'ayu-theme/ayu-vim'
     "let ayucolor="mirage" " for mirage version of theme
     let ayucolor="dark"   " for dark version of theme
 Plug 'sainnhe/sonokai'
-    let g:sonokai_style = 'default'
     let g:sonokai_enable_italic = 1
     let g:sonokai_disable_italic_comment = 1
 
@@ -329,7 +328,9 @@ Plug 'dense-analysis/ale'
 " floaterm {{{3
 Plug 'voldikss/vim-floaterm'
     let g:floaterm_rootmarkers = ['.project', '.git', '.hg', '.svn', '.root', '.gitignore']
-    let g:floaterm_position = 'topright'
+    let g:floaterm_wintype = 'normal'
+    let g:floaterm_position = 'bottom'
+    let g:floaterm_height = 0.35
 " asyncrun {{{3
 Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
     let g:asyncrun_open = 6

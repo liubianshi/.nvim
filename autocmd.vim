@@ -137,7 +137,7 @@ endfunction
 
 " function: complete_init {{{1
 function! s:FileType_init()
-    if &ft =~ 'r\|rmd\|rmarkdown\|Rmd\|Rmarkdown'
+    if &ft =~? '^\(r\|rmd\|rmarkdown\)$'
         call Ncm2CompleteEngine()
     else
         call CocCompleteEngine()

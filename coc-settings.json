@@ -1,6 +1,6 @@
 { 
     "r.lsp.path": "/usr/bin/R",
     "r.lsp.debug": false,
-    "r.lsp.diagnostics": false
+    "r.lsp.diagnostics": false,
 }
 
