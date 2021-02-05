@@ -334,6 +334,9 @@ Plug 'voldikss/vim-floaterm'
 " asyncrun {{{3
 Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
     let g:asyncrun_open = 6
+    let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
+Plug 'skywind3000/asynctasks.vim'
+    let g:asmsyntax_term_pos = 'external'
 " obsession {{{3
 Plug 'tpope/vim-obsession', { 'on': [] }            " tmux Backup needed
 " vimcmdline {{{3
@@ -431,7 +434,7 @@ Plug 'kien/rainbow_parentheses.vim'
 " StarupTime {{{2
 Plug 'dstein64/vim-startuptime'
 
-" vim-table-mode
+" vim-table-mode {{{2
 Plug 'dhruvasagar/vim-table-mode'
     let g:table_mode_corner='|'
     function! s:isAtStartOfLine(mapping)
@@ -446,6 +449,14 @@ Plug 'dhruvasagar/vim-table-mode'
     inoreabbrev <expr> __
             \ <SID>isAtStartOfLine('__') ?
             \ '<c-o>:silent! TableModeDisable<cr>' : '__'
+
+" vimspector {{{2
+Plug 'puremourning/vimspector'
+    let g:vimspector_enable_mappings = 'HUMAN'
+    let g:vimsepector_install_gadgets = [
+        \ 'debugpy', 'vscode-cpptools', 'vscode-go', 'CodeLLDB',
+        \ 'vscode-bash-debug'
+        \ ]
 
 " used plugs {{{2
     "Plug 'ncm2/ncm2-tmux'

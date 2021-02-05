@@ -7,7 +7,7 @@ set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,cp936,gb2312,gb18030,big5,enc-jp,enc-krlatin1
 set autoread               " 在文件在外部被修改后自动加载
 set wildmenu               " vim 自身命令行模式只能补全
-set so=1                   " 设置 j/k 滚动的行数
+set scrolloff=3            " 设置 j/k 滚动的行数
 set showmatch              " 高亮显示匹配括号
 set mat=2                  " 设置匹配括号时闪缩的时间
 set lazyredraw             " 只在需要时重绘，出于性能上的考虑
@@ -20,7 +20,6 @@ set hidden
 set nobackup
 set nowritebackup
 set updatetime=300
-set signcolumn=no
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
 set foldlevel=2             " 折叠层级

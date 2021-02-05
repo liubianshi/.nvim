@@ -1,3 +1,8 @@
+" function: css {{{1
+function! s:CSS()
+     set equalprg="prettier --tab-width 4"
+endfunction
+
 " function: c anc c++ {{{1
 function! s:C_CPP()
     nnoremap <buffer><silent> <localleader>D :<c-u>AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"<cr>
@@ -43,14 +48,17 @@ endfunction
 
 " function: md and rmd {{{1
 function! s:Markdown_Rmd()
+    inoremap <buffer> ;1              <esc>0i#<space><esc>A
+    inoremap <buffer> ;2              <esc>0i##<space><esc>A
+    inoremap <buffer> ;3              <esc>0i###<space><esc>A
     inoremap <buffer> ;-              <esc>^d0i-<tab><esc>A
     inoremap <buffer> ;_              <esc>^d0i<tab>-<tab><esc>A
     inoremap <buffer> ;=              <esc>^d0i1.<tab><esc>A
     inoremap <buffer> ;+              <esc>^d0i<tab>1.<tab><esc>A
-    inoremap <buffer> ;0              ` `<C-o>F <c-o>x
-    inoremap <buffer> ;9              $ $<C-o>F <c-o>x
-    inoremap <buffer> ;I              * *<C-o>F <c-o>x
-    inoremap <buffer> ;B              ** **<C-o>F <c-o>x
+    inoremap <buffer> ;c              ` `<C-o>F <c-o>x
+    inoremap <buffer> ;m              $ $<C-o>F <c-o>x
+    inoremap <buffer> ;i              * *<C-o>F <c-o>x
+    inoremap <buffer> ;b              ** **<C-o>F <c-o>x
     nnoremap <buffer> <localleader>ic ysiW`
     nnoremap <buffer> <localleader>ab :<c-u>AsyncRun 
         \ xsel -ob >> %:p:h/ref.bib; xsel -ob \| perl -ne 'print "\@$1\n" if ($_ =~ /^\@\w+\{([^,]+)\,/)' >> ~/.config/nvim/paper.dict<cr>
@@ -174,6 +182,7 @@ augroup LOAD_ENTER
 autocmd!
 
 " cmd: global setting {{{1
+autocmd BufNewFile,BufRead   *.md                       setlocal filetype=pandoc
 autocmd BufNewFile,BufRead   *.raku,*.p6,*.pl6,*.p6     setlocal filetype=raku
 autocmd BufNewFile,BufRead   *.csv                      setlocal filetype=csv
 autocmd BufNewFile,BufRead   sxhkdrc                    setlocal filetype=sxhkd
@@ -218,7 +227,8 @@ autocmd FileType dot                              call <sid>Dot()
 autocmd FileType qf                               call <sid>Qf()
 autocmd FileType c                                call <sid>C_CPP()
 autocmd FileType dbui nmap <buffer> v <Plug>(DBUI_SelectLineVsplit)<cr>
-autocmd filetype mail setlocal tw=0 wrap
+autocmd FileType mail setlocal tw=0 wrap
+autocmd FileType css  set formatprg="prettier --tab-width 4"
 
 
 " cmd: restore {{{1

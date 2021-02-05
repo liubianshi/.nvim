@@ -1,5 +1,4 @@
-
-augroup reku_setup
+augroup raku_setup
     autocmd!
     function! Rakudo()
         let b:AutoPairs = g:AutoPairs
