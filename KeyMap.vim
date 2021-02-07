@@ -258,7 +258,7 @@ noremap <silent> <leader>fw  :WikiFzfPages<CR>
 noremap <silent> <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <silent> <leader>fT :<C-U><C-R>=printf("Leaderf bufTag --all %s", "")<CR><CR>
 noremap <silent> <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-noremap <silent> <leader>fr :<C-U><C-R>=printf("Leaderf task %s", "")<CR><CR>
+noremap <silent> <leader>fr :<C-U><C-R>=printf("Leaderf! task --nowrap %s", "")<CR><CR>
 noremap <silent> <leader>fs  :FzfSnippets<CR>
 noremap <silent> <leader>f: :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
 noremap <silent> <leader>f/ :<C-U><C-R>=printf("Leaderf searchHistory %s", "")<CR><CR>

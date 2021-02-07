@@ -403,6 +403,24 @@ Plug 'ncm2/ncm2-syntax', { 'on': [] }
         \ 'on_complete': ['ncm2_bufword#on_complete'],
         \ }
 
+" vim-dict {{{2
+Plug 'skywind3000/vim-dict'
+    let g:vim_dict_dict = [
+        \ '~/.vim/dict',
+        \ '~/.config/nvim/dict',
+        \ ]
+    let g:vim_dict_config = {
+        \ 'markdown':'word',
+        \ 'pandoc':'word',
+        \ 'rmd':'word',
+        \ }
+
+" Vim-startify: {{{2
+Plug 'mhinz/vim-startify'
+
+" Vim-exchange: {{{2 
+Plug 'tommcdo/vim-exchange'
+
 " Git: {{{2
 Plug 'tpope/vim-fugitive', { 'on': [] }             " git 插件
 

@@ -150,7 +150,7 @@ function! s:FileType_init()
     else
         call CocCompleteEngine()
     endif
-    if ! &ft =~ 'ruby\|javascript\|perl'
+    if ! &ft =~? '^\(ruby\|javascript\|perl\)$'
         %s/\s\+$//e
     endif
     return 0
