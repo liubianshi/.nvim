@@ -35,6 +35,7 @@ Plug 'vim-airline/vim-airline-themes', { 'on': [] }
     let g:airline#extensions#tabline#left_sep = ''
     let g:airline#extensions#tabline#left_alt_sep = '|'
     let g:airline#extensions#tabline#buffer_nr_show = 1
+    let g:airline#extensions#ale#enabled = 1
 
 " nerdtree {{{2
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } "
@@ -120,7 +121,7 @@ Plug 'haya14busa/incsearch.vim'       " 加强版实时高亮
 
 " visual multi {{{2
 Plug 'mg979/vim-visual-multi',  {'branch': 'master'}
-    let g:VM_leader = "<F9>" 
+    let g:VM_leader = "<F11>" 
 " Pandoc and Rmarkdown {{{2
 Plug 'vim-pandoc/vim-pandoc',   {'for': ['md', 'pandoc','rmd', 'rmarkdown']}
     let g:pandoc#modules#disabled = ["spell"]
@@ -165,6 +166,12 @@ Plug 'tpope/vim-surround'           " 快速给词加环绕符号
 Plug 'tpope/vim-repeat'             " 重复插件操作
 Plug 'tpope/vim-abolish'            " 高效的文本替换工具
 Plug 'scrooloose/nerdcommenter'     " 注释插件
+Plug 'justinmk/vim-sneak'           " The missing motion for vim
+    let g:sneak#label = 1
+    let g:sneak#s_next = 1
+    let g:sneak#use_ic_scs = 1
+    let g:sneak#f_reset = 1
+    let g:sneak#t_reset = 1
 Plug 'easymotion/vim-easymotion'    " 高效移动指标插件
     let g:EasyMotion_do_mapping = 0 " Disable default mappings
     let g:EasyMotion_smartcase = 1
@@ -210,10 +217,11 @@ Plug 'jalvesaq/Nvim-R', {'for': ['r', 'rmarkdown', 'rmd'] }
     let R_hi_fun_paren = 1
     let R_assign = 0
     let R_rmdchunk = 0
+    let rmd_syn_hl_chunk = 1
     if ($SSH_CLIENT == "")
-        let R_external_term = 'st -n R -e'
+        let R_external_term = 'alacritty -t R -e'
     endif
-    let R_notmuxconf = 1
+    let R_notmuxconf = 0
     let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"
     let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,rlang,data.table,fread,readxl,tidyverse,haven,lbs'
     command! RStart let oldft=&ft
@@ -300,7 +308,10 @@ Plug 'skywind3000/vim-preview'
 
 " Syntax checking {{{2
 Plug 'sheerun/vim-polyglot'
-Plug 'dense-analysis/ale'                      
+    let g:polyglot_disabled = ['ftdetect']
+    "let g:polyglot_disabled = ['markdown', 'rmd', 'rmarkdown']
+Plug 'dense-analysis/ale'
+    let g:ale_disable_lsp = 1
     let g:ale_sign_column_always = 1
     let g:ale_set_highlights = 0
     let g:ale_sign_error = '✗'
@@ -311,18 +322,19 @@ Plug 'dense-analysis/ale'
     let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
     " 文件内容发生变化时不进行检查
     let g:ale_lint_on_text_changed = 'never'
-    " 打开文件时不进行检查
     let g:ale_lint_on_enter = 0
+    let g:ale_lint_on_insert_leave = 0
     "使用clang对c和c++进行语法检查，对python使用pylint进行语法检查
     let g:ale_linters = {
                 \   'sh': ['shellcheck'],
                 \   'c': ['clang'],
-                \   'r': ['styler'],
-                \   'perl': ['perl -c'],
-                \   'raku': ['raku -c'],
+                \   'r': ['lintr', 'languageserver']
                 \}
     let g:ale_fixers = {
                 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+                \   'markdown': ['prettier', 'eslint'],
+                \   'pandoc':   ['prettier', 'eslint'],
+                \   'r': ['styler'],
                 \ }
 " system interaction {{{2
 " floaterm {{{3
@@ -409,11 +421,10 @@ Plug 'skywind3000/vim-dict'
         \ '~/.vim/dict',
         \ '~/.config/nvim/dict',
         \ ]
-    let g:vim_dict_config = {
-        \ 'markdown':'word',
-        \ 'pandoc':'word',
-        \ 'rmd':'word',
-        \ }
+    "let g:vim_dict_config = {
+        "\ 'markdown':'word',
+        "\ 'pandoc':'word',
+        "\ }
 
 " Vim-startify: {{{2
 Plug 'mhinz/vim-startify'

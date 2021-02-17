@@ -1,6 +1,8 @@
 " Basic Config{{{1
 let mapleader = " "
 let maplocalleader = ';'
+noremap ;; ;
+
 set mouse=a                " 支持使用鼠标
 set clipboard+=unnamedplus " 剪切板的整合
 set encoding=utf-8

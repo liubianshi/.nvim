@@ -16,13 +16,13 @@ function! s:R_Rmd()
     nmap <buffer> <localleader>th yiw:<c-u>call R_view_df_sample('h')<cr>
     nmap <buffer> <localleader>tt yiw:<c-u>call R_view_df_sample('t')<cr>
     nmap <buffer> <localleader>tV yiw:<c-u>call R_view_df_full(30)<cr>
-    vmap <buffer> <localleader>tv y:<c-u>call R_view_df_sample('ht')<cr>
-    vmap <buffer> <localleader>tr y:<c-u>call R_view_df_sample('r')<cr>
-    vmap <buffer> <localleader>th y:<c-u>call R_view_df_sample('h')<cr>
-    vmap <buffer> <localleader>tt y:<c-u>call R_view_df_sample('t')<cr>
-    vmap <buffer> <localleader>tV y:<c-u>call R_view_df_full(30)<cr>
-    nmap <buffer> <localleader>t1 :<c-u>call R_view_srdm_table()<cr>
-    nmap <buffer> <localleader>t2 :<c-u>call R_view_srdm_var()<cr>
+    vmap <buffer> <localleader>tv y:<c-u>call   R_view_df_sample('ht')<cr>
+    vmap <buffer> <localleader>tr y:<c-u>call   R_view_df_sample('r')<cr>
+    vmap <buffer> <localleader>th y:<c-u>call   R_view_df_sample('h')<cr>
+    vmap <buffer> <localleader>tt y:<c-u>call   R_view_df_sample('t')<cr>
+    vmap <buffer> <localleader>tV y:<c-u>call   R_view_df_full(30)<cr>
+    nmap <buffer> <localleader>t1 :<c-u>call    R_view_srdm_table()<cr>
+    nmap <buffer> <localleader>t2 :<c-u>call    R_view_srdm_var()<cr>
 
     inoremap <buffer> <A-\>          %>%
     inoremap <buffer> <A-=>          <-<Space>

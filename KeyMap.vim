@@ -128,9 +128,21 @@ nnoremap <tab>P     "*p
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>:
 
-" Easymotion Related{{{1
-nmap ss <Plug>(easymotion-overwin-f2)
-nmap sS <Plug>(easymotion-overwin-line)
+" Easymotion and vim-sneak Related{{{1
+nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 0, 1)<CR>
+nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 0, 1)<CR>
+xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 0, 1)<CR>
+xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 0, 1)<CR>
+onoremap <silent> f :<C-U>call sneak#wrap(v:operator,   1, 0, 0, 1)<CR>
+onoremap <silent> F :<C-U>call sneak#wrap(v:operator,   1, 1, 0, 1)<CR>
+nnoremap <silent> t :<C-U>call sneak#wrap('',           1, 0, 0, 1)<CR>
+nnoremap <silent> T :<C-U>call sneak#wrap('',           1, 1, 0, 1)<CR>
+xnoremap <silent> t :<C-U>call sneak#wrap(visualmode(), 1, 0, 0, 1)<CR>
+xnoremap <silent> T :<C-U>call sneak#wrap(visualmode(), 1, 1, 0, 1)<CR>
+onoremap <silent> t :<C-U>call sneak#wrap(v:operator,   1, 0, 0, 1)<CR>
+onoremap <silent> T :<C-U>call sneak#wrap(v:operator,   1, 1, 0, 1)<CR>
+nmap ss <Plug>Sneak_s
+nmap sS <Plug>Sneak_S
 nmap sl <Plug>(easymotion-sl)
 nmap sj <plug>(easymotion-j)
 nmap sJ <plug>(easymotion-eol-j)
@@ -138,35 +150,24 @@ nmap sk <plug>(easymotion-k)
 nmap sK <plug>(easymotion-eol-k)
 nmap sn <Plug>(easymotion-n)
 nmap sN <Plug>(easymotion-N)
-nmap sf <Plug>(easymotion-f2)
-nmap sF <Plug>(easymotion-F2)
-nmap st <Plug>(easymotion-t2)
-nmap sT <Plug>(easymotion-T2)
 nmap sw <Plug>(easymotion-w)
 nmap sW <Plug>(easymotion-W)
 nmap sb <Plug>(easymotion-b)
 nmap sB <Plug>(easymotion-B)
 nmap se <Plug>(easymotion-e)
 nmap sE <Plug>(easymotion-E)
-nmap sge <Plug>(easymotion-ge)
-nmap sgE <Plug>(easymotion-gE)
-
-nmap sc :<c-u>call <sid>SearchChinese_forward()<cr>
-nmap sC :<c-u>call <sid>SearchChinese_backword()<cr>
-nmap sL :<c-u>call <sid>SearchChineseLine()<cr>
+nnoremap <silent> sc :<c-u>call <sid>SearchChinese_forward()<cr>
+nnoremap <silent> sC :<c-u>call <sid>SearchChinese_backword()<cr>
+xnoremap <silent> sc :<c-u>call <sid>SearchChinese_forward()<cr>
+xnoremap <silent> sC :<c-u>call <sid>SearchChinese_backword()<cr>
 function! s:SearchChinese_forward() 
      silent execute '!fcitx5-remote -o'
-     call EasyMotion#S(2,0,0)
+     call sneak#wrap('', 2, 0, 1, 1)
      silent exe '!fcitx5-remote -c'
  endfunction 
 function! s:SearchChinese_backword() 
      silent execute '!fcitx5-remote -o'
-     call EasyMotion#S(2,0,1)
-     silent exe '!fcitx5-remote -c'
- endfunction 
-function! s:SearchChineseLine() 
-     silent execute '!fcitx5-remote -o'
-     call EasyMotion#SL(2,0,2)
+     call sneak#wrap('', 2, 1, 1, 1)
      silent exe '!fcitx5-remote -c'
  endfunction 
 
