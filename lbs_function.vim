@@ -1,3 +1,6 @@
+" 个人全局变量
+let g:plugs_lbs_conf = {}               " 用于记录插件个人配置文件的载入情况
+
 " 代码格式化 {{{1
 function Lbs_RFormat() range
     if g:rplugin.nvimcom_port == 0
@@ -230,22 +233,16 @@ endfunction
 
 " 切换补全工具{{{1
 function! CocCompleteEngine()
-    call plug#load('coc.nvim')
     if exists("*ncm2#disable_for_buffer")
         call ncm2#disable_for_buffer()
     endif
     let b:coc_suggest_disable = 0
 endfunction
 function! Ncm2CompleteEngine()
-    call plug#load(
-         \ 'ncm2', 'ncm-R', 'ncm2-bufword',
-         \ 'ncm2-path', 'ncm2-ultisnips', 'ncm2-dictionary',
-         \ 'neco-syntax', 'ncm2-syntax',
-         \ )
-    let b:coc_suggest_disable = 1 
+    let b:coc_suggest_disable = 1
     call ncm2#enable_for_buffer()
-    call ncm2#register_source(g:ncm2_r_source) 
-    call ncm2#register_source(g:ncm2_raku_source) 
+    call ncm2#register_source(g:ncm2_r_source)
+    call ncm2#register_source(g:ncm2_raku_source)
 endfunction
 function! ChangeCompleteEngine()
     if !exists("b:coc_suggest_disable") || b:coc_suggest_disable == 0
@@ -254,4 +251,50 @@ function! ChangeCompleteEngine()
         call CocCompleteEngine()
     endif
 endfunction
+
+
+function! Lbs_PlugHasLoaded(plugName) abort     " 插件是否已经载入 {{{1
+    " 判断插件是否已经载入
+    if !has_key(g:plugs, a:plugName)
+        return(0)
+    endif
+    let plugdir = g:plugs[a:plugName].dir
+    let plugdir_noenddash = strpart(plugdir, 0, strlen(plugdir) - 1)
+    return (
+       \ has_key(g:plugs, a:plugName) &&
+       \ stridx(&rtp, plugdir_noenddash) >= 0)
+endfunction
+
+function! Lbs_PlugConfHasLoaded(plugName) abort     " 是否已经载入插件的个人配置文件 {{{1
+    return(
+        \ has_key(g:plugs_lbs_conf, a:plugName) &&
+        \ g:plugs_lbs_conf[a:plugName] > 0
+        \ )
+endfunction
+
+function! Lbs_Load_Plug_Conf(plugName) abort " 载入插件对应的配置文档 {{{1
+    if Lbs_PlugConfHasLoaded(a:plugName) == 0
+        let plug_config_file = glob("~/.config/nvim/Plugins/" . a:plugName . ".vim")
+        if plug_config_file != ''
+            exec "source " . fnameescape(plug_config_file)
+            let g:plugs_lbs_conf[a:plugName] = 1
+        endif
+    endif
+endfunction
+
+function! Lbs_Load_Plug(plugname) " 手动加载特定插件 {{{1
+    if Lbs_PlugHasLoaded(a:plugname) == 0
+        call Lbs_Load_Plug_Conf(a:plugname)
+        call plug#load(a:plugname)
+    endif
+endfunction
+
+function! Lbs_Load_Plug_Confs(plugNames) abort    " load config file for loaded plug {{{1
+    for plugname in a:plugNames
+        if Lbs_PlugHasLoaded(plugname) == 1
+            call Lbs_Load_Plug_Conf(plugname)
+        endif
+    endfor
+endfunction
+
 

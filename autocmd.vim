@@ -1,16 +1,27 @@
-" function: css {{{1
-function! s:CSS()
-     set equalprg="prettier --tab-width 4"
+" filetype related init {{{1
+"
+" function: csv_tsv {{{2
+function s:Table()
+    call Lbs_Load_Plug("rainbow_csv")
 endfunction
 
-" function: c anc c++ {{{1
+" function: css {{{2
+function! s:CSS()
+    call Lbs_Load_Plug('ale')
+    set equalprg="prettier --tab-width 4"
+endfunction
+
+" function: c anc c++ {{{2
 function! s:C_CPP()
+    call Lbs_Load_Plug('vimspector')
+    call Lbs_Load_Plug('ale')
     nnoremap <buffer><silent> <localleader>D :<c-u>AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"<cr>
     nnoremap <buffer><silent> <localleader>L :<c-u>AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"<cr>
 endfunction
 
-" function: r and rmd {{{1
+" function: r and rmd {{{2
 function! s:R_Rmd()
+    call Lbs_Load_Plug("Nvim-R")
     nmap <buffer> <localleader>tv yiw:<c-u>call R_view_df_sample('ht')<cr>
     nmap <buffer> <localleader>tr yiw:<c-u>call R_view_df_sample('r')<cr>
     nmap <buffer> <localleader>th yiw:<c-u>call R_view_df_sample('h')<cr>
@@ -26,8 +37,8 @@ function! s:R_Rmd()
 
     inoremap <buffer> <A-\>          %>%
     inoremap <buffer> <A-=>          <-<Space>
-    imap     <buffer> <A-1>          <Esc><Plug>RDSendLine<CR>
-    nmap     <buffer> <A-1>          <Plug>RDSendLine<CR>
+    imap     <buffer> <A-1>          <Esc><Plug>RDSendLine
+    nmap     <buffer> <A-1>          <Plug>RDSendLine
     nmap     <buffer> ,              <Plug>RDSendLine
     vmap     <buffer> ,              <Plug>REDSendSelection
     nmap     <buffer> <LocalLeader>: :RSend 
@@ -40,14 +51,19 @@ function! s:R_Rmd()
     nnoremap <buffer> <tab><CR> <Esc>A;<CR>
 endfunction
 
+" function: r {{{2
 function! s:Rscript()
-    nnoremap <localleader>L :<c-u>RSend devtools::load_all()<cr>
-    nnoremap <localleader>D :<c-u>RSend devtools::document()<cr>
-    nnoremap <localleader>T :<c-u>RSend devtools::test()<cr>
+    call Lbs_Load_Plug('ale')
+    nnoremap <buffer> <localleader>L :<c-u>RSend devtools::load_all()<cr>
+    nnoremap <buffer> <localleader>D :<c-u>RSend devtools::document()<cr>
+    nnoremap <buffer> <localleader>T :<c-u>RSend devtools::test()<cr>
 endfunction
 
-" function: md and rmd {{{1
+" function: md and rmd {{{2
 function! s:Markdown_Rmd()
+    for plugname in ['vim-pandoc', 'vim-pandoc-syntax', 'md-img-paste.vim', 'pangu.vim']
+        call Lbs_Load_Plug(plugname)
+    endfor
     inoremap <buffer> ;1              <esc>0i#<space><esc>A
     inoremap <buffer> ;2              <esc>0i##<space><esc>A
     inoremap <buffer> ;3              <esc>0i###<space><esc>A
@@ -69,9 +85,9 @@ function! s:Markdown_Rmd()
     setlocal tw=78 formatoptions=tcroqlnmB1j tabstop=4 shiftwidth=4
         \ brk= formatexpr= formatprg=r-format indentexpr=
     UltiSnipsAddFiletype rmd.r.markdown.pandoc
-endfunction  
-             
-" function: rmd {{{1
+endfunction
+
+" function: rmd {{{2
 function! s:Rmd()
     nnoremap <buffer> <leader>rp               :AsyncRun ~/useScript/rmarkdown.sh %<cr>
     nnoremap <buffer> <leader>rh               :AsyncRun ~/useScript/rmarkdown.sh -o bookdown::html_document2 %<cr>
@@ -94,15 +110,16 @@ function! s:Rmd()
     endif
 endfunction
 
-" function: Markdown {{{1
+" function: Markdown {{{2
 function! s:Markdown()
     nnoremap <buffer> <leader>pp               :Pandoc pdf -H ~/useScript/header.tex<cr>
     nnoremap <buffer> <leader>ph               :Pandoc html<cr>
     nnoremap <buffer> <silent> <localleader>pi :<c-u>call mdip#MarkdownClipboardImage()<CR>
 endfunction
 
-" function: stata {{{1
+" function: stata {{{2
 function! s:Stata()
+    call Lbs_Load_Plug('stata-vim')
     if(has("mac"))
         inoremap <buffer> ¡ <esc>V:<c-u>call RunDoLines()<cr>
         nnoremap <buffer> ¡ V:call RunDoLines()<cr>
@@ -121,8 +138,11 @@ function! s:Stata()
     setlocal foldmarker={,}
 endfunction
 
-" function: sql {{{1
+" function: sql {{{2
 function! s:Sql()
+    call Lbs_Load_Plug("vim-dadbod")
+    call Lbs_Load_Plug("vim-dadbod-ui")
+    call Lbs_Load_Plug("vim-dadbod-competion")
     vnoremap <buffer> <localleader>l :DB<cr>
     nnoremap <buffer> <localleader>l V:DB<cr>
     nnoremap <buffer> <localleader>L :<c-u>DB < "%"<cr>
@@ -130,7 +150,7 @@ function! s:Sql()
     nmap     <buffer> <localleader>W <Plug>(DBUI_SaveQuery) 
 endfunction
 
-" function: qf {{{1
+" function: qf {{{2
 function! s:Qf()
     nnoremap <silent><buffer> p :PreviewQuickfix<cr>
     nnoremap <silent><buffer> P :PreviewClose<cr>
@@ -138,25 +158,17 @@ function! s:Qf()
     noremap <buffer> ]u :PreviewScroll +1<cr>
 endfunction
 
-" function: dot {{{1
+" function: dot {{{2
 function! s:Dot()
     nnoremap <buffer> <localleader>d :<c-u>AsyncRun dot -Tpdf % -o "%:r.pdf"<cr> 
 endfunction
 
-" function: complete_init {{{1
-function! s:FileType_init()
-    if &ft =~? '^\(r\|rmd\|rmarkdown\)$'
-        call Ncm2CompleteEngine()
-    else
-        call CocCompleteEngine()
-    endif
-    if ! &ft =~? '^\(ruby\|javascript\|perl\)$'
-        %s/\s\+$//e
-    endif
-    return 0
+" function: tex {{{2
+function! s:Tex()
+    call Lbs_Load_Plug("vimtex")
 endfunction
 
-" function: raku {{{1
+" function: raku {{{2
 function! s:Raku() 
     let b:AutoPairs = g:AutoPairs
     let b:AutoPairs['<']=">"
@@ -177,37 +189,33 @@ function! s:Raku()
     endif
 endfunction
 
+
+" function: FileType_init {{{2
+function! s:FileType_init()
+    "if &ft =~? '^\(r\|rmd\|rmarkdown\)$'
+        "call Ncm2CompleteEngine()
+    "else
+        "call CocCompleteEngine()
+    "endif
+    if ! &ft =~? '^\(ruby\|javascript\|perl\|vim\)$'
+        %s/\s\+$//e
+    endif
+    return 0
+endfunction
+
 " cmd: start {{{1
 augroup LOAD_ENTER
 autocmd!
 
 " cmd: global setting {{{1
-autocmd BufNewFile,BufRead   *.md                       setlocal filetype=pandoc
-autocmd BufNewFile,BufRead   *.raku,*.p6,*.pl6,*.p6     setlocal filetype=raku
-autocmd BufNewFile,BufRead   *.csv                      setlocal filetype=csv
-autocmd BufNewFile,BufRead   sxhkdrc                    setlocal filetype=sxhkd
-autocmd BufNewFile,BufRead   */cheatsheets/personal/R/* setlocal filetype=r
-autocmd BufNewFile,BufRead   *.[Rr]md,*.[Rr]markdown    setlocal filetype=rmd
-autocmd BufNewFile,BufRead   *                          call plug#load('vim-snippets')
-autocmd BufNewFile,BufRead   *                          call plug#load('vim-fugitive')
-autocmd BufNewFile,BufRead   *                          call plug#load('vimcdoc')
-autocmd BufNewFile,BufRead   *                          call <sid>FileType_init()
 autocmd InsertLeave,WinEnter *                          setlocal cursorline
 autocmd InsertEnter,WinLeave *                          setlocal nocursorline
 autocmd TermOpen             *                          setlocal nonumber norelativenumber bufhidden=hide
-autocmd BufEnter             *                          if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd BufEnter             *                          call Status()
-
-" cmd: 中文输入法切换 {{{1
-if(has("mac"))
-    autocmd BufNewFile,BufRead * call plug#load('fcitx-vim-osx')
-else
-    autocmd BufNewFile,BufRead * call plug#load('fcitx.vim')
-endif
 
 " cmd: TMUX {{{1
 if exists('$TMUX')
-    autocmd BufNewFile,BufRead * call plug#load('vim-obsession')
+    autocmd BufNewFile,BufRead * call Lbs_Load_Plug('vim-obsession')
 endif
 
 " cmd: floaterm {{{1
@@ -216,20 +224,28 @@ autocmd FileType floaterm nnoremap <buffer> <leader>l :<C-U>FloatermUpdate --win
 autocmd FileType floaterm nnoremap <buffer> <leader>f :<C-U>FloatermUpdate --wintype=floating --position=topright<cr>
 
 " cmd: filetype {{{1
-autocmd FileType pandoc,md,markdown,rmd,rmarkdown call <sid>Markdown_Rmd()
-autocmd FileType pandoc,md,markdown               call <sid>Markdown()
-autocmd FileType r,rmd,rmarkdown                  call <sid>Rscript()
-autocmd FileType rmd,rmarkdown                    call <sid>Rmd()
-autocmd FileType r,rmd,rmarkdown                  call <sid>R_Rmd()
-autocmd FileType stata                            call <sid>Stata()
-autocmd FileType sql                              call <sid>Sql()
-autocmd FileType dot                              call <sid>Dot()
-autocmd FileType qf                               call <sid>Qf()
-autocmd FileType c                                call <sid>C_CPP()
-autocmd FileType dbui nmap <buffer> v <Plug>(DBUI_SelectLineVsplit)<cr>
-autocmd FileType mail setlocal tw=0 wrap
-autocmd FileType css  set formatprg="prettier --tab-width 4"
+"au FileType pandoc,md,markdown,rmd,rmarkdown call <sid>Markdown_Rmd()
+"au FileType pandoc,md,markdown               call <sid>Markdown()
+"au FileType r,rmd,rmarkdown                  call <sid>Rscript()
+"au FileType r,rmd,rmarkdown                  call <sid>R_Rmd()
+"au FileType rmd,rmarkdown                    call <sid>Rmd()
+"au FileType sh,bash,stata                    call Lbs_Load_Plug("vimcmdline")
+"au FileType stata                            call <sid>Stata()
+"au FileType sql                              call <sid>Sql()
+"au FileType dot                              call <sid>Dot()
+"au FileType qf                               call <sid>Qf()
+"au FileType c                                call <sid>C_CPP()
+"au FileType dbui nmap <buffer> v <Plug>(DBUI_SelectLineVsplit)<cr>
+"au FileType mail setlocal tw=0 wrap
+"au FileType css  set formatprg="prettier --tab-width 4"
+"au FileType csv,tsv                          call <sid>Table()
 
 
 " cmd: restore {{{1
+augroup END
+
+" Wiki Autocmds {{{1
+augroup MyWikiAutocmds
+    autocmd!
+    autocmd User WikiLinkOpened PandocHighlight r
 augroup END

@@ -1,3 +1,6 @@
+set background=dark        " 设置颜色模式
+colorscheme PaperColor
+
 " Basic Config{{{1
 let mapleader = " "
 let maplocalleader = ';'
@@ -25,12 +28,6 @@ set updatetime=300
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
 set foldlevel=2             " 折叠层级
-
-" 显示相关{{{1
-set background=dark        " 设置颜色模式
-colorscheme sonokai
-let g:sonokai_style = 'andromeda'
-let g:airline_theme = "sonokai"
 
 if $TERM != "dvtm-256color"
     set termguicolors      " 真彩色

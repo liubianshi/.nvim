@@ -129,12 +129,12 @@ vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>:
 
 " Easymotion and vim-sneak Related{{{1
-nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 0, 1)<CR>
-nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 0, 1)<CR>
-xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 0, 1)<CR>
-xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 0, 1)<CR>
-onoremap <silent> f :<C-U>call sneak#wrap(v:operator,   1, 0, 0, 1)<CR>
-onoremap <silent> F :<C-U>call sneak#wrap(v:operator,   1, 1, 0, 1)<CR>
+nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
+nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
+xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
+xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
+onoremap <silent> f :<C-U>call sneak#wrap(v:operator,   1, 0, 1, 1)<CR>
+onoremap <silent> F :<C-U>call sneak#wrap(v:operator,   1, 1, 1, 1)<CR>
 nnoremap <silent> t :<C-U>call sneak#wrap('',           1, 0, 0, 1)<CR>
 nnoremap <silent> T :<C-U>call sneak#wrap('',           1, 1, 0, 1)<CR>
 xnoremap <silent> t :<C-U>call sneak#wrap(visualmode(), 1, 0, 0, 1)<CR>

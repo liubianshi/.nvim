@@ -41,9 +41,9 @@ let g:which_key_tab = {}
 let g:which_key_tab.f = { 'name' : '+Foloder_Makrder' }
 let g:which_key_tab.w = { 'name' : '+Vim_Wiki' }
 
-call which_key#register('<F11>', "g:which_key_vm")
-nnoremap <silent> <F9> :<c-u>execute "WhichKey '\<F9\>'"<CR>
-vnoremap <silent> <F9> :<c-u>execute "WhichKey '\<F9\>'"<CR>
+call which_key#register('<Bslash>', "g:which_key_vm")
+nnoremap <silent> <Bslash> :<c-u>execute "WhichKey '\<Bslash\>'"<CR>
+vnoremap <silent> <Bslash> :<c-u>execute "WhichKey '\<Bslash\>'"<CR>
 let g:which_key_vm = {}
 let g:which_key_vm.g = { 'name' : '+Visual-Mulit-Go' }
 
