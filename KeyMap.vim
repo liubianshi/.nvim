@@ -345,8 +345,8 @@ endfunction
 function! s:bibtex_cite_sink_insert(lines)
     let r=system("bibtex-cite -prefix='@' -postfix='' -separator='; @'", a:lines)
     "let r=system("bibtex-cite ", a:lines)
-    execute ':normal! a' . r
-    call feedkeys('a', 'n')
+    execute ':normal! i' . r
+    call feedkeys('i', 'n')
 endfunction
 
 
