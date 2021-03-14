@@ -129,6 +129,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'ncm2/ncm2-syntax',           { 'for': ['r', 'rmd', 'rmarkdown'] }
 
 " vim-dict {{{2
+Plug 'ludovicchabant/vim-gutentags'
 "Plug 'skywind3000/vim-dict', { 'for': ['markdown', 'pandoc', 'rmarkdown', 'rmd'] }
 
 " Vim-exchange: {{{2 
