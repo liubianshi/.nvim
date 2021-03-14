@@ -25,8 +25,8 @@ Plug 'NLKNguyen/papercolor-theme'
 "Plug 'flazz/vim-colorschemes' , { 'on': [] }    " 主题管理
 "Plug 'morhetz/gruvbox'                          " 主题
 "Plug 'rakr/vim-one'
-"Plug 'ayu-theme/ayu-vim'
-"Plug 'sainnhe/sonokai'
+Plug 'ayu-theme/ayu-vim'
+Plug 'sainnhe/sonokai'
 
 " Airline {{{2
 Plug 'vim-airline/vim-airline',        { 'on': [] }    " 状态栏插件

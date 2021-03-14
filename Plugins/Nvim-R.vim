@@ -1,6 +1,6 @@
 let r_syntax_folding = 1
 let R_cmd = "R"
-let R_app = "radian"
+let R_app = "R"
 let R_hl_term = 1
 let R_openpdf = 0
 let R_bracketed_paste = 1
@@ -15,7 +15,7 @@ let R_rmdchunk = 0
 "let R_user_maps_only = 1
 "let rmd_syn_hl_chunk = 1
 if ($SSH_CLIENT == "")
-    let R_external_term = 'alacritty -t R -e'
+    "let R_external_term = 'alacritty -t R -e'
 endif
 let R_notmuxconf = 0
 let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"

@@ -1,5 +1,5 @@
 set background=dark        " 设置颜色模式
-colorscheme PaperColor
+colorscheme ayu
 
 " Basic Config{{{1
 let mapleader = " "

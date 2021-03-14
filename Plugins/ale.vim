@@ -15,7 +15,6 @@ let g:ale_lint_on_insert_leave = 0
 let g:ale_linters = {
             \   'sh': ['shellcheck'],
             \   'c': ['clang'],
-            \   'r': ['lintr', 'languageserver']
             \}
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
