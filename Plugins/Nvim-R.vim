@@ -16,8 +16,9 @@ let R_rmdchunk = 0
 "let rmd_syn_hl_chunk = 1
 if ($SSH_CLIENT == "")
     "let R_external_term = 'alacritty -t R -e'
+    "let R_external_term = 'st -t R -e'
 endif
-let R_notmuxconf = 0
+let R_notmuxconf = 1
 let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"
 let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,rlang,data.table,fread,readxl,haven,lbs'
 command! RStart let oldft=&ft

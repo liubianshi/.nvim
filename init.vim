@@ -80,9 +80,8 @@ Plug 'honza/vim-snippets'
 
 " Filetype {{{2
 " SQL {{{3
-Plug 'tpope/vim-dadbod', { 'on': ['DB', 'DBUI'] }   " Modern database interface for Vim
-Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DB', 'DBUI'] } " Simple UI for vim-dadbod
-    doau User vim-dadbod call Lbs_Load_Plug_Confs(['vim-dadbod', 'vim-dadbod-ui'])
+Plug 'tpope/vim-dadbod'             " Modern database interface for Vim
+Plug 'kristijanhusak/vim-dadbod-ui' " Simple UI for vim-dadbod
 Plug 'kristijanhusak/vim-dadbod-completion', { 'on': [] }
 Plug 'jalvesaq/Nvim-R'
 Plug 'lervag/vimtex', {'on': []}
@@ -91,7 +90,6 @@ Plug 'poliquin/stata-vim', { 'on': [] }       " stata 语法高亮
 " csv / tsv {{{3
 Plug 'mechatroner/rainbow_csv'
 
-" tags {{{2
 " preview {{{2
 Plug 'skywind3000/vim-preview'
 
@@ -172,7 +170,6 @@ call Lbs_Load_Plug_Confs(keys(g:plugs))
 source ~/.config/nvim/basic.vim
 source ~/.config/nvim/KeyMap.vim
 source ~/.config/nvim/whichkey.vim
-source ~/.config/nvim/goyoConfig.vim
 source ~/.config/nvim/autocmd.vim
 source ~/.config/nvim/abbr.vim
 
