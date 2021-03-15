@@ -31,3 +31,5 @@ vnoremap <buffer> <tab>rq                 :LbsRF<cr>
 
 inoremap <buffer> ;<CR> <Esc>A;<CR>
 nnoremap <buffer> <tab><CR> <Esc>A;<CR>
+
+setlocal formatprg=r-format
