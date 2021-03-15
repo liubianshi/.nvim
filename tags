@@ -1,0 +1,776 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	e-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/liubianshi/Repositories/nvim/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/f82c53556/
+#	KeyMap.vim	/^vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@\/<CR><CR>:$/;"	kind:m	line:131
+$GTAGSCONF	basic.vim	/^let $GTAGSCONF = $HOME . "\/.globalrc"$/;"	kind:v	line:89
+$GTAGSLABEL	basic.vim	/^let $GTAGSLABEL = 'native-pygments'$/;"	kind:v	line:88
+*	KeyMap.vim	/^vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>\/<C-R>=@\/<CR><CR>$/;"	kind:m	line:130
+,	autocmd.vim	/^    nmap     <buffer> ,              <Plug>RDSendLine$/;"	kind:m	line:42
+,	autocmd.vim	/^    nnoremap <buffer> , <esc>V:<C-U>call RunDoLines()<cr>$/;"	kind:m	line:132
+,	autocmd.vim	/^    vmap     <buffer> ,              <Plug>REDSendSelection$/;"	kind:m	line:43
+,	autocmd.vim	/^    vnoremap <buffer> , :<C-U>call RunDoLines()<cr>$/;"	kind:m	line:133
+,	ftplugin/r.vim	/^nmap     <buffer> ,              <Plug>RDSendLine$/;"	kind:m	line:24
+,	ftplugin/r.vim	/^vmap     <buffer> ,              <Plug>REDSendSelection$/;"	kind:m	line:25
+,	ftplugin/rmd.vim	/^nmap     <buffer> ,              <Plug>RDSendLine$/;"	kind:m	line:21
+,	ftplugin/rmd.vim	/^vmap     <buffer> ,              <Plug>REDSendSelection$/;"	kind:m	line:22
+,	ftplugin/stata.vim	/^nnoremap <buffer> , <esc>V:<C-U>call RunDoLines()<cr>$/;"	kind:m	line:12
+,	ftplugin/stata.vim	/^vnoremap <buffer> , :<C-U>call RunDoLines()<cr>$/;"	kind:m	line:13
+.nvim	README.md	/^# .nvim$/;"	kind:c	line:1
+/	Plugins/incsearch.vim	/^map \/  <Plug>(incsearch-forward)$/;"	kind:m	line:1
+;)	KeyMap.vim	/^inoremap ;) <C-v>uFF08 <C-v>uFF09<C-o>F <c-o>x$/;"	kind:m	line:285
+;+	autocmd.vim	/^    inoremap <buffer> ;+              <esc>^d0i<tab>1.<tab><esc>A$/;"	kind:m	line:73
+;+	ftplugin/pandoc.vim	/^inoremap <buffer> ;+              <esc>^d0i<tab>1.<tab><esc>A$/;"	kind:m	line:15
+;+	ftplugin/rmd.vim	/^inoremap <buffer> ;+              <esc>^d0i<tab>1.<tab><esc>A$/;"	kind:m	line:38
+;,	KeyMap.vim	/^inoremap ;, <C-v>uFF0C$/;"	kind:m	line:291
+;-	KeyMap.vim	/^inoremap ;- <C-v>u2014$/;"	kind:m	line:301
+;-	autocmd.vim	/^    inoremap <buffer> ;-              <esc>^d0i-<tab><esc>A$/;"	kind:m	line:70
+;-	ftplugin/pandoc.vim	/^inoremap <buffer> ;-              <esc>^d0i-<tab><esc>A$/;"	kind:m	line:12
+;-	ftplugin/rmd.vim	/^inoremap <buffer> ;-              <esc>^d0i-<tab><esc>A$/;"	kind:m	line:35
+;.	KeyMap.vim	/^inoremap ;. <C-v>u3002$/;"	kind:m	line:293
+;1	autocmd.vim	/^    inoremap <buffer> ;1              <esc>0i#<space><esc>A$/;"	kind:m	line:67
+;1	ftplugin/pandoc.vim	/^inoremap <buffer> ;1              <esc>0i#<space><esc>A$/;"	kind:m	line:9
+;1	ftplugin/rmd.vim	/^inoremap <buffer> ;1              <esc>0i#<space><esc>A$/;"	kind:m	line:32
+;2	autocmd.vim	/^    inoremap <buffer> ;2              <esc>0i##<space><esc>A$/;"	kind:m	line:68
+;2	ftplugin/pandoc.vim	/^inoremap <buffer> ;2              <esc>0i##<space><esc>A$/;"	kind:m	line:10
+;2	ftplugin/rmd.vim	/^inoremap <buffer> ;2              <esc>0i##<space><esc>A$/;"	kind:m	line:33
+;3	autocmd.vim	/^    inoremap <buffer> ;3              <esc>0i###<space><esc>A$/;"	kind:m	line:69
+;3	ftplugin/pandoc.vim	/^inoremap <buffer> ;3              <esc>0i###<space><esc>A$/;"	kind:m	line:11
+;3	ftplugin/rmd.vim	/^inoremap <buffer> ;3              <esc>0i###<space><esc>A$/;"	kind:m	line:34
+;:	KeyMap.vim	/^inoremap ;: <C-v>uFF1A$/;"	kind:m	line:299
+;;	basic.vim	/^noremap ;; ;$/;"	kind:m	line:7
+;<	KeyMap.vim	/^inoremap ;< <C-v>u300A$/;"	kind:m	line:305
+;<CR>	autocmd.vim	/^    inoremap <buffer> ;<CR> <Esc>A;<CR>$/;"	kind:m	line:185
+;<CR>	autocmd.vim	/^    inoremap <buffer> ;<CR> <Esc>A;<CR>$/;"	kind:m	line:50
+;<CR>	ftplugin/r.vim	/^inoremap <buffer> ;<CR> <Esc>A;<CR>$/;"	kind:m	line:32
+;<CR>	ftplugin/raku.vim	/^inoremap <buffer> ;<CR> <Esc>A;<CR>$/;"	kind:m	line:13
+;<CR>	ftplugin/rmd.vim	/^inoremap <buffer> ;<CR> <Esc>A;<CR>$/;"	kind:m	line:29
+;=	autocmd.vim	/^    inoremap <buffer> ;=              <esc>^d0i1.<tab><esc>A$/;"	kind:m	line:72
+;=	ftplugin/pandoc.vim	/^inoremap <buffer> ;=              <esc>^d0i1.<tab><esc>A$/;"	kind:m	line:14
+;=	ftplugin/rmd.vim	/^inoremap <buffer> ;=              <esc>^d0i1.<tab><esc>A$/;"	kind:m	line:37
+;>	KeyMap.vim	/^inoremap ;> <C-v>u300B<BS>$/;"	kind:m	line:307
+;?	KeyMap.vim	/^inoremap ;? <C-v>uFF1F$/;"	kind:m	line:297
+;\	KeyMap.vim	/^inoremap ;\\ <C-v>u3001$/;"	kind:m	line:295
+;]	KeyMap.vim	/^inoremap ;] <C-v>u2018 <C-v>u2019<C-o>F <c-o>x$/;"	kind:m	line:287
+;^	KeyMap.vim	/^inoremap ;^ <C-v>u2026$/;"	kind:m	line:303
+;_	autocmd.vim	/^    inoremap <buffer> ;_              <esc>^d0i<tab>-<tab><esc>A$/;"	kind:m	line:71
+;_	ftplugin/pandoc.vim	/^inoremap <buffer> ;_              <esc>^d0i<tab>-<tab><esc>A$/;"	kind:m	line:13
+;_	ftplugin/rmd.vim	/^inoremap <buffer> ;_              <esc>^d0i<tab>-<tab><esc>A$/;"	kind:m	line:36
+;b	autocmd.vim	/^    inoremap <buffer> ;b              ** **<C-o>F <c-o>x$/;"	kind:m	line:77
+;b	ftplugin/pandoc.vim	/^inoremap <buffer> ;b              ** **<C-o>F <c-o>x$/;"	kind:m	line:19
+;b	ftplugin/rmd.vim	/^inoremap <buffer> ;b              ** **<C-o>F <c-o>x$/;"	kind:m	line:42
+;c	autocmd.vim	/^    inoremap <buffer> ;c              ` `<C-o>F <c-o>x$/;"	kind:m	line:74
+;c	ftplugin/pandoc.vim	/^inoremap <buffer> ;c              ` `<C-o>F <c-o>x$/;"	kind:m	line:16
+;c	ftplugin/rmd.vim	/^inoremap <buffer> ;c              ` `<C-o>F <c-o>x$/;"	kind:m	line:39
+;i	autocmd.vim	/^    inoremap <buffer> ;i              * *<C-o>F <c-o>x$/;"	kind:m	line:76
+;i	autocmd.vim	/^    inoremap <buffer> ;i    \$$/;"	kind:m	line:182
+;i	ftplugin/pandoc.vim	/^inoremap <buffer> ;i              * *<C-o>F <c-o>x$/;"	kind:m	line:18
+;i	ftplugin/raku.vim	/^inoremap <buffer> ;i    \$$/;"	kind:m	line:10
+;i	ftplugin/rmd.vim	/^inoremap <buffer> ;i              * *<C-o>F <c-o>x$/;"	kind:m	line:41
+;l	autocmd.vim	/^    inoremap <buffer> ;l    <esc>A$/;"	kind:m	line:184
+;l	ftplugin/raku.vim	/^inoremap <buffer> ;l    <esc>A$/;"	kind:m	line:12
+;m	autocmd.vim	/^    inoremap <buffer> ;m              $ $<C-o>F <c-o>x$/;"	kind:m	line:75
+;m	ftplugin/pandoc.vim	/^inoremap <buffer> ;m              $ $<C-o>F <c-o>x$/;"	kind:m	line:17
+;m	ftplugin/rmd.vim	/^inoremap <buffer> ;m              $ $<C-o>F <c-o>x$/;"	kind:m	line:40
+;o	autocmd.vim	/^    inoremap <buffer> ;o    ~$/;"	kind:m	line:183
+;o	ftplugin/raku.vim	/^inoremap <buffer> ;o    ~$/;"	kind:m	line:11
+;rq	autocmd.vim	/^    inoremap <buffer> ;rq                     <esc>vap:LbsRF<cr>$/;"	kind:m	line:46
+;rq	ftplugin/r.vim	/^inoremap <buffer> ;rq                     <esc>vap:LbsRF<cr>$/;"	kind:m	line:28
+;rq	ftplugin/rmd.vim	/^inoremap <buffer> ;rq                     <esc>vap:LbsRF<cr>$/;"	kind:m	line:25
+;}	KeyMap.vim	/^inoremap ;} <C-v>u201C <C-v>u201D<C-o>F <c-o>x$/;"	kind:m	line:289
+<A-->	autocmd.vim	/^    inoremap <buffer> <A--> ->$/;"	kind:m	line:181
+<A-->	ftplugin/raku.vim	/^inoremap <buffer> <A--> ->$/;"	kind:m	line:9
+<A-1>	autocmd.vim	/^        inoremap <buffer> <A-1> <esc>V:<c-u>call RunDoLines()<cr>$/;"	kind:m	line:128
+<A-1>	autocmd.vim	/^        nnoremap <buffer> <A-1> V:call RunDoLines()<cr>$/;"	kind:m	line:129
+<A-1>	autocmd.vim	/^        vnoremap <buffer> <A-1> :<C-U>call RunDoLines()<cr>$/;"	kind:m	line:130
+<A-1>	autocmd.vim	/^    imap     <buffer> <A-1>          <Esc><Plug>RDSendLine$/;"	kind:m	line:40
+<A-1>	autocmd.vim	/^    nmap     <buffer> <A-1>          <Plug>RDSendLine$/;"	kind:m	line:41
+<A-1>	ftplugin/r.vim	/^imap     <buffer> <A-1>          <Esc><Plug>RDSendLine$/;"	kind:m	line:22
+<A-1>	ftplugin/r.vim	/^nmap     <buffer> <A-1>          <Plug>RDSendLine$/;"	kind:m	line:23
+<A-1>	ftplugin/rmd.vim	/^imap     <buffer> <A-1>          <Esc><Plug>RDSendLine$/;"	kind:m	line:19
+<A-1>	ftplugin/rmd.vim	/^nmap     <buffer> <A-1>          <Plug>RDSendLine$/;"	kind:m	line:20
+<A-1>	ftplugin/stata.vim	/^    inoremap <buffer> <A-1> <esc>V:<c-u>call RunDoLines()<cr>$/;"	kind:m	line:8
+<A-1>	ftplugin/stata.vim	/^    nnoremap <buffer> <A-1> V:call RunDoLines()<cr>$/;"	kind:m	line:9
+<A-1>	ftplugin/stata.vim	/^    vnoremap <buffer> <A-1> :<C-U>call RunDoLines()<cr>$/;"	kind:m	line:10
+<A-=>	autocmd.vim	/^    inoremap <buffer> <A-=>          <-<Space>$/;"	kind:m	line:39
+<A-=>	autocmd.vim	/^    inoremap <buffer> <A-=> =>$/;"	kind:m	line:180
+<A-=>	ftplugin/r.vim	/^inoremap <buffer> <A-=>          <-<Space>$/;"	kind:m	line:21
+<A-=>	ftplugin/raku.vim	/^inoremap <buffer> <A-=> =>$/;"	kind:m	line:8
+<A-=>	ftplugin/rmd.vim	/^inoremap <buffer> <A-=>          <-<Space>$/;"	kind:m	line:18
+<A-O>	KeyMap.vim	/^noremap  <A-O> O<Esc>$/;"	kind:m	line:96
+<A-\>	autocmd.vim	/^        inoremap <buffer> <A-\\> ==><cr>$/;"	kind:m	line:188
+<A-\>	autocmd.vim	/^    inoremap <buffer> <A-\\>          %>%$/;"	kind:m	line:38
+<A-\>	autocmd.vim	/^    inoremap <buffer> <A-\\> ==><cr>$/;"	kind:m	line:179
+<A-\>	ftplugin/r.vim	/^inoremap <buffer> <A-\\>          %>%$/;"	kind:m	line:20
+<A-\>	ftplugin/raku.vim	/^    inoremap <buffer> <A-\\> ==><cr>$/;"	kind:m	line:16
+<A-\>	ftplugin/raku.vim	/^inoremap <buffer> <A-\\> ==><cr>$/;"	kind:m	line:7
+<A-\>	ftplugin/rmd.vim	/^inoremap <buffer> <A-\\>          %>%$/;"	kind:m	line:17
+<A-d>	KeyMap.vim	/^    nnoremap <A-d> 10j$/;"	kind:m	line:34
+<A-j>	KeyMap.vim	/^nnoremap <A-j> <Esc>Vj$/;"	kind:m	line:93
+<A-k>	KeyMap.vim	/^nnoremap <A-k> <Esc>Vk$/;"	kind:m	line:94
+<A-o>	KeyMap.vim	/^noremap  <A-o> o<Esc>$/;"	kind:m	line:95
+<A-space>	KeyMap.vim	/^inoremap <A-space> <Esc>$/;"	kind:m	line:29
+<A-u>	KeyMap.vim	/^    nnoremap <A-u> 10k$/;"	kind:m	line:35
+<Bslash>	whichkey.vim	/^nnoremap <silent> <Bslash> :<c-u>execute "WhichKey '\\<Bslash\\>'"<CR>$/;"	kind:m	line:45
+<Bslash>	whichkey.vim	/^vnoremap <silent> <Bslash> :<c-u>execute "WhichKey '\\<Bslash\\>'"<CR>$/;"	kind:m	line:46
+<C-B>	KeyMap.vim	/^noremap <C-B> :<C-U><C-R>=printf("Leaderf rg --current-buffer -e %s ", expand("<cword>"))<CR><CR/;"	kind:m	line:268
+<C-F>	KeyMap.vim	/^noremap <C-F> :<C-U><C-R>=printf("Leaderf rg -e %s", "")<CR>$/;"	kind:m	line:269
+<Down>	KeyMap.vim	/^inoremap <silent><expr> <Down> pumvisible() ? "\\<C-n>" : "\\<Down>"$/;"	kind:m	line:75
+<LocalLeader>:	autocmd.vim	/^    nmap     <buffer> <LocalLeader>: :RSend $/;"	kind:m	line:44
+<LocalLeader>:	ftplugin/r.vim	/^nmap     <buffer> <LocalLeader>: :RSend $/;"	kind:m	line:26
+<LocalLeader>:	ftplugin/rmd.vim	/^nmap     <buffer> <LocalLeader>: :RSend $/;"	kind:m	line:23
+<S-TAB>	KeyMap.vim	/^inoremap <expr><S-TAB> pumvisible() ? "\\<C-p>" : "\\<C-h>"$/;"	kind:m	line:78
+<Tab>	KeyMap.vim	/^inoremap <silent><expr> <Tab>  pumvisible() ? "\\<C-n>" : "\\<Tab>"$/;"	kind:m	line:77
+<Up>	KeyMap.vim	/^inoremap <silent><expr> <Up>   pumvisible() ? "\\<C-p>" : "\\<Up>"$/;"	kind:m	line:76
+<cr>	KeyMap.vim	/^  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\\<C-y>" : "\\<C-g>u\\<CR>"$/;"	kind:m	line:81
+<cr>	KeyMap.vim	/^  inoremap <expr> <cr> pumvisible() ? "\\<C-y>" : "\\<C-g>u\\<CR>"$/;"	kind:m	line:83
+<leader>	whichkey.vim	/^nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>$/;"	kind:m	line:5
+<leader>	whichkey.vim	/^vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>$/;"	kind:m	line:6
+<leader>:	KeyMap.vim	/^noremap <leader>: :<C-U><C-R>=printf("FloatermNew%s", "")<CR> $/;"	kind:m	line:280
+<leader><cr>	KeyMap.vim	/^nnoremap <silent> <leader><cr> :noh<cr>$/;"	kind:m	line:40
+<leader><leader>	KeyMap.vim	/^noremap <leader><leader> :<C-R>=printf("FloatermSend%s", "")<CR> $/;"	kind:m	line:279
+<leader><tab>	KeyMap.vim	/^nmap <leader><tab> <plug>(fzf-maps-n)$/;"	kind:m	line:356
+<leader><tab>	KeyMap.vim	/^omap <leader><tab> <plug>(fzf-maps-o)$/;"	kind:m	line:358
+<leader><tab>	KeyMap.vim	/^xmap <leader><tab> <plug>(fzf-maps-x)$/;"	kind:m	line:357
+<leader>B	KeyMap.vim	/^nnoremap <silent> <leader>B :call Status()<cr>$/;"	kind:m	line:41
+<leader>C	KeyMap.vim	/^nnoremap <silent> <leader>C :<c-u> call ChangeCompleteEngine()<cr>$/;"	kind:m	line:25
+<leader>O	KeyMap.vim	/^    nnoremap <leader>O :AsyncRun open "%"<cr>$/;"	kind:m	line:32
+<leader>O	KeyMap.vim	/^nnoremap <leader>O :AsyncRun xdg-open "%"<cr>$/;"	kind:m	line:28
+<leader>Z	KeyMap.vim	/^nnoremap <leader>Z :Goyo<cr>$/;"	kind:m	line:275
+<leader>a-	KeyMap.vim	/^nnoremap <silent> <leader>a- :<c-u>call <sid>AddDash("-")<cr>$/;"	kind:m	line:21
+<leader>a.	KeyMap.vim	/^nnoremap <silent> <leader>a. :<c-u>call <sid>AddDash(".")<cr>$/;"	kind:m	line:23
+<leader>a=	KeyMap.vim	/^nnoremap <silent> <leader>a= :<c-u>call <sid>AddDash("=")<cr>$/;"	kind:m	line:22
+<leader>ad	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>ad :<c-u>ALEDisableBuffer<cr>$/;"	kind:m	line:37
+<leader>ae	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>ae :<c-u>ALEEnableBuffer<cr>$/;"	kind:m	line:36
+<leader>al	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>al :<c-u>ALELint<cr>$/;"	kind:m	line:39
+<leader>as	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>as :<c-u>ALELintStop<cr>$/;"	kind:m	line:40
+<leader>at	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>at :<c-u>ALEToggleBuffer<cr>$/;"	kind:m	line:38
+<leader>bQ	KeyMap.vim	/^nnoremap <silent> <leader>bQ :q!<cr>$/;"	kind:m	line:52
+<leader>bW	KeyMap.vim	/^nnoremap <silent> <leader>bW :w!<cr>$/;"	kind:m	line:54
+<leader>bc	KeyMap.vim	/^nnoremap <silent> <leader>bc :<c-u>call Lilydjwg_cleanbufs()<cr>$/;"	kind:m	line:47
+<leader>bd	KeyMap.vim	/^nnoremap <silent> <leader>bd :<c-u>Bclose<cr>$/;"	kind:m	line:48
+<leader>bj	KeyMap.vim	/^nnoremap <silent> <leader>bj :<c-u>bp<cr>$/;"	kind:m	line:49
+<leader>bk	KeyMap.vim	/^nnoremap <silent> <leader>bk :<c-u>bn<cr>$/;"	kind:m	line:50
+<leader>bq	KeyMap.vim	/^nnoremap <silent> <leader>bq :q<cr>$/;"	kind:m	line:51
+<leader>bw	KeyMap.vim	/^nnoremap <silent> <leader>bw :w<cr>$/;"	kind:m	line:53
+<leader>d1	KeyMap.vim	/^map <silent> <leader>d1 :diffget 1<CR> :diffupdate<CR>$/;"	kind:m	line:361
+<leader>d2	KeyMap.vim	/^map <silent> <leader>d2 :diffget 2<CR> :diffupdate<CR>$/;"	kind:m	line:362
+<leader>d3	KeyMap.vim	/^map <silent> <leader>d3 :diffget 3<CR> :diffupdate<CR>$/;"	kind:m	line:363
+<leader>d4	KeyMap.vim	/^map <silent> <leader>d4 :diffget 4<CR> :diffupdate<CR>$/;"	kind:m	line:364
+<leader>eV	KeyMap.vim	/^nnoremap <leader>eV :source $MYVIMRC<cr>$/;"	kind:m	line:39
+<leader>ek	KeyMap.vim	/^nnoremap <leader>ek :tabedit ~\/.config\/nvim\/KeyMap.vim<cr>$/;"	kind:m	line:38
+<leader>ev	KeyMap.vim	/^nnoremap <leader>ev :tabedit $MYVIMRC<cr>$/;"	kind:m	line:37
+<leader>f/	KeyMap.vim	/^noremap <silent> <leader>f\/ :<C-U><C-R>=printf("Leaderf searchHistory %s", "")<CR><CR>$/;"	kind:m	line:267
+<leader>f:	KeyMap.vim	/^noremap <silent> <leader>f: :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>$/;"	kind:m	line:266
+<leader>fC	KeyMap.vim	/^noremap <silent> <leader>fC :<C-U><C-R>=printf("Leaderf colorscheme %s", "")<CR><CR>$/;"	kind:m	line:256
+<leader>fT	KeyMap.vim	/^noremap <silent> <leader>fT :<C-U><C-R>=printf("Leaderf bufTag --all %s", "")<CR><CR>$/;"	kind:m	line:262
+<leader>fb	KeyMap.vim	/^noremap <silent> <leader>fb  :FzfBuffer<CR>$/;"	kind:m	line:254
+<leader>fc	KeyMap.vim	/^noremap <silent> <leader>fc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>$/;"	kind:m	line:255
+<leader>fe	KeyMap.vim	/^noremap <silent> <leader>fe  :FzfFiles<CR>$/;"	kind:m	line:257
+<leader>fg	KeyMap.vim	/^noremap <silent> <leader>fg :<C-U><C-R>=printf("Leaderf gtags --all %s", "")<CR><CR>$/;"	kind:m	line:258
+<leader>fl	KeyMap.vim	/^noremap <silent> <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>$/;"	kind:m	line:263
+<leader>fm	KeyMap.vim	/^noremap <silent> <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>$/;"	kind:m	line:259
+<leader>fr	KeyMap.vim	/^noremap <silent> <leader>fr :<C-U><C-R>=printf("Leaderf! task --nowrap %s", "")<CR><CR>$/;"	kind:m	line:264
+<leader>fs	KeyMap.vim	/^noremap <silent> <leader>fs  :FzfSnippets<CR>$/;"	kind:m	line:265
+<leader>ft	KeyMap.vim	/^noremap <silent> <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>$/;"	kind:m	line:261
+<leader>fw	KeyMap.vim	/^noremap <silent> <leader>fw  :WikiFzfPages<CR>$/;"	kind:m	line:260
+<leader>j	KeyMap.vim	/^nmap <leader>j <Plug>(VM-Add-Cursor-Down)$/;"	kind:m	line:367
+<leader>k	KeyMap.vim	/^nmap <leader>k <Plug>(VM-Add-Cursor-Up)$/;"	kind:m	line:368
+<leader>lr	KeyMap.vim	/^nnoremap <silent> <leader>lr :Lf<cr>$/;"	kind:m	line:63
+<leader>ls	KeyMap.vim	/^nnoremap <silent> <leader>ls :split +Lf<cr>$/;"	kind:m	line:64
+<leader>lt	KeyMap.vim	/^nnoremap <silent> <leader>lt :LfNewTab<cr>$/;"	kind:m	line:66
+<leader>lv	KeyMap.vim	/^nnoremap <silent> <leader>lv :vertical split +Lf<cr>$/;"	kind:m	line:65
+<leader>lw	KeyMap.vim	/^nnoremap <silent> <leader>lw :NERDTreeToggle<cr>$/;"	kind:m	line:67
+<leader>nH	autocmd.vim	/^    nnoremap <buffer> <silent> <leader>nH$/;"	kind:m	line:81
+<leader>nH	ftplugin/pandoc.vim	/^nnoremap <buffer> <silent> <leader>nH$/;"	kind:m	line:23
+<leader>nH	ftplugin/rmd.vim	/^nnoremap <buffer> <silent> <leader>nH$/;"	kind:m	line:46
+<leader>nc	autocmd.vim	/^    nnoremap <buffer> <leader>nc               :RNrrw<cr>:set filetype=r<cr>$/;"	kind:m	line:94
+<leader>nc	ftplugin/rmd.vim	/^nnoremap <buffer> <leader>nc               :RNrrw<cr>:set filetype=r<cr>$/;"	kind:m	line:57
+<leader>nh	autocmd.vim	/^    noremap <buffer> <silent> <leader>nh$/;"	kind:m	line:83
+<leader>nh	ftplugin/pandoc.vim	/^noremap <buffer> <silent> <leader>nh$/;"	kind:m	line:25
+<leader>nh	ftplugin/rmd.vim	/^noremap <buffer> <silent> <leader>nh$/;"	kind:m	line:48
+<leader>nn	KeyMap.vim	/^nnoremap <silent> <leader>nn :NnnPicker<CR>$/;"	kind:m	line:68
+<leader>p	KeyMap.vim	/^nnoremap <silent> <leader>p :<c-u>execute "cd" expand("%:p:h")<cr>$/;"	kind:m	line:24
+<leader>ph	autocmd.vim	/^    nnoremap <buffer> <leader>ph               :Pandoc html<cr>$/;"	kind:m	line:116
+<leader>ph	ftplugin/pandoc.vim	/^nnoremap <buffer> <leader>ph               :Pandoc html<cr>$/;"	kind:m	line:6
+<leader>pp	autocmd.vim	/^    nnoremap <buffer> <leader>pp               :Pandoc pdf -H ~\/useScript\/header.tex<cr>$/;"	kind:m	line:115
+<leader>pp	ftplugin/pandoc.vim	/^nnoremap <buffer> <leader>pp               :Pandoc pdf -H ~\/useScript\/header.tex<cr>$/;"	kind:m	line:5
+<leader>q	KeyMap.vim	/^nnoremap <leader>q :call QuickfixToggle()<cr>$/;"	kind:m	line:44
+<leader>rh	autocmd.vim	/^    nnoremap <buffer> <leader>rh               :AsyncRun ~\/useScript\/rmarkdown.sh -o bookdown:/;"	kind:m	line:93
+<leader>rh	ftplugin/rmd.vim	/^nnoremap <buffer> <leader>rh               :AsyncRun ~\/useScript\/rmarkdown.sh -o bookdown::htm/;"	kind:m	line:56
+<leader>rp	autocmd.vim	/^    nnoremap <buffer> <leader>rp               :AsyncRun ~\/useScript\/rmarkdown.sh %<cr>$/;"	kind:m	line:92
+<leader>rp	ftplugin/rmd.vim	/^nnoremap <buffer> <leader>rp               :AsyncRun ~\/useScript\/rmarkdown.sh %<cr>$/;"	kind:m	line:55
+<leader>te	KeyMap.vim	/^nnoremap <silent> <leader>te vip:AsyncRun tr "\\n" " " \\| trans -b --no-ansi zh:en \\| tee >(xc/;"	kind:m	line:60
+<leader>te	KeyMap.vim	/^vnoremap <silent> <leader>te "*y:AsyncRun xclip -o \\| tr "\\n" " " \\| trans -b --no-ansi zh:en/;"	kind:m	line:59
+<leader>tt	KeyMap.vim	/^nnoremap <silent> <leader>tt vip:AsyncRun tr "\\n" " " \\| trans -b --no-ansi \\| tee >(xclip -i/;"	kind:m	line:58
+<leader>tt	KeyMap.vim	/^vnoremap <silent> <leader>tt "*y:AsyncRun xclip -o \\| tr "\\n" " " \\| trans -b --no-ansi \\| t/;"	kind:m	line:57
+<leader>w	KeyMap.vim	/^nnoremap <silent> <leader>w :<c-u>:w<cr>$/;"	kind:m	line:26
+<leader>x	KeyMap.vim	/^nnoremap <silent> <leader>x :<c-u>:q<cr>$/;"	kind:m	line:27
+<leader>z	KeyMap.vim	/^nnoremap <leader>z :<c-u>call ToggleZenMode()<cr>$/;"	kind:m	line:274
+<localleader>	whichkey.vim	/^nnoremap <silent> <localleader> :<c-u>WhichKey  ';'<CR>$/;"	kind:m	line:20
+<localleader>	whichkey.vim	/^vnoremap <silent> <localleader> :<c-u>WhichKeyVisual ';'<CR>$/;"	kind:m	line:21
+<localleader>D	autocmd.vim	/^    nnoremap <buffer> <localleader>D :<c-u>RSend devtools::document()<cr>$/;"	kind:m	line:58
+<localleader>D	autocmd.vim	/^    nnoremap <buffer><silent> <localleader>D :<c-u>AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "/;"	kind:m	line:18
+<localleader>D	ftplugin/c.vim	/^nnoremap <buffer><silent> <localleader>D :<c-u>AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VI/;"	kind:m	line:3
+<localleader>D	ftplugin/r.vim	/^nnoremap <buffer> <localleader>D :<c-u>RSend devtools::document()<cr>$/;"	kind:m	line:4
+<localleader>E	autocmd.vim	/^    nmap     <buffer> <localleader>E <Plug>(DBUI_EditBindParameters)$/;"	kind:m	line:149
+<localleader>E	ftplugin/sql.vim	/^nmap     <buffer> <localleader>E <Plug>(DBUI_EditBindParameters)$/;"	kind:m	line:7
+<localleader>H	autocmd.vim	/^    nnoremap <buffer> <localleader>H           :<c-u>call RMakeRmd("bookdown::html_document2")<c/;"	kind:m	line:101
+<localleader>H	ftplugin/rmd.vim	/^nnoremap <buffer> <localleader>H           :<c-u>call RMakeRmd("bookdown::html_document2")<cr>$/;"	kind:m	line:64
+<localleader>L	autocmd.vim	/^    nnoremap <buffer> <localleader>L :<c-u>DB < "%"<cr>$/;"	kind:m	line:148
+<localleader>L	autocmd.vim	/^    nnoremap <buffer> <localleader>L :<c-u>RSend devtools::load_all()<cr>$/;"	kind:m	line:57
+<localleader>L	autocmd.vim	/^    nnoremap <buffer><silent> <localleader>L :<c-u>AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILE/;"	kind:m	line:19
+<localleader>L	ftplugin/c.vim	/^nnoremap <buffer><silent> <localleader>L :<c-u>AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/;"	kind:m	line:4
+<localleader>L	ftplugin/r.vim	/^nnoremap <buffer> <localleader>L :<c-u>RSend devtools::load_all()<cr>$/;"	kind:m	line:3
+<localleader>L	ftplugin/sql.vim	/^nnoremap <buffer> <localleader>L :<c-u>DB < "%"<cr>$/;"	kind:m	line:6
+<localleader>P	autocmd.vim	/^    nnoremap <buffer> <localleader>P           :<c-u>call RMakeRmd("bookdown::pdf_document2")<cr/;"	kind:m	line:100
+<localleader>P	ftplugin/rmd.vim	/^nnoremap <buffer> <localleader>P           :<c-u>call RMakeRmd("bookdown::pdf_document2")<cr>$/;"	kind:m	line:63
+<localleader>T	autocmd.vim	/^    nnoremap <buffer> <localleader>T :<c-u>RSend devtools::test()<cr>$/;"	kind:m	line:59
+<localleader>T	ftplugin/r.vim	/^nnoremap <buffer> <localleader>T :<c-u>RSend devtools::test()<cr>$/;"	kind:m	line:5
+<localleader>W	autocmd.vim	/^    nmap     <buffer> <localleader>W <Plug>(DBUI_SaveQuery) $/;"	kind:m	line:150
+<localleader>W	autocmd.vim	/^    nnoremap <buffer> <localleader>W           :<c-u>call RMakeRmd("bookdown::word_document2")<c/;"	kind:m	line:102
+<localleader>W	ftplugin/rmd.vim	/^nnoremap <buffer> <localleader>W           :<c-u>call RMakeRmd("bookdown::word_document2")<cr>$/;"	kind:m	line:65
+<localleader>W	ftplugin/sql.vim	/^nmap     <buffer> <localleader>W <Plug>(DBUI_SaveQuery) $/;"	kind:m	line:8
+<localleader>ab	autocmd.vim	/^    nnoremap <buffer> <localleader>ab :<c-u>AsyncRun $/;"	kind:m	line:79
+<localleader>ab	ftplugin/pandoc.vim	/^nnoremap <buffer> <localleader>ab :<c-u>AsyncRun $/;"	kind:m	line:21
+<localleader>ab	ftplugin/rmd.vim	/^nnoremap <buffer> <localleader>ab :<c-u>AsyncRun $/;"	kind:m	line:44
+<localleader>d	autocmd.vim	/^    nnoremap <buffer> <localleader>d :<c-u>AsyncRun dot -Tpdf % -o "%:r.pdf"<cr> $/;"	kind:m	line:163
+<localleader>d	ftplugin/dot.vim	/^nnoremap <buffer> <localleader>d :<c-u>AsyncRun dot -Tpdf % -o "%:r.pdf"<cr> $/;"	kind:m	line:1
+<localleader>ic	autocmd.vim	/^    nnoremap <buffer> <localleader>ic ysiW`$/;"	kind:m	line:78
+<localleader>ic	ftplugin/pandoc.vim	/^nnoremap <buffer> <localleader>ic ysiW`$/;"	kind:m	line:20
+<localleader>ic	ftplugin/rmd.vim	/^nnoremap <buffer> <localleader>ic ysiW`$/;"	kind:m	line:43
+<localleader>kbh	autocmd.vim	/^    nnoremap <buffer> <localleader>kbh         :<c-u>RSend bookdown::render_book("index.Rmd", "b/;"	kind:m	line:97
+<localleader>kbh	ftplugin/rmd.vim	/^nnoremap <buffer> <localleader>kbh         :<c-u>RSend bookdown::render_book("index.Rmd", "bookd/;"	kind:m	line:60
+<localleader>kbo	autocmd.vim	/^        nnoremap <buffer> <localleader>kbo  :<c-u>! open .\/_book\/draft.pdf<cr> $/;"	kind:m	line:105
+<localleader>kbo	autocmd.vim	/^    nnoremap <buffer> <localleader>kbo         :<c-u>! xdg-open .\/_book\/draft.pdf<cr> $/;"	kind:m	line:98
+<localleader>kbo	ftplugin/rmd.vim	/^    nnoremap <buffer> <localleader>kbo  :<c-u>! open .\/_book\/draft.pdf<cr> $/;"	kind:m	line:68
+<localleader>kbo	ftplugin/rmd.vim	/^nnoremap <buffer> <localleader>kbo         :<c-u>! xdg-open .\/_book\/draft.pdf<cr> $/;"	kind:m	line:61
+<localleader>kbp	autocmd.vim	/^    nnoremap <buffer> <localleader>kbp         :<c-u>RSend bookdown::render_book("index.Rmd", "b/;"	kind:m	line:96
+<localleader>kbp	ftplugin/rmd.vim	/^nnoremap <buffer> <localleader>kbp         :<c-u>RSend bookdown::render_book("index.Rmd", "bookd/;"	kind:m	line:59
+<localleader>kbv	autocmd.vim	/^    nnoremap <buffer> <localleader>kbv         :<c-u>RSend bookdown::preview_chapter(%)<cr>$/;"	kind:m	line:99
+<localleader>kbv	ftplugin/rmd.vim	/^nnoremap <buffer> <localleader>kbv         :<c-u>RSend bookdown::preview_chapter(%)<cr>$/;"	kind:m	line:62
+<localleader>l	autocmd.vim	/^    nnoremap <buffer> <localleader>l V:DB<cr>$/;"	kind:m	line:147
+<localleader>l	autocmd.vim	/^    vnoremap <buffer> <localleader>l :DB<cr>$/;"	kind:m	line:146
+<localleader>l	ftplugin/sql.vim	/^nnoremap <buffer> <localleader>l V:DB<cr>$/;"	kind:m	line:5
+<localleader>l	ftplugin/sql.vim	/^vnoremap <buffer> <localleader>l :DB<cr>$/;"	kind:m	line:4
+<localleader>pi	autocmd.vim	/^    nnoremap <buffer> <silent> <localleader>pi :<c-u>call RmdClipBoardImage()<CR>$/;"	kind:m	line:95
+<localleader>pi	autocmd.vim	/^    nnoremap <buffer> <silent> <localleader>pi :<c-u>call mdip#MarkdownClipboardImage()<CR>$/;"	kind:m	line:117
+<localleader>pi	ftplugin/pandoc.vim	/^nnoremap <buffer> <silent> <localleader>pi :<c-u>call mdip#MarkdownClipboardImage()<CR>$/;"	kind:m	line:7
+<localleader>pi	ftplugin/rmd.vim	/^nnoremap <buffer> <silent> <localleader>pi :<c-u>call RmdClipBoardImage()<CR>$/;"	kind:m	line:58
+<localleader>r	autocmd.vim	/^    nnoremap <buffer> <silent> <localleader>r :<c-u>AsyncRun raku "%"<cr>$/;"	kind:m	line:178
+<localleader>r	ftplugin/raku.vim	/^nnoremap <buffer> <silent> <localleader>r :<c-u>AsyncRun raku "%"<cr>$/;"	kind:m	line:6
+<localleader>t1	autocmd.vim	/^    nmap <buffer> <localleader>t1 :<c-u>call    R_view_srdm_table()<cr>$/;"	kind:m	line:35
+<localleader>t1	ftplugin/r.vim	/^nmap <buffer> <localleader>t1 :<c-u>call    R_view_srdm_table()<cr>$/;"	kind:m	line:17
+<localleader>t1	ftplugin/rmd.vim	/^nmap <buffer> <localleader>t1 :<c-u>call    R_view_srdm_table()<cr>$/;"	kind:m	line:14
+<localleader>t2	autocmd.vim	/^    nmap <buffer> <localleader>t2 :<c-u>call    R_view_srdm_var()<cr>$/;"	kind:m	line:36
+<localleader>t2	ftplugin/r.vim	/^nmap <buffer> <localleader>t2 :<c-u>call    R_view_srdm_var()<cr>$/;"	kind:m	line:18
+<localleader>t2	ftplugin/rmd.vim	/^nmap <buffer> <localleader>t2 :<c-u>call    R_view_srdm_var()<cr>$/;"	kind:m	line:15
+<localleader>tV	autocmd.vim	/^    nmap <buffer> <localleader>tV yiw:<c-u>call R_view_df_full(30)<cr>$/;"	kind:m	line:29
+<localleader>tV	autocmd.vim	/^    vmap <buffer> <localleader>tV y:<c-u>call   R_view_df_full(30)<cr>$/;"	kind:m	line:34
+<localleader>tV	ftplugin/r.vim	/^nmap <buffer> <localleader>tV yiw:<c-u>call R_view_df_full(30)<cr>$/;"	kind:m	line:11
+<localleader>tV	ftplugin/r.vim	/^vmap <buffer> <localleader>tV y:<c-u>call   R_view_df_full(30)<cr>$/;"	kind:m	line:16
+<localleader>tV	ftplugin/rmd.vim	/^nmap <buffer> <localleader>tV yiw:<c-u>call R_view_df_full(30)<cr>$/;"	kind:m	line:8
+<localleader>tV	ftplugin/rmd.vim	/^vmap <buffer> <localleader>tV y:<c-u>call   R_view_df_full(30)<cr>$/;"	kind:m	line:13
+<localleader>th	autocmd.vim	/^    nmap <buffer> <localleader>th yiw:<c-u>call R_view_df_sample('h')<cr>$/;"	kind:m	line:27
+<localleader>th	autocmd.vim	/^    vmap <buffer> <localleader>th y:<c-u>call   R_view_df_sample('h')<cr>$/;"	kind:m	line:32
+<localleader>th	ftplugin/r.vim	/^nmap <buffer> <localleader>th yiw:<c-u>call R_view_df_sample('h')<cr>$/;"	kind:m	line:9
+<localleader>th	ftplugin/r.vim	/^vmap <buffer> <localleader>th y:<c-u>call   R_view_df_sample('h')<cr>$/;"	kind:m	line:14
+<localleader>th	ftplugin/rmd.vim	/^nmap <buffer> <localleader>th yiw:<c-u>call R_view_df_sample('h')<cr>$/;"	kind:m	line:6
+<localleader>th	ftplugin/rmd.vim	/^vmap <buffer> <localleader>th y:<c-u>call   R_view_df_sample('h')<cr>$/;"	kind:m	line:11
+<localleader>tr	autocmd.vim	/^    nmap <buffer> <localleader>tr yiw:<c-u>call R_view_df_sample('r')<cr>$/;"	kind:m	line:26
+<localleader>tr	autocmd.vim	/^    vmap <buffer> <localleader>tr y:<c-u>call   R_view_df_sample('r')<cr>$/;"	kind:m	line:31
+<localleader>tr	ftplugin/r.vim	/^nmap <buffer> <localleader>tr yiw:<c-u>call R_view_df_sample('r')<cr>$/;"	kind:m	line:8
+<localleader>tr	ftplugin/r.vim	/^vmap <buffer> <localleader>tr y:<c-u>call   R_view_df_sample('r')<cr>$/;"	kind:m	line:13
+<localleader>tr	ftplugin/rmd.vim	/^nmap <buffer> <localleader>tr yiw:<c-u>call R_view_df_sample('r')<cr>$/;"	kind:m	line:5
+<localleader>tr	ftplugin/rmd.vim	/^vmap <buffer> <localleader>tr y:<c-u>call   R_view_df_sample('r')<cr>$/;"	kind:m	line:10
+<localleader>tt	autocmd.vim	/^    nmap <buffer> <localleader>tt yiw:<c-u>call R_view_df_sample('t')<cr>$/;"	kind:m	line:28
+<localleader>tt	autocmd.vim	/^    vmap <buffer> <localleader>tt y:<c-u>call   R_view_df_sample('t')<cr>$/;"	kind:m	line:33
+<localleader>tt	ftplugin/r.vim	/^nmap <buffer> <localleader>tt yiw:<c-u>call R_view_df_sample('t')<cr>$/;"	kind:m	line:10
+<localleader>tt	ftplugin/r.vim	/^vmap <buffer> <localleader>tt y:<c-u>call   R_view_df_sample('t')<cr>$/;"	kind:m	line:15
+<localleader>tt	ftplugin/rmd.vim	/^nmap <buffer> <localleader>tt yiw:<c-u>call R_view_df_sample('t')<cr>$/;"	kind:m	line:7
+<localleader>tt	ftplugin/rmd.vim	/^vmap <buffer> <localleader>tt y:<c-u>call   R_view_df_sample('t')<cr>$/;"	kind:m	line:12
+<localleader>tv	autocmd.vim	/^    nmap <buffer> <localleader>tv yiw:<c-u>call R_view_df_sample('ht')<cr>$/;"	kind:m	line:25
+<localleader>tv	autocmd.vim	/^    vmap <buffer> <localleader>tv y:<c-u>call   R_view_df_sample('ht')<cr>$/;"	kind:m	line:30
+<localleader>tv	ftplugin/r.vim	/^nmap <buffer> <localleader>tv yiw:<c-u>call R_view_df_sample('ht')<cr>$/;"	kind:m	line:7
+<localleader>tv	ftplugin/r.vim	/^vmap <buffer> <localleader>tv y:<c-u>call   R_view_df_sample('ht')<cr>$/;"	kind:m	line:12
+<localleader>tv	ftplugin/rmd.vim	/^nmap <buffer> <localleader>tv yiw:<c-u>call R_view_df_sample('ht')<cr>$/;"	kind:m	line:4
+<localleader>tv	ftplugin/rmd.vim	/^vmap <buffer> <localleader>tv y:<c-u>call   R_view_df_sample('ht')<cr>$/;"	kind:m	line:9
+<m-d>	KeyMap.vim	/^inoremap <m-d> <c-\\><c-o>:PreviewScroll +1<cr>$/;"	kind:m	line:376
+<m-d>	KeyMap.vim	/^noremap  <m-d> :PreviewScroll +1<cr>$/;"	kind:m	line:374
+<m-u>	KeyMap.vim	/^inoremap <m-u> <c-\\><c-o>:PreviewScroll -1<cr>$/;"	kind:m	line:375
+<m-u>	KeyMap.vim	/^noremap  <m-u> :PreviewScroll -1<cr>$/;"	kind:m	line:373
+<s-tab>	KeyMap.vim	/^nnoremap <s-tab>    V<$/;"	kind:m	line:124
+<s-tab>	KeyMap.vim	/^vnoremap <s-tab>    <gv$/;"	kind:m	line:125
+<tab>	KeyMap.vim	/^vnoremap <tab>      >gv$/;"	kind:m	line:123
+<tab>	whichkey.vim	/^nnoremap <silent> <tab> :<c-u>execute "WhichKey '\\<tab\\>'"<CR>$/;"	kind:m	line:38
+<tab>	whichkey.vim	/^vnoremap <silent> <tab> :<c-u>execute "WhichKey '\\<tab\\>'"<CR>$/;"	kind:m	line:39
+<tab><CR>	autocmd.vim	/^    nnoremap <buffer> <tab><CR> <Esc>A;<CR>$/;"	kind:m	line:51
+<tab><CR>	ftplugin/r.vim	/^nnoremap <buffer> <tab><CR> <Esc>A;<CR>$/;"	kind:m	line:33
+<tab><CR>	ftplugin/rmd.vim	/^nnoremap <buffer> <tab><CR> <Esc>A;<CR>$/;"	kind:m	line:30
+<tab><tab>	KeyMap.vim	/^nnoremap <tab><tab> V>$/;"	kind:m	line:122
+<tab>P	KeyMap.vim	/^nnoremap <tab>P     "*p$/;"	kind:m	line:127
+<tab>c	KeyMap.vim	/^nnoremap <silent> <tab>c :call fzf#run({$/;"	kind:m	line:311
+<tab>f1	KeyMap.vim	/^nnoremap <tab>f1 g_a <esc>3a{<esc>a1<esc>$/;"	kind:m	line:199
+<tab>f2	KeyMap.vim	/^nnoremap <tab>f2 g_a <esc>3a{<esc>a2<esc>$/;"	kind:m	line:200
+<tab>f3	KeyMap.vim	/^nnoremap <tab>f3 g_a <esc>3a{<esc>a3<esc>$/;"	kind:m	line:201
+<tab>ff	KeyMap.vim	/^nnoremap <tab>ff g_a <esc>3a{<esc>$/;"	kind:m	line:198
+<tab>j	KeyMap.vim	/^nnoremap <tab>j :tabprevious<cr>$/;"	kind:m	line:119
+<tab>k	KeyMap.vim	/^nnoremap <tab>k :tabnext<cr>$/;"	kind:m	line:118
+<tab>m	KeyMap.vim	/^nnoremap <silent> <tab>m :call fzf#run({$/;"	kind:m	line:317
+<tab>n	KeyMap.vim	/^nnoremap <tab>n :tabnew<cr>$/;"	kind:m	line:116
+<tab>o	KeyMap.vim	/^nnoremap <tab>o :only<cr>$/;"	kind:m	line:115
+<tab>p	KeyMap.vim	/^nnoremap <tab>p     "0p$/;"	kind:m	line:126
+<tab>rq	autocmd.vim	/^    nnoremap <buffer> <tab>rq                 vap:LbsRF<cr>$/;"	kind:m	line:47
+<tab>rq	autocmd.vim	/^    vnoremap <buffer> <tab>rq                 :LbsRF<cr>$/;"	kind:m	line:48
+<tab>rq	ftplugin/r.vim	/^nnoremap <buffer> <tab>rq                 vap:LbsRF<cr>$/;"	kind:m	line:29
+<tab>rq	ftplugin/r.vim	/^vnoremap <buffer> <tab>rq                 :LbsRF<cr>$/;"	kind:m	line:30
+<tab>rq	ftplugin/rmd.vim	/^nnoremap <buffer> <tab>rq                 vap:LbsRF<cr>$/;"	kind:m	line:26
+<tab>rq	ftplugin/rmd.vim	/^vnoremap <buffer> <tab>rq                 :LbsRF<cr>$/;"	kind:m	line:27
+<tab>x	KeyMap.vim	/^nnoremap <tab>x :tabclose<cr>$/;"	kind:m	line:117
+?	Plugins/incsearch.vim	/^map ?  <Plug>(incsearch-backward)$/;"	kind:m	line:2
+@@	KeyMap.vim	/^inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({$/;"	kind:m	line:322
+ChangeCompleteEngine	lbs_function.vim	/^function! ChangeCompleteEngine()$/;"	kind:f	line:247	signature:()
+CocCompleteEngine	lbs_function.vim	/^function! CocCompleteEngine()$/;"	kind:f	line:235	signature:()
+F	KeyMap.vim	/^nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>$/;"	kind:m	line:135
+F	KeyMap.vim	/^onoremap <silent> F :<C-U>call sneak#wrap(v:operator,   1, 1, 1, 1)<CR>$/;"	kind:m	line:139
+F	KeyMap.vim	/^xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>$/;"	kind:m	line:137
+H	KeyMap.vim	/^nnoremap H <C-w>h$/;"	kind:m	line:91
+J	KeyMap.vim	/^nnoremap J <C-w>j$/;"	kind:m	line:89
+K	KeyMap.vim	/^nnoremap K <C-w>k$/;"	kind:m	line:90
+L	KeyMap.vim	/^nnoremap L <C-w>l$/;"	kind:m	line:92
+LOAD_ENTER	autocmd.vim	/^augroup LOAD_ENTER$/;"	kind:a	line:207
+LbsRF	lbs_function.vim	/^command! -range=% LbsRF <line1>,<line2>:call Lbs_RFormat()$/;"	kind:c	line:17
+Lbs_Load_Plug	lbs_function.vim	/^function! Lbs_Load_Plug(plugname) " 手动加载特定插件 {{{1$/;"	kind:f	line:285	signature:(plugname)
+Lbs_Load_Plug_Conf	lbs_function.vim	/^function! Lbs_Load_Plug_Conf(plugName) abort " 载入插件对应的配置文档 {{{1$/;"	kind:f	line:275	signature:(plugName)
+Lbs_Load_Plug_Confs	lbs_function.vim	/^function! Lbs_Load_Plug_Confs(plugNames) abort    " load config file for loaded plug {{{1$/;"	kind:f	line:292	signature:(plugNames)
+Lbs_PlugConfHasLoaded	lbs_function.vim	/^function! Lbs_PlugConfHasLoaded(plugName) abort     " 是否已经载入插件的个人配置文/;"	kind:f	line:268	signature:(plugName)
+Lbs_PlugHasLoaded	lbs_function.vim	/^function! Lbs_PlugHasLoaded(plugName) abort     " 插件是否已经载入 {{{1$/;"	kind:f	line:256	signature:(plugName)
+Lbs_RFormat	lbs_function.vim	/^function Lbs_RFormat() range$/;"	kind:f	line:5	signature:()
+Lilydjwg_CenterFull	lbs_function.vim	/^function Lilydjwg_CenterFull()$/;"	kind:f	line:29	signature:()
+Lilydjwg_changeColor	lbs_function.vim	/^function Lilydjwg_changeColor()$/;"	kind:f	line:106	signature:()
+Lilydjwg_cleanbufs	lbs_function.vim	/^function Lilydjwg_cleanbufs()$/;"	kind:f	line:21	signature:()
+Lilydjwg_close	lbs_function.vim	/^function Lilydjwg_close(winnr)$/;"	kind:f	line:55	signature:(winnr)
+Lilydjwg_colorpicker	lbs_function.vim	/^function Lilydjwg_colorpicker()$/;"	kind:f	line:87	signature:()
+Lilydjwg_copy_to_newtab	lbs_function.vim	/^function Lilydjwg_copy_to_newtab()$/;"	kind:f	line:74	signature:()
+Lilydjwg_toggle_ambiwidth	lbs_function.vim	/^function Lilydjwg_toggle_ambiwidth()$/;"	kind:f	line:47	signature:()
+MyFoldText	basic.vim	/^function! MyFoldText()$/;"	kind:f	line:77	signature:()
+MyWikiAutocmds	autocmd.vim	/^augroup MyWikiAutocmds$/;"	kind:a	line:248
+Ncm2CompleteEngine	lbs_function.vim	/^function! Ncm2CompleteEngine()$/;"	kind:f	line:241	signature:()
+P	autocmd.vim	/^    nnoremap <silent><buffer> P :PreviewClose<cr>$/;"	kind:m	line:156
+P	ftplugin/qf.vim	/^nnoremap <silent><buffer> P :PreviewClose<cr>$/;"	kind:m	line:2
+QuickfixToggle	lbs_function.vim	/^function! QuickfixToggle()$/;"	kind:f	line:146	signature:()
+RStart	Plugins/Nvim-R.vim	/^command! RStart let oldft=&ft$/;"	kind:c	line:24
+RUN	KeyMap.vim	/^command! RUN FloatermNew --name=repl --wintype=normal --position=right$/;"	kind:c	line:281
+R_app	Plugins/Nvim-R.vim	/^let R_app = "R"$/;"	kind:v	line:3
+R_assign	Plugins/Nvim-R.vim	/^let R_assign = 0$/;"	kind:v	line:13
+R_bracketed_paste	Plugins/Nvim-R.vim	/^let R_bracketed_paste = 1$/;"	kind:v	line:6
+R_cmd	Plugins/Nvim-R.vim	/^let R_cmd = "R"$/;"	kind:v	line:2
+R_csv_app	Plugins/Nvim-R.vim	/^let R_csv_app = "terminal:\/home\/liubianshi\/useScript\/viewdata"$/;"	kind:v	line:22
+R_external_term	Plugins/Nvim-R.vim	/^    let R_external_term = 'st -t R -e'$/;"	kind:v	line:19
+R_hi_fun	Plugins/Nvim-R.vim	/^let R_hi_fun = 1$/;"	kind:v	line:10
+R_hi_fun_globenv	Plugins/Nvim-R.vim	/^let R_hi_fun_globenv = 2$/;"	kind:v	line:11
+R_hi_fun_paren	Plugins/Nvim-R.vim	/^let R_hi_fun_paren = 1$/;"	kind:v	line:12
+R_hl_term	Plugins/Nvim-R.vim	/^let R_hl_term = 1$/;"	kind:v	line:4
+R_notmuxconf	Plugins/Nvim-R.vim	/^let R_notmuxconf = 1$/;"	kind:v	line:21
+R_nvimpager	Plugins/Nvim-R.vim	/^let R_nvimpager = "vertical"$/;"	kind:v	line:8
+R_openpdf	Plugins/Nvim-R.vim	/^let R_openpdf = 0$/;"	kind:v	line:5
+R_rcomment_string	Plugins/Nvim-R.vim	/^let R_rcomment_string = '#> '$/;"	kind:v	line:7
+R_rmdchunk	Plugins/Nvim-R.vim	/^let R_rmdchunk = 0$/;"	kind:v	line:14
+R_start_libs	Plugins/Nvim-R.vim	/^let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,rlang,data.table,fread,readxl,ha/;"	kind:v	line:23
+R_view_df	lbs_function.vim	/^function! R_view_df(dfname, row, method, max_width)$/;"	kind:f	line:175	signature:(dfname,row,method,max_width)
+R_view_df_full	lbs_function.vim	/^function! R_view_df_full(max_width)$/;"	kind:f	line:184	signature:(max_width)
+R_view_df_sample	lbs_function.vim	/^function! R_view_df_sample(method)$/;"	kind:f	line:178	signature:(method)
+R_view_srdm_table	lbs_function.vim	/^function! R_view_srdm_table()$/;"	kind:f	line:190	signature:()
+R_view_srdm_var	lbs_function.vim	/^function! R_view_srdm_var()$/;"	kind:f	line:197	signature:()
+Rakudo	raku.vim	/^    function! Rakudo()$/;"	kind:f	line:3	signature:()
+RmdClipBoardImage	lbs_function.vim	/^function! RmdClipBoardImage()$/;"	kind:f	line:121	signature:()
+Rout_more_colors	Plugins/Nvim-R.vim	/^let Rout_more_colors = 1$/;"	kind:v	line:9
+RunDoLines	lbs_function.vim	/^function! RunDoLines()$/;"	kind:f	line:206	signature:()
+Status	lbs_function.vim	/^function! Status()$/;"	kind:f	line:225	signature:()
+T	KeyMap.vim	/^nnoremap <silent> T :<C-U>call sneak#wrap('',           1, 1, 0, 1)<CR>$/;"	kind:m	line:141
+T	KeyMap.vim	/^onoremap <silent> T :<C-U>call sneak#wrap(v:operator,   1, 1, 0, 1)<CR>$/;"	kind:m	line:145
+T	KeyMap.vim	/^xnoremap <silent> T :<C-U>call sneak#wrap(visualmode(), 1, 1, 0, 1)<CR>$/;"	kind:m	line:143
+ToggleZenMode	lbs_function.vim	/^function ToggleZenMode()$/;"	kind:f	line:157	signature:()
+VisualSelection	lbs_function.vim	/^function! VisualSelection(direction, extra_filter) range$/;"	kind:f	line:128	signature:(direction,extra_filter)
+[	whichkey.vim	/^nnoremap <silent> [ :<c-u>WhichKey  '['<CR>$/;"	kind:m	line:54
+[	whichkey.vim	/^vnoremap <silent> [ :<c-u>WhichKeyVisual '['<CR>$/;"	kind:m	line:55
+[B	KeyMap.vim	/^nnoremap [B :<c-u>bfirst<cr>$/;"	kind:m	line:108
+[T	KeyMap.vim	/^nnoremap [T :<c-u>tabfirst<cr>$/;"	kind:m	line:112
+[a	Plugins/ale.vim	/^nnoremap <silent><buffer> [a         :<c-u>ALEPrevious<cr>$/;"	kind:m	line:41
+[b	KeyMap.vim	/^nnoremap [b :<c-u>bprevious<cr>$/;"	kind:m	line:106
+[t	KeyMap.vim	/^nnoremap [t :<c-u>tabprevious<cr>$/;"	kind:m	line:110
+[u	autocmd.vim	/^    noremap <buffer> [u :PreviewScroll -1<cr>$/;"	kind:m	line:157
+[u	ftplugin/qf.vim	/^noremap <buffer> [u :PreviewScroll -1<cr>$/;"	kind:m	line:3
+]	whichkey.vim	/^nnoremap <silent> ] :<c-u>WhichKey  ']'<CR>$/;"	kind:m	line:52
+]	whichkey.vim	/^vnoremap <silent> ] :<c-u>WhichKeyVisual ']'<CR>$/;"	kind:m	line:53
+]B	KeyMap.vim	/^nnoremap ]B :<c-u>blast<cr>$/;"	kind:m	line:107
+]T	KeyMap.vim	/^nnoremap ]T :<c-u>tablast<cr>$/;"	kind:m	line:111
+]a	Plugins/ale.vim	/^nnoremap <silent><buffer> ]a         :<c-u>ALENext<cr>$/;"	kind:m	line:42
+]b	KeyMap.vim	/^nnoremap ]b :<c-u>bnext<cr>$/;"	kind:m	line:105
+]t	KeyMap.vim	/^nnoremap ]t :<c-u>tabnext<cr>$/;"	kind:m	line:109
+]u	autocmd.vim	/^    noremap <buffer> ]u :PreviewScroll +1<cr>$/;"	kind:m	line:158
+]u	ftplugin/qf.vim	/^noremap <buffer> ]u :PreviewScroll +1<cr>$/;"	kind:m	line:4
+ayucolor	Plugins/ayu-vim.vim	/^let ayucolor="dark"   " for dark version of theme$/;"	kind:v	line:3
+ayucolor	Plugins/ayu-vim.vim	/^let ayucolor="light"  " for light version of theme$/;"	kind:v	line:1
+ayucolor	Plugins/ayu-vim.vim	/^let ayucolor="mirage" " for mirage version of theme$/;"	kind:v	line:2
+az	KeyMap.vim	/^xnoremap az :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zV[z<cr>$/;"	kind:m	line:204
+b:AutoPairs	ftplugin/raku.vim	/^let b:AutoPairs = g:AutoPairs$/;"	kind:v	line:1
+b:AutoPairs	ftplugin/raku.vim	/^let b:AutoPairs['<']=">"$/;"	kind:v	line:2
+b:AutoPairs	ftplugin/stata.vim	/^let b:AutoPairs = g:AutoPairs$/;"	kind:v	line:15
+b:AutoPairs	ftplugin/stata.vim	/^let b:AutoPairs['`']="'" $/;"	kind:v	line:16
+b:keymap_name	keymap/math.vim	/^let b:keymap_name        = "math"$/;"	kind:v	line:7
+cmdline_app	Plugins/vimcmdline.vim	/^let cmdline_app           = {}$/;"	kind:v	line:18
+cmdline_app	Plugins/vimcmdline.vim	/^let cmdline_app['ruby']   = 'pry'$/;"	kind:v	line:19
+cmdline_app	Plugins/vimcmdline.vim	/^let cmdline_app['sh']     = 'bash'$/;"	kind:v	line:20
+cmdline_app	Plugins/vimcmdline.vim	/^let cmdline_app['stata']  = 'stata-mp'$/;"	kind:v	line:21
+cmdline_app	vimcmdline.vim	/^let cmdline_app                = {}$/;"	kind:v	line:16
+cmdline_app	vimcmdline.vim	/^let cmdline_app['ruby']        = 'pry'$/;"	kind:v	line:17
+cmdline_app	vimcmdline.vim	/^let cmdline_app['sh']          = 'bash'$/;"	kind:v	line:18
+cmdline_app	vimcmdline.vim	/^let cmdline_app['stata']       = 'stata-mp'$/;"	kind:v	line:19
+cmdline_auto_scroll	Plugins/vimcmdline.vim	/^let cmdline_auto_scroll = 1      " Keep the cursor at the end of terminal (nvim)$/;"	kind:v	line:17
+cmdline_auto_scroll	vimcmdline.vim	/^let cmdline_auto_scroll        = 1      " Keep the cursor at the end of terminal (nvim)$/;"	kind:v	line:15
+cmdline_esc_term	Plugins/vimcmdline.vim	/^let cmdline_esc_term    = 1      " Remap <Esc> to :stopinsert in Neovim's terminal$/;"	kind:v	line:11
+cmdline_esc_term	vimcmdline.vim	/^let cmdline_esc_term           = 1      " Remap <Esc> to :stopinsert in Neovim's terminal$/;"	kind:v	line:9
+cmdline_follow_colorscheme	Plugins/vimcmdline.vim	/^let cmdline_follow_colorscheme = 1$/;"	kind:v	line:23
+cmdline_follow_colorscheme	vimcmdline.vim	/^let cmdline_follow_colorscheme = 1$/;"	kind:v	line:20
+cmdline_in_buffer	Plugins/vimcmdline.vim	/^let cmdline_in_buffer   = 1      " Start the interpreter in a Neovim's terminal$/;"	kind:v	line:12
+cmdline_in_buffer	vimcmdline.vim	/^let cmdline_in_buffer          = 1      " Start the interpreter in a Neovim's terminal$/;"	kind:v	line:10
+cmdline_map_quit	Plugins/vimcmdline.vim	/^let cmdline_map_quit           = '<LocalLeader>qq'$/;"	kind:v	line:8
+cmdline_map_quit	vimcmdline.vim	/^let cmdline_map_quit           = '<LocalLeader>qq'$/;"	kind:v	line:7
+cmdline_map_send	Plugins/vimcmdline.vim	/^let cmdline_map_send           = '<LocalLeader>l'$/;"	kind:v	line:3
+cmdline_map_send	vimcmdline.vim	/^let cmdline_map_send           = '<LocalLeader>l'$/;"	kind:v	line:2
+cmdline_map_send_and_stay	Plugins/vimcmdline.vim	/^let cmdline_map_send_and_stay  = '<LocalLeader><Space>'$/;"	kind:v	line:4
+cmdline_map_send_and_stay	vimcmdline.vim	/^let cmdline_map_send_and_stay  = '<LocalLeader><Space>'$/;"	kind:v	line:3
+cmdline_map_send_block	Plugins/vimcmdline.vim	/^let cmdline_map_send_block     = '<LocalLeader>b'$/;"	kind:v	line:7
+cmdline_map_send_block	vimcmdline.vim	/^let cmdline_map_send_block     = '<LocalLeader>b'$/;"	kind:v	line:6
+cmdline_map_send_paragraph	Plugins/vimcmdline.vim	/^let cmdline_map_send_paragraph = '<LocalLeader>p'$/;"	kind:v	line:6
+cmdline_map_send_paragraph	vimcmdline.vim	/^let cmdline_map_send_paragraph = '<LocalLeader>p'$/;"	kind:v	line:5
+cmdline_map_source_fun	Plugins/vimcmdline.vim	/^let cmdline_map_source_fun     = '<LocalLeader>f'$/;"	kind:v	line:5
+cmdline_map_source_fun	vimcmdline.vim	/^let cmdline_map_source_fun     = '<LocalLeader>f'$/;"	kind:v	line:4
+cmdline_map_start	Plugins/vimcmdline.vim	/^let cmdline_map_start          = '<LocalLeader>s'$/;"	kind:v	line:2
+cmdline_map_start	vimcmdline.vim	/^let cmdline_map_start          = '<LocalLeader>s'$/;"	kind:v	line:1
+cmdline_outhl	Plugins/vimcmdline.vim	/^let cmdline_outhl       = 1      " Syntax highlight the output$/;"	kind:v	line:16
+cmdline_outhl	vimcmdline.vim	/^let cmdline_outhl              = 1      " Syntax highlight the output$/;"	kind:v	line:14
+cmdline_term_height	Plugins/vimcmdline.vim	/^let cmdline_term_height = 15     " Initial height of interpreter window or pane$/;"	kind:v	line:13
+cmdline_term_height	vimcmdline.vim	/^let cmdline_term_height        = 15     " Initial height of interpreter window or pane$/;"	kind:v	line:11
+cmdline_term_width	Plugins/vimcmdline.vim	/^let cmdline_term_width  = 90    " Initial width of interpreter window or pane$/;"	kind:v	line:14
+cmdline_term_width	vimcmdline.vim	/^let cmdline_term_width         = 90    " Initial width of interpreter window or pane$/;"	kind:v	line:12
+cmdline_tmp_dir	Plugins/vimcmdline.vim	/^let cmdline_tmp_dir     = '\/tmp' " Temporary directory to save files$/;"	kind:v	line:15
+cmdline_tmp_dir	vimcmdline.vim	/^let cmdline_tmp_dir            = '\/tmp' " Temporary directory to save files$/;"	kind:v	line:13
+cmdline_vsplit	Plugins/vimcmdline.vim	/^let cmdline_vsplit      = 1      " Split the window vertically$/;"	kind:v	line:10
+cmdline_vsplit	vimcmdline.vim	/^let cmdline_vsplit             = 1      " Split the window vertically$/;"	kind:v	line:8
+command	tasks.ini	/^command:c,cpp="$(VIM_FILEDIR)\/$(VIM_FILENOEXT)"$/;"	kind:k	line:19	section:file-run
+command	tasks.ini	/^command:javascript=node "$(VIM_FILENAME)"$/;"	kind:k	line:24	section:file-run
+command	tasks.ini	/^command:pandoc,md=md2 -o html "$(VIM_FILEDIR)\/$(VIM_FILENAME)"$/;"	kind:k	line:20	section:file-run
+command	tasks.ini	/^command:perl=perl "$(VIM_FILENAME)"$/;"	kind:k	line:25	section:file-run
+command	tasks.ini	/^command:python=python "$(VIM_FILENAME)"$/;"	kind:k	line:23	section:file-run
+command	tasks.ini	/^command:rmd=rmd2 -o html "$(VIM_FILEDIR)\/$(VIM_FILENAME)"$/;"	kind:k	line:22	section:file-run
+command	tasks.ini	/^command:sh=sh "$(VIM_FILENAME)"$/;"	kind:k	line:21	section:file-run
+command	tasks.ini	/^command="$(VIM_FILEDIR)\/$(VIM_FILENOEXT)"$/;"	kind:k	line:18	section:file-run
+command	tasks.ini	/^command=gcc -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)\/$(VIM_FILENOEXT)"$/;"	kind:k	line:4	section:file-build:release
+command	tasks.ini	/^command=gcc -g "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)\/$(VIM_FILENOEXT)"$/;"	kind:k	line:11	section:file-build:debug
+cwd	tasks.ini	/^cwd=$(VIM_FILEDIR)$/;"	kind:k	line:12	section:file-build:debug
+cwd	tasks.ini	/^cwd=$(VIM_FILEDIR)$/;"	kind:k	line:27	section:file-run
+cwd	tasks.ini	/^cwd=$(VIM_FILEDIR)$/;"	kind:k	line:5	section:file-build:release
+diagnostic.displayByAle	coc-settings.json	/^    "diagnostic.displayByAle": true,$/;"	kind:b	line:2
+errorformat	tasks.ini	/^errorformat=%f:%l:%m$/;"	kind:k	line:14	section:file-build:debug
+errorformat	tasks.ini	/^errorformat=%f:%l:%m$/;"	kind:k	line:7	section:file-build:release
+f	KeyMap.vim	/^nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>$/;"	kind:m	line:134
+f	KeyMap.vim	/^onoremap <silent> f :<C-U>call sneak#wrap(v:operator,   1, 0, 1, 1)<CR>$/;"	kind:m	line:138
+f	KeyMap.vim	/^xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>$/;"	kind:m	line:136
+file-build:debug	tasks.ini	/^[file-build:debug]$/;"	kind:s	line:10
+file-build:release	tasks.ini	/^[file-build:release]$/;"	kind:s	line:3
+file-run	tasks.ini	/^[file-run]$/;"	kind:s	line:17
+filetypedetect	filetype.vim	/^augroup filetypedetect$/;"	kind:a	line:1
+g/	Plugins/incsearch.vim	/^map g\/ <Plug>(incsearch-stay)$/;"	kind:m	line:3
+g:AutoPairsMapBS	Plugins/auto-pairs.vim	/^let g:AutoPairsMapBS = 0$/;"	kind:v	line:1
+g:EasyMotion_do_mapping	Plugins/vim-easymotion.vim	/^let g:EasyMotion_do_mapping = 0 " Disable default mappings$/;"	kind:v	line:1
+g:EasyMotion_smartcase	Plugins/vim-easymotion.vim	/^let g:EasyMotion_smartcase  = 1$/;"	kind:v	line:2
+g:Lf_CacheDirectory	Plugins/LeaderF.vim	/^let g:Lf_CacheDirectory = expand('~\/.cache\/')$/;"	kind:v	line:9
+g:Lf_Ctags	Plugins/LeaderF.vim	/^let g:Lf_Ctags = "ctags"$/;"	kind:v	line:14
+g:Lf_CtagsFuncOpts	Plugins/LeaderF.vim	/^let g:Lf_CtagsFuncOpts = { 'r': '--kinds-R=-v' }$/;"	kind:v	line:15
+g:Lf_Extensions	KeyMap.vim	/^let g:Lf_Extensions = get(g:, 'Lf_Extensions', {})$/;"	kind:v	line:244
+g:Lf_Extensions	KeyMap.vim	/^let g:Lf_Extensions.task = {$/;"	kind:v	line:245
+g:Lf_GtagsAutoGenerate	Plugins/LeaderF.vim	/^let g:Lf_GtagsAutoGenerate = 1$/;"	kind:v	line:16
+g:Lf_GtagsGutentags	Plugins/LeaderF.vim	/^let g:Lf_GtagsGutentags    = 0$/;"	kind:v	line:17
+g:Lf_Gtagslabel	Plugins/LeaderF.vim	/^let g:Lf_Gtagslabel = 'native-pygments'$/;"	kind:v	line:18
+g:Lf_HideHelp	Plugins/LeaderF.vim	/^let g:Lf_HideHelp = 1$/;"	kind:v	line:7
+g:Lf_IgnoreCurrentBufferName	Plugins/LeaderF.vim	/^let g:Lf_IgnoreCurrentBufferName = 1$/;"	kind:v	line:11
+g:Lf_PreviewInPopup	Plugins/LeaderF.vim	/^let g:Lf_PreviewInPopup = 1$/;"	kind:v	line:25
+g:Lf_PreviewResult	Plugins/LeaderF.vim	/^let g:Lf_PreviewResult = {'File': 1, 'Buffer': 1,'Mru': 1, 'BufTag': 0 }$/;"	kind:v	line:23
+g:Lf_RootMarkers	Plugins/LeaderF.vim	/^let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git', '.hg']$/;"	kind:v	line:13
+g:Lf_ShortcutB	Plugins/LeaderF.vim	/^let g:Lf_ShortcutB = ""$/;"	kind:v	line:6
+g:Lf_ShortcutF	Plugins/LeaderF.vim	/^let g:Lf_ShortcutF = ""$/;"	kind:v	line:5
+g:Lf_ShowRelativePath	Plugins/LeaderF.vim	/^let g:Lf_ShowRelativePath = 1$/;"	kind:v	line:20
+g:Lf_StlSeparator	Plugins/LeaderF.vim	/^let g:Lf_StlSeparator = { 'left': "\\ue0b0", 'right': "\\ue0b2",$/;"	kind:v	line:21
+g:Lf_UseCache	Plugins/LeaderF.vim	/^let g:Lf_UseCache = 1$/;"	kind:v	line:8
+g:Lf_UseVersionControlTool	Plugins/LeaderF.vim	/^let g:Lf_UseVersionControlTool = 1$/;"	kind:v	line:10
+g:Lf_WindowPosition	Plugins/LeaderF.vim	/^let g:Lf_WindowPosition = 'popup'$/;"	kind:v	line:24
+g:NERDTreeDirArrowCollapsible	Plugins/nerdtree.vim	/^let g:NERDTreeDirArrowCollapsible = '▾'$/;"	kind:v	line:3
+g:NERDTreeDirArrowExpandable	Plugins/nerdtree.vim	/^let g:NERDTreeDirArrowExpandable = '▸'$/;"	kind:v	line:2
+g:NERDTreeIgnore	Plugins/nerdtree.vim	/^let g:NERDTreeIgnore = ['\\.pyc$', '\\.swp', '\\.swo', '\\.vscode', '__pycache__']$/;"	kind:v	line:1
+g:NERDTreeIndicatorMapCustom	Plugins/nerdtree.vim	/^let g:NERDTreeIndicatorMapCustom = {$/;"	kind:v	line:5
+g:NERDTreeShowBookmarks	Plugins/nerdtree.vim	/^let g:NERDTreeShowBookmarks=1$/;"	kind:v	line:4
+g:UltiSnipsEditSplit	Plugins/UltiSnips.vim	/^let g:UltiSnipsEditSplit = "tabdo"$/;"	kind:v	line:1
+g:UltiSnipsExpandTrigger	KeyMap.vim	/^let g:UltiSnipsExpandTrigger		    = "<c-u>"$/;"	kind:v	line:71
+g:UltiSnipsJumpBackwardTrigger	KeyMap.vim	/^let g:UltiSnipsJumpBackwardTrigger	    = "<c-k>"$/;"	kind:v	line:73
+g:UltiSnipsJumpForwardTrigger	KeyMap.vim	/^let g:UltiSnipsJumpForwardTrigger	    = "<c-j>"$/;"	kind:v	line:72
+g:UltiSnipsRemoveSelectModeMappings	KeyMap.vim	/^let g:UltiSnipsRemoveSelectModeMappings = 0$/;"	kind:v	line:74
+g:UltiSnipsSnippetsDir	Plugins/UltiSnips.vim	/^let g:UltiSnipsSnippetsDir = "~\/.config\/nvim\/UltiSnips"$/;"	kind:v	line:2
+g:VM_leader	Plugins/vim-visual-multi.vim	/^let g:VM_leader = "\\\\" $/;"	kind:v	line:1
+g:airline#extensions#ale#enabled	Plugins/vim-airline.vim	/^let g:airline#extensions#ale#enabled = 1$/;"	kind:v	line:8
+g:airline#extensions#tabline#buffer_nr_show	Plugins/vim-airline.vim	/^let g:airline#extensions#tabline#buffer_nr_show = 1$/;"	kind:v	line:7
+g:airline#extensions#tabline#enabled	Plugins/vim-airline.vim	/^let g:airline#extensions#tabline#enabled = 0$/;"	kind:v	line:4
+g:airline#extensions#tabline#left_alt_sep	Plugins/vim-airline.vim	/^let g:airline#extensions#tabline#left_alt_sep = '|'$/;"	kind:v	line:6
+g:airline#extensions#tabline#left_sep	Plugins/vim-airline.vim	/^let g:airline#extensions#tabline#left_sep = ''$/;"	kind:v	line:5
+g:airline_left_sep	Plugins/vim-airline.vim	/^let g:airline_left_sep = ''$/;"	kind:v	line:2
+g:airline_powerline_fonts	Plugins/vim-airline.vim	/^let g:airline_powerline_fonts = 1$/;"	kind:v	line:1
+g:airline_right_sep	Plugins/vim-airline.vim	/^let g:airline_right_sep = ''$/;"	kind:v	line:3
+g:ale_disable_lsp	Plugins/ale.vim	/^let g:ale_disable_lsp = 1$/;"	kind:v	line:1
+g:ale_echo_msg_error_str	Plugins/ale.vim	/^let g:ale_echo_msg_error_str = 'E'$/;"	kind:v	line:7
+g:ale_echo_msg_format	Plugins/ale.vim	/^let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'$/;"	kind:v	line:9
+g:ale_echo_msg_warning_str	Plugins/ale.vim	/^let g:ale_echo_msg_warning_str = 'W'$/;"	kind:v	line:8
+g:ale_fixers	Plugins/ale.vim	/^let g:ale_fixers = {$/;"	kind:v	line:20
+g:ale_lint_on_enter	Plugins/ale.vim	/^let g:ale_lint_on_enter = 0$/;"	kind:v	line:12
+g:ale_lint_on_insert_leave	Plugins/ale.vim	/^let g:ale_lint_on_insert_leave = 0$/;"	kind:v	line:13
+g:ale_lint_on_text_changed	Plugins/ale.vim	/^let g:ale_lint_on_text_changed = 'never'$/;"	kind:v	line:11
+g:ale_linters	Plugins/ale.vim	/^let g:ale_linters = {$/;"	kind:v	line:15
+g:ale_r_lintr_options	Plugins/ale.vim	/^let g:ale_r_lintr_options = "with_defaults(". join([$/;"	kind:v	line:26
+g:ale_r_styler_options	Plugins/ale.vim	/^let g:ale_r_styler_options = "styler::tidyverse_style(strict = FALSE, indent_by = 4)"$/;"	kind:v	line:34
+g:ale_set_highlights	Plugins/ale.vim	/^let g:ale_set_highlights = 0$/;"	kind:v	line:3
+g:ale_sign_column_always	Plugins/ale.vim	/^let g:ale_sign_column_always = 1$/;"	kind:v	line:2
+g:ale_sign_error	Plugins/ale.vim	/^let g:ale_sign_error = '✗'$/;"	kind:v	line:4
+g:ale_sign_warning	Plugins/ale.vim	/^let g:ale_sign_warning = '⚡'$/;"	kind:v	line:5
+g:asmsyntax_term_pos	Plugins/asynctasks.vim.vim	/^let g:asmsyntax_term_pos = 'external'$/;"	kind:v	line:1
+g:asyncrun_open	Plugins/asyncrun.vim.vim	/^let g:asyncrun_open = 6$/;"	kind:v	line:1
+g:asyncrun_rootmarks	Plugins/asyncrun.vim.vim	/^let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']$/;"	kind:v	line:2
+g:completion_chain_complete_list	Plugins/vim-dadbod-completion.vim	/^let g:completion_chain_complete_list = {$/;"	kind:v	line:1
+g:completion_matching_ignore_case	Plugins/vim-dadbod-completion.vim	/^let g:completion_matching_ignore_case = 1$/;"	kind:v	line:7
+g:completion_matching_strategy_list	Plugins/vim-dadbod-completion.vim	/^let g:completion_matching_strategy_list = ['exact', 'substring']$/;"	kind:v	line:5
+g:db_ui_save_location	Plugins/vim-dadbod-ui.vim	/^let g:db_ui_save_location = "~\/.config\/diySync\/db_ui_queries"$/;"	kind:v	line:4
+g:dbs	Plugins/vim-dadbod-ui.vim	/^let g:dbs = { $/;"	kind:v	line:1
+g:floaterm_keymap_toggle	KeyMap.vim	/^let g:floaterm_keymap_toggle = '<leader>;'$/;"	kind:v	line:278
+g:floaterm_rootmarkers	Plugins/vim-floaterm.vim	/^let g:floaterm_rootmarkers = ['.project', '.git', '.hg', '.svn', '.root', '.gitignore']$/;"	kind:v	line:1
+g:fzf_action	Plugins/fzf.vim.vim	/^let g:fzf_action = {$/;"	kind:v	line:2
+g:fzf_command_prefix	Plugins/fzf.vim.vim	/^let g:fzf_command_prefix = 'Fzf'    " 给 fzf.vim 命令加前缀$/;"	kind:v	line:1
+g:goyo_height	Plugins/goyo.vim.vim	/^let g:goyo_height = 90$/;"	kind:v	line:2
+g:goyo_width	Plugins/goyo.vim.vim	/^let g:goyo_width = 100 $/;"	kind:v	line:1
+g:gutentags_ctags_extra_args	Plugins/vim-gutentags.vim	/^let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']$/;"	kind:v	line:12
+g:gutentags_ctags_extra_args	Plugins/vim-gutentags.vim	/^let g:gutentags_ctags_extra_args += ['--c-kinds=+px']$/;"	kind:v	line:13
+g:gutentags_ctags_extra_args	Plugins/vim-gutentags.vim	/^let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']$/;"	kind:v	line:18
+g:gutentags_ctags_extra_args	Plugins/vim-gutentags.vim	/^let g:gutentags_ctags_extra_args += ['--r-kinds=fgls']$/;"	kind:v	line:14
+g:gutentags_ctags_extra_args	Plugins/vim-gutentags.vim	/^let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']$/;"	kind:v	line:11
+g:gutentags_exclude_filetypes	Plugins/vim-gutentags.vim	/^let g:gutentags_exclude_filetypes = ['md', 'pandoc', 'markdown', 'rmd', 'Rmd']$/;"	kind:v	line:1
+g:gutentags_modules	Plugins/vim-gutentags.vim	/^    let g:gutentags_modules += ['ctags']$/;"	kind:v	line:7
+g:gutentags_modules	Plugins/vim-gutentags.vim	/^let g:gutentags_modules = []$/;"	kind:v	line:5
+g:gutentags_project_root	Plugins/vim-gutentags.vim	/^let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']$/;"	kind:v	line:2
+g:javaScript_fold	Plugins/FastFold.vim	/^let g:javaScript_fold = 1$/;"	kind:v	line:4
+g:last_color	lbs_function.vim	/^    let g:last_color = color$/;"	kind:v	line:100
+g:last_color	lbs_function.vim	/^  let g:last_color = color$/;"	kind:v	line:114
+g:lf_map_keys	init.vim	/^    let g:lf_map_keys = 0$/;"	kind:v	line:43
+g:loaded_math_keymap	keymap/math.vim	/^let g:loaded_math_keymap = "v3"$/;"	kind:v	line:6
+g:markdown_folding	Plugins/FastFold.vim	/^let g:markdown_folding = 1$/;"	kind:v	line:10
+g:mdip_imgdir	Plugins/md-img-paste.vim	/^let g:mdip_imgdir = 'assets'$/;"	kind:v	line:1
+g:mdip_imgname	Plugins/md-img-paste.vim	/^let g:mdip_imgname = 'image'$/;"	kind:v	line:2
+g:ncm2_r_source	Plugins/ncm2.vim	/^let g:ncm2_r_source = {$/;"	kind:v	line:12
+g:ncm2_raku_source	Plugins/ncm2.vim	/^let g:ncm2_raku_source = {$/;"	kind:v	line:1
+g:one_allow_italics	Plugins/vim-one.vim	/^let g:one_allow_italics = 1 " I love italic for comments$/;"	kind:v	line:1
+g:pandoc#biblio#bibs	Plugins/vim-pandoc.vim	/^let g:pandoc#biblio#bibs = ["\/home\/liubianshi\/Documents\/paper_ref.bib"]$/;"	kind:v	line:4
+g:pandoc#biblio#sources	Plugins/vim-pandoc.vim	/^let g:pandoc#biblio#sources = ["bycg"]$/;"	kind:v	line:7
+g:pandoc#biblio#use_bibtool	Plugins/vim-pandoc.vim	/^let g:pandoc#biblio#use_bibtool = 1$/;"	kind:v	line:5
+g:pandoc#completion#bib#mode	Plugins/vim-pandoc.vim	/^let g:pandoc#completion#bib#mode = "citeproc"$/;"	kind:v	line:6
+g:pandoc#filetypes#handled	Plugins/vim-pandoc.vim	/^let g:pandoc#filetypes#handled = ["pandoc", "markdown"]$/;"	kind:v	line:2
+g:pandoc#filetypes#pandoc_markdown	Plugins/vim-pandoc.vim	/^let g:pandoc#filetypes#pandoc_markdown = 1$/;"	kind:v	line:3
+g:pandoc#folding#fastfolds	Plugins/vim-pandoc.vim	/^let g:pandoc#folding#fastfolds = 1$/;"	kind:v	line:11
+g:pandoc#folding#fdc	Plugins/vim-pandoc.vim	/^let g:pandoc#folding#fdc = 1$/;"	kind:v	line:8
+g:pandoc#folding#fold_fenced_codeblocks	Plugins/vim-pandoc.vim	/^let g:pandoc#folding#fold_fenced_codeblocks = 0$/;"	kind:v	line:12
+g:pandoc#folding#fold_yaml	Plugins/vim-pandoc.vim	/^let g:pandoc#folding#fold_yaml = 1$/;"	kind:v	line:10
+g:pandoc#folding#level	Plugins/vim-pandoc.vim	/^let g:pandoc#folding#level = 2$/;"	kind:v	line:9
+g:pandoc#modules#disabled	Plugins/vim-pandoc.vim	/^let g:pandoc#modules#disabled = ["spell"]$/;"	kind:v	line:1
+g:perl_fold	Plugins/FastFold.vim	/^let g:perl_fold = 1$/;"	kind:v	line:8
+g:perl_host_prog	basic.vim	/^let g:perl_host_prog = '\/usr\/bin\/perl'$/;"	kind:v	line:103
+g:php_folding	Plugins/FastFold.vim	/^let g:php_folding = 1$/;"	kind:v	line:7
+g:plugs_lbs_conf	lbs_function.vim	/^            let g:plugs_lbs_conf[a:plugName] = 1$/;"	kind:v	line:280
+g:plugs_lbs_conf	lbs_function.vim	/^let g:plugs_lbs_conf = {}               " 用于记录插件个人配置文件的载入情况$/;"	kind:v	line:2
+g:polyglot_disabled	init.vim	/^let g:polyglot_disabled = ['ftdetect', 'markdown', 'rmd', 'rmarkdown', 'pandoc', 'Rmd']$/;"	kind:v	line:97
+g:python3_host_prog	basic.vim	/^    let g:python3_host_prog = '\/usr\/bin\/python'$/;"	kind:v	line:99
+g:python3_host_prog	basic.vim	/^    let g:python3_host_prog = '\/usr\/local\/bin\/python3'$/;"	kind:v	line:95
+g:python3_host_skip_check	basic.vim	/^let g:python3_host_skip_check=1$/;"	kind:v	line:93
+g:python_host_prog	basic.vim	/^    let g:python_host_prog = '\/usr\/bin\/python'$/;"	kind:v	line:96
+g:python_host_prog	basic.vim	/^    let g:python_host_prog = '\/usr\/bin\/python2'$/;"	kind:v	line:98
+g:python_host_skip_check	basic.vim	/^let g:python_host_skip_check=1$/;"	kind:v	line:92
+g:quickfix_is_open	lbs_function.vim	/^        let g:quickfix_is_open = 0$/;"	kind:v	line:149
+g:quickfix_is_open	lbs_function.vim	/^        let g:quickfix_is_open = 1$/;"	kind:v	line:152
+g:quickfix_is_open	lbs_function.vim	/^let g:quickfix_is_open = 0$/;"	kind:v	line:145
+g:r_syntax_folding	Plugins/FastFold.vim	/^let g:r_syntax_folding = 1$/;"	kind:v	line:9
+g:ruby_fold	Plugins/FastFold.vim	/^let g:ruby_fold = 1$/;"	kind:v	line:5
+g:sh_fold_enabled	Plugins/FastFold.vim	/^let g:sh_fold_enabled= 7$/;"	kind:v	line:6
+g:sneak#f_reset	Plugins/vim-sneak.vim	/^let g:sneak#f_reset = 1$/;"	kind:v	line:4
+g:sneak#label	Plugins/vim-sneak.vim	/^let g:sneak#label = 1$/;"	kind:v	line:1
+g:sneak#s_next	Plugins/vim-sneak.vim	/^let g:sneak#s_next = 1$/;"	kind:v	line:2
+g:sneak#t_reset	Plugins/vim-sneak.vim	/^let g:sneak#t_reset = 1$/;"	kind:v	line:5
+g:sneak#use_ic_scs	Plugins/vim-sneak.vim	/^let g:sneak#use_ic_scs = 1$/;"	kind:v	line:3
+g:sonokai_disable_italic_comment	Plugins/sonokai.vim	/^let g:sonokai_disable_italic_comment = 1$/;"	kind:v	line:2
+g:sonokai_enable_italic	Plugins/sonokai.vim	/^let g:sonokai_enable_italic = 1$/;"	kind:v	line:1
+g:startify_bookmarks	Plugins/vim-startify.vim	/^let g:startify_bookmarks = systemlist("sed -E 's!\/home\/liubianshi!~!' ~\/.config\/diySync\/pat/;"	kind:v	line:15
+g:startify_lists	Plugins/vim-startify.vim	/^let g:startify_lists = [$/;"	kind:v	line:17
+g:table_mode_corner	Plugins/vim-table-mode.vim	/^let g:table_mode_corner='|'$/;"	kind:v	line:1
+g:tex_conceal	Plugins/vim-pandoc.vim	/^let g:tex_conceal = ""$/;"	kind:v	line:14
+g:tex_fold_enabled	Plugins/FastFold.vim	/^let g:tex_fold_enabled=1$/;"	kind:v	line:1
+g:vim_dict_config	Plugins/vim-dict.vim	/^let g:vim_dict_config = {$/;"	kind:v	line:5
+g:vim_dict_dict	Plugins/vim-dict.vim	/^let g:vim_dict_dict = [$/;"	kind:v	line:1
+g:vimsepector_install_gadgets	Plugins/vimspector.vim	/^let g:vimsepector_install_gadgets = [$/;"	kind:v	line:2
+g:vimspector_enable_mappings	Plugins/vimspector.vim	/^let g:vimspector_enable_mappings = 'HUMAN'$/;"	kind:v	line:1
+g:vimsyn_folding	Plugins/FastFold.vim	/^let g:vimsyn_folding='af'$/;"	kind:v	line:2
+g:vimtex_compiler_latexmk	Plugins/vimtex.vim	/^let g:vimtex_compiler_latexmk = {$/;"	kind:v	line:2
+g:vimtex_compiler_latexmk_engines	Plugins/vimtex.vim	/^let g:vimtex_compiler_latexmk_engines = {$/;"	kind:v	line:16
+g:vimtex_compiler_progname	Plugins/vimtex.vim	/^let g:vimtex_compiler_progname = 'nvr'          " 调用 neovim-remote$/;"	kind:v	line:1
+g:which_key_display_names	whichkey.vim	/^let g:which_key_display_names = { ' ': 'SPC', '<C-H>': 'BS', '<C-I>': 'TAB', '<TAB>': 'TAB', }$/;"	kind:v	line:2
+g:which_key_local	whichkey.vim	/^let g:which_key_local = {}$/;"	kind:v	line:22
+g:which_key_local	whichkey.vim	/^let g:which_key_local.a = { 'name' : '+R_File' }$/;"	kind:v	line:23
+g:which_key_local	whichkey.vim	/^let g:which_key_local.b = { 'name' : '+R_Block' }$/;"	kind:v	line:24
+g:which_key_local	whichkey.vim	/^let g:which_key_local.c = { 'name' : '+R_Chunk' }$/;"	kind:v	line:25
+g:which_key_local	whichkey.vim	/^let g:which_key_local.f = { 'name' : '+R_Function' }$/;"	kind:v	line:26
+g:which_key_local	whichkey.vim	/^let g:which_key_local.g = { 'name' : '+R_Goto' }$/;"	kind:v	line:34
+g:which_key_local	whichkey.vim	/^let g:which_key_local.k = { 'name' : '+R_Knit' }$/;"	kind:v	line:32
+g:which_key_local	whichkey.vim	/^let g:which_key_local.o = { 'name' : '+R_Open' }$/;"	kind:v	line:33
+g:which_key_local	whichkey.vim	/^let g:which_key_local.p = { 'name' : '+R_Paragraph' }$/;"	kind:v	line:28
+g:which_key_local	whichkey.vim	/^let g:which_key_local.r = { 'name' : '+R_Command' }$/;"	kind:v	line:29
+g:which_key_local	whichkey.vim	/^let g:which_key_local.s = { 'name' : '+R_Selection_Sweave' }$/;"	kind:v	line:27
+g:which_key_local	whichkey.vim	/^let g:which_key_local.t = { 'name' : '+R_TabOutput' }$/;"	kind:v	line:31
+g:which_key_local	whichkey.vim	/^let g:which_key_local.v = { 'name' : '+R_View' }$/;"	kind:v	line:30
+g:which_key_local	whichkey.vim	/^let g:which_key_local.x = { 'name' : '+R_Comment' }$/;"	kind:v	line:35
+g:which_key_map	whichkey.vim	/^let g:which_key_map = {}$/;"	kind:v	line:7
+g:which_key_map	whichkey.vim	/^let g:which_key_map.F = { 'name' : '+Format' }$/;"	kind:v	line:16
+g:which_key_map	whichkey.vim	/^let g:which_key_map.b = { 'name' : '+buffer' }$/;"	kind:v	line:10
+g:which_key_map	whichkey.vim	/^let g:which_key_map.c = { 'name' : '+NerdCommander' }$/;"	kind:v	line:11
+g:which_key_map	whichkey.vim	/^let g:which_key_map.e = { 'name' : '+EditFile' }$/;"	kind:v	line:12
+g:which_key_map	whichkey.vim	/^let g:which_key_map.l = { 'name' : '+LfList' }$/;"	kind:v	line:14
+g:which_key_map	whichkey.vim	/^let g:which_key_map.r = { 'name' : '+Rmarkdown' }$/;"	kind:v	line:13
+g:which_key_map	whichkey.vim	/^let g:which_key_map.t = { 'name' : '+translate' }$/;"	kind:v	line:9
+g:which_key_map	whichkey.vim	/^let g:which_key_map.w = { 'name' : '+Wiki' }$/;"	kind:v	line:15
+g:which_key_tab	whichkey.vim	/^let g:which_key_tab = {}$/;"	kind:v	line:40
+g:which_key_tab	whichkey.vim	/^let g:which_key_tab.f = { 'name' : '+Foloder_Makrder' }$/;"	kind:v	line:41
+g:which_key_tab	whichkey.vim	/^let g:which_key_tab.w = { 'name' : '+Vim_Wiki' }$/;"	kind:v	line:42
+g:which_key_vm	whichkey.vim	/^let g:which_key_vm = {}$/;"	kind:v	line:47
+g:which_key_vm	whichkey.vim	/^let g:which_key_vm.g = { 'name' : '+Visual-Mulit-Go' }$/;"	kind:v	line:48
+g:wiki_cache_root	Plugins/wiki.vim.vim	/^let g:wiki_cache_root = '~\/.cache\/wiki.vim'$/;"	kind:v	line:2
+g:wiki_filetypes	Plugins/wiki.vim.vim	/^let g:wiki_filetypes = ['md', 'pandoc', 'rmd', 'Rmd', 'tex']$/;"	kind:v	line:4
+g:wiki_journal	Plugins/wiki.vim.vim	/^let g:wiki_journal = {$/;"	kind:v	line:6
+g:wiki_link_target_type	Plugins/wiki.vim.vim	/^let g:wiki_link_target_type = 'md'$/;"	kind:v	line:3
+g:wiki_mappings_global	KeyMap.vim	/^let g:wiki_mappings_global = {$/;"	kind:v	line:177
+g:wiki_mappings_local	KeyMap.vim	/^let g:wiki_mappings_local = {$/;"	kind:v	line:183
+g:wiki_mappings_use_defaults	Plugins/wiki.vim.vim	/^let g:wiki_mappings_use_defaults = 'none'$/;"	kind:v	line:5
+g:wiki_root	Plugins/wiki.vim.vim	/^let g:wiki_root = '\/home\/liubianshi\/Documents\/WikiHome'$/;"	kind:v	line:1
+g:xml_syntax_folding	Plugins/FastFold.vim	/^let g:xml_syntax_folding = 1$/;"	kind:v	line:3
+gF	KeyMap.vim	/^noremap <silent> gF :<C-U><C-R>=printf("Leaderf function --all %s", "")<CR><CR>$/;"	kind:m	line:381
+gV	KeyMap.vim	/^noremap <silent> gV  :PreviewClose<CR>$/;"	kind:m	line:372
+gd	KeyMap.vim	/^noremap <silent> gd :<C-U><C-R>=printf("Leaderf gtags -d %s --auto-jump", expand("<cword>"))<CR>/;"	kind:m	line:379
+gf	KeyMap.vim	/^noremap <silent> gf :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>$/;"	kind:m	line:380
+gn	KeyMap.vim	/^noremap <silent> gn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>$/;"	kind:m	line:382
+go	KeyMap.vim	/^noremap <silent> go :<C-U><C-R>=printf("Leaderf gtags --recall %s", "")<CR><CR>$/;"	kind:m	line:383
+gp	KeyMap.vim	/^noremap <silent> gp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>$/;"	kind:m	line:384
+gr	KeyMap.vim	/^noremap <silent> gr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand("<cword>"))<CR>/;"	kind:m	line:385
+gv	KeyMap.vim	/^noremap <silent> gv  :PreviewTag<CR>$/;"	kind:m	line:371
+iz	KeyMap.vim	/^xnoremap iz :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zv[z<cr>$/;"	kind:m	line:203
+j	KeyMap.vim	/^noremap j gj$/;"	kind:m	line:87
+k	KeyMap.vim	/^noremap k gk$/;"	kind:m	line:88
+mapleader	basic.vim	/^let mapleader = " "$/;"	kind:v	line:5
+maplocalleader	basic.vim	/^let maplocalleader = ';'$/;"	kind:v	line:6
+my_cm_setup	ncm2.vim	/^augroup my_cm_setup$/;"	kind:a	line:1
+output	tasks.ini	/^output=quickfix$/;"	kind:k	line:13	section:file-build:debug
+output	tasks.ini	/^output=quickfix$/;"	kind:k	line:6	section:file-build:release
+output	tasks.ini	/^output=terminal$/;"	kind:k	line:26	section:file-run
+p	autocmd.vim	/^    nnoremap <silent><buffer> p :PreviewQuickfix<cr>$/;"	kind:m	line:155
+p	ftplugin/qf.vim	/^nnoremap <silent><buffer> p :PreviewQuickfix<cr>$/;"	kind:m	line:1
+r.lsp.debug	coc-settings.json	/^    "r.lsp.debug": false,$/;"	kind:b	line:4
+r.lsp.diagnostics	coc-settings.json	/^    "r.lsp.diagnostics": false$/;"	kind:b	line:5
+r.lsp.path	coc-settings.json	/^    "r.lsp.path": "\/usr\/bin\/R",$/;"	kind:s	line:3
+r_syntax_folding	Plugins/Nvim-R.vim	/^let r_syntax_folding = 1$/;"	kind:v	line:1
+raku_setup	raku.vim	/^augroup raku_setup$/;"	kind:a	line:1
+s	whichkey.vim	/^nnoremap <silent> s :<c-u>WhichKey  's'<CR>$/;"	kind:m	line:50
+s	whichkey.vim	/^vnoremap <silent> s :<c-u>WhichKeyVisual 's'<CR>$/;"	kind:m	line:51
+s:AddDash	KeyMap.vim	/^function! s:AddDash(symbol)$/;"	kind:f	line:2	signature:(symbol)
+s:Bibtex_ls	KeyMap.vim	/^function! s:Bibtex_ls()$/;"	kind:f	line:328	signature:()
+s:CSS	autocmd.vim	/^function! s:CSS()$/;"	kind:f	line:9	signature:()
+s:C_CPP	autocmd.vim	/^function! s:C_CPP()$/;"	kind:f	line:15	signature:()
+s:Dot	autocmd.vim	/^function! s:Dot()$/;"	kind:f	line:162	signature:()
+s:FileType_init	autocmd.vim	/^function! s:FileType_init()$/;"	kind:f	line:194	signature:()
+s:Markdown	autocmd.vim	/^function! s:Markdown()$/;"	kind:f	line:114	signature:()
+s:Markdown_Rmd	autocmd.vim	/^function! s:Markdown_Rmd()$/;"	kind:f	line:63	signature:()
+s:Qf	autocmd.vim	/^function! s:Qf()$/;"	kind:f	line:154	signature:()
+s:R_Rmd	autocmd.vim	/^function! s:R_Rmd()$/;"	kind:f	line:23	signature:()
+s:Raku	autocmd.vim	/^function! s:Raku() $/;"	kind:f	line:172	signature:()
+s:Rmd	autocmd.vim	/^function! s:Rmd()$/;"	kind:f	line:91	signature:()
+s:Rscript	autocmd.vim	/^function! s:Rscript()$/;"	kind:f	line:55	signature:()
+s:SearchChinese_backword	KeyMap.vim	/^function! s:SearchChinese_backword() $/;"	kind:f	line:170	signature:()
+s:SearchChinese_forward	KeyMap.vim	/^function! s:SearchChinese_forward() $/;"	kind:f	line:165	signature:()
+s:Sql	autocmd.vim	/^function! s:Sql()$/;"	kind:f	line:142	signature:()
+s:Stata	autocmd.vim	/^function! s:Stata()$/;"	kind:f	line:121	signature:()
+s:Table	autocmd.vim	/^function s:Table()$/;"	kind:f	line:4	signature:()
+s:Tex	autocmd.vim	/^function! s:Tex()$/;"	kind:f	line:167	signature:()
+s:bibtex_cite_sink	KeyMap.vim	/^function! s:bibtex_cite_sink(lines)$/;"	kind:f	line:339	signature:(lines)
+s:bibtex_cite_sink_insert	KeyMap.vim	/^function! s:bibtex_cite_sink_insert(lines)$/;"	kind:f	line:347	signature:(lines)
+s:bibtex_markdown_sink	KeyMap.vim	/^function! s:bibtex_markdown_sink(lines)$/;"	kind:f	line:343	signature:(lines)
+s:gitModified	Plugins/vim-startify.vim	/^function! s:gitModified()$/;"	kind:f	line:4	signature:()
+s:gitUntracked	Plugins/vim-startify.vim	/^function! s:gitUntracked()$/;"	kind:f	line:10	signature:()
+s:goyo_enter	Plugins/goyo.vim.vim	/^function! s:goyo_enter()$/;"	kind:f	line:4	signature:()
+s:goyo_leave	Plugins/goyo.vim.vim	/^function! s:goyo_leave()$/;"	kind:f	line:17	signature:()
+s:isAtStartOfLine	Plugins/vim-table-mode.vim	/^function! s:isAtStartOfLine(mapping)$/;"	kind:f	line:2	signature:(mapping)
+s:lf_task_accept	KeyMap.vim	/^function! s:lf_task_accept(line, arg)$/;"	kind:f	line:218	signature:(line,arg)
+s:lf_task_digest	KeyMap.vim	/^function! s:lf_task_digest(line, mode)$/;"	kind:f	line:230	signature:(line,mode)
+s:lf_task_source	KeyMap.vim	/^function! s:lf_task_source(...)$/;"	kind:f	line:208	signature:(...)
+s:lf_win_init	KeyMap.vim	/^function! s:lf_win_init(...)$/;"	kind:f	line:239	signature:(...)
+sB	KeyMap.vim	/^nmap sB <Plug>(easymotion-B)$/;"	kind:m	line:158
+sC	KeyMap.vim	/^nnoremap <silent> sC :<c-u>call <sid>SearchChinese_backword()<cr>$/;"	kind:m	line:162
+sC	KeyMap.vim	/^xnoremap <silent> sC :<c-u>call <sid>SearchChinese_backword()<cr>$/;"	kind:m	line:164
+sE	KeyMap.vim	/^nmap sE <Plug>(easymotion-E)$/;"	kind:m	line:160
+sJ	KeyMap.vim	/^nmap sJ <plug>(easymotion-eol-j)$/;"	kind:m	line:150
+sK	KeyMap.vim	/^nmap sK <plug>(easymotion-eol-k)$/;"	kind:m	line:152
+sN	KeyMap.vim	/^nmap sN <Plug>(easymotion-N)$/;"	kind:m	line:154
+sS	KeyMap.vim	/^nmap sS <Plug>Sneak_S$/;"	kind:m	line:147
+sW	KeyMap.vim	/^nmap sW <Plug>(easymotion-W)$/;"	kind:m	line:156
+save	tasks.ini	/^save=1$/;"	kind:k	line:15	section:file-build:debug
+save	tasks.ini	/^save=1$/;"	kind:k	line:8	section:file-build:release
+sb	KeyMap.vim	/^nmap sb <Plug>(easymotion-b)$/;"	kind:m	line:157
+sc	KeyMap.vim	/^nnoremap <silent> sc :<c-u>call <sid>SearchChinese_forward()<cr>$/;"	kind:m	line:161
+sc	KeyMap.vim	/^xnoremap <silent> sc :<c-u>call <sid>SearchChinese_forward()<cr>$/;"	kind:m	line:163
+se	KeyMap.vim	/^nmap se <Plug>(easymotion-e)$/;"	kind:m	line:159
+sj	KeyMap.vim	/^nmap sj <plug>(easymotion-j)$/;"	kind:m	line:149
+sk	KeyMap.vim	/^nmap sk <plug>(easymotion-k)$/;"	kind:m	line:151
+sl	KeyMap.vim	/^nmap sl <Plug>(easymotion-sl)$/;"	kind:m	line:148
+sn	KeyMap.vim	/^nmap sn <Plug>(easymotion-n)$/;"	kind:m	line:153
+ss	KeyMap.vim	/^nmap ss <Plug>Sneak_s$/;"	kind:m	line:146
+sw	KeyMap.vim	/^nmap sw <Plug>(easymotion-w)$/;"	kind:m	line:155
+t	KeyMap.vim	/^nnoremap <silent> t :<C-U>call sneak#wrap('',           1, 0, 0, 1)<CR>$/;"	kind:m	line:140
+t	KeyMap.vim	/^onoremap <silent> t :<C-U>call sneak#wrap(v:operator,   1, 0, 0, 1)<CR>$/;"	kind:m	line:144
+t	KeyMap.vim	/^xnoremap <silent> t :<C-U>call sneak#wrap(visualmode(), 1, 0, 0, 1)<CR>$/;"	kind:m	line:142
+v	ftplugin/dbui.vim	/^nmap <buffer> v <Plug>(DBUI_SelectLineVsplit)<cr>$/;"	kind:m	line:1
+zuz	KeyMap.vim	/^nmap zuz <Plug>(FastFoldUpdate)$/;"	kind:m	line:202
+¡	autocmd.vim	/^        imap     <buffer> ¡ <Esc><Plug>RDSendLine<CR>$/;"	kind:m	line:108
+¡	autocmd.vim	/^        inoremap <buffer> ¡ <esc>V:<c-u>call RunDoLines()<cr>$/;"	kind:m	line:124
+¡	autocmd.vim	/^        nmap     <buffer> ¡ <Plug>RDSendLine<CR>$/;"	kind:m	line:109
+¡	autocmd.vim	/^        nnoremap <buffer> ¡ V:call RunDoLines()<cr>$/;"	kind:m	line:125
+¡	autocmd.vim	/^        vnoremap <buffer> ¡ :<C-U>call RunDoLines()<cr>$/;"	kind:m	line:126
+¡	ftplugin/rmd.vim	/^    imap     <buffer> ¡ <Esc><Plug>RDSendLine<CR>$/;"	kind:m	line:71
+¡	ftplugin/rmd.vim	/^    nmap     <buffer> ¡ <Plug>RDSendLine<CR>$/;"	kind:m	line:72
+¡	ftplugin/stata.vim	/^    inoremap <buffer> ¡ <esc>V:<c-u>call RunDoLines()<cr>$/;"	kind:m	line:4
+¡	ftplugin/stata.vim	/^    nnoremap <buffer> ¡ V:call RunDoLines()<cr>$/;"	kind:m	line:5
+¡	ftplugin/stata.vim	/^    vnoremap <buffer> ¡ :<C-U>call RunDoLines()<cr>$/;"	kind:m	line:6
+«	autocmd.vim	/^        inoremap <buffer> « %>%<cr>$/;"	kind:m	line:106
+«	ftplugin/rmd.vim	/^    inoremap <buffer> « %>%<cr>$/;"	kind:m	line:69
+¬	KeyMap.vim	/^    nnoremap ¬ <Esc>v\$$/;"	kind:m	line:101
+Ø	KeyMap.vim	/^    noremap  Ø O<Esc>$/;"	kind:m	line:103
+ø	KeyMap.vim	/^    noremap ø o<Esc>$/;"	kind:m	line:102
+˙	KeyMap.vim	/^    nnoremap ˙ <Esc>v^$/;"	kind:m	line:100
+˚	KeyMap.vim	/^    nnoremap ˚ <Esc>Vk$/;"	kind:m	line:99
+∆	KeyMap.vim	/^    nnoremap ∆ <Esc>Vj$/;"	kind:m	line:98
+≠	autocmd.vim	/^        inoremap <buffer> ≠ <-<cr> $/;"	kind:m	line:107
+≠	ftplugin/rmd.vim	/^    inoremap <buffer> ≠ <-<cr> $/;"	kind:m	line:70

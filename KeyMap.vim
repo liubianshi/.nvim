@@ -18,7 +18,9 @@ endfunction
 
 " 基础命令{{{1
 "nnoremap <leader><leader> :<C-U><C-R>=printf("AsyncRun %s", "")<CR> 
-nnoremap <silent> <leader>a :<c-u>call <sid>AddDash("-")<cr>
+nnoremap <silent> <leader>a- :<c-u>call <sid>AddDash("-")<cr>
+nnoremap <silent> <leader>a= :<c-u>call <sid>AddDash("=")<cr>
+nnoremap <silent> <leader>a. :<c-u>call <sid>AddDash(".")<cr>
 nnoremap <silent> <leader>p :<c-u>execute "cd" expand("%:p:h")<cr>
 nnoremap <silent> <leader>C :<c-u> call ChangeCompleteEngine()<cr>
 nnoremap <silent> <leader>w :<c-u>:w<cr>

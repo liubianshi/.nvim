@@ -15,6 +15,7 @@ let g:ale_lint_on_insert_leave = 0
 let g:ale_linters = {
             \   'sh': ['shellcheck'],
             \   'c': ['clang'],
+            \   'r': ['lintr'],
             \}
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -22,3 +23,21 @@ let g:ale_fixers = {
             \   'pandoc':   ['prettier', 'eslint'],
             \   'r': ['styler'],
             \ }
+let g:ale_r_lintr_options = "with_defaults(". join([
+            \   "line_length_linter = line_length_linter(120)",
+            \   "object_name_linter = NULL",
+            \   "single_quotes_linter = NULL",
+            \   "trailing_blank_lines_lintr = NULL",
+            \   "object_name_linter = NULL",
+            \   "camel_case_linter = NULL"
+            \   ], ", ") . ")"
+let g:ale_r_styler_options = "styler::tidyverse_style(strict = FALSE, indent_by = 4)"
+
+nnoremap <silent><buffer> <leader>ae :<c-u>ALEEnableBuffer<cr>
+nnoremap <silent><buffer> <leader>ad :<c-u>ALEDisableBuffer<cr>
+nnoremap <silent><buffer> <leader>at :<c-u>ALEToggleBuffer<cr>
+nnoremap <silent><buffer> <leader>al :<c-u>ALELint<cr>
+nnoremap <silent><buffer> <leader>as :<c-u>ALELintStop<cr>
+nnoremap <silent><buffer> [a         :<c-u>ALEPrevious<cr>
+nnoremap <silent><buffer> ]a         :<c-u>ALENext<cr>
+

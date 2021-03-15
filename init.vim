@@ -156,6 +156,7 @@ Plug 'kien/rainbow_parentheses.vim'
 
 " StarupTime {{{2
 Plug 'dstein64/vim-startuptime'
+Plug 'mhinz/vim-startify'
 
 " vim-table-mode {{{2
 Plug 'dhruvasagar/vim-table-mode'

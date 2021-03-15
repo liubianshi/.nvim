@@ -9,7 +9,7 @@ function Lbs_RFormat() range
     let lns = getline(a:firstline, a:lastline)
     call writefile(lns, g:rplugin.tmpdir . "/unformatted_code")
     call AddForDeletion(g:rplugin.tmpdir . "/unformatted_code")
-    let cmd = "styler::style_text(readLines(\"" . g:rplugin.tmpdir . "/unformatted_code\"), transformers = styler::tidyverse_style(strict = TRUE, indent_by = 4))"
+    let cmd = "styler::style_text(readLines(\"" . g:rplugin.tmpdir . "/unformatted_code\"), transformers = styler::tidyverse_style(strict = FALSE, indent_by = 4))"
     silent exe a:firstline . "," . a:lastline . "delete"
     silent exe ':normal k' 
     call RInsert(cmd, "here") 
