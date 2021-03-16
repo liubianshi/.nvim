@@ -8,7 +8,7 @@
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	5.9.0	/f82c53556/
+!_TAG_PROGRAM_VERSION	5.9.0	/0e4c307b3/
 #	KeyMap.vim	/^vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@\/<CR><CR>:$/;"	kind:m	line:131
 $GTAGSCONF	basic.vim	/^let $GTAGSCONF = $HOME . "\/.globalrc"$/;"	kind:v	line:89
 $GTAGSLABEL	basic.vim	/^let $GTAGSLABEL = 'native-pygments'$/;"	kind:v	line:88
@@ -368,7 +368,7 @@ P	ftplugin/qf.vim	/^nnoremap <silent><buffer> P :PreviewClose<cr>$/;"	kind:m	lin
 QuickfixToggle	lbs_function.vim	/^function! QuickfixToggle()$/;"	kind:f	line:146	signature:()
 RStart	Plugins/Nvim-R.vim	/^command! RStart let oldft=&ft$/;"	kind:c	line:24
 RUN	KeyMap.vim	/^command! RUN FloatermNew --name=repl --wintype=normal --position=right$/;"	kind:c	line:281
-R_app	Plugins/Nvim-R.vim	/^let R_app = "R"$/;"	kind:v	line:3
+R_app	Plugins/Nvim-R.vim	/^let R_app = "radian"$/;"	kind:v	line:3
 R_assign	Plugins/Nvim-R.vim	/^let R_assign = 0$/;"	kind:v	line:13
 R_bracketed_paste	Plugins/Nvim-R.vim	/^let R_bracketed_paste = 1$/;"	kind:v	line:6
 R_cmd	Plugins/Nvim-R.vim	/^let R_cmd = "R"$/;"	kind:v	line:2
@@ -617,8 +617,12 @@ g:sneak#label	Plugins/vim-sneak.vim	/^let g:sneak#label = 1$/;"	kind:v	line:1
 g:sneak#s_next	Plugins/vim-sneak.vim	/^let g:sneak#s_next = 1$/;"	kind:v	line:2
 g:sneak#t_reset	Plugins/vim-sneak.vim	/^let g:sneak#t_reset = 1$/;"	kind:v	line:5
 g:sneak#use_ic_scs	Plugins/vim-sneak.vim	/^let g:sneak#use_ic_scs = 1$/;"	kind:v	line:3
+g:sonokai_better_performance	Plugins/sonokai.vim	/^let g:sonokai_better_performance = 1$/;"	kind:v	line:6
+g:sonokai_diagnostic_text_highlight	Plugins/sonokai.vim	/^let g:sonokai_diagnostic_text_highlight = 1$/;"	kind:v	line:5
 g:sonokai_disable_italic_comment	Plugins/sonokai.vim	/^let g:sonokai_disable_italic_comment = 1$/;"	kind:v	line:2
 g:sonokai_enable_italic	Plugins/sonokai.vim	/^let g:sonokai_enable_italic = 1$/;"	kind:v	line:1
+g:sonokai_sign_column_background	Plugins/sonokai.vim	/^let g:sonokai_sign_column_background = 'none'$/;"	kind:v	line:4
+g:sonokai_transparent_background	Plugins/sonokai.vim	/^let g:sonokai_transparent_background = 1$/;"	kind:v	line:3
 g:startify_bookmarks	Plugins/vim-startify.vim	/^let g:startify_bookmarks = systemlist("sed -E 's!\/home\/liubianshi!~!' ~\/.config\/diySync\/pat/;"	kind:v	line:15
 g:startify_lists	Plugins/vim-startify.vim	/^let g:startify_lists = [$/;"	kind:v	line:17
 g:table_mode_corner	Plugins/vim-table-mode.vim	/^let g:table_mode_corner='|'$/;"	kind:v	line:1

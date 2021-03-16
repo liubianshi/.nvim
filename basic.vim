@@ -1,5 +1,5 @@
-set background=dark        " 设置颜色模式
-colorscheme ayu
+"set background=dark        " 设置颜色模式
+colorscheme sonokai
 
 " Basic Config{{{1
 let mapleader = " "

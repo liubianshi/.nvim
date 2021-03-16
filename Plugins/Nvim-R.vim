@@ -1,6 +1,6 @@
 let r_syntax_folding = 1
 let R_cmd = "R"
-let R_app = "R"
+let R_app = "radian"
 let R_hl_term = 1
 let R_openpdf = 0
 let R_bracketed_paste = 1
