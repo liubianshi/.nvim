@@ -11,16 +11,22 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_insert_leave = 0
+
+" 文件类型别名
+let g:ale_linter_aliases = {
+            \   'pandoc': ['markdown'],
+            \   'rmd': ['markdown', 'r'],
+            \}
 "使用clang对c和c++进行语法检查，对python使用pylint进行语法检查
 let g:ale_linters = {
             \   'sh': ['shellcheck'],
             \   'c': ['clang'],
             \   'r': ['lintr'],
+            \   'markdown': ['languagetool'],
             \}
 let g:ale_fixers = {
             \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \   'markdown': ['prettier', 'eslint'],
-            \   'pandoc':   ['prettier', 'eslint'],
+            \   'markdown': ['languagetool'],
             \   'r': ['styler'],
             \ }
 let g:ale_r_lintr_options = "with_defaults(". join([
@@ -32,6 +38,7 @@ let g:ale_r_lintr_options = "with_defaults(". join([
             \   "camel_case_linter = NULL"
             \   ], ", ") . ")"
 let g:ale_r_styler_options = "styler::tidyverse_style(strict = FALSE, indent_by = 4)"
+let g:ale_languagetool_options = "--autoDetect --languagemodel ~/Downloads"
 
 nnoremap <silent><buffer> <leader>ae :<c-u>ALEEnableBuffer<cr>
 nnoremap <silent><buffer> <leader>ad :<c-u>ALEDisableBuffer<cr>

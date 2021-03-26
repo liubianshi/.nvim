@@ -8,7 +8,7 @@
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	5.9.0	/0e4c307b3/
+!_TAG_PROGRAM_VERSION	5.9.0	/faae8c88b/
 #	KeyMap.vim	/^vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@\/<CR><CR>:$/;"	kind:m	line:131
 $GTAGSCONF	basic.vim	/^let $GTAGSCONF = $HOME . "\/.globalrc"$/;"	kind:v	line:89
 $GTAGSLABEL	basic.vim	/^let $GTAGSLABEL = 'native-pygments'$/;"	kind:v	line:88
@@ -147,11 +147,11 @@ $GTAGSLABEL	basic.vim	/^let $GTAGSLABEL = 'native-pygments'$/;"	kind:v	line:88
 <leader>a-	KeyMap.vim	/^nnoremap <silent> <leader>a- :<c-u>call <sid>AddDash("-")<cr>$/;"	kind:m	line:21
 <leader>a.	KeyMap.vim	/^nnoremap <silent> <leader>a. :<c-u>call <sid>AddDash(".")<cr>$/;"	kind:m	line:23
 <leader>a=	KeyMap.vim	/^nnoremap <silent> <leader>a= :<c-u>call <sid>AddDash("=")<cr>$/;"	kind:m	line:22
-<leader>ad	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>ad :<c-u>ALEDisableBuffer<cr>$/;"	kind:m	line:37
-<leader>ae	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>ae :<c-u>ALEEnableBuffer<cr>$/;"	kind:m	line:36
-<leader>al	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>al :<c-u>ALELint<cr>$/;"	kind:m	line:39
-<leader>as	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>as :<c-u>ALELintStop<cr>$/;"	kind:m	line:40
-<leader>at	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>at :<c-u>ALEToggleBuffer<cr>$/;"	kind:m	line:38
+<leader>ad	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>ad :<c-u>ALEDisableBuffer<cr>$/;"	kind:m	line:44
+<leader>ae	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>ae :<c-u>ALEEnableBuffer<cr>$/;"	kind:m	line:43
+<leader>al	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>al :<c-u>ALELint<cr>$/;"	kind:m	line:46
+<leader>as	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>as :<c-u>ALELintStop<cr>$/;"	kind:m	line:47
+<leader>at	Plugins/ale.vim	/^nnoremap <silent><buffer> <leader>at :<c-u>ALEToggleBuffer<cr>$/;"	kind:m	line:45
 <leader>bQ	KeyMap.vim	/^nnoremap <silent> <leader>bQ :q!<cr>$/;"	kind:m	line:52
 <leader>bW	KeyMap.vim	/^nnoremap <silent> <leader>bW :w!<cr>$/;"	kind:m	line:54
 <leader>bc	KeyMap.vim	/^nnoremap <silent> <leader>bc :<c-u>call Lilydjwg_cleanbufs()<cr>$/;"	kind:m	line:47
@@ -403,7 +403,7 @@ VisualSelection	lbs_function.vim	/^function! VisualSelection(direction, extra_fi
 [	whichkey.vim	/^vnoremap <silent> [ :<c-u>WhichKeyVisual '['<CR>$/;"	kind:m	line:55
 [B	KeyMap.vim	/^nnoremap [B :<c-u>bfirst<cr>$/;"	kind:m	line:108
 [T	KeyMap.vim	/^nnoremap [T :<c-u>tabfirst<cr>$/;"	kind:m	line:112
-[a	Plugins/ale.vim	/^nnoremap <silent><buffer> [a         :<c-u>ALEPrevious<cr>$/;"	kind:m	line:41
+[a	Plugins/ale.vim	/^nnoremap <silent><buffer> [a         :<c-u>ALEPrevious<cr>$/;"	kind:m	line:48
 [b	KeyMap.vim	/^nnoremap [b :<c-u>bprevious<cr>$/;"	kind:m	line:106
 [t	KeyMap.vim	/^nnoremap [t :<c-u>tabprevious<cr>$/;"	kind:m	line:110
 [u	autocmd.vim	/^    noremap <buffer> [u :PreviewScroll -1<cr>$/;"	kind:m	line:157
@@ -412,7 +412,7 @@ VisualSelection	lbs_function.vim	/^function! VisualSelection(direction, extra_fi
 ]	whichkey.vim	/^vnoremap <silent> ] :<c-u>WhichKeyVisual ']'<CR>$/;"	kind:m	line:53
 ]B	KeyMap.vim	/^nnoremap ]B :<c-u>blast<cr>$/;"	kind:m	line:107
 ]T	KeyMap.vim	/^nnoremap ]T :<c-u>tablast<cr>$/;"	kind:m	line:111
-]a	Plugins/ale.vim	/^nnoremap <silent><buffer> ]a         :<c-u>ALENext<cr>$/;"	kind:m	line:42
+]a	Plugins/ale.vim	/^nnoremap <silent><buffer> ]a         :<c-u>ALENext<cr>$/;"	kind:m	line:49
 ]b	KeyMap.vim	/^nnoremap ]b :<c-u>bnext<cr>$/;"	kind:m	line:105
 ]t	KeyMap.vim	/^nnoremap ]t :<c-u>tabnext<cr>$/;"	kind:m	line:109
 ]u	autocmd.vim	/^    noremap <buffer> ]u :PreviewScroll +1<cr>$/;"	kind:m	line:158
@@ -537,13 +537,15 @@ g:ale_disable_lsp	Plugins/ale.vim	/^let g:ale_disable_lsp = 1$/;"	kind:v	line:1
 g:ale_echo_msg_error_str	Plugins/ale.vim	/^let g:ale_echo_msg_error_str = 'E'$/;"	kind:v	line:7
 g:ale_echo_msg_format	Plugins/ale.vim	/^let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'$/;"	kind:v	line:9
 g:ale_echo_msg_warning_str	Plugins/ale.vim	/^let g:ale_echo_msg_warning_str = 'W'$/;"	kind:v	line:8
-g:ale_fixers	Plugins/ale.vim	/^let g:ale_fixers = {$/;"	kind:v	line:20
+g:ale_fixers	Plugins/ale.vim	/^let g:ale_fixers = {$/;"	kind:v	line:27
+g:ale_languagetool_options	Plugins/ale.vim	/^let g:ale_languagetool_options = "--autoDetect --languagemodel ~\/Downloads"$/;"	kind:v	line:41
 g:ale_lint_on_enter	Plugins/ale.vim	/^let g:ale_lint_on_enter = 0$/;"	kind:v	line:12
 g:ale_lint_on_insert_leave	Plugins/ale.vim	/^let g:ale_lint_on_insert_leave = 0$/;"	kind:v	line:13
 g:ale_lint_on_text_changed	Plugins/ale.vim	/^let g:ale_lint_on_text_changed = 'never'$/;"	kind:v	line:11
-g:ale_linters	Plugins/ale.vim	/^let g:ale_linters = {$/;"	kind:v	line:15
-g:ale_r_lintr_options	Plugins/ale.vim	/^let g:ale_r_lintr_options = "with_defaults(". join([$/;"	kind:v	line:26
-g:ale_r_styler_options	Plugins/ale.vim	/^let g:ale_r_styler_options = "styler::tidyverse_style(strict = FALSE, indent_by = 4)"$/;"	kind:v	line:34
+g:ale_linter_aliases	Plugins/ale.vim	/^let g:ale_linter_aliases = {$/;"	kind:v	line:16
+g:ale_linters	Plugins/ale.vim	/^let g:ale_linters = {$/;"	kind:v	line:21
+g:ale_r_lintr_options	Plugins/ale.vim	/^let g:ale_r_lintr_options = "with_defaults(". join([$/;"	kind:v	line:32
+g:ale_r_styler_options	Plugins/ale.vim	/^let g:ale_r_styler_options = "styler::tidyverse_style(strict = FALSE, indent_by = 4)"$/;"	kind:v	line:40
 g:ale_set_highlights	Plugins/ale.vim	/^let g:ale_set_highlights = 0$/;"	kind:v	line:3
 g:ale_sign_column_always	Plugins/ale.vim	/^let g:ale_sign_column_always = 1$/;"	kind:v	line:2
 g:ale_sign_error	Plugins/ale.vim	/^let g:ale_sign_error = '✗'$/;"	kind:v	line:4

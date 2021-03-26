@@ -1,4 +1,4 @@
-for plugname in ['vim-pandoc', 'vim-pandoc-syntax', 'md-img-paste.vim', 'pangu.vim']
+for plugname in ['vim-pandoc', 'vim-pandoc-syntax', 'md-img-paste.vim', 'pangu.vim', 'ale']
     call Lbs_Load_Plug(plugname)
 endfor
 
