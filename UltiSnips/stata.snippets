@@ -36,3 +36,16 @@ snapshot save
 global G_Snap = r(snapshot)
 $0
 endsnippet
+
+snippet edit "preview in console" b
+$0export delimited using /tmp/stata_preview.csv $1, replace datafmt
+winexec st -e nvim +RainbowAlign /tmp/stata_preview.csv
+endsnippet
+
+snippet graph "preview graph in console" b
+$0graph $1
+graph display
+graph export /tmp/stata_graph.pdf, replace
+winexec zathura /tmp/stata_graph.pdf
+endsnippet
+
