@@ -17,7 +17,8 @@ let cmdline_outhl       = 1      " Syntax highlight the output
 let cmdline_auto_scroll = 1      " Keep the cursor at the end of terminal (nvim)
 let cmdline_app           = {}
 let cmdline_app['ruby']   = 'pry'
-let cmdline_app['sh']     = 'bash'
-let cmdline_app['stata']  = 'stata-mp'
+let cmdline_app['sh']     = 'sh'
+let cmdline_app['stata']  = 'stata-se'
+
 " Color
 let cmdline_follow_colorscheme = 1
