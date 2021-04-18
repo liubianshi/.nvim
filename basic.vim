@@ -6,6 +6,10 @@ let mapleader = " "
 let maplocalleader = ';'
 noremap ;; ;
 
+set backupdir=~/.cache/vim/.backup//
+set directory=~/.cache/vim/.swp//
+set undodir=~/.cache/vim/.undo//
+
 set mouse=a                " 支持使用鼠标
 set clipboard+=unnamedplus " 剪切板的整合
 set encoding=utf-8
@@ -22,8 +26,10 @@ set t_vb=                  " 置空错误铃声的终端代码
 set sidescroll=5
 set listchars+=precedes:<,extends:>
 set hidden
+set swapfile
 set nobackup
 set nowritebackup
+set undofile
 set updatetime=300
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
