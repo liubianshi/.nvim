@@ -16,3 +16,4 @@ let b:AutoPairs = g:AutoPairs
 let b:AutoPairs['`']="'" 
 setlocal foldmethod=marker
 setlocal foldmarker={,}
+

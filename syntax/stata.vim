@@ -1,0 +1,2 @@
+syn keyword stataCommand testreg
+
