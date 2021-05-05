@@ -1,7 +1,6 @@
-{ 
-    "diagnostic.displayByAle": true,
+{
     "r.lsp.path": "/usr/bin/R",
-    "r.lsp.debug": false,
+    "r.lsp.debug": true,
     "r.lsp.diagnostics": false
 }
 

@@ -306,6 +306,28 @@ inoremap ;< <C-v>u300A
 " 右书名号
 inoremap ;> <C-v>u300B<BS>
 
+
+" 左括号和右括号
+inoremap ;e <C-v>uFF08
+inoremap ;r <C-v>uFF09
+" 左书名号和右书名号
+inoremap ;g <C-v>u300A
+inoremap ;b <C-v>u300B<BS>
+" 左双引号和右双引号
+inoremap ;z <C-v>u201C
+inoremap ;c <C-v>u201D
+" 感叹号
+inoremap ;a <C-v>ff01
+inoremap ;w <C-v>ff1f
+" 其他半角符号
+inoremap ;q `
+inoremap ;h #
+inoremap ;j _
+inoremap ;k *
+inoremap ;l /
+inoremap ;u $
+
+
 " fzf-bibtex {{{1
 " bring up fzf to insert citation to selected items.
 nnoremap <silent> <tab>c :call fzf#run({

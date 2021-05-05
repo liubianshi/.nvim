@@ -1,4 +1,4 @@
-call Lbs_Load_Plug("Nvim-R")
+"call Lbs_Load_Plug("Nvim-R")
 call Lbs_Load_Plug('ale')
 nnoremap <buffer> <localleader>L :<c-u>RSend devtools::load_all()<cr>
 nnoremap <buffer> <localleader>D :<c-u>RSend devtools::document()<cr>
@@ -32,4 +32,4 @@ vnoremap <buffer> <tab>rq                 :LbsRF<cr>
 inoremap <buffer> ;<CR> <Esc>A;<CR>
 nnoremap <buffer> <tab><CR> <Esc>A;<CR>
 
-setlocal formatprg=r-format
+"setlocal formatprg=r-format
