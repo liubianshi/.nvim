@@ -406,3 +406,21 @@ noremap <silent> go :<C-U><C-R>=printf("Leaderf gtags --recall %s", "")<CR><CR>
 noremap <silent> gp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 noremap <silent> gr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
 
+" 输入法切换 {{{1
+function! FcitxSpaceToggle()
+    call FcitxToggle()
+    return(" ")
+endfunction
+inoremap <expr> <space><space> FcitxSpaceToggle()
+
+
+
+
+ 
+
+
+
+
+
+
+

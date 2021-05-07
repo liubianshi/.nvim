@@ -297,4 +297,16 @@ function! Lbs_Load_Plug_Confs(plugNames) abort    " load config file for loaded 
     endfor
 endfunction
 
+" 输入法切换
+let g:input_toggle = 1
+function! FcitxToggle()
+    let s:input_status = system("fcitx5-remote")
+    if s:input_status == 2
+        let g:input_toggle = 1
+        let l:a = system("fcitx5-remote -c")
+    elseif s:input_status != 2 && g:input_toggle == 1
+        let l:a = system("fcitx5-remote -o")
+        let g:input_toggle = 0
+    endif
+endfunction
 

@@ -31,6 +31,8 @@ set nobackup
 set nowritebackup
 set undofile
 set updatetime=300
+set timeoutlen=250
+set ttimeoutlen=200
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
 set foldlevel=2             " 折叠层级
