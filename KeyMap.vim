@@ -411,7 +411,11 @@ function! FcitxSpaceToggle()
     call FcitxToggle()
     return(" ")
 endfunction
-inoremap <expr> <space><space> FcitxSpaceToggle()
+inoremap <expr> <F12> FcitxToggle()
+
+
+
+
 
 
 
