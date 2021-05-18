@@ -308,5 +308,6 @@ function! FcitxToggle()
         let l:a = system("fcitx5-remote -o")
         let g:input_toggle = 0
     endif
+    return("")
 endfunction
 
