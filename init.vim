@@ -37,7 +37,7 @@ Plug 'scrooloose/nerdtree',    { 'on':  'NERDTreeToggle' }
 Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' }
     doau User nerdtree call Lbs_Load_Plug_Confs(['nerdtree', 'vim-devicons'])
 
-" {{{2
+" lf {{{2
 Plug 'rbgrouleff/bclose.vim'          " lf.vim 插件依赖，关闭 buffer，但关闭 buffer 所在窗口
 Plug 'ptzz/lf.vim'                    " 文件管理
     let g:lf_map_keys = 0
@@ -163,6 +163,9 @@ Plug 'dhruvasagar/vim-table-mode'
 
 " vimspector {{{2
 Plug 'puremourning/vimspector',  { 'on': [] }
+
+" auto_save {{{2 
+Plug '907th/vim-auto-save'
 
 " plug end {{{2
 call plug#end()

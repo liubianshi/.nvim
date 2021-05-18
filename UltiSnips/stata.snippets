@@ -1,11 +1,9 @@
 snippet head "do file header" b
 di "************************* 运行系统设置 *************************"
-global Dropbox: env DROPBOX
-global NutStore: env NUTSTORE
-global Data: env DATA
-adopath + "$Dropbox/Backup/ado/personal"
-global G_WP = "$1"
-cd "$G_WP"
+global DROPBOX: env DROPBOX
+global NUTSTORE: env NUTSTORE
+global DATA: env DATA
+adopath + "$DROPBOX/Backup/ado/personal"
 $0
 endsnippet
 
