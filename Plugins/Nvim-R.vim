@@ -15,6 +15,9 @@ let R_assign = 0
 let R_rmdchunk = 0
 "let R_user_maps_only = 1
 "let rmd_syn_hl_chunk = 1
+"
+"
+let voom_ft_modes = {'rmd': 'pandoc', 'rnoweb': 'latex'}
 if ($SSH_CLIENT == "")
     "let R_external_term = 'alacritty -t R -e'
     "let R_external_term = 'st -t R -e'

@@ -54,8 +54,8 @@ nnoremap <silent> <leader>bw :w<cr>
 nnoremap <silent> <leader>bW :w!<cr>
 
 " 翻译{{{1
-vnoremap <silent> <leader>tt "*y:AsyncRun xclip -o \| tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
-nnoremap <silent> <leader>tt vip:AsyncRun tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
+vnoremap <silent> <leader>tc "*y:AsyncRun xclip -o \| tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
+nnoremap <silent> <leader>tc vip:AsyncRun tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
 vnoremap <silent> <leader>te "*y:AsyncRun xclip -o \| tr "\n" " " \| trans -b --no-ansi zh:en \| tee >(xclip -i -sel clip)<CR>
 nnoremap <silent> <leader>te vip:AsyncRun tr "\n" " " \| trans -b --no-ansi zh:en \| tee >(xclip -i -sel clip)<CR>
 
@@ -86,14 +86,14 @@ endif
 " Navigation {{{1
 noremap j gj
 noremap k gk
-nnoremap J <C-w>j
-nnoremap K <C-w>k
+" nnoremap J <C-w>j
+" nnoremap K <C-w>k
 nnoremap H <C-w>h
 nnoremap L <C-w>l
-nnoremap <A-j> <Esc>Vj
-nnoremap <A-k> <Esc>Vk
-noremap  <A-o> o<Esc>
-noremap  <A-O> O<Esc>
+"nnoremap <A-j> <Esc>Vj
+"nnoremap <A-k> <Esc>Vk
+"noremap  <A-o> o<Esc>
+"noremap  <A-O> O<Esc>
 if(has("mac"))
     nnoremap ∆ <Esc>Vj
     nnoremap ˚ <Esc>Vk

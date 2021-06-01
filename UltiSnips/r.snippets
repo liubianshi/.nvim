@@ -11,28 +11,70 @@ library("data.table")
 my <- new.env(parent = emptyenv())
 endsnippet
 
-snippet '"c'  "Change string to string vector" r
-" %>%
-	str_trim() %>% str_split("\\\\s+") %>% flatten_chr()
-$0
-endsnippet
-
-snippet ':((?:[^\s:\\]|\\\\|\\\s)+)((\s+(?:[^\s:\\]|\\\\|\\\s)+)*)'  "perl style string vector" r
+snippet '/((?:[^\s:\\]|\\\\|\\\s)+)((\s+(?:[^\s:\\]|\\\\|\\\s)+)*)/'  "perl style string vector" r
 (`!p snip.rv = '"' + re.compile(r'\\([\s\\])').sub(r'\1', match.group(1)) + \
 '"' + re.compile(r'\\([\s\\])').sub(r'\1', re_word.sub(r', "\1"', match.group(2)))`)$0
 endsnippet
 
-#snippet ';((["\'])[^\2]+\2|[^"\'\s]+)((?:\s+(?:(["\'])[^\4]+\4|[^"\'\s]+))*)'  "R vector" r
-#(`!p snip.rv = match.group(1) + re_quote.sub(r', \1', match.group(3))`)$0
-#endsnippet
+snippet '^tab (\w+(?: \w+)*)\s*(?:\sif (.+))?$' "stata style tab" r
+${1:lbs}[`!p
+con = match.group(2) if match.group(2) is not None else ""
+snip.rv = con + ", .N, keyby = .(" + \
+re.compile("\s+").sub(", ", match.group(1)) + ")"
+`]$0
+endsnippet
 
-snippet ';([^;]+)((?:;[^;]+)*)' "R list" r
+snippet '^sum (\w+(?:\s+\w+)*)\s*(?:\sif (.+))?$' "stata style sum" r
+lbs::stsum(${1:lbs}`!p
+con = "[" + match.group(2) + "], "if match.group(2) is not None else ", "
+var = re.compile("(\w+)").sub(r'"\1"', match.group(1))
+var = re.compile("\s+").sub(', ', var)
+snip.rv = con + "c(" + var + ")"
+`)
+endsnippet
+
+snippet ':([-\w.+*]+)(?:([<>=])([^/>;]+)?)?' "Raku Style Params" r
+`!p
+m = re.match(r'^(\-?\d[\d.]*L?|\-|\.|\+|\*)([A-Za-z_].*)', match.group(1))
+if m :
+	augument = m.group(2)
+	if m.group(1) == "+" :
+		params = "TRUE"
+	elif m.group(1) == "-" :
+		params = "FALSE"
+	elif m.group(1) == "." :
+		params = "NA"
+	elif m.group(1) == "*" :
+		params = "NULL"
+	elif m.group(1) == "00" :
+		params = "NULL"
+	else :
+		params = m.group(1)
+else :
+	augument = match.group(1)
+	if match.group(2) is None :
+		params = "TRUE"
+	elif match.group(2) == ">" :
+		params = match.group(3) + ";" if match.group(3) is not None else "list;"
+	elif match.group(2) == "=" :
+		params = match.group(3).split()
+		params = "c(" + ", ".join(params) + ")" if len(params) != 1 else params[0]
+	elif match.group(2) == "<" :
+		length = len(match.group(3).split())
+		params = re.compile("(\w+)").sub(r'"\1"', match.group(3))
+		params = re.compile("\s+").sub(', ', params)
+		params = "c(" + params + ")" if length != 1 else params
+snip.rv = augument + " = " + params
+`$0
+endsnippet
+
+snippet ';([^;]+)((?:;[^;]+)*);' "R list" r
 (`!p snip.rv = match.group(1) + re_map.sub(r', \1', match.group(2))`)$0
 endsnippet
 
-snippet '([\w.]+)=(.*)' "map" r
-`!p snip.rv = match.group(1) + " = " + '"' + match.group(2) + '"'`$0
-endsnippet
+#snippet '([\w.]+)=(\w+)' "map" r
+#`!p snip.rv = match.group(1) + " = " + '"' + match.group(2) + '"'`$0
+#endsnippet
 
 snippet '\b(my|tmp|ENV|G)\s+([\w.]+)' "Perl Style my statement" r
 `!p snip.rv = match.group(1) + "$" + match.group(2) + " "`$0
