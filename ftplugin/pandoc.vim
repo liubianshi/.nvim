@@ -17,6 +17,9 @@ inoremap <buffer> ;c              ` `<C-o>F <c-o>x
 inoremap <buffer> ;m              $ $<C-o>F <c-o>x
 inoremap <buffer> ;i              * *<C-o>F <c-o>x
 inoremap <buffer> ;b              ** **<C-o>F <c-o>x
+
+inoremap <expr> ` Fcitx2en()
+
 nnoremap <buffer> <localleader>ic ysiW`
 nnoremap <buffer> <localleader>ab :<c-u>AsyncRun 
     \ xsel -ob >> %:p:h/ref.bib; xsel -ob \| perl -ne 'print "\@$1\n" if ($_ =~ /^\@\w+\{([^,]+)\,/)' >> ~/.config/nvim/paper.dict<cr>
