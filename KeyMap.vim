@@ -407,8 +407,9 @@ noremap <silent> gp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR
 noremap <silent> gr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
 
 " 输入法切换 {{{1
-inoremap <expr> <F12> Lbs_Input_Env_Toggle()
-
+inoremap <expr> <PageUp>   Lbs_Input_Env_Zh()
+inoremap <expr> <PageDown> Lbs_Input_Env_En()
+inoremap <expr> <bs>  Lbs_bs()
 
 
 

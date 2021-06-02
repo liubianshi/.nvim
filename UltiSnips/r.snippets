@@ -65,7 +65,7 @@ else :
 		params = re.compile("\s+").sub(', ', params)
 		params = "c(" + params + ")" if length != 1 else params
 snip.rv = augument + " = " + params
-`$0
+`,$0
 endsnippet
 
 snippet ';([^;]+)((?:;[^;]+)*);' "R list" r
