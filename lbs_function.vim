@@ -299,7 +299,7 @@ endfunction
 
 " 输入法切换
 let g:input_toggle = 1
-function! FcitxToggle()
+function! LToggle()
     let s:input_status = system("fcitx5-remote")
     if s:input_status == 2
         let g:input_toggle = 1
@@ -309,6 +309,5 @@ function! FcitxToggle()
         let g:input_toggle = 0
     endif
     return("")
-endfunction
-
+endfunction 
 

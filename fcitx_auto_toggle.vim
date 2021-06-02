@@ -1,35 +1,53 @@
-function! Fcitx_status_en_p()
-    let line = getline('.')
-    let column = col('.')
-    let cursor_char = line[column - 1]
-    let cursor_before_char = line[max([0, column - 4]):(column - 2)]
-    "echom cursor_before_char . "|" . cursor_char
-
-    if " " == " "
-        echo ">1"
-        return(1)
-    endif
-    return(0)
-endfunction
-
-function! Lbs_Fcitx_Auto()
-    echo Fcitx_status_en_p()
-    echo "lorded"
-    if Fcitx_stata_en_p() == 1
-        call Fcitx2en()
-        let g:LBS_fcitx_status = 0
-        echo "2en"
+function! Lbs_Input_Env_Toggle()
+    if !exists("g:LBS_INPUT_ENV")
+        call Fcitx2zh() let g:LBS_INPUT_ENV = 1
+        echo "Change to Chinese Mode"
+    elseif g:LBS_INPUT_ENV == 0
+        let g:LBS_INPUT_ENV = 1
+        echo "Change to Chinese Mode"
     else
-        call Fcitx2zh()
-        let g:LBS_fcitx_status = 1
-        echo "2cn"
+        let g:LBS_INPUT_ENV = 0
+        echo "Change to ASCII Mode"
     endif
     return("")
 endfunction
 
-inoremap <expr> <space><space> Lbs_Fcitx_Auto()
-inoremap <expr> <space>j Fcitx_status_en_p()
+function! Lbs_Fcitx_Auto()
+    if exists("g:LBS_INPUT_ENV") && g:LBS_INPUT_ENV == 1
+        if v:char == '\x1d' || v:char == ' ' " 待输入的字符是空格或 <ctrl-]>
+            let cursor_before_char = getline('.')[max([0, col('.') - 2]):]
+            if cursor_before_char =~ '[\x21-\x7d]'
+                call Fcitx2zh()
+            else
+                call Fcitx2en()
+            endif
+        endif
+    endif
+    return("")
+endfunction
 
-"代567u11111111       11 jq1 1
-" 345678910121416182022242628
+augroup Fcitx
+    autocmd!
+    autocmd InsertCharPre * call Lbs_Fcitx_Auto()
+augroup END
+
+
+" function! Lbs_test(lchar)
+"     if v:char == "\<C-]>"
+"         echom "got it"
+"     endif
+"     let g:LBS_TEST = v:char
+"     return a:lchar
+" endfunction
+
+"inoremap <expr> <space><space> Lbs_Fcitx_Auto()
+"iabbr <buffer> <expr> jj Lbs_test("jk")
+
+
+
+"代567u11111111       11 jq1 1dde
+" 34567891012141618202224262811111110000000 j000 fffddddddd    1234 
+"    
+"    000j00000
+
 

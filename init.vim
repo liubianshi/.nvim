@@ -177,4 +177,4 @@ source ~/.config/nvim/KeyMap.vim
 source ~/.config/nvim/whichkey.vim
 source ~/.config/nvim/autocmd.vim
 source ~/.config/nvim/abbr.vim
-
+source ~/.config/nvim/fcitx_auto_toggle.vim
