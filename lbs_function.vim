@@ -2,7 +2,7 @@
 let g:plugs_lbs_conf = {}               " 用于记录插件个人配置文件的载入情况
 
 " 代码格式化 {{{1
-function Lbs_RFormat() range
+function! Lbs_RFormat() range
     if g:rplugin.nvimcom_port == 0
         return
     endif
@@ -310,4 +310,5 @@ function! FcitxToggle()
     endif
     return("")
 endfunction
+
 
