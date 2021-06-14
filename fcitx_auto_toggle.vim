@@ -27,7 +27,7 @@ endfunction
 
 augroup Fcitx
     autocmd!
-    autocmd InsertCharPre * call Lbs_Fcitx_Auto()
+    autocmd InsertCharPre *.md,*.[Rr]md,*.org call Lbs_Fcitx_Auto()
 augroup END
 
 function! Lbs_bs()

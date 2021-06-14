@@ -6,4 +6,5 @@ augroup filetypedetect
     autocmd BufNewFile,BufRead *.sthlp set filetype=smcl
     autocmd BufNewFile,BufRead *.ihlp   set filetype=smcl
     autocmd BufNewFile,BufRead *.smcl   set filetype=smcl
+    autocmd BufNewFile,BufRead *.org   set filetype=org
 augroup END

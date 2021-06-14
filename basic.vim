@@ -30,12 +30,21 @@ set swapfile
 set nobackup
 set nowritebackup
 set undofile
-set updatetime=300
-set timeoutlen=250
-set ttimeoutlen=200
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
 set foldlevel=2             " 折叠层级
+
+set updatetime=300
+set timeoutlen=1000
+set ttimeoutlen=100
+if ! has('gui_running')
+    set ttimeoutlen=10
+    augroup FastEscape
+        autocmd!
+        au InsertEnter * set timeoutlen=0
+        au InsertLeave * set timeoutlen=1000
+    augroup END
+endif
 
 if $TERM != "dvtm-256color"
     set termguicolors      " 真彩色
