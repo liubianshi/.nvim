@@ -58,6 +58,6 @@ vnoremap <silent> ] :<c-u>WhichKeyVisual ']'<CR>
 nnoremap <silent> [ :<c-u>WhichKey  '['<CR>
 vnoremap <silent> [ :<c-u>WhichKeyVisual '['<CR>
 
-nnoremap <silent> g :<c-u>WhichKey 'g'<CR>
-vnoremap <silent> g :<c-u>WhichKeyVisual 'g'<CR>
+"nnoremap <silent> g :<c-u>WhichKey 'g'<CR>
+"vnoremap <silent> g :<c-u>WhichKeyVisual 'g'<CR>
 
