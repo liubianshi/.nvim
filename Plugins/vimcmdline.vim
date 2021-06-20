@@ -7,7 +7,7 @@ let cmdline_map_send_paragraph = '<LocalLeader>p'
 let cmdline_map_send_block     = '<LocalLeader>b'
 let cmdline_map_quit           = '<LocalLeader>qq'
 " vimcmdline options
-let cmdline_vsplit      = 1      " Split the window vertically
+let cmdline_vsplit      = 0      " Split the window vertically
 let cmdline_esc_term    = 1      " Remap <Esc> to :stopinsert in Neovim's terminal
 let cmdline_in_buffer   = 1      " Start the interpreter in a Neovim's terminal
 let cmdline_term_height = 15     " Initial height of interpreter window or pane
@@ -19,6 +19,7 @@ let cmdline_app           = {}
 let cmdline_app['ruby']   = 'pry'
 let cmdline_app['sh']     = 'sh'
 let cmdline_app['stata']  = 'stata-se'
+let cmdline_app['python'] = 'ipython --no-autoindent'
 
 " Color
 let cmdline_follow_colorscheme = 1

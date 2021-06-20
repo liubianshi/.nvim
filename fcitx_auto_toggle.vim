@@ -25,11 +25,6 @@ function! Lbs_Fcitx_Auto()
     return("")
 endfunction
 
-augroup Fcitx
-    autocmd!
-    autocmd InsertCharPre *.md,*.[Rr]md,*.org call Lbs_Fcitx_Auto()
-augroup END
-
 function! Lbs_bs()
     if exists("g:LBS_INPUT_ENV") && g:LBS_INPUT_ENV == 1
         let coursor_char = getline('.')[col('.') - 2:col('.') - 2]
@@ -47,4 +42,8 @@ function! Lbs_bs()
     return("\<bs>")
 endfunction
 
+augroup Fcitx
+    autocmd!
+    autocmd InsertCharPre *.md,*.[Rr]md,*.org call Lbs_Fcitx_Auto()
+augroup END
 

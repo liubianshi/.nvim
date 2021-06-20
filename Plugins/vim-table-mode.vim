@@ -1,3 +1,4 @@
+let g:table_mode_map_prefix = "<tab>t"
 let g:table_mode_corner='|'
 function! s:isAtStartOfLine(mapping)
     let text_before_cursor = getline('.')[0 : col('.')-1]

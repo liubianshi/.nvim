@@ -1,1 +1,1 @@
-let g:VM_leader = "\\" 
+let g:VM_leader = "<tab>" 

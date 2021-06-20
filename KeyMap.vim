@@ -16,56 +16,204 @@ function! s:AddDash(symbol)
     let @" = back
 endfunction
 
-" 基础命令{{{1
-"nnoremap <leader><leader> :<C-U><C-R>=printf("AsyncRun %s", "")<CR> 
-nnoremap <silent> <leader>a- :<c-u>call <sid>AddDash("-")<cr>
-nnoremap <silent> <leader>a= :<c-u>call <sid>AddDash("=")<cr>
-nnoremap <silent> <leader>a. :<c-u>call <sid>AddDash(".")<cr>
-nnoremap <silent> <leader>p :<c-u>execute "cd" expand("%:p:h")<cr>
-nnoremap <silent> <leader>C :<c-u> call ChangeCompleteEngine()<cr>
-nnoremap <silent> <leader>w :<c-u>:w<cr>
-nnoremap <silent> <leader>x :<c-u>:q<cr>
-nnoremap <leader>O :AsyncRun xdg-open "%"<cr>
-inoremap <A-space> <Esc>
-tnoremap <A-space> <C-\><C-n>
-if(has("mac"))
-    nnoremap <leader>O :AsyncRun open "%"<cr>
-else
-    nnoremap <A-d> 10j
-    nnoremap <A-u> 10k
-endif
-nnoremap <leader>ev :tabedit $MYVIMRC<cr>
-nnoremap <leader>ek :tabedit ~/.config/nvim/KeyMap.vim<cr>
-nnoremap <leader>eV :source $MYVIMRC<cr>
-nnoremap <silent> <leader><cr> :noh<cr>
-nnoremap <silent> <leader>B :call Status()<cr>
+function! s:lf_task_source(...)
+	let rows = asynctasks#source(&columns * 48 / 100)
+	let source = []
+	for row in rows
+		let name = row[0]
+		let source += [name . '  ' . row[1] . '  : ' . row[2]]
+	endfor
+	return source
+endfunction
 
-" 管理 quickfix {{{1
-nnoremap <leader>q :call QuickfixToggle()<cr>
+function! s:lf_task_accept(line, arg)
+	let pos = stridx(a:line, '<')
+	if pos < 0
+		return
+	endif
+	let name = strpart(a:line, 0, pos)
+	let name = substitute(name, '^\s*\(.\{-}\)\s*$', '\1', '')
+	if name != ''
+		exec "AsyncTask " . name
+	endif
+endfunction
 
-" buffer managing{{{1
+function! s:lf_task_digest(line, mode)
+	let pos = stridx(a:line, '<')
+	if pos < 0
+		return [a:line, 0]
+	endif
+	let name = strpart(a:line, 0, pos)
+	return [name, 0]
+endfunction
+
+function! s:lf_win_init(...)
+	setlocal nonumber
+	setlocal nowrap
+endfunction
+
+function! s:Bibtex_ls()
+  let bibfiles = (
+      \ globpath('~/Documents', '*ref.bib', v:true, v:true) +
+      \ globpath('.', '*.bib', v:true, v:true) +
+      \ globpath('..', '*.bib', v:true, v:true) +
+      \ globpath('*/', '*.bib', v:true, v:true)
+      \ )
+  let bibfiles = join(bibfiles, ' ')
+  let source_cmd = 'bibtex-ls '.bibfiles
+  return source_cmd
+endfunction
+
+function! s:bibtex_cite_sink(lines)
+    let r=system("bibtex-cite ", a:lines)
+    execute ':normal! a' . r
+endfunction
+
+function! s:bibtex_markdown_sink(lines)
+    let r=system("bibtex-markdown ", a:lines)
+    execute ':normal! a' . r
+endfunction
+
+function! s:bibtex_cite_sink_insert(lines)
+    let r=system("bibtex-cite -prefix='@' -postfix='' -separator='; @'", a:lines)
+    "let r=system("bibtex-cite ", a:lines)
+    execute ':normal! i' . r
+    call feedkeys('a', 'n')
+endfunction
+
+
+" 文件操作 {{{1
+nnoremap <silent> <leader>ff  :FzfFiles<CR>
+nnoremap <silent> <leader>fr  :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+nnoremap <silent> <leader>fs  :write<CR>
+nnoremap <silent> <leader>fS  :write!<CR>
+nnoremap <silent> <leader>fo :Lf<cr>
+nnoremap <silent> <leader>fls :split +Lf<cr>
+nnoremap <silent> <leader>flv :vertical split +Lf<cr>
+nnoremap <silent> <leader>flt :LfNewTab<cr>
+nnoremap <silent> <leader>ft  :NERDTreeToggle<cr>
+nnoremap <silent> <leader>fn  :new<CR>
+nnoremap <silent> <leader>fw  :WikiFzfPages<CR>
+
+" Buffer {{{1
+nnoremap <silent> <leader>bb  :LeaderfBuffer<cr>
+nnoremap <silent> <leader>bB  :LeaderfBufferAll<cr>
 nnoremap <silent> <leader>bc :<c-u>call Lilydjwg_cleanbufs()<cr>
 nnoremap <silent> <leader>bd :<c-u>Bclose<cr>
-nnoremap <silent> <leader>bj :<c-u>bp<cr>
-nnoremap <silent> <leader>bk :<c-u>bn<cr>
+nnoremap <silent> <leader>bp :<c-u>bp<cr>
+nnoremap <silent> <leader>bn :<c-u>bn<cr>
 nnoremap <silent> <leader>bq :q<cr>
 nnoremap <silent> <leader>bQ :q!<cr>
 nnoremap <silent> <leader>bw :w<cr>
 nnoremap <silent> <leader>bW :w!<cr>
 
-" 翻译{{{1
-vnoremap <silent> <leader>tc "*y:AsyncRun xclip -o \| tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
-nnoremap <silent> <leader>tc vip:AsyncRun tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
-vnoremap <silent> <leader>te "*y:AsyncRun xclip -o \| tr "\n" " " \| trans -b --no-ansi zh:en \| tee >(xclip -i -sel clip)<CR>
-nnoremap <silent> <leader>te vip:AsyncRun tr "\n" " " \| trans -b --no-ansi zh:en \| tee >(xclip -i -sel clip)<CR>
+" 管理 quickfix {{{1
+nnoremap <leader>qq :call QuickfixToggle()<cr>
 
-" 文件操作 lf-vim 相关快捷键{{{1
-nnoremap <silent> <leader>lr :Lf<cr>
-nnoremap <silent> <leader>ls :split +Lf<cr>
-nnoremap <silent> <leader>lv :vertical split +Lf<cr>
-nnoremap <silent> <leader>lt :LfNewTab<cr>
-nnoremap <silent> <leader>lw :NERDTreeToggle<cr>
-nnoremap <silent> <leader>nn :NnnPicker<CR>
+" window manager {{{1
+nnoremap <silent> <leader>wo :<c-u>only<cr>
+nnoremap <silent> <leader>ww <c-w>w
+nnoremap <silent> <leader>wW <c-w>W
+nnoremap <silent> <leader>w= <c-w>=
+nnoremap <silent> <leader>w- <c-w>-
+nnoremap <silent> <leader>w_ <c-w>_
+nnoremap <silent> <leader>w< <c-w><
+nnoremap <silent> <leader>w> <c-w><
+nnoremap <silent> <leader>w<bar> <c-w><bar>
+nnoremap <silent> <leader>w+ <c-w>+
+nnoremap <silent> <leader>wj <c-w>j
+nnoremap <silent> <leader>wk <c-w>k
+nnoremap <silent> <leader>wh <c-w>h
+nnoremap <silent> <leader>wl <c-w>l
+nnoremap <silent> <leader>wJ <c-w>J
+nnoremap <silent> <leader>wK <c-w>K
+nnoremap <silent> <leader>wH <c-w>H
+nnoremap <silent> <leader>wL <c-w>L
+nnoremap <silent> <leader>ws <c-w>s
+nnoremap <silent> <leader>wv <c-w>v
+
+" tab managing{{{1
+nnoremap <silent> <leader>tt :tabnew<cr>
+nnoremap <silent> <leader>tx :tabclose<cr>
+nnoremap <silent> <leader>tn :tabnext<cr>
+nnoremap <silent> <leader>tp :tabprevious<cr>
+
+" run {{{1 
+let g:floaterm_keymap_toggle = '<leader><space>'
+let g:Lf_Extensions = get(g:, 'Lf_Extensions', {})
+let g:Lf_Extensions.task = {
+			\ 'source': string(function('s:lf_task_source'))[10:-3],
+			\ 'accept': string(function('s:lf_task_accept'))[10:-3],
+			\ 'get_digest': string(function('s:lf_task_digest'))[10:-3],
+			\ 'highlights_def': {
+			\     'Lf_hl_funcScope': '^\S\+',
+			\     'Lf_hl_funcDirname': '^\S\+\s*\zs<.*>\ze\s*:',
+			\ },
+		\ }
+nnoremap <silent> <leader>o: :<C-U>FloatermNew 
+nnoremap <silent> <leader>ob :call Status()<cr>
+nnoremap <silent> <leader>od :source $MYVIMRC<cr>
+nnoremap <silent> <leader>oh :noh<cr>
+nnoremap <silent> <leader>ol :<C-R>=printf("FloatermSend%s", "")<CR><CR>
+nnoremap <silent> <leader>ol :FloatermNew nnn<CR>
+nnoremap <silent> <leader>oo :AsyncRun xdg-open "%"<cr>
+nnoremap <silent> <leader>op :<c-u>execute "cd" expand("%:p:h")<cr>
+nnoremap <silent> <leader>or :<C-U>AsyncRun 
+nnoremap <silent> <leader>ot :<C-U>Leaderf! task --nowrap 
+nnoremap <silent> <leader>oz :<c-u>call ToggleZenMode()<cr>
+nnoremap <silent> <leader>oZ :Goyo<cr>
+command! RUN FloatermNew --name=repl --wintype=normal --position=right
+
+" 翻译 {{{1
+vnoremap <silent> <leader>Tc "*y:AsyncRun xclip -o \| tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
+nnoremap <silent> <leader>Tc vip:AsyncRun tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
+vnoremap <silent> <leader>Te "*y:AsyncRun xclip -o \| tr "\n" " " \| trans -b --no-ansi zh:en \| tee >(xclip -i -sel clip)<CR>
+nnoremap <silent> <leader>Te vip:AsyncRun tr "\n" " " \| trans -b --no-ansi zh:en \| tee >(xclip -i -sel clip)<CR>
+
+" Edit Specific file {{{1
+nnoremap <leader>ev :tabedit $MYVIMRC<cr>
+nnoremap <leader>ek :tabedit ~/.config/nvim/KeyMap.vim<cr>
+
+" search {{{1
+noremap <silent> <leader>sc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
+noremap <silent> <leader>sC :<C-U><C-R>=printf("Leaderf colorscheme %s", "")<CR><CR>
+noremap <silent> <leader>st :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <silent> <leader>sT :<C-U><C-R>=printf("Leaderf bufTag --all %s", "")<CR><CR>
+noremap <silent> <leader>sl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+noremap <silent> <leader>ss  :FzfSnippets<CR>
+noremap <silent> <leader>s: :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
+noremap <silent> <leader>s/ :<C-U><C-R>=printf("Leaderf searchHistory %s", "")<CR><CR>
+noremap <silent> <leader>sg :<C-U><C-R>=printf("Leaderf gtags --all %s", "")<CR><CR>
+noremap <silent> <leader>sr :<C-U>Leaderf rg --current-buffer -e 
+noremap <silent> <leader>sR :<C-U>Leaderf rg -e 
+nmap    <silent> <leader>sm <plug>(fzf-maps-n)
+xmap    <silent> <leader>sm <plug>(fzf-maps-x)
+omap    <silent> <leader>sm <plug>(fzf-maps-o)
+noremap <C-B> :<C-U><C-R>=printf("Leaderf rg --current-buffer -e %s ", expand("<cword>"))<CR><CR>
+noremap <C-F> :<C-U><C-R>=printf("Leaderf rg -e %s", expand("<cword>"))<CR><CR>
+
+" diff 相关 {{{1
+map <silent> <leader>d1 :diffget 1<CR> :diffupdate<CR>
+map <silent> <leader>d2 :diffget 2<CR> :diffupdate<CR>
+map <silent> <leader>d3 :diffget 3<CR> :diffupdate<CR>
+map <silent> <leader>d4 :diffget 4<CR> :diffupdate<CR>
+
+" add content {{{1 
+nnoremap <silent> <leader>a- :<c-u>call <sid>AddDash("-")<cr>
+nnoremap <silent> <leader>a= :<c-u>call <sid>AddDash("=")<cr>
+nnoremap <silent> <leader>a. :<c-u>call <sid>AddDash(".")<cr>
+" bring up fzf to insert citation to selected items.
+nnoremap <silent> <leader>ac :call fzf#run({
+                        \ 'source': <sid>Bibtex_ls(),
+                        \ 'sink*': function('<sid>bibtex_cite_sink'),
+                        \ 'up': '40%',
+                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
+" bring up fzf to insert pretty markdown versions of selected items.
+nnoremap <silent> <leader>am :call fzf#run({
+                        \ 'source': <sid>Bibtex_ls(),
+                        \ 'sink*': function('<sid>bibtex_markdown_sink'),
+                        \ 'up': '40%',
+                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Markdown> "'})<CR>
 
 " 补全相关 {{{1
 let g:UltiSnipsExpandTrigger		    = "<c-u>"
@@ -86,22 +234,6 @@ endif
 " Navigation {{{1
 noremap j gj
 noremap k gk
-" nnoremap J <C-w>j
-" nnoremap K <C-w>k
-nnoremap H <C-w>h
-nnoremap L <C-w>l
-"nnoremap <A-j> <Esc>Vj
-"nnoremap <A-k> <Esc>Vk
-"noremap  <A-o> o<Esc>
-"noremap  <A-O> O<Esc>
-if(has("mac"))
-    nnoremap ∆ <Esc>Vj
-    nnoremap ˚ <Esc>Vk
-    nnoremap ˙ <Esc>v^
-    nnoremap ¬ <Esc>v$
-    noremap ø o<Esc>
-    noremap  Ø O<Esc>
-endif
 nnoremap ]b :<c-u>bnext<cr>
 nnoremap [b :<c-u>bprevious<cr>
 nnoremap ]B :<c-u>blast<cr>
@@ -111,20 +243,6 @@ nnoremap [t :<c-u>tabprevious<cr>
 nnoremap ]T :<c-u>tablast<cr>
 nnoremap [T :<c-u>tabfirst<cr>
 
-" tab managing{{{1
-nnoremap <tab>o :only<cr>
-nnoremap <tab>n :tabnew<cr>
-nnoremap <tab>x :tabclose<cr>
-nnoremap <tab>k :tabnext<cr>
-nnoremap <tab>j :tabprevious<cr>
-
-" 缩进{{{1
-nnoremap <tab><tab> V>
-vnoremap <tab>      >gv
-nnoremap <s-tab>    V<
-vnoremap <s-tab>    <gv
-nnoremap <tab>p     "0p
-nnoremap <tab>P     "*p
 
 " Visual mode pressing * or # searches for the current selection{{{1
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
@@ -175,9 +293,9 @@ function! s:SearchChinese_backword()
 
 " wiki.vim{{{1
 let g:wiki_mappings_global = {
-        \ '<plug>(wiki-index)'   : '<tab>ww',
-        \ '<plug>(wiki-journal)' : '<tab>wj',
-        \ '<plug>(wiki-oen)'     : '<tab>wn',
+        \ '<plug>(wiki-index)'   : '<leader>ew',
+        \ '<plug>(wiki-journal)' : '<leader>ej',
+        \ '<plug>(wiki-open)'    : '<leader>en',
         \ '<plug>(wiki-reload)'  : '<tab>wx',
         \}
 let g:wiki_mappings_local = {
@@ -195,90 +313,13 @@ let g:wiki_mappings_local = {
         \}
 
 " Fold: 折叠 {{{1
-nnoremap <tab>ff g_a <esc>3a{<esc>
-nnoremap <tab>f1 g_a <esc>3a{<esc>a1<esc>
-nnoremap <tab>f2 g_a <esc>3a{<esc>a2<esc>
-nnoremap <tab>f3 g_a <esc>3a{<esc>a3<esc>
-nmap zuz <Plug>(FastFoldUpdate)
+nnoremap <silent> <leader>zf g_a <esc>3a{<esc>
+nnoremap <silent> <leader>z1 g_a <esc>3a{<esc>a1<esc>
+nnoremap <silent> <leader>z2 g_a <esc>3a{<esc>a2<esc>
+nnoremap <silent> <leader>z3 g_a <esc>3a{<esc>a3<esc>
+nnoremap <silent> <leader>zu <Plug>(FastFoldUpdate)
 xnoremap iz :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zv[z<cr>
 xnoremap az :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zV[z<cr>
-
-
-" fuzzy search {{{1
-function! s:lf_task_source(...)
-	let rows = asynctasks#source(&columns * 48 / 100)
-	let source = []
-	for row in rows
-		let name = row[0]
-		let source += [name . '  ' . row[1] . '  : ' . row[2]]
-	endfor
-	return source
-endfunction
-
-function! s:lf_task_accept(line, arg)
-	let pos = stridx(a:line, '<')
-	if pos < 0
-		return
-	endif
-	let name = strpart(a:line, 0, pos)
-	let name = substitute(name, '^\s*\(.\{-}\)\s*$', '\1', '')
-	if name != ''
-		exec "AsyncTask " . name
-	endif
-endfunction
-
-function! s:lf_task_digest(line, mode)
-	let pos = stridx(a:line, '<')
-	if pos < 0
-		return [a:line, 0]
-	endif
-	let name = strpart(a:line, 0, pos)
-	return [name, 0]
-endfunction
-
-function! s:lf_win_init(...)
-	setlocal nonumber
-	setlocal nowrap
-endfunction
-
-let g:Lf_Extensions = get(g:, 'Lf_Extensions', {})
-let g:Lf_Extensions.task = {
-			\ 'source': string(function('s:lf_task_source'))[10:-3],
-			\ 'accept': string(function('s:lf_task_accept'))[10:-3],
-			\ 'get_digest': string(function('s:lf_task_digest'))[10:-3],
-			\ 'highlights_def': {
-			\     'Lf_hl_funcScope': '^\S\+',
-			\     'Lf_hl_funcDirname': '^\S\+\s*\zs<.*>\ze\s*:',
-			\ },
-		\ }
-noremap <silent> <leader>fb  :FzfBuffer<CR>
-noremap <silent> <leader>fc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
-noremap <silent> <leader>fC :<C-U><C-R>=printf("Leaderf colorscheme %s", "")<CR><CR>
-noremap <silent> <leader>fe  :FzfFiles<CR>
-noremap <silent> <leader>fg :<C-U><C-R>=printf("Leaderf gtags --all %s", "")<CR><CR>
-noremap <silent> <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
-noremap <silent> <leader>fw  :WikiFzfPages<CR>
-noremap <silent> <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
-noremap <silent> <leader>fT :<C-U><C-R>=printf("Leaderf bufTag --all %s", "")<CR><CR>
-noremap <silent> <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-noremap <silent> <leader>fr :<C-U><C-R>=printf("Leaderf! task --nowrap %s", "")<CR><CR>
-noremap <silent> <leader>fs  :FzfSnippets<CR>
-noremap <silent> <leader>f: :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
-noremap <silent> <leader>f/ :<C-U><C-R>=printf("Leaderf searchHistory %s", "")<CR><CR>
-noremap <C-B> :<C-U><C-R>=printf("Leaderf rg --current-buffer -e %s ", expand("<cword>"))<CR><CR>
-noremap <C-F> :<C-U><C-R>=printf("Leaderf rg -e %s", "")<CR>
-
-
-
-" zen-mod {{{1
-nnoremap <leader>z :<c-u>call ToggleZenMode()<cr>
-nnoremap <leader>Z :Goyo<cr>
-
-" Floaterm {{{1
-let g:floaterm_keymap_toggle = '<leader>;'
-noremap <leader><leader> :<C-R>=printf("FloatermSend%s", "")<CR> 
-noremap <leader>: :<C-U><C-R>=printf("FloatermNew%s", "")<CR> 
-command! RUN FloatermNew --name=repl --wintype=normal --position=right
 
 " 快捷标点符号输入 {{{1
 " 成对括号
@@ -306,7 +347,6 @@ inoremap ;< <C-v>u300A
 " 右书名号
 inoremap ;> <C-v>u300B<BS>
 
-
 " 左括号和右括号
 inoremap ;e <C-v>uFF08
 inoremap ;r <C-v>uFF09
@@ -327,67 +367,18 @@ inoremap ;k *
 inoremap ;l /
 inoremap ;u $
 
-
-" fzf-bibtex {{{1
-" bring up fzf to insert citation to selected items.
-nnoremap <silent> <tab>c :call fzf#run({
-                        \ 'source': <sid>Bibtex_ls(),
-                        \ 'sink*': function('<sid>bibtex_cite_sink'),
-                        \ 'up': '40%',
-                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
-" bring up fzf to insert pretty markdown versions of selected items.
-nnoremap <silent> <tab>m :call fzf#run({
-                        \ 'source': <sid>Bibtex_ls(),
-                        \ 'sink*': function('<sid>bibtex_markdown_sink'),
-                        \ 'up': '40%',
-                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Markdown> "'})<CR>
-inoremap <silent> @@ <c-g>u<c-o>:call fzf#run({
+inoremap <silent> ;@ <c-g>u<c-o>:call fzf#run({
                         \ 'source': <sid>Bibtex_ls(),
                         \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
                         \ 'up': '40%',
                         \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
 
-function! s:Bibtex_ls()
-  let bibfiles = (
-      \ globpath('~/Documents', '*ref.bib', v:true, v:true) +
-      \ globpath('.', '*.bib', v:true, v:true) +
-      \ globpath('..', '*.bib', v:true, v:true) +
-      \ globpath('*/', '*.bib', v:true, v:true)
-      \ )
-  let bibfiles = join(bibfiles, ' ')
-  let source_cmd = 'bibtex-ls '.bibfiles
-  return source_cmd
-endfunction
-function! s:bibtex_cite_sink(lines)
-    let r=system("bibtex-cite ", a:lines)
-    execute ':normal! a' . r
-endfunction
-function! s:bibtex_markdown_sink(lines)
-    let r=system("bibtex-markdown ", a:lines)
-    execute ':normal! a' . r
-endfunction
-function! s:bibtex_cite_sink_insert(lines)
-    let r=system("bibtex-cite -prefix='@' -postfix='' -separator='; @'", a:lines)
-    "let r=system("bibtex-cite ", a:lines)
-    execute ':normal! i' . r
-    call feedkeys('a', 'n')
-endfunction
 
 
-" fzf-map {{{1
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-
-" diff 相关 {{{1
-map <silent> <leader>d1 :diffget 1<CR> :diffupdate<CR>
-map <silent> <leader>d2 :diffget 2<CR> :diffupdate<CR>
-map <silent> <leader>d3 :diffget 3<CR> :diffupdate<CR>
-map <silent> <leader>d4 :diffget 4<CR> :diffupdate<CR>
 
 " visual multi {{{1
-nmap <leader>j <Plug>(VM-Add-Cursor-Down)
-nmap <leader>k <Plug>(VM-Add-Cursor-Up)
+nmap <silent> <leader>mj <Plug>(VM-Add-Cursor-Down)
+nmap <silent> <leader>mk <Plug>(VM-Add-Cursor-Up)
 
 " preview {{{1
 noremap <silent> gv  :PreviewTag<CR>
@@ -409,7 +400,7 @@ noremap <silent> gr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand
 " 输入法切换 {{{1
 inoremap <expr> <PageUp>   Lbs_Input_Env_Zh()
 inoremap <expr> <PageDown> Lbs_Input_Env_En()
-inoremap <expr> <bs>  Lbs_bs()
+inoremap <expr> <bs>       Lbs_bs()
 
 
 

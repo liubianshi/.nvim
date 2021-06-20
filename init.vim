@@ -110,7 +110,7 @@ Plug 'skywind3000/asynctasks.vim'
 Plug 'tpope/vim-obsession', { 'on': [] }            " tmux Backup needed
 
 " vimcmdline {{{3
-Plug 'jalvesaq/vimcmdline', { 'on': [] }
+Plug 'jalvesaq/vimcmdline'
 
 " auto-pairs {{{2
 Plug 'jiangmiao/auto-pairs'
@@ -150,21 +150,21 @@ Plug 'zhimsel/vim-stay'
 " FastFold: Speed up Vim by updating folds only when called-for {{{2
 Plug 'Konfekt/FastFold'
 
-" Rainbow Parentheses {{{2
+" Rainbow Parentheses: {{{2
 Plug 'kien/rainbow_parentheses.vim'
     au VimEnter * RainbowParenthesesToggle
 
-" StarupTime {{{2
+" StarupTime: {{{2
 Plug 'dstein64/vim-startuptime'
 Plug 'mhinz/vim-startify'
 
-" vim-table-mode {{{2
+" VimTableMode: {{{2
 Plug 'dhruvasagar/vim-table-mode'
 
-" vimspector {{{2
+" Vimspector: {{{2
 Plug 'puremourning/vimspector',  { 'on': [] }
 
-" auto_save {{{2 
+" Auto_save: {{{2 
 Plug '907th/vim-auto-save'
 
 " plug end {{{2
@@ -178,5 +178,4 @@ source ~/.config/nvim/whichkey.vim
 source ~/.config/nvim/autocmd.vim
 source ~/.config/nvim/abbr.vim
 source ~/.config/nvim/fcitx_auto_toggle.vim
-
 
