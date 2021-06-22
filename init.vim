@@ -55,6 +55,9 @@ Plug 'machakann/vim-highlightedyank'  " 高亮显示复制区域
 Plug 'haya14busa/incsearch.vim'       " 加强版实时高亮
 Plug 'mg979/vim-visual-multi',  {'branch': 'master'}
 
+" vim-matchup
+Plug 'andymass/vim-matchup'
+
 " Pandoc and Rmarkdown {{{2
 Plug 'vim-pandoc/vim-pandoc',        {'on': []}
 Plug 'vim-pandoc/vim-pandoc-syntax', {'on': []}
