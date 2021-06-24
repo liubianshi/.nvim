@@ -311,3 +311,27 @@ function! LToggle()
     return("")
 endfunction 
 
+" View csv lines {{{1
+function! LbsViewLines() range
+    let selectedLines = getbufline('%', a:firstline, a:lastline)
+    let selectedLines = [getline(1)] + selectedLines
+    let tmpfile = tempname()
+    if &filetype ==# "tsv"
+        let sep = "\t"
+    elseif &filetype ==# "csv_pipe"
+        let sep = "|"
+    elseif &filetype ==# "csv_semicolon"
+        let sep = ";"
+    elseif &filetype ==# "csv"
+        let sep = ","
+    else
+        return 0
+    endif
+    cexpr system("xsv flatten -s '----------' -d '" . sep . "'", selectedLines)
+    copen
+    let g:quickfix_is_open = 1
+    exec "wincmd k"
+    "call writefile(selectedLines, tmpfile)
+    "exec "split " . tmpfile
+endfunction
+

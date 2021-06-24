@@ -81,6 +81,14 @@ function! s:bibtex_cite_sink_insert(lines)
     call feedkeys('a', 'n')
 endfunction
 
+" Terminal {{{1 
+tnoremap <esc> <C-\><C-n>
+nnoremap <leader>:n :<c-u>FloatermNew<cr>
+nnoremap <leader>:R :<c-u>FloatermNew raku<cr>
+nnoremap <leader>:r :<c-u>FloatermNew radian<cr>
+nnoremap <leader>:p :<c-u>FloatermNew iPython<cr>
+nnoremap <leader>:l :<c-u>FloatermSend<cr>
+vnoremap <leader>:l :<c-u>FloatermSend<cr>
 
 " 文件操作 {{{1
 nnoremap <silent> <leader>ff  :FzfFiles<CR>
@@ -94,6 +102,18 @@ nnoremap <silent> <leader>flt :LfNewTab<cr>
 nnoremap <silent> <leader>ft  :NERDTreeToggle<cr>
 nnoremap <silent> <leader>fn  :new<CR>
 nnoremap <silent> <leader>fw  :WikiFzfPages<CR>
+" Fasd {{{2
+function! s:fasd_update() abort
+  if empty(&buftype) || &filetype ==# 'dirvish'
+    call jobstart(['fasd', '-A', expand('%:p')])
+  endif
+endfunction
+augroup fasd
+  autocmd!
+  autocmd BufWinEnter,BufFilePost * call s:fasd_update()
+augroup END
+command! FASD call fzf#run(fzf#wrap({'source': 'fasd -al', 'options': '--no-sort --tac --tiebreak=index'}))
+nnoremap <silent> <Leader>fz :FASD<CR>
 
 " Buffer {{{1
 nnoremap <silent> <leader>bb  :LeaderfBuffer<cr>

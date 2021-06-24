@@ -5,12 +5,12 @@ if(has("mac"))
     nnoremap <buffer> ¡ V:call RunDoLines()<cr>
     vnoremap <buffer> ¡ :<C-U>call RunDoLines()<cr>
 else
-    inoremap <buffer> <A-1> <esc>V:<c-u>call RunDoLines()<cr>
-    nnoremap <buffer> <A-1> V:call RunDoLines()<cr>
+    "inoremap <buffer> <A-1> <esc>V:<c-u>call RunDoLines()<cr>
+    "nnoremap <buffer> <A-1> V:call RunDoLines()<cr>
     vnoremap <buffer> <A-1> :<C-U>call RunDoLines()<cr>
 endif
-nnoremap <buffer> , <esc>V:<C-U>call RunDoLines()<cr>
-vnoremap <buffer> , :<C-U>call RunDoLines()<cr>
+"nnoremap <buffer> , <esc>V:<C-U>call RunDoLines()<cr>
+"vnoremap <buffer> , :<C-U>call RunDoLines()<cr>
 
 let b:AutoPairs = g:AutoPairs
 let b:AutoPairs['`']="'" 

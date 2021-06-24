@@ -1,6 +1,7 @@
 for plugname in ['Nvim-R', 'vim-pandoc', 'vim-pandoc-syntax', 'md-img-paste.vim', 'pangu.vim']
     call Lbs_Load_Plug(plugname)
 endfor
+
 nmap <buffer> <localleader>tv yiw:<c-u>call R_view_df_sample('ht')<cr>
 nmap <buffer> <localleader>tr yiw:<c-u>call R_view_df_sample('r')<cr>
 nmap <buffer> <localleader>th yiw:<c-u>call R_view_df_sample('h')<cr>
