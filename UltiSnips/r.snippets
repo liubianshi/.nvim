@@ -33,9 +33,9 @@ snip.rv = con + "c(" + var + ")"
 `)
 endsnippet
 
-snippet ':([-\w.+*]+)(?:([<>=])([^/>;]+)?)?' "Raku Style Params" r
+snippet ':([-\w.+*$]+)(?:([<>=])([^/>;]+)?)?' "Raku Style Params" r
 `!p
-m = re.match(r'^(\-?\d[\d.]*L?|\-|\.|\+|\*)([A-Za-z_].*)', match.group(1))
+m = re.match(r'^(\-?\d[\d.]*L?|\-|\.|\+|\*|\$)([A-Za-z_].*)', match.group(1))
 if m :
 	augument = m.group(2)
 	if m.group(1) == "+" :
@@ -46,6 +46,8 @@ if m :
 		params = "NA"
 	elif m.group(1) == "*" :
 		params = "NULL"
+	elif m.group(1) == "$" :
+		params = augument
 	elif m.group(1) == "00" :
 		params = "NULL"
 	else :
@@ -65,7 +67,7 @@ else :
 		params = re.compile("\s+").sub(', ', params)
 		params = "c(" + params + ")" if length != 1 else params
 snip.rv = augument + " = " + params
-`,$0
+`$0
 endsnippet
 
 snippet ';([^;]+)((?:;[^;]+)*);' "R list" r

@@ -116,8 +116,8 @@ command! FASD call fzf#run(fzf#wrap({'source': 'fasd -al', 'options': '--no-sort
 nnoremap <silent> <Leader>fz :FASD<CR>
 
 " Buffer {{{1
-nnoremap <silent> <leader>bb  :LeaderfBuffer<cr>
-nnoremap <silent> <leader>bB  :LeaderfBufferAll<cr>
+nnoremap <silent> <leader>bb :LeaderfBuffer<cr>
+nnoremap <silent> <leader>bB :LeaderfBufferAll<cr>
 nnoremap <silent> <leader>bc :<c-u>call Lilydjwg_cleanbufs()<cr>
 nnoremap <silent> <leader>bd :<c-u>Bclose<cr>
 nnoremap <silent> <leader>bp :<c-u>bp<cr>
