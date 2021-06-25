@@ -1,3 +1,4 @@
+echom "enter there"
 for plugname in ['Nvim-R', 'vim-pandoc', 'vim-pandoc-syntax', 'md-img-paste.vim', 'pangu.vim']
     call Lbs_Load_Plug(plugname)
 endfor
