@@ -82,7 +82,7 @@ function! s:bibtex_cite_sink_insert(lines)
 endfunction
 
 " Terminal {{{1 
-tnoremap <esc> <C-\><C-n>
+tnoremap <A-space> <C-\><C-n>
 nnoremap <leader>:n :<c-u>FloatermNew<cr>
 nnoremap <leader>:R :<c-u>FloatermNew raku<cr>
 nnoremap <leader>:r :<c-u>FloatermNew radian<cr>
@@ -91,11 +91,15 @@ nnoremap <leader>:l :<c-u>FloatermSend<cr>
 vnoremap <leader>:l :<c-u>FloatermSend<cr>
 
 " 文件操作 {{{1
+nnoremap <silent> <leader>. <c-g>u<c-o>:call fzf#run(fzf#wrap({
+    \ 'source': 'fd -H -t f', 'dir': expand("%:p:h"),
+    \ 'options': '--ansi --no-sort --tac --tiebreak=index --multi',
+    \}))<cr>
 nnoremap <silent> <leader>ff  :FzfFiles<CR>
 nnoremap <silent> <leader>fr  :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
 nnoremap <silent> <leader>fs  :write<CR>
 nnoremap <silent> <leader>fS  :write!<CR>
-nnoremap <silent> <leader>fo :Lf<cr>
+nnoremap <silent> <leader>fo  :Lf<cr>
 nnoremap <silent> <leader>fls :split +Lf<cr>
 nnoremap <silent> <leader>flv :vertical split +Lf<cr>
 nnoremap <silent> <leader>flt :LfNewTab<cr>
@@ -112,8 +116,7 @@ augroup fasd
   autocmd!
   autocmd BufWinEnter,BufFilePost * call s:fasd_update()
 augroup END
-command! FASD call fzf#run(fzf#wrap({'source': 'fasd -al', 'options': '--no-sort --tac --tiebreak=index'}))
-nnoremap <silent> <Leader>fz :FASD<CR>
+nnoremap <silent> <Leader>fz :call fzf#run(fzf#wrap({'source': 'fasd -al', 'options': '--no-sort --tac --tiebreak=index'}))<CR>
 
 " Buffer {{{1
 nnoremap <silent> <leader>bb :LeaderfBuffer<cr>
@@ -160,6 +163,7 @@ nnoremap <silent> <leader>tp :tabprevious<cr>
 
 " run {{{1 
 let g:floaterm_keymap_toggle = '<leader><space>'
+noremap <silent> <leader><enter> :noh<cr>
 let g:Lf_Extensions = get(g:, 'Lf_Extensions', {})
 let g:Lf_Extensions.task = {
 			\ 'source': string(function('s:lf_task_source'))[10:-3],
@@ -175,11 +179,11 @@ nnoremap <silent> <leader>ob :call Status()<cr>
 nnoremap <silent> <leader>od :source $MYVIMRC<cr>
 nnoremap <silent> <leader>oh :noh<cr>
 nnoremap <silent> <leader>ol :<C-R>=printf("FloatermSend%s", "")<CR><CR>
-nnoremap <silent> <leader>ol :FloatermNew nnn<CR>
+nnoremap <silent> <leader>on :FloatermNew nnn<CR>
 nnoremap <silent> <leader>oo :AsyncRun xdg-open "%"<cr>
 nnoremap <silent> <leader>op :<c-u>execute "cd" expand("%:p:h")<cr>
 nnoremap <silent> <leader>or :<C-U>AsyncRun 
-nnoremap <silent> <leader>ot :<C-U>Leaderf! task --nowrap 
+nnoremap <silent> <leader>ot :<C-U>Leaderf! task --nowrap<cr>
 nnoremap <silent> <leader>oz :<c-u>call ToggleZenMode()<cr>
 nnoremap <silent> <leader>oZ :Goyo<cr>
 command! RUN FloatermNew --name=repl --wintype=normal --position=right
@@ -195,12 +199,14 @@ nnoremap <leader>ev :tabedit $MYVIMRC<cr>
 nnoremap <leader>ek :tabedit ~/.config/nvim/KeyMap.vim<cr>
 
 " search {{{1
+vnoremap <silent> S "0y:<C-U>AsyncRun sr google <C-R>0<CR>
+nnoremap <silent> S :<C-U><C-R>=printf("AsyncRun sr", expand("<cword>"))<CR><CR>
 noremap <silent> <leader>sc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 noremap <silent> <leader>sC :<C-U><C-R>=printf("Leaderf colorscheme %s", "")<CR><CR>
 noremap <silent> <leader>st :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <silent> <leader>sT :<C-U><C-R>=printf("Leaderf bufTag --all %s", "")<CR><CR>
 noremap <silent> <leader>sl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-noremap <silent> <leader>ss  :FzfSnippets<CR>
+noremap <silent> <leader>ss :<C-U>!sr 
 noremap <silent> <leader>s: :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
 noremap <silent> <leader>s/ :<C-U><C-R>=printf("Leaderf searchHistory %s", "")<CR><CR>
 noremap <silent> <leader>sg :<C-U><C-R>=printf("Leaderf gtags --all %s", "")<CR><CR>
@@ -392,9 +398,6 @@ inoremap <silent> ;@ <c-g>u<c-o>:call fzf#run({
                         \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
                         \ 'up': '40%',
                         \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
-
-
-
 
 " visual multi {{{1
 nmap <silent> <leader>mj <Plug>(VM-Add-Cursor-Down)

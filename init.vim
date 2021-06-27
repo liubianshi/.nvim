@@ -42,6 +42,9 @@ Plug 'rbgrouleff/bclose.vim'          " lf.vim 插件依赖，关闭 buffer，�
 Plug 'ptzz/lf.vim'                    " 文件管理
     let g:lf_map_keys = 0
 
+" vim-translator
+Plug 'voldikss/vim-translator'
+
 " fzf {{{2
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
