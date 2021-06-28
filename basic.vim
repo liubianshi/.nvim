@@ -59,7 +59,7 @@ set ruler                  " 显示光标当前位置
 set cmdheight=1            " 命令行高度
 set laststatus=1           " 总是显示状态栏
 set list
-set listchars=tab:<->,trail:-
+set listchars=tab:..\|,trail:.
 set foldcolumn=1
 set fillchars=fold:\ 
 set signcolumn=auto

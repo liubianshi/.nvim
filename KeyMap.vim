@@ -91,10 +91,7 @@ nnoremap <leader>:l :<c-u>FloatermSend<cr>
 vnoremap <leader>:l :<c-u>FloatermSend<cr>
 
 " 文件操作 {{{1
-nnoremap <silent> <leader>. <c-g>u<c-o>:call fzf#run(fzf#wrap({
-    \ 'source': 'fd -H -t f', 'dir': expand("%:p:h"),
-    \ 'options': '--ansi --no-sort --tac --tiebreak=index --multi',
-    \}))<cr>
+nnoremap <silent> <leader>.  :call fzf#run(fzf#wrap({'source': 'fd -H -t f', 'dir': expand("%:p:h"), 'options': '--ansi --no-sort --tac --tiebreak=index --multi', }))<cr>
 nnoremap <silent> <leader>ff  :FzfFiles<CR>
 nnoremap <silent> <leader>fr  :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
 nnoremap <silent> <leader>fs  :write<CR>

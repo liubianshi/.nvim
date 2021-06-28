@@ -20,6 +20,7 @@ let cmdline_app['ruby']   = 'pry'
 let cmdline_app['sh']     = 'sh'
 let cmdline_app['stata']  = 'stata-se'
 let cmdline_app['python'] = 'ipython --no-autoindent'
+let cmdline_app['perl']   = 'perl'
 
 " Color
 let cmdline_follow_colorscheme = 1
