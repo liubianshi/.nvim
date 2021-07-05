@@ -105,6 +105,11 @@ set tags=./.tags;,.tags
 let $GTAGSLABEL = 'native-pygments'
 let $GTAGSCONF = $HOME . "/.globalrc"
 
+" perl
+let g:loaded_perl_provider = 1
+let g:perl_host_prog = '/bin/perl'
+
+
 " Python 相关设置 {{{1
 let g:python_host_skip_check=1
 let g:python3_host_skip_check=1

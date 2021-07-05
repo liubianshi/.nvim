@@ -173,9 +173,23 @@ Plug 'puremourning/vimspector',  { 'on': [] }
 " Auto_save: {{{2 
 Plug '907th/vim-auto-save'
 
+" Neovim 0.5
+" Orgmode
+if has('nvim-0.5.0')
+    Plug 'kristijanhusak/orgmode.nvim'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'folke/trouble.nvim'
+endif
+
 " plug end {{{2
 call plug#end()
 call Lbs_Load_Plug_Confs(keys(g:plugs))
+
+if has('nvim-0.5.0')
+    set foldmethod=expr
+    set foldexpr=nvim_treesitter#foldexpr()
+endif
 
 " source external files {{{1
 source ~/.config/nvim/basic.vim

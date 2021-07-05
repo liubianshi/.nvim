@@ -3,6 +3,16 @@ for plugname in ['Nvim-R', 'vim-pandoc', 'vim-pandoc-syntax', 'md-img-paste.vim'
     call Lbs_Load_Plug(plugname)
 endfor
 
+set fdm=expr
+runtime ftplugin/pandoc.vim
+" init vim-pandoc-after, if present {{{2
+try
+    call pandoc#after#Init()
+catch /E117/
+endtry
+set foldmethod=expr
+
+
 nmap <silent> <localleader>tv yiw:<c-u>call R_view_df_sample('ht')<cr>
 nmap <silent> <localleader>tr yiw:<c-u>call R_view_df_sample('r')<cr>
 nmap <silent> <localleader>th yiw:<c-u>call R_view_df_sample('h')<cr>
@@ -73,3 +83,5 @@ if(has("mac"))
     imap     <silent> ¡ <Esc><Plug>RDSendLine<CR>
     nmap     <silent> ¡ <Plug>RDSendLine<CR>
 endif
+
+

@@ -344,6 +344,14 @@ nnoremap <silent> <leader>zu <Plug>(FastFoldUpdate)
 xnoremap iz :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zv[z<cr>
 xnoremap az :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zV[z<cr>
 
+" Debug {{{1
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle lsp_workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap gR <cmd>TroubleToggle lsp_references<cr>
+
 " 快捷标点符号输入 {{{1
 " 成对括号
 inoremap ;) <C-v>uFF08 <C-v>uFF09<C-o>F <c-o>x
@@ -429,6 +437,7 @@ inoremap <expr> <bs>       Lbs_bs()
 
 
  
+
 
 
 
