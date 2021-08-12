@@ -81,6 +81,9 @@ function! s:bibtex_cite_sink_insert(lines)
     call feedkeys('a', 'n')
 endfunction
 
+" Global {{{1
+noremap <A-x> :<c-u>FzfCommand<cr>
+
 " Terminal {{{1 
 tnoremap <A-space> <C-\><C-n>
 nnoremap <leader>:n :<c-u>FloatermNew<cr>
@@ -89,6 +92,7 @@ nnoremap <leader>:r :<c-u>FloatermNew radian<cr>
 nnoremap <leader>:p :<c-u>FloatermNew iPython<cr>
 nnoremap <leader>:l :<c-u>FloatermSend<cr>
 vnoremap <leader>:l :<c-u>FloatermSend<cr>
+
 
 " 文件操作 {{{1
 nnoremap <silent> <leader>.  :call fzf#run(fzf#wrap({'source': 'fd -H -t f', 'dir': expand("%:p:h"), 'options': '--ansi --no-sort --tac --tiebreak=index --multi', }))<cr>
