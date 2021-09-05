@@ -27,7 +27,9 @@ nmap <silent> <localleader>t1 :<c-u>call    R_view_srdm_table()<cr>
 nmap <silent> <localleader>t2 :<c-u>call    R_view_srdm_var()<cr>
 
 inoremap <silent> <A-\>          %>%
+inoremap <silent> <A-\|>         %<>%
 inoremap <silent> <A-=>          <-<Space>
+inoremap <buffer> <A-j>          x<left><enter><esc>lxi
 imap     <silent> <A-1>          <Esc><Plug>RDSendLine
 nmap     <silent> <A-1>          <Plug>RDSendLine
 nmap     <silent> ,              <Plug>RDSendLine

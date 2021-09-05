@@ -112,6 +112,7 @@ Plug 'voldikss/vim-floaterm'
 " asyncrun {{{3
 Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
 Plug 'skywind3000/asynctasks.vim'
+Plug 'skywind3000/vim-terminal-help'
 " obsession {{{3
 Plug 'tpope/vim-obsession', { 'on': [] }            " tmux Backup needed
 
@@ -176,15 +177,25 @@ Plug '907th/vim-auto-save'
 " Neovim 0.5
 " Orgmode
 if has('nvim-0.5.0')
-    "Plug 'kristijanhusak/orgmode.nvim'
+    Plug 'kristijanhusak/orgmode.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'folke/trouble.nvim'
+    Plug 'kevinhwang91/nvim-bqf'
 endif
 
 " plug end {{{2
 call plug#end()
+
+" plug config {{{1
 call Lbs_Load_Plug_Confs(keys(g:plugs))
+
+lua << EOF
+require('orgmode').setup({
+  org_agenda_files = {"~/Documents/Writing/*", "~/Documents/Writing/**/*"},
+  org_default_notes_file = '~/Documents/Writing/refile.org',
+})
+EOF
 
 if has('nvim-0.5.0')
     set foldmethod=expr
@@ -199,3 +210,5 @@ source ~/.config/nvim/autocmd.vim
 source ~/.config/nvim/abbr.vim
 source ~/.config/nvim/fcitx_auto_toggle.vim
 
+" Test lua
+"command! Scratch lua require'tools'.makeScratch()

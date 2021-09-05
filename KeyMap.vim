@@ -135,6 +135,7 @@ nnoremap <silent> <leader>bW :w!<cr>
 nnoremap <leader>qq :call QuickfixToggle()<cr>
 
 " window manager {{{1
+nnoremap <silent> <leader><tab> :FzfWindows<cr>
 nnoremap <silent> <leader>wo :<c-u>only<cr>
 nnoremap <silent> <leader>ww <c-w>w
 nnoremap <silent> <leader>wW <c-w>W

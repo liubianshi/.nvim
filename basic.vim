@@ -124,6 +124,8 @@ endif
 " Perl {{{1
 let g:perl_host_prog = '/usr/bin/perl'
 
-
-
+" R
+let r_indent_align_args = 1
+let r_indent_ess_compatible = 1
+let r_indent_op_pattern = '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\)\s*$'
 
