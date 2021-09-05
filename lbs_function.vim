@@ -335,3 +335,34 @@ function! LbsViewLines() range
     "exec "split " . tmpfile
 endfunction
 
+" Vim Auto List Completion {{{1
+" From https://gist.github.com/sedm0784/dffda43bcfb4728f8e90
+
+" Auto lists: Automatically continue/end lists by adding markers if the
+" previous line is a list item, or removing them when they are empty
+function! LbsAutoFormatNewline()
+  if getline(".")[col("."):] =~ '\v^\s*\)+\s*$'
+    exec "normal ax\<left>\<enter>\<Esc>lxh"
+  else
+      let l:preceding_line = getline(line("."))
+      if l:preceding_line =~ '\v^\s*(\d+\.|[-+*])\s'
+        let l:space_before = matchstr(l:preceding_line, '\v^\zs\s*\ze(\d+\.|[-+*])\s+')
+        let l:symbol       = matchstr(l:preceding_line, '\v^\s*\zs(\d+\.|[-+*])\ze\s+')
+        let l:space_after  = matchstr(l:preceding_line, '\v^\s*(\d+\.|[-+*])\zs\s+\ze')
+        exec "normal a\<enter>"
+        if l:preceding_line =~ '\v^\s*\d+\.\s+[^\s]'
+            call setline(".", l:space_before . (l:symbol + 1) . "." . l:space_after)
+        elseif l:preceding_line =~ '\v^\s*\d+\.\s+$'
+            call setline(line(".") - 1, "")
+        elseif l:preceding_line =~ '\v^\s*[-+*]\s+[^\s]'
+            call setline(".", l:space_before . l:symbol . l:space_after)
+        elseif l:preceding_line =~ '\v^\s*[-+*]\s+$'
+          call setline(line(".") - 1, "")
+        endif
+        exec "normal $"
+      else
+          exec "normal \<enter>"
+      endif
+    endif
+endfunction
+

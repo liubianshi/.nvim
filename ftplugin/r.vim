@@ -20,7 +20,7 @@ nmap <buffer> <localleader>t2 :<c-u>call    R_view_srdm_var()<cr>
 inoremap <buffer> <A-\>          %>%
 inoremap <buffer> <A-\|>         %<>%
 inoremap <buffer> <A-=>          <-<Space>
-inoremap <buffer> <A-j>          x<left><enter><esc>lxi
+"inoremap <buffer> <A-j>          x<left><enter><esc>lxi
 imap     <buffer> <A-1>          <Esc><Plug>RDSendLine
 nmap     <buffer> <A-1>          <Plug>RDSendLine
 nmap     <buffer> ,              <Plug>RDSendLine

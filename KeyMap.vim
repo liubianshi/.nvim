@@ -244,6 +244,7 @@ nnoremap <silent> <leader>am :call fzf#run({
                         \ 'options': '--ansi --layout=reverse-list --multi --prompt "Markdown> "'})<CR>
 
 " 补全相关 {{{1
+inoremap <silent> <A-j> <esc>:call LbsAutoFormatNewline()<cr>a
 let g:UltiSnipsExpandTrigger		    = "<c-u>"
 let g:UltiSnipsJumpForwardTrigger	    = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	    = "<c-k>"
