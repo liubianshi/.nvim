@@ -350,11 +350,11 @@ function! LbsAutoFormatNewline()
         let l:symbol       = matchstr(l:preceding_line, '\v^\s*\zs(\d+\.|[-+*])\ze\s+')
         let l:space_after  = matchstr(l:preceding_line, '\v^\s*(\d+\.|[-+*])\zs\s+\ze')
         exec "normal a\<enter>"
-        if l:preceding_line =~ '\v^\s*\d+\.\s+[^\s]'
+        if l:preceding_line =~ '\v^\s*\d+\.\s+[^ ]'
             call setline(".", l:space_before . (l:symbol + 1) . "." . l:space_after)
         elseif l:preceding_line =~ '\v^\s*\d+\.\s+$'
             call setline(line(".") - 1, "")
-        elseif l:preceding_line =~ '\v^\s*[-+*]\s+[^\s]'
+        elseif l:preceding_line =~ '\v^\s*[-+*]\s+[^ ]'
             call setline(".", l:space_before . l:symbol . l:space_after)
         elseif l:preceding_line =~ '\v^\s*[-+*]\s+$'
           call setline(line(".") - 1, "")
