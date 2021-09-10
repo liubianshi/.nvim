@@ -16,6 +16,12 @@ snippet '/((?:[^\s:\\]|\\\\|\\\s)+)((\s+(?:[^\s:\\]|\\\\|\\\s)+)*)/'  "perl styl
 '"' + re.compile(r'\\([\s\\])').sub(r'\1', re_word.sub(r', "\1"', match.group(2)))`)$0
 endsnippet
 
+snippet '\b([A-Za-z_][A-Za-z0-9._]*)<([^\s]+)' "Simple function with one string augument" r
+`!p
+snip.rv = match.group(1) + "(\"" + match.group(2) + "\")"
+`$0
+endsnippet
+
 snippet '^tab (\w+(?: \w+)*)\s*(?:\sif (.+))?$' "stata style tab" r
 ${1:lbs}[`!p
 con = match.group(2) if match.group(2) is not None else ""

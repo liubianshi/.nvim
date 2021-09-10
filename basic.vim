@@ -4,7 +4,7 @@ colorscheme sonokai
 " Basic Config{{{1
 let mapleader = " "
 let maplocalleader = ';'
-noremap ;; ;
+nnoremap ;; ;
 
 set backupdir=~/.cache/vim/.backup//
 set directory=~/.cache/vim/.swp//
@@ -38,10 +38,10 @@ set updatetime=300
 set timeoutlen=1000
 set ttimeoutlen=100
 if ! has('gui_running')
-    set ttimeoutlen=10
+    set ttimeoutlen=100
     augroup FastEscape
         autocmd!
-        au InsertEnter * set timeoutlen=0
+        au InsertEnter * set timeoutlen=300
         au InsertLeave * set timeoutlen=1000
     augroup END
 endif

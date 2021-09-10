@@ -435,6 +435,8 @@ noremap <silent> gr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand
 inoremap <expr> <PageUp>   Lbs_Input_Env_Zh()
 inoremap <expr> <PageDown> Lbs_Input_Env_En()
 inoremap <expr> <bs>       Lbs_bs()
+inoremap <expr> ;; Lbs_Input_Env_En()
+inoremap <expr> ;<space> Lbs_Input_Env_Zh()
 
 
 

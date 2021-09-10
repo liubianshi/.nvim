@@ -78,6 +78,7 @@ Plug 'tpope/vim-abolish'            " 高效的文本替换工具
 Plug 'scrooloose/nerdcommenter'     " 注释插件
 Plug 'justinmk/vim-sneak'           " The missing motion for vim
 Plug 'easymotion/vim-easymotion'    " 高效移动指标插件
+Plug 'liubianshi/vim-easymotion-chs' " tricks to allow easymotion recognize Chinese chars
 Plug 'wellle/targets.vim'           " 扩展 vim 文本对象
 
 " Snippets {{{2
@@ -177,7 +178,7 @@ Plug '907th/vim-auto-save'
 " Neovim 0.5
 " Orgmode
 if has('nvim-0.5.0')
-    Plug 'kristijanhusak/orgmode.nvim'
+    Plug 'kristijanhusak/orgmode.nvim', {'for': 'org'}
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'folke/trouble.nvim'

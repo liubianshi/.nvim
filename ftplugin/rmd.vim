@@ -10,7 +10,6 @@ try
     call pandoc#after#Init()
 catch /E117/
 endtry
-set foldmethod=expr
 
 
 nmap <silent> <localleader>tv yiw:<c-u>call R_view_df_sample('ht')<cr>
@@ -69,7 +68,7 @@ UltiSnipsAddFiletype rmd.r.markdown.pandoc
 nnoremap <silent> <leader>rp               :AsyncRun ~/useScript/rmarkdown.sh %<cr>
 nnoremap <silent> <leader>rh               :AsyncRun ~/useScript/rmarkdown.sh -o bookdown::html_document2 %<cr>
 nnoremap <silent> <leader>nc               :RNrrw<cr>:set filetype=r<cr>
-nnoremap <silent> <localleader>pi :<c-u>call RmdClipBoardImage()<CR>
+nnoremap <silent> <localleader>pr :<c-u>call RmdClipBoardImage()<CR>
 nnoremap <silent> <localleader>kbp         :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::pdf_book")<cr>
 nnoremap <silent> <localleader>kbh         :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::html_book")<cr>
 nnoremap <silent> <localleader>kbo         :<c-u>! xdg-open ./_book/draft.pdf<cr> 
