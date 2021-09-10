@@ -31,6 +31,7 @@ Plug 'sainnhe/sonokai'
 " Airline {{{2
 Plug 'vim-airline/vim-airline',        { 'on': [] }    " 状态栏插件
 Plug 'vim-airline/vim-airline-themes', { 'on': [] }
+Plug 'akinsho/bufferline.nvim'
 
 " nerdtree {{{2
 Plug 'scrooloose/nerdtree',    { 'on':  'NERDTreeToggle' }
@@ -175,6 +176,12 @@ Plug 'puremourning/vimspector',  { 'on': [] }
 " Auto_save: {{{2 
 Plug '907th/vim-auto-save'
 
+" better-escape {{{2
+Plug 'jdhao/better-escape.vim'
+
+" TrueZen.nvim: Clean and elegant distraction-free writing for NeoVim. {{{2
+Plug 'Pocco81/TrueZen.nvim'
+
 " Neovim 0.5
 " Orgmode
 if has('nvim-0.5.0')
@@ -196,6 +203,75 @@ require('orgmode').setup({
   org_agenda_files = {"~/Documents/Writing/*", "~/Documents/Writing/**/*"},
   org_default_notes_file = '~/Documents/Writing/refile.org',
 })
+require("bufferline").setup {}
+
+local present, true_zen = pcall(require, "true-zen")
+if not present then
+   return
+end
+
+true_zen.setup {
+   ui = {
+      bottom = {
+         cmdheight = 1,
+         laststatus = 0,
+         ruler = false,
+         showmode = false,
+         showcmd = false,
+      },
+      top = {
+         showtabline = 0,
+      },
+      left = {
+         number = false,
+         relativenumber = false,
+         signcolumn = "no",
+      },
+   },
+   modes = {
+      ataraxis = {
+         left_padding = 32,
+         right_padding = 32,
+         top_padding = 1,
+         bottom_padding = 1,
+         ideal_writing_area_width = { 0 },
+         auto_padding = true,
+         keep_default_fold_fillchars = true,
+         custome_bg = "",
+         bg_configuration = true,
+         affected_higroups = {
+            NonText = {},
+            FoldColumn = {},
+            ColorColumn = {},
+            VertSplit = {},
+            StatusLine = {},
+            StatusLineNC = {},
+            SignColumn = {},
+         },
+      },
+      focus = {
+         margin_of_error = 5,
+         focus_method = "experimental",
+      },
+   },
+   integrations = {
+      vim_gitgutter = false,
+      tmux = false,
+      gitsigns = false,
+      nvim_bufferline = true,
+      limelight = false,
+      vim_airline = false,
+      vim_powerline = false,
+      vim_signify = false,
+      express_line = false,
+      lualine = false,
+   },
+   misc = {
+      on_off_commands = false,
+      ui_elements_commands = false,
+      cursor_by_mode = false,
+   },
+}
 EOF
 
 if has('nvim-0.5.0')

@@ -57,7 +57,7 @@ set number                 " 开启行号显示
 set relativenumber         " 相对行号
 set ruler                  " 显示光标当前位置
 set cmdheight=1            " 命令行高度
-set laststatus=1           " 总是显示状态栏
+set laststatus=2           " 总是显示状态栏
 set list
 set listchars=tab:..\|,trail:.
 set foldcolumn=1
