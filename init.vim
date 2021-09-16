@@ -177,7 +177,7 @@ Plug 'puremourning/vimspector',  { 'on': [] }
 Plug '907th/vim-auto-save'
 
 " better-escape {{{2
-Plug 'jdhao/better-escape.vim'
+"Plug 'jdhao/better-escape.vim'
 
 " TrueZen.nvim: Clean and elegant distraction-free writing for NeoVim. {{{2
 Plug 'Pocco81/TrueZen.nvim'

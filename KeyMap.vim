@@ -371,38 +371,8 @@ inoremap ;, <C-v>uFF0C
 inoremap ;. <C-v>u3002
 " 顿号
 inoremap ;\ <C-v>u3001
-" 问号
-inoremap ;? <C-v>uFF1F
-" 冒号
-inoremap ;: <C-v>uFF1A
-" 破折号
-inoremap ;- <C-v>u2014
-" 省略号
-inoremap ;^ <C-v>u2026
-" 左书名号
-inoremap ;< <C-v>u300A
-" 右书名号
-inoremap ;> <C-v>u300B<BS>
-
-" 左括号和右括号
-inoremap ;e <C-v>uFF08
-inoremap ;r <C-v>uFF09
-" 左书名号和右书名号
-inoremap ;g <C-v>u300A
-inoremap ;b <C-v>u300B<BS>
-" 左双引号和右双引号
-inoremap ;z <C-v>u201C
-inoremap ;c <C-v>u201D
-" 感叹号
-inoremap ;a <C-v>ff01
-inoremap ;w <C-v>ff1f
-" 其他半角符号
-inoremap ;q `
-inoremap ;h #
-inoremap ;j _
-inoremap ;k *
-inoremap ;l /
-inoremap ;u $
+" 分号
+inoremap ;; <C-v>uFF1b
 
 inoremap <silent> ;@ <c-g>u<c-o>:call fzf#run({
                         \ 'source': <sid>Bibtex_ls(),
@@ -436,7 +406,7 @@ inoremap <expr> <PageUp>   Lbs_Input_Env_Zh()
 inoremap <expr> <PageDown> Lbs_Input_Env_En()
 inoremap <expr> <bs>       Lbs_bs()
 inoremap <expr> ;<space>   Lbs_Input_Env_En()
-inoremap <expr> <space>;   Lbs_Input_Env_Zh()
+inoremap <expr> ;a         Lbs_Input_Env_Zh()
 
 
 

@@ -148,21 +148,25 @@ output:
 endsnippet				  
 
 snippet cols "beamer cols" b
-\begincols
-\begincol{.48\textwidth}
+
+\begin{columns}
+\begin{column}{0.48\textwidth}
 
 $1
 
-\endcol
-\begincol{.48\textwidth}
+\end{column}
+\begin{column}{.48\textwidth}
 
 $2
 
-\endcol
-\endcols
+\end{column}
+\end{columns}
 
 $0
 endsnippet
+
+
+
 
 snippet tocbeamer "beamer toc" b
 ## 主要内容
@@ -183,5 +187,8 @@ snippet ```raku "raku rmarkdown" b
 \`\`\`\{r, engine = 'raku'\}
 endsnippet
 
-
-
+snippet rimg "rmarkdown image" b
+```{r, echo = F, include = T, out.width = '70%', fig.pos = 'h', fig.show = 'hold'}
+knitr::include_graphics("$1")
+```
+endsnippet
