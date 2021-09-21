@@ -272,6 +272,10 @@ true_zen.setup {
       cursor_by_mode = false,
    },
 }
+
+require('bqf').setup({
+    auto_resize_height = false,
+})
 EOF
 
 if has('nvim-0.5.0')
