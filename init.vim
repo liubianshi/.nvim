@@ -91,12 +91,15 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-dadbod'             " Modern database interface for Vim
 Plug 'kristijanhusak/vim-dadbod-ui' " Simple UI for vim-dadbod
 Plug 'kristijanhusak/vim-dadbod-completion', { 'on': [] }
-Plug 'jalvesaq/Nvim-R'
+Plug 'liubianshi/Nvim-R'
 Plug 'lervag/vimtex', {'on': []}
 Plug 'poliquin/stata-vim', { 'on': [] }       " stata 语法高亮
 
 " csv / tsv {{{3
 Plug 'mechatroner/rainbow_csv'
+
+" perl 
+Plug 'WolfgangMehner/perl-support', { 'for': ['perl'] }
 
 " preview {{{2
 Plug 'skywind3000/vim-preview'

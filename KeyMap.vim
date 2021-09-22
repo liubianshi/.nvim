@@ -245,14 +245,29 @@ nnoremap <silent> <leader>am :call fzf#run({
 
 " 补全相关 {{{1
 inoremap <silent> <A-j> <esc>:call LbsAutoFormatNewline()<cr>a
-let g:UltiSnipsExpandTrigger		    = "<c-u>"
+let g:UltiSnipsExpandTrigger		    = "<c-space>"
 let g:UltiSnipsJumpForwardTrigger	    = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	    = "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
 inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <silent><expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <silent><expr> <Tab>  pumvisible() ? "\<C-n>" : "\<Tab>"
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+
+
 
 if exists('*complete_info')
   inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -404,8 +419,9 @@ noremap <silent> gr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand
 " 输入法切换 {{{1
 inoremap <expr> <PageUp>   Lbs_Input_Env_Zh()
 inoremap <expr> <PageDown> Lbs_Input_Env_En()
-inoremap <expr> <bs>       Lbs_bs()
 inoremap <silent> ;<tab>   <ESC>
+
+
 
 
 

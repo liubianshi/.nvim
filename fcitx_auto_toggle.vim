@@ -45,5 +45,6 @@ endfunction
 augroup Fcitx
     autocmd!
     autocmd InsertCharPre *.md,*.[Rr]md,*.org call Lbs_Fcitx_Auto()
+    autocmd BufRead,BufNew *.md,*.[Rr]md,*.org inoremap <expr> <bs> Lbs_bs()
 augroup END
 

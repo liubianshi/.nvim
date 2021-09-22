@@ -33,7 +33,7 @@ set undofile
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
 set foldlevel=2             " 折叠层级
-
+ 
 set updatetime=300
 set timeoutlen=1000
 set ttimeoutlen=100
@@ -62,7 +62,16 @@ set list
 set listchars=tab:..\|,trail:.
 set foldcolumn=1
 set fillchars=fold:\ 
-set signcolumn=auto
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
 highlight FoldColumn guibg=bg
 highlight Folded guibg=bg
 highlight SignColumn guibg=bg
