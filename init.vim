@@ -17,15 +17,15 @@ call plug#begin('~/.local/share/nvim/plugged')
 if(has("mac"))
     Plug 'CodeFalling/fcitx-vim-osx'
 else
-    Plug 'lilydjwg/fcitx.vim'   " Linux 下优化中文输入法切换
+    Plug 'lilydjwg/fcitx.vim'    " Linux 下优化中文输入法切换
 endif
 
 " theme {{{2
-Plug 'NLKNguyen/papercolor-theme'
+"Plug 'NLKNguyen/papercolor-theme'
 "Plug 'flazz/vim-colorschemes' , { 'on': [] }    " 主题管理
 "Plug 'morhetz/gruvbox'                          " 主题
 "Plug 'rakr/vim-one'
-Plug 'ayu-theme/ayu-vim'
+"Plug 'ayu-theme/ayu-vim'
 Plug 'sainnhe/sonokai'
 
 " Airline {{{2
@@ -202,8 +202,6 @@ call plug#end()
 
 " plug config {{{1
 call Lbs_Load_Plug_Confs(keys(g:plugs))
-
-
 
 " source external files {{{1
 source ~/.config/nvim/basic.vim
