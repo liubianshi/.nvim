@@ -1,1 +1,5 @@
-let g:auto_resize_height = 0 
+lua << EOF
+require('bqf').setup({
+    auto_resize_height = false,
+})
+EOF

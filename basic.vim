@@ -104,7 +104,9 @@ function! MyFoldText()
   return " " . foldtext() . " ··· "
 endfunction
 set formatoptions=t,n1mp,Bj,coq
-set foldmethod=marker
+"set foldmethod=marker
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 set foldtext=MyFoldText()
 
 " 字典 和 tags 相关 {{{
