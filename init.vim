@@ -29,9 +29,10 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'sainnhe/sonokai'
 
 " Airline {{{2
-Plug 'vim-airline/vim-airline',        { 'on': [] }    " 状态栏插件
-Plug 'vim-airline/vim-airline-themes', { 'on': [] }
+"Plug 'vim-airline/vim-airline',        { 'on': [] }    " 状态栏插件
+"Plug 'vim-airline/vim-airline-themes', { 'on': [] }
 Plug 'akinsho/bufferline.nvim'
+Plug 'hoob3rt/lualine.nvim'
 
 " nerdtree {{{2
 Plug 'scrooloose/nerdtree',    { 'on':  'NERDTreeToggle' }

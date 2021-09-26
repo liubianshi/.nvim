@@ -224,7 +224,7 @@ endfun
 " 状态栏{{{1
 function! Status()
     if &laststatus == 0
-        call plug#load('vim-airline', 'vim-airline-themes')
+        "call plug#load('vim-airline', 'vim-airline-themes')
         let &laststatus = 2
     else
         let &laststatus = 0
