@@ -47,3 +47,8 @@ graph export /tmp/stata_graph.pdf, replace
 winexec zathura /tmp/stata_graph.pdf
 endsnippet
 
+snippet delimit "Change delimiter"
+#delimit ${1:;}
+$0
+endsnippet
+

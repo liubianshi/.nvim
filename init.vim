@@ -122,7 +122,7 @@ Plug 'skywind3000/vim-terminal-help'
 Plug 'tpope/vim-obsession', { 'on': [] }            " tmux Backup needed
 
 " vimcmdline {{{3
-Plug 'jalvesaq/vimcmdline'
+Plug 'liubianshi/vimcmdline'
 
 " auto-pairs {{{2
 Plug 'jiangmiao/auto-pairs'

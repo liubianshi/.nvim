@@ -83,6 +83,7 @@ endfunction
 
 " Global {{{1
 noremap <A-x> :<c-u>FzfCommand<cr>
+imap <A-;> <esc><localleader>
 
 " Terminal {{{1 
 tnoremap <A-space> <C-\><C-n>
@@ -420,6 +421,7 @@ noremap <silent> gr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand
 inoremap <expr> <PageUp>   Lbs_Input_Env_Zh()
 inoremap <expr> <PageDown> Lbs_Input_Env_En()
 inoremap <silent> ;<tab>   <ESC>
+
 
 
 
