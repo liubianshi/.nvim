@@ -152,7 +152,8 @@ Plug 'tpope/vim-fugitive', {'on': ['G', 'Gwrite', 'Gcommit', 'Gread', 'Gdiff', '
     doau User vim-fugitive call Lbs_Load_Plug_Conf('vim-fugitive')
 
 " Help: {{{2
-Plug 'liuchengxu/vim-which-key'
+"Plug 'liuchengxu/vim-which-key'
+Plug 'folke/which-key.nvim'
 Plug 'yianwillis/vimcdoc'             " Vim 中文帮助文档
 
 " Stay: Stay at my cursor, boy! {{{2
@@ -289,7 +290,7 @@ endif
 " source external files {{{1
 source ~/.config/nvim/basic.vim
 source ~/.config/nvim/KeyMap.vim
-source ~/.config/nvim/whichkey.vim
+"source ~/.config/nvim/whichkey.vim
 source ~/.config/nvim/autocmd.vim
 source ~/.config/nvim/abbr.vim
 source ~/.config/nvim/fcitx_auto_toggle.vim

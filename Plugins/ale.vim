@@ -15,7 +15,7 @@ let g:ale_lint_on_insert_leave = 0
 " 文件类型别名
 let g:ale_linter_aliases = {
             \   'pandoc': ['markdown'],
-            \   'rmd': ['markdown', 'r'],
+            \   'rmd': ['r', 'markdown'],
             \}
 "使用clang对c和c++进行语法检查，对python使用pylint进行语法检查
 let g:ale_linters = {
@@ -42,11 +42,11 @@ let g:ale_r_lintr_options = "with_defaults(". join([
 let g:ale_r_styler_options = "styler::tidyverse_style(strict = FALSE, indent_by = 4)"
 let g:ale_languagetool_options = "--autoDetect --languagemodel ~/Downloads"
 
-nnoremap <silent><buffer> <localleader>ae :<c-u>ALEEnableBuffer<cr>
-nnoremap <silent><buffer> <localleader>ad :<c-u>ALEDisableBuffer<cr>
-nnoremap <silent><buffer> <localleader>at :<c-u>ALEToggleBuffer<cr>
-nnoremap <silent><buffer> <localleader>al :<c-u>ALELint<cr>
-nnoremap <silent><buffer> <localleader>as :<c-u>ALELintStop<cr>
+nnoremap <silent><buffer> <leader>ae :<c-u>ALEEnableBuffer<cr>
+nnoremap <silent><buffer> <leader>ad :<c-u>ALEDisableBuffer<cr>
+nnoremap <silent><buffer> <leader>at :<c-u>ALEToggleBuffer<cr>
+nnoremap <silent><buffer> <leader>al :<c-u>ALELint<cr>
+nnoremap <silent><buffer> <leader>as :<c-u>ALELintStop<cr>
 nnoremap <silent><buffer> [a         :<c-u>ALEPrevious<cr>
 nnoremap <silent><buffer> ]a         :<c-u>ALENext<cr>
 

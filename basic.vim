@@ -35,14 +35,14 @@ set shortmess+=c
 set foldlevel=2             " 折叠层级
  
 set updatetime=300
-set timeoutlen=1000
+set timeoutlen=300
 set ttimeoutlen=100
 if ! has('gui_running')
     set ttimeoutlen=100
     augroup FastEscape
         autocmd!
         au InsertEnter * set timeoutlen=300
-        au InsertLeave * set timeoutlen=1000
+        au InsertLeave * set timeoutlen=400
     augroup END
 endif
 
