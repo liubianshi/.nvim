@@ -109,7 +109,7 @@ ins_left {
     vim.api.nvim_command(
         'hi! LualineMode guifg=' .. mode_color[vim.fn.mode()] .. " guibg=" ..
             colors.bg)
-    return ''
+    return ''
   end,
   color = "LualineMode",
   left_padding = 0
@@ -159,11 +159,11 @@ ins_left {
 -- for lualine it's any number greater then 2
 ins_left {function() return '%=' end}
 
-ins_left {
+ins_right {
   -- Lsp server name .
   function()
-    local msg = '🗿'
     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+    local msg = buf_ft .. ': 🙈'
     local clients = vim.lsp.get_active_clients()
     if next(clients) == nil then return msg end
     for _, client in ipairs(clients) do
@@ -174,7 +174,7 @@ ins_left {
     end
     return msg
   end,
-  icon = ' LSP:',
+  icon = '',
   color = {fg = '#ffffff', gui = 'bold'}
 }
 
