@@ -1,5 +1,6 @@
 "set background=dark        " 设置颜色模式
 colorscheme sonokai
+set guifont=monospace:h22
 
 " Basic Config{{{1
 let mapleader = " "
@@ -36,9 +37,9 @@ set foldlevel=2             " 折叠层级
  
 set updatetime=300
 set timeoutlen=300
-set ttimeoutlen=100
+set ttimeoutlen=30
 if ! has('gui_running')
-    set ttimeoutlen=100
+    set ttimeoutlen=30
     augroup FastEscape
         autocmd!
         au InsertEnter * set timeoutlen=300

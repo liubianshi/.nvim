@@ -12,6 +12,8 @@ endif
 
 " load package {{{1
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'nathom/filetype.nvim'
+    lua vim.g.did_load_filetypes = 1
 
 " fcitx {{{2
 if(has("mac"))
@@ -114,6 +116,7 @@ Plug 'dense-analysis/ale', { 'on': [] }
 " system interaction {{{2
 " floaterm {{{3
 Plug 'voldikss/vim-floaterm'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 " asyncrun {{{3
 Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
