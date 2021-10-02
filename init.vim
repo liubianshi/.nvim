@@ -61,6 +61,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'machakann/vim-highlightedyank'  " 高亮显示复制区域
 Plug 'haya14busa/incsearch.vim'       " 加强版实时高亮
 Plug 'mg979/vim-visual-multi',  {'branch': 'master'}
+Plug 'spolu/dwm.vim'
 
 " vim-matchup
 Plug 'andymass/vim-matchup'
@@ -184,9 +185,6 @@ Plug 'puremourning/vimspector',  { 'on': [] }
 " Auto_save: {{{2 
 Plug '907th/vim-auto-save'
 
-" better-escape {{{2
-"Plug 'jdhao/better-escape.vim'
-
 " TrueZen.nvim: Clean and elegant distraction-free writing for NeoVim. {{{2
 Plug 'Pocco81/TrueZen.nvim'
 
@@ -216,3 +214,4 @@ source ~/.config/nvim/fcitx_auto_toggle.vim
 
 " Test lua
 "command! Scratch lua require'tools'.makeScratch()
+" vim: set fdm=marker :

@@ -1,3 +1,4 @@
+" vim: set fdm=marker nowrap:
 " function: add symbol at the end of current line {{{1 
 function! s:AddDash(symbol)
     substitute/\s*$//g
@@ -136,27 +137,27 @@ nnoremap <silent> <leader>bW :w!<cr>
 nnoremap <leader>qq :call QuickfixToggle()<cr>
 
 " window manager {{{1
-nnoremap <silent> <leader><tab> :FzfWindows<cr>
+nnoremap <silent> <leader>wn <C-U>:call DWM_New()<CR>
+nnoremap <silent> <leader>wc <C-U>:call DWM_Close()<CR>
+nnoremap <silent> <leader>w<tab> :FzfWindows<cr>
+nnoremap <silent> <leader>w<space> <C-U>:call DWM_Focus()<CR>
+nnoremap <silent> <leader>w, <C-U>:call DWM_Rotate(0)<CR>
+nnoremap <silent> <leader>w. <C-U>:call DWM_Rotate(1)<CR>
+nnoremap <silent> <leader>w+ <C-U>:call DWM_GrowMaster()<CR>
+nnoremap <silent> <leader>w- <C-U>:call DWM_ShrinkMaster()<CR>
+nnoremap <silent> <leader>w0 <C-U>:85wincmd \|<cr>
+nnoremap <silent> <leader>wt <C-U>:wincmd T<cr>
 nnoremap <silent> <leader>wo :<c-u>only<cr>
-nnoremap <silent> <leader>ww <c-w>w
-nnoremap <silent> <leader>wW <c-w>W
 nnoremap <silent> <leader>w= <c-w>=
-nnoremap <silent> <leader>w- <c-w>-
-nnoremap <silent> <leader>w_ <c-w>_
-nnoremap <silent> <leader>w< <c-w><
-nnoremap <silent> <leader>w> <c-w><
-nnoremap <silent> <leader>w<bar> <c-w><bar>
-nnoremap <silent> <leader>w+ <c-w>+
+nnoremap <silent> <leader>wq <c-w>q
+nnoremap <silent> <c-j> <c-w>j
+nnoremap <silent> <c-k> <c-w>k
+nnoremap <silent> <c-h> <c-w>h
+nnoremap <silent> <c-l> <c-w>l
 nnoremap <silent> <leader>wj <c-w>j
 nnoremap <silent> <leader>wk <c-w>k
 nnoremap <silent> <leader>wh <c-w>h
 nnoremap <silent> <leader>wl <c-w>l
-nnoremap <silent> <leader>wJ <c-w>J
-nnoremap <silent> <leader>wK <c-w>K
-nnoremap <silent> <leader>wH <c-w>H
-nnoremap <silent> <leader>wL <c-w>L
-nnoremap <silent> <leader>ws <c-w>s
-nnoremap <silent> <leader>wv <c-w>v
 
 " tab managing{{{1
 nnoremap <silent> <leader>tt :tabnew<cr>
@@ -206,10 +207,12 @@ vnoremap <silent> S "0y:<C-U>AsyncRun sr google <C-R>0<CR>
 nnoremap <silent> S :<C-U><C-R>=printf("AsyncRun sr", expand("<cword>"))<CR><CR>
 noremap <silent> <leader>sc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 noremap <silent> <leader>sC :<C-U><C-R>=printf("Leaderf colorscheme %s", "")<CR><CR>
+noremap <silent> <leader>sh :<C-U><C-R>=printf("Leaderf help %s", "")<CR><CR>
 noremap <silent> <leader>st :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
 noremap <silent> <leader>sT :<C-U><C-R>=printf("Leaderf bufTag --all %s", "")<CR><CR>
 noremap <silent> <leader>sl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-noremap <silent> <leader>ss :<C-U>!sr 
+noremap <silent> <leader>sL :<C-U><C-R>=printf("FzfLocate ")<CR><space>
+noremap <silent> <leader>ss :<C-U><C-R>=printf("!sr ")<CR>
 noremap <silent> <leader>s: :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
 noremap <silent> <leader>s/ :<C-U><C-R>=printf("Leaderf searchHistory %s", "")<CR><CR>
 noremap <silent> <leader>sg :<C-U><C-R>=printf("Leaderf gtags --all %s", "")<CR><CR>
@@ -219,7 +222,6 @@ nmap    <silent> <leader>sm <plug>(fzf-maps-n)
 xmap    <silent> <leader>sm <plug>(fzf-maps-x)
 omap    <silent> <leader>sm <plug>(fzf-maps-o)
 noremap <C-B> :<C-U><C-R>=printf("Leaderf rg --current-buffer -e %s ", expand("<cword>"))<CR><CR>
-noremap <C-F> :<C-U><C-R>=printf("Leaderf rg -e %s", expand("<cword>"))<CR><CR>
 
 " diff 相关 {{{1
 map <silent> <leader>d1 :diffget 1<CR> :diffupdate<CR>
