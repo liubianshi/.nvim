@@ -137,27 +137,27 @@ nnoremap <silent> <leader>bW :w!<cr>
 nnoremap <leader>qq :call QuickfixToggle()<cr>
 
 " window manager {{{1
-nnoremap <silent> <leader>wn <C-U>:call DWM_New()<CR>
-nnoremap <silent> <leader>wc <C-U>:call DWM_Close()<CR>
-nnoremap <silent> <leader>w<tab> :FzfWindows<cr>
-nnoremap <silent> <leader>w<space> <C-U>:call DWM_Focus()<CR>
-nnoremap <silent> <leader>w, <C-U>:call DWM_Rotate(0)<CR>
-nnoremap <silent> <leader>w. <C-U>:call DWM_Rotate(1)<CR>
-nnoremap <silent> <leader>w+ <C-U>:call DWM_GrowMaster()<CR>
-nnoremap <silent> <leader>w- <C-U>:call DWM_ShrinkMaster()<CR>
-nnoremap <silent> <leader>w0 <C-U>:85wincmd \|<cr>
-nnoremap <silent> <leader>wt <C-U>:wincmd T<cr>
-nnoremap <silent> <leader>wo :<c-u>only<cr>
-nnoremap <silent> <leader>w= <c-w>=
-nnoremap <silent> <leader>wq <c-w>q
+nnoremap <silent> wn <C-U>:call DWM_New()<CR>
+nnoremap <silent> wc <C-U>:call DWM_Close()<CR>
+nnoremap <silent> w<tab> :FzfWindows<cr>
+nnoremap <silent> w<space> <C-U>:call DWM_Focus()<CR>
+nnoremap <silent> w, <C-U>:call DWM_Rotate(0)<CR>
+nnoremap <silent> w. <C-U>:call DWM_Rotate(1)<CR>
+nnoremap <silent> w+ <C-U>:call DWM_GrowMaster()<CR>
+nnoremap <silent> w- <C-U>:call DWM_ShrinkMaster()<CR>
+nnoremap <silent> w0 <C-U>:85wincmd \|<cr>
+nnoremap <silent> wt <C-U>:wincmd T<cr>
+nnoremap <silent> wo :<c-u>only<cr>
+nnoremap <silent> w= <c-w>=
+nnoremap <silent> ww <c-w>w
 nnoremap <silent> <c-j> <c-w>j
 nnoremap <silent> <c-k> <c-w>k
 nnoremap <silent> <c-h> <c-w>h
 nnoremap <silent> <c-l> <c-w>l
-nnoremap <silent> <leader>wj <c-w>j
-nnoremap <silent> <leader>wk <c-w>k
-nnoremap <silent> <leader>wh <c-w>h
-nnoremap <silent> <leader>wl <c-w>l
+nnoremap <silent> wj <c-w>j
+nnoremap <silent> wk <c-w>k
+nnoremap <silent> wh <c-w>h
+nnoremap <silent> wl <c-w>l
 
 " tab managing{{{1
 nnoremap <silent> <leader>tt :tabnew<cr>

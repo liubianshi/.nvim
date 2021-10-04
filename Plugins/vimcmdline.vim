@@ -1,13 +1,16 @@
 " vimcmdline mappings
 let cmdline_map_start          = '<LocalLeader>s'
+let cmdline_map_quit           = '<LocalLeader>rq'
+
 let cmdline_map_send           = '<LocalLeader>l'
-let cmdline_map_send_and_stay  = '<LocalLeader><Space>'
-let cmdline_map_source_fun     = '<LocalLeader>f'
-let cmdline_map_send_paragraph = '<LocalLeader>p'
-let cmdline_map_send_block     = '<LocalLeader>b'
-let cmdline_map_quit           = '<LocalLeader>qq'
+let cmdline_map_send_motion    = '<localleader><localleader>'
+let cmdline_map_send_and_stay  = '<LocalLeader>ss'
+let cmdline_map_source_fun     = '<LocalLeader>fe'
+let cmdline_map_send_paragraph = '<LocalLeader>pe'
+let cmdline_map_send_block     = '<LocalLeader>be'
+
 " vimcmdline options
-let cmdline_vsplit      = 0      " Split the window vertically
+let cmdline_vsplit      = 1      " Split the window vertically
 let cmdline_esc_term    = 1      " Remap <Esc> to :stopinsert in Neovim's terminal
 let cmdline_in_buffer   = 1      " Start the interpreter in a Neovim's terminal
 let cmdline_term_height = 15     " Initial height of interpreter window or pane

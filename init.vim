@@ -85,6 +85,7 @@ Plug 'justinmk/vim-sneak'           " The missing motion for vim
 Plug 'easymotion/vim-easymotion'    " 高效移动指标插件
 Plug 'liubianshi/vim-easymotion-chs' " tricks to allow easymotion recognize Chinese chars
 Plug 'wellle/targets.vim'           " 扩展 vim 文本对象
+Plug 'kana/vim-textobj-user'        " Create your own text objects
 
 " Snippets {{{2
 Plug 'sirver/UltiSnips'
