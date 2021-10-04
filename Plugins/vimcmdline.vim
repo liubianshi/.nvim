@@ -1,10 +1,9 @@
 " vimcmdline mappings
 let cmdline_map_start          = '<LocalLeader>s'
+let cmdline_map_send_and_stay  = '<LocalLeader>se'
 let cmdline_map_quit           = '<LocalLeader>rq'
-
 let cmdline_map_send           = '<LocalLeader>l'
 let cmdline_map_send_motion    = '<localleader><localleader>'
-let cmdline_map_send_and_stay  = '<LocalLeader>ss'
 let cmdline_map_source_fun     = '<LocalLeader>fe'
 let cmdline_map_send_paragraph = '<LocalLeader>pe'
 let cmdline_map_send_block     = '<LocalLeader>be'
