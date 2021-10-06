@@ -82,9 +82,63 @@ function! s:bibtex_cite_sink_insert(lines)
     call feedkeys('a', 'n')
 endfunction
 
+function! RipgrepFzf(query, fullscreen)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+" Use K to show documentation in preview window.
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" 翻译操作符
+function! Lbs_Trans2clip(type = '')
+    if a:type == ''
+        set opfunc=Lbs_Trans2clip
+        return 'g@'
+    endif
+
+    let visual_marks_save = [getpos("'<"), getpos("'>")]
+
+    try
+        let commands = #{line: "'[V']y", char: "`[v`]y", block: "`[\<c-v>`]y", v:"`<v`>y"}
+        silent exe 'noautocmd normal! ' .. get(commands, a:type, '')
+        let oritext = substitute(@", "\n", " ", "g")
+        if oritext =~# "^ *[A-Za-z]"
+            let source_to = "en:zh"
+        else
+            let source_to = "zh:en"
+        endif
+        let cmd = "trans -b --no-ansi %s '%s'"
+        let cmd = printf(cmd, shellescape(source_to), oritext)
+        let @" = system(cmd)
+    finally
+        call setpos("'<", visual_marks_save[0])
+        call setpos("'>", visual_marks_save[1])
+    endtry
+endfunction
+
+" Command ==================================================================== {{{1
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
 " Global {{{1
 noremap <A-x> :<c-u>FzfCommand<cr>
 imap <A-;> <esc><localleader>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " Terminal {{{1 
 tnoremap <A-space> <C-\><C-n>
@@ -137,27 +191,19 @@ nnoremap <silent> <leader>bW :w!<cr>
 nnoremap <leader>qq :call QuickfixToggle()<cr>
 
 " window manager {{{1
-nnoremap <silent> wn <C-U>:call DWM_New()<CR>
-nnoremap <silent> wc <C-U>:call DWM_Close()<CR>
-nnoremap <silent> w<tab> :FzfWindows<cr>
-nnoremap <silent> w<space> <C-U>:call DWM_Focus()<CR>
-nnoremap <silent> w, <C-U>:call DWM_Rotate(0)<CR>
-nnoremap <silent> w. <C-U>:call DWM_Rotate(1)<CR>
-nnoremap <silent> w+ <C-U>:call DWM_GrowMaster()<CR>
-nnoremap <silent> w- <C-U>:call DWM_ShrinkMaster()<CR>
+nnoremap <silent> w<space> :FzfWindows<cr>
 nnoremap <silent> w0 <C-U>:85wincmd \|<cr>
 nnoremap <silent> wt <C-U>:wincmd T<cr>
 nnoremap <silent> wo :<c-u>only<cr>
 nnoremap <silent> w= <c-w>=
 nnoremap <silent> ww <c-w>w
-nnoremap <silent> <c-j> <c-w>j
-nnoremap <silent> <c-k> <c-w>k
-nnoremap <silent> <c-h> <c-w>h
-nnoremap <silent> <c-l> <c-w>l
 nnoremap <silent> wj <c-w>j
 nnoremap <silent> wk <c-w>k
 nnoremap <silent> wh <c-w>h
 nnoremap <silent> wl <c-w>l
+nnoremap <silent> wq <c-w>q
+nnoremap <silent> wx <c-w>x
+nnoremap <silent> wn :vsplit \| enew<cr>
 
 " tab managing{{{1
 nnoremap <silent> <leader>tt :tabnew<cr>
@@ -193,14 +239,22 @@ nnoremap <silent> <leader>oZ :Goyo<cr>
 command! RUN FloatermNew --name=repl --wintype=normal --position=right
 
 " 翻译 {{{1
-vnoremap <silent> <leader>Tc "*y:AsyncRun xclip -o \| tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
-nnoremap <silent> <leader>Tc vip:AsyncRun tr "\n" " " \| trans -b --no-ansi \| tee >(xclip -i -sel clip)<CR>
-vnoremap <silent> <leader>Te "*y:AsyncRun xclip -o \| tr "\n" " " \| trans -b --no-ansi zh:en \| tee >(xclip -i -sel clip)<CR>
-nnoremap <silent> <leader>Te vip:AsyncRun tr "\n" " " \| trans -b --no-ansi zh:en \| tee >(xclip -i -sel clip)<CR>
+nnoremap <expr>   L Lbs_Trans2clip()
+xnoremap <expr>   L Lbs_Trans2clip()
+nmap     <silent> gt <Plug>TranslateW
+vmap     <silent> gt <Plug>TranslateWV
+nmap     <silent> gc <Plug>Translate
+vmap     <silent> gc <Plug>TranslateV
 
 " Edit Specific file {{{1
-nnoremap <leader>ev :tabedit $MYVIMRC<cr>
-nnoremap <leader>ek :tabedit ~/.config/nvim/KeyMap.vim<cr>
+nnoremap <leader>ev :edit $MYVIMRC<cr>
+nnoremap <leader>ek :edit ~/.config/nvim/KeyMap.vim<cr>
+nnoremap <leader>er :edit ~/.Rprofile<cr>
+nnoremap <leader>es :edit ~/.config/stata/profile.do<cr>
+nnoremap <leader>ez :edit ~/.zshrc<cr>
+nnoremap <leader>eZ :edit ~/useScript/usr.zshrc<cr>
+nnoremap <leader>ea :edit ~/useScript/alias<cr>
+nnoremap <leader>eu :edit ~/.config/nvim/UltiSnips<cr>
 
 " search {{{1
 vnoremap <silent> S "0y:<C-U>AsyncRun sr google <C-R>0<CR>
@@ -208,8 +262,8 @@ nnoremap <silent> S :<C-U><C-R>=printf("AsyncRun sr", expand("<cword>"))<CR><CR>
 noremap <silent> <leader>sc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 noremap <silent> <leader>sC :<C-U><C-R>=printf("Leaderf colorscheme %s", "")<CR><CR>
 noremap <silent> <leader>sh :<C-U><C-R>=printf("Leaderf help %s", "")<CR><CR>
-noremap <silent> <leader>st :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
-noremap <silent> <leader>sT :<C-U><C-R>=printf("Leaderf bufTag --all %s", "")<CR><CR>
+noremap <silent> <leader>st :<C-U><C-R>=printf("FzfBTags %s", "")<CR><CR>
+noremap <silent> <leader>sT :<C-U><C-R>=printf("FzfTags %s", "")<CR><CR>
 noremap <silent> <leader>sl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 noremap <silent> <leader>sL :<C-U><C-R>=printf("FzfLocate ")<CR><space>
 noremap <silent> <leader>ss :<C-U><C-R>=printf("!sr ")<CR>
@@ -217,17 +271,18 @@ noremap <silent> <leader>s: :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><
 noremap <silent> <leader>s/ :<C-U><C-R>=printf("Leaderf searchHistory %s", "")<CR><CR>
 noremap <silent> <leader>sg :<C-U><C-R>=printf("Leaderf gtags --all %s", "")<CR><CR>
 noremap <silent> <leader>sr :<C-U>Leaderf rg --current-buffer -e 
-noremap <silent> <leader>sR :<C-U>Leaderf rg -e 
+noremap <silent> <leader>sR :<C-U>Leaderf rg -e<space>
 nmap    <silent> <leader>sm <plug>(fzf-maps-n)
 xmap    <silent> <leader>sm <plug>(fzf-maps-x)
 omap    <silent> <leader>sm <plug>(fzf-maps-o)
+imap    <silent> ;sm <plug>(fzf-maps-i)
 noremap <C-B> :<C-U><C-R>=printf("Leaderf rg --current-buffer -e %s ", expand("<cword>"))<CR><CR>
 
 " diff 相关 {{{1
-map <silent> <leader>d1 :diffget 1<CR> :diffupdate<CR>
-map <silent> <leader>d2 :diffget 2<CR> :diffupdate<CR>
-map <silent> <leader>d3 :diffget 3<CR> :diffupdate<CR>
-map <silent> <leader>d4 :diffget 4<CR> :diffupdate<CR>
+map <silent> <leader>d1 :diffget 1<CR>:diffupdate<CR>
+map <silent> <leader>d2 :diffget 2<CR>:diffupdate<CR>
+map <silent> <leader>d3 :diffget 3<CR>:diffupdate<CR>
+map <silent> <leader>d4 :diffget 4<CR>:diffupdate<CR>
 
 " add content {{{1 
 nnoremap <silent> <leader>a- :<c-u>call <sid>AddDash("-")<cr>
@@ -248,12 +303,13 @@ nnoremap <silent> <leader>am :call fzf#run({
 
 " 补全相关 {{{1
 inoremap <silent> <A-j> <esc>:call LbsAutoFormatNewline()<cr>a
-let g:UltiSnipsExpandTrigger		    = "<c-space>"
+let g:UltiSnipsExpandTrigger		    = "<c-l>"
 let g:UltiSnipsJumpForwardTrigger	    = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	    = "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
 inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <silent><expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> ;<tab> coc#refresh()
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -262,21 +318,23 @@ inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
+inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-
-
-
 if exists('*complete_info')
   inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 else
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+
 
 " Navigation {{{1
 noremap j gj
@@ -389,8 +447,6 @@ inoremap ;, <C-v>uFF0C
 inoremap ;. <C-v>u3002
 " 顿号
 inoremap ;\ <C-v>u3001
-" 分号
-inoremap ;; <C-v>uFF1b
 
 inoremap <silent> ;@ <c-g>u<c-o>:call fzf#run({
                         \ 'source': <sid>Bibtex_ls(),
@@ -410,19 +466,24 @@ noremap  <m-d> :PreviewScroll +1<cr>
 inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
 inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
 
-" ctags and gtags {{{1
-noremap <silent> gd :<C-U><C-R>=printf("Leaderf gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+" objects: ctags and gtags {{{1
+"noremap <silent> gd :<C-U><C-R>=printf("Leaderf gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+"noremap <silent> gr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
 noremap <silent> gf :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
 noremap <silent> gF :<C-U><C-R>=printf("Leaderf function --all %s", "")<CR><CR>
 noremap <silent> gn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
 noremap <silent> go :<C-U><C-R>=printf("Leaderf gtags --recall %s", "")<CR><CR>
 noremap <silent> gp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
-noremap <silent> gr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+
 
 " 输入法切换 {{{1
-inoremap <expr> <PageUp>   Lbs_Input_Env_Zh()
-inoremap <expr> <PageDown> Lbs_Input_Env_En()
-inoremap <silent> ;<tab>   <ESC>
+"inoremap <expr> <PageUp>   Lbs_Input_Env_Zh()
+"inoremap <expr> <PageDown> Lbs_Input_Env_En()
+inoremap <silent><expr> ;; Lbs_Input_Env_En()
+inoremap <silent><expr> ;f Lbs_Input_Env_Zh()
+
 
 
 

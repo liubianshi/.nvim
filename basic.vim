@@ -5,7 +5,6 @@ set guifont=monospace:h22
 " Basic Config{{{1
 let mapleader = " "
 let maplocalleader = ';'
-nnoremap ;; ;
 
 set backupdir=~/.cache/vim/.backup//
 set directory=~/.cache/vim/.swp//

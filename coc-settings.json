@@ -1,6 +1,13 @@
 {
     "r.lsp.path": "/usr/bin/R",
     "r.lsp.debug": true,
-    "r.lsp.diagnostics": false
+    "r.lsp.diagnostics": false,
+    "translator.window.maxWidth": 60,
+    "translator.engines": [
+        "google",
+        "youdao"
+    ],
+    "http.proxy": "http://127.0.0.1:8118"
 }
+
 

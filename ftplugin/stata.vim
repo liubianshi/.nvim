@@ -5,6 +5,8 @@ let b:AutoPairs = g:AutoPairs
 let b:AutoPairs['`']="'" 
 let b:keywords = ['des', 'codebook', 'tab', 'gdistinct', 'graph tw']
 let b:varlist = []
+let b:macrolist = []
+let b:cached_data = "/tmp/stata_preview.tsv"
 
 " Load Pluguin needed ======================================================== {{{1
 call Lbs_Load_Plug('stata-vim')
@@ -46,17 +48,18 @@ function! s:Stata_sum(type = '')
     call <SID>StataCommandFactory("gstats sum", a:type)
 endfunction
  
-" 将最新的变量名和标签写入 ./.varlist, 同时设置 buffer 变量 b:varlist -------- {{{2
+" 将最新的变量名和标签写入 ./.varlist.tsv, 同时设置 buffer 变量 b:varlist -------- {{{2
 function! s:StataSyncVarlist() abort
+    "call VimCmdLineSendCmd("backup_macro")
     call VimCmdLineSendCmd("backup_varlist")
-    let l:varlist = split(system("cut -f1 ./.varlist"), "\n")
+    let l:varlist = split(system("cut -f1 ./.varlist.tsv"), "\n")
     let b:varlist = l:varlist
     return varlist
 endfunction
 
 " 生成向 Stata 发送代码的 vim 命令，并且配置常用方法和变量补全 --------------- {{{2
 command -nargs=+ -complete=customlist,<SID>StataCommandComplete
-            \ STATADO call VimCmdLineSendCmd("<args>")
+            \ STATADO call VimCmdLineSendCmd('<args>')
 function! s:StataCommandComplete(A, L, P)
     let commandlist = b:keywords + b:varlist
     call filter(commandlist, 'v:val =~# "^' . a:A . '"')
@@ -67,42 +70,43 @@ endfunction
 " Mapping ==================================================================== {{{1
 
 " Send Comamand -------------------------------------------------------------- {{{2
-nnoremap <buffer> <localleader><space> :<C-U>call <SID>StataSyncVarlist()<cr>:STATADO<Space>
+nnoremap <buffer> <localleader><space> :call <SID>StataSyncVarlist()<cr>:STATADO<Space>
 
 " Set options ---------------------------------------------------------------- {{{2
-nnoremap <buffer> <localleader>,d :call VimCmdLineSendCmd("set trace on")<cr>
-nnoremap <buffer> <localleader>,D :call VimCmdLineSendCmd("set trace off")<cr>
-nnoremap <buffer> <localleader>,b :call VimCmdLineSendCmd("backup_varlist")<cr>
+nnoremap <buffer> <localleader>,d :STATADO set trace on<cr>
+nnoremap <buffer> <localleader>,D :STATADO set trace off<cr>
+nnoremap <buffer> <localleader>,b :STATADO backup_varlist<cr>
 
 " Log ------------------------------------------------------------------------ {{{2
 nnoremap <buffer> <localleader>Ll :call VimCmdLineSendCmd("log using \"" . "~/.log/" . substitute(expand('%:p:~'), "/", "%", "g") . "-" . strftime("%Y%m%d%H") . ".txt\", append text name(lbs)")<cr>
-nnoremap <buffer> <localleader>Lr :call VimCmdLineSendCmd("log query _all")<cr>
-nnoremap <buffer> <localleader>Lp :call VimCmdLineSendCmd("log off lbs")<cr>
-nnoremap <buffer> <localleader>Lo :call VimCmdLineSendCmd("log on lbs")<cr>
-nnoremap <buffer> <localleader>Lc :call VimCmdLineSendCmd("log close lbs")<cr>
+nnoremap <buffer> <localleader>Lr :STATADO log query _all<cr>
+nnoremap <buffer> <localleader>Lp :STATADO log off lbs<cr>
+nnoremap <buffer> <localleader>Lo :STATADO log on lbs<cr>
+nnoremap <buffer> <localleader>Lc :STATADO log close lbs<cr>
 
 " Description ---------------------------------------------------------------- {{{2
 vnoremap <silent><buffer> <localleader>d  :<c-u>call <SID>Stata_des(visualmode())<cr>
 nnoremap <silent><buffer> <localleader>dm :set opfunc=<SID>Stata_des<cr>g@
 nnoremap <buffer> <localleader>rd :call VimCmdLineSendCmd("des " . expand('<cword>'))<cr>
-nnoremap <buffer> <localleader>de         :call VimCmdLineSendCmd("des")<cr>
+nnoremap <buffer> <localleader>de :STATADO des<cr>
 
 " view Data ----------------------------------------------------------------- {{{2
+nnoremap <buffer> <localleader>V  :exec "tabnew " .. b:cached_data<cr>
 vnoremap <silent><buffer> <localleader>v  :<c-u>call <SID>Stata_view(visualmode())<cr>
 nnoremap <silent><buffer> <localleader>vm :set opfunc=<SID>Stata_view<cr>g@
 nnoremap <buffer> <localleader>rv :call VimCmdLineSendCmd("codebook " . expand('<cword>'))<cr>
 vnoremap <buffer> <localleader>rv y:call VimCmdLineSendCmd("codebook " . @")<cr>
-nnoremap <buffer> <localleader>vr :call VimCmdLineSendCmd("V if runiform <= 100/_N")<cr>
-nnoremap <buffer> <localleader>vh :call VimCmdLineSendCmd("V in 1/100")<cr>
-nnoremap <buffer> <localleader>vt :call VimCmdLineSendCmd("V if _n >= _N - 100")<cr>
-nnoremap <buffer> <localleader>va :call VimCmdLineSendCmd("V")<cr>
-nnoremap <buffer> <localleader>vv :call VimCmdLineSendCmd("backup_varlist")<cr>:r! xsv table ./.varlist \| perl -pe 's/^"\|"$//g; $_ = "*│ " . $_'<cr>
-nnoremap <buffer> <localleader>vt :call VimCmdLineSendCmd("backup_varlist")<cr>:tabnew ./.varlist<cr>
-nnoremap <buffer> <localleader>vo :call VimCmdLineSendCmd("backup_varlist")<cr>:vsplit ./.varlist<cr>
-nnoremap <buffer> <localleader>ve :call VimCmdLineSendCmd("estimates dir")<cr>
-nnoremap <buffer> <localleader>vl :call VimCmdLineSendCmd("macro dir")<cr>
-nnoremap <buffer> <localleader>vx :call VimCmdLineSendCmd("return list")<cr>
-nnoremap <buffer> <localleader>vX :call VimCmdLineSendCmd("ereturn list")<cr>
+nnoremap <buffer> <localleader>vr :STATADO V if runiform <= 100/_N, open<cr>
+nnoremap <buffer> <localleader>vh :STATADO V in 1/100, open<cr>
+nnoremap <buffer> <localleader>vt :STATADO V if _n >= _N - 100, open<cr>
+nnoremap <buffer> <localleader>va :STATADO V, open<cr>
+nnoremap <buffer> <localleader>vv :STATADO backup_varlist<cr>:r! xsv table -d '\t' ./.varlist.tsv \| perl -pe '$_ = "*│ " . $_'<cr>
+nnoremap <buffer> <localleader>vt :STATADO backup_varlist<cr>:tabnew ./.varlist.tsv<cr>
+nnoremap <buffer> <localleader>vo :STATADO backup_varlist<cr>:50vsplit ./.varlist.tsv<cr>
+nnoremap <buffer> <localleader>ve :STATADO estimates dir<cr>
+nnoremap <buffer> <localleader>vl :STATADO macro dir<cr>
+nnoremap <buffer> <localleader>vx :STATADO return list<cr>
+nnoremap <buffer> <localleader>vX :STATADO ereturn list<cr>
 
 " help ----------------------------------------------------------------------- {{{2
 nnoremap <buffer> <localleader>rh :call VimCmdLineSendCmd("H " . expand('<cword>'))<cr>

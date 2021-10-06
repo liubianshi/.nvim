@@ -14,6 +14,7 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'nathom/filetype.nvim'
     lua vim.g.did_load_filetypes = 1
+Plug 'lambdalisue/suda.vim' " read or write files with sudo command
 
 " fcitx {{{2
 if(has("mac"))
@@ -61,7 +62,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'machakann/vim-highlightedyank'  " 高亮显示复制区域
 Plug 'haya14busa/incsearch.vim'       " 加强版实时高亮
 Plug 'mg979/vim-visual-multi',  {'branch': 'master'}
-Plug 'spolu/dwm.vim'
 
 " vim-matchup
 Plug 'andymass/vim-matchup'
