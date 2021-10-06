@@ -1,5 +1,6 @@
 " vim: set fdm=marker nowrap:
-" function: add symbol at the end of current line {{{1 
+" function: add symbol at the end of current line ============================ {{{1
+" 在末尾添加符号 ------------------------------------------------------------- {{{2
 function! s:AddDash(symbol)
     substitute/\s*$//g
     if &l:textwidth == 0
@@ -17,6 +18,7 @@ function! s:AddDash(symbol)
     let @" = back
 endfunction
 
+" 列出当前文件可运行的命令 --------------------------------------------------- {{{2
 function! s:lf_task_source(...)
 	let rows = asynctasks#source(&columns * 48 / 100)
 	let source = []
@@ -53,6 +55,7 @@ function! s:lf_win_init(...)
 	setlocal nowrap
 endfunction
 
+" 列出文献 ------------------------------------------------------------------- {{{2
 function! s:Bibtex_ls()
   let bibfiles = (
       \ globpath('~/Documents', '*ref.bib', v:true, v:true) +
@@ -82,58 +85,16 @@ function! s:bibtex_cite_sink_insert(lines)
     call feedkeys('a', 'n')
 endfunction
 
-function! RipgrepFzf(query, fullscreen)
-    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-    let initial_command = printf(command_fmt, shellescape(a:query))
-    let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-" Use K to show documentation in preview window.
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-" 翻译操作符
-function! Lbs_Trans2clip(type = '')
-    if a:type == ''
-        set opfunc=Lbs_Trans2clip
-        return 'g@'
-    endif
-
-    let visual_marks_save = [getpos("'<"), getpos("'>")]
-
-    try
-        let commands = #{line: "'[V']y", char: "`[v`]y", block: "`[\<c-v>`]y", v:"`<v`>y"}
-        silent exe 'noautocmd normal! ' .. get(commands, a:type, '')
-        let oritext = substitute(@", "\n", " ", "g")
-        if oritext =~# "^ *[A-Za-z]"
-            let source_to = "en:zh"
-        else
-            let source_to = "zh:en"
-        endif
-        let cmd = "trans -b --no-ansi %s '%s'"
-        let cmd = printf(cmd, shellescape(source_to), oritext)
-        let @" = system(cmd)
-    finally
-        call setpos("'<", visual_marks_save[0])
-        call setpos("'>", visual_marks_save[1])
-    endtry
-endfunction
-
 " Command ==================================================================== {{{1
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+augroup LBS
+    autocmd!
+    command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+    \   fzf#vim#with_preview(), <bang>0)
+    command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+    command! -nargs=* SR call system(printf("sr %s &>/dev/null &", "<args>"))
+augroup END
 
 " Global {{{1
 noremap <A-x> :<c-u>FzfCommand<cr>
@@ -257,21 +218,20 @@ nnoremap <leader>ea :edit ~/useScript/alias<cr>
 nnoremap <leader>eu :edit ~/.config/nvim/UltiSnips<cr>
 
 " search {{{1
-vnoremap <silent> S "0y:<C-U>AsyncRun sr google <C-R>0<CR>
-nnoremap <silent> S :<C-U><C-R>=printf("AsyncRun sr", expand("<cword>"))<CR><CR>
+vnoremap <silent> S "0y:<C-U>SR google <C-R>0<CR>
+nnoremap <silent> S :<C-U><C-R>=printf("SR google %s", expand("<cword>"))<CR><CR>
 noremap <silent> <leader>sc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 noremap <silent> <leader>sC :<C-U><C-R>=printf("Leaderf colorscheme %s", "")<CR><CR>
 noremap <silent> <leader>sh :<C-U><C-R>=printf("Leaderf help %s", "")<CR><CR>
 noremap <silent> <leader>st :<C-U><C-R>=printf("FzfBTags %s", "")<CR><CR>
 noremap <silent> <leader>sT :<C-U><C-R>=printf("FzfTags %s", "")<CR><CR>
 noremap <silent> <leader>sl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-noremap <silent> <leader>sL :<C-U><C-R>=printf("FzfLocate ")<CR><space>
-noremap <silent> <leader>ss :<C-U><C-R>=printf("!sr ")<CR>
+noremap <silent> <leader>sL :<C-R>=printf("FzfLocate ")<CR><space>
+noremap <silent> <leader>ss :<C-U>SR<space>
 noremap <silent> <leader>s: :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
 noremap <silent> <leader>s/ :<C-U><C-R>=printf("Leaderf searchHistory %s", "")<CR><CR>
 noremap <silent> <leader>sg :<C-U><C-R>=printf("Leaderf gtags --all %s", "")<CR><CR>
 noremap <silent> <leader>sr :<C-U>Leaderf rg --current-buffer -e 
-noremap <silent> <leader>sR :<C-U>Leaderf rg -e<space>
 nmap    <silent> <leader>sm <plug>(fzf-maps-n)
 xmap    <silent> <leader>sm <plug>(fzf-maps-x)
 omap    <silent> <leader>sm <plug>(fzf-maps-o)
@@ -459,8 +419,8 @@ nmap <silent> <leader>mj <Plug>(VM-Add-Cursor-Down)
 nmap <silent> <leader>mk <Plug>(VM-Add-Cursor-Up)
 
 " preview {{{1
-noremap <silent> gv  :PreviewTag<CR>
-noremap <silent> gV  :PreviewClose<CR>
+"noremap <silent> gv  :PreviewTag<CR>
+"noremap <silent> gV  :PreviewClose<CR>
 noremap  <m-u> :PreviewScroll -1<cr>
 noremap  <m-d> :PreviewScroll +1<cr>
 inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>

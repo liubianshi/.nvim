@@ -366,3 +366,51 @@ function! LbsAutoFormatNewline()
     endif
 endfunction
 
+" RipgrepFzf ----------------------------------------------------------------- {{{1
+function! RipgrepFzf(query, fullscreen)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+" Use K to show documentation in preview window.
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" 翻译操作符 ----------------------------------------------------------------- {{{1
+function! Lbs_Trans2clip(type = '')
+    if a:type == ''
+        set opfunc=Lbs_Trans2clip
+        return 'g@'
+    endif
+
+    let visual_marks_save = [getpos("'<"), getpos("'>")]
+
+    try
+        let commands = #{line: "'[V']y", char: "`[v`]y", block: "`[\<c-v>`]y", v:"`<v`>y"}
+        silent exe 'noautocmd normal! ' .. get(commands, a:type, '')
+        let oritext = substitute(@", "\n", " ", "g")
+        if oritext =~# "^ *[A-Za-z]"
+            let source_to = "en:zh"
+        else
+            let source_to = "zh:en"
+        endif
+        let cmd = "trans -b --no-ansi %s '%s'"
+        let cmd = printf(cmd, shellescape(source_to), oritext)
+        let @" = system(cmd)
+        cexpr @"
+    finally
+        call setpos("'<", visual_marks_save[0])
+        call setpos("'>", visual_marks_save[1])
+    endtry
+endfunction
+
