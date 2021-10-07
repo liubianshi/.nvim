@@ -8,6 +8,8 @@ let b:varlist = []
 let b:macrolist = []
 let b:cached_data = "/tmp/stata_preview.tsv"
 
+
+
 " Load Pluguin needed ======================================================== {{{1
 call Lbs_Load_Plug('stata-vim')
 call Lbs_Load_Plug("vimcmdline")
@@ -71,6 +73,7 @@ endfunction
 
 " Send Comamand -------------------------------------------------------------- {{{2
 nnoremap <buffer> <localleader><space> :call <SID>StataSyncVarlist()<cr>:STATADO<Space>
+nnoremap <buffer> <localleader>G :STATADO G<cr>
 
 " Set options ---------------------------------------------------------------- {{{2
 nnoremap <buffer> <localleader>,d :STATADO set trace on<cr>
@@ -96,10 +99,10 @@ vnoremap <silent><buffer> <localleader>v  :<c-u>call <SID>Stata_view(visualmode(
 nnoremap <silent><buffer> <localleader>vm :set opfunc=<SID>Stata_view<cr>g@
 nnoremap <buffer> <localleader>rv :call VimCmdLineSendCmd("codebook " . expand('<cword>'))<cr>
 vnoremap <buffer> <localleader>rv y:call VimCmdLineSendCmd("codebook " . @")<cr>
-nnoremap <buffer> <localleader>vr :STATADO V if runiform <= 100/_N, open<cr>
-nnoremap <buffer> <localleader>vh :STATADO V in 1/100, open<cr>
-nnoremap <buffer> <localleader>vt :STATADO V if _n >= _N - 100, open<cr>
-nnoremap <buffer> <localleader>va :STATADO V, open<cr>
+nnoremap <buffer> <localleader>vr :STATADO V if runiform <= 100/_N<cr>
+nnoremap <buffer> <localleader>vh :STATADO V in 1/100<cr>
+nnoremap <buffer> <localleader>vt :STATADO V if _n >= _N - 100<cr>
+nnoremap <buffer> <localleader>va :STATADO V<cr>
 nnoremap <buffer> <localleader>vv :STATADO backup_varlist<cr>:r! xsv table -d '\t' ./.varlist.tsv \| perl -pe '$_ = "*│ " . $_'<cr>
 nnoremap <buffer> <localleader>vt :STATADO backup_varlist<cr>:tabnew ./.varlist.tsv<cr>
 nnoremap <buffer> <localleader>vo :STATADO backup_varlist<cr>:50vsplit ./.varlist.tsv<cr>

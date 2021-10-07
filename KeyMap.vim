@@ -171,6 +171,8 @@ nnoremap <silent> <leader>tt :tabnew<cr>
 nnoremap <silent> <leader>tx :tabclose<cr>
 nnoremap <silent> <leader>tn :tabnext<cr>
 nnoremap <silent> <leader>tp :tabprevious<cr>
+nnoremap <silent> <leader>tP :tabfirst<cr>
+nnoremap <silent> <leader>tN :tablast<cr>
 
 " run {{{1 
 let g:floaterm_keymap_toggle = '<leader><space>'
