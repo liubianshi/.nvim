@@ -3,7 +3,6 @@ let g:coc_global_extensions = [
             \ 'coc-vimlsp',
             \ 'coc-ultisnips',
             \ 'coc-syntax',
-            \ 'coc-snippets',
             \ 'coc-omni',
             \ 'coc-marketplace',
             \ 'coc-just-complete',
