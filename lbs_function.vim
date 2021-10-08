@@ -414,3 +414,30 @@ function! Lbs_Trans2clip(type = '')
     endtry
 endfunction
 
+" tab, window, buffer related ================================================ {{{1
+" 查找 bufnr 所在的标签序号 -------------------------------------------------- {{{2
+function! Lbs_find_buftabnr(buffernr) abort 
+    let l:tabnr = -1
+    for tnr in range(1, tabpagenr('$'))
+        for bnr in tabpagebuflist(tnr)
+            if bnr ==# a:buffernr
+                let l:tabnr = tnr
+                break
+            endif
+        endfo
+        if l:tabnr != -1
+            break
+        endif
+    endfor
+    return l:tabnr
+endfunction
+" 查找 bufnr 的标签 ---------------------------------------------------------- {{{2
+function! Lbs_find_bufwinnr(buffernr) abort
+    let l:tabnr = Lbs_find_buftabnr(a:buffernr)
+    let l:winid = -1
+    if l:tabnr != -1
+        exe l:tabnr . "tabnext"
+        let l:winid = bufwinid(a:buffernr)
+    endif
+    return l:winid
+endfunction

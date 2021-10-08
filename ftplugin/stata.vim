@@ -8,13 +8,26 @@ let b:varlist = []
 let b:macrolist = []
 let b:cached_data = "/tmp/stata_preview.tsv"
 
-
-
 " Load Pluguin needed ======================================================== {{{1
 call Lbs_Load_Plug('stata-vim')
 call Lbs_Load_Plug("vimcmdline")
 
 " Define Function and Command ================================================ {{{1
+" Stata Preview data --------------------------------------------------------- {{{2
+function! s:Stata_Preview_Data() abort
+    if !has_key(g:, "stata_preview_bufnr")
+        let bufnr = bufadd(b:cached_data)
+        let g:stata_preview_bufnr = bufnr
+    endif
+    let l:winlist = win_findbuf(g:stata_preview_bufnr)
+    if empty(l:winlist)
+        tabnew | exec "buffer" . g:stata_preview_bufnr
+    else
+        call win_gotoid(l:winlist[0])
+		edit
+    endif
+endfunction
+
 " 定义 Stata Motion 函数 ----------------------------------------------------- {{{2
 function! s:StataCommandFactory(command = '', type = '') abort
     let cmd = a:command
@@ -60,20 +73,23 @@ function! s:StataSyncVarlist() abort
 endfunction
 
 " 生成向 Stata 发送代码的 vim 命令，并且配置常用方法和变量补全 --------------- {{{2
-command -nargs=+ -complete=customlist,<SID>StataCommandComplete
-            \ STATADO call VimCmdLineSendCmd('<args>')
 function! s:StataCommandComplete(A, L, P)
     let commandlist = b:keywords + b:varlist
     call filter(commandlist, 'v:val =~# "^' . a:A . '"')
     return commandlist
 endfunction
 
+command -nargs=+ -complete=customlist,<SID>StataCommandComplete
+        \ STATADO call VimCmdLineSendCmd('<args>')
+command -nargs=0 STATAPREVIEW call <sid>Stata_Preview_Data()
 
 " Mapping ==================================================================== {{{1
 
 " Send Comamand -------------------------------------------------------------- {{{2
 nnoremap <buffer> <localleader><space> :call <SID>StataSyncVarlist()<cr>:STATADO<Space>
 nnoremap <buffer> <localleader>G :STATADO G<cr>
+nnoremap <buffer> <localleader>V :STATAPREVIEW<cr>
+nnoremap <buffer> <localleader>H :STATADO H<cr>
 
 " Set options ---------------------------------------------------------------- {{{2
 nnoremap <buffer> <localleader>,d :STATADO set trace on<cr>
@@ -94,17 +110,15 @@ nnoremap <buffer> <localleader>rd :call VimCmdLineSendCmd("des " . expand('<cwor
 nnoremap <buffer> <localleader>de :STATADO des<cr>
 
 " view Data ----------------------------------------------------------------- {{{2
-nnoremap <buffer> <localleader>V  :exec "tabnew " .. b:cached_data<cr>
 vnoremap <silent><buffer> <localleader>v  :<c-u>call <SID>Stata_view(visualmode())<cr>
 nnoremap <silent><buffer> <localleader>vm :set opfunc=<SID>Stata_view<cr>g@
 nnoremap <buffer> <localleader>rv :call VimCmdLineSendCmd("codebook " . expand('<cword>'))<cr>
 vnoremap <buffer> <localleader>rv y:call VimCmdLineSendCmd("codebook " . @")<cr>
-nnoremap <buffer> <localleader>vr :STATADO V if runiform <= 100/_N<cr>
-nnoremap <buffer> <localleader>vh :STATADO V in 1/100<cr>
-nnoremap <buffer> <localleader>vt :STATADO V if _n >= _N - 100<cr>
-nnoremap <buffer> <localleader>va :STATADO V<cr>
+nnoremap <buffer> <localleader>vr :STATADO V if runiform <= 100/_N<cr>:STATAPREVIEW<cr>
+nnoremap <buffer> <localleader>vh :STATADO V in 1/100<cr>:STATAPREVIEW<cr>
+nnoremap <buffer> <localleader>vt :STATADO V if _n >= _N - 100<cr>:STATAPREVIEW<cr>
+nnoremap <buffer> <localleader>va :STATADO V<cr>:STATAPREVIEW<cr>
 nnoremap <buffer> <localleader>vv :STATADO backup_varlist<cr>:r! xsv table -d '\t' ./.varlist.tsv \| perl -pe '$_ = "*│ " . $_'<cr>
-nnoremap <buffer> <localleader>vt :STATADO backup_varlist<cr>:tabnew ./.varlist.tsv<cr>
 nnoremap <buffer> <localleader>vo :STATADO backup_varlist<cr>:50vsplit ./.varlist.tsv<cr>
 nnoremap <buffer> <localleader>ve :STATADO estimates dir<cr>
 nnoremap <buffer> <localleader>vl :STATADO macro dir<cr>
@@ -115,7 +129,6 @@ nnoremap <buffer> <localleader>vX :STATADO ereturn list<cr>
 nnoremap <buffer> <localleader>rh :call VimCmdLineSendCmd("H " . expand('<cword>'))<cr>
 vnoremap <silent><buffer> <localleader>rh  :<c-u>call <SID>Stata_help(visualmode())<cr>
 nnoremap <silent><buffer> <localleader>hm :set opfunc=<SID>Stata_help<cr>g@
-nnoremap <buffer> <localleader>H :call VimCmdLineSendCmd("H")<cr>
 
 " factor variable ------------------------------------------------------------ {{{2
 vnoremap <silent><buffer> <localleader>f  :<c-u>call <SID>Stata_distinct(visualmode())<cr>
