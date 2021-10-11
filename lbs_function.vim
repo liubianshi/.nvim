@@ -451,4 +451,5 @@ function! Lbs_StataGenHelpDocs(keywords) abort
         q
     endif
 endfunction
-command! -nargs=* STATAHELP call <sid>StataGenHelpDocs2(<q-args>)
+command! -nargs=* STATAHELP call <sid>StataGenHelpDocs(<q-args>)
+
