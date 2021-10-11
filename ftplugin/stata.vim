@@ -81,9 +81,16 @@ function! s:StataCommandComplete(A, L, P)
     return commandlist
 endfunction
 
+" 生成 Stata vim-style doc 文件，并在 Vim 中打开 ----------------------------- {{{2
+function! s:StataGenHelpDocs(keywords) abort
+    let l:target = system(",sh -v " . a:keywords)
+    exec "vsplit " . l:target
+endfunction
+
 command -nargs=+ -complete=customlist,<SID>StataCommandComplete
         \ STATADO call VimCmdLineSendCmd('<args>')
 command -nargs=0 STATAPREVIEW call <sid>Stata_Preview_Data()
+command -nargs=+ STATAHELP call <sid>StataGenHelpDocs(<q-args>)
 
 " Mapping ==================================================================== {{{1
 
