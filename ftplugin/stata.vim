@@ -82,7 +82,7 @@ function! s:StataCommandComplete(A, L, P)
 endfunction
 
 command -nargs=+ -complete=customlist,<SID>StataCommandComplete
-        \ STATADO call VimCmdLineSendCmd('<args>')
+        \ STATADO call VimCmdLineSendCmd(<q-args>)
 command -nargs=0 STATAPREVIEW call <sid>Stata_Preview_Data()
 
 " Mapping ==================================================================== {{{1

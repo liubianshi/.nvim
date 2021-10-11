@@ -156,6 +156,8 @@ nnoremap <silent> w<space> :FzfWindows<cr>
 nnoremap <silent> w0 <C-U>:85wincmd \|<cr>
 nnoremap <silent> wt <C-U>:wincmd T<cr>
 nnoremap <silent> wo :<c-u>only<cr>
+nnoremap <silent> wv <c-w>v
+nnoremap <silent> ws <c-w>s
 nnoremap <silent> w= <c-w>=
 nnoremap <silent> ww <c-w>w
 nnoremap <silent> wj <c-w>j
@@ -409,6 +411,7 @@ inoremap ;, <C-v>uFF0C
 inoremap ;. <C-v>u3002
 " 顿号
 inoremap ;\ <C-v>u3001
+inoremap ;/ ;
 
 inoremap <silent> ;@ <c-g>u<c-o>:call fzf#run({
                         \ 'source': <sid>Bibtex_ls(),

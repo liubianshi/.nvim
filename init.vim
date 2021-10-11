@@ -110,8 +110,8 @@ Plug 'WolfgangMehner/perl-support', { 'for': ['perl'] }
 Plug 'skywind3000/vim-preview'
 
 " Syntax checking {{{2
-" let g:polyglot_disabled = ['ftdetect', 'markdown', 'rmd', 'rmarkdown', 'pandoc', 'Rmd']
-"Plug 'sheerun/vim-polyglot'
+let g:polyglot_disabled = ['ftdetect', 'markdown', 'rmd', 'rmarkdown', 'pandoc', 'Rmd']
+Plug 'sheerun/vim-polyglot'
 
 Plug 'dense-analysis/ale', { 'on': [] }
 
