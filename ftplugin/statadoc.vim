@@ -86,10 +86,17 @@ if !exists('g:no_plugin_maps')
   endfunction
 
   nnoremap <silent><buffer> gO :call <sid>show_toc()<cr>
+
 endif
+
+nnoremap <buffer> <localleader>H :STATAHELP<cr>
+nnoremap <buffer> <localleader>rh :call Lbs_StataGenHelpDocs(expand('<cword>'))<cr>
+vnoremap <silent><buffer> <localleader>rh  "y:<c-u>call Lbs_StataGenHelpDocs(@")<cr>
 
 setlocal bufhidden=wipe
 setlocal nonumber
+setlocal norelativenumber
+setlocal readonly
 setlocal noswapfile
 set buftype=nofile
 

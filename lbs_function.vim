@@ -441,3 +441,14 @@ function! Lbs_find_bufwinnr(buffernr) abort
     endif
     return l:winid
 endfunction
+
+" Stata Related ============================================================== {{{1
+function! Lbs_StataGenHelpDocs(keywords) abort
+    let l:target = system(",sh -v " . a:keywords)
+    if l:target !~# "^(Cannot.*|\s*)$" 
+        exec "split " . l:target
+        help
+        q
+    endif
+endfunction
+command! -nargs=* STATAHELP call <sid>StataGenHelpDocs2(<q-args>)

@@ -39,7 +39,11 @@ function! s:StataCommandFactory(command = '', type = '') abort
         set clipboard= selection=inclusive
         let commands = #{line: "'[V']y", char: "`[v`]y", block: "`[\<c-v>`]y", v: "`<v`>y"}
         silent exe 'noautocmd keepjumps normal! ' .. get(commands, a:type, '')
-        call VimCmdLineSendCmd(cmd .. " " .. @")
+        if cmd == "H"
+            call Lbs_StataGenHelpDocs(@")
+        else
+            call VimCmdLineSendCmd(cmd .. " " .. @")
+        endif
     finally
         call setreg('"', reg_save)
         call setpos("'<", visual_marks_save[0])
@@ -82,15 +86,9 @@ function! s:StataCommandComplete(A, L, P)
 endfunction
 
 " 生成 Stata vim-style doc 文件，并在 Vim 中打开 ----------------------------- {{{2
-function! s:StataGenHelpDocs(keywords) abort
-    let l:target = system(",sh -v " . a:keywords)
-    exec "vsplit " . l:target
-endfunction
-
-command -nargs=+ -complete=customlist,<SID>StataCommandComplete
+command! -nargs=+ -complete=customlist,<SID>StataCommandComplete
         \ STATADO call VimCmdLineSendCmd(<q-args>)
-command -nargs=0 STATAPREVIEW call <sid>Stata_Preview_Data()
-command -nargs=+ STATAHELP call <sid>StataGenHelpDocs(<q-args>)
+command! -nargs=0 STATAPREVIEW call <sid>Stata_Preview_Data()
 
 " Mapping ==================================================================== {{{1
 
@@ -98,7 +96,7 @@ command -nargs=+ STATAHELP call <sid>StataGenHelpDocs(<q-args>)
 nnoremap <buffer> <localleader><space> :call <SID>StataSyncVarlistGraphlist()<cr>:STATADO<Space>
 nnoremap <buffer> <localleader>G :STATADO G<cr>
 nnoremap <buffer> <localleader>V :STATAPREVIEW<cr>
-nnoremap <buffer> <localleader>H :STATADO H<cr>
+nnoremap <buffer> <localleader>H :STATAHELP<cr>
 nnoremap <buffer> <localleader>S :STATADO VimSync_graphname_varlist<cr>
 
 " Set options ---------------------------------------------------------------- {{{2
@@ -135,7 +133,7 @@ nnoremap <buffer> <localleader>vx :STATADO return list<cr>
 nnoremap <buffer> <localleader>vX :STATADO ereturn list<cr>
 
 " help ----------------------------------------------------------------------- {{{2
-nnoremap <buffer> <localleader>rh :call VimCmdLineSendCmd("H " . expand('<cword>'))<cr>
+nnoremap <buffer> <localleader>rh :call Lbs_StataGenHelpDocs(expand('<cword>'))<cr>
 vnoremap <silent><buffer> <localleader>rh  :<c-u>call <SID>Stata_help(visualmode())<cr>
 nnoremap <silent><buffer> <localleader>hm :set opfunc=<SID>Stata_help<cr>g@
 

@@ -13,16 +13,18 @@ setlocal iskeyword=@,48-57,_,.
 setlocal conceallevel=2
 setlocal concealcursor=nvc
 
+syn match helpSpecial		"^\s*\[[A-Z]\{1,2}\] \w\+"
+syn match helpInclude		"\[[A-Z]\{1,2}\]"
 syn match helpHeader		"\s*\zs.\{-}\ze\s\=\~$" nextgroup=helpIgnore
-syn match helpHyperTextJump	"\\\@<!|[#-)!+-~]\+|" contains=helpBar
+syn match helpHyperTextJump	"\\\@<!│[#-)!+-~]\+│" contains=helpBar
 syn match helpHyperTextEntry	"\*[#-)!+-~]\+\*\s"he=e-1 contains=helpStar
 syn match helpHyperTextEntry	"\*[#-)!+-~]\+\*$" contains=helpStar
 if has("conceal")
-  syn match helpBar		contained "|" conceal
+  syn match helpBar		contained "│" conceal
   syn match helpBacktick	contained "`" conceal
   syn match helpStar		contained "\*" conceal
 else
-  syn match helpBar		contained "|"
+  syn match helpBar		contained "│"
   syn match helpBacktick	contained "`"
   syn match helpStar		contained "\*"
 endif
@@ -33,16 +35,20 @@ syn match helpCommand		"\(^\|[^a-z"[]\)\zs`[^`]\+`\ze\([^a-z\t."']\|$\)"hs=s+1,h
 " Highlight group items in their own color.
 syn match helpURL `\v<(((https?|ftp|gopher)://|(mailto|file|news):)[^' 	<>"]+|(www|web|w3)[a-z0-9_-]*\.[a-z0-9._-]+\.[^' 	<>"]+)[a-zA-Z0-9/]`
 if has("conceal")
-  syn region helpExample	matchgroup=helpIgnore start="{" end="}" concealends
-  syn region helpExample	matchgroup=helpIgnore start="<" end=">" concealends
-  syn region helpUnderlined	matchgroup=helpIgnore start="_" end="_" concealends
+  syn region helpExample	matchgroup=helpIgnore start="｢" end="｣" concealends contains=helpHyperTextJump,helpComment
+  "syn region helpExample	matchgroup=helpIgnore start="<" end=">" concealends
+  syn region helpNote		matchgroup=helpIgnore start="⁽" end="⁾" concealends
+  syn region helpItalic		matchgroup=helpIgnore start="«" end="»" concealends contains=helpHyperTextJump,helpNote
   syn region helpExample	matchgroup=helpIgnore start=" >>>$" start="^>>>$" end="^[^ \t]"me=e-1 end="^<<<" concealends
 else
-  syn region helpExample	matchgroup=helpIgnore start="{" end="}"
-  syn region helpExample	matchgroup=helpIgnore start="<" end=">"
-  syn region helpUnderlined	matchgroup=helpIgnore start="_" end="_"
+  syn region helpExample	matchgroup=helpIgnore start="｢" end="｣" contains=helpHyperTextJump,helpComment
+  syn region helpExample	matchgroup=helpIgnore start="｢" end="｣"
+  "syn region helpExample	matchgroup=helpIgnore start="<" end=">"
+  syn region helpNote		matchgroup=helpIgnore start="⁽" end="⁾"
+  syn region helpItalic		matchgroup=helpIgnore start="«" end="»" contains=helpHyperTextJump,helpNote
   syn region helpExample	matchgroup=helpIgnore start=" >>>$" start="^>>>$" end="^[^ \t]"me=e-1 end="^<<<"
 endif
+
 
 "syn match helpNormal		"|.*====*|"
 "syn match helpNormal		"|||"
@@ -127,7 +133,7 @@ hi def link helpUnderlined	Underlined
 hi def link helpError		Error
 hi def link helpTodo		Todo
 hi def link helpURL		String
-
+hi def link helpItalic		Statement
 let b:current_syntax = "statadoc"
 
 " vim: ts=8 sw=2 noet
