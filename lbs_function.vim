@@ -445,7 +445,7 @@ endfunction
 " Stata Related ============================================================== {{{1
 function! Lbs_StataGenHelpDocs(keywords) abort
     let l:target = system(",sh -v " . a:keywords)
-    if l:target !~# "^(Cannot.*|\s*)$" 
+    if l:target !~? '^\(\s*Cannot.*\|\s*\)$'  
         exec "split " . l:target
         help
         q

@@ -133,8 +133,8 @@ nnoremap <buffer> <localleader>vx :STATADO return list<cr>
 nnoremap <buffer> <localleader>vX :STATADO ereturn list<cr>
 
 " help ----------------------------------------------------------------------- {{{2
-nnoremap <buffer> <localleader>rh :call Lbs_StataGenHelpDocs(expand('<cword>'))<cr>
-vnoremap <silent><buffer> <localleader>rh  :<c-u>call <SID>Stata_help(visualmode())<cr>
+nnoremap <buffer> <localleader>rh :call Lbs_StataGenHelpDocs(expand('<cword>'))<cr><cr>
+vnoremap <silent><buffer> <localleader>rh  :<c-u>call <SID>Stata_help(visualmode())<cr><cr>
 nnoremap <silent><buffer> <localleader>hm :set opfunc=<SID>Stata_help<cr>g@
 
 " factor variable ------------------------------------------------------------ {{{2
