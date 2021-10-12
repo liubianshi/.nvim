@@ -96,7 +96,7 @@ command! -nargs=0 STATAPREVIEW call <sid>Stata_Preview_Data()
 nnoremap <buffer> <localleader><space> :call <SID>StataSyncVarlistGraphlist()<cr>:STATADO<Space>
 nnoremap <buffer> <localleader>G :STATADO G<cr>
 nnoremap <buffer> <localleader>V :STATAPREVIEW<cr>
-nnoremap <buffer> <localleader>H :STATAHELP<cr>
+nnoremap <buffer> <localleader>H :StataHelp<cr>
 nnoremap <buffer> <localleader>S :STATADO VimSync_graphname_varlist<cr>
 
 " Set options ---------------------------------------------------------------- {{{2
@@ -136,6 +136,7 @@ nnoremap <buffer> <localleader>vX :STATADO ereturn list<cr>
 nnoremap <buffer> <localleader>rh :call Lbs_StataGenHelpDocs(expand('<cword>'))<cr><cr>
 vnoremap <silent><buffer> <localleader>rh  :<c-u>call <SID>Stata_help(visualmode())<cr><cr>
 nnoremap <silent><buffer> <localleader>hm :set opfunc=<SID>Stata_help<cr>g@
+nnoremap <buffer> <localleader>hp :StataHelpPDF<cr>
 
 " factor variable ------------------------------------------------------------ {{{2
 vnoremap <silent><buffer> <localleader>f  :<c-u>call <SID>Stata_distinct(visualmode())<cr>

@@ -16,6 +16,10 @@ Plug 'nathom/filetype.nvim'
     lua vim.g.did_load_filetypes = 1
 Plug 'lambdalisue/suda.vim' " read or write files with sudo command
 
+" Command line Fuzzy Search {{{2
+Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
+
+
 " fcitx {{{2
 if(has("mac"))
     Plug 'CodeFalling/fcitx-vim-osx'
@@ -39,7 +43,7 @@ Plug 'hoob3rt/lualine.nvim'
 
 " nerdtree {{{2
 Plug 'scrooloose/nerdtree',    { 'on':  'NERDTreeToggle' }
-Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' }
+Plug 'ryanoasis/vim-devicons'
     doau User nerdtree call Lbs_Load_Plug_Confs(['nerdtree', 'vim-devicons'])
 
 " lf {{{2

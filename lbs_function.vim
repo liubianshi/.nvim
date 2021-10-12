@@ -443,13 +443,22 @@ function! Lbs_find_bufwinnr(buffernr) abort
 endfunction
 
 " Stata Related ============================================================== {{{1
-function! Lbs_StataGenHelpDocs(keywords) abort
+function! Lbs_StataGenHelpDocs(keywords, oft = "txt") abort
+    if a:oft ==? "pdf"
+        call system(",sh -o pdf " . a:keywords)
+        return ""
+    endif
     let l:target = system(",sh -v " . a:keywords)
     if l:target !~? '^\(\s*Cannot.*\|\s*\)$'  
-        exec "split " . l:target
+        if &ft ==? "statadoc"
+            exec "edit " . l:target
+        else
+            exec "split " . l:target
+        end
         help
         q
     endif
 endfunction
-command! -nargs=* STATAHELP call <sid>StataGenHelpDocs(<q-args>)
+command! -nargs=* StataHelp call Lbs_StataGenHelpDocs(<q-args>)
+command! -nargs=* StataHelpPDF call Lbs_StataGenHelpDocs(<q-args>, "pdf")
 
