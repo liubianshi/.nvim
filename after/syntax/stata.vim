@@ -1,4 +1,4 @@
-syn keyword stataCommand testreg
+syn keyword stataCommand testreg xtabond2
 syn keyword stataCommand fvexpand
 
 syn keyword stataTodo	NOTE1 NOTE2 NOTE3 NOTE4 NOTE5 NOTE6 NOTE7 NOTE8 NOTE9 NOTE NOTE: contained
