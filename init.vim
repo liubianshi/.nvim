@@ -13,8 +13,10 @@ endif
 " load package {{{1
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'nathom/filetype.nvim'
-    lua vim.g.did_load_filetypes = 1
 Plug 'lambdalisue/suda.vim' " read or write files with sudo command
+
+" vim-oscyank {{{2
+Plug 'ojroques/vim-oscyank'
 
 " Command line Fuzzy Search {{{2
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -114,8 +116,8 @@ Plug 'WolfgangMehner/perl-support', { 'for': ['perl'] }
 Plug 'skywind3000/vim-preview'
 
 " Syntax checking {{{2
-let g:polyglot_disabled = ['ftdetect', 'markdown', 'rmd', 'rmarkdown', 'pandoc', 'Rmd']
-Plug 'sheerun/vim-polyglot'
+"let g:polyglot_disabled = ['ftdetect', 'markdown', 'rmd', 'rmarkdown', 'pandoc', 'Rmd']
+"Plug 'sheerun/vim-polyglot'
 
 Plug 'dense-analysis/ale', { 'on': [] }
 
@@ -212,7 +214,6 @@ call Lbs_Load_Plug_Confs(keys(g:plugs))
 " source external files {{{1
 source ~/.config/nvim/basic.vim
 source ~/.config/nvim/KeyMap.vim
-"source ~/.config/nvim/whichkey.vim
 source ~/.config/nvim/autocmd.vim
 source ~/.config/nvim/abbr.vim
 source ~/.config/nvim/fcitx_auto_toggle.vim

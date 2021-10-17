@@ -1,3 +1,7 @@
+if exists("did_load_filetypes")
+    finish
+endif
+
 augroup filetypedetect
     autocmd BufNewFile,BufRead *.md,*.markdown set filetype=pandoc
     autocmd BufNewFile,BufRead *.[Rr]md set filetype=rmd
