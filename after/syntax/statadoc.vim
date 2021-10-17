@@ -37,8 +37,8 @@ syn match helpURL `\v<(((https?|ftp|gopher)://|(mailto|file|news):)[^' 	<>"]+|(w
 if has("conceal")
   syn region helpExample	matchgroup=helpIgnore start="｢" end="｣" concealends contains=helpHyperTextJump,helpComment
   "syn region helpExample	matchgroup=helpIgnore start="<" end=">" concealends
-  syn region helpNote		matchgroup=helpIgnore start="⁽" end="⁾" concealends
-  syn region helpUnderlined	matchgroup=helpIgnore start="_(" end=")_" concealends
+  syn region helpNote		matchgroup=helpIgnore start="⁽" end="⁾" concealends contains=helpHyperTextJump,helpNote,helpUnderlined,helpItalic
+  syn region helpUnderlined	matchgroup=helpIgnore start="_(" end=")_" concealends  
   syn region helpSpecial	matchgroup=helpIgnore start="+(" end=")+" concealends
   syn region helpItalic		matchgroup=helpIgnore start="«" end="»" concealends contains=helpHyperTextJump,helpNote
   syn region helpExample	matchgroup=helpIgnore start=" >>>$" start="^>>>$" end="^[^ \t]"me=e-1 end="^<<<" concealends
