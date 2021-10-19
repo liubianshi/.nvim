@@ -161,6 +161,10 @@ nnoremap <silent><buffer> <localleader>ss :STATADO Snap<cr>
 nnoremap <silent><buffer> <localleader>sS :STATADO Snap, r<cr>
 nnoremap <silent><buffer> <localleader>sl :STATADO snapshot list _all<cr>
 
+" quick insert
+inoremap ;/ <ESC>A<space>///<cr>
+nnoremap ;/ A<space>///<cr>
+
 " which key desc ============================================================= {{{1
 lua <<EOF
 local wk = require("which-key")

@@ -411,7 +411,7 @@ inoremap ;, <C-v>uFF0C
 inoremap ;. <C-v>u3002
 " 顿号
 inoremap ;\ <C-v>u3001
-inoremap ;/ ;
+inoremap ;<space> ;
 
 inoremap <silent> ;@ <c-g>u<c-o>:call fzf#run({
                         \ 'source': <sid>Bibtex_ls(),

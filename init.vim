@@ -40,8 +40,8 @@ Plug 'sainnhe/sonokai'
 " Airline {{{2
 "Plug 'vim-airline/vim-airline',        { 'on': [] }    " 状态栏插件
 "Plug 'vim-airline/vim-airline-themes', { 'on': [] }
-Plug 'akinsho/bufferline.nvim'
-Plug 'hoob3rt/lualine.nvim'
+Plug 'akinsho/bufferline.nvim'        " buffer line (with minimal tab integration) for neovim
+Plug 'hoob3rt/lualine.nvim'           " neovim statusline plugin written in pure lua
 
 " nerdtree {{{2
 Plug 'scrooloose/nerdtree',    { 'on':  'NERDTreeToggle' }
@@ -218,6 +218,5 @@ source ~/.config/nvim/autocmd.vim
 source ~/.config/nvim/abbr.vim
 source ~/.config/nvim/fcitx_auto_toggle.vim
 
-" Test lua
-"command! Scratch lua require'tools'.makeScratch()
+
 " vim: set fdm=marker :
