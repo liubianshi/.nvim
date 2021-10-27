@@ -5,7 +5,6 @@ let g:coc_global_extensions = [
             \ 'coc-syntax',
             \ 'coc-omni',
             \ 'coc-marketplace',
-            \ 'coc-just-complete',
             \ 'coc-dictionary',
             \ 'coc-json',
             \ 'coc-db',

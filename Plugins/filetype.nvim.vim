@@ -16,6 +16,9 @@ require('filetype').setup({
         complex = {
             -- Set the filetype of any full filename matching the regex to gitconfig
             [".*git/config"] = "gitconfig",  -- Included in the plugin
+            [".*/cheatsheets/personal/perl/.*"] = "perl",
+            [".*/cheatsheets/personal/stata/.*"] = "stata",
+            [".*/cheatsheets/personal/R/.*"] = "r",
         },
     }
 })
