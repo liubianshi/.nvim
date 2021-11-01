@@ -1,7 +1,6 @@
 "set background=dark        " 设置颜色模式
 colorscheme sonokai
-set guifont=monospace:h22
-
+set guifont=monospace:h14
 " Basic Config{{{1
 let mapleader = " "
 let maplocalleader = ';'
@@ -109,14 +108,14 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldtext=MyFoldText()
 
-" 字典 和 tags 相关 {{{
+" 字典 和 tags 相关 {{{1
 set dictionary+=~/.config/nvim/paper.dict,~/.config/nvim/dict
 set complete+=k 
 set tags=./.tags;,.tags
 let $GTAGSLABEL = 'native-pygments'
 let $GTAGSCONF = $HOME . "/.globalrc"
 
-" perl
+" perl {{{1
 let g:loaded_perl_provider = 1
 let g:perl_host_prog = '/bin/perl'
 
@@ -140,3 +139,10 @@ let r_indent_align_args = 1
 let r_indent_ess_compatible = 1
 let r_indent_op_pattern = '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\)\s*$'
 
+" nvui {{{1 
+if exists('g:nvui')
+  " Configure nvui
+  NvuiCmdFontFamily monospace
+  NvuiCmdFontSize 14.0
+  NvuiScrollAnimationDuration 0.2
+endif
