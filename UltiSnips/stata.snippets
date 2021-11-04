@@ -28,12 +28,12 @@ note: 数据来源："$2"
 $0
 endsnippet
 
-snippet snapNO "snapshot save" b
-if $G_Snap + 1 != 1 cap snapshot erase $G_Snap
-snapshot save
-global G_Snap = r(snapshot)
-$0
+snippet snap "keep snapshot of current data"
+snappresrve ${1:snapname}, label("${2:snaplabel}")
+	$0
+snaprestore $1
 endsnippet
+
 
 snippet edit "preview in console" b
 $0export delimited using /tmp/stata_preview.csv $1, replace datafmt
