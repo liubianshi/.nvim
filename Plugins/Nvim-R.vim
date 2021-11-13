@@ -7,6 +7,9 @@ let R_hl_term = 1
 let R_debug = 0
 let R_openpdf = 0
 let R_bracketed_paste = 1
+if has('mac')
+    let R_bracketed_paste = 0
+endif
 let R_rcomment_string = '#> '
 let R_nvimpager = "vertical"
 let Rout_more_colors = 1

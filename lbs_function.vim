@@ -300,16 +300,15 @@ endfunction
 " 输入法切换
 let g:input_toggle = 1
 function! LToggle()
-    let s:input_status = system("fcitx5-remote")
-    if s:input_status == 2
+    if g:lbs_input_status == g:lbs_input_method_on
         let g:input_toggle = 1
-        let l:a = system("fcitx5-remote -c")
-    elseif s:input_status != 2 && g:input_toggle == 1
-        let l:a = system("fcitx5-remote -o")
+        let l:a = system(g:lbs_input_method_inactivate)
+    elseif g:lbs_input_status != g:lbs_input_method_on && g:input_toggle == 1
+        let l:a = system(g:lbs_input_method_activate)
         let g:input_toggle = 0
     endif
     return("")
-endfunction 
+endfunction
 
 " View csv lines {{{1
 function! LbsViewLines() range
