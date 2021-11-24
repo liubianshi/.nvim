@@ -173,7 +173,10 @@ endfunction
 
 " R 语言函数定义 {{{1
 function! R_view_df(dfname, row, method, max_width)
-    call g:SendCmdToR('fViewDFonVim("' . a:dfname . '", ' . a:row . ', "' . a:method . '", ' . a:max_width . ')')
+    let fname = "/tmp/r_obj_preview_data.tsv"
+    call g:SendCmdToR('fViewDFonVim("' . a:dfname . '", ' . a:row . ', "' . a:method . '", ' . a:max_width . ', "' . fname . '")')
+    sleep 100m
+    call Lbs_preview_data(fname, "r_obj_preview_bufnr")
 endfunction
 function! R_view_df_sample(method)
     let dfname = @"
@@ -430,6 +433,7 @@ function! Lbs_find_buftabnr(buffernr) abort
     endfor
     return l:tabnr
 endfunction
+
 " 查找 bufnr 的标签 ---------------------------------------------------------- {{{2
 function! Lbs_find_bufwinnr(buffernr) abort
     let l:tabnr = Lbs_find_buftabnr(a:buffernr)
@@ -439,6 +443,23 @@ function! Lbs_find_bufwinnr(buffernr) abort
         let l:winid = bufwinid(a:buffernr)
     endif
     return l:winid
+endfunction
+
+" open file in spec buffer
+function! Lbs_preview_data(fname, globalvar)
+    if !has_key(g:, a:globalvar)
+        let bufnr = bufadd(a:fname)
+        let g:[a:globalvar] = bufnr
+    else
+        let bufnr = get(g:, a:globalvar)
+    endif
+    let l:winlist = win_findbuf(bufnr)
+    if empty(l:winlist)
+        tabnew | exec "buffer" . bufnr
+    else
+        call win_gotoid(l:winlist[0])
+        edit
+    endif
 endfunction
 
 " Stata Related ============================================================== {{{1
@@ -461,3 +482,4 @@ endfunction
 command! -nargs=* StataHelp call Lbs_StataGenHelpDocs(<q-args>)
 command! -nargs=* StataHelpPDF call Lbs_StataGenHelpDocs(<q-args>, "pdf")
 
+" vim: fdm=marker:

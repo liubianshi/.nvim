@@ -28,8 +28,9 @@ let R_listmethods = 1
     ""let R_external_term = 'alacritty -t R -e'
     "let R_external_term = 'st -t R -e'
 "endif
+
 let R_notmuxconf = 1
-let R_csv_app = "terminal:/home/liubianshi/useScript/viewdata"
+let R_csv_app = "terminal:viewdata"
 let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,rlang,data.table,fread,readxl,haven,lbs'
 command! RStart let oldft=&ft
     \ | set ft=r

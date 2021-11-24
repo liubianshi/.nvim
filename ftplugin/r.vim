@@ -1,6 +1,15 @@
 "call Lbs_Load_Plug("Nvim-R")
 call Lbs_Load_Plug('ale')
 
+" Function =================================================================== {{{1
+let b:cached_data = "/tmp/r_obj_preview.tsv"
+
+
+
+
+
+
+" Keymap ===================================================================== {{{1
 nnoremap <buffer> <localleader>dl :<c-u>RSend devtools::load_all()<cr>
 nnoremap <buffer> <localleader>dd :<c-u>RSend devtools::document()<cr>
 nnoremap <buffer> <localleader>dt :<c-u>RSend devtools::test()<cr>

@@ -17,17 +17,7 @@ call Lbs_Load_Plug("vimcmdline")
 " Define Function and Command ================================================ {{{1
 " Stata Preview data --------------------------------------------------------- {{{2
 function! s:Stata_Preview_Data() abort
-    if !has_key(g:, "stata_preview_bufnr")
-        let bufnr = bufadd(b:cached_data)
-        let g:stata_preview_bufnr = bufnr
-    endif
-    let l:winlist = win_findbuf(g:stata_preview_bufnr)
-    if empty(l:winlist)
-        tabnew | exec "buffer" . g:stata_preview_bufnr
-    else
-        call win_gotoid(l:winlist[0])
-		edit
-    endif
+    call Lbs_preview_data(b:cached_data, "stata_preview_bufnr")
 endfunction
 
 " 定义 Stata Motion 函数 ----------------------------------------------------- {{{2
