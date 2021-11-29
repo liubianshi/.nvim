@@ -15,6 +15,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'nathom/filetype.nvim'
 Plug 'lambdalisue/suda.vim' " read or write files with sudo command
 
+" Vim Highlighter {{{2
+Plug 'azabiong/vim-highlighter'
+
 " vim-oscyank {{{2
 Plug 'ojroques/vim-oscyank'
 
