@@ -11,7 +11,7 @@ function! s:AddDash(symbol)
     if virtcol('$') >= w
         return 0
     endif
-    let l = (w - virtcol('$')) / strlen(a:symbol)
+    let l = (w - virtcol('$')) / strlen(a:symbol) - 4
     let back = @"
     let @" = a:symbol
     exec "normal! A \<esc>" . l . '""p'
@@ -267,6 +267,9 @@ nnoremap <silent> <leader>am :call fzf#run({
 
 " 补全相关 {{{1
 inoremap <silent> <A-j> <esc>:call LbsAutoFormatNewline()<cr>a
+if has("mac")
+    inoremap <silent> ∆ <esc>:call LbsAutoFormatNewline()<cr>a
+endif
 let g:UltiSnipsExpandTrigger		    = "<c-l>"
 let g:UltiSnipsJumpForwardTrigger	    = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	    = "<c-k>"

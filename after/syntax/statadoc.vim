@@ -8,6 +8,7 @@
 if exists("b:current_syntax")
   finish
 endif
+let b:current_syntax = "statadoc"
 
 setlocal iskeyword=@,48-57,_,.
 setlocal conceallevel=2
@@ -136,6 +137,5 @@ hi def link helpError		Error
 hi def link helpTodo		Todo
 hi def link helpURL		String
 hi def link helpItalic		Statement
-let b:current_syntax = "statadoc"
 
 " vim: ts=8 sw=2 noet
