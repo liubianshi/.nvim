@@ -329,12 +329,17 @@ function! LbsViewLines() range
     else
         return 0
     endif
-    cexpr system("xsv flatten -s '----------' -d '" . sep . "'", selectedLines)
-    copen
+    let listcontents = system("xsv flatten -s '" . repeat("─", 30) . "' -d '" . sep . "'", selectedLines)
+	let listcontents = repeat("─", 30) . "\n" . listcontents
+	silent cexpr listcontents
+    silent copen
     let g:quickfix_is_open = 1
-    exec "wincmd k"
-    "call writefile(selectedLines, tmpfile)
-    "exec "split " . tmpfile
+	syn match qfVarname  "^|| \w\+"hs=s+3 contains=qfPre
+	syn match qfLineSep  "^|| ─\+"hs=s+3 contains=qfPre
+	exec "wincmd L"
+	exec "vertical resize 30"
+    exec "wincmd h"
+    "call writefile(selectedLines, tmpfile) exec "split " . tmpfile
 endfunction
 
 " Vim Auto List Completion {{{1

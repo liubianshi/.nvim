@@ -3,10 +3,7 @@ call Lbs_Load_Plug('ale')
 
 " Function =================================================================== {{{1
 let b:cached_data = "/tmp/r_obj_preview.tsv"
-
-
-
-
+set fdm=marker
 
 
 " Keymap ===================================================================== {{{1
@@ -30,11 +27,18 @@ nmap <buffer> <localleader>t2 :<c-u>call    R_view_srdm_var()<cr>
 inoremap <buffer> <A-\>          %>%
 inoremap <buffer> <A-\|>         %<>%
 inoremap <buffer> <A-=>          <-<Space>
-"inoremap <buffer> <A-j>          x<left><enter><esc>lxi
 imap     <buffer> <A-1>          <Esc><Plug>RDSendLine
 nmap     <buffer> <A-1>          <Plug>RDSendLine
-nmap     <buffer> ,              <Plug>RDSendLine
-vmap     <buffer> ,              <Plug>REDSendSelection
+if has("mac")
+	inoremap <buffer> «          %>%
+	inoremap <buffer> »          %<>%
+	inoremap <buffer> ≠          <-<Space>
+	imap     <buffer> ¡          <Esc><Plug>RDSendLine
+	nmap     <buffer> ¡          <Plug>RDSendLine
+endif
+
+nmap     <buffer> <localleader>l              <Plug>RDSendLine
+vmap     <buffer> <localleader>l              <Plug>REDSendSelection
 nmap     <buffer> <LocalLeader>: :RSend 
 
 inoremap <buffer> ;rq                     <esc>vap:LbsRF<cr>

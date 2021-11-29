@@ -1,4 +1,4 @@
-set wrap lbr
+set wrap lbr cole=2
 nnoremap <silent><buffer> p :PreviewQuickfix<cr>
 nnoremap <silent><buffer> P :PreviewClose<cr>
 noremap <buffer> [u :PreviewScroll -1<cr>
