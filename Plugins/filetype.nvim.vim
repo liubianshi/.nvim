@@ -19,6 +19,7 @@ require('filetype').setup({
             [".*/cheatsheets/personal/perl/.*"] = "perl",
             [".*/cheatsheets/personal/stata/.*"] = "stata",
             [".*/cheatsheets/personal/R/.*"] = "r",
+            [".*Rprofile"] = "r",
         },
     }
 })
