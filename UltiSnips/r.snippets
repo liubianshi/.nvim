@@ -23,7 +23,7 @@ snip.rv = match.group(1) + "(\"" + match.group(2) + "\")"
 endsnippet
 
 snippet '^tab (\w+(?: \w+)*)\s*(?:\sif (.+))?$' "stata style tab" r
-${1:lbs}[`!p
+${1:.data}[`!p
 con = match.group(2) if match.group(2) is not None else ""
 snip.rv = con + ", .N, keyby = .(" + \
 re.compile("\s+").sub(", ", match.group(1)) + ")"
