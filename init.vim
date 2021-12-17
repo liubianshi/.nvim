@@ -217,11 +217,11 @@ call Lbs_Load_Plug_Confs(keys(g:plugs))
 
 " Personal Global Variables {{{1 
 if has('mac')
-    let g:lbs_input_status = "fcitx-remote"
-    let g:lbs_input_method_inactivate = "fcitx-remote -c"
-    let g:lbs_input_method_activate = "fcitx-remote -o"
+    let g:lbs_input_status = "xkbswitch -g"
+    let g:lbs_input_method_inactivate = "xkbswitch -s 1"
+    let g:lbs_input_method_activate = "xkbswitch -s 4"
     let g:lbs_input_method_off = 1
-    let g:lbs_input_method_on = 2
+    let g:lbs_input_method_on = 4
 else
     let g:lbs_input_status = "fcitx5-remote"
     let g:lbs_input_method_inactivate = "fcitx5-remote -c"
