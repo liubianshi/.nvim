@@ -1,5 +1,5 @@
 "call Lbs_Load_Plug("Nvim-R")
-call Lbs_Load_Plug('ale')
+"call Lbs_Load_Plug('ale')
 
 " Function =================================================================== {{{1
 let b:cached_data = "/tmp/r_obj_preview.tsv"
