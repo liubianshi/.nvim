@@ -5,9 +5,9 @@ source ~/.config/nvim/lbs_function.vim
 
 " Install plug.vim when necessary {{{1
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " load package {{{1
@@ -42,8 +42,6 @@ endif
 Plug 'sainnhe/sonokai'
 
 " Airline {{{2
-"Plug 'vim-airline/vim-airline',        { 'on': [] }    " 状态栏插件
-"Plug 'vim-airline/vim-airline-themes', { 'on': [] }
 Plug 'akinsho/bufferline.nvim'        " buffer line (with minimal tab integration) for neovim
 Plug 'hoob3rt/lualine.nvim'           " neovim statusline plugin written in pure lua
 
@@ -145,16 +143,6 @@ Plug 'jiangmiao/auto-pairs'
 
 " coc {{{2
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" ncm2 complete system {{{2
-"Plug 'roxma/nvim-yarp',            { 'for': ['r', 'rmd', 'rmarkdown'] }
-"Plug 'roxma/ncm2',                 { 'for': ['r', 'rmd', 'rmarkdown'] }
-"Plug 'liubianshi/ncm-R',           { 'for': ['r', 'rmd', 'rmarkdown'] } 
-"Plug 'ncm2/ncm2-bufword',          { 'for': ['r', 'rmd', 'rmarkdown'] }
-"Plug 'ncm2/ncm2-path',             { 'for': ['r', 'rmd', 'rmarkdown'] }
-"Plug 'ncm2/ncm2-ultisnips',        { 'for': ['r', 'rmd', 'rmarkdown'] }
-"Plug 'yuki-ycino/ncm2-dictionary', { 'for': ['r', 'rmd', 'rmarkdown'] }
-"Plug 'Shougo/neco-syntax',         { 'for': ['r', 'rmd', 'rmarkdown'] }
-"Plug 'ncm2/ncm2-syntax',           { 'for': ['r', 'rmd', 'rmarkdown'] }
 
 " vim-dict {{{2
 Plug 'ludovicchabant/vim-gutentags'
@@ -184,7 +172,7 @@ Plug 'kien/rainbow_parentheses.vim'
     au VimEnter * RainbowParenthesesToggle
 
 " StarupTime: {{{2
-Plug 'dstein64/vim-startuptime'
+"Plug 'dstein64/vim-startuptime'
 Plug 'mhinz/vim-startify'
 
 " VimTableMode: {{{2
