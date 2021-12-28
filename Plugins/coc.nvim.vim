@@ -7,6 +7,7 @@ let g:coc_global_extensions = [
             \ 'coc-marketplace',
             \ 'coc-dictionary',
             \ 'coc-json',
+            \ 'coc-lua',
             \ 'coc-db',
             \ 'coc-sql',
             \ 'coc-sh',
