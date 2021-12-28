@@ -1,4 +1,5 @@
 lua << EOF
+
 -- Eviline config for lualine
 -- Author: shadmansaleh
 -- Credit: glepnir
@@ -6,17 +7,17 @@ local lualine = require 'lualine'
 
 -- Color table for highlights
 local colors = {
-  bg = '#202328',
-  fg = '#bbc2cf',
-  yellow = '#ECBE7B',
-  cyan = '#008080',
+  bg       = '#202328',
+  fg       = '#bbc2cf',
+  yellow   = '#ECBE7B',
+  cyan     = '#008080',
   darkblue = '#081633',
-  green = '#98be65',
-  orange = '#FF8800',
-  violet = '#a9a1e1',
-  magenta = '#c678dd',
-  blue = '#51afef',
-  red = '#ec5f67'
+  green    = '#98be65',
+  orange   = '#FF8800',
+  violet   = '#a9a1e1',
+  magenta  = '#c678dd',
+  blue     = '#51afef',
+  red      = '#ec5f67'
 }
 
 local conditions = {
@@ -137,9 +138,18 @@ ins_left {
 }
 
 ins_left {
-  'filename',
-  condition = conditions.buffer_not_empty,
-  color = {fg = colors.magenta, gui = 'bold'}
+    'filename',
+    file_status = true,   -- displays file status (readonly status, modified status)
+    path = 1,             -- 0 = just filename, 1 = relative path, 2 = absolute path
+    shorting_target = 40, -- Shortens path to leave 40 space in the window
+                        -- for other components. Terrible name any suggestions?
+    symbols = {
+        modified = '[+]',      -- when the file was modified
+        readonly = '[-]',      -- if the file is not modifiable or readonly
+        unnamed = '[No Name]', -- default display name for unnamed buffers
+    },
+    condition = conditions.buffer_not_empty,
+    color = {fg = colors.magenta, gui = 'bold'}
 }
 
 ins_left {'location'}
@@ -148,7 +158,7 @@ ins_left {'progress', color = {fg = colors.fg, gui = 'bold'}}
 
 ins_left {
   'diagnostics',
-  sources = {'nvim_diagnostic'},
+  sources = {'coc'},
   symbols = {error = ' ', warn = ' ', info = ' '},
   color_error = colors.red,
   color_warn = colors.yellow,
@@ -189,7 +199,12 @@ ins_right {
 ins_right {
   'fileformat',
   upper = true,
-  icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+  icons_enabled = true,
+  symbols = {
+          unix = '', -- e712
+          dos = '', -- e70f
+          mac = '', -- e711
+      },
   color = {fg = colors.green, gui = 'bold'}
 }
 
@@ -218,4 +233,6 @@ ins_right {
 
 -- Now don't forget to initialize lualine
 lualine.setup(config)
+
 EOF
+" vim: ft=lua
