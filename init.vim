@@ -34,11 +34,11 @@ else
 endif
 
 " theme {{{2
-"Plug 'NLKNguyen/papercolor-theme'
+Plug 'NLKNguyen/papercolor-theme'
 "Plug 'flazz/vim-colorschemes' , { 'on': [] }    " 主题管理
-"Plug 'morhetz/gruvbox'                          " 主题
-"Plug 'rakr/vim-one'
-"Plug 'ayu-theme/ayu-vim'
+Plug 'morhetz/gruvbox'                          " 主题
+Plug 'rakr/vim-one'
+Plug 'ayu-theme/ayu-vim'
 Plug 'sainnhe/sonokai'
 
 " Airline {{{2

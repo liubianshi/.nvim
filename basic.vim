@@ -103,7 +103,7 @@ function! MyFoldText()
   return " " . foldtext() . " ··· "
 endfunction
 set formatoptions=t,n1mp,Bj,coq
-"set foldmethod=marker
+set foldmethod=marker
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldtext=MyFoldText()
@@ -117,7 +117,7 @@ let $GTAGSCONF = $HOME . "/.globalrc"
 
 " perl {{{1
 let g:loaded_perl_provider = 1
-let g:perl_host_prog = '/bin/perl'
+let g:perl_host_prog = '/usr/bin/perl'
 
 
 " Python 相关设置 {{{1
@@ -131,10 +131,7 @@ else
     let g:python3_host_prog = '/usr/bin/python'
 endif
 
-" Perl {{{1
-let g:perl_host_prog = '/usr/bin/perl'
-
-" R
+" R {{{1
 let r_indent_align_args = 1
 let r_indent_ess_compatible = 1
 let r_indent_op_pattern = '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\)\s*$'
