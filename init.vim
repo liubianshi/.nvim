@@ -40,6 +40,7 @@ Plug 'morhetz/gruvbox'                          " 主题
 Plug 'rakr/vim-one'
 Plug 'ayu-theme/ayu-vim'
 Plug 'sainnhe/sonokai'
+Plug 'rebelot/kanagawa.nvim'
 
 " Airline {{{2
 Plug 'akinsho/bufferline.nvim'        " buffer line (with minimal tab integration) for neovim
