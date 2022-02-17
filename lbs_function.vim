@@ -337,7 +337,7 @@ function! LbsViewLines() range
 	syn match qfVarname  "^|| \w\+"hs=s+3 contains=qfPre
 	syn match qfLineSep  "^|| ─\+"hs=s+3 contains=qfPre
 	exec "wincmd L"
-	exec "vertical resize 30"
+	exec "vertical resize 40"
     exec "wincmd h"
     "call writefile(selectedLines, tmpfile) exec "split " . tmpfile
 endfunction
