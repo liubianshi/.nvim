@@ -1,5 +1,6 @@
 "set background=dark        " 设置颜色模式
-colorscheme sonokai
+"colorscheme sonokai
+colorscheme kanagawa
 set guifont=monospace:h14
 " Basic Config{{{1
 let mapleader = " "
