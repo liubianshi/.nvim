@@ -20,7 +20,7 @@ let cmdline_auto_scroll = 1      " Keep the cursor at the end of terminal (nvim)
 let cmdline_app           = {}
 let cmdline_app['ruby']   = 'pry'
 let cmdline_app['sh']     = 'sh'
-let cmdline_app['python'] = 'ipython --no-autoindent'
+let cmdline_app['python'] = 'bpython'
 let cmdline_app['perl']   = 'perl'
 if has('mac')
     let cmdline_app['stata']  = 'stata-mp'
