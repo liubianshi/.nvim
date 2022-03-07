@@ -100,6 +100,9 @@ augroup END
 noremap <A-x> :<c-u>FzfCommand<cr>
 imap <A-;> <esc><localleader>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+vnoremap <silent> p "_dP
+vnoremap <silent> < <gv
+vnoremap <silent> > >gv
 
 " Terminal {{{1 
 tnoremap <A-space> <C-\><C-n>
@@ -167,6 +170,10 @@ nnoremap <silent> wl <c-w>l
 nnoremap <silent> wq <c-w>q
 nnoremap <silent> wx <c-w>x
 nnoremap <silent> wn :vsplit \| enew<cr>
+nnoremap <silent> <C-J>    :resize -2<CR>
+nnoremap <silent> <C-K>  :resize +2<CR>
+nnoremap <silent> <C-H>  :vertical resize -2<CR>
+nnoremap <silent> <C-L> :vertical resize +2<CR>
 
 " tab managing{{{1
 nnoremap <silent> <leader>tt :tabnew<cr>
