@@ -11,7 +11,7 @@ let g:coc_global_extensions = [
             \ 'coc-db',
             \ 'coc-sql',
             \ 'coc-sh',
-            \ 'coc-jedi',
+            \ 'coc-pyright',
             \ 'coc-clangd',
             \ 'coc-r-lsp',
             \ ]
