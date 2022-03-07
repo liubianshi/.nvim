@@ -195,8 +195,8 @@ Plug 'Pocco81/TrueZen.nvim'
 " Neovim 0.5
 " Orgmode
 if has('nvim-0.5.0')
-    Plug 'kristijanhusak/orgmode.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-orgmode/orgmode'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'folke/trouble.nvim'
     Plug 'kevinhwang91/nvim-bqf'
