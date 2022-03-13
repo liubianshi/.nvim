@@ -12,7 +12,7 @@ endif
 
 " load package {{{1
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'nathom/filetype.nvim'
+"Plug 'nathom/filetype.nvim'
 Plug 'lambdalisue/suda.vim' " read or write files with sudo command
 
 " Vim Highlighter {{{2

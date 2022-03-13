@@ -1,6 +1,7 @@
-for plugname in ['vim-pandoc', 'vim-pandoc-syntax', 'md-img-paste.vim', 'pangu.vim', 'ale']
+for plugname in ['vim-pandoc', 'vim-pandoc-syntax', 'md-img-paste.vim', 'pangu.vim']
     call Lbs_Load_Plug(plugname)
 endfor
+let g:PasteImageFunction = 'g:MarkdownPasteImage'
 
 nnoremap <buffer> <leader>pp               :Pandoc pdf -H ~/useScript/header.tex<cr>
 nnoremap <buffer> <leader>ph               :Pandoc html<cr>

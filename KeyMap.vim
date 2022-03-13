@@ -103,6 +103,8 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 vnoremap <silent> p "_dP
 vnoremap <silent> < <gv
 vnoremap <silent> > >gv
+nnoremap <buffer> <silent> <leader>pi :<c-u>call mdip#MarkdownClipboardImage()<CR>
+
 
 " Terminal {{{1 
 tnoremap <A-space> <C-\><C-n>
