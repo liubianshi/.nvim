@@ -222,6 +222,7 @@ else
     let g:lbs_input_method_off = 1
     let g:lbs_input_method_on = 2
 endif
+
 " source external files {{{1
 source ~/.config/nvim/basic.vim
 source ~/.config/nvim/KeyMap.vim
