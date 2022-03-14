@@ -12,7 +12,7 @@ endif
 
 " load package {{{1
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'nathom/filetype.nvim'
+"Plug 'nathom/filetype.nvim'
 Plug 'lambdalisue/suda.vim' " read or write files with sudo command
 
 " Vim Highlighter {{{2
@@ -195,8 +195,8 @@ Plug 'Pocco81/TrueZen.nvim'
 " Neovim 0.5
 " Orgmode
 if has('nvim-0.5.0')
-    Plug 'kristijanhusak/orgmode.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-orgmode/orgmode'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'folke/trouble.nvim'
     Plug 'kevinhwang91/nvim-bqf'

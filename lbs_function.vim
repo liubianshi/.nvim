@@ -124,6 +124,13 @@ function! RmdClipBoardImage()
     execute "normal! \<esc>g_\"iyi)VCknitr::include_graphics(\"\")\<esc>F\"\"iPo```\n" 
 endfunction
 
+" RmarkdownPasteImage for md-img-paste
+function! g:RmarkdownPasteImage(relpath)
+    execute "normal! i```{r, out.width = '70%', fig.pos = 'h', fig.show = 'hold'}\n" .
+          \ "knitr::include_graphics(\"" . a:relpath . "\")\r" .
+          \ "```\n"
+endfunction
+
 " 选择光标下文字 Super useful! From an idea by Michael Naumann {{{1
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"

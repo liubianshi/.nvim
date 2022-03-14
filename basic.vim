@@ -1,7 +1,10 @@
 "set background=dark        " 设置颜色模式
-"colorscheme sonokai
+" colorscheme sonokai
 colorscheme kanagawa
 set guifont=monospace:h14
+highlight Normal ctermbg=none guibg=none
+highlight NonText ctermbg=none guibg=none
+
 " Basic Config{{{1
 let mapleader = " "
 let maplocalleader = ';'
