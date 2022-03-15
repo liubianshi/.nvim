@@ -95,7 +95,11 @@ knitr::opts_chunk$set(
 	dpi = 600, fig.asp = 0.75, fig.width = 6,
 	fig.showtext = TRUE)
 showtext_auto()
-font_add("Noto Serif CJK SC", "NotoSerifCJK-Regular.ttc")
+if (Sys.info()["sysname"]=="Darwin") {
+	font_add("Noto Serif CJK SC", "NotoSerifSC-Regular.otf")
+} else {
+	font_add("Noto Serif CJK SC", "NotoSerifCJK-Regular.ttc")
+}
 \`\`\`
 <!--}}}-->
 
