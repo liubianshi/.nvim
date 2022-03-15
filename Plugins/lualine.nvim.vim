@@ -57,11 +57,11 @@ local config = {
   inactive_sections = {
     -- these are to remove the defaults
     lualine_a = {},
+    lualine_c = {},
     lualine_v = {},
+    lualine_x = {},
     lualine_y = {},
     lualine_z = {},
-    lualine_c = {},
-    lualine_x = {}
   }
 }
 
@@ -70,9 +70,19 @@ local function ins_left(component)
   table.insert(config.sections.lualine_c, component)
 end
 
+-- Inserts a component in lualine_c at left inactive_section
+local function ins_left_inactive(component)
+  table.insert(config.inactive_sections.lualine_c, component)
+end
+
 -- Inserts a component in lualine_x ot right section
 local function ins_right(component)
   table.insert(config.sections.lualine_x, component)
+end
+
+-- Inserts a component in lualine_c at left inactive_section
+local function ins_right_inactive(component)
+  table.insert(config.inactive_sections.lualine_x, component)
 end
 
 ins_left {
@@ -137,7 +147,7 @@ ins_left {
   condition = conditions.buffer_not_empty
 }
 
-ins_left {
+local fname = {
     'filename',
     file_status = true,   -- displays file status (readonly status, modified status)
     path = 1,             -- 0 = just filename, 1 = relative path, 2 = absolute path
@@ -152,9 +162,14 @@ ins_left {
     color = {fg = colors.magenta, gui = 'bold'}
 }
 
+ins_left(fname)
+ins_left_inactive { 'filename' }
+
 ins_left {'location'}
+ins_left_inactive {'location'}
 
 ins_left {'progress', color = {fg = colors.fg, gui = 'bold'}}
+ins_right_inactive {'progress', color = {fg = colors.fg, gui = 'bold'}}
 
 ins_left {
   'diagnostics',
@@ -169,7 +184,7 @@ ins_left {
 -- for lualine it's any number greater then 2
 ins_left {function() return '%=' end}
 
-ins_right {
+local ftype = {
   -- Lsp server name .
   function()
     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
@@ -187,16 +202,20 @@ ins_right {
   icon = '',
   color = {fg = '#ffffff', gui = 'bold'}
 }
+ins_right(ftype)
+ins_right_inactive(ftype)
 
 -- Add components to right sections
-ins_right {
+local fencoding = {
   'o:encoding', -- option component same as &encoding in viml
   upper = true, -- I'm not sure why it's upper case either ;)
   condition = conditions.hide_in_width,
   color = {fg = colors.green, gui = 'bold'}
 }
+ins_right(fencoding)
+ins_right_inactive(fencoding)
 
-ins_right {
+local fformat =  {
   'fileformat',
   upper = true,
   icons_enabled = true,
@@ -207,6 +226,8 @@ ins_right {
       },
   color = {fg = colors.green, gui = 'bold'}
 }
+ins_right(fformat)
+ins_right_inactive(fformat)
 
 ins_right {
   'branch',
