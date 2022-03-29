@@ -31,8 +31,8 @@ Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 
 " fcitx {{{2
 if(has("mac"))
-    Plug 'CodeFalling/fcitx-vim-osx'
-    "Plug 'rlue/vim-barbaric'
+    "Plug 'CodeFalling/fcitx-vim-osx'
+    Plug 'rlue/vim-barbaric'
 else
     Plug 'lilydjwg/fcitx.vim'    " Linux 下优化中文输入法切换
 endif
@@ -90,7 +90,8 @@ Plug 'hotoo/pangu.vim',              {'on': []}
 
 " text objects {{{2
 Plug 'godlygeek/tabular'            " 对齐文本插件
-Plug 'tpope/vim-surround'           " 快速给词加环绕符号
+"Plug 'tpope/vim-surround'           " 快速给词加环绕符号
+Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-repeat'             " 重复插件操作
 Plug 'tpope/vim-abolish'            " 高效的文本替换工具
 Plug 'scrooloose/nerdcommenter'     " 注释插件

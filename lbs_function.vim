@@ -345,6 +345,7 @@ function! LbsViewLines() range
 	syn match qfLineSep  "^|| ─\+"hs=s+3 contains=qfPre
 	exec "wincmd L"
 	exec "vertical resize 40"
+	exec "set nowrap"
     exec "wincmd h"
     "call writefile(selectedLines, tmpfile) exec "split " . tmpfile
 endfunction

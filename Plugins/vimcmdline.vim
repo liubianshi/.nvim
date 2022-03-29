@@ -23,7 +23,7 @@ let cmdline_app['sh']     = 'sh'
 let cmdline_app['python'] = 'bpython'
 let cmdline_app['perl']   = 'perl'
 if has('mac')
-    let cmdline_app['stata']  = 'stata-mp'
+    let cmdline_app['stata']  = 'stata-se'
 else
     let cmdline_app['stata']  = 'stata-se'
 endif
