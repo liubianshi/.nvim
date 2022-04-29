@@ -12,7 +12,7 @@ endif
 
 " load package {{{1
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'nathom/filetype.nvim'
+"Plug 'nathom/filetype.nvim'
 Plug 'lambdalisue/suda.vim' " read or write files with sudo command
 
 " Vim Highlighter {{{2
@@ -90,7 +90,8 @@ Plug 'hotoo/pangu.vim',              {'on': []}
 
 " text objects {{{2
 Plug 'godlygeek/tabular'            " 对齐文本插件
-Plug 'tpope/vim-surround'           " 快速给词加环绕符号
+"Plug 'tpope/vim-surround'           " 快速给词加环绕符号
+Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-repeat'             " 重复插件操作
 Plug 'tpope/vim-abolish'            " 高效的文本替换工具
 Plug 'scrooloose/nerdcommenter'     " 注释插件
@@ -191,6 +192,7 @@ Plug '907th/vim-auto-save'
 
 " TrueZen.nvim: Clean and elegant distraction-free writing for NeoVim. {{{2
 Plug 'Pocco81/TrueZen.nvim'
+Plug 'beauwilliams/focus.nvim'
 
 " Neovim 0.5
 " Orgmode
@@ -210,11 +212,15 @@ call Lbs_Load_Plug_Confs(keys(g:plugs))
 
 " Personal Global Variables {{{1 
 if has('mac')
-    let g:lbs_input_status = "xkbswitch -g"
-    let g:lbs_input_method_inactivate = "xkbswitch -s 1"
-    let g:lbs_input_method_activate = "xkbswitch -s 4"
     let g:lbs_input_method_off = 1
-    let g:lbs_input_method_on = 4
+    "let g:lbs_input_status = "xkbswitch -g"
+    "let g:lbs_input_method_inactivate = "xkbswitch -s 1"
+    "let g:lbs_input_method_activate = "xkbswitch -s 4"
+    "let g:lbs_input_method_on = 4
+    let g:lbs_input_status = "fcitx-remote"
+    let g:lbs_input_method_inactivate = "fcitx-remote -c"
+    let g:lbs_input_method_activate = "fcitx-remote -o"
+    let g:lbs_input_method_on = 2
 else
     let g:lbs_input_status = "fcitx5-remote"
     let g:lbs_input_method_inactivate = "fcitx5-remote -c"
@@ -222,6 +228,7 @@ else
     let g:lbs_input_method_off = 1
     let g:lbs_input_method_on = 2
 endif
+
 " source external files {{{1
 source ~/.config/nvim/basic.vim
 source ~/.config/nvim/KeyMap.vim
