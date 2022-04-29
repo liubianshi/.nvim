@@ -31,8 +31,8 @@ Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 
 " fcitx {{{2
 if(has("mac"))
-    "Plug 'CodeFalling/fcitx-vim-osx'
-    Plug 'rlue/vim-barbaric'
+    Plug 'CodeFalling/fcitx-vim-osx'
+    "Plug 'rlue/vim-barbaric'
 else
     Plug 'lilydjwg/fcitx.vim'    " Linux 下优化中文输入法切换
 endif
@@ -192,6 +192,7 @@ Plug '907th/vim-auto-save'
 
 " TrueZen.nvim: Clean and elegant distraction-free writing for NeoVim. {{{2
 Plug 'Pocco81/TrueZen.nvim'
+Plug 'beauwilliams/focus.nvim'
 
 " Neovim 0.5
 " Orgmode
@@ -211,11 +212,15 @@ call Lbs_Load_Plug_Confs(keys(g:plugs))
 
 " Personal Global Variables {{{1 
 if has('mac')
-    let g:lbs_input_status = "xkbswitch -g"
-    let g:lbs_input_method_inactivate = "xkbswitch -s 1"
-    let g:lbs_input_method_activate = "xkbswitch -s 4"
     let g:lbs_input_method_off = 1
-    let g:lbs_input_method_on = 4
+    "let g:lbs_input_status = "xkbswitch -g"
+    "let g:lbs_input_method_inactivate = "xkbswitch -s 1"
+    "let g:lbs_input_method_activate = "xkbswitch -s 4"
+    "let g:lbs_input_method_on = 4
+    let g:lbs_input_status = "fcitx-remote"
+    let g:lbs_input_method_inactivate = "fcitx-remote -c"
+    let g:lbs_input_method_activate = "fcitx-remote -o"
+    let g:lbs_input_method_on = 2
 else
     let g:lbs_input_status = "fcitx5-remote"
     let g:lbs_input_method_inactivate = "fcitx5-remote -c"

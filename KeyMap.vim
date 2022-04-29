@@ -276,9 +276,10 @@ nnoremap <silent> <leader>am :call fzf#run({
 
 " 补全相关 {{{1
 inoremap <silent> <A-j> <esc>:call LbsAutoFormatNewline()<cr>a
-if has("mac")
-    inoremap <silent> ∆ <esc>:call LbsAutoFormatNewline()<cr>a
-endif
+" 注释掉的原因：导致 mac iterm2 输入中文引号时乱码
+" if has("mac")
+"     inoremap <silent> ∆ <esc>:call LbsAutoFormatNewline()<cr>a
+" endif
 let g:UltiSnipsExpandTrigger		    = "<c-l>"
 let g:UltiSnipsJumpForwardTrigger	    = "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	    = "<c-k>"
@@ -310,8 +311,6 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-
-
 " Navigation {{{1
 noremap j gj
 noremap k gk
@@ -323,7 +322,6 @@ nnoremap ]t :<c-u>tabnext<cr>
 nnoremap [t :<c-u>tabprevious<cr>
 nnoremap ]T :<c-u>tablast<cr>
 nnoremap [T :<c-u>tabfirst<cr>
-
 
 " Visual mode pressing * or # searches for the current selection{{{1
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>

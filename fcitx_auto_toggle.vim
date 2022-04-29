@@ -42,9 +42,11 @@ function! Lbs_bs()
     return("\<bs>")
 endfunction
 
+if has('mac')
+else
 augroup Fcitx
     autocmd!
     autocmd InsertCharPre  *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org call Lbs_Fcitx_Auto()
     autocmd BufRead,BufNew *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org inoremap <expr> <bs> Lbs_bs()
 augroup END
-
+endif
