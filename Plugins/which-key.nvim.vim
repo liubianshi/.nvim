@@ -25,6 +25,8 @@ wk.register({
 ["<leader>fl"] = {name = "+lf"},
 ["<leader>fr"] = {n = "Open Recent File"},
 ["<tab>t"] = {name = "+Tab mode"},
+["sr"] = {name = "+surfraw"},
+["srh"] = {name = "github"},
 })
 
 EOF

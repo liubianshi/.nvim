@@ -19,6 +19,7 @@ require('orgmode').setup({
   org_todo_keywords = {'TODO(t)', 'PROJ(p)', 'LOOP(r)', 'STRT(s)', 'WAIT(w)', 'HOLD(h)', 'IDEA(i)', '|', 'DONE(d)', 'KILL(k)'},
   org_highlight_latex_and_related = 'entities',
   org_indent_mode = 'indent',
+  diagnostics = false,
 })
 EOF
 

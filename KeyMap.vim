@@ -231,8 +231,6 @@ nnoremap <leader>ea :edit ~/useScript/alias<cr>
 nnoremap <leader>eu :edit ~/.config/nvim/UltiSnips<cr>
 
 " search {{{1
-vnoremap <silent> S "0y:<C-U>SR google <C-R>0<CR>
-nnoremap <silent> S :<C-U><C-R>=printf("SR google %s", expand("<cword>"))<CR><CR>
 noremap <silent> <leader>sc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 noremap <silent> <leader>sC :<C-U><C-R>=printf("Leaderf colorscheme %s", "")<CR><CR>
 noremap <silent> <leader>sh :<C-U><C-R>=printf("Leaderf help %s", "")<CR><CR>
@@ -250,6 +248,12 @@ xmap    <silent> <leader>sm <plug>(fzf-maps-x)
 omap    <silent> <leader>sm <plug>(fzf-maps-o)
 imap    <silent> ;sm <plug>(fzf-maps-i)
 noremap <C-B> :<C-U><C-R>=printf("Leaderf rg --current-buffer -e %s ", expand("<cword>"))<CR><CR>
+
+" search by surfraw {{{2
+vnoremap <silent> S "0y:<C-U>SR google <C-R>0<CR>
+nnoremap <silent> S :<C-U><C-R>=printf("SR google %s", expand("<cword>"))<CR><CR>
+nnoremap <silent> srh :<C-U><C-R>=printf("SR github %s", expand("<cword>"))<CR><CR>
+vnoremap <silent> srh "0y:<C-U>SR github <C-R>0<CR>
 
 " diff 相关 {{{1
 map <silent> <leader>d1 :diffget 1<CR>:diffupdate<CR>
@@ -355,6 +359,7 @@ nmap sb <Plug>(easymotion-b)
 nmap sB <Plug>(easymotion-B)
 nmap se <Plug>(easymotion-e)
 nmap sE <Plug>(easymotion-E)
+
 nnoremap <silent> sc :<c-u>call <sid>SearchChinese_forward()<cr>
 nnoremap <silent> sC :<c-u>call <sid>SearchChinese_backword()<cr>
 xnoremap <silent> sc :<c-u>call <sid>SearchChinese_forward()<cr>
