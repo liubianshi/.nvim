@@ -148,7 +148,16 @@ Plug 'liubianshi/vimcmdline'
 Plug 'jiangmiao/auto-pairs'
 
 " coc {{{2
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+Plug 'kdheepak/cmp-latex-symbols'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 
 " vim-dict {{{2
 Plug 'ludovicchabant/vim-gutentags'
@@ -159,7 +168,7 @@ Plug 'tommcdo/vim-exchange'
 
 " Git: {{{2
 Plug 'tpope/vim-fugitive', {'on': ['G', 'Gwrite', 'Gcommit', 'Gread', 'Gdiff', 'Gblame']}
-    doau User vim-fugitive call Lbs_Load_Plug_Conf('vim-fugitive')
+   doau User vim-fugitive call Lbs_Load_Plug_Conf('vim-fugitive')
 
 " Help: {{{2
 "Plug 'liuchengxu/vim-which-key'
