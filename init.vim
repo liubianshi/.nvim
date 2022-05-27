@@ -152,12 +152,15 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'hrsh7th/cmp-omni'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
+Plug 'ray-x/cmp-treesitter'
+Plug 'delphinus/cmp-ctags'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'kdheepak/cmp-latex-symbols'
-Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'wasden/cmp-flypy.nvim', { 'do': 'make' }
 
 " vim-dict {{{2
 Plug 'ludovicchabant/vim-gutentags'
