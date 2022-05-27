@@ -69,6 +69,7 @@ function! s:StataSyncVarlistGraphlist() abort
 endfunction
 
 " 生成向 Stata 发送代码的 vim 命令，并且配置常用方法和变量补全 --------------- {{{2
+
 function! s:StataCommandComplete(A, L, P)
     let commandlist = b:keywords + b:varlist + b:graphlist
     call filter(commandlist, 'v:val =~# "^' . a:A . '"')

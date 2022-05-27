@@ -36,6 +36,12 @@ set undofile
 set completeopt=noinsert,menuone,noselect
 set shortmess+=c
 set foldlevel=2             " 折叠层级
+if has("autocmd") && exists("+omnifunc")
+autocmd Filetype *
+        \	if &omnifunc == "" |
+        \		setlocal omnifunc=syntaxcomplete#Complete |
+        \	endif
+endif
  
 set updatetime=300
 set timeoutlen=300
@@ -129,6 +135,7 @@ let g:python3_host_skip_check=0
 if(has("mac"))
     let g:python3_host_prog = '/opt/homebrew/bin/python3'
     let g:python_host_prog = '/usr/bin/python2'
+    d
 else
     let g:python_host_prog = '/usr/bin/python2'
     let g:python3_host_prog = '/usr/bin/python'
