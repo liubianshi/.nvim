@@ -123,10 +123,9 @@ let $GTAGSCONF = $HOME . "/.globalrc"
 let g:loaded_perl_provider = 1
 let g:perl_host_prog = '/usr/bin/perl'
 
-
 " Python 相关设置 {{{1
-let g:python_host_skip_check=1
-let g:python3_host_skip_check=1
+let g:python_host_skip_check=0
+let g:python3_host_skip_check=0
 if(has("mac"))
     let g:python3_host_prog = '/opt/homebrew/bin/python3'
     let g:python_host_prog = '/usr/bin/python2'

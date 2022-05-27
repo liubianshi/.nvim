@@ -89,7 +89,7 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 local servers = {
     'jedi_language_server',
     'tsserver',
-    'perlls',
+    'perlpls',
     'r_language_server',
 }
 for _, lsp in pairs(servers) do

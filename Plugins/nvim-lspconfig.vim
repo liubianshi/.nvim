@@ -1,7 +1,7 @@
 lua <<EOF
 
 local lspconfig = require('lspconfig')
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 
 -- Preconfiguration ===========================================================
 local on_attach_custom = function(client, bufnr)
@@ -26,7 +26,17 @@ lspconfig.r_language_server.setup({
 })
 
 -- Python (pyright) ======================================================
-lspconfig.pyright.setup({ on_attach = on_attach_custom })
+-- lspconfig.pyright.setup({ on_attach = on_attach_custom })
+lspconfig.jedi_language_server.setup({ on_attach = on_attach_custom })
 
+-- vim (vimls) ===========================================================
+lspconfig.vimls.setup{ on_attach = on_attach_custom }
+
+-- perl (perlls) =========================================================
+lspconfig.perlpls.setup({
+    on_attach = on_attach_custom,
+    cmd = { "~/perl5/bin/pls" },
+    single_file_support = true,
+})
 
 EOF
