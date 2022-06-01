@@ -5,7 +5,6 @@
 let b:cached_data = "/tmp/r_obj_preview.tsv"
 set fdm=marker
 
-
 " Keymap ===================================================================== {{{1
 nnoremap <buffer> <localleader>dl :<c-u>RSend devtools::load_all()<cr>
 nnoremap <buffer> <localleader>dd :<c-u>RSend devtools::document()<cr>

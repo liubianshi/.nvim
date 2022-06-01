@@ -1,8 +1,8 @@
 " vim: set ft=vim fdm=marker nowrap:
 setlocal foldmethod=marker
 setlocal foldmarker={,}
-let b:AutoPairs = g:AutoPairs
-let b:AutoPairs['`']="'" 
+"let b:AutoPairs = g:AutoPairs
+"let b:AutoPairs['`']="'" 
 let b:keywords = ['des', 'codebook', 'tab', 'gdistinct', 'graph tw']
 let b:cache_path = "./.vim"
 let b:varlist = []

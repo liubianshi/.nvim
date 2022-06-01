@@ -62,3 +62,14 @@ $0
 endsnippet
 
 
+# 自动输入中文标点符号
+snippet "(?<![A-z0-9\)\"\'];)([,.!:;\\?\[\]])\ " "修正标点符号" r
+`!p
+def E_trans_to_C(string):
+	E_pun = u'-^,.!?[]()<>"\';\\:'
+	C_pun = u'—…，。！？【】（）《》“‘；、：'
+	table= {ord(f):ord(t) for f,t in zip(E_pun,C_pun)}
+	return string.translate(table)
+snip.rv = E_trans_to_C(match.group(1))`
+endsnippet
+

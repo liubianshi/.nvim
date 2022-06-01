@@ -45,6 +45,8 @@ Plug 'rakr/vim-one'
 Plug 'ayu-theme/ayu-vim'
 Plug 'sainnhe/sonokai'
 Plug 'rebelot/kanagawa.nvim'
+Plug 'mhartington/oceanic-next'
+Plug 'Th3Whit3Wolf/one-nvim'
 
 " Airline {{{2
 Plug 'akinsho/bufferline.nvim'        " buffer line (with minimal tab integration) for neovim
@@ -145,7 +147,8 @@ Plug 'tpope/vim-obsession', { 'on': [] }            " tmux Backup needed
 Plug 'liubianshi/vimcmdline'
 
 " auto-pairs {{{2
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs'
+Plug 'windwp/nvim-autopairs'
 
 " coc {{{2
 "Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
@@ -213,6 +216,7 @@ if has('nvim-0.5.0')
     Plug 'nvim-orgmode/orgmode'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'folke/trouble.nvim'
+    Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
     Plug 'kevinhwang91/nvim-bqf'
 endif
 
@@ -243,10 +247,10 @@ endif
 
 " source external files {{{1
 source ~/.config/nvim/basic.vim
+source ~/.config/nvim/theme.vim
 source ~/.config/nvim/KeyMap.vim
 source ~/.config/nvim/autocmd.vim
 source ~/.config/nvim/abbr.vim
 source ~/.config/nvim/fcitx_auto_toggle.vim
-
 
 " vim: set fdm=marker :

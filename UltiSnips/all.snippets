@@ -14,16 +14,6 @@ snippet "'([^']*)'\ " "修改单引号" r
 ‘`!p snip.rv = match.group(1)`’$0
 endsnippet
 
-snippet "([,.!:;\\?\[\]]+)\ " "修正标点符号" r
-`!p
-def E_trans_to_C(string):
-	E_pun = u'-^,.!?[]()<>"\';\\:'
-	C_pun = u'—…，。！？【】（）《》“‘；、：'
-	table= {ord(f):ord(t) for f,t in zip(E_pun,C_pun)}
-	return string.translate(table)
-snip.rv = E_trans_to_C(match.group(1))`
-endsnippet
-
 snippet '^(\s*[-+*:])' "insert ul marker" rb
 `!p snip.rv = match.group(1)`   $0
 endsnippet
@@ -60,3 +50,5 @@ tags: [ ${2:untag} ]
 ---
 $0
 endsnippet
+
+
