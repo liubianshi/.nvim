@@ -78,7 +78,9 @@ function! Lbs_bs()
         else 
             let cursor_before_char = <SID>GetChar_before_cursor(5, 1)
         endif
-
+        if cursor_before_char == '\x1d' || cursor_before_char == ' '
+            return "\<bs>"
+        endif
         if cursor_before_char =~ '[\x21-\x7d]'
             call system(g:lbs_input_method_inactivate)
         else
