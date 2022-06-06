@@ -11,8 +11,8 @@ function! Lbs_Input_Env_Zh()
 endfunction
 function! Lbs_Input_Env_En()
     "echo "Change to English Mode"
-    call system(g:lbs_input_method_inactivate)
     let g:LBS_INPUT_ENV = 0
+    call system(g:lbs_input_method_inactivate)
     return("")
 endfunction
 
@@ -55,17 +55,16 @@ function! Lbs_Space(symbol_dict)
         else 
             let cursor_before_char_2 = <SID>GetChar_before_cursor(5, 1)
         endif
-        if cursor_before_char_2 =~ '[\x21-\x7d]'
-            call system(g:lbs_input_method_activate)
-            return "\<space>"
-        else
+        if ! (cursor_before_char_2 =~ '[\x21-\x7d]')
             return ("\<bs>" . a:symbol_dict[cursor_before_char])
         endif
     endif
-    if cursor_before_char =~ '[\x21-\x7d]'
-        call system(g:lbs_input_method_activate)
-    else
-        call system(g:lbs_input_method_inactivate)
+    if exists("g:LBS_INPUT_ENV") && g:LBS_INPUT_ENV == 1
+        if cursor_before_char =~ '[\x21-\x7d]'
+                call system(g:lbs_input_method_activate)
+        else
+            call system(g:lbs_input_method_inactivate)
+        endif
     endif
     return "\<space>"
 endfunction

@@ -1,5 +1,4 @@
-let g:wiki_root = "~/Documents/WikiHome"
-let g:wiki_cache_root = '~/.cache/wiki.vim'
+let g:wiki_root = "~/Documents/Writing/Knowledge"
 let g:wiki_link_target_type = 'md'
 let g:wiki_filetypes = ['md', 'pandoc', 'rmd', 'Rmd', 'tex']
 let g:wiki_mappings_use_defaults = 'none'

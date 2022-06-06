@@ -88,7 +88,7 @@ Plug 'ferrine/md-img-paste.vim',     {'on': []}
 Plug 'hotoo/pangu.vim',              {'on': []}
 
 " wiki.vim {{{2
-"Plug 'lervag/wiki.vim'
+Plug 'lervag/wiki.vim'
 
 " text objects {{{2
 Plug 'godlygeek/tabular'            " 对齐文本插件
@@ -128,8 +128,7 @@ Plug 'skywind3000/vim-preview'
 " Syntax checking {{{2
 "let g:polyglot_disabled = ['ftdetect', 'markdown', 'rmd', 'rmarkdown', 'pandoc', 'Rmd']
 "Plug 'sheerun/vim-polyglot'
-
-Plug 'dense-analysis/ale', { 'on': [] }
+"Plug 'dense-analysis/ale', { 'on': [] }
 
 " system interaction {{{2
 " floaterm {{{3
