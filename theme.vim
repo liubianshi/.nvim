@@ -1,8 +1,8 @@
 set background=dark        " 设置颜色模式
 set guifont=monospace:h14
 "colorscheme sonokai
-"colorscheme kanagawa
-colorscheme OceanicNext
+colorscheme kanagawa
+"colorscheme OceanicNext
 
 " 用于实现透明效果
 highlight Normal      ctermbg=none guibg=none

@@ -16,7 +16,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'lambdalisue/suda.vim' " read or write files with sudo command
 
 " Vim Highlighter {{{2
-Plug 'azabiong/vim-highlighter'
+" Plug 'azabiong/vim-highlighter'
 
 " vim-oscyank {{{2
 Plug 'ojroques/vim-oscyank'
@@ -39,23 +39,23 @@ endif
 
 " theme {{{2
 Plug 'NLKNguyen/papercolor-theme'
+"Plug 'Th3Whit3Wolf/one-nvim'
 "Plug 'flazz/vim-colorschemes' , { 'on': [] }    " 主题管理
 Plug 'morhetz/gruvbox'                          " 主题
-Plug 'rakr/vim-one'
-Plug 'ayu-theme/ayu-vim'
+"Plug 'rakr/vim-one'
+"Plug 'ayu-theme/ayu-vim'
 Plug 'sainnhe/sonokai'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'mhartington/oceanic-next'
-Plug 'Th3Whit3Wolf/one-nvim'
 
 " Airline {{{2
 Plug 'akinsho/bufferline.nvim'        " buffer line (with minimal tab integration) for neovim
 Plug 'hoob3rt/lualine.nvim'           " neovim statusline plugin written in pure lua
 
 " nerdtree {{{2
-Plug 'scrooloose/nerdtree',    { 'on':  'NERDTreeToggle' }
-Plug 'ryanoasis/vim-devicons'
-    doau User nerdtree call Lbs_Load_Plug_Confs(['nerdtree', 'vim-devicons'])
+"Plug 'scrooloose/nerdtree',    { 'on':  'NERDTreeToggle' }
+" Plug 'ryanoasis/vim-devicons'
+"    doau User nerdtree call Lbs_Load_Plug_Confs(['nerdtree', 'vim-devicons'])
 
 " lf {{{2
 Plug 'rbgrouleff/bclose.vim'          " lf.vim 插件依赖，关闭 buffer，但关闭 buffer 所在窗口
@@ -63,7 +63,7 @@ Plug 'ptzz/lf.vim'                    " 文件管理
     let g:lf_map_keys = 0
 
 " vim-translator
-Plug 'voldikss/vim-translator'
+" Plug 'voldikss/vim-translator'
 
 " fzf {{{2
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -95,7 +95,7 @@ Plug 'godlygeek/tabular'            " 对齐文本插件
 "Plug 'tpope/vim-surround'           " 快速给词加环绕符号
 Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-repeat'             " 重复插件操作
-Plug 'tpope/vim-abolish'            " 高效的文本替换工具
+"Plug 'tpope/vim-abolish'            " 高效的文本替换工具
 Plug 'scrooloose/nerdcommenter'     " 注释插件
 Plug 'justinmk/vim-sneak'           " The missing motion for vim
 Plug 'easymotion/vim-easymotion'    " 高效移动指标插件
@@ -120,7 +120,7 @@ Plug 'poliquin/stata-vim', { 'on': [] }       " stata 语法高亮
 Plug 'mechatroner/rainbow_csv'
 
 " perl 
-Plug 'WolfgangMehner/perl-support', { 'for': ['perl'] }
+" Plug 'WolfgangMehner/perl-support', { 'for': ['perl'] }
 
 " preview {{{2
 Plug 'skywind3000/vim-preview'
@@ -133,14 +133,14 @@ Plug 'skywind3000/vim-preview'
 " system interaction {{{2
 " floaterm {{{3
 Plug 'voldikss/vim-floaterm'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+"Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 " asyncrun {{{3
 Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/vim-terminal-help'
 " obsession {{{3
-Plug 'tpope/vim-obsession', { 'on': [] }            " tmux Backup needed
+"Plug 'tpope/vim-obsession', { 'on': [] }            " tmux Backup needed
 
 " vimcmdline {{{3
 Plug 'liubianshi/vimcmdline'
@@ -150,26 +150,28 @@ Plug 'liubianshi/vimcmdline'
 Plug 'windwp/nvim-autopairs'
 
 " coc {{{2
-"Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-Plug 'hrsh7th/cmp-omni'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'ray-x/cmp-treesitter'
-Plug 'delphinus/cmp-ctags'
-Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-Plug 'kdheepak/cmp-latex-symbols'
-Plug 'wasden/cmp-flypy.nvim', { 'do': 'make' }
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+" ============================= USE Native LSP ===========================
+"Plug 'neovim/nvim-lspconfig'
+"Plug 'hrsh7th/nvim-cmp'
+"Plug 'hrsh7th/cmp-nvim-lsp'
+"Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+"Plug 'hrsh7th/cmp-omni'
+"Plug 'hrsh7th/cmp-buffer'
+"Plug 'hrsh7th/cmp-path'
+"Plug 'ray-x/cmp-treesitter'
+"Plug 'onsails/lspkind.nvim'
+"Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+"Plug 'kdheepak/cmp-latex-symbols'
+"Plug 'wasden/cmp-flypy.nvim', { 'do': 'make' }
+" ========================================================================
 
 " vim-dict {{{2
 Plug 'ludovicchabant/vim-gutentags'
-"Plug 'skywind3000/vim-dict', { 'for': ['markdown', 'pandoc', 'rmarkdown', 'rmd'] }
+" Plug 'skywind3000/vim-dict', { 'for': ['markdown', 'pandoc', 'rmarkdown', 'rmd'] }
 
 " Vim-exchange: {{{2 
-Plug 'tommcdo/vim-exchange'
+" Plug 'tommcdo/vim-exchange'
 
 " Git: {{{2
 Plug 'tpope/vim-fugitive', {'on': ['G', 'Gwrite', 'Gcommit', 'Gread', 'Gdiff', 'Gblame']}
@@ -188,11 +190,11 @@ Plug 'zhimsel/vim-stay'
 Plug 'Konfekt/FastFold'
 
 " Rainbow Parentheses: {{{2
-Plug 'kien/rainbow_parentheses.vim'
-    au VimEnter * RainbowParenthesesToggle
+"Plug 'kien/rainbow_parentheses.vim'
+"    au VimEnter * RainbowParenthesesToggle
 
 " StarupTime: {{{2
-"Plug 'dstein64/vim-startuptime'
+Plug 'dstein64/vim-startuptime'
 Plug 'mhinz/vim-startify'
 
 " VimTableMode: {{{2
@@ -205,7 +207,7 @@ Plug 'puremourning/vimspector',  { 'on': [] }
 Plug '907th/vim-auto-save'
 
 " TrueZen.nvim: Clean and elegant distraction-free writing for NeoVim. {{{2
-Plug 'Pocco81/TrueZen.nvim'
+" Plug 'Pocco81/TrueZen.nvim'
 Plug 'beauwilliams/focus.nvim'
 
 " Neovim 0.5
@@ -215,7 +217,7 @@ if has('nvim-0.5.0')
     Plug 'nvim-orgmode/orgmode'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'folke/trouble.nvim'
-    Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
+    " Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
     Plug 'kevinhwang91/nvim-bqf'
 endif
 

@@ -2,7 +2,41 @@ lua <<EOF
 -- Setup nvim-cmp.
 local cmp = require'cmp'
 
+vim.lsp.protocol.CompletionItemKind = {
+    ' [text]',
+    ' [method]',
+    ' [function]',
+    ' [constructor]',
+    'ﰠ [field]',
+    ' [variable]',
+    ' [class]',
+    ' [interface]',
+    ' [module]',
+    ' [property]',
+    ' [unit]',
+    ' [value]',
+    ' [enum]',
+    ' [key]',
+    '﬌ [snippet]',
+    ' [color]',
+    ' [file]',
+    ' [reference]',
+    ' [folder]',
+    ' [enum member]',
+    ' [constant]',
+    ' [struct]',
+    '⌘ [event]',
+    ' [operator]',
+    '♛ [type]'
+}
+
 cmp.setup({
+    menu = {
+
+    },
+    completion = {
+        keyword_length = 2,
+    },
     snippet = {
         expand = function(args)
             --vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
@@ -12,8 +46,22 @@ cmp.setup({
         end,
     },
     window = {
-        -- completion = cmp.config.window.bordered(),
-        -- documentation = cmp.config.window.bordered(),
+        completion = {
+            winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+            col_offset = -3,
+            side_padding = 0,
+        },
+    },
+    formatting = {
+        fields = { "kind", "abbr", "menu" },
+        format = function(entry, vim_item)
+            local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+            local strings = vim.split(kind.kind, "%s", { trimempty = true })
+            kind.kind = " " .. strings[1] .. " "
+            kind.menu = "    (" .. strings[2] .. ")"
+
+            return kind
+        end,
     },
     mapping = cmp.mapping.preset.insert({
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
@@ -64,21 +112,21 @@ cmp.setup({
             end
         }),
     }),
-    sources = ({
+    sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        { name = 'cmp-nvim-lsp-signature-help' },
+        { name = 'nvim_lsp_signature_help' },
         { name = 'ultisnips' }, -- For ultisnips users.
-        { name = 'omni' },
-        { name = 'path' },
         { name = 'cmdline' },
         { name = 'latex_symbols' },
-        { name = 'cmp-nvim-lsp-signature-help' },
         { name = 'orgmode' },
         { name = 'treesitter' },
         { name = 'ctags' }, 
         { name = 'vim-dadbod-completion' },
         { name = 'flypy' },
-        { name = 'buffer' },
+    }, {
+        { name = 'omni' },
+        { name = 'path' },
+        {name = 'buffer'}
     }),
 })
 

@@ -173,7 +173,7 @@ ins_right_inactive {'progress', color = {fg = colors.fg, gui = 'bold'}}
 
 ins_left {
   'diagnostics',
-  sources = {'coc'},
+  sources = {'nvim_lsp'},
   symbols = {error = ' ', warn = ' ', info = ' '},
   color_error = colors.red,
   color_warn = colors.yellow,

@@ -79,7 +79,8 @@ set ruler                  " 显示光标当前位置
 set cmdheight=1            " 命令行高度
 set laststatus=2           " 总是显示状态栏
 set list
-set listchars=tab:..\|,trail:.
+"set listchars=tab:..\|,trail:
+set listchars=tab:\ \ \|,trail:\ 
 set fillchars=fold:\ 
 set signcolumn=number
 set mat=2                  " 设置匹配括号时闪缩的时间

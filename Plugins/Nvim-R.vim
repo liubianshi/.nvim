@@ -1,5 +1,7 @@
 let r_syntax_folding = 0
 let r_syntax_fun_pattern = 1
+let R_objbr_place = 'console,right'
+let R_objbr_openlist = 1
 let R_cmd = "R"
 let R_args = ['--no-save', '--quiet']
 "let R_app = "radian"
