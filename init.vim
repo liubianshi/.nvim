@@ -150,7 +150,7 @@ Plug 'liubianshi/vimcmdline'
 Plug 'windwp/nvim-autopairs'
 
 " coc {{{2
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " ============================= USE Native LSP ===========================
 "Plug 'neovim/nvim-lspconfig'
 "Plug 'hrsh7th/nvim-cmp'
