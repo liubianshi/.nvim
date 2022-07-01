@@ -6,6 +6,9 @@ endfunction
 function! Lbs_Input_Env_Zh()
     "echo "Change to Chinese Mode"
     call system(g:lbs_input_method_activate)
+    if has("mac")
+        call system(g:lbs_input_method_activate)
+    endif
     let g:LBS_INPUT_ENV = 1
     return("")
 endfunction
@@ -98,12 +101,10 @@ let symbol_dict = {
             \  '!': "！",
             \  '?': "？",
             \  }
-if has('mac')
-else
-    augroup Fcitx
-        autocmd!
-        "autocmd InsertCharPre  *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org call Lbs_Chinese_auto()
-        autocmd BufRead,BufNew *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org inoremap <silent><expr> <space>  Lbs_Space(symbol_dict)
-        autocmd BufRead,BufNew *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org inoremap <silent><expr> <bs> Lbs_bs()
-    augroup END
-endif
+
+augroup Fcitx
+    autocmd!
+    "autocmd InsertCharPre  *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org call Lbs_Chinese_auto()
+    autocmd BufRead,BufNew *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org inoremap <silent><expr> <space>  Lbs_Space(symbol_dict)
+    autocmd BufRead,BufNew *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org inoremap <silent><expr> <bs> Lbs_bs()
+augroup END
