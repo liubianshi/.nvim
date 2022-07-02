@@ -19,7 +19,7 @@ Plug 'lambdalisue/suda.vim' " read or write files with sudo command
 " Plug 'azabiong/vim-highlighter'
 
 " vim-oscyank {{{2
-Plug 'ojroques/vim-oscyank'
+"Plug 'ojroques/vim-oscyank'
 
 " Command line Fuzzy Search {{{2
 function! UpdateRemotePlugins(...)
@@ -73,10 +73,10 @@ Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 " visual_effects {{{2
-Plug 'junegunn/goyo.vim'
+"Plug 'junegunn/goyo.vim'
 Plug 'machakann/vim-highlightedyank'  " 高亮显示复制区域
 Plug 'haya14busa/incsearch.vim'       " 加强版实时高亮
-Plug 'mg979/vim-visual-multi',  {'branch': 'master'}
+"Plug 'mg979/vim-visual-multi',  {'branch': 'master'}
 
 " vim-matchup
 Plug 'andymass/vim-matchup'
@@ -100,8 +100,8 @@ Plug 'scrooloose/nerdcommenter'     " 注释插件
 Plug 'justinmk/vim-sneak'           " The missing motion for vim
 Plug 'easymotion/vim-easymotion'    " 高效移动指标插件
 Plug 'liubianshi/vim-easymotion-chs' " tricks to allow easymotion recognize Chinese chars
-Plug 'wellle/targets.vim'           " 扩展 vim 文本对象
-Plug 'kana/vim-textobj-user'        " Create your own text objects
+"Plug 'wellle/targets.vim'           " 扩展 vim 文本对象
+"Plug 'kana/vim-textobj-user'        " Create your own text objects
 
 " Snippets {{{2
 Plug 'sirver/UltiSnips'
@@ -113,7 +113,7 @@ Plug 'tpope/vim-dadbod'             " Modern database interface for Vim
 Plug 'kristijanhusak/vim-dadbod-ui' " Simple UI for vim-dadbod
 Plug 'kristijanhusak/vim-dadbod-completion', { 'on': [] }
 Plug 'liubianshi/Nvim-R'
-Plug 'lervag/vimtex', {'on': []}
+" Plug 'lervag/vimtex', {'on': []}
 Plug 'poliquin/stata-vim', { 'on': [] }       " stata 语法高亮
 
 " csv / tsv {{{3
@@ -123,7 +123,7 @@ Plug 'mechatroner/rainbow_csv'
 " Plug 'WolfgangMehner/perl-support', { 'for': ['perl'] }
 
 " preview {{{2
-Plug 'skywind3000/vim-preview'
+" Plug 'skywind3000/vim-preview'
 
 " Syntax checking {{{2
 "let g:polyglot_disabled = ['ftdetect', 'markdown', 'rmd', 'rmarkdown', 'pandoc', 'Rmd']
@@ -150,24 +150,24 @@ Plug 'liubianshi/vimcmdline'
 Plug 'windwp/nvim-autopairs'
 
 " coc {{{2
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " ============================= USE Native LSP ===========================
-"Plug 'neovim/nvim-lspconfig'
-"Plug 'hrsh7th/nvim-cmp'
-"Plug 'hrsh7th/cmp-nvim-lsp'
-"Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-"Plug 'hrsh7th/cmp-omni'
-"Plug 'hrsh7th/cmp-buffer'
-"Plug 'hrsh7th/cmp-path'
-"Plug 'ray-x/cmp-treesitter'
-"Plug 'onsails/lspkind.nvim'
-"Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-"Plug 'kdheepak/cmp-latex-symbols'
-"Plug 'wasden/cmp-flypy.nvim', { 'do': 'make' }
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'hrsh7th/cmp-omni'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'ray-x/cmp-treesitter'
+Plug 'onsails/lspkind.nvim'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+Plug 'kdheepak/cmp-latex-symbols'
+Plug 'wasden/cmp-flypy.nvim', { 'do': 'make' }
 " ========================================================================
 
 " vim-dict {{{2
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 " Plug 'skywind3000/vim-dict', { 'for': ['markdown', 'pandoc', 'rmarkdown', 'rmd'] }
 
 " Vim-exchange: {{{2 
@@ -201,10 +201,10 @@ Plug 'mhinz/vim-startify'
 Plug 'dhruvasagar/vim-table-mode'
 
 " Vimspector: {{{2
-Plug 'puremourning/vimspector',  { 'on': [] }
+"Plug 'puremourning/vimspector',  { 'on': [] }
 
 " Auto_save: {{{2 
-Plug '907th/vim-auto-save'
+"Plug '907th/vim-auto-save'
 
 " TrueZen.nvim: Clean and elegant distraction-free writing for NeoVim. {{{2
 " Plug 'Pocco81/TrueZen.nvim'
@@ -212,14 +212,12 @@ Plug 'beauwilliams/focus.nvim'
 
 " Neovim 0.5
 " Orgmode
-if has('nvim-0.5.0')
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'nvim-orgmode/orgmode'
-    Plug 'kyazdani42/nvim-web-devicons'
-    Plug 'folke/trouble.nvim'
-    " Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
-    Plug 'kevinhwang91/nvim-bqf'
-endif
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-orgmode/orgmode'
+Plug 'kyazdani42/nvim-web-devicons'
+" Plug 'folke/trouble.nvim'
+" Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
+" Plug 'kevinhwang91/nvim-bqf'
 
 " plug end {{{2
 call plug#end()
