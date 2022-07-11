@@ -3,7 +3,7 @@ require("focus").setup({
     width = 90,
     minwidth = 50,
     bufnew = true,
-    autoresize = false,
+    autoresize = true,
     excluded_buftypes = {"help", "terminal", "nofile", "promp", "popup"},
     excluded_filetypes = {"rbrowser", "floaterm", "rdoc"},
     compatible_filetrees = {"nerdtree"},
