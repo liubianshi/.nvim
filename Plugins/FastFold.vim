@@ -8,4 +8,5 @@ let g:php_folding = 1
 let g:perl_fold = 1
 let g:r_syntax_folding = 1
 let g:markdown_folding = 1
+let g:pandoc_folding = 1
 let g:rmd_folding = 1

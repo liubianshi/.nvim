@@ -163,8 +163,9 @@ Plug 'ray-x/cmp-treesitter'
 Plug 'onsails/lspkind.nvim'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'kdheepak/cmp-latex-symbols'
-Plug 'wasden/cmp-flypy.nvim', { 'do': 'make' }
-" ========================================================================
+if ! has('mac')
+    Plug 'wasden/cmp-flypy.nvim', { 'do': 'make' }
+endif
 
 " vim-dict {{{2
 " Plug 'ludovicchabant/vim-gutentags'
@@ -227,15 +228,20 @@ call Lbs_Load_Plug_Confs(keys(g:plugs))
 
 " Personal Global Variables {{{1 
 if has('mac')
+    let g:lbs_input_method_on = 0
     let g:lbs_input_method_off = 1
+    let g:lbs_input_status = "os_input_change -g"
+    let g:lbs_input_method_inactivate = "os_input_change -s 1"
+    let g:lbs_input_method_activate = "os_input_change -s 0"
+    "let g:lbs_input_method_off = 1
     "let g:lbs_input_status = "xkbswitch -g"
     "let g:lbs_input_method_inactivate = "xkbswitch -s 1"
     "let g:lbs_input_method_activate = "xkbswitch -s 4"
     "let g:lbs_input_method_on = 4
-    let g:lbs_input_status = "fcitx-remote"
-    let g:lbs_input_method_inactivate = "fcitx-remote -c"
-    let g:lbs_input_method_activate = "fcitx-remote -o"
-    let g:lbs_input_method_on = 2
+    "let g:lbs_input_status = "fcitx-remote"
+    "let g:lbs_input_method_inactivate = "fcitx-remote -c"
+    "let g:lbs_input_method_activate = "fcitx-remote -o"
+    "let g:lbs_input_method_on = 2
 else
     let g:lbs_input_status = "fcitx5-remote"
     let g:lbs_input_method_inactivate = "fcitx5-remote -c"
