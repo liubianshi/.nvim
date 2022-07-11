@@ -4,7 +4,7 @@ endfor
 
 let g:PasteImageFunction = 'g:RmarkdownPasteImage'
 
-set fdm=expr
+" set fdm=expr
 runtime ftplugin/pandoc.vim
 " init vim-pandoc-after, if present {{{2
 try
