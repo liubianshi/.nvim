@@ -1,5 +1,5 @@
 let g:pandoc#modules#disabled = ["spell"]
-let g:pandoc#filetypes#handled = ["pandoc", "markdown", "rmd", "rmarkdown"]
+let g:pandoc#filetypes#handled = ["pandoc", "markdown"]
 let g:pandoc#filetypes#pandoc_markdown = 1
 let g:pandoc#biblio#bibs = ["~/Documents/paper_ref.bib"]
 let g:pandoc#biblio#use_bibtool = 1
