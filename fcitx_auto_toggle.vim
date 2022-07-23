@@ -105,6 +105,8 @@ let symbol_dict = {
 augroup Fcitx
     autocmd!
     "autocmd InsertCharPre  *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org call Lbs_Chinese_auto()
-    autocmd BufRead,BufNew *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org inoremap <silent><expr> <space>  Lbs_Space(symbol_dict)
-    autocmd BufRead,BufNew *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org inoremap <silent><expr> <bs> Lbs_bs()
+    autocmd BufRead,BufNew *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org inoremap <silent><expr><buffer>
+                \ <space>  Lbs_Space(symbol_dict)
+    autocmd BufRead,BufNew *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org inoremap <silent><expr><buffer>
+                \ <bs> Lbs_bs()
 augroup END
