@@ -11,14 +11,25 @@ function! s:AddDash(symbol)
     if virtcol('$') >= w
         return 0
     endif
-    let l = (w - virtcol('$')) / strlen(a:symbol) - 4
+    let l = (w - virtcol('$')) / strlen(a:symbol) - 5
     let back = @"
     let @" = a:symbol
     exec "normal! A \<esc>" . l . '""p'
     let @" = back
 endfunction
 
-" 列出当前文件可运行的命令 --------------------------------------------------- {{{2
+" Use K to show documentation in preview window. --------------------------- {{{2
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" 列出当前文件可运行的命令 ----------------------------------------------- {{{2
 function! s:lf_task_source(...)
 	let rows = asynctasks#source(&columns * 48 / 100)
 	let source = []
@@ -55,36 +66,6 @@ function! s:lf_win_init(...)
 	setlocal nowrap
 endfunction
 
-" 列出文献 ------------------------------------------------------------------- {{{2
-function! s:Bibtex_ls()
-  let bibfiles = (
-      \ globpath('~/Documents', '*ref.bib', v:true, v:true) +
-      \ globpath('.', '*.bib', v:true, v:true) +
-      \ globpath('..', '*.bib', v:true, v:true) +
-      \ globpath('*/', '*.bib', v:true, v:true)
-      \ )
-  let bibfiles = join(bibfiles, ' ')
-  let source_cmd = 'bibtex-ls '.bibfiles
-  return source_cmd
-endfunction
-
-function! s:bibtex_cite_sink(lines)
-    let r=system("bibtex-cite ", a:lines)
-    execute ':normal! a' . r
-endfunction
-
-function! s:bibtex_markdown_sink(lines)
-    let r=system("bibtex-markdown ", a:lines)
-    execute ':normal! a' . r
-endfunction
-
-function! s:bibtex_cite_sink_insert(lines)
-    let r=system("bibtex-cite -prefix='@' -postfix='' -separator='; @'", a:lines)
-    "let r=system("bibtex-cite ", a:lines)
-    execute ':normal! i' . r
-    call feedkeys('a', 'n')
-endfunction
-
 " Command ==================================================================== {{{1
 augroup LBS
     autocmd!
@@ -106,6 +87,7 @@ vnoremap <silent> > >gv
 nnoremap <buffer> <silent> <leader>pi :<c-u>call mdip#MarkdownClipboardImage()<CR>
 
 
+
 " Terminal {{{1 
 tnoremap <A-space> <C-\><C-n>
 nnoremap <leader>:n :<c-u>FloatermNew<cr>
@@ -117,9 +99,6 @@ vnoremap <leader>:l :<c-u>FloatermSend<cr>
 
 
 " 文件操作 {{{1
-nnoremap <silent> <leader>.  :call fzf#run(fzf#wrap({'source': 'fd -H -t f', 'dir': expand("%:p:h"), 'options': '--ansi --no-sort --tac --tiebreak=index --multi', }))<cr>
-nnoremap <silent> <leader>ff  :FzfFiles<CR>
-nnoremap <silent> <leader>fr  :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
 nnoremap <silent> <leader>fs  :write<CR>
 nnoremap <silent> <leader>fS  :write!<CR>
 nnoremap <silent> <leader>fo  :Lf<cr>
@@ -139,11 +118,8 @@ augroup fasd
   autocmd!
   autocmd BufWinEnter,BufFilePost * call s:fasd_update()
 augroup END
-nnoremap <silent> <Leader>fz :call fzf#run(fzf#wrap({'source': 'fasd -al', 'options': '--no-sort --tac --tiebreak=index'}))<CR>
 
 " Buffer {{{1
-nnoremap <silent> <leader>bb :LeaderfBuffer<cr>
-nnoremap <silent> <leader>bB :LeaderfBufferAll<cr>
 nnoremap <silent> <leader>bc :<c-u>call Lilydjwg_cleanbufs()<cr>
 nnoremap <silent> <leader>bd :<c-u>Bclose<cr>
 nnoremap <silent> <leader>bp :<c-u>bp<cr>
@@ -215,10 +191,6 @@ command! RUN FloatermNew --name=repl --wintype=normal --position=right
 " 翻译 {{{1
 nnoremap <expr>   L Lbs_Trans2clip()
 xnoremap <expr>   L Lbs_Trans2clip()
-nmap     <silent> gt <Plug>TranslateW
-vmap     <silent> gt <Plug>TranslateWV
-nmap     <silent> gc <Plug>Translate
-vmap     <silent> gc <Plug>TranslateV
 
 " Edit Specific file {{{1
 nnoremap <leader>ev :edit $MYVIMRC<cr>
@@ -231,25 +203,9 @@ nnoremap <leader>ea :edit ~/useScript/alias<cr>
 nnoremap <leader>eu :edit ~/.config/nvim/UltiSnips<cr>
 
 " search {{{1
-noremap <silent> <leader>sc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
-noremap <silent> <leader>sC :<C-U><C-R>=printf("Leaderf colorscheme %s", "")<CR><CR>
-noremap <silent> <leader>sh :<C-U><C-R>=printf("Leaderf help %s", "")<CR><CR>
-noremap <silent> <leader>st :<C-U><C-R>=printf("FzfBTags %s", "")<CR><CR>
-noremap <silent> <leader>sT :<C-U><C-R>=printf("FzfTags %s", "")<CR><CR>
-noremap <silent> <leader>sl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-noremap <silent> <leader>sL :<C-R>=printf("FzfLocate ")<CR><space>
-noremap <silent> <leader>ss :<C-U>SR<space>
-noremap <silent> <leader>s: :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
-noremap <silent> <leader>s/ :<C-U><C-R>=printf("Leaderf searchHistory %s", "")<CR><CR>
-noremap <silent> <leader>sg :<C-U><C-R>=printf("Leaderf gtags --all %s", "")<CR><CR>
-noremap <silent> <leader>sr :<C-U>Leaderf rg --current-buffer -e 
-nmap    <silent> <leader>sm <plug>(fzf-maps-n)
-xmap    <silent> <leader>sm <plug>(fzf-maps-x)
-omap    <silent> <leader>sm <plug>(fzf-maps-o)
-imap    <silent> ;sm <plug>(fzf-maps-i)
-noremap <C-B> :<C-U><C-R>=printf("Leaderf rg --current-buffer -e %s ", expand("<cword>"))<CR><CR>
 
 " search by surfraw {{{2
+noremap <silent> <leader>ss :<C-U>SR<space>
 vnoremap <silent> S "0y:<C-U>SR google <C-R>0<CR>
 nnoremap <silent> S :<C-U><C-R>=printf("SR google %s", expand("<cword>"))<CR><CR>
 nnoremap <silent> srh :<C-U><C-R>=printf("SR github %s", expand("<cword>"))<CR><CR>
@@ -265,19 +221,6 @@ map <silent> <leader>d4 :diffget 4<CR>:diffupdate<CR>
 nnoremap <silent> <leader>a- :<c-u>call <sid>AddDash("-")<cr>
 nnoremap <silent> <leader>a= :<c-u>call <sid>AddDash("=")<cr>
 nnoremap <silent> <leader>a. :<c-u>call <sid>AddDash(".")<cr>
-" bring up fzf to insert citation to selected items.
-nnoremap <silent> <leader>ac :call fzf#run({
-                        \ 'source': <sid>Bibtex_ls(),
-                        \ 'sink*': function('<sid>bibtex_cite_sink'),
-                        \ 'up': '40%',
-                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
-" bring up fzf to insert pretty markdown versions of selected items.
-nnoremap <silent> <leader>am :call fzf#run({
-                        \ 'source': <sid>Bibtex_ls(),
-                        \ 'sink*': function('<sid>bibtex_markdown_sink'),
-                        \ 'up': '40%',
-                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Markdown> "'})<CR>
-
 " 补全相关 {{{1
 inoremap <silent> <A-j> <esc>:call LbsAutoFormatNewline()<cr>a
 " 注释掉的原因：导致 mac iterm2 输入中文引号时乱码
@@ -410,15 +353,6 @@ inoremap ;. <C-v>u3002
 inoremap ;\ <C-v>u3001
 inoremap ;<space> ;
 
-inoremap <silent> ;@ <c-g>u<c-o>:call fzf#run({
-                        \ 'source': <sid>Bibtex_ls(),
-                        \ 'sink*': function('<sid>bibtex_cite_sink_insert'),
-                        \ 'up': '40%',
-                        \ 'options': '--ansi --layout=reverse-list --multi --prompt "Cite> "'})<CR>
-
-" visual multi {{{1
-nmap <silent> <leader>mj <Plug>(VM-Add-Cursor-Down)
-nmap <silent> <leader>mk <Plug>(VM-Add-Cursor-Up)
 
 " preview {{{1
 "noremap <silent> gv  :PreviewTag<CR>
@@ -433,14 +367,9 @@ inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
 "noremap <silent> gr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
-noremap <silent> gf :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
-noremap <silent> gF :<C-U><C-R>=printf("Leaderf function --all %s", "")<CR><CR>
-noremap <silent> gn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-noremap <silent> go :<C-U><C-R>=printf("Leaderf gtags --recall %s", "")<CR><CR>
-noremap <silent> gp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 
 
-" 输入法切换 {{{1
+" 输入法 {{{1
 "inoremap <expr> <PageUp>   Lbs_Input_Env_Zh()
 "inoremap <expr> <PageDown> Lbs_Input_Env_En()
 inoremap <silent><expr> ;; Lbs_Input_Env_En()

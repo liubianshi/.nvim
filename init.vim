@@ -1,5 +1,9 @@
 " Liubianshi's Neovim
 
+" Basic keymap config ==================================================== {{{1
+let mapleader = " "
+let maplocalleader = ';'
+
 " load personal global fucntion {{{1
 source ~/.config/nvim/lbs_function.vim
 
@@ -67,10 +71,11 @@ Plug 'ptzz/lf.vim'                    " 文件管理
 
 " fzf {{{2
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+"Plug 'junegunn/fzf.vim'
 
 " leaderF {{{2
-Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+"Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 
 " visual_effects {{{2
 "Plug 'junegunn/goyo.vim'
@@ -162,13 +167,13 @@ Plug 'hrsh7th/cmp-path'
 Plug 'ray-x/cmp-treesitter'
 Plug 'onsails/lspkind.nvim'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-Plug 'kdheepak/cmp-latex-symbols'
+"Plug 'kdheepak/cmp-latex-symbols'
 if ! has('mac')
     Plug 'wasden/cmp-flypy.nvim', { 'do': 'make' }
 endif
 
 " vim-dict {{{2
-" Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'
 " Plug 'skywind3000/vim-dict', { 'for': ['markdown', 'pandoc', 'rmarkdown', 'rmd'] }
 
 " Vim-exchange: {{{2 
@@ -199,7 +204,7 @@ Plug 'dstein64/vim-startuptime'
 Plug 'mhinz/vim-startify'
 
 " VimTableMode: {{{2
-Plug 'dhruvasagar/vim-table-mode'
+Plug 'dhruvasagar/vim-table-mode', { 'for': ['markdown', 'pandoc', 'rmarkdown', 'rmd'] } 
 
 " Vimspector: {{{2
 "Plug 'puremourning/vimspector',  { 'on': [] }

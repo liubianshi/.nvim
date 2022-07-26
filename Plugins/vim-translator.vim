@@ -7,3 +7,8 @@ let g:translator_proxy_url = ''
 let g:translator_history_enable = v:true
 let g:translator_window_type = 'popup'
 
+nmap     <silent> gt <Plug>TranslateW
+vmap     <silent> gt <Plug>TranslateWV
+nmap     <silent> gc <Plug>Translate
+vmap     <silent> gc <Plug>TranslateV
+

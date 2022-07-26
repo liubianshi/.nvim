@@ -390,18 +390,7 @@ function! RipgrepFzf(query, fullscreen)
     call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
-" Use K to show documentation in preview window.
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-" 翻译操作符 ----------------------------------------------------------------- {{{1
+" 翻译操作符 ------------------------------------------------------------ {{{1
 function! Lbs_Trans2clip(type = '')
     if a:type == ''
         set opfunc=Lbs_Trans2clip

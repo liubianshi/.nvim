@@ -33,9 +33,6 @@ filetype plugin on         " 根据侦测到的不同类型加载对应插件支
 syntax enable              " 语法高亮
 syntax on                  " 允许用指定语法高亮配色方案替换默认方案
 " let syntax correct       " 无效代码, 用于解决命令对语法高亮的破坏 }}}
-" Basic keymap config ==================================================== {{{1
-let mapleader = " "
-let maplocalleader = ';'
 
 " 文件同步、备份和回滚 =================================================== {{{1
 set backupdir=~/.cache/vim/.backup//
@@ -134,7 +131,7 @@ set foldmethod=marker
 " 字典 和 tags 相关 {{{1
 set dictionary+=~/.config/nvim/paper.dict,~/.config/nvim/dict
 set complete+=k 
-set tags=./.tags;,.tags
+set tags=./tags,tags
 let $GTAGSLABEL = 'native-pygments'
 let $GTAGSCONF = $HOME . "/.globalrc"
 

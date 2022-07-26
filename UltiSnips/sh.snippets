@@ -1,8 +1,115 @@
+# vim: set fdm=marker:
 snippet head "set header"
 #!/usr/bin/env bash
-set -euxo pipefail
+set -eu -o pipefail
 
 $0
 
 exit 0
 endsnippet
+
+# 行内格式设定 {{{1
+snippet normal "set normal output" b
+normal="$(printf '\033[0m')"
+$0
+endsnippet
+
+snippet bold "set bold output" b
+bold="$(printf '\033[1m')"
+$0
+endsnippet
+
+
+snippet italic "set italic output" b
+italic="$(printf '\033[3m')"
+$0
+endsnippet
+
+snippet underline "set underline output" b
+underline="$(printf '\033[4m')"
+$0
+endsnippet
+
+# 字体颜色设定 {{{1
+snippet black "set black output" b
+black="$(printf '\033[30m')"
+$0
+endsnippet
+
+snippet red "set red output" b
+red="$(printf '\033[31m')"
+$0
+endsnippet
+
+snippet green "set green output" b
+green="$(printf '\033[32m')"
+$0
+endsnippet
+
+snippet yellow "set yellow output" b
+yellow="$(printf '\033[33m')"
+$0
+endsnippet
+
+snippet blue "set blue output"
+blue="$(printf '\033[34m')"
+endsnippet
+
+snippet purple "set purple output" b
+purple="$(printf '\033[35m')"
+$0
+endsnippet
+
+
+snippet cyan "set cyan output" b
+cyan="$(printf '\033[36m')"
+$0
+endsnippet
+
+snippet white "set white output" b
+white="$(printf '\033[37m')"
+$0
+endsnippet
+
+# 背景颜色设定 {{{1
+snippet backblack "set black background" b
+backblack="$(printf '\033[40m')"
+$0
+endsnippet
+
+snippet backred "set red background" b
+backred="$(printf '\033[41m')"
+$0
+endsnippet
+
+snippet backgreen "set green background" b
+backgreen="$(printf '\033[42m')"
+$0
+endsnippet
+
+snippet backyellow "set yellow background" b
+backyellow="$(printf '\033[43m')"
+$0
+endsnippet
+
+snippet backblue "set blue background"
+backblue="$(printf '\033[44m')"
+$0
+endsnippet
+
+snippet backpurple "set purple background" b
+backpurple="$(printf '\033[45m')"
+$0
+endsnippet
+
+snippet backcyan "set cyan background" b
+backcyan="$(printf '\033[46m')"
+$0
+endsnippet
+
+snippet backwhite "set white background" b
+backwhite="$(printf '\033[47m')"
+$0
+endsnippet
+
+

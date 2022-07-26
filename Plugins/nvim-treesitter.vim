@@ -10,7 +10,7 @@ require'nvim-treesitter.configs'.setup {
         "lua",
         "javascript",
         "markdown",
---        "markdown_inline",
+        "markdown_inline",
         "c",
         "bibtex",
         "css",
