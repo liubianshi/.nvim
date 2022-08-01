@@ -78,15 +78,15 @@ augroup LBS
 augroup END
 
 " Global {{{1
-noremap <A-x> :<c-u>FzfCommand<cr>
-imap <A-;> <esc><localleader>
+noremap <A-x> :<c-u>FzfLua commands<cr>
+inoremap <silent> <A-;> <esc>A;<enter>
+inoremap <silent> <A-space> <esc>A
+inoremap <silent> <A-enter> <esc>A<cr>
+
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 vnoremap <silent> p "_dP
 vnoremap <silent> < <gv
 vnoremap <silent> > >gv
-nnoremap <buffer> <silent> <leader>pi :<c-u>call mdip#MarkdownClipboardImage()<CR>
-
-
 
 " Terminal {{{1 
 tnoremap <A-space> <C-\><C-n>
@@ -370,8 +370,6 @@ nmap <silent> gr <Plug>(coc-references)
 
 
 " 输入法 {{{1
-"inoremap <expr> <PageUp>   Lbs_Input_Env_Zh()
-"inoremap <expr> <PageDown> Lbs_Input_Env_En()
 inoremap <silent><expr> ;; Lbs_Input_Env_En()
 inoremap <silent><expr> ;f Lbs_Input_Env_Zh()
 

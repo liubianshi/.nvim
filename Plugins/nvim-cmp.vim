@@ -30,6 +30,7 @@ vim.lsp.protocol.CompletionItemKind = {
     '♛ [type]'
 }
 
+local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 cmp.setup({
     menu = {
 
@@ -39,9 +40,6 @@ cmp.setup({
     },
     snippet = {
         expand = function(args)
-            --vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-            -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-            -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
             vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
         end,
     },
@@ -67,10 +65,35 @@ cmp.setup({
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true
-        }),
+        ['<CR>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                local selected_entry = cmp.get_selected_entry()
+                if selected_entry then
+                    if selected_entry.source.name == "flypy" then
+                        cmp.abort()
+                        vim.fn.feedkeys(" ")
+                    else
+                        cmp.confirm()
+                    end
+                else
+                    fallback()
+                end
+            else
+                fallback()
+            end
+        end, {"i", "s"}
+        ),
+        ["<Space>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                local selected_entry = cmp.core.view:get_selected_entry()
+                if selected_entry
+                    and selected_entry.source.name == "flypy"
+                    and not cmp.confirm({select=true}) then
+                     return fallback()
+                end
+            end
+            fallback()
+        end, {"i","s",}),
         ['<C-Space>'] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true
@@ -79,8 +102,6 @@ cmp.setup({
             i = function(fallback)
                 if cmp.visible() then
                     cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-                elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                    vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
                 else
                     fallback()
                 end
@@ -91,28 +112,16 @@ cmp.setup({
                 else
                     fallback()
                 end
-            end
-        }),
-        ["<S-Tab>"] = cmp.mapping({
-            i = function(fallback)
-                if cmp.visible() then
-                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-                elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-                    return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
-                else
-                    fallback()
-                end
             end,
-            s = function(fallback)
-                if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-                    return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
-                else
-                    fallback()
-                end
-            end
-        }),
+        }), 
+        ["<S-Tab>"] = cmp.mapping(
+            function(fallback)
+                cmp_ultisnips_mappings.jump_backwards(fallback)
+            end, {"i", "s"}
+        ),
     }),
     sources = cmp.config.sources({
+        { name = 'flypy' },
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'ultisnips' }, -- For ultisnips users.
@@ -122,7 +131,6 @@ cmp.setup({
         { name = 'treesitter' },
         { name = 'ctags' }, 
         { name = 'vim-dadbod-completion' },
-        { name = 'flypy' },
     }, {
         { name = 'omni' },
         { name = 'path' },

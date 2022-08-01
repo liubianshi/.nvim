@@ -8,10 +8,11 @@ let maplocalleader = ';'
 source ~/.config/nvim/lbs_function.vim
 
 " Install plug.vim when necessary {{{1
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs 
+                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " load package {{{1
@@ -34,21 +35,21 @@ endfunction
 Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 
 " fcitx {{{2
-if(has("mac"))
-    Plug 'CodeFalling/fcitx-vim-osx'
-    "Plug 'rlue/vim-barbaric'
-else
-    Plug 'lilydjwg/fcitx.vim'    " Linux 下优化中文输入法切换
-endif
+"if(has("mac"))
+"    Plug 'CodeFalling/fcitx-vim-osx'
+"    "Plug 'rlue/vim-barbaric'
+"else
+"    Plug 'lilydjwg/fcitx.vim'    " Linux 下优化中文输入法切换
+"endif
 
 " theme {{{2
 Plug 'NLKNguyen/papercolor-theme'
 "Plug 'Th3Whit3Wolf/one-nvim'
 "Plug 'flazz/vim-colorschemes' , { 'on': [] }    " 主题管理
-Plug 'morhetz/gruvbox'                          " 主题
+"Plug 'morhetz/gruvbox'                          " 主题
 "Plug 'rakr/vim-one'
 "Plug 'ayu-theme/ayu-vim'
-Plug 'sainnhe/sonokai'
+"Plug 'sainnhe/sonokai'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'mhartington/oceanic-next'
 
@@ -57,7 +58,7 @@ Plug 'akinsho/bufferline.nvim'        " buffer line (with minimal tab integratio
 Plug 'hoob3rt/lualine.nvim'           " neovim statusline plugin written in pure lua
 
 " nerdtree {{{2
-"Plug 'scrooloose/nerdtree',    { 'on':  'NERDTreeToggle' }
+" Plug 'scrooloose/nerdtree',    { 'on':  'NERDTreeToggle' }
 " Plug 'ryanoasis/vim-devicons'
 "    doau User nerdtree call Lbs_Load_Plug_Confs(['nerdtree', 'vim-devicons'])
 
@@ -66,13 +67,13 @@ Plug 'rbgrouleff/bclose.vim'          " lf.vim 插件依赖，关闭 buffer，�
 Plug 'ptzz/lf.vim'                    " 文件管理
     let g:lf_map_keys = 0
 
+
 " vim-translator
 " Plug 'voldikss/vim-translator'
 
 " fzf {{{2
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
-"Plug 'junegunn/fzf.vim'
 
 " leaderF {{{2
 "Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
@@ -96,12 +97,14 @@ Plug 'hotoo/pangu.vim',              {'on': []}
 Plug 'lervag/wiki.vim'
 
 " text objects {{{2
-Plug 'godlygeek/tabular'            " 对齐文本插件
+"Plug 'godlygeek/tabular'            " 对齐文本插件
+Plug 'junegunn/vim-easy-align'
+
+
 "Plug 'tpope/vim-surround'           " 快速给词加环绕符号
 Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-repeat'             " 重复插件操作
-"Plug 'tpope/vim-abolish'            " 高效的文本替换工具
-Plug 'scrooloose/nerdcommenter'     " 注释插件
+Plug 'tpope/vim-commentary'         " Comment stuff out
 Plug 'justinmk/vim-sneak'           " The missing motion for vim
 Plug 'easymotion/vim-easymotion'    " 高效移动指标插件
 Plug 'liubianshi/vim-easymotion-chs' " tricks to allow easymotion recognize Chinese chars
@@ -122,7 +125,7 @@ Plug 'liubianshi/Nvim-R'
 Plug 'poliquin/stata-vim', { 'on': [] }       " stata 语法高亮
 
 " csv / tsv {{{3
-Plug 'mechatroner/rainbow_csv'
+Plug 'mechatroner/rainbow_csv', { 'for': [ 'csv', 'tsv' ]}
 
 " perl 
 " Plug 'WolfgangMehner/perl-support', { 'for': ['perl'] }
@@ -143,8 +146,7 @@ Plug 'voldikss/vim-floaterm'
 " asyncrun {{{3
 Plug 'skywind3000/asyncrun.vim'       " 异步执行终端程序
 Plug 'skywind3000/asynctasks.vim'
-Plug 'skywind3000/vim-terminal-help'
-" obsession {{{3
+"Plug 'skywind3000/vim-terminal-help'
 "Plug 'tpope/vim-obsession', { 'on': [] }            " tmux Backup needed
 
 " vimcmdline {{{3
@@ -169,10 +171,11 @@ Plug 'onsails/lspkind.nvim'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 "Plug 'kdheepak/cmp-latex-symbols'
 if ! has('mac')
-    Plug 'wasden/cmp-flypy.nvim', { 'do': 'make' }
+    Plug 'wasden/cmp-flypy.nvim', { 'do': 'make flypy' }
 endif
 
 " vim-dict {{{2
+Plug 'ahmedkhalf/project.nvim'
 Plug 'ludovicchabant/vim-gutentags'
 " Plug 'skywind3000/vim-dict', { 'for': ['markdown', 'pandoc', 'rmarkdown', 'rmd'] }
 
@@ -221,7 +224,7 @@ Plug 'beauwilliams/focus.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-orgmode/orgmode'
 Plug 'kyazdani42/nvim-web-devicons'
-" Plug 'folke/trouble.nvim'
+Plug 'folke/trouble.nvim'
 " Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
 " Plug 'kevinhwang91/nvim-bqf'
 
