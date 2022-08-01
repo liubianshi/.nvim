@@ -17,7 +17,7 @@ setlocal concealcursor=nvc
 syn match helpSpecial		"^\s*\[[A-Z]\{1,2}\] \w\+"
 syn match helpInclude		"\[[A-Z]\{1,2}\]"
 syn match helpHeader		"\s*\zs.\{-}\ze\s\=\~$" nextgroup=helpIgnore
-syn match helpHyperTextJump	"\\\@<!│[#-)!\*+\"-~]\+│" contains=helpBar
+syn match helpHyperTextJump	"\\\@<!│\([^│]\|\n\)\+│" contains=helpBar
 syn match helpHyperTextEntry	"\*[#-)!+-~]\+\*\s"he=e-1 contains=helpStar
 syn match helpHyperTextEntry	"\*[#-)!+-~]\+\*$" contains=helpStar
 if has("conceal")
@@ -31,7 +31,7 @@ else
 endif
 syn match helpCommand		"`[^` \t]\+`"hs=s+1,he=e-1 contains=helpBacktick
 syn match helpCommand		"\(^\|[^a-z"[]\)\zs`[^`]\+`\ze\([^a-z\t."']\|$\)"hs=s+1,he=e-1 contains=helpBacktick
-
+syn match helpComment		"^ vim:.*$"
 
 " Highlight group items in their own color.
 syn match helpURL `\v<(((https?|ftp|gopher)://|(mailto|file|news):)[^' 	<>"]+|(www|web|w3)[a-z0-9_-]*\.[a-z0-9._-]+\.[^' 	<>"]+)[a-zA-Z0-9/]`
@@ -95,10 +95,10 @@ hi def link helpHeader		PreProc
 hi def link helpSectionDelim	PreProc
 hi def link helpVim		Identifier
 hi def link helpCommand		Comment
-hi def link helpExample		Comment
+hi def link helpExample		Special
 hi def link helpOption		Type
 hi def link helpSpecial		Special
-hi def link helpNote		Todo
+hi def link helpNote		SpecialChar
 hi def link helpWarning		Todo
 hi def link helpDeprecated	Todo
 

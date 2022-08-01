@@ -89,9 +89,9 @@ if !exists('g:no_plugin_maps')
 
 endif
 
-nnoremap <buffer> <localleader>H :STATAHELP<cr>
-nnoremap <buffer> <localleader>rh :call Lbs_StataGenHelpDocs(expand('<cword>'))<cr>
-vnoremap <silent><buffer> <localleader>rh  "y:<c-u>call Lbs_StataGenHelpDocs(@")<cr>
+nnoremap <silent> <localleader>H :Shelp<cr>
+nnoremap <silent> <localleader>rh :<C-U><C-R>=printf("Shelp %s", expand("<cword>"))<CR><CR>
+vnoremap <silent> <localleader>rh  ""y:<C-U><C-R>=printf("Shelp %s", @")<CR><cR>
 
 setlocal bufhidden=wipe
 setlocal nonumber

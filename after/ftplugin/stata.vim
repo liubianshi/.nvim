@@ -87,7 +87,7 @@ command! -nargs=0 STATAPREVIEW call <sid>Stata_Preview_Data()
 nnoremap <buffer> <localleader><space> :call <SID>StataSyncVarlistGraphlist()<cr>:STATADO<Space>
 nnoremap <buffer> <localleader>G :STATADO G<cr>
 nnoremap <buffer> <localleader>V :STATAPREVIEW<cr>
-nnoremap <buffer> <localleader>H :StataHelp<cr>
+nnoremap <buffer> <localleader>H :Shelp<cr>
 nnoremap <buffer> <localleader>S :STATADO VimSync_graphname_varlist<cr>
 
 " Set options ---------------------------------------------------------------- {{{2
@@ -124,7 +124,7 @@ nnoremap <buffer> <localleader>vx :STATADO return list<cr>
 nnoremap <buffer> <localleader>vX :STATADO ereturn list<cr>
 
 " help ----------------------------------------------------------------------- {{{2
-nnoremap <buffer> <localleader>rh :call Lbs_StataGenHelpDocs(expand('<cword>'))<cr><cr>
+nnoremap <buffer> <localleader>rh :<C-U><C-R>=printf("Shelp %s", expand("<cword>"))<CR><CR>
 vnoremap <silent><buffer> <localleader>rh  :<c-u>call <SID>Stata_help(visualmode())<cr><cr>
 nnoremap <silent><buffer> <localleader>hm :set opfunc=<SID>Stata_help<cr>g@
 nnoremap <buffer> <localleader>hp :StataHelpPDF<cr>
@@ -176,3 +176,4 @@ wk.register({
 }, {buffer = 0} )
 
 EOF
+
