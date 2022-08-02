@@ -183,7 +183,7 @@ nnoremap <silent> <leader>on :FloatermNew nnn<CR>
 nnoremap <silent> <leader>oo :AsyncRun xdg-open "%"<cr>
 nnoremap <silent> <leader>op :<c-u>execute "cd" expand("%:p:h")<cr>
 nnoremap <silent> <leader>or :<C-U>AsyncRun 
-nnoremap <silent> <leader>ot :<C-U>Leaderf! task --nowrap<cr>
+" nnoremap <silent> <leader>ot :<C-U>Leaderf! task --nowrap<cr>
 nnoremap <silent> <leader>oz :<c-u>call ToggleZenMode()<cr>
 nnoremap <silent> <leader>oZ :Goyo<cr>
 command! RUN FloatermNew --name=repl --wintype=normal --position=right

@@ -76,7 +76,6 @@ function projects(opts)
     for _, path in ipairs(project_dirs) do
       add_entry(path)
     end
-
     local fzf_fn = function(cb)
       for _, entry in ipairs(entries) do
         cb(entry, function(err)
@@ -132,7 +131,14 @@ vim.keymap.set('n', '<leader>bB', function()
         end
         fzf_cb()
     end)()
-    end)
+    end, {
+        fzf_opts = { ['+m'] = ''},
+        actions = {
+            ['default'] = function(selected, opts)
+                local bufno = string.gsub(selected[1], ":.*", '')
+                vim.cmd('buffer ' .. bufno)
+            end,
+        }, })
 end, opts)
 
 -- 通过 fasd 跳转文件 {{{2
@@ -187,6 +193,33 @@ vim.api.nvim_create_user_command('Shelp', function(opts)
     })
     end, { nargs = '*' })
 
+-- asynctasks
+vim.keymap.set('n', '<leader>ot', function()
+    --local tasks = {{name = "file-run", scope = "<global>", command = "test"}}
+    tasks = vim.fn['asynctasks#list']('')
+    local tasktable = {}
+    for i, b in ipairs(tasks) do
+        tasktable[i] = b['name'] .. '  <' .. b['scope'] .. '>  : ' .. b['command']
+    end
+    require'fzf-lua'.fzf_exec(tasktable, {
+        fzf_opts = {
+            ['--no-multi'] = '',
+            ['--preview-window'] = 'hidden',
+        },
+        winopts = {
+            height           = 0.25, 
+            width            = 0.55,
+            row              = 0.45,
+            col              = 0.50,
+        },
+        actions = {
+            ['default'] = function(selected, opts)
+                local name = string.gsub(selected[1], "%s+<.*", '')
+                vim.cmd('AsyncTask ' .. name)
+            end,
+        }
+    })
+end)
 EOF
 
 " normal keymaps {{{2

@@ -32,7 +32,7 @@ function! UpdateRemotePlugins(...)
   let &rtp=&rtp
   UpdateRemotePlugins
 endfunction
-Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+"Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 
 " fcitx {{{2
 "if(has("mac"))
@@ -241,15 +241,6 @@ if has('mac')
     let g:lbs_input_status = "os_input_change -g"
     let g:lbs_input_method_inactivate = "os_input_change -s 1"
     let g:lbs_input_method_activate = "os_input_change -s 0"
-    "let g:lbs_input_method_off = 1
-    "let g:lbs_input_status = "xkbswitch -g"
-    "let g:lbs_input_method_inactivate = "xkbswitch -s 1"
-    "let g:lbs_input_method_activate = "xkbswitch -s 4"
-    "let g:lbs_input_method_on = 4
-    "let g:lbs_input_status = "fcitx-remote"
-    "let g:lbs_input_method_inactivate = "fcitx-remote -c"
-    "let g:lbs_input_method_activate = "fcitx-remote -o"
-    "let g:lbs_input_method_on = 2
 else
     let g:lbs_input_status = "fcitx5-remote"
     let g:lbs_input_method_inactivate = "fcitx5-remote -c"
