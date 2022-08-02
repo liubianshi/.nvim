@@ -134,7 +134,7 @@ cmp.setup({
     }, {
         { name = 'omni' },
         { name = 'path' },
-        {name = 'buffer'}
+        { name = 'buffer'}
     }),
 })
 
@@ -156,6 +156,13 @@ cmp.setup.cmdline('/', {
   }
 })
 
+cmp.setup.cmdline('?', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
@@ -170,10 +177,11 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 local servers = {
     'jedi_language_server',
     'tsserver',
-    'perlpls',
+    'vimls',
+    'perlls',
     'r_language_server',
 }
-for _, lsp in pairs(servers) do
+for _, lsp in ipairs(servers) do
   require('lspconfig')[lsp].setup {
       capabilities = capabilities,
   }

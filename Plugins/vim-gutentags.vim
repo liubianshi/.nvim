@@ -5,6 +5,7 @@ let g:gutentags_generate_on_missing = 1
 let g:gutentags_generate_on_new = 1
 let g:gutentags_generate_on_write = 1
 let g:gutentags_background_update = 1
+"let g:gutentags_trace = 1
 
 " 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
 "let s:vim_tags = expand('~/.cache/tags')
@@ -14,6 +15,9 @@ let g:gutentags_background_update = 1
 "   silent! call mkdir(s:vim_tags, 'p')
 "endif
 
+if has('mac')
+    let g:gutentags_ctags_executable='/opt/homebrew/bin/ctags'
+endif
 " 同时开启 ctags 和 gtags 支持：
 let g:gutentags_modules = []
 if executable('ctags')

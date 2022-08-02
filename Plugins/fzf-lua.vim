@@ -36,7 +36,7 @@ require('fzf-lua').setup({
     }
   },
   fzf_opts  = {
-      ['--preview'] = vim.fn.shellescape("printf {1} | sed -E 's/^[^\\s]+\\s//' | xargs scope"),
+      ['--preview'] = vim.fn.shellescape("printf {1} | sed -E 's/^[^\\/\\sA-z]+\\s//' | xargs scope"),
   }, 
   files = {
       previewer = "builtin",
@@ -48,8 +48,7 @@ require('fzf-lua').setup({
 -- integration with project.nvim {{{2
 local _previous_cwd
 function projects(opts)
-    if not opts then opts = {} end
-
+  if not opts then opts = {} end
   local project_hist = vim.fn.stdpath("data") .. "/project_nvim/project_history"
   if not vim.loop.fs_stat(project_hist) then return end
   local project_dirs = vim.fn.readfile(project_hist)
@@ -92,13 +91,23 @@ function projects(opts)
       ['--preview']         = vim.fn.shellescape("exa --color always -T -L 2 -lh $HOME/{2}"),
     }
 
-    local selected = require'fzf-lua.core'.fzf(opts, fzf_fn)
-    if not selected then return end
-    _previous_cwd = vim.loop.cwd()
-    local newcwd = selected[1]:match("[^ ]*$")
-    newcwd = require'fzf-lua.path'.starts_with_separator(newcwd) and newcwd
-      or require'fzf-lua.path'.join({ vim.fn.expand('$HOME'), newcwd })
-    vim.cmd("cd " .. newcwd)
+    local get_cwd = function(selected)
+        if not selected then return end
+        _previous_cwd = vim.loop.cwd()
+        local newcwd = selected[1]:match("[^ ]*$")
+        newcwd = require'fzf-lua.path'.starts_with_separator(newcwd) and newcwd
+            or require'fzf-lua.path'.join({ vim.fn.expand('$HOME'), newcwd })
+        return(newcwd)
+    end
+
+    opts.actions = {
+        ['default'] = function(selected, opts)
+            wd = get_cwd(selected)
+            vim.cmd("cd " .. wd)
+            require("fzf-lua").files({ cwd = wd})
+        end,
+    }
+    require'fzf-lua'.fzf_exec(fzf_fn, opts)
   end)()
 end
 vim.keymap.set('n', '<leader>p', projects, ops)
@@ -106,6 +115,7 @@ vim.keymap.set('n', '<leader>p', projects, ops)
 -- 列出常规 buffer {{{2
 vim.keymap.set('n', '<leader>i', function()
     require'fzf-lua'.fzf_exec("bibtex-ls ~/Documents/paper_ref.bib",{
+        preview = "",
         actions = {
             ['default'] = function(selected, opts)
                 local r = vim.fn.system("bibtex-cite -prefix='@' -postfix='' -separator='; @'", selected)

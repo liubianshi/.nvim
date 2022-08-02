@@ -55,9 +55,8 @@ lspconfig.jedi_language_server.setup({ on_attach = on_attach_custom })
 lspconfig.vimls.setup{ on_attach = on_attach_custom }
 
 -- perl (perlls) =========================================================
-lspconfig.perlpls.setup({
+lspconfig.perlls.setup({
     on_attach = on_attach_custom,
-    cmd = { "~/perl5/bin/pls" },
     single_file_support = true,
 })
 

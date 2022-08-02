@@ -23,7 +23,7 @@ wk.register({
 ["<leader>z"] = {name = '+Fold'},
 ["<leader>T"] = {name = '+translate'},
 ["<leader>fl"] = {name = "+lf"},
-["<leader>fr"] = {n = "Open Recent File"},
+["<leader>fr"] = {name = "Open Recent File"},
 ["<tab>t"] = {name = "+Tab mode"},
 ["sr"] = {name = "+surfraw"},
 ["srh"] = {name = "github"},
