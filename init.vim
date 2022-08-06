@@ -52,6 +52,7 @@ Plug 'NLKNguyen/papercolor-theme'
 "Plug 'sainnhe/sonokai'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'mhartington/oceanic-next'
+Plug 'folke/tokyonight.nvim'
 
 " Airline {{{2
 Plug 'akinsho/bufferline.nvim'        " buffer line (with minimal tab integration) for neovim
