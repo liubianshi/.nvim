@@ -1,6 +1,12 @@
 " 个人全局变量
 let g:plugs_lbs_conf = {}               " 用于记录插件个人配置文件的载入情况
 
+" math equation preview {{{1
+function! Lbs_Math_Preview() range
+    return
+endfunction
+
+
 " 代码格式化 {{{1
 function! Lbs_RFormat() range
     if g:rplugin.nvimcom_port == 0
@@ -165,16 +171,16 @@ function ToggleZenMode()
     if &number == 1
         setlocal nonumber
         setlocal norelativenumber
-        setlocal foldcolumn=4
-        highlight FoldColumn guifg=bg
-        return 0
+        setlocal foldcolumn=8
+        " highlight FoldColumn guifg=bg
+        return
     endif
     if &number == 0
-        highlight FoldColumn guifg=grey
-        setlocal foldcolumn=2
+        " highlight FoldColumn guifg=grey
+        setlocal foldcolumn=4
         setlocal number
         setlocal relativenumber
-        return 0
+        return
     endif
 endfunction
 

@@ -7,6 +7,7 @@ require'nvim-treesitter.configs'.setup {
         "python",
         "bash",
         "vim",
+        "org",
         "lua",
         "javascript",
 --        "markdown",
@@ -20,7 +21,7 @@ require'nvim-treesitter.configs'.setup {
 
     highlight = {
         enable = true,
-        disable = { "c" },
+        disable = {  },
         additional_vim_regex_highlighting = false,
     },
 }

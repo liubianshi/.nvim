@@ -1,5 +1,5 @@
 lua << EOF
-local ops = { silent = true, noremap = false }
+local mapopts = { silent = true, noremap = true }
 local actions = require "fzf-lua.actions"
 local fileactions = {
             ['default'] = actions.file_edit,
@@ -110,7 +110,7 @@ function projects(opts)
     require'fzf-lua'.fzf_exec(fzf_fn, opts)
   end)()
 end
-vim.keymap.set('n', '<leader>p', projects, ops)
+vim.keymap.set('n', '<leader>p', projects, mapopts)
 
 -- 列出常规 buffer {{{2
 vim.keymap.set('n', '<leader>i', function()
@@ -124,7 +124,7 @@ vim.keymap.set('n', '<leader>i', function()
             end,
         }
     })
-end, ops)
+end, mapopts)
 
 -- 列出所有 buffers {{{2
 vim.keymap.set('n', '<leader>bB', function()
@@ -162,14 +162,14 @@ vim.keymap.set('n', '<leader>fz', function()
             ["alt-q"]       = actions.file_sel_to_qf,
         }
     })
-end, ops)
+end, mapopts)
 
 -- 查看当前文件所在文件夹下的其他文件 --{{{2
 vim.keymap.set('n', '<leader>.', function()
     require'fzf-lua'.fzf_exec("fd -H -t f . " .. vim.fn.expand("%:p:h"), {
         actions = fileactions,
     })
-end, ops)
+end, mapopts)
 
 -- 定义查询 stata 帮助文件的命令 --{{{2
 vim.api.nvim_create_user_command('Shelp', function(opts)
@@ -230,6 +230,27 @@ vim.keymap.set('n', '<leader>ot', function()
         }
     })
 end)
+
+-- vim command fuzzy search --------------------------------------------- {{{2
+vim.keymap.set('n', '<A-x>', function()
+    require'fzf-lua'.commands({
+        winopts = {
+--            split            = "belowright 10new",
+            height = 0.35,
+            width  = 1,
+            row = 1,
+            col = 0,
+            preview = {
+                horizontal= 'right:40%',
+                layout = 'horizontal',
+            },
+        },
+        fzf_opts = {
+            ['--no-multi'] = '',
+            ['--layout'] = 'default',
+        }
+    })
+end, mapopts)
 EOF
 
 " normal keymaps {{{2
@@ -247,7 +268,6 @@ nnoremap <silent> <leader>gb :<c-u>FzfLua git_braches<cr>
 
 
 nnoremap <silent> <leader>ss :<C-U>FzfLua resume<CR>
-nnoremap <silent> <leader>sc :<C-U>FzfLua commands<CR>
 nnoremap <silent> <leader>s: :<C-U>FzfLua command_history<CR>
 nnoremap <silent> <leader>s/ :<C-U>FzfLua search_history<CR>
 nnoremap <silent> <leader>sC :<C-U>FzfLua colorschemes<CR>

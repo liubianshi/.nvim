@@ -27,7 +27,7 @@ nnoremap <buffer> <silent> <leader>nH
 noremap <buffer> <silent> <leader>nh
     \ :r  !xclip -o -t text/html -sel clip \| pandoc -f html -t markdown_strict<cr>
 "setlocal tw=78 formatoptions=tcroqlnmB1j tabstop=4 shiftwidth=4
-    \ brk= formatexpr= indentexpr=
+"    \ brk= formatexpr= indentexpr=
 let &formatlistpat = '^\s*\d\+\.\s\+\|^[-*+]\s\+\|^\[^\ze[^\]]\+\]:'
 
 UltiSnipsAddFiletype rmd.r.markdown.pandoc

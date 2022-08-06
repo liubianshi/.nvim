@@ -78,7 +78,6 @@ augroup LBS
 augroup END
 
 " Global {{{1
-noremap <A-x> :<c-u>FzfLua commands<cr>
 inoremap <silent> <A-;> <esc>A;<enter>
 inoremap <silent> <A-space> <esc>A
 inoremap <silent> <A-enter> <esc>A<cr>
@@ -361,12 +360,25 @@ noremap  <m-u> :PreviewScroll -1<cr>
 noremap  <m-d> :PreviewScroll +1<cr>
 inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
 inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
+function! MdPreview(view = 0) range  abort
+    if (a:view == 0 && (exists("b:mdviewer_open") && b:mdviewer_open == '1'))
+        let command = "mdviewer -q"
+    else
+        let command = "mdviewer"
+    endif
+    call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command, 1, a:firstline, a:lastline)
+    let b:mdviewer_open = '1'
+endfunction
+nnoremap <localleader>v vip:call MdPreview()<cr>
+nnoremap <localleader>V vip:call MdPreview()<cr>
+vnoremap <localleader>v :call MdPreview()<cr>
+vnoremap <localleader>V :call MdPreview(1)<cr>
 
 " objects: ctags and gtags {{{1
 "noremap <silent> gd :<C-U><C-R>=printf("Leaderf gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
 "noremap <silent> gr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
+"nmap <silent> gd <Plug>(coc-definition)
+"nmap <silent> gr <Plug>(coc-references)
 
 
 " 输入法 {{{1
