@@ -32,7 +32,7 @@ function! UpdateRemotePlugins(...)
   let &rtp=&rtp
   UpdateRemotePlugins
 endfunction
-"Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 
 " fcitx {{{2
 "if(has("mac"))
@@ -44,12 +44,8 @@ endfunction
 
 " theme {{{2
 Plug 'NLKNguyen/papercolor-theme'
-"Plug 'Th3Whit3Wolf/one-nvim'
-"Plug 'flazz/vim-colorschemes' , { 'on': [] }    " 主题管理
-"Plug 'morhetz/gruvbox'                          " 主题
-"Plug 'rakr/vim-one'
-"Plug 'ayu-theme/ayu-vim'
-"Plug 'sainnhe/sonokai'
+Plug 'morhetz/gruvbox'                          " 主题
+Plug 'ayu-theme/ayu-vim'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'mhartington/oceanic-next'
 Plug 'folke/tokyonight.nvim'

@@ -370,7 +370,7 @@ function! MdPreview(view = 0) range  abort
     let b:mdviewer_open = '1'
 endfunction
 nnoremap <localleader>v vip:call MdPreview()<cr>
-nnoremap <localleader>V vip:call MdPreview()<cr>
+nnoremap <localleader>V vip:call MdPreview(1)<cr>
 vnoremap <localleader>v :call MdPreview()<cr>
 vnoremap <localleader>V :call MdPreview(1)<cr>
 
