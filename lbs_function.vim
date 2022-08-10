@@ -168,10 +168,24 @@ endfunction
 
 " Zen {{{1 
 function ToggleZenMode()
+    let ww = winwidth(0)
     if &number == 1
         setlocal nonumber
         setlocal norelativenumber
-        setlocal foldcolumn=8
+        setlocal nofoldenable
+        setlocal noshowmode
+        setlocal noruler
+        setlocal laststatus=0
+        set noshowcmd
+        if ww < 60
+            setlocal foldcolumn=0
+        elseif ww < 80
+            setlocal foldcolumn=2
+        elseif ww < 90
+            setlocal foldcolumn=4
+        else
+            setlocal foldcolumn=8
+        endif
         " highlight FoldColumn guifg=bg
         return
     endif
@@ -180,6 +194,11 @@ function ToggleZenMode()
         setlocal foldcolumn=4
         setlocal number
         setlocal relativenumber
+        setlocal foldenable
+        setlocal showmode
+        setlocal ruler
+        setlocal laststatus=2
+        setlocal showcmd
         return
     endif
 endfunction
