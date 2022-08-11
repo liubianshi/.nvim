@@ -43,8 +43,7 @@ Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 "endif
 
 " theme {{{2
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'morhetz/gruvbox'                          " 主题
+Plug 'luisiacc/gruvbox-baby'                          " 主题
 Plug 'ayu-theme/ayu-vim'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'mhartington/oceanic-next'

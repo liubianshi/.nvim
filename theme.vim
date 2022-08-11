@@ -4,7 +4,7 @@ endif
 set background=dark        " 设置颜色模式
 set guifont=monospace:h14
 function! s:RandomTheme() abort
-    let cc = ['OceanicNext', 'kanagawa', 'tokyonight', 'ayu', 'gruvbox', 'PaperColor']
+    let cc = ['OceanicNext', 'kanagawa', 'ayu', 'gruvbox-baby']
     let r = rand() % len(cc)
     exec 'colorscheme ' . cc[r]
 endfunction

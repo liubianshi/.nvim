@@ -150,6 +150,6 @@ augroup Fcitx
                 \ <space>  Lbs_Space(symbol_dict)
     autocmd BufRead,BufNew *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org inoremap <silent><expr><buffer>
                 \ <bs> Lbs_bs()
-    autocmd FileType mail inoremap <silent><expr><buffer> <space>  Lbs_Space(symbol_dict)
-    autocmd FileType mail inoremap <silent><expr><buffer> <bs> Lbs_bs()
+    autocmd FileType mail,org inoremap <silent><expr><buffer> <space>  Lbs_Space(symbol_dict)
+    autocmd FileType mail,org inoremap <silent><expr><buffer> <bs> Lbs_bs()
 augroup END

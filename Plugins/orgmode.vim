@@ -13,13 +13,26 @@ require'nvim-treesitter.configs'.setup {
   ensure_installed = {'org'}, -- Or run :TSUpdate org
 }
 
+local orglib = "~/Documents/Writing/"
 require('orgmode').setup({
-  org_agenda_files = {'~/Documents/Writing/*', '~/Documents/Writing/**/*'},
-  org_default_notes_file = '~/Documents/Writing/refile.org',
+  org_agenda_files = { orglib .. '*', orglib .. '**/*'},
+  org_default_notes_file = orglib .. 'refile.org',
   org_todo_keywords = {'TODO(t)', 'PROJ(p)', 'LOOP(r)', 'STRT(s)', 'WAIT(w)', 'HOLD(h)', 'IDEA(i)', '|', 'DONE(d)', 'KILL(k)'},
   org_highlight_latex_and_related = 'entities',
   org_indent_mode = 'indent',
   diagnostics = false,
+  org_capture_templates = {
+        t = {
+            description = 'Todo',
+            template = '\n* TODO %?\n %T',
+            target = orglib .. 'todo.org',
+        },
+        j = {
+            description = 'Short Journal',
+            template = '\n*** %<%Y-%m-%d> %<%A>\n**** %U\n\n%?',
+            target = orglib .. 'journal.org'
+        },
+  },
 })
 EOF
 
