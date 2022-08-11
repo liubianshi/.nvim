@@ -167,39 +167,50 @@ function! QuickfixToggle()
 endfunction
 
 " Zen {{{1 
-function ToggleZenMode()
+function! s:zenmodeinsert() abort
     let ww = winwidth(0)
-    if &number == 1
-        setlocal nonumber
-        setlocal norelativenumber
-        setlocal nofoldenable
-        setlocal noshowmode
-        setlocal noruler
-        setlocal laststatus=0
-        set noshowcmd
-        if ww < 60
-            setlocal foldcolumn=0
-        elseif ww < 80
-            setlocal foldcolumn=2
-        elseif ww < 90
-            setlocal foldcolumn=4
-        else
-            setlocal foldcolumn=8
-        endif
-        " highlight FoldColumn guifg=bg
+    let b:zen_oriwin = { 'zenmode': 1,
+                       \ 'foldcolumn': &foldcolumn,
+                       \ 'number': &number,
+                       \ 'relativenumber': &relativenumber,
+                       \ 'foldenable': &foldenable,
+                       \ }
+    setlocal nonumber
+    setlocal norelativenumber
+    setlocal nofoldenable
+    set laststatus=0
+    set noshowcmd
+    if ww < 81
+        setlocal foldcolumn=0
+    elseif ww < 85
+        setlocal foldcolumn=2
+    elseif ww < 90
+        setlocal foldcolumn=4
+    else
+        setlocal foldcolumn=8
+    endif
+endfunction
+function! s:zenmodeleave() abort
+    set laststatus=2
+    set noshowcmd
+    if !exists('b:zen_oriwin')
         return
     endif
-    if &number == 0
-        " highlight FoldColumn guifg=grey
-        setlocal foldcolumn=4
-        setlocal number
-        setlocal relativenumber
-        setlocal foldenable
-        setlocal showmode
-        setlocal ruler
-        setlocal laststatus=2
-        setlocal showcmd
-        return
+    for attr in keys(b:zen_oriwin)
+        if attr ==# 'zenmode'
+            let b:zen_oriwin[attr] = 0
+        elseif attr ==# 'foldcolumn'
+            exec 'setlocal ' . attr . "=" . b:zen_oriwin[attr]
+        elseif b:zen_oriwin[attr] == 1
+            exec 'setlocal ' . attr
+        endif
+    endfor
+endfunction
+function! ToggleZenMode() abort
+    if ! exists('b:zen_oriwin') || b:zen_oriwin['zenmode'] == 0
+        call <SID>zenmodeinsert()
+    else
+        call <SID>zenmodeleave()
     endif
 endfunction
 
