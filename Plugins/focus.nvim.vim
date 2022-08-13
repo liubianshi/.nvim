@@ -1,8 +1,8 @@
 lua << EOF
 require("focus").setup({
-    width = 90,
-    minwidth = 50,
-    bufnew = true,
+    width = 86,
+    minwidth = 30,
+    bufnew = false,
     autoresize = true,
     excluded_buftypes = {"help", "terminal", "nofile", "promp", "popup"},
     excluded_filetypes = {"rbrowser", "floaterm", "rdoc", "fzf", "voomtree"},
