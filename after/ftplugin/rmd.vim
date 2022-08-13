@@ -13,6 +13,7 @@ catch /E117/
 endtry
 
 
+nnoremap <buffer><silent> <M-t> :<c-u>Voom pandoc<cr>
 nmap <silent> <localleader>tv yiw:<c-u>call R_view_df_sample('ht')<cr>
 nmap <silent> <localleader>tr yiw:<c-u>call R_view_df_sample('r')<cr>
 nmap <silent> <localleader>th yiw:<c-u>call R_view_df_sample('h')<cr>

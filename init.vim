@@ -86,6 +86,7 @@ Plug 'andymass/vim-matchup'
 " Pandoc and Rmarkdown {{{2
 Plug 'vim-pandoc/vim-pandoc',        {'on': []}
 Plug 'vim-pandoc/vim-pandoc-syntax', {'on': []}
+Plug 'vim-voom/VOoM'
 Plug 'ferrine/md-img-paste.vim',     {'on': []}
 Plug 'hotoo/pangu.vim',              {'on': []}
 

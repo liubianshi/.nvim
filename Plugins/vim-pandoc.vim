@@ -10,5 +10,5 @@ let g:pandoc#folding#level = 2
 let g:pandoc#folding#fold_yaml = 1
 let g:pandoc#folding#fastfolds = 1
 let g:pandoc#folding#fold_fenced_codeblocks = 0
-"let g:tex_conceal = "admgs"
-let g:tex_conceal = ""
+let g:tex_conceal = "adgm"
+let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby", "perl", "r", "bash=sh"]

@@ -3,6 +3,7 @@ for plugname in ['vim-pandoc', 'vim-pandoc-syntax', 'md-img-paste.vim', 'pangu.v
 endfor
 let g:PasteImageFunction = 'g:MarkdownPasteImage'
 
+nnoremap <buffer><silent> <M-t> :<c-u>Voom pandoc<cr>
 nnoremap <buffer> <leader>pp               :Pandoc pdf -H ~/useScript/header.tex<cr>
 nnoremap <buffer> <leader>ph               :Pandoc html<cr>
 nnoremap <buffer> <silent> <localleader>pi :<c-u>call mdip#MarkdownClipboardImage()<CR>
