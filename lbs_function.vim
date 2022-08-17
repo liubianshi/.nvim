@@ -181,7 +181,7 @@ function! s:zenmodeinsert() abort
     set laststatus=0
     set noshowcmd
     if ww < 81
-        setlocal foldcolumn=0
+        setlocal foldcolumn=1
     elseif ww < 85
         setlocal foldcolumn=2
     elseif ww < 90

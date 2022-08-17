@@ -32,9 +32,7 @@ vim.lsp.protocol.CompletionItemKind = {
 
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 cmp.setup({
-    menu = {
-
-    },
+    menu = {},
     completion = {
         keyword_length = 2,
     },
@@ -53,7 +51,12 @@ cmp.setup({
     formatting = {
         fields = { "kind", "abbr", "menu" },
         format = function(entry, vim_item)
-            local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+            local kind = require("lspkind").cmp_format({
+                mode = "symbol_text",
+                maxwidth = 50,
+                -- 显示默认选项的颜色daxt
+                CmpItemKindProperty = { fg = "#EED8DA", bg = "#B5585F" },
+            })(entry, vim_item)
             local strings = vim.split(kind.kind, "%s", { trimempty = true })
             kind.kind = " " .. strings[1] .. " "
             kind.menu = "    (" .. strings[2] .. ")"

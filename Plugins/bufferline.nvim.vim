@@ -1,3 +1,12 @@
 lua << EOF
-require("bufferline").setup {}
+require"bufferline".setup{
+    highlights = {
+        fill = {
+            guibg = {
+                attribute = "bg",
+                highlight = "bg", 
+            }
+        }
+    }
+}
 EOF
