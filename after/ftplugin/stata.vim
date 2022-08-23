@@ -8,7 +8,7 @@ let b:cache_path = "./.vim"
 let b:varlist = []
 let b:graphlist = []
 let b:macrolist = []
-let b:cached_data = "/tmp/stata_preview.tsv"
+let b:cached_data = b:cache_path . "/stata_preview.tsv"
 
 " Load Pluguin needed ======================================================== {{{1
 call Lbs_Load_Plug('stata-vim')
@@ -18,6 +18,8 @@ call Lbs_Load_Plug("vimcmdline")
 " Stata Preview data --------------------------------------------------------- {{{2
 function! s:Stata_Preview_Data() abort
     call Lbs_preview_data(b:cached_data, "stata_preview_bufnr")
+    setlocal readonly
+    setlocal buftype="tmpfile"
 endfunction
 
 " 定义 Stata Motion 函数 ----------------------------------------------------- {{{2

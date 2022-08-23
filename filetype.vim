@@ -11,4 +11,5 @@ augroup filetypedetect
     autocmd BufNewFile,BufRead *.smcl   set filetype=smcl
     autocmd BufNewFile,BufRead *.org   set filetype=org
     autocmd BufNewFile,BufRead *.bibtex   set filetype=bibtex
+    autocmd BufNewFile,BufRead *.tsv   set filetype=tsv
 augroup END
