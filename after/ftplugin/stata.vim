@@ -155,8 +155,8 @@ nnoremap <silent><buffer> <localleader>sS :STATADO Snap, r<cr>
 nnoremap <silent><buffer> <localleader>sl :STATADO snapshot list _all<cr>
 
 " quick insert
-inoremap ;/ <ESC>A<space>///<cr>
-nnoremap ;/ A<space>///<cr>
+inoremap ;<enter> <ESC>A<space>///<cr>
+inoremap ;/ " ///<cr><tab>+ "<esc>
 
 " which key desc ============================================================= {{{1
 lua <<EOF
@@ -176,6 +176,5 @@ wk.register({
 ["<localleader>v"] = {name = "view data, local, estimates et.al"},
 ["<localleader>,"] = {name = "+options set"},
 }, {buffer = 0} )
-
 EOF
 

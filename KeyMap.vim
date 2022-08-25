@@ -205,8 +205,8 @@ nnoremap <leader>eu :edit ~/.config/nvim/UltiSnips<cr>
 
 " search by surfraw {{{2
 noremap <silent> <leader>ss :<C-U>SR<space>
-vnoremap <silent> S "0y:<C-U>SR google <C-R>0<CR>
-nnoremap <silent> S :<C-U><C-R>=printf("SR google %s", expand("<cword>"))<CR><CR>
+vnoremap <silent> <c-s> "0y:<C-U>SR google <C-R>0<CR>
+nnoremap <silent> <c-s> :<C-U><C-R>=printf("SR google %s", expand("<cword>"))<CR><CR>
 nnoremap <silent> srh :<C-U><C-R>=printf("SR github %s", expand("<cword>"))<CR><CR>
 vnoremap <silent> srh "0y:<C-U>SR github <C-R>0<CR>
 

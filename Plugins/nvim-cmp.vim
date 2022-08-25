@@ -43,7 +43,7 @@ cmp.setup({
     },
     window = {
         completion = {
-            winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+            winhighlight = "CursorLine:PmenuSel,Normal:Pmenu,FloatBorder:Pmenu,Search:None",
             col_offset = -3,
             side_padding = 0,
         },
@@ -54,13 +54,10 @@ cmp.setup({
             local kind = require("lspkind").cmp_format({
                 mode = "symbol_text",
                 maxwidth = 50,
-                -- 显示默认选项的颜色daxt
-                CmpItemKindProperty = { fg = "#EED8DA", bg = "#B5585F" },
             })(entry, vim_item)
             local strings = vim.split(kind.kind, "%s", { trimempty = true })
             kind.kind = " " .. strings[1] .. " "
             kind.menu = "    (" .. strings[2] .. ")"
-
             return kind
         end,
     },
