@@ -1,13 +1,15 @@
 " vim: set ft=vim fdm=marker nowrap:
+runtime autoload/syntaxcomplete.vim
 setlocal foldmethod=marker
 setlocal foldmarker={,}
-"let b:AutoPairs = g:AutoPairs
-"let b:AutoPairs['`']="'" 
+setlocal cindent
+
 let b:keywords = ['des', 'codebook', 'tab', 'gdistinct', 'graph tw']
 let b:cache_path = "./.vim"
 let b:varlist = []
 let b:graphlist = []
 let b:macrolist = []
+let b:keywordlist = OmniSyntaxList()
 let b:cached_data = b:cache_path . "/stata_preview.tsv"
 
 " Load Pluguin needed ======================================================== {{{1
@@ -64,16 +66,50 @@ endfunction
 " 将最新的变量名和标签写入 ./.varlist.tsv, 同时设置 buffer 变量 b:varlist -------- {{{2
 function! s:StataSyncVarlistGraphlist() abort
     call VimCmdLineSendCmd("VimSync_graphname_varlist")
-    let l:varlist = split(system("cut -f1 ./.vim/.varlist.tsv"), "\n")
-    let l:graphlist = split(system("cut -f1 ./.vim/.graphlist.tsv"), "\n")
+    let l:varlist = split(system("cut -f1 ./.vim/varlist.tsv"), "\n")
+    let l:graphlist = split(system("cut -f1 ./.vim/graphlist.txt"), "\n")
+    let l:macrolist = split(system("cut -f1 ./.vim/macrolist.txt"), "\n")
     let b:varlist = l:varlist
     let b:graphlist = l:graphlist
+	let b:macrolist = l:macrolist
 endfunction
 
-" 生成向 Stata 发送代码的 vim 命令，并且配置常用方法和变量补全 --------------- {{{2
+let s:prepended = ''
+function! StataComplete(findstart, base)
+    if a:findstart
+        let line = getline('.')
+        let start = col('.') - 1
+        let lastword = -1
+        while start > 0
+            if line[start - 1] =~ '\k'
+                let start -= 1
+                let lastword = a:findstart
+            else
+                break
+            endif
+        endwhile
+        if lastword == -1
+            let s:prepended = ''
+            return start
+        endif
+        let s:prepended = strpart(line, start, (col('.') - 1) - start)
+        return start
+    endif 
 
+    let base = substitute(s:prepended, "'", "''", 'g')
+    let compl_list = b:macrolist + b:varlist + b:graphlist + b:keywordlist
+
+    if base != ''
+        let expr = 'v:val =~#' . " '^" . escape(base, '\\/.*$^~[]') . ".*'"
+        let compl = filter(deepcopy(compl_list), expr)
+    endif
+    return compl
+endfunction
+setlocal omnifunc=StataComplete
+
+" 生成向 Stata 发送代码的 vim 命令，并且配置常用方法和变量补全 --------------- {{{2
 function! s:StataCommandComplete(A, L, P)
-    let commandlist = b:keywords + b:varlist + b:graphlist
+    let commandlist = b:macrolist + b:varlist + b:graphlist + b:keywordlist
     call filter(commandlist, 'v:val =~# "^' . a:A . '"')
     return commandlist
 endfunction
@@ -86,7 +122,8 @@ command! -nargs=0 STATAPREVIEW call <sid>Stata_Preview_Data()
 " Mapping ==================================================================== {{{1
 
 " Send Comamand -------------------------------------------------------------- {{{2
-nnoremap <buffer> <localleader><space> :call <SID>StataSyncVarlistGraphlist()<cr>:STATADO<Space>
+nnoremap <buffer> <localleader>: :call <SID>StataSyncVarlistGraphlist()<cr>:STATADO<Space>
+nnoremap <buffer> <localleader><space> :call <SID>StataSyncVarlistGraphlist()<cr>
 nnoremap <buffer> <localleader>G :STATADO G<cr>
 nnoremap <buffer> <localleader>V :STATAPREVIEW<cr>
 nnoremap <buffer> <localleader>H :Shelp<cr>
@@ -114,12 +151,12 @@ vnoremap <silent><buffer> <localleader>v  :<c-u>call <SID>Stata_view(visualmode(
 nnoremap <silent><buffer> <localleader>vm :set opfunc=<SID>Stata_view<cr>g@
 nnoremap <buffer> <localleader>rv :call VimCmdLineSendCmd("codebook " . expand('<cword>'))<cr>
 vnoremap <buffer> <localleader>rv y:call VimCmdLineSendCmd("codebook " . @")<cr>
-nnoremap <buffer> <localleader>vr :STATADO V if runiform <= 100/_N<cr>:STATAPREVIEW<cr>
+nnoremap <buffer> <localleader>vr :STATADO V if runiform() <= 100/_N<cr>:STATAPREVIEW<cr>
 nnoremap <buffer> <localleader>vh :STATADO V in 1/100<cr>:STATAPREVIEW<cr>
 nnoremap <buffer> <localleader>vt :STATADO V if _n >= _N - 100<cr>:STATAPREVIEW<cr>
 nnoremap <buffer> <localleader>va :STATADO V<cr>:STATAPREVIEW<cr>
-nnoremap <buffer> <localleader>vv :STATADO backup_varlist<cr>:r! xsv table -d '\t' ./.vim/.varlist.tsv \| perl -pe '$_ = "*│ " . $_'<cr>
-nnoremap <buffer> <localleader>vo :STATADO backup_varlist<cr>:50vsplit ./.vim/.varlist.tsv<cr>:RainbowAlign<cr>
+nnoremap <buffer> <localleader>vv :STATADO backup_varlist<cr>:r! xsv table -d '\t' ./.vim/varlist.tsv \| perl -pe '$_ = "*│ " . $_'<cr>
+nnoremap <buffer> <localleader>vo :STATADO backup_varlist<cr>:50vsplit ./.vim/varlist.tsv<cr>:RainbowAlign<cr>
 nnoremap <buffer> <localleader>ve :STATADO estimates dir<cr>
 nnoremap <buffer> <localleader>vl :STATADO macro dir<cr>
 nnoremap <buffer> <localleader>vx :STATADO return list<cr>
@@ -162,12 +199,14 @@ inoremap ;/ " ///<cr><tab>+ "<esc>
 lua <<EOF
 local wk = require("which-key")
 wk.register({
-["<localleader><space>"] = {name = "Send Command"},
+["<localleader><space>"] =  { "Sync Element" },
+["<localleader>:"] = { "Send Command"},
+["<localleader>H"] = {"Help Document"},
+["<localleader>G"] = {"Preview Graph"},
 ["<localleader>b"] = {name = "Block"},
 ["<localleader>d"] = {name = "describe"},
 ["<localleader>f"] = {name = "factor variable operator"},
 ["<localleader>h"] = {name = "stata help"},
-["<localleader>H"] = {name = "fzf_help"},
 ["<localleader>L"] = {name = "log operator"},
 ["<localleader>n"] = {name = "numeric variable operator"},
 ["<localleader>p"] = {name = "Paragraph"},
