@@ -33,7 +33,7 @@ require('fzf-lua').setup({
     },
     man = {
         cmd ="echo %s | tr -d \'()\'  | xargs -r man | col -bx"
-    }
+    },
   },
   fzf_opts  = {
       ['--preview'] = vim.fn.shellescape("printf {1} | sed -E 's/^[^\\/\\sA-z]+\\s//' | xargs scope"),
@@ -43,6 +43,19 @@ require('fzf-lua').setup({
       prompt    = 'Files❯ ',
       file_icons = true,
   },
+  grep = {
+      winopts = { 
+          -- split = "belowright new",
+          height = 0.4,
+          width  = 1,
+          row = 1,
+          col = 0,
+          preview = {
+              horizontal= 'right:40%',
+              layout = 'horizontal',
+          },
+      }
+  }
 })
 
 -- integration with project.nvim {{{2
@@ -174,7 +187,7 @@ end, mapopts)
 -- 定义查询 stata 帮助文件的命令 --{{{2
 vim.api.nvim_create_user_command('Shelp', function(opts)
     require'fzf-lua'.fzf_exec(",sh -l " .. opts.args, {
-        preview = ",sh -o term {2..}",
+        preview = ",sh -o term -f {2..}",
         fzf_opts = {
             ['--no-multi'] = '',
         },

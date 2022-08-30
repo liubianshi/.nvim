@@ -1,8 +1,9 @@
 for plugname in ['Nvim-R', 'vim-pandoc', 'vim-pandoc-syntax', 'md-img-paste.vim', 'pangu.vim']
-    call Lbs_Load_Plug(plugname)
+    call utils#Load_Plug(plugname)
+    call utils#Load_Plug(plugname)
 endfor
 
-let g:PasteImageFunction = 'g:RmarkdownPasteImage'
+"let g:PasteImageFunction = 'g:RmarkdownPasteImage'
 
 " set fdm=expr
 runtime ftplugin/pandoc.vim
@@ -14,18 +15,18 @@ endtry
 
 
 nnoremap <buffer><silent> <M-t> :<c-u>Voom pandoc<cr>
-nmap <silent> <localleader>tv yiw:<c-u>call R_view_df_sample('ht')<cr>
-nmap <silent> <localleader>tr yiw:<c-u>call R_view_df_sample('r')<cr>
-nmap <silent> <localleader>th yiw:<c-u>call R_view_df_sample('h')<cr>
-nmap <silent> <localleader>tt yiw:<c-u>call R_view_df_sample('t')<cr>
-nmap <silent> <localleader>tV yiw:<c-u>call R_view_df_full(30)<cr>
-vmap <silent> <localleader>tv y:<c-u>call   R_view_df_sample('ht')<cr>
-vmap <silent> <localleader>tr y:<c-u>call   R_view_df_sample('r')<cr>
-vmap <silent> <localleader>th y:<c-u>call   R_view_df_sample('h')<cr>
-vmap <silent> <localleader>tt y:<c-u>call   R_view_df_sample('t')<cr>
-vmap <silent> <localleader>tV y:<c-u>call   R_view_df_full(30)<cr>
-nmap <silent> <localleader>t1 :<c-u>call    R_view_srdm_table()<cr>
-nmap <silent> <localleader>t2 :<c-u>call    R_view_srdm_var()<cr>
+nmap <silent> <localleader>tv yiw:<c-u>call utils#R_view_df_sample('ht')<cr>
+nmap <silent> <localleader>tr yiw:<c-u>call utils#R_view_df_sample('r')<cr>
+nmap <silent> <localleader>th yiw:<c-u>call utils#R_view_df_sample('h')<cr>
+nmap <silent> <localleader>tt yiw:<c-u>call utils#R_view_df_sample('t')<cr>
+nmap <silent> <localleader>tV yiw:<c-u>call utils#R_view_df_full(30)<cr>
+vmap <silent> <localleader>tv y:<c-u>call   utils#R_view_df_sample('ht')<cr>
+vmap <silent> <localleader>tr y:<c-u>call   utils#R_view_df_sample('r')<cr>
+vmap <silent> <localleader>th y:<c-u>call   utils#R_view_df_sample('h')<cr>
+vmap <silent> <localleader>tt y:<c-u>call   utils#R_view_df_sample('t')<cr>
+vmap <silent> <localleader>tV y:<c-u>call   utils#R_view_df_full(30)<cr>
+nmap <silent> <localleader>t1 :<c-u>call    utils#R_view_srdm_table()<cr>
+nmap <silent> <localleader>t2 :<c-u>call    utils#R_view_srdm_var()<cr>
 
 inoremap <silent> <A-\>          %>%
 inoremap <silent> <A-\|>         %<>%
@@ -70,7 +71,7 @@ UltiSnipsAddFiletype rmd.r.markdown.pandoc
 nnoremap <silent> <leader>rp               :AsyncRun ~/useScript/rmarkdown.sh %<cr>
 nnoremap <silent> <leader>rh               :AsyncRun ~/useScript/rmarkdown.sh -o bookdown::html_document2 %<cr>
 nnoremap <silent> <leader>nc               :RNrrw<cr>:set filetype=r<cr>
-nnoremap <silent> <localleader>pr :<c-u>call RmdClipBoardImage()<CR>
+nnoremap <silent> <localleader>pr          :<c-u>call utils#RmdClipBoardImage()<CR>
 nnoremap <silent> <localleader>kbp         :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::pdf_book")<cr>
 nnoremap <silent> <localleader>kbh         :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::html_book")<cr>
 nnoremap <silent> <localleader>kbo         :<c-u>! xdg-open ./_book/draft.pdf<cr> 

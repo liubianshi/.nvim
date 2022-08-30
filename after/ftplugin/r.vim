@@ -1,5 +1,7 @@
-"call Lbs_Load_Plug("Nvim-R")
-"call Lbs_Load_Plug('ale')
+"call utils#Load_Plug("Nvim-R")
+"call utils#Load_Plug("Nvim-R")
+"call utils#Load_Plug('ale')
+"call utils#Load_Plug('ale')
 
 " Function =================================================================== {{{1
 let b:cached_data = "/tmp/r_obj_preview.tsv"
@@ -10,18 +12,18 @@ nnoremap <buffer> <localleader>dl :<c-u>RSend devtools::load_all()<cr>
 nnoremap <buffer> <localleader>dd :<c-u>RSend devtools::document()<cr>
 nnoremap <buffer> <localleader>dt :<c-u>RSend devtools::test()<cr>
 
-nmap <buffer> <localleader>tv yiw:<c-u>call R_view_df_sample('ht')<cr>
-nmap <buffer> <localleader>tr yiw:<c-u>call R_view_df_sample('r')<cr>
-nmap <buffer> <localleader>th yiw:<c-u>call R_view_df_sample('h')<cr>
-nmap <buffer> <localleader>tt yiw:<c-u>call R_view_df_sample('t')<cr>
-nmap <buffer> <localleader>tV yiw:<c-u>call R_view_df_full(30)<cr>
-vmap <buffer> <localleader>tv y:<c-u>call   R_view_df_sample('ht')<cr>
-vmap <buffer> <localleader>tr y:<c-u>call   R_view_df_sample('r')<cr>
-vmap <buffer> <localleader>th y:<c-u>call   R_view_df_sample('h')<cr>
-vmap <buffer> <localleader>tt y:<c-u>call   R_view_df_sample('t')<cr>
-vmap <buffer> <localleader>tV y:<c-u>call   R_view_df_full(30)<cr>
-nmap <buffer> <localleader>t1 :<c-u>call    R_view_srdm_table()<cr>
-nmap <buffer> <localleader>t2 :<c-u>call    R_view_srdm_var()<cr>
+nmap <buffer> <localleader>tv yiw:<c-u>call utils#R_view_df_sample('ht')<cr>
+nmap <buffer> <localleader>tr yiw:<c-u>call utils#R_view_df_sample('r')<cr>
+nmap <buffer> <localleader>th yiw:<c-u>call utils#R_view_df_sample('h')<cr>
+nmap <buffer> <localleader>tt yiw:<c-u>call utils#R_view_df_sample('t')<cr>
+nmap <buffer> <localleader>tV yiw:<c-u>call utils#R_view_df_full(30)<cr>
+vmap <buffer> <localleader>tv y:<c-u>call   utils#R_view_df_sample('ht')<cr>
+vmap <buffer> <localleader>tr y:<c-u>call   utils#R_view_df_sample('r')<cr>
+vmap <buffer> <localleader>th y:<c-u>call   utils#R_view_df_sample('h')<cr>
+vmap <buffer> <localleader>tt y:<c-u>call   utils#R_view_df_sample('t')<cr>
+vmap <buffer> <localleader>tV y:<c-u>call   utils#R_view_df_full(30)<cr>
+nmap <buffer> <localleader>t1 :<c-u>call    utils#R_view_srdm_table()<cr>
+nmap <buffer> <localleader>t2 :<c-u>call    utils#R_view_srdm_var()<cr>
 
 inoremap <buffer> <A-\>          %>%
 inoremap <buffer> <A-\|>         %<>%

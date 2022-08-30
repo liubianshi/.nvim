@@ -10,3 +10,8 @@ let g:r_syntax_folding = 1
 let g:markdown_folding = 1
 let g:pandoc_folding = 1
 let g:rmd_folding = 1
+
+
+nnoremap <silent> <leader>zu <Plug>(FastFoldUpdate)
+xnoremap iz :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zv[z<cr>
+xnoremap az :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zV[z<cr>

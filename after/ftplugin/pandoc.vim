@@ -1,7 +1,12 @@
 for plugname in ['vim-pandoc', 'vim-pandoc-syntax', 'md-img-paste.vim', 'pangu.vim']
-    call Lbs_Load_Plug(plugname)
+    call utils#Load_Plug(plugname)
 endfor
 let g:PasteImageFunction = 'g:MarkdownPasteImage'
+
+" Text objects for Markdown code blocks.
+xnoremap <buffer><silent> ic :<C-U>call text_obj#MdCodeBlock('i')<CR>
+xnoremap <buffer><silent> ac :<C-U>call text_obj#MdCodeBlock('a')<CR>
+onoremap <buffer><silent> ic :<C-U>call text_obj#MdCodeBlock('i')<CR>
 
 nnoremap <buffer><silent> <M-t> :<c-u>Voom pandoc<cr>
 nnoremap <buffer> <leader>pp               :Pandoc pdf -H ~/useScript/header.tex<cr>

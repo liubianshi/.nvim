@@ -2,8 +2,8 @@
 " Gui ==================================================================== {{{1
 set mouse=a                " 支持使用鼠标
 set clipboard+=unnamedplus " 剪切板的整合
-"set lazyredraw             " 只在需要时重绘，出于性能上的考虑
-"set hidden
+set lazyredraw             " 只在需要时重绘，出于性能上的考虑
+set hidden
  
 " 语言环境配置 =========================================================== {{{1
 " perl {{{2
@@ -110,7 +110,7 @@ set shiftround             " 运用 > < 推广缩进至 tabs 整数倍
 set wrapmargin=0           " 指定拆行处与编辑窗口右边缘之间空出的字符数
 set textwidth=0            " 行宽，自动排版所需
 set autoindent             " 自动缩进
-set smartindent            " 智能缩进
+set cindent            " 智能缩进
 set wrap                   " 代码折行
 set breakindent            " 回绕行保持视觉上的缩进
 let &showbreak = ''        " 会绕行放置在开头的字符串

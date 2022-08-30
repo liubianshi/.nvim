@@ -1,6 +1,3 @@
-call Lbs_Load_Plug('stata-vim')
-
-let b:AutoPairs = g:AutoPairs
-let b:AutoPairs['`']="'" 
+call utils#Load_Plug('stata-vim')
 setlocal foldmethod=marker
 setlocal foldmarker={,}

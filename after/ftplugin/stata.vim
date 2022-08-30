@@ -13,8 +13,10 @@ let b:keywordlist = OmniSyntaxList()
 let b:cached_data = b:cache_path . "/stata_preview.tsv"
 
 " Load Pluguin needed ======================================================== {{{1
-call Lbs_Load_Plug('stata-vim')
-call Lbs_Load_Plug("vimcmdline")
+call utils#Load_Plug('stata-vim')
+call utils#Load_Plug('stata-vim')
+call utils#Load_Plug("vimcmdline")
+call utils#Load_Plug("vimcmdline")
 
 " Define Function and Command ================================================ {{{1
 " Stata Preview data --------------------------------------------------------- {{{2

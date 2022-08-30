@@ -9,6 +9,7 @@ require'nvim-treesitter.configs'.setup {
         "vim",
         "org",
         "lua",
+        "dot",
         "javascript",
 --        "markdown",
 --        "markdown_inline",
@@ -23,6 +24,9 @@ require'nvim-treesitter.configs'.setup {
         enable = true,
         disable = {  },
         additional_vim_regex_highlighting = false,
+    },
+    indent = {
+        enable = false,
     },
 }
 EOF

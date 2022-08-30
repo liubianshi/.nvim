@@ -4,14 +4,12 @@ endif
 set background=dark        " 设置颜色模式
 set guifont=monospace:h14
 
-
 function! s:RandomTheme() abort
-    let cc = ['kanagawa', 'ayu', 'gruvbox-baby']
+    let cc = ['kanagawa', 'ayu', 'gruvbox-baby', 'oceanic-next']
     let r = rand() % len(cc)
     exec 'colorscheme ' . cc[r]
 endfunction
 call <SID>RandomTheme()
-
 
 highlight VertSplit cterm=None gui=None guibg=bg
 highlight FoldColumn guibg=bg

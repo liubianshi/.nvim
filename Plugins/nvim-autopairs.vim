@@ -1,5 +1,5 @@
 lua <<EOF
-require('nvim-autopairs').setup{
+require('nvim-autopairs').setup({
     disable_filetype = { "TelescopePrompt" },
     disable_in_macro = false,  -- disable when recording or executing a macro
     disable_in_visualblock = false, -- disable when insert after visual block mode
@@ -13,12 +13,7 @@ require('nvim-autopairs').setup{
     map_bs = false,  -- map the <BS> key
     map_c_h = false,  -- Map the <C-h> key to delete a pair
     map_c_w = false, -- map <c-w> to delete a pair if possible
-}
-
--- If you want insert `(` after select function or method item
--- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
--- local cmp = require('cmp')
--- cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
+})
 
 local Rule = require('nvim-autopairs.rule')
 local npairs = require('nvim-autopairs')
@@ -28,16 +23,47 @@ npairs.add_rules({
     Rule("`", "'", "stata"),
 })
 
--- npairs.setup({
---     fast_wrap = {
---       map = '<M-e>',
---       chars = { '{', '[', '(', '"', "'" },
---       pattern = [=[[%'%"%)%>%]%)%}%,]]=],
---       end_key = '$',
---       keys = 'qwertyuiopzxcvbnmasdfghjkl',
---       check_comma = true,
---       highlight = 'Search',
---       highlight_grey='Comment'
---     },
--- })
+
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+local cmp = require('cmp')
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
+
+local handlers = require('nvim-autopairs.completion.handlers')
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done({
+    filetypes = {
+      -- "*" is a alias to all filetypes
+      ["*"] = {
+        ["("] = {
+          kind = {
+            cmp.lsp.CompletionItemKind.Function,
+            cmp.lsp.CompletionItemKind.Method,
+          },
+          handler = handlers["*"]
+        }
+      },
+      lua = {
+        ["("] = {
+          kind = {
+            cmp.lsp.CompletionItemKind.Function,
+            cmp.lsp.CompletionItemKind.Method
+          },
+          ---@param char string
+          ---@param item item completion
+          ---@param bufnr buffer number
+          handler = function(char, item, bufnr)
+            -- Your handler function. Inpect with print(vim.inspect{char, item, bufnr})
+          end
+        }
+      },
+      -- Disable for tex
+      tex = false
+    }
+  })
+)
+
 EOF

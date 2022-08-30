@@ -1,28 +1,44 @@
-" filetype related init {{{1
-"
-" cmd: start {{{1
+let symbol_dict = {
+            \  ',': "，",
+            \  '.': "。",
+            \  '\': "、",
+            \  ':': "：",
+            \  ';': "；",
+            \  '!': "！",
+            \  '?': "？",
+            \  }
+
+function! s:fasd_update() abort
+  if empty(&buftype) || &filetype ==# 'dirvish'
+    call jobstart(['fasd', '-A', expand('%:p')])
+  endif
+endfunction
+
+" 初始 ================================================================== {{{1
 augroup LOAD_ENTER
 autocmd!
 
-" cmd: global setting {{{1
-autocmd InsertLeave,WinEnter *                          setlocal cursorline
-autocmd InsertEnter,WinLeave *                          setlocal nocursorline
-autocmd TermOpen             *                          setlocal nonumber norelativenumber bufhidden=hide
+" cmd: global setting {{{2
+autocmd InsertLeave,WinEnter *  setlocal cursorline
+autocmd InsertEnter,WinLeave *  setlocal nocursorline
+autocmd TermOpen             *  setlocal nonumber norelativenumber bufhidden=hide
 
-" cmd: TMUX {{{1
-if exists('$TMUX')
-    autocmd BufNewFile,BufRead * call Lbs_Load_Plug('vim-obsession')
-endif
-
-" cmd: floaterm {{{1
-autocmd FileType floaterm nnoremap <buffer> <leader>r :<C-U>FloatermUpdate --wintype=normal --position=right<cr>
-autocmd FileType floaterm nnoremap <buffer> <leader>l :<C-U>FloatermUpdate --wintype=normal --position=left<cr>
-autocmd FileType floaterm nnoremap <buffer> <leader>f :<C-U>FloatermUpdate --wintype=floating --position=topright<cr>
-
+" Fasd {{{1
+autocmd BufWinEnter,BufFilePost * call s:fasd_update()
 augroup END
 
-" Wiki Autocmds {{{1
-"augroup MyWikiAutocmds
-"    autocmd!
-"    autocmd User WikiLinkOpened PandocHighlight r
-"augroup END
+augroup Method_Toggle
+    autocmd!
+    autocmd InsertLeavePre * call input_method#En(1)
+    autocmd InsertEnter * call input_method#Zh(1)
+    autocmd CmdlineEnter [/\?] call input_method#Zh(1)
+    autocmd CmdlineLeave [/\?] call input_method#En(1)
+    autocmd BufRead,BufNew *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org
+        \ inoremap <silent><expr><buffer> <space> input_method#Space(symbol_dict)
+    autocmd BufRead,BufNew *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org
+        \ inoremap <silent><expr><buffer> <bs> input_method#BS()
+    autocmd FileType mail,org
+        \ inoremap <silent><expr><buffer> <space> input_method#Space(symbol_dict)
+    autocmd FileType mail,org
+        \ inoremap <silent><expr><buffer <bs> input_method#BS()>
+augroup END

@@ -36,8 +36,22 @@ let g:Lf_PreviewInPopup = 1
 "noremap <silent> <leader>sg :<C-U><C-R>=printf("Leaderf gtags --all %s", "")<CR><CR>
 "noremap <silent> <leader>sr :<C-U>Leaderf rg --current-buffer -e 
 "noremap <C-B> :<C-U><C-R>=printf("Leaderf rg --current-buffer -e %s ", expand("<cword>"))<CR><CR>
+"noremap <silent> gd :<C-U><C-R>=printf("Leaderf gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+"noremap <silent> gr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
 noremap <silent> gf :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
 noremap <silent> gF :<C-U><C-R>=printf("Leaderf function --all %s", "")<CR><CR>
 noremap <silent> gn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
 noremap <silent> go :<C-U><C-R>=printf("Leaderf gtags --recall %s", "")<CR><CR>
 noremap <silent> gp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+
+let g:Lf_Extensions = get(g:, 'Lf_Extensions', {})
+let g:Lf_Extensions.task = {
+            \ 'source': string(function('s:lf_task_source'))[10:-3],
+            \ 'accept': string(function('s:lf_task_accept'))[10:-3],
+            \ 'get_digest': string(function('s:lf_task_digest'))[10:-3],
+            \ 'highlights_def': {
+            \     'Lf_hl_funcScope': '^\S\+',
+            \     'Lf_hl_funcDirname': '^\S\+\s*\zs<.*>\ze\s*:',
+            \ },
+        \ }
+nnoremap <silent> <leader>ot :<C-U>Leaderf! task --nowrap<cr>

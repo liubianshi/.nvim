@@ -1,24 +1,37 @@
 " Liubianshi's Neovim
 
-" Basic keymap config ==================================================== {{{1
-let mapleader = " "
-let maplocalleader = ';'
+" 设置全局变量 ========================================================== {{{1
+let g:mapleader = " "
+let g:maplocalleader = ';'
+if has('mac')
+    let g:lbs_input_method_on         = 0
+    let g:lbs_input_method_off        = 1
+    let g:lbs_input_status            = "os_input_change -g"
+    let g:lbs_input_method_inactivate = "os_input_change -s 1"
+    let g:lbs_input_method_activate   = "os_input_change -s 0"
+else
+    let g:lbs_input_status            = "fcitx5-remote"
+    let g:lbs_input_method_inactivate = "fcitx5-remote -c"
+    let g:lbs_input_method_activate   = "fcitx5-remote -o"
+    let g:lbs_input_method_off        = 1
+    let g:lbs_input_method_on         = 2
+endif
+let g:plugs_lbs_conf                  = {}        " 用于记录插件个人配置文件的载入情况
+let g:quickfix_is_open                = 0         " 用于记录 quickfix 的打开状态
+let g:input_toggle                    = 1         " 用于记录输入法状态
+let g:data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 
-" load personal global fucntion {{{1
-source ~/.config/nvim/lbs_function.vim
-
-" Install plug.vim when necessary {{{1
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+" Install plug.vim when necessary ======================================= {{{1
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs 
                  \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" load package {{{1
+" load package ========================================================== {{{1
 call plug#begin('~/.local/share/nvim/plugged')
 "Plug 'nathom/filetype.nvim'
-Plug 'lambdalisue/suda.vim' " read or write files with sudo command
+Plug 'lambdalisue/suda.vim'              " read or write files with sudo command
 
 " Vim Highlighter {{{2
 " Plug 'azabiong/vim-highlighter'
@@ -34,33 +47,24 @@ function! UpdateRemotePlugins(...)
 endfunction
 Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 
-" fcitx {{{2
-"if(has("mac"))
-"    Plug 'CodeFalling/fcitx-vim-osx'
-"    "Plug 'rlue/vim-barbaric'
-"else
-"    Plug 'lilydjwg/fcitx.vim'    " Linux 下优化中文输入法切换
-"endif
-
 " theme {{{2
-Plug 'luisiacc/gruvbox-baby'                          " 主题
-Plug 'ayu-theme/ayu-vim'
-Plug 'rebelot/kanagawa.nvim'
-Plug 'mhartington/oceanic-next'
-Plug 'folke/tokyonight.nvim'
+Plug 'luisiacc/gruvbox-baby'       " 主题
+Plug 'ayu-theme/ayu-vim'        
+Plug 'rebelot/kanagawa.nvim'    
+Plug 'mhartington/oceanic-next' 
+Plug 'folke/tokyonight.nvim'    
 
-" Airline {{{2
-Plug 'akinsho/bufferline.nvim'        " buffer line (with minimal tab integration) for neovim
-Plug 'hoob3rt/lualine.nvim'           " neovim statusline plugin written in pure lua
+Plug 'akinsho/bufferline.nvim'           " buffer line (with minimal tab integration) for neovim
+Plug 'hoob3rt/lualine.nvim'              " neovim statusline plugin written in pure lua
 
 " nerdtree {{{2
 " Plug 'scrooloose/nerdtree',    { 'on':  'NERDTreeToggle' }
 " Plug 'ryanoasis/vim-devicons'
-"    doau User nerdtree call Lbs_Load_Plug_Confs(['nerdtree', 'vim-devicons'])
+"    doau User nerdtree call utils#Load_Plug_Confs(['nerdtree', 'vim-devicons'])
 
 " lf {{{2
-Plug 'rbgrouleff/bclose.vim'          " lf.vim 插件依赖，关闭 buffer，但关闭 buffer 所在窗口
-Plug 'ptzz/lf.vim'                    " 文件管理
+Plug 'rbgrouleff/bclose.vim'             " lf.vim 插件依赖，关闭 buffer，但关闭 buffer 所在窗口
+Plug 'ptzz/lf.vim'                       " 文件管理
     let g:lf_map_keys = 0
 
 
@@ -76,8 +80,8 @@ Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 
 " visual_effects {{{2
 "Plug 'junegunn/goyo.vim'
-Plug 'machakann/vim-highlightedyank'  " 高亮显示复制区域
-Plug 'haya14busa/incsearch.vim'       " 加强版实时高亮
+Plug 'machakann/vim-highlightedyank'     " 高亮显示复制区域
+Plug 'haya14busa/incsearch.vim'          " 加强版实时高亮
 "Plug 'mg979/vim-visual-multi',  {'branch': 'master'}
 
 " vim-matchup
@@ -98,15 +102,19 @@ Plug 'lervag/wiki.vim'
 Plug 'junegunn/vim-easy-align'
 
 
-"Plug 'tpope/vim-surround'           " 快速给词加环绕符号
+"Plug 'tpope/vim-surround'               " 快速给词加环绕符号
 Plug 'machakann/vim-sandwich'
-Plug 'tpope/vim-repeat'             " 重复插件操作
-Plug 'tpope/vim-commentary'         " Comment stuff out
-Plug 'justinmk/vim-sneak'           " The missing motion for vim
-Plug 'easymotion/vim-easymotion'    " 高效移动指标插件
-Plug 'liubianshi/vim-easymotion-chs' " tricks to allow easymotion recognize Chinese chars
-"Plug 'wellle/targets.vim'           " 扩展 vim 文本对象
-"Plug 'kana/vim-textobj-user'        " Create your own text objects
+Plug 'tpope/vim-repeat'                  " 重复插件操作
+Plug 'tpope/vim-commentary'              " Comment stuff out
+if has('vim')
+    Plug 'phaazon/hop.nvim'              " 替代 sneak 和 easymotion
+else
+    Plug 'justinmk/vim-sneak'            " The missing motion for vim
+    Plug 'easymotion/vim-easymotion'     " 高效移动指标插件
+    Plug 'liubianshi/vim-easymotion-chs' " tricks to allow easymotion recognize Chinese chars
+endif
+"Plug 'wellle/targets.vim'               " 扩展 vim 文本对象
+"Plug 'kana/vim-textobj-user'            " Create your own text objects
 
 " Snippets {{{2
 Plug 'sirver/UltiSnips'
@@ -114,12 +122,12 @@ Plug 'honza/vim-snippets'
 
 " Filetype {{{2
 " SQL {{{3
-Plug 'tpope/vim-dadbod'             " Modern database interface for Vim
-Plug 'kristijanhusak/vim-dadbod-ui' " Simple UI for vim-dadbod
+Plug 'tpope/vim-dadbod'                  " Modern database interface for Vim
+Plug 'kristijanhusak/vim-dadbod-ui'      " Simple UI for vim-dadbod
 Plug 'kristijanhusak/vim-dadbod-completion', { 'on': [] }
 Plug 'liubianshi/Nvim-R'
 " Plug 'lervag/vimtex', {'on': []}
-Plug 'poliquin/stata-vim', { 'on': [] }       " stata 语法高亮
+Plug 'poliquin/stata-vim', { 'on': [] }  " stata 语法高亮
 
 " csv / tsv {{{3
 Plug 'mechatroner/rainbow_csv', { 'for': [ 'csv', 'tsv' ]}
@@ -181,7 +189,7 @@ Plug 'ludovicchabant/vim-gutentags'
 
 " Git: {{{2
 Plug 'tpope/vim-fugitive', {'on': ['G', 'Gwrite', 'Gcommit', 'Gread', 'Gdiff', 'Gblame']}
-   doau User vim-fugitive call Lbs_Load_Plug_Conf('vim-fugitive')
+   doau User vim-fugitive call utils#Load_Plug_Confs('vim-fugitive')
 
 " Help: {{{2
 "Plug 'liuchengxu/vim-which-key'
@@ -228,23 +236,7 @@ Plug 'folke/trouble.nvim'
 " plug end {{{2
 call plug#end()
 
-" plug config {{{1
-call Lbs_Load_Plug_Confs(keys(g:plugs))
-
-" Personal Global Variables {{{1 
-if has('mac')
-    let g:lbs_input_method_on = 0
-    let g:lbs_input_method_off = 1
-    let g:lbs_input_status = "os_input_change -g"
-    let g:lbs_input_method_inactivate = "os_input_change -s 1"
-    let g:lbs_input_method_activate = "os_input_change -s 0"
-else
-    let g:lbs_input_status = "fcitx5-remote"
-    let g:lbs_input_method_inactivate = "fcitx5-remote -c"
-    let g:lbs_input_method_activate = "fcitx5-remote -o"
-    let g:lbs_input_method_off = 1
-    let g:lbs_input_method_on = 2
-endif
+call utils#Load_Plug_Confs(keys(g:plugs))
 
 " source external files {{{1
 source ~/.config/nvim/basic.vim
@@ -252,6 +244,6 @@ source ~/.config/nvim/theme.vim
 source ~/.config/nvim/KeyMap.vim
 source ~/.config/nvim/autocmd.vim
 source ~/.config/nvim/abbr.vim
-source ~/.config/nvim/fcitx_auto_toggle.vim
+"source ~/.config/nvim/fcitx_auto_toggle.vim
 
 " vim: set fdm=marker :
