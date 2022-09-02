@@ -1,0 +1,34 @@
+snippet dig "Directed Graphs"
+digraph ${1:name} {
+	rankdir = LR;
+	fontname="LWGW Wenkai,sans-serif";
+	$0
+}
+endsnippet
+
+snippet subg "Sub Graphs"
+subgraph ${1:name} {
+	label = "${2:labelname}"
+	$0
+}
+endsnippet
+
+snippet node_cycle_light "Node: Cycle Light"
+node [  shape = circle
+		width = 1.5
+		color="#00000088"
+		style = filled
+		fillcolor = ${1:white} ]
+$0
+endsnippet
+
+snippet node_cycle_dark "Node: Cycle Dark"
+node [  shape = circle
+		width = 1.5
+		color="#00000088"
+		style = filled
+		fontcolor = white
+		fillcolor = ${1:purple} ]
+$0
+endsnippet
+

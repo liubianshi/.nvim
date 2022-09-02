@@ -1,3 +1,4 @@
+" URL Objects =========================================================== {{{1
 " From: https://github.com/jdhao/nvim-config/blob/master/autoload/text_obj.vim
 function! text_obj#URL() abort
   if match(&runtimepath, 'vim-highlighturl') != -1
@@ -54,6 +55,7 @@ function! text_obj#URL() abort
   normal! gv
 endfunction
 
+" Markdown code block =================================================== {{{1
 " From: https://github.com/jdhao/nvim-config/blob/master/autoload/text_obj.vim
 function! text_obj#MdCodeBlock(type) abort
   " the parameter type specify whether it is inner text objects or around
@@ -79,6 +81,7 @@ function! text_obj#MdCodeBlock(type) abort
   execute 'normal! `<V`>'
 endfunction
 
+" Whole Buffer ========================================================== {{{1
 " From: https://github.com/jdhao/nvim-config/blob/master/autoload/text_obj.vim
 function! text_obj#Buffer() abort
   let buf_num = bufnr()
@@ -87,3 +90,4 @@ function! text_obj#Buffer() abort
   call setpos("'>", [buf_num, line('$'), 1, 0])
   execute 'normal! `<V`>'
 endfunction
+

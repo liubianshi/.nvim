@@ -1,8 +1,5 @@
 call utils#Load_Plug("vim-dadbod")
-call utils#Load_Plug("vim-dadbod")
 call utils#Load_Plug("vim-dadbod-ui")
-call utils#Load_Plug("vim-dadbod-ui")
-call utils#Load_Plug("vim-dadbod-competion")
 call utils#Load_Plug("vim-dadbod-competion")
 vnoremap <buffer> <localleader>l :DB<cr>
 nnoremap <buffer> <localleader>l V:DB<cr>

@@ -1,11 +1,9 @@
 "call utils#Load_Plug("Nvim-R")
-"call utils#Load_Plug("Nvim-R")
-"call utils#Load_Plug('ale')
-"call utils#Load_Plug('ale')
 
 " Function =================================================================== {{{1
 let b:cached_data = "/tmp/r_obj_preview.tsv"
-set fdm=marker
+setlocal fdm=marker
+setlocal formatprg=r-format
 
 " Keymap ===================================================================== {{{1
 nnoremap <buffer> <localleader>dl :<c-u>RSend devtools::load_all()<cr>
@@ -67,6 +65,4 @@ wk.register({
 ['x'] = { name = "R comment" },
 }, { buffer = 0, prefix = '<localleader>' })
 EOF
-
-"setlocal formatprg=r-format
 

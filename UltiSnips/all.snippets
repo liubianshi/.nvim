@@ -11,9 +11,9 @@ snippet '"([^"]*)"\ ' "修改双引号" r
 endsnippet
 
 snippet "'([^']*)'\ " "修改单引号" r
-‘`!p snip.rv = match.group(1)`’$0
+「`!p snip.rv = match.group(1)`」$0
 endsnippet
-
+ 
 snippet '^(\s*[-+*:])' "insert ul marker" rb
 `!p snip.rv = match.group(1)`   $0
 endsnippet
@@ -26,7 +26,7 @@ snippet '^(\s*[1-9][0-9])' "insert ol" rb
 `!p snip.rv = match.group(1)`. $0
 endsnippet
 
-
+ 
 snippet printf
 printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
 endsnippet
@@ -38,7 +38,7 @@ endsnippet
 snippet LW "数字签名" b
 ------
 南开大学 APEC 研究中心
-天津市南开区卫津路 94 号南开大学文科创新楼 A108 室（300071）
+天津市南开区卫津路 94 号南开大学文科创新楼 B309 室（300071）
 Tel:  86-22-2349 7558
 E-mail:  weiluonk@gmail.com
 endsnippet

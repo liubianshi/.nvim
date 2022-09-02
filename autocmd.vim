@@ -10,7 +10,7 @@ let symbol_dict = {
 
 function! s:fasd_update() abort
   if empty(&buftype) || &filetype ==# 'dirvish'
-    call jobstart(['fasd', '-A', expand('%:p')])
+    call jobstart(['fasd', '-A', fnameescape(expand('%:p'))])
   endif
 endfunction
 
@@ -18,13 +18,13 @@ endfunction
 augroup LOAD_ENTER
 autocmd!
 
-" cmd: global setting {{{2
+" cmd: global setting --------------------------------------------------- {{{2
 autocmd InsertLeave,WinEnter *  setlocal cursorline
 autocmd InsertEnter,WinLeave *  setlocal nocursorline
 autocmd TermOpen             *  setlocal nonumber norelativenumber bufhidden=hide
 
-" Fasd {{{1
-autocmd BufWinEnter,BufFilePost * call s:fasd_update()
+" Fasd ================================================================== {{{1
+autocmd BufWinEnter,BufFilePost * call <SID>fasd_update()
 augroup END
 
 augroup Method_Toggle

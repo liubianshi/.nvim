@@ -1,4 +1,6 @@
-for plugname in ['vim-pandoc', 'vim-pandoc-syntax', 'md-img-paste.vim', 'pangu.vim']
+for plugname in ['vim-pandoc', 'vim-pandoc-syntax',
+            \    'md-img-paste.vim', 'pangu.vim',
+            \   ]
     call utils#Load_Plug(plugname)
 endfor
 let g:PasteImageFunction = 'g:MarkdownPasteImage'

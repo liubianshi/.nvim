@@ -110,17 +110,14 @@ set shiftround             " 运用 > < 推广缩进至 tabs 整数倍
 set wrapmargin=0           " 指定拆行处与编辑窗口右边缘之间空出的字符数
 set textwidth=0            " 行宽，自动排版所需
 set autoindent             " 自动缩进
-set cindent            " 智能缩进
+set cindent                " 智能缩进
 set wrap                   " 代码折行
 set breakindent            " 回绕行保持视觉上的缩进
 let &showbreak = ''        " 会绕行放置在开头的字符串
 set nolinebreak            " 折行
 
-" 折叠相关{{{1
-function! MyFoldText()
-  return " " . foldtext() . " ··· "
-endfunction
-set foldtext=MyFoldText()
+" 折叠相关 ============================================================== 
+set foldtext=utils#MyFoldText()
 set foldlevel=2             " 折叠层级
 set foldcolumn=3
 set formatoptions=t,n1mp,Bj,coq

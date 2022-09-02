@@ -131,7 +131,6 @@ cmp.setup({
         { name = 'treesitter' },
         { name = 'ctags' }, 
         { name = 'vim-dadbod-completion' },
-    }, {
         { name = 'omni' },
         { name = 'path' },
         { name = 'buffer'}

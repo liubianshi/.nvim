@@ -1,5 +1,6 @@
-for plugname in ['Nvim-R', 'vim-pandoc', 'vim-pandoc-syntax', 'md-img-paste.vim', 'pangu.vim']
-    call utils#Load_Plug(plugname)
+for plugname in ['Nvim-R', 'vim-pandoc', 'vim-pandoc-syntax',
+            \    'md-img-paste.vim', 'pangu.vim',
+            \   ]
     call utils#Load_Plug(plugname)
 endfor
 
