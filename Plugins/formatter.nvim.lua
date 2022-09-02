@@ -52,3 +52,4 @@ fmt.setup({
 local keymap = vim.keymap.set
 local keyopts = { silent = true, noremap = true }
 keymap("n", "<leader>cf", "<cmd>Format<CR>", keyopts)
+keymap("x", "<leader>cf", "<cmd>Format<CR>", keyopts)

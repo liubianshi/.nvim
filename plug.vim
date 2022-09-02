@@ -135,9 +135,10 @@ function! UpdateRemotePlugins(...)
 endfunction
 Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 " Formatter and linter --------------------------------------------------
-Plug 'mhartington/formatter.nvim', { 'for': [ 'vim', 'lua', 'sh', 'perl', 'r',
-                                 \            'html', 'xml', 'css'
-                                 \          ] }
+Plug 'mhartington/formatter.nvim'
+" , { 'for': [ 'lua', 'sh', 'perl', 'r',
+"                                  \            'html', 'xml', 'css'
+"                                  \          ] }
 
 " Writing and knowledge management ====================================== {{{1
 Plug 'vim-pandoc/vim-pandoc',        { 'on': [] }
