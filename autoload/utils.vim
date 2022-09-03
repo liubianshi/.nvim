@@ -523,7 +523,7 @@ function! utils#MyFoldText() abort
         let l:fold_symbol = foldlevel_icon[v:foldlevel] . " " . foldlevel_num[v:foldlevel]
     endif
     let l:fill_char = "─"
-    let l:fill_char_num = &textwidth - strdisplaywidth(l:fold_text) - 6
+    let l:fill_char_num = l:line_width - strdisplaywidth(l:fold_text) - 6
     return printf('%s %s %s %03dL', l:fold_symbol, l:fold_text,
                                    \ repeat(l:fill_char, l:fill_char_num), l:fold_line_num)
 endfunction
