@@ -2,13 +2,17 @@
 " function: add symbol at the end of current line ======================== {{{1
 " Use K to show documentation in preview window. ------------------------- {{{2
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    elseif (index(['perl','perldoc'], &filetype) >= 0)
+        execute 'Perldoc '.expand('<cword>')
+    elseif (index(['stata','statadoc'], &filetype) >= 0)
+        execute 'Shelp '.expand('<cword>')
+    elseif (index(['r', 'rmd', 'rdoc'], &filetype) >= 0)
+        execute 'Rdoc '.expand('<cword>')
+    else
+        execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
 endfunction
 
 " 列出当前文件可运行的命令 ----------------------------------------------- {{{2
@@ -120,7 +124,7 @@ nnoremap <silent> <leader>tN :tablast<cr>
 nnoremap <silent> <leader><enter> :noh<cr>
 nnoremap <silent> <leader>o: :<C-U>FloatermNew 
 nnoremap <silent> <leader>ob :call utils#Status()<cr>
-nnoremap <silent> <leader>od :<c-u>. "$MYVIMRC"<cr>
+nnoremap <silent> <leader>od :<c-u>source "$MYVIMRC"<cr>
 nnoremap <silent> <leader>oh :noh<cr>
 nnoremap <silent> <leader>ol :<C-R>=printf("FloatermSend%s", "")<CR><CR>
 nnoremap <silent> <leader>on :FloatermNew nnn<CR>
@@ -137,6 +141,7 @@ xnoremap <expr>   L utils#Trans2clip()
 " Edit Specific file ===================================================== {{{1
 nnoremap <leader>ev :edit ~/.config/nvim/plug.vim<cr>
 nnoremap <leader>ek :edit ~/.config/nvim/keymap.vim<cr>
+nnoremap <leader>eo :edit ~/.config/nvim/option.vim<cr>
 nnoremap <leader>er :edit ~/.Rprofile<cr>
 nnoremap <leader>es :edit ~/.config/stata/profile.do<cr>
 nnoremap <leader>ez :edit ~/.zshrc<cr>

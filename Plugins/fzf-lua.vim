@@ -37,14 +37,14 @@ require('fzf-lua').setup({
   },
   fzf_opts  = {
       ['--preview'] = vim.fn.shellescape("printf {1} | sed -E 's/^[^\\/\\sA-z]+\\s//' | xargs scope"),
-  }, 
+  },
   files = {
       previewer = "builtin",
       prompt    = 'Files❯ ',
       file_icons = true,
   },
   grep = {
-      winopts = { 
+      winopts = {
           -- split = "belowright new",
           height = 0.4,
           width  = 1,
@@ -132,7 +132,7 @@ vim.keymap.set('n', '<leader>i', function()
         actions = {
             ['default'] = function(selected, opts)
                 local r = vim.fn.system("bibtex-cite -prefix='@' -postfix='' -separator='; @'", selected)
-                vim.api.nvim_command('normal! i' .. r) 
+                vim.api.nvim_command('normal! i' .. r)
                 vim.fn.feedkeys('a', 'n')
             end,
         }
@@ -185,6 +185,24 @@ vim.keymap.set('n', '<leader>.', function()
 end, mapopts)
 
 -- 定义查询 stata 帮助文件的命令 --{{{2
+local Shelp_Action = function(vimcmd)
+    return(function(selected, opts)
+                local path = string.gsub(selected[1], "^.*\t", "")
+                local command = string.gsub(selected[1], " *\t+.*$", "")
+                local r = vim.fn.system(",sh -v -r " .. path)
+                vim.cmd(vimcmd .. " " .. r)
+                vim.cmd('file `="[' .. command .. ']"`' )
+                vim.cmd([[
+                    setlocal bufhidden=delete
+                    setlocal buftype=nofile
+                    setlocal noswapfile
+                    setlocal nobuflisted
+                    setlocal nomodifiable
+                    setlocal nocursorline
+                    setlocal nocursorcolumn
+                ]])
+           end)
+end
 vim.api.nvim_create_user_command('Shelp', function(opts)
     require'fzf-lua'.fzf_exec(",sh -l " .. opts.args, {
         preview = ",sh -o term -f {2..}",
@@ -192,26 +210,10 @@ vim.api.nvim_create_user_command('Shelp', function(opts)
             ['--no-multi'] = '',
         },
         actions = {
-            ['default'] = function(selected, opts)
-                local path = string.gsub(selected[1], "^.*\t", "")
-                local r = vim.fn.system(",sh -v " .. path)
-                vim.cmd("edit " .. r)
-            end,
-            ['ctrl-v'] = function(selected, opts)
-                local path = string.gsub(selected[1], "^.*\t", "")
-                local r = vim.fn.system(",sh -v " .. path)
-                vim.cmd("vsplit " .. r)
-            end,
-            ['ctrl-s'] = function(selected, opts)
-                local path = string.gsub(selected[1], "^.*\t", "")
-                local r = vim.fn.system(",sh -v " .. path)
-                vim.cmd("split " .. r)
-            end,
-            ['ctrl-t'] = function(selected, opts)
-                local path = string.gsub(selected[1], "^.*\t", "")
-                local r = vim.fn.system(",sh -v " .. path)
-                vim.cmd("tabedit " .. r)
-            end,
+            ['default'] = Shelp_Action("edit"),
+            ['ctrl-v'] = Shelp_Action("vsplit"),
+            ['ctrl-s'] = Shelp_Action("split"),
+            ['ctrl-t'] = Shelp_Action("tabedit"),
         }
     })
     end, { nargs = '*' })
@@ -230,7 +232,7 @@ vim.keymap.set('n', '<leader>ot', function()
             ['--preview-window'] = 'hidden',
         },
         winopts = {
-            height           = 0.25, 
+            height           = 0.25,
             width            = 0.55,
             row              = 0.45,
             col              = 0.50,

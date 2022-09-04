@@ -19,3 +19,4 @@ let g:quickfix_is_open                = 0          " 用于记录 quickfix 的�
 let g:input_toggle                    = 1          " 用于记录输入法状态
 let g:complete_method                 = "nvim-cmp" " 用于设定补全的框架
 
+let g:Perldoc_path = $HOME . "/.cache/perldoc/"
