@@ -105,3 +105,26 @@ snippet '# vim' "Description" b
 # vim: set tw=0 nowrap fdm=marker
 endsnippet
 
+
+snippet '@(\w+(?:\,\w+)*)' "Externally callable function" br
+`!p 
+keywords = match.group(1).split(",")
+funname = keywords[0]
+params = "\n#' @param ".join(keywords[1:])
+augument = ", ".join(keywords[1:])
+snip.rv = "# " + funname
+`
+#' ${1:Description}
+#'
+`!p snip.rv = "#' @param " + params`
+#' @return ${2:NULL}
+#'
+#' @example
+#' NULL
+#' export
+`!p snip.rv = funname + " <- function(" + augument + ")"`
+{
+	$0
+}
+endsnippet
+

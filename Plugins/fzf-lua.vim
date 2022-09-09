@@ -101,13 +101,14 @@ function projects(opts)
       ['--no-multi']        = '',
       ['--prompt']          = 'Projects❯ ',
       ['--header-lines']    = '1',
-      ['--preview']         = vim.fn.shellescape("exa --color always -T -L 2 -lh $HOME/{2}"),
+      ['--preview']         = vim.fn.shellescape("exa --color always -T -L 2 -lh $HOME/{2..}"),
     }
 
     local get_cwd = function(selected)
         if not selected then return end
         _previous_cwd = vim.loop.cwd()
-        local newcwd = selected[1]:match("[^ ]*$")
+        local newcwd = selected[1]:match("[A-Za-z0-9_.].*$")
+        print(newcwd)
         newcwd = require'fzf-lua.path'.starts_with_separator(newcwd) and newcwd
             or require'fzf-lua.path'.join({ vim.fn.expand('$HOME'), newcwd })
         return(newcwd)

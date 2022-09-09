@@ -21,6 +21,7 @@ let R_hi_fun_paren = 1
 let R_assign = 0
 let R_rmdchunk = 1
 let R_listmethods = 1
+let R_nvim_wd = 1   " Start R in working directory of vim
 "let R_user_maps_only = 1
 "let rmd_syn_hl_chunk = 1
 "
