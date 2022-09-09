@@ -124,10 +124,10 @@ function projects(opts)
     require'fzf-lua'.fzf_exec(fzf_fn, opts)
   end)()
 end
-vim.keymap.set('n', '<leader>p', projects, mapopts)
+vim.keymap.set('n', '<leader>pp', projects, mapopts)
 
 -- 列出常规 buffer {{{2
-vim.keymap.set('n', '<leader>i', function()
+vim.keymap.set('n', '<leader>ic', function()
     require'fzf-lua'.fzf_exec("bibtex-ls ~/Documents/paper_ref.bib",{
         preview = "",
         actions = {
@@ -293,12 +293,15 @@ nnoremap <silent> <leader>sm :<C-U>FzfLua man_pages<CR>
 nnoremap <silent> <leader>sl :<C-U>FzfLua lgrep_curbuf<CR>
 nnoremap <silent> <leader>sr :<C-U>FzfLua grep<cr>
 nnoremap <silent> <leader>sR :<C-U>FzfLua grep_project<cr>
+nnoremap <silent> <leader>pr :<C-U>FzfLua grep_project<cr>
 nnoremap <silent> <C-B>      :<C-U>FzfLua grep_cword<CR>
 vnoremap <silent> <C-B>      :<C-U>FzfLua grep_visual<CR>
 
 
 noremap <silent> <leader>st :<C-U>FzfLua btags<CR>
 noremap <silent> <leader>sT :<C-U>FzfLua tags<CR>
+noremap <silent> <leader>pt :<C-U>FzfLua tags<CR>
 noremap <silent> <leader>sd :<C-U>FzfLua lsp_document_symbols<CR>
+noremap <silent> <leader>pd :<C-U>FzfLua lsp_document_symbols<CR>
 noremap <silent> <leader>sD :<C-U>FzfLua lsp_live_workspace_symbols<CR>
 
