@@ -1,4 +1,3 @@
-lua <<EOF
 vim.g.did_load_filetypes = 1
 -- In init.lua or filetype.nvim's config file
 require('filetype').setup({
@@ -23,4 +22,3 @@ require('filetype').setup({
         },
     }
 })
-EOF

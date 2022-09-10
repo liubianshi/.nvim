@@ -1,4 +1,3 @@
-lua << EOF
 local present, true_zen = pcall(require, "true-zen")
 if not present then
    return
@@ -67,4 +66,3 @@ true_zen.setup {
    },
 }
 
-EOF

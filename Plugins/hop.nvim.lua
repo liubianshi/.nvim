@@ -1,4 +1,3 @@
-lua <<EOF
 vim.cmd[[ hi HopNextKey cterm=bold ctermfg=176 gui=bold guibg=#ff00ff guifg=#ffffff ]]
 vim.cmd[[ hi HopNextKey1 cterm=bold ctermfg=176 gui=bold guibg=#ff00ff guifg=#ffffff ]]
 vim.cmd[[ hi HopNextKey2 cterm=bold ctermfg=176 gui=bold guibg=#ff00ff guifg=#ffffff ]]
@@ -35,17 +34,3 @@ kset('n', 'ss', function() return hint2({direction = hintA}) end, opts)
 kset('n', 'sS', function() return hint2({direction = hintB}) end, opts)
 kset('n', 'sp', function() return hintp({direction = hintA}) end, opts)
 kset('n', 'sP', function() return hintp({direction = hintB}) end, opts)
-EOF
-
-
-
-
-
-
-
-
-
-
-
-
-" vim: set nowrap:

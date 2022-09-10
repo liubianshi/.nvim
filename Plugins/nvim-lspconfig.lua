@@ -1,6 +1,5 @@
-lua <<EOF
-
 local lspconfig = require('lspconfig')
+local util = require 'lspconfig.util'
 local opts = { noremap = true, silent = true }
 
 -- Preconfiguration ===========================================================
@@ -39,11 +38,9 @@ lspconfig.bashls.setup{
 -- R (r_language_server) =================================================
 lspconfig.r_language_server.setup({
     on_attach = on_attach_custom,
-    -- Debounce "textDocument/didChange" notifications because they are slowly
-    -- processed (seen when going through completion list with `<C-N>`)
+    root_dir = util.root_pattern(".git", ".vim", "NAMESPACE"),
     flags = {
       debounce_text_changes = 150
-
     },
 })
 
@@ -59,5 +56,3 @@ lspconfig.perlls.setup({
     on_attach = on_attach_custom,
     single_file_support = true,
 })
-
-EOF

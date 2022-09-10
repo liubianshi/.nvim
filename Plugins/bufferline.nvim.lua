@@ -1,4 +1,3 @@
-lua << EOF
 require"bufferline".setup{
     highlights = {
         fill = {
@@ -9,4 +8,3 @@ require"bufferline".setup{
         }
     }
 }
-EOF

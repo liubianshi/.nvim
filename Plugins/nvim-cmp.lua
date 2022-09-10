@@ -1,4 +1,3 @@
-lua <<EOF
 -- Setup nvim-cmp.
 local cmp = require'cmp'
 
@@ -186,4 +185,3 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-EOF

@@ -1,4 +1,3 @@
-lua <<EOF
 require('nvim-autopairs').setup({
     disable_filetype = { "TelescopePrompt" },
     disable_in_macro = false,  -- disable when recording or executing a macro
@@ -65,5 +64,3 @@ cmp.event:on(
     }
   })
 )
-
-EOF
