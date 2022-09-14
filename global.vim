@@ -17,6 +17,10 @@ endif
 let g:plugs_lbs_conf                  = {}         " 用于记录插件个人配置文件的载入情况
 let g:quickfix_is_open                = 0          " 用于记录 quickfix 的打开状态
 let g:input_toggle                    = 1          " 用于记录输入法状态
-let g:complete_method                 = "nvim-cmp" " 用于设定补全的框架
+if $NVIM_COMPLETE_METHOD ==? ""                    " 设定补全的框架
+    let g:complete_method             = "cmp" 
+else
+    let g:complete_method             = $NVIM_COMPLETE_METHOD
+endif
 
 let g:Perldoc_path = $HOME . "/.cache/perldoc/"

@@ -9,7 +9,7 @@ let b:cache_path = "./.vim"
 let b:varlist = []
 let b:graphlist = []
 let b:macrolist = []
-let b:keywordlist = OmniSyntaxList()
+let b:keywordlist = uniq(sort(OmniSyntaxList()))
 let b:cached_data = b:cache_path . "/stata_preview.tsv"
 
 " Load Pluguin needed ======================================================== {{{1

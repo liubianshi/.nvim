@@ -66,6 +66,12 @@ xnoremap <silent> p "_dP
 vnoremap <silent> < <gv
 vnoremap <silent> > >gv
 
+" 中文语境下断行 -------------------------------------------------------- {{{2
+noremap <buffer><silent> <A-/>
+    \ ?\v[,.:?")，。)，。：》”；？、」）]<cr>:noh<cr>a<enter><esc>`^g_
+inoremap <buffer><silent> <A-/>
+    \ <esc>?\v[,.:?")，。)，。：》”；？、」）]<cr>:noh<cr>a<enter><esc>`^A
+
 " Change text without putting it into the vim register, ------------------ {{{2
 " see https://stackoverflow.com/q/54255/6064933
 nnoremap c "_c
@@ -225,7 +231,7 @@ inoremap ;. <C-v>u3002
 " 顿号
 inoremap ;\ <C-v>u3001
 
-" preview ================================================================ {{{1
+" preview markdown snippet ============================================== {{{1
 nnoremap <localleader>v vip:call utils#MdPreview()<cr>
 nnoremap <localleader>V vip:call utils#MdPreview(1)<cr>
 vnoremap <localleader>v :call utils#MdPreview()<cr>

@@ -29,11 +29,11 @@ inoremap <buffer> <A-=>          <-<Space>
 imap     <buffer> <A-1>          <Esc><Plug>RDSendLine
 nmap     <buffer> <A-1>          <Plug>RDSendLine
 if has("mac")
-	inoremap <buffer> «          %>%
-	inoremap <buffer> »          %<>%
-	inoremap <buffer> ≠          <-<Space>
-	imap     <buffer> ¡          <Esc><Plug>RDSendLine
-	nmap     <buffer> ¡          <Plug>RDSendLine
+    inoremap <buffer> «          %>%
+    inoremap <buffer> »          %<>%
+    inoremap <buffer> ≠          <-<Space>
+    imap     <buffer> ¡          <Esc><Plug>RDSendLine
+    nmap     <buffer> ¡          <Plug>RDSendLine
 endif
 
 nmap     <buffer> <localleader>l              <Plug>RDSendLine

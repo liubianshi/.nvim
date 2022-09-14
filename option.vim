@@ -119,7 +119,7 @@ set nolinebreak            " 折行
 " 折叠相关 ============================================================== 
 set foldtext=utils#MyFoldText()
 set foldlevel=2             " 折叠层级
-set foldcolumn=3
+set foldcolumn=1
 set formatoptions=t,n1mp,Bj,coq
 set foldmethod=marker
 "set foldmethod=expr

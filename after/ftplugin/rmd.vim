@@ -60,18 +60,15 @@ inoremap <silent> ;b              ** **<C-o>F <c-o>x
 nnoremap <silent> <localleader>ic ysiW`
 nnoremap <silent> <localleader>ab :<c-u>AsyncRun 
     \ xsel -ob >> %:p:h/ref.bib; xsel -ob \| perl -ne 'print "\@$1\n" if ($_ =~ /^\@\w+\{([^,]+)\,/)' >> ~/.config/nvim/paper.dict<cr>
-nnoremap <silent> <leader>nH
-    \ :w !pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
-noremap <silent> <leader>nh
-    \ :r  !xclip -o -t text/html -sel clip \| pandoc -f html -t markdown_strict<cr>
+"nnoremap <silent> <leader>nH
+"    \ :w !pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
+"noremap <silent> <leader>nh
+"    \ :r  !xclip -o -t text/html -sel clip \| pandoc -f html -t markdown_strict<cr>
 setlocal tw=78 formatoptions=tcroqlnmB1j tabstop=4 shiftwidth=4
-    \ brk= formatexpr= formatprg=r-format indentexpr=
+    \ brk= formatexpr= indentexpr=
 UltiSnipsAddFiletype rmd.r.markdown.pandoc
 
 
-nnoremap <silent> <leader>rp               :AsyncRun ~/useScript/rmarkdown.sh %<cr>
-nnoremap <silent> <leader>rh               :AsyncRun ~/useScript/rmarkdown.sh -o bookdown::html_document2 %<cr>
-nnoremap <silent> <leader>nc               :RNrrw<cr>:set filetype=r<cr>
 nnoremap <silent> <localleader>pr          :<c-u>call utils#RmdClipBoardImage()<CR>
 nnoremap <silent> <localleader>kbp         :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::pdf_book")<cr>
 nnoremap <silent> <localleader>kbh         :<c-u>RSend bookdown::render_book("index.Rmd", "bookdown::html_book")<cr>

@@ -1,3 +1,4 @@
+" 预览文档 ============================================================== {{{1
 let s:buf_nr = -1
 function! ft_utils#DocView(lang, keyword = "")
   " base on fuzzyfinder windowmanager
@@ -36,3 +37,4 @@ function! ft_utils#DocView(lang, keyword = "")
 
   au bufhidden <buffer> call let <sid>buf_nr = -1
 endfunction
+

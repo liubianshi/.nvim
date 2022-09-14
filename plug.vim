@@ -109,13 +109,16 @@ Plug 'sirver/UltiSnips'
 Plug 'honza/vim-snippets'
 " 补全框架 -------------------------------------------------------------- {{{2
 if g:complete_method ==# "coc" 
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 else
+"    Plug 'williamboman/mason.nvim'
+"    Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'neovim/nvim-lspconfig'
-    Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-nvim-lsp'
-    Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+"    Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+"    Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+    Plug 'ray-x/lsp_signature.nvim'
     Plug 'hrsh7th/cmp-omni'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'

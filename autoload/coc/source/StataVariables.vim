@@ -10,6 +10,6 @@ function! coc#source#StataVariables#init() abort
 endfunction
 
 function! coc#source#StataVariables#complete(opt, cb) abort
-  let items = split(system("cut -f1 ./.varlist.tsv"), "\n")
-  call a:cb(items)
+    let items = b:macrolist + b:varlist + b:graphlist + b:keywordlist
+    call a:cb(items)
 endfunction

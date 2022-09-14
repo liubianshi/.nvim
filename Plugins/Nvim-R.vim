@@ -41,4 +41,5 @@ command! RStart let oldft=&ft
     \ | let b:IsInRCode = function("DefaultIsInRCode")
     \ | normal <LocalLeader>rf
 
-
+" for coc
+let b:coc_additional_keywords = [ "." ]
