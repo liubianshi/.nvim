@@ -21,7 +21,7 @@ call utils#Load_Plug("vimcmdline")
 " Define Function and Command ================================================ {{{1
 " Stata Preview data --------------------------------------------------------- {{{2
 function! s:Stata_Preview_Data() abort
-    call Lbs_preview_data(b:cached_data, "stata_preview_bufnr")
+    call utils#Preview_data(b:cached_data, "stata_preview_bufnr")
     setlocal readonly
     setlocal buftype="tmpfile"
 endfunction
