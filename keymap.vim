@@ -9,7 +9,11 @@ function! s:show_documentation()
     elseif (index(['stata','statadoc'], &filetype) >= 0)
         execute 'Shelp '.expand('<cword>')
     elseif (index(['r', 'rmd', 'rdoc'], &filetype) >= 0)
-        execute 'Rdoc '.expand('<cword>')
+        if (has_key(g:, 'rplugin') && g:rplugin['jobs']['R'] != 0)
+            execute 'Rhelp '.expand('<cword>')
+        else
+            execute 'Rdoc '.expand('<cword>')
+        endif
     else
         execute '!' . &keywordprg . " " . expand('<cword>')
     endif
@@ -17,39 +21,39 @@ endfunction
 
 " 列出当前文件可运行的命令 ----------------------------------------------- {{{2
 function! s:lf_task_source(...)
-	let rows = asynctasks#source(&columns * 48 / 100)
-	let source = []
-	for row in rows
-		let name = row[0]
-		let source += [name . '  ' . row[1] . '  : ' . row[2]]
-	endfor
-	return source
+    let rows = asynctasks#source(&columns * 48 / 100)
+    let source = []
+    for row in rows
+        let name = row[0]
+        let source += [name . '  ' . row[1] . '  : ' . row[2]]
+    endfor
+    return source
 endfunction
 
 function! s:lf_task_accept(line, arg)
-	let pos = stridx(a:line, '<')
-	if pos < 0
-		return
-	endif
-	let name = strpart(a:line, 0, pos)
-	let name = substitute(name, '^\s*\(.\{-}\)\s*$', '\1', '')
-	if name != ''
-		exec "AsyncTask " . name
-	endif
+    let pos = stridx(a:line, '<')
+    if pos < 0
+        return
+    endif
+    let name = strpart(a:line, 0, pos)
+    let name = substitute(name, '^\s*\(.\{-}\)\s*$', '\1', '')
+    if name != ''
+        exec "AsyncTask " . name
+    endif
 endfunction
 
 function! s:lf_task_digest(line, mode)
-	let pos = stridx(a:line, '<')
-	if pos < 0
-		return [a:line, 0]
-	endif
-	let name = strpart(a:line, 0, pos)
-	return [name, 0]
+    let pos = stridx(a:line, '<')
+    if pos < 0
+        return [a:line, 0]
+    endif
+    let name = strpart(a:line, 0, pos)
+    return [name, 0]
 endfunction
 
 function! s:lf_win_init(...)
-	setlocal nonumber
-	setlocal nowrap
+    setlocal nonumber
+    setlocal nowrap
 endfunction
 
 
@@ -186,9 +190,9 @@ inoremap <silent> <A-j> <esc>:call utils#AutoFormatNewline()<cr>a
 " if has("mac")
 "     inoremap <silent> ∆ <esc>:call utils#AutoFormatNewline()<cr>a
 " endif
-let g:UltiSnipsExpandTrigger		    = "<c-l>"
-let g:UltiSnipsJumpForwardTrigger	    = "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger	    = "<c-k>"
+let g:UltiSnipsExpandTrigger            = "<c-l>"
+let g:UltiSnipsJumpForwardTrigger       = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger      = "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
 inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <silent><expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"

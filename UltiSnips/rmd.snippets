@@ -17,22 +17,6 @@ author: "罗伟"
 date: "\`r Sys.Date()\`"
 bibliography: "\`r Sys.getenv('HOME')\`/Documents/paper_ref.bib"
 fontsize: 11pt
-output:
-	bookdown::pdf_document2:
-		template: "~/useScript/default-rmd.latex"
-		includes:
-			in_header:
-				- "~/useScript/header.tex"
-				- "~/useScript/code.tex"
-		pandoc_args: 
-			- "--listings"
-		latex_engine: xelatex
-		keep_tex: false
-		toc: false
-	bookdown::word_document2: 
-		pandoc_args: ["--from=markdown+east_asian_line_breaks"]
-	bookdown::html_document2: 
-		css: ~/useScript/vue.css
 ---
 $0
 endsnippet
@@ -89,16 +73,18 @@ library("magrittr")
 library("data.table")
 library("showtext")
 knitr::opts_chunk$set(
-	include = TRUE, echo = FALSE, eval = TRUE,
-	message = FALSE, warning = FALSE, error = FALSE,
-	results = "asis",
-	dpi = 600, fig.asp = 0.75, fig.width = 6,
-	fig.showtext = TRUE)
-showtext_auto()
-if (Sys.info()["sysname"]=="Darwin") {
-	font_add("LXGW Mono", "LXGWWenKaiMono-Regular.ttf")
-} else {
-	font_add("LXGW Mono", "LXGWWenKaiMono-Regular.ttf")
+	include = TRUE,   echo         = FALSE, eval      = TRUE,
+	message = FALSE,  warning      = FALSE, error     = FALSE,
+	dpi     = 600,    fig.asp      = 0.75,  fig.width = 6,
+	results = "asis", fig.showtext = TRUE
+)
+if (knitr::is_latex_output()) {
+	showtext_auto()
+	if (Sys.info()["sysname"]=="Darwin") {
+		font_add("LXGW Mono", "LXGWWenKaiMono-Regular.ttf")
+	} else {
+		font_add("LXGW Mono", "LXGWWenKaiMono-Regular.ttf")
+	}
 }
 \`\`\`
 <!--}}}-->
@@ -107,21 +93,20 @@ $0
 endsnippet
 
 snippet setup "Rmd Setup" b
-\`\`\`\{r setup, include = F\}
+\`\`\`\{r, setup, include = F\}
 library("magrittr")
 library("data.table")
-library("showtext")
 knitr::opts_chunk$set(
-	include = FALSE, echo = FALSE, eval = TRUE,
-	message = FALSE, warning = FALSE, error = FALSE,
-	results = "asis",
-	dpi = 600, fig.asp = 0.75, fig.width = 6,
-	fig.showtext = TRUE)
-showtext_auto() 
+	include = TRUE,   echo         = FALSE, eval      = TRUE,
+	message = FALSE,  warning      = FALSE, error     = FALSE,
+	dpi     = 600,    fig.asp      = 0.75,  fig.width = 6,
+	results = "asis", fig.showtext = TRUE
+)
+if (knitr::is_latex_output()) showtext_auto()
 if (Sys.info()["sysname"]=="Darwin") {
-	font_add("Noto Serif CJK SC", "NotoSerifSC-Regular.otf")
+	font_add("LXGW Mono", "LXGWWenKaiMono-Regular.ttf")
 } else {
-	font_add("Noto Serif CJK SC", "NotoSerifCJK-Regular.ttc")
+	font_add("LXGW Mono", "LXGWWenKaiMono-Regular.ttf")
 }
 \`\`\`
 endsnippet
