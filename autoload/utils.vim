@@ -202,7 +202,7 @@ function! utils#Status()
 endfunction
 
 " Plug Load Management ================================================== {{{1
-function! s:PlugHasLoaded(plugName) abort
+function! utils#PlugHasLoaded(plugName) abort
     " 判断插件是否已经载入
     if !has_key(g:plugs, a:plugName)
         return(0)
@@ -239,7 +239,7 @@ endfunction
 
 function! utils#Load_Plug(plugname)
     " 手动加载特定插件
-    if <sid>PlugHasLoaded(a:plugname) == 0
+    if utils#PlugHasLoaded(a:plugname) == 0
         call utils#Load_Plug_Conf(a:plugname)
         call plug#load(a:plugname)
     endif
@@ -248,7 +248,7 @@ endfunction
 function! utils#Load_Plug_Confs(plugNames) abort
     " load config file for loaded plug
     for plugname in a:plugNames
-        if <sid>PlugHasLoaded(plugname) == 1
+        if utils#PlugHasLoaded(plugname) == 1
             call utils#Load_Plug_Conf(plugname)
         endif
     endfor

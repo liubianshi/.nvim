@@ -1,4 +1,13 @@
 {
+  "list.normalMappings": {
+      "t": "action:tabe",
+      "v": "action:vsplit",
+      "s": "action:split"
+  },
+  "list.insertMappings": {
+      "<c-t>": "action:tabe",
+      "<c-w>": "command:wincwd k"
+  },
   "suggest.minTriggerInputLength": 2,
   "coc.source.ultisnips.shortcut": "US",
   "suggest.virtualText": true,

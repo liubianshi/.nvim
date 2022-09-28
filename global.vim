@@ -18,7 +18,7 @@ let g:plugs_lbs_conf                  = {}         " 用于记录插件个人配
 let g:quickfix_is_open                = 0          " 用于记录 quickfix 的打开状态
 let g:input_toggle                    = 1          " 用于记录输入法状态
 if $NVIM_COMPLETE_METHOD ==? ""                    " 设定补全的框架
-    let g:complete_method             = "cmp" 
+    let g:complete_method             = "coc" 
 else
     let g:complete_method             = $NVIM_COMPLETE_METHOD
 endif

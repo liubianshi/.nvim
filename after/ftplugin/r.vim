@@ -4,6 +4,7 @@
 let b:cached_data = "/tmp/r_obj_preview.tsv"
 setlocal fdm=marker
 setlocal formatprg=r-format
+setlocal tags+=~/.cache/Nvim-R/Rtags,~/.cache/Nvim-R/RsrcTags 
 
 " Keymap ===================================================================== {{{1
 nnoremap <buffer> <localleader>dl :<c-u>RSend devtools::load_all()<cr>

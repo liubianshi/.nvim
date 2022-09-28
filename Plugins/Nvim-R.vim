@@ -6,7 +6,7 @@ let R_cmd = "R"
 let R_args = ['--no-save', '--quiet']
 "let R_app = "radian"
 let R_hl_term = 1
-let R_debug = 0
+let R_debug = 1
 let R_openpdf = 0
 let R_bracketed_paste = 1
 if has('mac')

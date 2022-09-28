@@ -273,11 +273,8 @@ EOF
 nnoremap <silent> <leader>ff :<C-U>FzfLua files<CR>
 nnoremap <silent> <leader>fr :<C-U>FzfLua oldfiles<CR>
 nnoremap <silent> <leader>bb :<c-u>FzfLua buffers<cr>
-
 nnoremap <silent> <leader>ts :<c-u>FzfLua tags<cr>
-
 nnoremap <silent> <leader>qs :<c-u>FzfLua quickfix<cr>
-
 nnoremap <silent> <leader>gs :<c-u>FzfLua git_status<cr>
 nnoremap <silent> <leader>gc :<c-u>FzfLua git_commits<cr>
 nnoremap <silent> <leader>gb :<c-u>FzfLua git_braches<cr>
@@ -301,7 +298,9 @@ vnoremap <silent> <C-B>      :<C-U>FzfLua grep_visual<CR>
 noremap <silent> <leader>st :<C-U>FzfLua btags<CR>
 noremap <silent> <leader>sT :<C-U>FzfLua tags<CR>
 noremap <silent> <leader>pt :<C-U>FzfLua tags<CR>
-noremap <silent> <leader>sd :<C-U>FzfLua lsp_document_symbols<CR>
-noremap <silent> <leader>pd :<C-U>FzfLua lsp_document_symbols<CR>
-noremap <silent> <leader>sD :<C-U>FzfLua lsp_live_workspace_symbols<CR>
 
+if utils#PlugHasLoaded('nvim-lspconfig') 
+    noremap <silent> <leader>sd :<C-U>FzfLua lsp_document_symbols<CR>
+    noremap <silent> <leader>pd :<C-U>FzfLua lsp_document_symbols<CR>
+    noremap <silent> <leader>sD :<C-U>FzfLua lsp_live_workspace_symbols<CR>
+endif
