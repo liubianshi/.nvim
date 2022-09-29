@@ -1,7 +1,7 @@
 " vim: set ft=vim fdm=marker nowrap:
 runtime autoload/syntaxcomplete.vim
 setlocal foldmethod=marker
-setlocal foldmarker={,}
+setlocal foldmarker={{{,}}}
 setlocal cindent
 
 let b:keywords = ['des', 'codebook', 'tab', 'gdistinct', 'graph tw']

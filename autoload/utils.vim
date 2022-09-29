@@ -10,7 +10,7 @@ function! utils#Math_Preview() range
     return
 endfunction
 
-" 在末尾添加符号 ========================================================= {{{1
+" 在末尾添加符号 ======================================================== {{{1
 function! utils#AddDash(symbol) abort
     let w = &l:textwidth == 0 ? 78 : &l:textwidth
     substitute/\s*$//g

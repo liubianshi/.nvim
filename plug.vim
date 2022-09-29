@@ -117,8 +117,8 @@ else
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-nvim-lsp'
 "    Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
-"    Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-    Plug 'ray-x/lsp_signature.nvim'
+    Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+    " Plug 'ray-x/lsp_signature.nvim'
     Plug 'hrsh7th/cmp-omni'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
