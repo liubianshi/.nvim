@@ -515,17 +515,28 @@ function! utils#MyFoldText() abort
     let l:fold_text = substitute(l:line, '\V' . l:marker . '\[0-9]\*', '', 'g')
     let l:fold_text = substitute(l:fold_text, '\v[=\-.* ]*$', '', 'g')
     let foldlevel_num = split("    ྲྀ  ")
-    let foldlevel_icon = split("🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘 ")
+    let foldlevel_icon = split("├ 🌀")
+    " let foldlevel_icon = split("🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘 ")
     " let foldlevel_symbol = split("⚽ ⚾ 🥎 🏀 🏐 🏈 🏉")
-    if v:foldlevel >= min([len(foldlevel_num), len(foldlevel_icon)])
-        let l:fold_symbol = foldlevel_icon[0] . " " . foldlevel_num[0]
+    if v:foldlevel >= len(foldlevel_icon)
+        let l:foldicon = foldlevel_icon[0]
     else
-        let l:fold_symbol = foldlevel_icon[v:foldlevel] . " " . foldlevel_num[v:foldlevel]
+        let l:foldicon = foldlevel_icon[v:foldlevel]
     endif
+    if v:foldlevel >= len(foldlevel_num)
+        let l:foldnum = foldlevel_num[0]
+    else
+        let l:foldnum = foldlevel_num[v:foldlevel]
+    endif
+    let l:foldicon = repeat("  ", v:foldlevel - 1)
+                \  . l:foldicon
+                \  . repeat(" ", 2 - strdisplaywidth(l:foldicon))
     let l:fill_char = "─"
-    let l:fill_char_num = l:line_width - strdisplaywidth(l:fold_text) - 6
-    return printf('%s %s %s %03dL', l:fold_symbol, l:fold_text,
-                                   \ repeat(l:fill_char, l:fill_char_num), l:fold_line_num)
+    let l:fill_char_num = l:line_width - strdisplaywidth(l:fold_text) - strdisplaywidth(l:foldicon)
+    return printf('%s %s %s %03dL', l:foldicon, l:fold_text,
+                                   \   repeat(l:fill_char, l:fill_char_num - 7),
+                                   \   l:fold_line_num
+                                   \ )
 endfunction
 " End =================================================================== {{{1
 " vim: fdm=marker:
