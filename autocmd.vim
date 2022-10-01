@@ -14,6 +14,12 @@ function! s:fasd_update() abort
   endif
 endfunction
 
+function! s:checktime() abort
+    if getcmdwintype() == ""
+        checktime
+    endif
+endfunction
+
 " 初始 ================================================================== {{{1
 augroup LOAD_ENTER
 autocmd!
@@ -23,10 +29,25 @@ autocmd InsertLeave,WinEnter *  setlocal cursorline
 autocmd InsertEnter,WinLeave *  setlocal nocursorline
 autocmd TermOpen             *  setlocal nonumber norelativenumber bufhidden=hide
 
-" Fasd ================================================================== {{{1
+" Fasd ------------------------------------------------------------------ {{{2
 autocmd BufWinEnter,BufFilePost * call <SID>fasd_update()
+
+" Resize all windows when we resize the terminal ------------------------ {{{2
+" From:
+"   https://github.com/jdhao/nvim-config/blob/master/lua/custom-autocmd.lua
+autocmd VimResized * lua require('focus').resize()
+
+" Automatically reload the file if it is changed outside of Nvim
+" From:
+"   https://github.com/jdhao/nvim-config/blob/master/lua/custom-autocmd.lua
+autocmd FileChangedShellPost   * 
+        \ lua vim.notify("File changed on disk. Buffer reloaded!",
+        \                vim.log.levels.WARN,
+        \                { title = "nvim-config" })
+autocmd FocusGained,CursorHold * call <SID>checktime()
 augroup END
 
+" Input Method Toggle =================================================== {{{1
 augroup Method_Toggle
     autocmd!
     autocmd InsertLeavePre * call input_method#En(1)

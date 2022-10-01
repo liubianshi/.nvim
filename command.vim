@@ -7,6 +7,5 @@ command! -range=% LbsRF <line1>,<line2>:call utils#RFormat()
 command! -nargs=* SR call system(printf("sr %s &>/dev/null &", "<args>"))
 command! RUN FloatermNew --name=repl --wintype=normal --position=right
 
-
 command! -nargs=* -complete=customlist,perldoc#PerldocComplete Perldoc :call perldoc#Perldoc(<q-args>)
 command! -nargs=* -nargs=? -complete=customlist,RLisObjs Rdoc :call rdoc#Rdoc(<q-args>)

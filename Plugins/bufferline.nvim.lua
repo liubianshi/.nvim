@@ -3,8 +3,10 @@ require"bufferline".setup{
         fill = {
             guibg = {
                 attribute = "bg",
-                highlight = "bg", 
+                highlight = "bg",
             }
         }
-    }
+    },
+    separator_style = "slant",
+    always_show_bufferline = false,
 }

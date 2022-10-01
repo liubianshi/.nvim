@@ -1,4 +1,5 @@
 " vim: set fdm=marker nowrap:
+" Nvim Keymap
 " function: add symbol at the end of current line ======================== {{{1
 " Use K to show documentation in preview window. ------------------------- {{{2
 function! s:show_documentation()

@@ -9,7 +9,7 @@ let g:easy_align_delimiters = {
 \ '/': {
 \     'pattern':         '//\+\|/\*\|\*/',
 \     'delimiter_align': 'l',
-\     'ignore_groups':   ['!Comment'] },
+\     'ignore_groups':   [] },
 \ ']': {
 \     'pattern':       '[[\]]',
 \     'left_margin':   0,

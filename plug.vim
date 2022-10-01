@@ -60,7 +60,7 @@ Plug 'yianwillis/vimcdoc'
 Plug 'zhimsel/vim-stay' | set viewoptions=cursor,folds,slash,unix
 " FastFold: Speed up Vim by updating folds only when called-for
 Plug 'Konfekt/FastFold'
-"Plug '907th/vim-auto-save'
+" Plug '907th/vim-auto-save'
 " 文本对象
 "Plug 'wellle/targets.vim'
 "Plug 'kana/vim-textobj-user'
