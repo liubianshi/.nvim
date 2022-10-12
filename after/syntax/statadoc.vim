@@ -16,8 +16,9 @@ setlocal concealcursor=nvc
 
 syn match helpSpecial		"^\s*\[[A-Z]\{1,2}\] \w\+"
 syn match helpInclude		"\[[A-Z]\{1,2}\]"
-syn match helpHeader		"\s*\zs.\{-}\ze\s\=\~$" nextgroup=helpIgnore
-syn match helpHyperTextJump	"\\\@<!│\([^│]\|\n\)\+│" contains=helpBar
+syn match helpHeader		"^.\{-}\ze\s\=\~$" nextgroup=helpIgnore
+syn match helpHeader		"\s\+\zs.\{-}\ze\s\=\~\n" nextgroup=helpIgnore
+syn match helpHyperTextJump	"\\\@<!│\([^│]\|\n\)\+│" contains=helpBar,helpUnderlined,helpItalic
 syn match helpHyperTextEntry	"\*[#-)!+-~]\+\*\s"he=e-1 contains=helpStar
 syn match helpHyperTextEntry	"\*[#-)!+-~]\+\*$" contains=helpStar
 if has("conceal")

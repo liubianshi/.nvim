@@ -3,12 +3,13 @@ runtime autoload/syntaxcomplete.vim
 setlocal foldmethod=marker
 setlocal foldmarker={{{,}}}
 setlocal cindent
+setlocal expandtab
 
-let b:keywords = ['des', 'codebook', 'tab', 'gdistinct', 'graph tw']
-let b:cache_path = "./.vim"
-let b:varlist = []
-let b:graphlist = []
-let b:macrolist = []
+let b:keywords    = ['des', 'codebook', 'tab', 'gdistinct', 'graph tw']
+let b:cache_path  = "./.vim"
+let b:varlist     = []
+let b:graphlist   = []
+let b:macrolist   = []
 let b:keywordlist = uniq(sort(OmniSyntaxList()))
 let b:cached_data = b:cache_path . "/stata_preview.tsv"
 
@@ -65,12 +66,9 @@ endfunction
 " 将最新的变量名和标签写入 ./.varlist.tsv, 同时设置 buffer 变量 b:varlist -------- {{{2
 function! s:StataSyncVarlistGraphlist() abort
     call VimCmdLineSendCmd("VimSync_graphname_varlist")
-    let l:varlist = split(system("cut -f1 ./.vim/varlist.tsv"), "\n")
-    let l:graphlist = split(system("cut -f1 ./.vim/graphlist.txt"), "\n")
-    let l:macrolist = split(system("cut -f1 ./.vim/macrolist.txt"), "\n")
-    let b:varlist = l:varlist
-    let b:graphlist = l:graphlist
-	let b:macrolist = l:macrolist
+    let b:varlist   = split(system("cut -f1 ./.vim/varlist.tsv"), "\n")
+    let b:graphlist = split(system("cut -f1 ./.vim/graphlist.txt"), "\n")
+    let b:macrolist = split(system("cut -f1 ./.vim/macrolist.txt"), "\n")
 endfunction
 
 let s:prepended = ''
@@ -170,18 +168,18 @@ nnoremap <buffer> <localleader>hp :StataHelpPDF<cr>
 " factor variable ------------------------------------------------------------ {{{2
 vnoremap <silent><buffer> <localleader>f  :<c-u>call <SID>Stata_distinct(visualmode())<cr>
 nnoremap <silent><buffer> <localleader>fm :set opfunc=<SID>Stata_distinct<cr>g@
-nnoremap <buffer> <localleader>rf :call VimCmdLineSendCmd("gdistinct " . expand('<cword>'))<cr>
-vnoremap <buffer> <localleader>rf y:call VimCmdLineSendCmd("gdistinct " . @")<cr>
-nnoremap <buffer> <localleader>fl :call VimCmdLineSendCmd("glevelsof " . expand('<cword>'))<cr>
-vnoremap <buffer> <localleader>fl y:call VimCmdLineSendCmd("glevelsof " . @")<cr>
-nnoremap <buffer> <localleader>ft :call VimCmdLineSendCmd("tab " . expand('<cword>'))<cr>
-vnoremap <buffer> <localleader>ft y:call VimCmdLineSendCmd("tab " . @")<cr>
+nnoremap <buffer>         <localleader>rf :call VimCmdLineSendCmd("gdistinct " . expand('<cword>'))<cr>
+vnoremap <buffer>         <localleader>rf y:call VimCmdLineSendCmd("gdistinct " . @")<cr>
+nnoremap <buffer>         <localleader>fl :call VimCmdLineSendCmd("glevelsof " . expand('<cword>'))<cr>
+vnoremap <buffer>         <localleader>fl y:call VimCmdLineSendCmd("glevelsof " . @")<cr>
+nnoremap <buffer>         <localleader>ft :call VimCmdLineSendCmd("tab " . expand('<cword>'))<cr>
+vnoremap <buffer>         <localleader>ft y:call VimCmdLineSendCmd("tab " . @")<cr>
 
 " Continuous Variable Statisitcs --------------------------------------------- {{{2
 vnoremap <silent><buffer> <localleader>n  :<c-u>call <SID>Stata_sum(visualmode())<cr>
 nnoremap <silent><buffer> <localleader>nm :set opfunc=<SID>Stata_sum<cr>g@
-nnoremap <buffer> <localleader>rn :call VimCmdLineSendCmd("gstats sum " . expand('<cword>'))<cr>
-vnoremap <buffer> <localleader>rn y:call VimCmdLineSendCmd("gstats sum " . @")<cr>
+nnoremap <buffer>         <localleader>rn :call VimCmdLineSendCmd("gstats sum " . expand('<cword>'))<cr>
+vnoremap <buffer>         <localleader>rn y:call VimCmdLineSendCmd("gstats sum " . @")<cr>
 
 " preserve data -------------------------------------------------------------- {{{2
 nnoremap <silent><buffer> <localleader>sp :STATADO preserve<cr>
@@ -198,21 +196,21 @@ inoremap ;/ " ///<cr><tab>+ "<esc>
 lua <<EOF
 local wk = require("which-key")
 wk.register({
-["<localleader><space>"] =  { "Sync Element" },
-["<localleader>:"] = { "Send Command"},
-["<localleader>H"] = {"Help Document"},
-["<localleader>G"] = {"Preview Graph"},
-["<localleader>b"] = {name = "Block"},
-["<localleader>d"] = {name = "describe"},
-["<localleader>f"] = {name = "factor variable operator"},
-["<localleader>h"] = {name = "stata help"},
-["<localleader>L"] = {name = "log operator"},
-["<localleader>n"] = {name = "numeric variable operator"},
-["<localleader>p"] = {name = "Paragraph"},
-["<localleader>r"] = {name = "run stata commmand"},
-["<localleader>s"] = {name = "perserve or snapshot current data"},
-["<localleader>v"] = {name = "view data, local, estimates et.al"},
-["<localleader>,"] = {name = "+options set"},
+["<localleader><space>"] = { "Sync Element" },
+["<localleader>:"]       = { "Send Command"},
+["<localleader>H"]       = {"Help Document"},
+["<localleader>G"]       = {"Preview Graph"},
+["<localleader>b"]       = {name = "Block"},
+["<localleader>d"]       = {name = "describe"},
+["<localleader>f"]       = {name = "factor variable operator"},
+["<localleader>h"]       = {name = "stata help"},
+["<localleader>L"]       = {name = "log operator"},
+["<localleader>n"]       = {name = "numeric variable operator"},
+["<localleader>p"]       = {name = "Paragraph"},
+["<localleader>r"]       = {name = "run stata commmand"},
+["<localleader>s"]       = {name = "perserve or snapshot current data"},
+["<localleader>v"]       = {name = "view data, local, estimates et.al"},
+["<localleader>,"]       = {name = "+options set"},
 }, {buffer = 0} )
 EOF
 
