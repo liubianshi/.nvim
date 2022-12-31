@@ -125,6 +125,7 @@ else
     Plug 'ray-x/cmp-treesitter'
     Plug 'onsails/lspkind.nvim'
     Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+    Plug 'epwalsh/obsidian.nvim'
     "Plug 'kdheepak/cmp-latex-symbols'
     if ! has('mac')
         Plug 'wasden/cmp-flypy.nvim', { 'do': 'make flypy' }

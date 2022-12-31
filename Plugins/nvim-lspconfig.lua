@@ -27,7 +27,7 @@ local on_attach_custom = function(client, bufnr)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
   -- Currently all formatting is handled with 'null-ls' plugin
-  client.resolved_capabilities.document_formatting = false
+  client.server_capabilities.document_formatting = false
 end
 
 -- bashls (bash-language-server) ========================================
