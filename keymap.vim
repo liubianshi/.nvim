@@ -164,26 +164,32 @@ nnoremap <leader>ed :edit ~/Repositories/ssnhd-rime/配置文件/flypy_top.txt<c
 
 " search ================================================================= {{{1
 " check the syntax group of current cursor position
-nnoremap <silent> <leader>st :<C-U>call utils#SynGroup()<CR>
+nnoremap <silent> <leader>sg :<C-U>call utils#SynGroup()<CR>
 
 " search by surfraw ------------------------------------------------------ {{{2
-noremap <silent> <leader>ss :<C-U>SR<space>
-vnoremap <silent> <c-s> "0y:<C-U>SR google <C-R>0<CR>
-nnoremap <silent> <c-s> :<C-U><C-R>=printf("SR google %s", expand("<cword>"))<CR><CR>
-nnoremap <silent> srh :<C-U><C-R>=printf("SR github %s", expand("<cword>"))<CR><CR>
-vnoremap <silent> srh "0y:<C-U>SR github <C-R>0<CR>
+noremap  <silent> <leader>ss :<C-U>SR<space>
+vnoremap <silent> <c-s>      "0y:<C-U>SR google <C-R>0<CR>
+nnoremap <silent> <c-s>      :<C-U><C-R>=printf("SR google %s", expand("<cword>"))<CR><CR>
+nnoremap <silent> srh        :<C-U><C-R>=printf("SR github %s", expand("<cword>"))<CR><CR>
+vnoremap <silent> srh        "0y:<C-U>SR github <C-R>0<CR>
 
 " diff 相关 ============================================================== {{{1
-map <silent> <leader>d1 :diffget 1<CR>:diffupdate<CR>
-map <silent> <leader>d2 :diffget 2<CR>:diffupdate<CR>
-map <silent> <leader>d3 :diffget 3<CR>:diffupdate<CR>
-map <silent> <leader>d4 :diffget 4<CR>:diffupdate<CR>
+nnoremap <silent> <leader>d1 :diffget 1<CR>:diffupdate<CR>
+nnoremap <silent> <leader>d2 :diffget 2<CR>:diffupdate<CR>
+nnoremap <silent> <leader>d3 :diffget 3<CR>:diffupdate<CR>
+nnoremap <silent> <leader>d4 :diffget 4<CR>:diffupdate<CR>
+nnoremap <silent> <leader>dl :diffget LOCAL<CR>:diffupdate<CR>
+nnoremap <silent> <leader>dr :diffget REMOTE<CR>:diffupdate<CR>
 
 " add content ============================================================ {{{1
-nnoremap <silent> <leader>a- :<c-u>call utils#AddDash("-")<cr>
-nnoremap <silent> <leader>a= :<c-u>call utils#AddDash("=")<cr>
-nnoremap <silent> <leader>a. :<c-u>call utils#AddDash(".")<cr>
-nnoremap <silent> <leader>a* :<c-u>call utils#AddDash("*")<cr>
+nnoremap <silent> <leader>a- :<c-u>call utils#AddFoldMark("-")<cr>
+nnoremap <silent> <leader>a= :<c-u>call utils#AddFoldMark("=")<cr>
+nnoremap <silent> <leader>a. :<c-u>call utils#AddFoldMark(".")<cr>
+nnoremap <silent> <leader>a* :<c-u>call utils#AddFoldMark("*")<cr>
+nnoremap <silent> <leader>A- :<c-u>call utils#AddDash("-")<cr>
+nnoremap <silent> <leader>A= :<c-u>call utils#AddDash("=")<cr>
+nnoremap <silent> <leader>A. :<c-u>call utils#AddDash(".")<cr>
+nnoremap <silent> <leader>A* :<c-u>call utils#AddDash("*")<cr>
 
 " 补全相关 =============================================================== {{{1
 inoremap <silent> <A-j> <esc>:call utils#AutoFormatNewline()<cr>a

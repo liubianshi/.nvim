@@ -116,8 +116,8 @@ else
     Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-nvim-lsp'
-"    Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
-    Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+    " Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+    "Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
     " Plug 'ray-x/lsp_signature.nvim'
     Plug 'hrsh7th/cmp-omni'
     Plug 'hrsh7th/cmp-buffer'
@@ -170,7 +170,7 @@ Plug 'poliquin/stata-vim', { 'on': [] }  " stata 语法高亮
 " csv / tsv {{{2
 Plug 'mechatroner/rainbow_csv', { 'for': [ 'csv', 'tsv' ]}
 " perl {{{2 
-" Plug 'WolfgangMehner/perl-support', { 'for': ['perl'] }
+Plug 'WolfgangMehner/perl-support', { 'for': ['perl'] }
 " Graphviz dot {{{2
 Plug 'liuchengxu/graphviz.vim', { 'for': [ 'dot'] }
 " quickfile {{{2

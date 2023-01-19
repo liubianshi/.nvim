@@ -11,10 +11,14 @@ function! utils#Math_Preview() range
 endfunction
 
 " 在末尾添加符号 ======================================================== {{{1
-function! utils#AddDash(symbol) abort
+function! utils#AddDash(symbol, line = "") abort
+    if a:line == ""
+        substitute/\s*$//g
+        let lo = getline('.')
+    else
+        let lo = a:line
+    endif
     let w = &l:textwidth == 0 ? 78 : &l:textwidth
-    substitute/\s*$//g
-    let lo = getline('.')
     if &l:foldmarker =~ '\V' . lo[-4:-2]
         let le = " " . lo[-4:-1] 
         let lo = lo[0:-5]
@@ -33,6 +37,22 @@ function! utils#AddDash(symbol) abort
     let add = repeat(a:symbol, l)
     call setline('.', lo . " " . add . le)
 endfunction
+
+" 在末尾添加 comment symbol 和 folder marker ============================ {{{1
+function! utils#AddFoldMark(symbol) abort
+    let comment = split(&commentstring, '%s')
+    let comment_start = " " . comment[0]
+    if len(comment) == 1
+        let comment_end = ""
+    else
+        let comment_end = " " . comment[1]
+    endif
+    let fold_symbol = split(&foldmarker, ',')[0] . foldlevel(".")
+
+    let line = getline('.')  . comment_start  . fold_symbol . comment_end
+    call utils#AddDash(a:symbol, line)
+endfunction
+
 
 " 代码格式化 ============================================================= {{{1
 function! utils#RFormat() range
