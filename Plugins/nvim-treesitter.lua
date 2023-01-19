@@ -2,7 +2,7 @@ require'nvim-treesitter.configs'.setup {
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
     ensure_installed = {
         "r",
-        "perl",
+        -- "perl",
         "python",
         "bash",
         "vim",
@@ -10,8 +10,8 @@ require'nvim-treesitter.configs'.setup {
         "lua",
         "dot",
         "javascript",
-        "markdown",
-        "markdown_inline",
+        -- "markdown",
+        -- "markdown_inline",
         "c",
         "bibtex",
         "css",

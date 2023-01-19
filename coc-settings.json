@@ -43,7 +43,17 @@
   },
   "r.lsp.path": "/usr/bin/R",
   "r.lsp.debug": true,
-  "r.lsp.diagnostics": false
+  "r.lsp.diagnostics": false,
+  "languageserver": {
+    "perlnavigator": {
+      "command": "node",
+      "args": [
+	"/home/liubianshi/Repositories/PerlNavigator/server/out/server.js",
+	"--stdio"
+      ],
+      "filetypes": ["perl"]
+    }
+  }
 }
 
 
