@@ -535,11 +535,11 @@ function! utils#MyFoldText() abort
     let l:fold_text = substitute(l:line, '\V' . l:marker . '\[0-9]\*', '', 'g')
     let l:fold_text = substitute(l:fold_text, '\v[=\-.* ]*$', '', 'g')
     let foldlevel_num = split("   ")
-    let foldlevel_icon = split("├─ 🌀")
+    let foldlevel_icon = [".", "🌕", "🌒", "..."]
     " let foldlevel_icon = split("🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘 ")
-    " let foldlevel_symbol = split("⚽ ⚾ 🥎 🏀 🏐 🏈 🏉")
+    " let foldlevel_symbol = split("🌀⚽ ⚾ 🥎 🏀 🏐 🏈 🏉")
     if v:foldlevel >= len(foldlevel_icon)
-        let l:foldicon = foldlevel_icon[0]
+        let l:foldicon = repeat(foldlevel_icon[0], v:foldlevel)
     else
         let l:foldicon = foldlevel_icon[v:foldlevel]
     endif
