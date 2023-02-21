@@ -404,8 +404,11 @@ function! utils#Find_bufwinnr(buffernr) abort
 endfunction
 
 " open file in spec buffer
-function! utils#Preview_data(fname, globalvar)
+function! utils#Preview_data(fname, globalvar, method = "tabnew", close = "n")
     if !has_key(g:, a:globalvar)
+		if a:close ==? "y"
+			return
+		endif
         let bufnr = bufadd(a:fname)
         let g:[a:globalvar] = bufnr
     else
@@ -413,13 +416,23 @@ function! utils#Preview_data(fname, globalvar)
     endif
     let l:winlist = win_findbuf(bufnr)
     if empty(l:winlist)
-        tabnew | exec "buffer" . bufnr
+		if a:close ==? "y"
+			return
+		endif
+		exec a:method | exec "buffer" . bufnr
+		setlocal buftype=nowrite
+		setlocal noswapfile
+		setlocal ft=tsv
+		try
+			RainbowAlign
+			catch /.*/
+		endtry
     else
         call win_gotoid(l:winlist[0])
-        edit
+		if a:close ==? "y"
+			quit
+		endif
     endif
-    setlocal buftype=nowrite
-    setlocal noswapfile
 endfunction
 
 " Stata Related ========================================================== {{{1

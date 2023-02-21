@@ -4,12 +4,13 @@ if exists("b:keywords")
 endif
 set syntax=stata
 
-let b:keywords    = ['des', 'codebook', 'tab', 'gdistinct', 'graph tw']
-let b:cache_path  = "./.vim"
-let b:varlist     = []
-let b:graphlist   = []
-let b:macrolist   = []
-let b:cached_data = b:cache_path . "/stata_preview.tsv"
+let b:keywords       = ['des', 'codebook', 'tab', 'gdistinct', 'graph tw']
+let b:cache_path     = "./.vim"
+let b:varlist        = []
+let b:graphlist      = []
+let b:macrolist      = []
+let b:cached_data    = b:cache_path . "/stata_preview.tsv"
+let b:cached_varlist = b:cache_path . "/varlist.tsv"
 
 runtime  autoload/syntaxcomplete.vim
 let b:keywordlist = uniq(sort(OmniSyntaxList()))
@@ -27,8 +28,12 @@ call utils#Load_Plug("vimcmdline")
 
 " Define Function and Command ================================================ {{{1
 " Stata Preview data --------------------------------------------------------- {{{2
-function! s:Stata_Preview_Data() abort
-    call utils#Preview_data(b:cached_data, "stata_preview_bufnr")
+function! s:Stata_Preview_Data(close = "n") abort
+    call utils#Preview_data(b:cached_data, "stata_preview_bufnr", v:none, a:close)
+endfunction
+
+function! s:Stata_Preview_Variables(close = "n") abort
+    call utils#Preview_data(b:cached_varlist, "stata_preview_varlist", "50vsplit", a:close)
 endfunction
 
 " 定义 Stata Motion 函数 ----------------------------------------------------- {{{2
@@ -160,7 +165,8 @@ nnoremap <buffer> <localleader>vh :STATADO V in 1/100<cr>:STATAPREVIEW<cr>
 nnoremap <buffer> <localleader>vt :STATADO V if _n >= _N - 100<cr>:STATAPREVIEW<cr>
 nnoremap <buffer> <localleader>va :STATADO V<cr>:STATAPREVIEW<cr>
 nnoremap <buffer> <localleader>vv :STATADO backup_varlist<cr>:r! xsv table -d '\t' ./.vim/varlist.tsv \| perl -pe '$_ = "*│ " . $_'<cr>
-nnoremap <buffer> <localleader>vo :STATADO backup_varlist<cr>:50vsplit ./.vim/varlist.tsv<cr>:RainbowAlign<cr>
+nnoremap <buffer> <localleader>vo :STATADO backup_varlist<cr>:call <sid>Stata_Preview_Variables()<cr>
+nnoremap <buffer> <localleader>vO :STATADO backup_varlist<cr>:call <sid>Stata_Preview_Variables("y")<cr>
 nnoremap <buffer> <localleader>ve :STATADO estimates dir<cr>
 nnoremap <buffer> <localleader>vl :STATADO macro dir<cr>
 nnoremap <buffer> <localleader>vx :STATADO return list<cr>
