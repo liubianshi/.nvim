@@ -1,17 +1,25 @@
 " vim: set ft=vim fdm=marker nowrap:
-runtime autoload/syntaxcomplete.vim
-setlocal foldmethod=marker
-setlocal foldmarker={{{,}}}
-setlocal cindent
-setlocal expandtab
+if exists("b:keywords")
+    finish
+endif
+set syntax=stata
 
 let b:keywords    = ['des', 'codebook', 'tab', 'gdistinct', 'graph tw']
 let b:cache_path  = "./.vim"
 let b:varlist     = []
 let b:graphlist   = []
 let b:macrolist   = []
-let b:keywordlist = uniq(sort(OmniSyntaxList()))
 let b:cached_data = b:cache_path . "/stata_preview.tsv"
+
+runtime  autoload/syntaxcomplete.vim
+let b:keywordlist = uniq(sort(OmniSyntaxList()))
+
+setlocal foldmethod=marker
+setlocal foldmarker={{{,}}}
+setlocal cindent
+setlocal expandtab
+
+
 
 " Load Pluguin needed ======================================================== {{{1
 call utils#Load_Plug('stata-vim')
@@ -21,7 +29,6 @@ call utils#Load_Plug("vimcmdline")
 " Stata Preview data --------------------------------------------------------- {{{2
 function! s:Stata_Preview_Data() abort
     call utils#Preview_data(b:cached_data, "stata_preview_bufnr")
-    setlocal buftype="tmpfile"
 endfunction
 
 " 定义 Stata Motion 函数 ----------------------------------------------------- {{{2

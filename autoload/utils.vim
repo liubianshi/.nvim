@@ -418,6 +418,8 @@ function! utils#Preview_data(fname, globalvar)
         call win_gotoid(l:winlist[0])
         edit
     endif
+    setlocal buftype=nowrite
+    setlocal noswapfile
 endfunction
 
 " Stata Related ========================================================== {{{1
