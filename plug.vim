@@ -18,6 +18,7 @@ call plug#begin(s:plugdir)
 " Function enhancement ================================================== {{{1
 "Plug 'nathom/filetype.nvim'
 Plug 'lambdalisue/suda.vim'              " read or write files with sudo command
+Plug 'romainl/vim-cool'                  " disables search highlighting automatic
 Plug 'ojroques/vim-oscyank'
 Plug 'ptzz/lf.vim'
 if has('nvim')
@@ -95,7 +96,7 @@ Plug 'mhartington/oceanic-next', { 'on': [] }
 " buffer line (with minimal tab integration) for neovim
 Plug 'akinsho/bufferline.nvim'
 " neovim statusline plugin written in pure lua
-Plug 'hoob3rt/lualine.nvim'              
+Plug 'nvim-lualine/lualine.nvim'              
 Plug 'mhinz/vim-startify'
 Plug 'kyazdani42/nvim-web-devicons'
 " Auto Ajust the width and height of focused window

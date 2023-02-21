@@ -163,12 +163,6 @@ local fname = {
 ins_left(fname)
 ins_left_inactive { 'filename' }
 
-ins_left {'location'}
-ins_left_inactive {'location'}
-
-ins_left {'progress', color = {fg = colors.fg, gui = 'bold'}}
-ins_right_inactive {'progress', color = {fg = colors.fg, gui = 'bold'}}
-
 ins_left {
   'diagnostics',
   sources = {'nvim_lsp'},
@@ -178,15 +172,11 @@ ins_left {
   color_info = colors.cyan
 }
 
--- Insert mid section. You can make any number of sections in neovim :)
--- for lualine it's any number greater then 2
-ins_left {function() return '%=' end}
-
 local ftype = {
   -- Lsp server name .
   function()
     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    local msg = buf_ft .. ': 🙈'
+    local msg = buf_ft .. ''
     local clients = vim.lsp.get_active_clients()
     if next(clients) == nil then return msg end
     for _, client in ipairs(clients) do
@@ -200,8 +190,8 @@ local ftype = {
   icon = '',
   color = {fg = '#ffffff', gui = 'bold'}
 }
-ins_right(ftype)
-ins_right_inactive(ftype)
+ins_left(ftype)
+ins_left_inactive(ftype)
 
 -- Add components to right sections
 local fencoding = {
@@ -210,29 +200,42 @@ local fencoding = {
   condition = conditions.hide_in_width,
   color = {fg = colors.green, gui = 'bold'}
 }
-ins_right(fencoding)
-ins_right_inactive(fencoding)
+ins_left(fencoding)
+ins_left_inactive(fencoding)
 
-local fformat =  {
-  'fileformat',
-  upper = true,
-  icons_enabled = true,
-  symbols = {
-          unix = '', -- e712
-          dos = '', -- e70f
-          mac = '', -- e711
-      },
-  color = {fg = colors.green, gui = 'bold'}
-}
-ins_right(fformat)
-ins_right_inactive(fformat)
+ins_left {'progress', color = {fg = colors.fg, gui = 'bold'}}
+ins_left_inactive {'progress', color = {fg = colors.fg, gui = 'bold'}}
+
+-- Insert mid section. You can make any number of sections in neovim :)
+-- for lualine it's any number greater then 2
+ins_left {function() return '%=' end}
+
 
 ins_right {
-  'branch',
-  icon = '',
-  condition = conditions.check_git_workspace,
-  color = {fg = colors.violet, gui = 'bold'}
+    'searchcount',
+    color = {fg = colors.orange, gui = 'bold'}
 }
+
+-- local fformat =  {
+--   'fileformat',
+--   upper = true,
+--   icons_enabled = true,
+--   symbols = {
+--           unix = '', -- e712
+--           dos = '', -- e70f
+--           mac = '', -- e711
+--       },
+--   color = {fg = colors.green, gui = 'bold'}
+-- }
+-- ins_right(fformat)
+-- ins_right_inactive(fformat)
+
+-- ins_right {
+--   'branch',
+--   icon = '',
+--   condition = conditions.check_git_workspace,
+--   color = {fg = colors.violet, gui = 'bold'}
+-- }
 
 ins_right {
   'diff',
@@ -244,11 +247,14 @@ ins_right {
   condition = conditions.hide_in_width
 }
 
-ins_right {
-  function() return '▊' end,
-  color = {fg = colors.blue},
-  right_padding = 0
-}
+ins_right {'location'}
+ins_right_inactive {'location'}
+
+-- ins_right {
+--   function() return '▊' end,
+--   color = {fg = colors.blue},
+--   right_padding = 0
+-- }
 
 -- Now don't forget to initialize lualine
 lualine.setup(config)
