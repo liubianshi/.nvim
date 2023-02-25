@@ -18,6 +18,18 @@ function! utils#AddDash(symbol, line = "") abort
     else
         let lo = a:line
     endif
+
+    " when the line is empty, keep the number of symbol euqal to
+    " display width of previous line, and keep the indentation 
+    if lo =~ '^\s*$'
+        let lo_pre      = getline(line('.') - 1)
+        let space_pre   = substitute(lo_pre, '\v^(\s*)(.*)$', '\1', 'g')
+        let content_pre = substitute(lo_pre, '\v^(\s*)(.*)$', '\2', 'g')
+        let length_pre  = strdisplaywidth(content_pre)
+        call setline('.', space_pre . repeat(a:symbol, length_pre))
+        return
+    endif
+
     let w = &l:textwidth == 0 ? 78 : &l:textwidth
     if &l:foldmarker =~ '\V' . lo[-4:-2]
         let le = " " . lo[-4:-1] 

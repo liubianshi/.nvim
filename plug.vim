@@ -20,6 +20,7 @@ call plug#begin(s:plugdir)
 Plug 'lambdalisue/suda.vim'              " read or write files with sudo command
 Plug 'romainl/vim-cool'                  " disables search highlighting automatic
 Plug 'ojroques/vim-oscyank'
+Plug 'tpope/vim-sleuth'                  " automaticly adjusts 'shiftwidth' and 'expandtab'
 Plug 'ptzz/lf.vim'
 if has('nvim')
     Plug 'ibhagwan/fzf-lua', {'branch': 'main'}

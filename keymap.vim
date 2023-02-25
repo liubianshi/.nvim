@@ -182,14 +182,14 @@ nnoremap <silent> <leader>dl :diffget LOCAL<CR>:diffupdate<CR>
 nnoremap <silent> <leader>dr :diffget REMOTE<CR>:diffupdate<CR>
 
 " add content ============================================================ {{{1
-nnoremap <silent> <leader>a- :<c-u>call utils#AddFoldMark("-")<cr>
-nnoremap <silent> <leader>a= :<c-u>call utils#AddFoldMark("=")<cr>
-nnoremap <silent> <leader>a. :<c-u>call utils#AddFoldMark(".")<cr>
-nnoremap <silent> <leader>a* :<c-u>call utils#AddFoldMark("*")<cr>
-nnoremap <silent> <leader>A- :<c-u>call utils#AddDash("-")<cr>
-nnoremap <silent> <leader>A= :<c-u>call utils#AddDash("=")<cr>
-nnoremap <silent> <leader>A. :<c-u>call utils#AddDash(".")<cr>
-nnoremap <silent> <leader>A* :<c-u>call utils#AddDash("*")<cr>
+nnoremap <silent> <leader>z- :<c-u>call utils#AddFoldMark("-")<cr>
+nnoremap <silent> <leader>z= :<c-u>call utils#AddFoldMark("=")<cr>
+nnoremap <silent> <leader>z. :<c-u>call utils#AddFoldMark(".")<cr>
+nnoremap <silent> <leader>z* :<c-u>call utils#AddFoldMark("*")<cr>
+nnoremap <silent> <leader>a- :<c-u>call utils#AddDash("-")<cr>
+nnoremap <silent> <leader>a= :<c-u>call utils#AddDash("=")<cr>
+nnoremap <silent> <leader>a. :<c-u>call utils#AddDash(".")<cr>
+nnoremap <silent> <leader>a* :<c-u>call utils#AddDash("*")<cr>
 
 " 补全相关 =============================================================== {{{1
 inoremap <silent> <A-j> <esc>:call utils#AutoFormatNewline()<cr>a
