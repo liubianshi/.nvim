@@ -29,7 +29,7 @@ call utils#Load_Plug("vimcmdline")
 " Define Function and Command ================================================ {{{1
 " Stata Preview data --------------------------------------------------------- {{{2
 function! s:Stata_Preview_Data(close = "n") abort
-    call utils#Preview_data(b:cached_data, "stata_preview_bufnr", v:none, a:close)
+    call utils#Preview_data(b:cached_data, "stata_preview_bufnr", "tabnew", a:close)
 endfunction
 
 function! s:Stata_Preview_Variables(close = "n") abort

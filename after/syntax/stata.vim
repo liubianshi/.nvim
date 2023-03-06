@@ -10,7 +10,7 @@ syn keyword stataPackage fvexpand wbopendata
 syn match stataInclude "#delimit \(;\|cr\)"
 
 syn keyword stataTodo	NOTE1 NOTE2 NOTE3 NOTE4 NOTE5 NOTE6 NOTE7 NOTE8 NOTE9 NOTE NOTE: contained
-syn region stataHeader  start=/^\s*\*[0-9]\{1,2}\./ end=/$/ contains=stataHeader,stataTodo oneline
+syn region stataHeader  start=/^\s*\*\s[0-9]\{1,2}\./ end=/$/ contains=stataHeader,stataTodo oneline
 
 syn match  stataTripleSlash   "\s///" containedin=stataSlashComment
 syn region stataSlashComment start="\s///"  end=/$/ contains=stataComment,stataTodo oneline
