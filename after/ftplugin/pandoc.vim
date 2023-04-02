@@ -27,6 +27,14 @@ inoremap <buffer> ;m              $ $<C-o>F <c-o>x
 inoremap <buffer> ;i              * *<C-o>F <c-o>x
 inoremap <buffer> ;b              ** **<C-o>F <c-o>x
 
+" preview markdown snippet ============================================== {{{1
+nnoremap <A-v> vip:call utils#MdPreview()<cr>
+nnoremap <A-V>V vip:call utils#MdPreview(1)<cr>
+vnoremap <A-v> :call utils#MdPreview()<cr>
+vnoremap <A-V> :call utils#MdPreview(1)<cr>
+
+
+
 nnoremap <buffer> <localleader>ic ysiW`
 nnoremap <buffer> <localleader>ab :<c-u>AsyncRun 
     \ xsel -ob >> %:p:h/ref.bib; xsel -ob \| perl -ne 'print "\@$1\n" if ($_ =~ /^\@\w+\{([^,]+)\,/)' >> ~/.config/nvim/paper.dict<cr>

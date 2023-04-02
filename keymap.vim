@@ -242,11 +242,6 @@ inoremap ;. <C-v>u3002
 " 顿号
 inoremap ;\ <C-v>u3001
 
-" preview markdown snippet ============================================== {{{1
-nnoremap <localleader>v vip:call utils#MdPreview()<cr>
-nnoremap <localleader>V vip:call utils#MdPreview(1)<cr>
-vnoremap <localleader>v :call utils#MdPreview()<cr>
-vnoremap <localleader>V :call utils#MdPreview(1)<cr>
 
 " 输入法 ================================================================= {{{1
 inoremap ;<space> ;

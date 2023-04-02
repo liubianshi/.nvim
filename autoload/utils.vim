@@ -466,14 +466,9 @@ function! utils#StataGenHelpDocs(keywords, oft = "txt") abort
 endfunction
 
 " Markdown Snippets Preview ============================================== {{{1
-function! utils#MdPreview(view = 0) range  abort
-    if (a:view == 0 && (exists("b:mdviewer_open") && b:mdviewer_open == '1'))
-        let command = "mdviewer -q"
-    else
-        let command = "mdviewer"
-    endif
+function! utils#MdPreview() range  abort
+    let command = "mdviewer --wname " . sha256(expand('.'))
     call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command, 1, a:firstline, a:lastline)
-    let b:mdviewer_open = '1'
 endfunction
 
 " Check the syntax group in the current cursor position, see ============= {{{1

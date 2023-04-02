@@ -124,6 +124,7 @@ else
     Plug 'hrsh7th/cmp-omni'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
+    Plug 'jalvesaq/cmp-nvim-r'
     Plug 'ray-x/cmp-treesitter'
     Plug 'onsails/lspkind.nvim'
     Plug 'quangnguyen30192/cmp-nvim-ultisnips'

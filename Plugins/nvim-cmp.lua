@@ -127,6 +127,7 @@ cmp.setup({
         { name = 'cmdline' },
         { name = 'latex_symbols' },
         { name = 'orgmode' },
+        { name = 'cmp_nvim_r'},
         { name = 'treesitter' },
         { name = 'ctags' }, 
         { name = 'vim-dadbod-completion' },
