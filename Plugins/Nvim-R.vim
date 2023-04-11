@@ -7,6 +7,8 @@ let R_args = ['--no-save', '--quiet']
 "let R_app = "radian"
 let R_hl_term = 1
 let R_debug = 1
+let R_dbg_jump = 0
+let R_debug_center = 0
 let R_openpdf = 0
 let R_bracketed_paste = 1
 if has('mac')
@@ -26,7 +28,7 @@ let R_nvim_wd = 1   " Start R in working directory of vim
 "let rmd_syn_hl_chunk = 1
 "
 "
-"let voom_ft_modes = {'rmd': 'pandoc', 'rnoweb': 'latex'}
+let voom_ft_modes = {'rmd': 'pandoc', 'rnoweb': 'latex'}
 "if ($SSH_CLIENT == "")
     ""let R_external_term = 'alacritty -t R -e'
     "let R_external_term = 'st -t R -e'
@@ -34,7 +36,7 @@ let R_nvim_wd = 1   " Start R in working directory of vim
 
 let R_notmuxconf = 1
 let R_csv_app = "terminal:viewdata"
-let R_start_libs = 'base,stats,graphics,grDevices,utils,methods,rlang,data.table,fread,readxl,haven,lbs'
+
 command! RStart let oldft=&ft
     \ | set ft=r
     \ | exe 'set ft='.oldft

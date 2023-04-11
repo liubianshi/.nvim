@@ -109,6 +109,7 @@ Plug 'beauwilliams/focus.nvim'
 " Snippets {{{2
 Plug 'sirver/UltiSnips'
 Plug 'honza/vim-snippets'
+Plug 'jalvesaq/zotcite'
 " 补全框架 -------------------------------------------------------------- {{{2
 if g:complete_method ==# "coc" 
     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -128,8 +129,9 @@ else
     Plug 'ray-x/cmp-treesitter'
     Plug 'onsails/lspkind.nvim'
     Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-    Plug 'epwalsh/obsidian.nvim'
-    "Plug 'kdheepak/cmp-latex-symbols'
+    "Plug 'epwalsh/obsidian.nvim'
+    Plug 'kdheepak/cmp-latex-symbols'
+    Plug 'jalvesaq/cmp-zotcite'
     if ! has('mac')
         Plug 'wasden/cmp-flypy.nvim', { 'do': 'make flypy' }
     endif
