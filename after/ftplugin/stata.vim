@@ -48,7 +48,7 @@ function! s:StataCommandFactory(command = '', type = '') abort
         if cmd == "H"
             call Lbs_StataGenHelpDocs(@")
         else
-            call VimCmdLineSendCmd(cmd .. " " .. @")
+            call cmdline#SendCmd(cmd .. " " .. @")
         endif
     finally
         call setreg('"', reg_save)
@@ -77,7 +77,7 @@ endfunction
  
 " 将最新的变量名和标签写入 ./.varlist.tsv, 同时设置 buffer 变量 b:varlist -------- {{{2
 function! s:StataSyncVarlistGraphlist() abort
-    call VimCmdLineSendCmd("VimSync_graphname_varlist")
+    call cmdline#SendCmd("VimSync_graphname_varlist")
     let b:varlist   = split(system("cut -f1 ./.vim/varlist.tsv"), "\n")
     let b:graphlist = split(system("cut -f1 ./.vim/graphlist.txt"), "\n")
     let b:macrolist = split(system("cut -f1 ./.vim/macrolist.txt"), "\n")
@@ -125,7 +125,7 @@ endfunction
 
 " 生成 Stata vim-style doc 文件，并在 Vim 中打开 ----------------------------- {{{2
 command! -nargs=+ -complete=customlist,<SID>StataCommandComplete
-        \ STATADO call VimCmdLineSendCmd(<q-args>)
+        \ STATADO call cmdline#SendCmd(<q-args>)
 command! -nargs=0 STATAPREVIEW call <sid>Stata_Preview_Data()
 
 " Mapping ==================================================================== {{{1
@@ -143,7 +143,7 @@ nnoremap <buffer> <localleader>,d :STATADO set trace on<cr>
 nnoremap <buffer> <localleader>,D :STATADO set trace off<cr>
 
 " Log ------------------------------------------------------------------------ {{{2
-nnoremap <buffer> <localleader>Ll :call VimCmdLineSendCmd("log using \"" . "~/.log/" . substitute(expand('%:p:~'), "/", "%", "g") . "-" . strftime("%Y%m%d%H") . ".txt\", append text name(lbs)")<cr>
+nnoremap <buffer> <localleader>Ll :call cmdline#SendCmd("log using \"" . "~/.log/" . substitute(expand('%:p:~'), "/", "%", "g") . "-" . strftime("%Y%m%d%H") . ".txt\", append text name(lbs)")<cr>
 nnoremap <buffer> <localleader>Lr :STATADO log query _all<cr>
 nnoremap <buffer> <localleader>Lp :STATADO log off lbs<cr>
 nnoremap <buffer> <localleader>Lo :STATADO log on lbs<cr>
@@ -152,14 +152,14 @@ nnoremap <buffer> <localleader>Lc :STATADO log close lbs<cr>
 " Description ---------------------------------------------------------------- {{{2
 vnoremap <silent><buffer> <localleader>d  :<c-u>call <SID>Stata_des(visualmode())<cr>
 nnoremap <silent><buffer> <localleader>dm :set opfunc=<SID>Stata_des<cr>g@
-nnoremap <buffer> <localleader>rd :call VimCmdLineSendCmd("des " . expand('<cword>'))<cr>
+nnoremap <buffer> <localleader>rd :call cmdline#SendCmd("des " . expand('<cword>'))<cr>
 nnoremap <buffer> <localleader>de :STATADO des<cr>
 
 " view Data ----------------------------------------------------------------- {{{2
 vnoremap <silent><buffer> <localleader>v  :<c-u>call <SID>Stata_view(visualmode())<cr>
 nnoremap <silent><buffer> <localleader>vm :set opfunc=<SID>Stata_view<cr>g@
-nnoremap <buffer> <localleader>rv :call VimCmdLineSendCmd("codebook " . expand('<cword>'))<cr>
-vnoremap <buffer> <localleader>rv y:call VimCmdLineSendCmd("codebook " . @")<cr>
+nnoremap <buffer> <localleader>rv :call cmdline#SendCmd("codebook " . expand('<cword>'))<cr>
+vnoremap <buffer> <localleader>rv y:call cmdline#SendCmd("codebook " . @")<cr>
 nnoremap <buffer> <localleader>vr :STATADO V if runiform() <= 100/_N<cr>:STATAPREVIEW<cr>
 nnoremap <buffer> <localleader>vh :STATADO V in 1/100<cr>:STATAPREVIEW<cr>
 nnoremap <buffer> <localleader>vt :STATADO V if _n >= _N - 100<cr>:STATAPREVIEW<cr>
@@ -181,18 +181,18 @@ nnoremap <buffer> <localleader>hp :StataHelpPDF<cr>
 " factor variable ------------------------------------------------------------ {{{2
 vnoremap <silent><buffer> <localleader>f  :<c-u>call <SID>Stata_distinct(visualmode())<cr>
 nnoremap <silent><buffer> <localleader>fm :set opfunc=<SID>Stata_distinct<cr>g@
-nnoremap <buffer>         <localleader>rf :call VimCmdLineSendCmd("gdistinct " . expand('<cword>'))<cr>
-vnoremap <buffer>         <localleader>rf y:call VimCmdLineSendCmd("gdistinct " . @")<cr>
-nnoremap <buffer>         <localleader>fl :call VimCmdLineSendCmd("glevelsof " . expand('<cword>'))<cr>
-vnoremap <buffer>         <localleader>fl y:call VimCmdLineSendCmd("glevelsof " . @")<cr>
-nnoremap <buffer>         <localleader>ft :call VimCmdLineSendCmd("tab " . expand('<cword>'))<cr>
-vnoremap <buffer>         <localleader>ft y:call VimCmdLineSendCmd("tab " . @")<cr>
+nnoremap <buffer>         <localleader>rf :call cmdline#SendCmd("gdistinct " . expand('<cword>'))<cr>
+vnoremap <buffer>         <localleader>rf y:call cmdline#SendCmd("gdistinct " . @")<cr>
+nnoremap <buffer>         <localleader>fl :call cmdline#SendCmd("glevelsof " . expand('<cword>'))<cr>
+vnoremap <buffer>         <localleader>fl y:call cmdline#SendCmd("glevelsof " . @")<cr>
+nnoremap <buffer>         <localleader>ft :call cmdline#SendCmd("tab " . expand('<cword>'))<cr>
+vnoremap <buffer>         <localleader>ft y:call cmdline#SendCmd("tab " . @")<cr>
 
 " Continuous Variable Statisitcs --------------------------------------------- {{{2
 vnoremap <silent><buffer> <localleader>n  :<c-u>call <SID>Stata_sum(visualmode())<cr>
 nnoremap <silent><buffer> <localleader>nm :set opfunc=<SID>Stata_sum<cr>g@
-nnoremap <buffer>         <localleader>rn :call VimCmdLineSendCmd("gstats sum " . expand('<cword>'))<cr>
-vnoremap <buffer>         <localleader>rn y:call VimCmdLineSendCmd("gstats sum " . @")<cr>
+nnoremap <buffer>         <localleader>rn :call cmdline#SendCmd("gstats sum " . expand('<cword>'))<cr>
+vnoremap <buffer>         <localleader>rn y:call cmdline#SendCmd("gstats sum " . @")<cr>
 
 " preserve data -------------------------------------------------------------- {{{2
 nnoremap <silent><buffer> <localleader>sp :STATADO preserve<cr>

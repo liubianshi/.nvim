@@ -1,5 +1,5 @@
 syn keyword stataCommand local_inlist
-syn keyword stataProgram snappreserve snaprestore dogen my 
+syn keyword stataProgram snappreserve snaprestore dogen my addvar
 syn keyword stataProgram Snap VimSync_graphname_varlist backup_graph backup_varlist backup_macro H G V
 syn keyword stataProgram backup_program file2list test missnum varattr proxy
 
