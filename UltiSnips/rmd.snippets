@@ -1,7 +1,9 @@
 snippet cbr "Codeblock" b
-\`\`\`\{r $1\}
+<!-- {{{ -->
+\`\`\`\{r, $1\}
 $2
 \`\`\`
+<!-- }}} -->
 $0
 endsnippet
 
@@ -93,6 +95,7 @@ $0
 endsnippet
 
 snippet setup "Rmd Setup" b
+<!-- 设置 R session 环境 {{{-->
 \`\`\`\{r, setup, include = F\}
 library("magrittr")
 library("data.table")
@@ -109,6 +112,9 @@ if (Sys.info()["sysname"]=="Darwin") {
 	font_add("LXGW Mono", "LXGWWenKaiMono-Regular.ttf")
 }
 \`\`\`
+<!--}}}-->
+
+$0
 endsnippet
 
 snippet setup_raku "Raku Engine Setup" b

@@ -41,6 +41,11 @@ lspconfig.bashls.setup{
 
 -- R (r_language_server) =================================================
 lspconfig.r_language_server.setup({
+    cmd = {
+        "R", "--slave", 
+        "--default-packages=" .. vim.g.R_start_libs,
+        "-e", "languageserver::run()"
+    },
     capabilities = capabilities,
     on_attach = on_attach_custom,
     root_dir = util.root_pattern(".git", ".vim", "NAMESPACE"),

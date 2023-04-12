@@ -26,7 +26,7 @@ vim.lsp.protocol.CompletionItemKind = {
     ' [struct]',
     '⌘ [event]',
     ' [operator]',
-    '♛ [type]'
+    '« [type]'
 }
 
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
@@ -53,10 +53,15 @@ cmp.setup({
             local kind = require("lspkind").cmp_format({
                 mode = "symbol_text",
                 maxwidth = 50,
+                ellipsis_char = '...', -- the truncated part when popup menu exceed maxwidth
             })(entry, vim_item)
             local strings = vim.split(kind.kind, "%s", { trimempty = true })
             kind.kind = " " .. strings[1] .. " "
-            kind.menu = "    (" .. strings[2] .. ")"
+            if strings[2] == nil then
+                kind.menu = "    (other)"
+            else
+                kind.menu = "    (" .. strings[2] .. ")"
+            end
             return kind
         end,
     },
@@ -121,11 +126,13 @@ cmp.setup({
     }),
     sources = cmp.config.sources({
         { name = 'flypy' },
+        { name = 'cmp_nvim_r'},
         { name = 'nvim_lsp' },
-        { name = 'nvim_lsp_signature_help' },
+        --{ name = 'nvim_lsp_signature_help' },
         { name = 'ultisnips' }, -- For ultisnips users.
         { name = 'cmdline' },
         { name = 'latex_symbols' },
+        { name = 'cmp_zotcite' },
         { name = 'orgmode' },
         { name = 'treesitter' },
         { name = 'ctags' }, 
