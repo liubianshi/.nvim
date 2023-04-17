@@ -247,6 +247,12 @@ inoremap ;\ <C-v>u3001
 inoremap ;<space> ;
 inoremap <silent><expr> ;; input_method#En()
 inoremap <silent><expr> ;f input_method#Zh()
+" 移动光标到指定位置 ==================================================== {{{1
+noremap  <A-m> <esc>:call utils#MoveCursorTo()<cr>
+noremap  <A-M> <esc>:call utils#ShiftLine(line('.') + 1, col('.') - 1)<cr>
+inoremap <A-m> <esc>:call utils#MoveCursorTo()<cr>
+inoremap <A-M> <esc>:call utils#MoveCursorTo("")<cr>a
+
 
 
 
@@ -258,6 +264,7 @@ inoremap <silent><expr> ;f input_method#Zh()
 
 
  
+
 
 
 

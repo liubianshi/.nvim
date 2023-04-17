@@ -122,6 +122,36 @@ function! utils#QuickfixToggle()
     endif
 endfunction
 
+" shift specific line =================================================== {{{1
+function! utils#ShiftLine(lnum, col)
+    let line_content = substitute(getline(a:lnum), '^\s*', "" , "")
+    if ! &l:expandtab
+        let tab_num = a:col / shiftwidth()
+        let left_space_num -= tab_num * shiftwidth() 
+        let prefix_space = repeat("\t", tab_num) . repeat(" ", let_space_num)
+    else
+        let prefix_space = repeat(" ", a:col)
+    endif
+    call setline(a:lnum, prefix_space . line_content)
+    call cursor(a:lnum, a:col + 1)
+endfunction
+
+" move the cusror to align with the specific string of previous line ==== {{{1
+function! utils#MoveCursorTo(...)
+    let previous_line = getline(line('.') - 1)
+    if a:0 == 0
+        let symbol = input("The target string: ")
+    else
+        let symbol = a:1
+    endif
+    if symbol == ""
+        let space_num = match(previous_line, '\S')
+    else 
+        let space_num = stridx(previous_line, symbol)
+    endif
+    call utils#ShiftLine(line('.'), space_num)
+endfunction
+
 " Zen {{{1 
 function! s:zenmodeinsert() abort
     let ww = winwidth(0)

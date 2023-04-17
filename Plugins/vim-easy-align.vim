@@ -26,6 +26,20 @@ let g:easy_align_delimiters = {
 \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
 \     'left_margin':  0,
 \     'right_margin': 0
+\   },
+\ '|': {
+\     'pattern': ' %>\S*%\| |>',
+\     'left_margin': 4,
+\     'right_margin': 0,
+\     'delimiter_align': 'l',
+\     'stick_to_left': 0
+\   },
+\ '<': {
+\    'pattern': '<-',
+\     'left_margin': 1,
+\     'right_margin': 1,
+\     'delimiter_align': 'l',
+\     'stick_to_left': 0
 \   }
 \ }
 
