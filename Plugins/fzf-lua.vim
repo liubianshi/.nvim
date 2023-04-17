@@ -36,7 +36,7 @@ require('fzf-lua').setup({
     },
   },
   fzf_opts  = {
-      ['--preview'] = vim.fn.shellescape("printf {1} | sed -E 's/^[^\\/\\sA-z]+\\s//' | xargs scope"),
+      ['--preview'] = vim.fn.shellescape("printf {1} | perl -plE 's!\\A[^\\s\\/A-z]+\\s!!' | xargs scope"),
   },
   files = {
       previewer = "builtin",
