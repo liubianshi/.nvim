@@ -16,27 +16,25 @@ endtry
 
 
 nnoremap <buffer><silent> <M-t> :<c-u>Voom pandoc<cr>
-nmap <silent> <localleader>tv yiw:<c-u>call utils#R_view_df_sample('ht')<cr>
-nmap <silent> <localleader>tr yiw:<c-u>call utils#R_view_df_sample('r')<cr>
-nmap <silent> <localleader>th yiw:<c-u>call utils#R_view_df_sample('h')<cr>
-nmap <silent> <localleader>tt yiw:<c-u>call utils#R_view_df_sample('t')<cr>
-nmap <silent> <localleader>tV yiw:<c-u>call utils#R_view_df_full(30)<cr>
-vmap <silent> <localleader>tv y:<c-u>call   utils#R_view_df_sample('ht')<cr>
-vmap <silent> <localleader>tr y:<c-u>call   utils#R_view_df_sample('r')<cr>
-vmap <silent> <localleader>th y:<c-u>call   utils#R_view_df_sample('h')<cr>
-vmap <silent> <localleader>tt y:<c-u>call   utils#R_view_df_sample('t')<cr>
-vmap <silent> <localleader>tV y:<c-u>call   utils#R_view_df_full(30)<cr>
-nmap <silent> <localleader>t1 :<c-u>call    utils#R_view_srdm_table()<cr>
-nmap <silent> <localleader>t2 :<c-u>call    utils#R_view_srdm_var()<cr>
+nnoremap <silent> <localleader>tv yiw:<c-u>call utils#R_view_df_sample('ht')<cr>
+nnoremap <silent> <localleader>tr yiw:<c-u>call utils#R_view_df_sample('r')<cr>
+nnoremap <silent> <localleader>th yiw:<c-u>call utils#R_view_df_sample('h')<cr>
+nnoremap <silent> <localleader>tt yiw:<c-u>call utils#R_view_df_sample('t')<cr>
+nnoremap <silent> <localleader>tV yiw:<c-u>call utils#R_view_df_full(30)<cr>
+vnoremap <silent> <localleader>tv y:<c-u>call   utils#R_view_df_sample('ht')<cr>
+vnoremap <silent> <localleader>tr y:<c-u>call   utils#R_view_df_sample('r')<cr>
+vnoremap <silent> <localleader>th y:<c-u>call   utils#R_view_df_sample('h')<cr>
+vnoremap <silent> <localleader>tt y:<c-u>call   utils#R_view_df_sample('t')<cr>
+vnoremap <silent> <localleader>tV y:<c-u>call   utils#R_view_df_full(30)<cr>
+nnoremap <silent> <localleader>t1 :<c-u>call    utils#R_view_srdm_table()<cr>
+nnoremap <silent> <localleader>t2 :<c-u>call    utils#R_view_srdm_var()<cr>
 
 inoremap <silent> <A-\>          %>%
 inoremap <silent> <A-\|>         %<>%
 inoremap <silent> <A-=>          <-<Space>
 "inoremap <buffer> <A-j>          x<left><enter><esc>lxi
-imap     <silent> <A-1>          <Esc><Plug>RDSendLine
-nmap     <silent> <A-1>          <Plug>RDSendLine
-nmap     <silent> ,              <Plug>RDSendLine
-vmap     <silent> ,              <Plug>REDSendSelection
+nmap     <buffer> <localleader>l              <Plug>RDSendLine
+vmap     <buffer> <localleader>l              <Plug>REDSendSelection
 nmap     <silent> <LocalLeader>: :RSend 
 
 inoremap <silent> ;rq                     <esc>vap:LbsRF<cr>

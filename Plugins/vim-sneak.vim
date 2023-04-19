@@ -19,18 +19,19 @@ onoremap <silent> T :<C-U>call sneak#wrap(v:operator,   1, 1, 0, 1)<CR>
 nmap ss <Plug>Sneak_s
 nmap sS <Plug>Sneak_S
 
-nnoremap <silent> sc :<c-u>call <sid>SearchChinese_forward()<cr>
-nnoremap <silent> sC :<c-u>call <sid>SearchChinese_backword()<cr>
-xnoremap <silent> sc :<c-u>call <sid>SearchChinese_forward()<cr>
-xnoremap <silent> sC :<c-u>call <sid>SearchChinese_backword()<cr>
-function! s:SearchChinese_forward() 
-     silent execute '!fcitx5-remote -o'
-     call sneak#wrap('', 2, 0, 1, 1)
-     silent exe '!fcitx5-remote -c'
- endfunction 
-function! s:SearchChinese_backword() 
-     silent execute '!fcitx5-remote -o'
-     call sneak#wrap('', 2, 1, 1, 1)
-     silent exe '!fcitx5-remote -c'
- endfunction 
 
+" function! s:SearchChinese_forward() 
+"      silent execute '!fcitx5-remote -o'
+"      call sneak#wrap('', 2, 0, 1, 1)
+"      silent exe '!fcitx5-remote -c'
+"  endfunction 
+" function! s:SearchChinese_backword() 
+"      silent execute '!fcitx5-remote -o'
+"      call sneak#wrap('', 2, 1, 1, 1)
+"      silent exe '!fcitx5-remote -c'
+"  endfunction 
+
+" nnoremap <silent> sc :<c-u>call <sid>SearchChinese_forward()<cr>
+" nnoremap <silent> sC :<c-u>call <sid>SearchChinese_backword()<cr>
+" xnoremap <silent> sc :<c-u>call <sid>SearchChinese_forward()<cr>
+" xnoremap <silent> sC :<c-u>call <sid>SearchChinese_backword()<cr>

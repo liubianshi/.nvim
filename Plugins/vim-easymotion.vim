@@ -1,6 +1,8 @@
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 let g:EasyMotion_smartcase  = 1
+let g:EasyMotion_use_migemo = 1
 
+nmap sc <Plug>(easymotion-s2)
 nmap sl <Plug>(easymotion-sl)
 nmap sj <plug>(easymotion-j)
 nmap sJ <plug>(easymotion-eol-j)

@@ -43,13 +43,10 @@ Plug 'machakann/vim-sandwich'
 " 重复插件操作
 Plug 'tpope/vim-repeat'
 " 快速移动光标
-if has('nvim')
-    Plug 'phaazon/hop.nvim'              " 替代 sneak 和 easymotion
-else
-    Plug 'justinmk/vim-sneak'            " The missing motion for vim
-    Plug 'easymotion/vim-easymotion'     " 高效移动指标插件
-    Plug 'liubianshi/vim-easymotion-chs' 
-endif
+" Plug 'phaazon/hop.nvim'              " 替代 sneak 和 easymotion
+Plug 'justinmk/vim-sneak'            " The missing motion for vim
+Plug 'easymotion/vim-easymotion'     " 高效移动指标插件
+Plug 'zzhirong/vim-easymotion-zh'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 if has('nvim')
     Plug 'folke/which-key.nvim'
