@@ -135,7 +135,7 @@ nnoremap <silent> <leader>tN :tablast<cr>
 nnoremap <silent> <leader><enter> :noh<cr>
 nnoremap <silent> <leader>o: :<C-U>FloatermNew 
 nnoremap <silent> <leader>ob :call utils#Status()<cr>
-nnoremap <silent> <leader>od :<c-u>source "$MYVIMRC"<cr>
+nnoremap <silent> <leader>od :<c-u>source $MYVIMRC<cr>
 nnoremap <silent> <leader>oh :noh<cr>
 nnoremap <silent> <leader>ol :<C-R>=printf("FloatermSend%s", "")<CR><CR>
 nnoremap <silent> <leader>on :FloatermNew nnn<CR>

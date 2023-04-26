@@ -129,6 +129,7 @@ command! -nargs=+ -complete=customlist,<SID>StataCommandComplete
 command! -nargs=0 STATAPREVIEW call <sid>Stata_Preview_Data()
 
 " Mapping ==================================================================== {{{1
+inoremap <buffer> <M-j>  <space>///<cr><esc>:call utils#MoveCursorTo("")<cr>i
 
 " Send Comamand -------------------------------------------------------------- {{{2
 nnoremap <buffer> <localleader>: :call <SID>StataSyncVarlistGraphlist()<cr>:STATADO<Space>
