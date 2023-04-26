@@ -8,7 +8,6 @@ fmt.setup({
         sh = { require("formatter.filetypes.sh").shfmt },
         html = { require("formatter.filetypes.html").prettier },
         css = { require("formatter.filetypes.css").prettier },
-        pandoc = 
         xml = {
             function()
                 return {
