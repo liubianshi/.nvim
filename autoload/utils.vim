@@ -604,8 +604,9 @@ function! utils#MyFoldText() abort
                 \  . l:foldicon
                 \  . repeat(" ", 2 - strdisplaywidth(l:foldicon))
     let l:fill_char = "─"
+    let l:fold_text = substitute(l:fold_text, '\v^\s{' . strdisplaywidth(l:foldicon) . '}', "", "")
     let l:fill_char_num = l:line_width - strdisplaywidth(l:fold_text) - strdisplaywidth(l:foldicon)
-    return printf('%s %s %s %03dL', l:foldicon, l:fold_text,
+    return printf('%s%s %s %03dL', l:foldicon, l:fold_text,
                                    \   repeat(l:fill_char, l:fill_char_num - 7),
                                    \   l:fold_line_num
                                    \ )

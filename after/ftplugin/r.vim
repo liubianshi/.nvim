@@ -2,7 +2,8 @@
 
 " Function =================================================================== {{{1
 let b:cached_data = "/tmp/r_obj_preview.tsv"
-setlocal fdm=marker
+setlocal foldmethod=expr
+setlocal foldexpr=fold#GetRFold()
 setlocal formatprg=r-format
 setlocal tags+=~/.cache/Nvim-R/Rtags,~/.cache/Nvim-R/RsrcTags 
 
