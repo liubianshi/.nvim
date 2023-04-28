@@ -15,16 +15,17 @@ let b:cached_varlist = b:cache_path . "/varlist.tsv"
 runtime  autoload/syntaxcomplete.vim
 let b:keywordlist = uniq(sort(OmniSyntaxList()))
 
-setlocal foldmethod=marker
-setlocal foldmarker={{{,}}}
+" Load Pluguin needed ======================================================== {{{1
+call utils#Load_Plug('stata-vim')
+call utils#Load_Plug("vimcmdline")
+
+"setlocal foldmarker={{{,}}}
+setlocal foldmethod=expr
+setlocal foldexpr=fold_stata#GetStataFold()
 setlocal cindent
 setlocal expandtab
 
 
-
-" Load Pluguin needed ======================================================== {{{1
-call utils#Load_Plug('stata-vim')
-call utils#Load_Plug("vimcmdline")
 
 " Define Function and Command ================================================ {{{1
 " Stata Preview data --------------------------------------------------------- {{{2

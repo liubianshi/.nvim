@@ -58,7 +58,7 @@ Plug 'yianwillis/vimcdoc'
 " Stay: Stay at my cursor, boy!
 Plug 'zhimsel/vim-stay' | set viewoptions=cursor,folds,slash,unix
 " FastFold: Speed up Vim by updating folds only when called-for
-" Plug 'Konfekt/FastFold'
+Plug 'Konfekt/FastFold'
 " Plug '907th/vim-auto-save'
 " 文本对象
 "Plug 'wellle/targets.vim'

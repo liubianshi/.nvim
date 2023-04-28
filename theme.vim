@@ -18,7 +18,7 @@ hi def link helpExample		Special
 
 highlight VertSplit      cterm=None gui=None guibg=bg
 highlight FoldColumn     guibg=bg
-highlight folded         gui=italic guifg=LightGreen guibg=bg
+highlight folded         gui=bold guifg=LightGreen guibg=bg
 highlight SignColumn     guibg=bg
 highlight LineNr         guibg=bg
 highlight FloatermBorder guifg=Cyan

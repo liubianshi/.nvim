@@ -1,6 +1,6 @@
 function! fold#GetRFold()
     if v:lnum == 1
-        let b:lbs_foldlevels = fold#CalBufFoldLevel()
+        let b:lbs_foldlevels = <sid>R_CalBufFoldLevel()
     endif
 
     let level = b:lbs_foldlevels[v:lnum - 1]
@@ -15,24 +15,24 @@ function! fold#GetRFold()
     return level
 endfunction
 
-function! fold#CalBufFoldLevel()
+function! s:R_CalBufFoldLevel()
     let right_bracket_regex = '\v^\s*[\}\]\)\"]'
     let levels              = []
-    let current             = 0
-    let last                = line('$')
 
+    let current             = 1
+    let last                = line('$')
     while current <= last
-        let current += 1
         if <sid>Is_Fold_Start(current)
             let endline_num = <sid>ContainedLineNumber(current, right_bracket_regex)
             if endline_num >= 7
                 call add(levels, <sid>IndentLevel(current) + 1)
+                let current += 1
                 continue
             endif
         endif
         call add(levels, <sid>Cal_fold_level(current, levels, right_bracket_regex))
+        let current += 1
     endwhile
-
     return levels
 endfunction
 

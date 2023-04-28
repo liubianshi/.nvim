@@ -5,6 +5,7 @@ function! utils#Warn(msg)
   echohl NONE
 endfunction
 
+
 " math equation preview ================================================== {{{1
 function! utils#Math_Preview() range
     return
@@ -19,7 +20,7 @@ function! utils#AddDash(symbol, line = "") abort
         let lo = a:line
     endif
 
-    " when the line is empty, keep the number of symbol euqal to
+    " when the line is empty, keep the number of symbol euqal to {{{2
     " display width of previous line, and keep the indentation 
     if lo =~ '^\s*$'
         let lo_pre      = getline(line('.') - 1)
@@ -587,13 +588,14 @@ function! utils#MyFoldText() abort
     let l:fold_text = substitute(l:line, '\V' . l:marker . '\[0-9]\*', '', 'g')
     let l:fold_text = substitute(l:fold_text, '\v[=\-.* ]*$', '', 'g')
     let foldlevel_num = split("   ")
-    let foldlevel_icon = [".", "🌕", "🌒", "..."]
+    let foldlevel_icon = [" ", "", ""]
+    "let foldlevel_icon = [".", "🌕", "🌒", "..."]
     " let foldlevel_icon = split("🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘 ")
     " let foldlevel_symbol = split("🌀⚽ ⚾ 🥎 🏀 🏐 🏈 🏉")
     if v:foldlevel >= len(foldlevel_icon)
-        let l:foldicon = repeat(foldlevel_icon[0], v:foldlevel)
+        let l:foldicon = "｢" . v:foldlevel . "｣" 
     else
-        let l:foldicon = foldlevel_icon[v:foldlevel]
+        let l:foldicon = foldlevel_icon[v:foldlevel - 1]
     endif
     if v:foldlevel >= len(foldlevel_num)
         let l:foldnum = foldlevel_num[0]
@@ -602,7 +604,7 @@ function! utils#MyFoldText() abort
     endif
     let l:foldicon = repeat("  ", 0)
                 \  . l:foldicon
-                \  . repeat(" ", 2 - strdisplaywidth(l:foldicon))
+                \  . repeat(" ", indent(l:line) - strdisplaywidth(l:foldicon))
     let l:fill_char = "─"
     let l:fold_text = substitute(l:fold_text, '\v^\s{' . strdisplaywidth(l:foldicon) . '}', "", "")
     let l:fill_char_num = l:line_width - strdisplaywidth(l:fold_text) - strdisplaywidth(l:foldicon)
@@ -610,6 +612,11 @@ function! utils#MyFoldText() abort
                                    \   repeat(l:fill_char, l:fill_char_num - 7),
                                    \   l:fold_line_num
                                    \ )
+endfunction
+
+" 查看当前光标下的高亮组 ================================================ {{{1
+function! utils#Extract_hl_group_link()
+    echom v:lua.extract_hl_group_link(0, line('.') - 1, col('.') -1)
 endfunction
 " End =================================================================== {{{1
 " vim: fdm=marker:
