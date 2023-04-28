@@ -588,7 +588,7 @@ function! utils#MyFoldText() abort
     let l:fold_text = substitute(l:line, '\V' . l:marker . '\[0-9]\*', '', 'g')
     let l:fold_text = substitute(l:fold_text, '\v[=\-.* ]*$', '', 'g')
     let foldlevel_num = split("   ")
-    let foldlevel_icon = [" ", "", ""]
+    let foldlevel_icon = [" ", " ", " "]
     "let foldlevel_icon = [".", "🌕", "🌒", "..."]
     " let foldlevel_icon = split("🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘 ")
     " let foldlevel_symbol = split("🌀⚽ ⚾ 🥎 🏀 🏐 🏈 🏉")
