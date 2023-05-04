@@ -4,7 +4,7 @@ local mapopts = { silent = true}
 
 require("focus").setup({
     width = 86,
-    minwidth = 15,
+    minwidth = 0,
     bufnew = false,
     autoresize = false,
     excluded_buftypes = {"help", "terminal", "nofile", "promp", "popup"},

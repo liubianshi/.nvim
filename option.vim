@@ -151,6 +151,9 @@ set foldlevel=2             " 折叠层级
 set foldcolumn=1
 set formatoptions=t,n1mMp,Bj,coq
 set foldmethod=marker
+if &foldexpr == 0
+    set foldexpr=fold#GetFold()
+endif
 "set foldmethod=expr
 "set foldexpr=nvim_treesitter#foldexpr()
 

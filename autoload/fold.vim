@@ -2,10 +2,12 @@
 let s:titlePrefix = {
             \ 'r': '#',
             \ 'stata': '*',
+            \ 'vim': '"',
             \ }
 let s:endInfoFunName = {
             \ 'r': 's:R_GetFoldEndInfo',
             \ 'stata': 's:Stata_GetFoldEndInfo',
+            \ 'vim': 's:Vim_GetFoldEndInfo',
             \ }
 
 " 辅助函数 ============================================================== {{{1
@@ -22,7 +24,7 @@ function! s:IndentLevel(lnum) " ----------------------------------------- {{{2
     return indent(a:lnum) / &shiftwidth
 endfunction
 
-function! s:GetEmbededFoldLevels(lnum, p_level = 0, num = 6) " -------- {{{2
+function! s:GetEmbededFoldLevels(lnum, p_level = 0, num = 6) abort " ---- {{{2
     let endinfo      = call(s:endInfoFunName[&l:filetype], [a:lnum])
     if empty(endinfo) | return [] | endif
 
@@ -140,7 +142,7 @@ function! s:R_GetFoldEndInfo(lnum) " ------------------------------------- {{{2
     if <sid>GetMarkerFoldLevel(a:lnum) == 0
         let syntax_name = "manual"
         let end_condition = [
-                    \{ 'regex': '\v\s*$', 
+                    \{ 'regex': '\v^\s*$', 
                     \  'indent': indent_level,
                     \  'contain_end_line': v:false },
                     \]
@@ -180,7 +182,7 @@ function! s:R_GetFoldEndInfo(lnum) " ------------------------------------- {{{2
                     \   'contain_end_line': v:false,
                     \ }
                     \]
-    elseif content =~? '\v<(if|for|else)>\s*\{'
+    elseif content =~? '\v\s*<(if \(|for \(|else).*\s+\{'
         let syntax_name = 'condtion'
         let end_condition = [
                     \ { 'regex': '\V\^\s\*}(\s+\#.*)?$',
@@ -213,7 +215,7 @@ function! s:Stata_GetFoldEndInfo(lnum) " -------------------------------- {{{2
     if <sid>GetMarkerFoldLevel(a:lnum) == 0
         let syntax_name = "manual"
         let end_condition = [
-                    \{ 'regex': '\v\s*$', 
+                    \{ 'regex': '\v^\s*$', 
                     \  'indent': indent_level,
                     \  'contain_end_line': v:false },
                     \]
@@ -255,8 +257,51 @@ function! s:Stata_GetFoldEndInfo(lnum) " -------------------------------- {{{2
     return { 'syntax_name': syntax_name, 'end_condition': end_condition}
 endfunction
 
+function! s:Vim_GetFoldEndInfo(lnum) abort " ---------------------------- {{{2
+    let content          = getline(a:lnum)
+    let indent_level     = <sid>IndentLevel(a:lnum)
+    let end    = {
+               \   'regex': "",
+               \   'indent': indent_level,
+               \   'contain_end_line': v:true,
+               \ }
+
+    if <sid>GetMarkerFoldLevel(a:lnum) == 0
+        let syntax_name           =  "manual"
+        let end.regex             =  '\v^\s*$'
+        let end.contain_end_line  =  v:false
+    elseif content =~? '\v^\s*function'
+        let syntax_name           =  "function"
+        let end.regex             =  '\v^\s*endfunc'
+    elseif content =~? '\v^\s*if>' && content !~? '\|\s+endif(\s+\".*)?$'
+        let syntax_name           =  "if"
+        let end.regex             =  '\v^\s*endif>'
+    elseif content =~? '\v^\s*for>' && content !~? '\v\|\s+endfor(\s+\".*)?$'
+        let syntax_name           =  "for"
+        let end.regex             =  '\v^\s*endfor>'
+    elseif content =~? '\v^\s*while>' && content !~? '\v\|\s+endwhile(\s+\".*)?$'
+        let syntax_name           =  "while"
+        let end.regex             =  '\v^\s*endwhile>'
+    elseif content =~? '\v^\s*augroup\s(END)@!'
+        let syntax_name           = 'augroup'
+        let end.regex             = '\v^\s*augroup\s(END)@='
+    elseif content =~? '\v\s*\=\s*\{'
+        let syntax_name = 'assign_dict'
+        let end.regex = '\v^\s*[^\\ ]'
+        let contain_end_line = v:false
+    elseif content =~? '\v\s*\=\s*\['
+        let syntax_name = 'assign_list'
+        let end.regex = '\v^\s*[^\\ ]'
+        let contain_end_line = v:false
+    else
+        return {}
+    endif
+
+    return { 'syntax_name': syntax_name, 'end_condition': [end]}
+endfunction
+
 " 折叠表达式 ============================================================ {{{1
-function! fold#GetAllLineFoldLevels(num = 6) " ----------------------------- {{{2
+function! fold#GetAllLineFoldLevels(num = 6) abort " -------------------- {{{2
     let current = 1
     let lastline = line('$')
     let current_level = 0

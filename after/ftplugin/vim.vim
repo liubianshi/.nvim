@@ -1,1 +1,3 @@
 inoremap ;<enter> <cr><tab>\<space>
+setlocal foldmethod=expr
+setlocal foldexpr=fold#GetFold()
