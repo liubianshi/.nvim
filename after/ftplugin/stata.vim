@@ -21,7 +21,7 @@ call utils#Load_Plug("vimcmdline")
 
 "setlocal foldmarker={{{,}}}
 setlocal foldmethod=expr
-setlocal foldexpr=fold_stata#GetStataFold()
+setlocal foldexpr=fold#GetFold()
 setlocal cindent
 setlocal expandtab
 
