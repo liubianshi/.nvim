@@ -4,16 +4,12 @@ function! s:RdocWord(word)
         call s:ShowCmd("0read!,rhelp " . a:word, a:word)
     else
         echo 'No documentation found for "' . a:word . '".'
-  end
+    endif
 endfunction
 
 function! s:DocExist(word)
     let result = system("Rscript --no-init-file -e 'cat(length(unclass(help(" . a:word . ", try.all.packages = T))))'")
-    if result == 0
-        return 0
-    else
-        return 1
-    endif
+    return result == 0 ? 0 : 1
 endfunction
 
 function! s:ShowCmd(cmd, word)
@@ -27,10 +23,7 @@ function! s:ShowCmd(cmd, word)
 endfunction
 
 function! rdoc#Rdoc(...)
-  let word = join(a:000, ' ')
-  if !strlen(word)
-    let word = expand('<cword>')
-  endif
+  let word = (empty(a:000) ? expand('<cword>') : join(a:000, ' '))
   call s:RdocWord(word)
 endfunction
 

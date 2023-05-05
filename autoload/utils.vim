@@ -578,42 +578,6 @@ function! utils#Bclose(bang, buffer)
     execute wcurrent.'wincmd w'
 endfunction
 
-" Custom fold text adapted from: ======================================== {{{1
-"     https://github.com/jdhao/nvim-config/blob/master/autoload/utils.vim
-function! utils#MyFoldText() abort 
-    let l:line_width = &l:textwidth == 0 ? 78 : &l:textwidth
-    let l:line = getline(v:foldstart)
-    let l:fold_line_num = v:foldend - v:foldstart
-    let l:marker = split(&l:foldmarker, ",")[0]
-    let l:fold_text = substitute(l:line, '\V' . l:marker . '\[0-9]\*', '', 'g')
-    let l:fold_text = substitute(l:fold_text, '\v[=\-.* ]*$', '', 'g')
-    let foldlevel_num = split("   ")
-    let foldlevel_icon = [" ", " ", " "]
-    "let foldlevel_icon = [".", "🌕", "🌒", "..."]
-    " let foldlevel_icon = split("🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘 ")
-    " let foldlevel_symbol = split("🌀⚽ ⚾ 🥎 🏀 🏐 🏈 🏉")
-    if v:foldlevel >= len(foldlevel_icon)
-        let l:foldicon = "｢" . v:foldlevel . "｣" 
-    else
-        let l:foldicon = foldlevel_icon[v:foldlevel - 1]
-    endif
-    if v:foldlevel >= len(foldlevel_num)
-        let l:foldnum = foldlevel_num[0]
-    else
-        let l:foldnum = foldlevel_num[v:foldlevel]
-    endif
-    let l:foldicon = repeat("  ", 0)
-                \  . l:foldicon
-                \  . repeat(" ", indent(l:line) - strdisplaywidth(l:foldicon))
-    let l:fill_char = "─"
-    let l:fold_text = substitute(l:fold_text, '\v^\s{' . strdisplaywidth(l:foldicon) . '}', "", "")
-    let l:fill_char_num = l:line_width - strdisplaywidth(l:fold_text) - strdisplaywidth(l:foldicon)
-    return printf('%s%s %s %03dL', l:foldicon, l:fold_text,
-                                   \   repeat(l:fill_char, l:fill_char_num - 7),
-                                   \   l:fold_line_num
-                                   \ )
-endfunction
-
 " 查看当前光标下的高亮组 ================================================ {{{1
 function! utils#Extract_hl_group_link()
     echom v:lua.extract_hl_group_link(0, line('.') - 1, col('.') -1)

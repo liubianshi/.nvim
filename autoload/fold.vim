@@ -1,3 +1,4 @@
+" vim: set foldmethod=expr :
 " 辅助数据 -------------------------------------------------------------- {{{1
 let s:titlePrefix = {
             \ 'r': '#',
@@ -11,20 +12,20 @@ let s:endInfoFunName = {
             \ }
 
 " 辅助函数 ============================================================== {{{1
-function! s:CheckEndCondition(content, indent, condition_list) " -------- {{{2
+function! s:CheckEndCondition(content, indent, condition_list)
     for cond in a:condition_list
         if a:content =~? cond.regex && a:indent <= cond.indent
-            return cond.contain_end_line ? 1 : 0
+            return (cond.contain_end_line ? 1 : 0)
         endif
     endfor
     return -2
 endfunction
 
-function! s:IndentLevel(lnum) " ----------------------------------------- {{{2
+function! s:IndentLevel(lnum)
     return indent(a:lnum) / &shiftwidth
 endfunction
 
-function! s:GetEmbededFoldLevels(lnum, p_level = 0, num = 6) abort " ---- {{{2
+function! s:GetEmbededFoldLevels(lnum, p_level = 0, num = 6) abort
     let endinfo      = call(s:endInfoFunName[&l:filetype], [a:lnum])
     if empty(endinfo) | return [] | endif
 
@@ -74,7 +75,7 @@ function! s:GetEmbededFoldLevels(lnum, p_level = 0, num = 6) abort " ---- {{{2
     return levels
 endfunction
 
-function! s:GetMarkerFoldLevel(lnum) " ---------------------------------- {{{2
+function! s:GetMarkerFoldLevel(lnum)
     let content         = getline(a:lnum)
     let marker          = split(&l:foldmarker, ",")[0]
     let search_regex    = '\V' . marker . '\zs\d\*'
@@ -99,7 +100,7 @@ function! s:GetMarkerFoldLevel(lnum) " ---------------------------------- {{{2
     return marker_level
 endfunction
 
-function! s:GetManualFoldLevel(lnum, title_prefix) " -------------------- {{{2
+function! s:GetManualFoldLevel(lnum, title_prefix)
     let marker_level = <sid>GetMarkerFoldLevel(a:lnum)
     if marker_level > 0
         return marker_level
@@ -113,7 +114,7 @@ function! s:GetManualFoldLevel(lnum, title_prefix) " -------------------- {{{2
     return -2
 endfunction
 
-function! s:GetTitleLevel(lnum, prefix = '*') " ------------------------- {{{2
+function! s:GetTitleLevel(lnum, prefix = '*')
     let content = getline(a:lnum)
     let prefix_length = strlen(a:prefix)
     let regex_title = '\V\^\s\*\zs'
@@ -134,7 +135,7 @@ function! s:GetTitleLevel(lnum, prefix = '*') " ------------------------- {{{2
     return (title_level + prefix_num - 1)
 endfunction
 
-function! s:R_GetFoldEndInfo(lnum) " ------------------------------------- {{{2
+function! s:R_GetFoldEndInfo(lnum)
     let content          = getline(a:lnum)
     let indent_level     = <sid>IndentLevel(a:lnum)
     let end_condition    = []
@@ -208,7 +209,7 @@ function! s:R_GetFoldEndInfo(lnum) " ------------------------------------- {{{2
     return { 'syntax_name': syntax_name, 'end_condition': end_condition}
 endfunction
 
-function! s:Stata_GetFoldEndInfo(lnum) " -------------------------------- {{{2
+function! s:Stata_GetFoldEndInfo(lnum)
     let content          = getline(a:lnum)
     let indent_level     = <sid>IndentLevel(a:lnum)
     let end_condition    = []
@@ -257,7 +258,7 @@ function! s:Stata_GetFoldEndInfo(lnum) " -------------------------------- {{{2
     return { 'syntax_name': syntax_name, 'end_condition': end_condition}
 endfunction
 
-function! s:Vim_GetFoldEndInfo(lnum) abort " ---------------------------- {{{2
+function! s:Vim_GetFoldEndInfo(lnum) abort
     let content          = getline(a:lnum)
     let indent_level     = <sid>IndentLevel(a:lnum)
     let end    = {
@@ -273,7 +274,7 @@ function! s:Vim_GetFoldEndInfo(lnum) abort " ---------------------------- {{{2
     elseif content =~? '\v^\s*function'
         let syntax_name           =  "function"
         let end.regex             =  '\v^\s*endfunc'
-    elseif content =~? '\v^\s*if>' && content !~? '\|\s+endif(\s+\".*)?$'
+    elseif content =~? '\v^\s*if>' && content !~? '\v\|\s+endif(\s+\".*)?$'
         let syntax_name           =  "if"
         let end.regex             =  '\v^\s*endif>'
     elseif content =~? '\v^\s*for>' && content !~? '\v\|\s+endfor(\s+\".*)?$'
@@ -288,11 +289,11 @@ function! s:Vim_GetFoldEndInfo(lnum) abort " ---------------------------- {{{2
     elseif content =~? '\v\s*\=\s*\{'
         let syntax_name = 'assign_dict'
         let end.regex = '\v^\s*[^\\ ]'
-        let contain_end_line = v:false
+        let end.contain_end_line = v:false
     elseif content =~? '\v\s*\=\s*\['
         let syntax_name = 'assign_list'
         let end.regex = '\v^\s*[^\\ ]'
-        let contain_end_line = v:false
+        let end.contain_end_line = v:false
     else
         return {}
     endif
@@ -301,7 +302,7 @@ function! s:Vim_GetFoldEndInfo(lnum) abort " ---------------------------- {{{2
 endfunction
 
 " 折叠表达式 ============================================================ {{{1
-function! fold#GetAllLineFoldLevels(num = 6) abort " -------------------- {{{2
+function! fold#GetAllLineFoldLevels(num = 6) abort
     let current = 1
     let lastline = line('$')
     let current_level = 0
@@ -330,14 +331,53 @@ function! fold#GetAllLineFoldLevels(num = 6) abort " -------------------- {{{2
     return levels
 endfunction
 
-function! fold#GetFold() " ----------------------------------- {{{2
+function! fold#GetFold()
     if v:lnum == 1
         let b:lbs_foldlevels = fold#GetAllLineFoldLevels(6)
     endif
     let fdl = b:lbs_foldlevels[v:lnum - 1]        
-    if v:lnum == line('$')
-        unlet b:lbs_foldlevels
+
+    if getline(v:lnum) =~? '\v^\s*$'
+        let fdl = b:lbs_foldlevels[v:lnum - 2]        
     endif
+
+    if v:lnum == line('$') | unlet b:lbs_foldlevels | endif
     return fdl
+endfunction
+
+" Custom fold text adapted from:
+"     https://github.com/jdhao/nvim-config/blob/master/autoload/utils.vim
+function! fold#FoldText() abort 
+    let l:line_width = &l:textwidth == 0 ? 78 : &l:textwidth
+    let l:line = getline(v:foldstart)
+    let l:fold_line_num = v:foldend - v:foldstart
+    let l:marker = split(&l:foldmarker, ",")[0]
+    let l:fold_text = substitute(l:line, '\V' . l:marker . '\[0-9]\*', '', 'g')
+    let l:fold_text = substitute(l:fold_text, '\v[=\-.* ]*$', '', 'g')
+    let foldlevel_num = split("   ")
+    let foldlevel_icon = [" ", " ", " "]
+    "let foldlevel_icon = [".", "🌕", "🌒", "..."]
+    " let foldlevel_icon = split("🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘 ")
+    " let foldlevel_symbol = split("🌀⚽ ⚾ 🥎 🏀 🏐 🏈 🏉")
+    if v:foldlevel >= len(foldlevel_icon)
+        let l:foldicon = "｢" . v:foldlevel . "｣" 
+    else
+        let l:foldicon = foldlevel_icon[v:foldlevel - 1]
+    endif
+    if v:foldlevel >= len(foldlevel_num)
+        let l:foldnum = foldlevel_num[0]
+    else
+        let l:foldnum = foldlevel_num[v:foldlevel]
+    endif
+    let l:foldicon = repeat("  ", 0)
+                \  . l:foldicon
+                \  . repeat(" ", indent(l:line) - strdisplaywidth(l:foldicon))
+    let l:fill_char = "─"
+    let l:fold_text = substitute(l:fold_text, '\v^\s{' . strdisplaywidth(l:foldicon) . '}', "", "")
+    let l:fill_char_num = l:line_width - strdisplaywidth(l:fold_text) - strdisplaywidth(l:foldicon)
+    return printf('%s%s %s %03dL', l:foldicon, l:fold_text,
+                \ repeat(l:fill_char, l:fill_char_num - 6),
+                \ l:fold_line_num
+                \ )
 endfunction
 

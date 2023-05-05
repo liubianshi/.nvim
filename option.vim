@@ -16,7 +16,7 @@ set wildignorecase  " ignore file and dir name cases in cmd-completion
 
 " 语言环境配置 =========================================================== {{{1
 " perl {{{2
-let g:loaded_perl_provider = 1
+let g:loaded_perl_provider = 0
 let g:perl_host_prog = '/usr/bin/perl'
 
 " Python 相关设置 {{{2
@@ -146,14 +146,12 @@ set nolinebreak            " 折行
 set shiftround
 
 " 折叠相关 ============================================================== {{{1 
-set foldtext=utils#MyFoldText()
+set foldtext=fold#FoldText()
 set foldlevel=2             " 折叠层级
 set foldcolumn=1
 set formatoptions=t,n1mMp,Bj,coq
 set foldmethod=marker
-if &foldexpr == 0
-    set foldexpr=fold#GetFold()
-endif
+if &foldexpr == 0 | set foldexpr=fold#GetFold() | endif
 "set foldmethod=expr
 "set foldexpr=nvim_treesitter#foldexpr()
 
