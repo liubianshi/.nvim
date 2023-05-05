@@ -1,97 +1,95 @@
-" 获取光标前 b 个字符开始的 l 个字符 {{{2
-function! s:GetChar_before_cursor(b, l = 1)
-    return getline('.')[max([0, col('.') - a:b]):col('.') - max([0, a:b - a:l + 1])]
+let s:symbol_dict = {
+            \  ',': "，",
+            \  '.': "。",
+            \  '\': "、",
+            \  ':': "：",
+            \  ';': "；",
+            \  '!': "！",
+            \  '?': "？",
+            \  }
+
+let s:character_pattern = {
+    \ 'space': '[\t\x1d\x20]',
+    \ 'ascii': '[\x20-\x7e]',
+    \ 'ascii_without_space': '[\x21-\x7e]',
+    \ }
+
+" 获取光标前 b 个字符开始的 l 个字符
+function! s:GetChar_before_cursor(preceding_num, length = 1, colnum = -1)
+    let colnum     = (a:colnum == -1 ? col('.') : a:colnum)
+    let char_start = max([0, colnum - a:preceding_num])
+    let char_end   = min([colnum, char_start + a:length - 1])
+    return getline('.')[char_start:char_end]
 endfunction
 
-" 判断当前环境是否为中文输入法 {{{3
 function! s:ChineseInputOn()
     return (trim(system(g:lbs_input_status)) == g:lbs_input_method_on)
 endfunction
 
-"echo "Change to Chinese Mode" {{{2
-function! input_method#Zh(insert_entry = 0)
-    if a:insert_entry == 1
-        try
-            if b:inputtoggle == 1
-                call system(g:lbs_input_method_activate)
-                let b:inputtoggle = 0
-            endif
-        catch /inputtoggle/
-            let b:inputtoggle = 0
-        endtry
+function! s:InputMethodOfLastInsertMode() abort
+    if has_key(b:, "input_method_of_last_insert_mode")
+        return b:input_method_of_last_insert_mode
     else
-        let b:INPUT_ENV = 1
-        if !<SID>ChineseInputOn()
-            call system(g:lbs_input_method_activate)
-        endif
+        return s:GetBufferCurrentInputMethod()
     endif
-    return("")
 endfunction
 
-"echo "Change to English Mode" {{{2
-function! input_method#En(insert_leave = 0)
-    if a:insert_leave == '1'
-        if <SID>ChineseInputOn()
-            let b:inputtoggle = 1
-            call system(g:lbs_input_method_inactivate)
-        endif
+function! s:GetBufferCurrentInputMethod() abort
+    if has_key(b:, "current_input_method")
+        return b:current_input_method
     else
-        let b:INPUT_ENV = 0
-        if <SID>ChineseInputOn()
-            call system(g:lbs_input_method_inactivate)
-        endif
+        return -2
     endif
-    return("")
 endfunction
 
-" 自动切换输入中文输入法 {{{2
-function! input_method#AUTO()
-    if v:char != '\x1d' && v:char != ' ' " 待输入的字符是空格或 <ctrl-]>
-        return("")
+" Switch to chinese input method when entering insert mode
+function! input_method#Zh()
+    let b:current_input_method = "zh"
+    if !s:ChineseInputOn()
+        call system(g:lbs_input_method_activate)
     endif
-    let symbol_dict = {
-                \  ',': "，",
-                \  '.': "。",
-                \  '\': "、",
-                \  ':': "：",
-                \  ';': "；",
-                \  '!': "！",
-                \  '?': "？",
-                \  }
-    let cursor_before_char = <SID>GetChar_before_cursor(2, 1)
-    let cursor_before_char_2 = <SID>GetChar_before_cursor(3, 1)
-    if has_key(symbol_dict, cursor_before_char)
-        stopinsert
-        return "abc"
-    endif
-    if exists("b:INPUT_ENV") && b:INPUT_ENV == 1
-        let cursor_before_char = <SID>GetChar_before_cursor(2, 1)
-        if cursor_before_char =~ '[\x21-\x7d]'
-            call system(g:lbs_input_method_activate)
-        else
-            call system(g:lbs_input_method_inactivate)
-        endif
-    endif
-    return("")
+    return ""
 endfunction
 
-" 通过 space 实现自动切换 {{{2
-function! input_method#Space(symbol_dict)
-    if !(exists("b:INPUT_ENV") && b:INPUT_ENV == 1)
+function! input_method#En()
+    let b:current_input_method = 'en'
+    if <SID>ChineseInputOn() 
+        call system(g:lbs_input_method_inactivate)
+    endif
+    return ""
+endfunction
+
+function! input_method#RestoreInsertMode() abort
+    if s:InputMethodOfLastInsertMode() =~? "zh"
+        call system(g:lbs_input_method_activate)
+    endif
+endfunction
+
+function! input_method#LeaveInsertMode() abort
+    let b:input_method_of_last_insert_mode =
+        \ <SID>ChineseInputOn() ? "zh" : "en"
+    call system(g:lbs_input_method_inactivate)
+endfunction
+
+function! s:PreviousCharacterIsHalfWidth(preceding_num) abort
+    let l:previous_char = s:GetChar_before_cursor(a:preceding_num, 1)
+    return cursor_before_char =~? '[\x20-\x7e]'
+endfunction
+
+function! input_method#AutoSwitchAfterSpace()
+    if s:GetBufferCurrentInputMethod() !~? 'zh'
         return "\<space>"
     endif
+
     let cursor_before_char = <SID>GetChar_before_cursor(2, 1)
-    if has_key(a:symbol_dict, cursor_before_char)
-        if cursor_before_char =~ '[\x20-\x7d]'
-            let cursor_before_char_2 = <SID>GetChar_before_cursor(3, 1)
-        else 
-            let cursor_before_char_2 = <SID>GetChar_before_cursor(5, 1)
-        endif
-        if ! (cursor_before_char_2 =~ '[\x21-\x7d]')
-            return ("\<bs>" . a:symbol_dict[cursor_before_char])
+    if has_key(s:symbol_dict, cursor_before_char)
+        let cursor_before_symbol = <SID>GetChar_before_cursor(3, 1)
+        if cursor_before_symbol !~? s:character_pattern.ascii
+            return ("\<bs>" . s:symbol_dict[cursor_before_char])
         endif
     endif
-    if cursor_before_char =~ '[\x21-\x7d]'
+
+    if cursor_before_char =~ s:character_pattern.ascii_without_space
         call system(g:lbs_input_method_activate)
     else
         call system(g:lbs_input_method_inactivate)
@@ -99,28 +97,24 @@ function! input_method#Space(symbol_dict)
     return "\<space>"
 endfunction
 
-" 按回车键后的自动切换 {{{2
-function! input_method#BS()
-    if !(exists("b:INPUT_ENV") && b:INPUT_ENV == 1)
+function! input_method#AutoSwitchAfterBackspace()
+    if s:GetBufferCurrentInputMethod() !~? 'zh'
         return "\<bs>"
     endif
 
     let cursor_char = <SID>GetChar_before_cursor(2, 1)
-    if cursor_char =~ '[\x20-\x7d]'
+    if cursor_char =~? s:character_pattern.ascii
         let cursor_before_char = <SID>GetChar_before_cursor(3, 1)
     else 
         let cursor_before_char = <SID>GetChar_before_cursor(5, 1)
     endif
-    if cursor_before_char == '\x1d' || cursor_before_char == ' '
-        return "\<bs>"
-    endif
 
-    if cursor_before_char =~ '[\x21-\x7d]'
+    if cursor_before_char =~? s:character_pattern.ascii_without_space
         call system(g:lbs_input_method_inactivate)
-    else
+    elseif cursor_before_char !~? s:character_pattern.space
         call system(g:lbs_input_method_activate)
     endif
 
-    return("\<bs>")
+    return "\<bs>"
 endfunction
 

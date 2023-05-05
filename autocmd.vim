@@ -1,13 +1,3 @@
-let symbol_dict = {
-            \  ',': "，",
-            \  '.': "。",
-            \  '\': "、",
-            \  ':': "：",
-            \  ';': "；",
-            \  '!': "！",
-            \  '?': "？",
-            \  }
-
 function! s:fasd_update() abort
   if empty(&buftype) || &filetype ==# 'dirvish'
     call jobstart(['fasd', '-A', fnameescape(expand('%:p'))])
@@ -50,16 +40,20 @@ augroup END
 " Input Method Toggle =================================================== {{{1
 augroup Method_Toggle
     autocmd!
-    autocmd InsertLeavePre * call input_method#En(1)
-    autocmd InsertEnter * call input_method#Zh(1)
-    autocmd CmdlineEnter [/\?] call input_method#Zh(1)
-    autocmd CmdlineLeave [/\?] call input_method#En(1)
+    autocmd InsertLeavePre *   call input_method#LeaveInsertMode()
+    autocmd InsertEnter *      call input_method#RestoreInsertMode()
+    autocmd CmdlineEnter [/\?] call input_method#RestoreInsertMode()
+    autocmd CmdlineLeave [/\?] call input_method#LeaveInsertMode()
     autocmd BufRead,BufNew *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org
-        \ inoremap <silent><expr><buffer> <space> input_method#Space(symbol_dict)
+        \ inoremap <silent><expr><buffer> <space>
+        \ input_method#AutoSwitchAfterSpace()
     autocmd BufRead,BufNew *.hlp,*.md,*.[Rr]md,*.[Rr]markdown,*.org
-        \ inoremap <silent><expr><buffer> <bs> input_method#BS()
+        \ inoremap <silent><expr><buffer> <bs>
+        \ input_method#AutoSwitchAfterBackspace()
     autocmd FileType mail,org
-        \ inoremap <silent><expr><buffer> <space> input_method#Space(symbol_dict)
+        \ inoremap <silent><expr><buffer> <space>
+        \ input_method#AutoSwitchAfterSpace()
     autocmd FileType mail,org
-        \ inoremap <silent><expr><buffer <bs> input_method#BS()>
+        \ inoremap <silent><expr><buffer <bs>
+        \ input_method#AutoSwitchAfterBackspace()
 augroup END
