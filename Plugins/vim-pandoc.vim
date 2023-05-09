@@ -15,4 +15,4 @@ let g:tex_conceal = "adgm"
 let g:pandoc#syntax#codeblocks#embeds#langs = [
             \ "ruby",    "perl",       "r",
             \ "bash=sh", "stata",      "vim",
-            \ "python",  "raku=perl6", "c"]
+            \ "python",  "perl6=raku", "c"]

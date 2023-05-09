@@ -220,26 +220,26 @@ function! s:Stata_GetFoldEndInfo(lnum)
                     \  'indent': indent_level,
                     \  'contain_end_line': v:false },
                     \]
-    elseif content =~? '\v\s*preserve>'
+    elseif content =~? '\v^\s*preserve>'
         let syntax_name = 'preserve'
         let end_condition = [
-                    \ { 'regex': '\v\s*restore>',
+                    \ { 'regex': '\v^\s*restore>',
                     \   'indent': indent_level,
                     \   'contain_end_line': v:true,
                     \ }
                     \ ]
-    elseif content =~? '\v\s*snappreserve>'
+    elseif content =~? '\v^\s*snappreserve>'
         let syntax_name = "snap"
         let end_condition = [
-                    \ { 'regex': '\v\s*snaprestore>',
+                    \ { 'regex': '\v^\s*snaprestore>',
                     \   'indent': indent_level,
                     \   'contain_end_line': v:true,
                     \ }
                     \ ]
-    elseif content =~? '\v\s*program>'
+    elseif content =~? '\v^\s*program>'
         let syntax_name = "program"
         let end_condition = [
-                    \ { 'regex': '\v\s*end>',
+                    \ { 'regex': '\v^\s*end',
                     \   'indent': indent_level,
                     \   'contain_end_line': v:true,
                     \ }
@@ -247,7 +247,7 @@ function! s:Stata_GetFoldEndInfo(lnum)
     elseif content =~? '\v\s*(if|else|quietly|noisi(ly)?|foreach|forvalue)>.*\{(\s+\/\/.*)?$'
         let syntax_name = "flow"
         let end_condition = [
-                    \ { 'regex': '\v\s*\}',
+                    \ { 'regex': '\v^\s*\}',
                     \   'indent': indent_level,
                     \   'contain_end_line': v:true,
                     \ }

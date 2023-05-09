@@ -33,7 +33,7 @@ endif
 
 " R {{{2
 let r_indent_align_args = 1
-let r_indent_ess_compatible = 1
+let r_indent_ess_compatible = 0
 let r_indent_op_pattern = '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\)\s*$'
 
 " 开启语法支持 =========================================================== {{{1
