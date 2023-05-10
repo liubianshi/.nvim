@@ -81,6 +81,20 @@ function! text_obj#MdCodeBlock(type) abort
   execute 'normal! `<V`>'
 endfunction
 
+" Stata Program block =================================================== {{{1
+function! text_obj#StataProgramDefine() abort
+  let start_row = searchpos('\v^\s*cap(ture)? prog(ram)?', 'bnW')[0]
+  let end_row = searchpos('\v^\s*end', 'nW')[0]
+
+  let buf_num = bufnr()
+
+  call setpos("'<", [buf_num, start_row, 1, 0])
+  call setpos("'>", [buf_num, end_row, 1, 0])
+  execute 'normal! `<V`>'
+endfunction
+
+
+
 " Whole Buffer ========================================================== {{{1
 " From: https://github.com/jdhao/nvim-config/blob/master/autoload/text_obj.vim
 function! text_obj#Buffer() abort

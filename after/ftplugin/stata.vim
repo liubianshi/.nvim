@@ -20,14 +20,15 @@ call utils#Load_Plug('stata-vim')
 call utils#Load_Plug("vimcmdline")
 
 "setlocal foldmarker={{{,}}}
-setlocal foldmethod=expr
 setlocal foldexpr=fold#GetFold()
+setlocal foldmethod=expr
 setlocal cindent
 setlocal expandtab
 
 
 
 " Define Function and Command ================================================ {{{1
+"
 " Stata Preview data --------------------------------------------------------- {{{2
 function! s:Stata_Preview_Data(close = "n") abort
     call utils#Preview_data(b:cached_data, "stata_preview_bufnr", "tabnew", a:close)
@@ -130,6 +131,9 @@ command! -nargs=+ -complete=customlist,<SID>StataCommandComplete
 command! -nargs=0 STATAPREVIEW call <sid>Stata_Preview_Data()
 
 " Mapping ==================================================================== {{{1
+xnoremap <silent><buffer> if :<C-U>call text_obj#StataProgramDefine()<CR>
+onoremap <silent><buffer> if :<C-U>call text_obj#StataProgramDefine()<CR>
+
 inoremap <buffer> <M-j>  <space>///<cr><esc>:call utils#MoveCursorTo("")<cr>i
 
 " Send Comamand -------------------------------------------------------------- {{{2
@@ -156,6 +160,8 @@ vnoremap <silent><buffer> <localleader>d  :<c-u>call <SID>Stata_des(visualmode()
 nnoremap <silent><buffer> <localleader>dm :set opfunc=<SID>Stata_des<cr>g@
 nnoremap <buffer> <localleader>rd :call cmdline#SendCmd("des " . expand('<cword>'))<cr>
 nnoremap <buffer> <localleader>de :STATADO des<cr>
+nnoremap <buffer> <localleader>ds :STATADO ds<cr>
+nnoremap <buffer> <localleader>dc :STATADO count<cr>
 
 " view Data ----------------------------------------------------------------- {{{2
 vnoremap <silent><buffer> <localleader>v  :<c-u>call <SID>Stata_view(visualmode())<cr>
