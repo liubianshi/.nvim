@@ -4,6 +4,13 @@ function! s:fasd_update() abort
   endif
 endfunction
 
+function! s:FoldMethodSetting() abort
+    if &l:foldmethod ==# "manual"
+        if &l:foldexpr == 0 | setlocal foldexpr=fold#GetFold() | endif
+        setlocal foldmethod=expr
+    endif
+endfunction
+
 function! s:checktime() abort
     if getcmdwintype() == ""
         checktime
@@ -18,6 +25,7 @@ autocmd!
 autocmd InsertLeave,WinEnter *  setlocal cursorline
 autocmd InsertEnter,WinLeave *  setlocal nocursorline
 autocmd TermOpen             *  setlocal nonumber norelativenumber bufhidden=hide
+autocmd FileType   r,stata,vim  call s:FoldMethodSetting()
 
 " Fasd ------------------------------------------------------------------ {{{2
 autocmd BufWinEnter,BufFilePost * call <SID>fasd_update()
