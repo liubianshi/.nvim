@@ -25,7 +25,7 @@ function! s:IndentLevel(lnum)
     return indent(a:lnum) / &shiftwidth
 endfunction
 
-function! s:GetEmbededFoldLevels(lnum, p_level = 0, num = 6) abort
+function! s:GetEmbededFoldLevels(lnum, p_level = 0, num = 10) abort
     let endinfo      = call(s:endInfoFunName[&l:filetype], [a:lnum])
     if empty(endinfo) | return [] | endif
 
@@ -302,7 +302,7 @@ function! s:Vim_GetFoldEndInfo(lnum) abort
 endfunction
 
 " 折叠表达式 ============================================================ {{{1
-function! fold#GetAllLineFoldLevels(num = 6) abort
+function! fold#GetAllLineFoldLevels(num = 10) abort
     let current = 1
     let lastline = line('$')
     let current_level = 0
@@ -333,7 +333,7 @@ endfunction
 
 function! fold#GetFold()
     if v:lnum == 1
-        let b:lbs_foldlevels = fold#GetAllLineFoldLevels(6)
+        let b:lbs_foldlevels = fold#GetAllLineFoldLevels(10)
     endif
     let fdl = b:lbs_foldlevels[v:lnum - 1]        
 
