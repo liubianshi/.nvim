@@ -21,7 +21,7 @@ local function constuct_cmp_source(sources)
         { name = 'ultisnips' }, -- For ultisnips users.
         { name = 'async_path', option = { trailing_slash = true }},
         --{ name = 'nvim_lsp_signature_help' },
-        { name = 'cmdline' },
+        --{ name = 'cmdline' },
         { name = 'latex_symbols' },
         { name = 'orgmode' },
         { name = 'treesitter' },
