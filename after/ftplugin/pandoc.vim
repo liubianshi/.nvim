@@ -42,10 +42,9 @@ nnoremap <buffer> <silent> <leader>nH
     \ :w !pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
 noremap <buffer> <silent> <leader>nh
     \ :r  !xclip -o -t text/html -sel clip \| pandoc -f html -t markdown_strict<cr>
-setlocal tw=78 formatoptions=tcroqlnmB1j tabstop=4 shiftwidth=4
-    \ brk= formatexpr= indentexpr=
-let &l:formatprg="prettier --tab-width 4 --parser markdown"
+setlocal tw=78 formatoptions=tcq,ro/,n,lm]1,Bj tabstop=4 shiftwidth=4
 set formatexpr=format#Markdown()
+let &l:formatprg="prettier --tab-width 4 --parser markdown"
 let &l:formatlistpat = '^\s*\d\+\.\s\+\|^[-*+]\s\+\|^\[^\ze[^\]]\+\]:'
 
 UltiSnipsAddFiletype rmd.r.markdown.pandoc

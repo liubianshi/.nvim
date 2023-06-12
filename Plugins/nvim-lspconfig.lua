@@ -30,8 +30,10 @@ local on_attach_custom = function(client, bufnr)
     --     vim.lsp.buf.format { async = true }
     -- end, bufopts)
 end
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if status_ok then
+   local capabilities = cmp_nvim_lsp.default_capabilities()
+end
 
 -- bashls (bash-language-server) ========================================
 lspconfig.bashls.setup{
@@ -46,7 +48,7 @@ lspconfig.r_language_server.setup({
         "--default-packages=" .. vim.g.R_start_libs,
         "-e", "languageserver::run()"
     },
-    capabilities = capabilities,
+    -- capabilities = capabilities,
     on_attach = on_attach_custom,
     root_dir = util.root_pattern(".git", ".vim", "NAMESPACE"),
     flags = {
@@ -80,8 +82,6 @@ lspconfig.perlnavigator.setup({
 
 -- which-key setting
 wk = require("which-key")
-wk.register({
-})
 wk.register({
 ['d'] = { "goto definition" },
 ['D'] = { "goto declaration" },

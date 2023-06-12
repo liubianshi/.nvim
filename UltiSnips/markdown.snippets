@@ -1,4 +1,14 @@
 # markdown snippets
+#
+
+snippet cus "Custom-style" b
+::: {custom-style="$1"}
+$2
+:::
+
+$0
+endsnippet
+
 snippet code "code block" b
 \`\`\`$1
 $2
@@ -72,5 +82,4 @@ def E_trans_to_C(string):
 	return string.translate(table)
 snip.rv = E_trans_to_C(match.group(1))`
 endsnippet
-
 

@@ -4,7 +4,6 @@ require('filetype').setup({
     overrides = {
         extensions = {
             -- Set the filetype of *.pn files to potion
-            pn = 'potion',
             md = 'pandoc',
             markdown = 'pandoc'
         },

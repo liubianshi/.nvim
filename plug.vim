@@ -91,6 +91,7 @@ Plug 'luisiacc/gruvbox-baby', { 'on': [] }
 Plug 'ayu-theme/ayu-vim', { 'on': [] }        
 Plug 'rebelot/kanagawa.nvim', { 'on': [] }    
 Plug 'mhartington/oceanic-next', { 'on': [] } 
+Plug 'sainnhe/everforest'
 " buffer line (with minimal tab integration) for neovim
 Plug 'akinsho/bufferline.nvim'
 " neovim statusline plugin written in pure lua
@@ -121,7 +122,8 @@ else
     " Plug 'ray-x/lsp_signature.nvim'
     Plug 'hrsh7th/cmp-omni'
     Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'FelipeLema/cmp-async-path'
     Plug 'jalvesaq/cmp-nvim-r'
     Plug 'ray-x/cmp-treesitter'
     Plug 'onsails/lspkind.nvim'
