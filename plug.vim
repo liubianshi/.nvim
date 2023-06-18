@@ -91,7 +91,8 @@ Plug 'luisiacc/gruvbox-baby', { 'on': [] }
 Plug 'ayu-theme/ayu-vim', { 'on': [] }        
 Plug 'rebelot/kanagawa.nvim', { 'on': [] }    
 Plug 'mhartington/oceanic-next', { 'on': [] } 
-Plug 'sainnhe/everforest'
+Plug 'sainnhe/everforest', {'on': []}
+Plug 'catppuccin/nvim', {'as': 'catppuccin' }
 " buffer line (with minimal tab integration) for neovim
 Plug 'akinsho/bufferline.nvim'
 " neovim statusline plugin written in pure lua
@@ -102,6 +103,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'beauwilliams/focus.nvim'
 " TrueZen.nvim: Clean and elegant distraction-free writing for NeoVim. {{{2
 " Plug 'Pocco81/TrueZen.nvim'
+Plug 'folke/zen-mode.nvim'
 
 " 补全和代码片断 ======================================================== {{{1
 " Snippets {{{2
@@ -155,7 +157,12 @@ Plug 'hotoo/pangu.vim',              { 'on': [] }
 Plug 'lervag/wiki.vim'
 Plug 'nvim-orgmode/orgmode', { 'for': [ 'org' ] }
 Plug 'dhruvasagar/vim-table-mode', { 'for': [ 'pandoc', 'rmd', 'org' ] } 
-" Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
+
+function! NeorgSyncParsers(...)
+    Neorg sync-parsers
+endfunction
+Plug 'nvim-neorg/neorg', { 'do': function('NeorgSyncParsers') }
+Plug 'nvim-lua/plenary.nvim'
 
 " 文件类型相关插件 ====================================================== {{{1
 " SQL {{{2

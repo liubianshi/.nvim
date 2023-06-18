@@ -472,6 +472,7 @@ function! utils#Preview_data(fname, globalvar, method = "tabnew", close = "n")
 		endtry
     else
         call win_gotoid(l:winlist[0])
+		exec edit
 		if a:close ==? "y"
 			quit
 		endif
