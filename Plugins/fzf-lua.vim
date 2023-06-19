@@ -306,8 +306,8 @@ noremap <silent> <leader>st :<C-U>FzfLua btags<CR>
 noremap <silent> <leader>sT :<C-U>FzfLua tags<CR>
 noremap <silent> <leader>pt :<C-U>FzfLua tags<CR>
 
-if utils#PlugHasLoaded('nvim-lspconfig') 
+" if utils#PlugHasLoaded('nvim-lspconfig') 
     noremap <silent> <leader>sd :<C-U>FzfLua lsp_document_symbols<CR>
     noremap <silent> <leader>pd :<C-U>FzfLua lsp_document_symbols<CR>
     noremap <silent> <leader>sD :<C-U>FzfLua lsp_live_workspace_symbols<CR>
-endif
+" endif

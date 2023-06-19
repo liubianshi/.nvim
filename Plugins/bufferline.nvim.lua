@@ -5,8 +5,10 @@ require"bufferline".setup{
                 attribute = "bg",
                 highlight = "bg",
             }
-        }
+        },
     },
-    separator_style = "slant",
-    always_show_bufferline = false,
+    options = {
+        separator_style = "slant",
+        always_show_bufferline = false,
+    }
 }

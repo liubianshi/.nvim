@@ -302,10 +302,14 @@ endfunction
 
 function! utils#Load_Plug(plugname)
     " 手动加载特定插件
-    if utils#PlugHasLoaded(a:plugname) == 0
-        call utils#Load_Plug_Conf(a:plugname)
-        call plug#load(a:plugname)
-    endif
+    if has_key(g:, "plug_manage_tool") && g:plug_manage_tool == "lazyvim"
+        exec "lua require('lazy').load({plugins = '" . a:plugname . "'})"
+    else
+        if utils#PlugHasLoaded(a:plugname) == 0
+            call utils#Load_Plug_Conf(a:plugname)
+            call plug#load(a:plugname)
+        endif
+    end
 endfunction
 
 function! utils#Load_Plug_Confs(plugNames) abort
