@@ -184,6 +184,11 @@ cmp.setup.filetype('gitcommit', {
     sources = constuct_cmp_source({{name = 'cmp_git'}})
 })
 
+-- Set -- Set configuration for sql
+cmp.setup.filetype('sql', {
+    sources = constuct_cmp_source({{name = 'vim-dadbod-completion'}})
+})
+
 -- -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 -- cmp.setup.cmdline('/', {
 --   mapping = cmp.mapping.preset.cmdline(),

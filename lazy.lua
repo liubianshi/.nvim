@@ -145,6 +145,7 @@ else
         'ray-x/cmp-treesitter',
         'onsails/lspkind.nvim',
         'quangnguyen30192/cmp-nvim-ultisnips',
+        'kristijanhusak/vim-dadbod-completion',
         'kdheepak/cmp-latex-symbols',
         'jalvesaq/cmp-zotcite',
     }
@@ -152,7 +153,7 @@ else
         Plug.add(k, {lazy = true})
     end
     if vim.fn.has('mac') == 0 then
-        Plug.add('wasden/cmp-flypy.nvim', { lazy = true, build = ":make flypy"})
+        Plug.add('wasden/cmp-flypy.nvim', { lazy = true, build = "make flypy"})
         table.insert(cmp_dependencies, 'wasden/cmp-flypy.nvim')
     end
     Plug.add('neovim/nvim-lspconfig')
@@ -193,11 +194,10 @@ Plug.add('nvim-neorg/neorg', {
 
 -- 文件类型相关插件 ====================================================== {{{1
 -- SQL {{{2
--- Modern database interface for Vim
-Plug.add('tpope/vim-dadbod', { ft = 'sql' })
--- Simple UI for vim-dadbod
-Plug.add('kristijanhusak/vim-dadbod-ui', { ft = 'sql' })
-Plug.add('kristijanhusak/vim-dadbod-completion', { ft = 'sql' })
+Plug.add('kristijanhusak/vim-dadbod-ui', {
+    cmd = {'DBUI', 'DBUIToggle', 'DBUIAddConnection', 'DBUIFindBuffer'},
+    dependencies = {'tpope/vim-dadbod'},
+})
 -- R {{{2
 Plug.add('liubianshi/Nvim-R', {
     ft = {'r', 'rmd', 'qml'},
@@ -216,12 +216,29 @@ Plug.add('liuchengxu/graphviz.vim', { ft = 'dot' })
 -- quickfile {{{2
 -- Plug.add('kevinhwang91/nvim-bqf')
 
--- Misc ================================================================== {{{1
--- Plug.add('skywind3000/vim-dict', {ft = {'markdown', 'pandoc', 'rmarkdown', 'rmd'}}) 
+-- Misc ================================================================= {{{1
+-- Plug.add('skywind3000/vim-dict', {
+--      ft = {'markdown', 'pandoc', 'rmarkdown', 'rmd'}
+-- }) 
 -- Plug.add('tommcdo/vim-exchange' )
 
 
 -- 安装并加载插件 ------------------------------------------------------- {{{1
 local lazy = require("lazy")
-lazy.setup(Plug.get(), require("Plugins.lazy"))
+lazy.setup(
+    Plug.get(),
+    dofile(vim.fn.stdpath("config") .. "/Plugins/lazy.lua")
+)
+
+-- 创建辅助函数 --------------------------------------------------------- {{{1
+_G.LoadedPlugins = function()
+    local plugs = require('lazy').plugins()
+    local loaded_plugs = {}
+    for _,plug in ipairs(plugs) do
+        if not plug['_'].loaded then
+            loaded_plugs[plug.name] = 1
+        end
+    end
+    return loaded_plugs
+end
 

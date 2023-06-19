@@ -267,6 +267,11 @@ endfunction
 " Plug Load Management ================================================== {{{1
 function! utils#PlugHasLoaded(plugName) abort
     " 判断插件是否已经载入
+    if has_key(g:, "plug_manage_tool") && g:plug_manage_tool == "lazyvim"
+        let loaded_plugs = v:lua.LoadedPlugins()
+        return(has_key(loaded_plugs, a:plugName))
+    endif
+
     if !has_key(g:plugs, a:plugName)
         return(0)
     endif
@@ -302,14 +307,14 @@ endfunction
 
 function! utils#Load_Plug(plugname)
     " 手动加载特定插件
-    if has_key(g:, "plug_manage_tool") && g:plug_manage_tool == "lazyvim"
-        exec "lua require('lazy').load({plugins = '" . a:plugname . "'})"
-    else
-        if utils#PlugHasLoaded(a:plugname) == 0
+    if utils#PlugHasLoaded(a:plugname) == 0
+        if has_key(g:, "plug_manage_tool") && g:plug_manage_tool == "lazyvim"
+            exec "lua require('lazy').load({plugins = '" . a:plugname . "'})"
+        else
             call utils#Load_Plug_Conf(a:plugname)
             call plug#load(a:plugname)
         endif
-    end
+    endif
 endfunction
 
 function! utils#Load_Plug_Confs(plugNames) abort
