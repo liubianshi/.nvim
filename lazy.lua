@@ -56,16 +56,25 @@ Plug.add('tpope/vim-repeat' )              -- 重复插件操作
 Plug.add('justinmk/vim-sneak' )            -- The missing motion for vim
 Plug.add('easymotion/vim-easymotion' )     -- 高效移动指标插件
 Plug.add('zzhirong/vim-easymotion-zh' )
-Plug.add('nvim-treesitter/nvim-treesitter', {build = ':TSUpdate'})
+Plug.add('nvim-treesitter/nvim-treesitter', {
+    build = ':TSUpdate',
+    cmd = 'TSEnable',
+    event = {'BufReadPost', "BufNewFile"}
+})
 Plug.add('folke/which-key.nvim' )
 
 -- Chinese version of vim documents
-Plug.add('yianwillis/vimcdoc')             
+Plug.add('yianwillis/vimcdoc', {
+    keys = {
+        {'<F1>', mode = "n"}
+    },
+    event = {'CmdwinEnter', 'CmdlineEnter'},
+})
 
 -- Stay: Stay at my cursor, boy!
 Plug.add('zhimsel/vim-stay', {
     init = function()
-        vim.cmd('set viewoptions=cursor,folds,slash,unix')
+        vim.o.viewoptions = "cursor,folds,slash,unix"
     end
 }) 
 
@@ -164,7 +173,10 @@ else
 end
 
 -- Command line Fuzzy Search and completation ---------------------------- {{{2
-Plug.add('gelguy/wilder.nvim', { build = ":UpdateRemotePlugins"})
+Plug.add('gelguy/wilder.nvim', {
+    build = ":UpdateRemotePlugins",
+    event = {'CmdwinEnter', 'CmdlineEnter'}
+})
 
 -- Formatter and linter -------------------------------------------------- {{{2
 Plug.add('mhartington/formatter.nvim', {
