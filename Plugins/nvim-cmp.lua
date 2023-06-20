@@ -1,5 +1,40 @@
 -- Setup nvim-cmp.
 local cmp = require'cmp'
+local function constuct_cmp_source(sources)
+    local function not_exists(s, b)
+        for _,v in ipairs(b) do
+            if v.name == s.name then return(false) end
+        end
+        return(true)
+    end
+
+    local function gen_cmp_source(sources, base) 
+        if sources == nil then return base end
+        base = base or {}
+        for _,v in ipairs(sources) do
+            if not_exists(v, base) then table.insert(base, v) end
+        end
+        return(base)
+    end
+    local default = gen_cmp_source({
+        { name = 'flypy' },
+        { name = 'ultisnips' }, -- For ultisnips users.
+        { name = 'async_path', option = { trailing_slash = true }},
+        --{ name = 'nvim_lsp_signature_help' },
+        --{ name = 'cmdline' },
+        { name = 'latex_symbols' },
+        { name = 'orgmode' },
+        { name = 'treesitter' },
+        { name = 'ctags' }, 
+        { name = 'vim-dadbod-completion' },
+        { name = 'omni' },
+    })
+    local fallback = gen_cmp_source({
+        { name = "buffer"}
+    })
+    return(cmp.config.sources(gen_cmp_source(sources, default), fallback))
+end
+
 
 vim.lsp.protocol.CompletionItemKind = {
     ' [text]',
@@ -124,36 +159,37 @@ cmp.setup({
             end, {"i", "s"}
         ),
     }),
-    sources = cmp.config.sources({
-        { name = 'flypy' },
-        { name = 'cmp_nvim_r'},
-        { name = 'nvim_lsp' },
-        --{ name = 'nvim_lsp_signature_help' },
-        { name = 'ultisnips' }, -- For ultisnips users.
-        { name = 'cmdline' },
-        { name = 'latex_symbols' },
-        { name = 'cmp_zotcite' },
-        { name = 'orgmode' },
-        { name = 'treesitter' },
-        { name = 'ctags' }, 
-        { name = 'vim-dadbod-completion' },
-        { name = 'omni' },
-        { name = 'path' },
-        { name = 'buffer'}
-    }),
+    sources = constuct_cmp_source(),
 })
 
+cmp.setup.filetype({'pandoc', 'markdown', 'rmd', 'rmarkdown'}, {
+    sources = constuct_cmp_source({{name = 'cmp_zotcite'}})
+})
+
+cmp.setup.filetype({'r'}, {
+    sources = constuct_cmp_source({{name = 'cmp_nvim_r'}})
+})
+
+cmp.setup.filetype({'rmd'}, {
+    sources = constuct_cmp_source({{name = 'cmp_nvim_r'}, {name = 'cmp_zotcite'}})
+})
+
+
+cmp.setup.filetype({'perl', 'python', 'vim', 'bash'}, {
+    sources = constuct_cmp_source({{name = 'nvim_lsp'}})
+})
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-        { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-    }, {
-        { name = 'buffer' },
-    })
+    sources = constuct_cmp_source({{name = 'cmp_git'}})
 })
 
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+-- Set -- Set configuration for sql
+cmp.setup.filetype('sql', {
+    sources = constuct_cmp_source({{name = 'vim-dadbod-completion'}})
+})
+
+-- -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 -- cmp.setup.cmdline('/', {
 --   mapping = cmp.mapping.preset.cmdline(),
 --   sources = {

@@ -15,7 +15,10 @@ catch /E117/
 endtry
 
 
+
 nnoremap <buffer><silent> <M-t> :<c-u>Voom pandoc<cr>
+nnoremap <buffer> <localleader>db :<c-u>RSend rlang::trace_back()<cr>
+
 nnoremap <silent> <localleader>tv yiw:<c-u>call utils#R_view_df_sample('ht')<cr>
 nnoremap <silent> <localleader>tr yiw:<c-u>call utils#R_view_df_sample('r')<cr>
 nnoremap <silent> <localleader>th yiw:<c-u>call utils#R_view_df_sample('h')<cr>
@@ -33,8 +36,8 @@ inoremap <silent> <A-\>          %>%
 inoremap <silent> <A-\|>         %<>%
 inoremap <silent> <A-=>          <-<Space>
 "inoremap <buffer> <A-j>          x<left><enter><esc>lxi
-nmap     <buffer> <localleader>l              <Plug>RDSendLine
-vmap     <buffer> <localleader>l              <Plug>REDSendSelection
+nmap     <buffer> <localleader>l              <Plug>RSendLine
+vmap     <buffer> <localleader>l              <Plug>RendSelection
 nmap     <silent> <LocalLeader>: :RSend 
 
 inoremap <silent> ;rq                     <esc>vap:LbsRF<cr>
@@ -62,8 +65,7 @@ nnoremap <silent> <localleader>ab :<c-u>AsyncRun
 "    \ :w !pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
 "noremap <silent> <leader>nh
 "    \ :r  !xclip -o -t text/html -sel clip \| pandoc -f html -t markdown_strict<cr>
-setlocal tw=78 formatoptions=tcroqlnmB1j tabstop=4 shiftwidth=4
-    \ brk= formatexpr= indentexpr=
+setlocal tw=78 formatoptions=tcq,ro/,n,lm]1,Bj tabstop=4 shiftwidth=4
 UltiSnipsAddFiletype rmd.r.markdown.pandoc
 
 
@@ -80,8 +82,8 @@ if(has("mac"))
     nnoremap <silent> <localleader>kbo  :<c-u>! open ./_book/draft.pdf<cr> 
     inoremap <silent> « %>%<cr>
     inoremap <silent> ≠ <-<cr> 
-    imap     <silent> ¡ <Esc><Plug>RDSendLine<CR>
-    nmap     <silent> ¡ <Plug>RDSendLine<CR>
+    imap     <silent> ¡ <Esc><Plug>RSendLine<CR>
+    nmap     <silent> ¡ <Plug>RSendLine<CR>
 endif
 
 

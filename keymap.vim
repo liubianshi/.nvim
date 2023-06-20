@@ -164,7 +164,11 @@ nnoremap <leader>ed :edit ~/Repositories/ssnhd-rime/配置文件/flypy_top.txt<c
 
 " search ================================================================= {{{1
 " check the syntax group of current cursor position
-nnoremap <silent> <leader>sg :<C-U>call utils#SynGroup()<CR>
+if has('nvim')
+    nnoremap <silent> <leader>sg :<C-U>call utils#Extract_hl_group_link()<CR>
+else
+    nnoremap <silent> <leader>sg :<C-U>call utils#SynGroup()<CR>
+endif
 
 " search by surfraw ------------------------------------------------------ {{{2
 noremap  <silent> <leader>ss :<C-U>SR<space>

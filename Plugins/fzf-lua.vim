@@ -144,22 +144,29 @@ end, mapopts)
 vim.keymap.set('n', '<leader>bB', function()
     require'fzf-lua'.fzf_exec(function(fzf_cb)
     coroutine.wrap(function()
-        local co = coroutine.running()
+        local buffers = {}
         for _, b in ipairs(vim.api.nvim_list_bufs()) do
+            local name = vim.api.nvim_buf_get_name(b)
+            if name == "" then name = "[No Name]" end
+            if not (string.find(name, "Wilder Float") or
+                    string.find(name, "/sbin/sh")) then
+                buffers[b] = name 
+            end
+        end
+        local co = coroutine.running()
+        for b, name in pairs(buffers) do
             vim.schedule(function()
-                local name = vim.api.nvim_buf_get_name(b)
-                name = #name>0 and name or "[No Name]"
-                fzf_cb(b..":"..name, function() coroutine.resume(co) end)
-        end)
+                fzf_cb(b.."\t"..name, function() coroutine.resume(co) end)
+            end)
         coroutine.yield()
         end
         fzf_cb()
     end)()
     end, {
-        fzf_opts = { ['+m'] = ''},
+        fzf_opts = { ['+m'] = '', ['--preview-window'] = "hidden"},
         actions = {
             ['default'] = function(selected, opts)
-                local bufno = string.gsub(selected[1], ":.*", '')
+                local bufno = string.gsub(selected[1], "\t.*", '')
                 vim.cmd('buffer ' .. bufno)
             end,
         }, })
@@ -299,8 +306,8 @@ noremap <silent> <leader>st :<C-U>FzfLua btags<CR>
 noremap <silent> <leader>sT :<C-U>FzfLua tags<CR>
 noremap <silent> <leader>pt :<C-U>FzfLua tags<CR>
 
-if utils#PlugHasLoaded('nvim-lspconfig') 
+" if utils#PlugHasLoaded('nvim-lspconfig') 
     noremap <silent> <leader>sd :<C-U>FzfLua lsp_document_symbols<CR>
     noremap <silent> <leader>pd :<C-U>FzfLua lsp_document_symbols<CR>
     noremap <silent> <leader>sD :<C-U>FzfLua lsp_live_workspace_symbols<CR>
-endif
+" endif
