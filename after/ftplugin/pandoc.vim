@@ -5,6 +5,9 @@ for plugname in ['vim-pandoc', 'vim-pandoc-syntax',
 endfor
 let g:PasteImageFunction = 'g:MarkdownPasteImage'
 
+inoremap <silent><expr><buffer> <space> input_method#AutoSwitchAfterSpace()
+inoremap <silent><expr><buffer> <bs>    input_method#AutoSwitchAfterBackspace()
+
 " Text objects for Markdown code blocks.
 xnoremap <buffer><silent> ic :<C-U>call text_obj#MdCodeBlock('i')<CR>
 xnoremap <buffer><silent> ac :<C-U>call text_obj#MdCodeBlock('a')<CR>

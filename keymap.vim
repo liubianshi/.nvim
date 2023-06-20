@@ -90,6 +90,8 @@ onoremap <silent> iu :<C-U>call text_obj#URL()<CR>
 
 " Terminal =============================================================== {{{1
 tnoremap <A-space> <C-\><C-n>
+nnoremap <leader><leader> <Nop>
+nnoremap <leader><leader> :<C-U>FloatermToggle<cr>
 
 " Buffer ================================================================= {{{1
 nnoremap <silent> <leader>bd :<c-u>Bclose<cr>
@@ -104,7 +106,7 @@ nnoremap <silent> <leader>bW :w!<cr>
 nnoremap <leader>qq :call utils#QuickfixToggle()<cr>
 
 " window manager ========================================================= {{{1
-nnoremap <silent> w0 <C-U>:85wincmd \|<cr>
+nnoremap <silent> w0 <C-U>:88wincmd \|<cr>
 nnoremap <silent> wt <C-U>:wincmd T<cr>
 nnoremap <silent> wo :<c-u>only<cr>
 nnoremap <silent> wv <c-w>v
@@ -118,7 +120,8 @@ nnoremap <silent> wl <c-w>l
 nnoremap <silent> wq <c-w>q
 nnoremap <silent> wx <c-w>x
 nnoremap <silent> wn :vsplit \| enew<cr>
-nnoremap <silent> <C-J>    :resize -2<CR>
+nnoremap <silent> <C-J>  :resize -2<CR>
+nnoremap <C-K> <Nop>
 nnoremap <silent> <C-K>  :resize +2<CR>
 nnoremap <silent> <C-H>  :vertical resize -2<CR>
 nnoremap <silent> <C-L> :vertical resize +2<CR>

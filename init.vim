@@ -4,8 +4,10 @@ function! s:Load(con) abort
 endfunction
 
 function! s:Load_Lua(con) abort
+    let oldpwd = $PWD
+    exec "cd " . stdpath('config') 
     exec "luafile" . stdpath('config') . "/" . a:con . ".lua"
-
+    exec "cd " . oldpwd
 endfunction
 
 call <SID>Load("global")                   " 加载全局变量
