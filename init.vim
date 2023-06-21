@@ -1,25 +1,35 @@
 " Liubianshi's Neovim
 function! s:Load(con) abort
-    exec "source " . stdpath('config') . "/" . a:con . ".vim"
+    exec "source " . stdpath('config') . "/vim/" . a:con . ".vim"
 endfunction
 
-function! s:Load_Lua(con) abort
-    let oldpwd = $PWD
-    exec "cd " . stdpath('config') 
-    exec "luafile" . stdpath('config') . "/" . a:con . ".lua"
-    exec "cd " . oldpwd
-endfunction
+" 加载全局变量
+call <SID>Load("global")
 
-call <SID>Load("global")                   " 加载全局变量
+" 管理插件
 if has_key(g:, "plug_manage_tool") && g:plug_manage_tool == "lazyvim"
-    call <SID>Load_Lua("lazy")
+    lua require("plug")
 else
-    call <SID>Load("plug")                     " 管理插件
+    call <SID>Load("plug")                 
 endif
-call <SID>Load("option")                   " 设置选项
-call <SID>Load("keymap")                   " 设置 KeyMap
-call <SID>Load_Lua("lua_global_functions") " 加载自定义 lua 全局函数
-call <SID>Load("command")                  " 创建命令
-call <SID>Load("autocmd")                  " 加载自动命令组
-call <SID>Load("abbr")                     " 加载必要的简写
-call <SID>Load("theme")                    " 设置 UI
+
+" 设置选项
+call <SID>Load("option")
+
+" 设置 KeyMap
+call <SID>Load("keymap")
+
+" 加载自定义 lua 全局函数
+lua require('global_functions')
+
+" 创建命令
+call <SID>Load("command")                  
+
+" 加载自动命令组
+call <SID>Load("autocmd")
+
+" 加载必要的简写
+call <SID>Load("abbr")
+
+" 设置 UI
+call <SID>Load("theme")

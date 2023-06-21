@@ -21,13 +21,14 @@ local Plug = { plugs = {} }
 Plug.add = function(plug, opts)
     opts = opts or {}
     table.insert(opts, 1, plug)
-    opts.config = function()
-        local plug_name = opts.name or string.match(plug, "/([^/]+)$")
-        local config_file_name = vim.fn.stdpath("config") .. "/Plugins/" .. plug_name
+    local plug_name = opts.name or string.match(plug, "/([^/]+)$")
+    local config_file_name = vim.fn.stdpath("config") .. "/Plugins/" .. plug_name
+    config_file_name = vim.fn.fnameescape(config_file_name)
+    if not opts.config then
         if vim.fn.filereadable(config_file_name .. ".lua") == 1 then
-            dofile(config_file_name .. ".lua")
+            opts.config = function() dofile(config_file_name .. ".lua") end
         elseif vim.fn.filereadable(config_file_name .. ".vim") == 1 then
-            vim.cmd("source " .. vim.fn.fnameescape(config_file_name .. ".vim"))
+            opts.config = function() vim.cmd("source " .. config_file_name .. ".vim") end
         end
     end
     table.insert(Plug.plugs, opts)
@@ -41,10 +42,23 @@ Plug.add('lambdalisue/suda.vim', { cmd = {'SudaWrite', 'SudaRead'} })
 Plug.add('romainl/vim-cool')               -- disables search highlighting automatic
 Plug.add('ojroques/vim-oscyank', {cmd = "OSCYank"})
 Plug.add('tpope/vim-sleuth')               -- automaticly adjusts 'shiftwidth' and 'expandtab'
-Plug.add('ptzz/lf.vim', {
-    dependencies = {'voldikss/vim-floaterm'},
-    keys = {'<leader>fo', '<leader>fls', '<leader>flv', '<leader>flt'},
-    cmd = 'Lf',
+-- Plug.add('ptzz/lf.vim', {
+--     dependencies = {'voldikss/vim-floaterm'},
+--     keys = {'<leader>fo', '<leader>fls', '<leader>flv', '<leader>flt'},
+--     cmd = 'Lf',
+-- })
+Plug.add('is0n/fm-nvim', {
+    cmd = {'Lf', 'Nnn', 'Neomutt', 'Lazygit'},
+    keys = {
+        {"<leader>fo", "<cmd>Lf<cr>",  desc = "Open File with Lf",  mode = "n"},
+        {"<leader>fn", "<cmd>Nnn<cr>", desc = "Open File with nnn", mode = "n"},
+        {"<leader>gg", "<cmd>Lazygit<cr>", desc = "Open Lazy Git",  mode = "n"},
+    }
+})
+Plug.add('s1n7ax/nvim-window-picker', {
+    name = 'window-picker',
+    event = 'VeryLazy',
+    version = "2.*",
 })
 Plug.add('nvim-neo-tree/neo-tree.nvim', {
     cmd = "Neotree",
@@ -65,9 +79,10 @@ Plug.add('nvim-neo-tree/neo-tree.nvim', {
       },
     },
     dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-tree/nvim-web-devicons",
-        "MunifTanjim/nui.nvim",
+        'nvim-lua/plenary.nvim',
+        'nvim-tree/nvim-web-devicons',
+        'MunifTanjim/nui.nvim',
+        's1n7ax/nvim-window-picker'
     },
     deactivate = function()
         vim.cmd([[Neotree close]])
@@ -93,6 +108,16 @@ Plug.add('junegunn/vim-easy-align' )       -- 文本对齐
 Plug.add('machakann/vim-sandwich' )        -- 操作匹配符号
 Plug.add('tpope/vim-repeat' )              -- 重复插件操作
 -- 快速移动光标
+Plug.add('ggandor/flit.nvim', {
+    keys = function()
+      ---@type LazyKeys[]
+      local ret = {}
+      for _, key in ipairs({ "f", "F", "t", "T" }) do
+        ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
+      end
+      return ret
+    end,
+})
 Plug.add('ggandor/leap.nvim', {
     keys = {
       { "ss", mode = { "n", "x", "o" }, desc = "Leap forward to" },
@@ -172,15 +197,15 @@ Plug.add('catppuccin/nvim', {name = 'catppuccin', lazy = true})
 Plug.add('akinsho/bufferline.nvim', {
     version = "*",
     dependencies = 'nvim-tree/nvim-web-devicons',
-    event = "UiEnter",
+    event = "VeryLazy",
     keys = {
         { "<leader>B", "<cmd>BufferLinePick<cr>", desc = "Choose Buffer", mode = "n"},
     }
 })
 -- neovim statusline plugin written in pure lua
-Plug.add('nvim-lualine/lualine.nvim' )              
+Plug.add('nvim-lualine/lualine.nvim', { event = 'VeryLazy' })
 Plug.add('mhinz/vim-startify' )
-Plug.add('nvim-tree/nvim-web-devicons' )
+Plug.add('nvim-tree/nvim-web-devicons', { lazy = true } )
 -- Auto Ajust the width and height of focused window
 Plug.add('beauwilliams/focus.nvim' )
 -- TrueZen.nvim: Clean and elegant distraction-free writing for NeoVim. {{{2

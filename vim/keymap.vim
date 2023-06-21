@@ -152,7 +152,9 @@ nnoremap <silent> <leader>oZ :Goyo<cr>
 nnoremap <expr>   L utils#Trans2clip()
 xnoremap <expr>   L utils#Trans2clip()
 
-" Edit Specific file ===================================================== {{{1
+" 管理文件 ============================================================== {{{1
+nnoremap <silent> <leader>fs  :write<CR>
+nnoremap <silent> <leader>fS  :write!<CR>
 nnoremap <leader>ev :edit ~/.config/nvim/plug.vim<cr>
 nnoremap <leader>ek :edit ~/.config/nvim/keymap.vim<cr>
 nnoremap <leader>eo :edit ~/.config/nvim/option.vim<cr>

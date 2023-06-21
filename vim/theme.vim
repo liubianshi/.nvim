@@ -5,7 +5,7 @@ set background=dark        " 设置颜色模式
 set guifont=monospace:h14
 
 function! s:RandomTheme() abort
-    let cc = ['kanagawa', 'ayu', 'gruvbox-baby', 'OceanicNext', 'everforest', 'catppuccin']
+    let cc = ['kanagawa',      'ayu',     'gruvbox-baby', 'OceanicNext',  'everforest', 'catppuccin']
     let cp = ['kanagawa.nvim', 'ayu-vim', 'gruvbox-baby', 'oceanic-next', 'everforest', 'catppuccin']
     let r = rand() % len(cc)
     call utils#Load_Plug(cp[r])

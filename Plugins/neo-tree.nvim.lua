@@ -1,3 +1,4 @@
+vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 local neotree = require("neo-tree")
 neotree.setup({
    sources = { "filesystem", "buffers", "git_status", "document_symbols" },
@@ -20,6 +21,14 @@ neotree.setup({
          expander_highlight = "NeoTreeExpander",
       },
    },
+   window = {
+      width = 35,
+      mappings = {
+         ['l'] = 'open',
+         ["S"] = "split_with_window_picker",
+         ["s"] = "vsplit_with_window_picker",
+      }
+   }
 })
 
 vim.api.nvim_create_autocmd("TermClose", {
