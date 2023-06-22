@@ -43,7 +43,7 @@ end
 -- lambdalisue/suda.vim: Read and write with sudo command --------------- {{{3
 Plug.add('lambdalisue/suda.vim', { cmd = {'SudaWrite', 'SudaRead'} })
 -- romainl/vim-cool: disables search highlighting automatic ------------- {{{3
-Plug.add('romainl/vim-cool', { event = 'VeryLazy' })               -- disables search highlighting automatic
+Plug.add('romainl/vim-cool', { event = 'VeryLazy' })
 -- ojroques/vim-oscyank: copy text through SSH with OSC52 --------------- {{{3
 Plug.add('ojroques/vim-oscyank', {cmd = "OSCYank"})
 
@@ -253,7 +253,7 @@ Plug.add('zhimsel/vim-stay', {
     end
 }) 
 
--- Konfekt/FastFold: Speed up Vim by updating folds only when called-for {{{3 
+-- Konfekt/FastFold: updating folds only when called-for ---------------- {{{3
 Plug.add('Konfekt/FastFold')
 
 -- vim-voom/VOoM: vim Outliner of Markups ------------------------------- {{{3
@@ -264,7 +264,7 @@ Plug.add('vim-voom/VOoM', {
     }, 
 })
 
--- akinsho/bufferline.nvim: buffer line (with minimal tab integration) -- {{{3
+-- akinsho/bufferline.nvim: buffer line with minimal tab integration ---- {{{3
 Plug.add('akinsho/bufferline.nvim', {
     version = "*",
     dependencies = 'nvim-tree/nvim-web-devicons',
@@ -285,6 +285,7 @@ Plug.add('nvim-tree/nvim-web-devicons', { lazy = true } )
 
 -- windwp/nvim-autopairs: autopair tools -------------------------------- {{{3
 Plug.add('windwp/nvim-autopairs' )
+
 
 -- Terminal tools ------------------------------------------------------- {{{2
 -- akinsho/toggleterm.nvim: manage multiple terminal windows ------------ {{{3
@@ -321,10 +322,8 @@ Plug.add('skywind3000/asynctasks.vim', {
 Plug.add('liubianshi/vimcmdline' )
 
 -- Project management --------------------------------------------------- {{{2
-
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
 Plug.add('ahmedkhalf/project.nvim', { keys = {{'<leader>pp', mode = "n"}}})
-
 -- ludovicchabant/vim-gutentags: tag file management -------------------- {{{3
 Plug.add('ludovicchabant/vim-gutentags', {
     event = {'BufReadPost', 'BufNewFile'}
@@ -337,13 +336,13 @@ Plug.add('folke/trouble.nvim', {ft = 'c'})
 Plug.add('tpope/vim-fugitive')
 
 -- Theme ---------------------------------------------------------------- {{{2
-Plug.add('luisiacc/gruvbox-baby', {lazy = true})
-Plug.add('ayu-theme/ayu-vim', {lazy = true})
-Plug.add('rebelot/kanagawa.nvim', {lazy = true})
-Plug.add('mhartington/oceanic-next', {lazy = true})
-Plug.add('sainnhe/everforest', {lazy = true})
-Plug.add('catppuccin/nvim', {name = 'catppuccin', lazy = true})
-
+Plug.add('luisiacc/gruvbox-baby',    {lazy = false})
+Plug.add('ayu-theme/ayu-vim',        {lazy = false})
+Plug.add('rebelot/kanagawa.nvim',    {lazy = false})
+Plug.add('mhartington/oceanic-next', {lazy = false})
+Plug.add('sainnhe/everforest',       {lazy = false})
+Plug.add('catppuccin/nvim',          {name = 'catppuccin', lazy = true})
+Plug.add('folke/tokyonight.nvim',    {lazy = false, priority = 1000})
 
 -- 补全和代码片断 ------------------------------------------------------- {{{2
 
