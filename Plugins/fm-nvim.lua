@@ -4,7 +4,7 @@ local ui = {
     default = "float",
     float = {
         -- Floating window border (see ':h nvim_open_win')
-        border    = 'none',
+        border    = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
         -- Highlight group for floating window/border (see ':h winhl')
         float_hl  = "Normal",
         border_hl = "FloatBorder",

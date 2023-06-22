@@ -38,45 +38,50 @@ Plug.get = function()
 end
 
 -- 配置插件 ------------------------------------------------------------- {{{1
+
+-- UI ------------------------------------------------------------------- {{{2
+-- lambdalisue/suda.vim: Read and write with sudo command --------------- {{{3
 Plug.add('lambdalisue/suda.vim', { cmd = {'SudaWrite', 'SudaRead'} })
-Plug.add('romainl/vim-cool')               -- disables search highlighting automatic
+
+-- romainl/vim-cool: disables search highlighting automatic ------------- {{{3
+Plug.add('romainl/vim-cool')               
+
+-- ojroques/vim-oscyank: copy text through SSH with OSC52 --------------- {{{3
 Plug.add('ojroques/vim-oscyank', {cmd = "OSCYank"})
-Plug.add('tpope/vim-sleuth')               -- automaticly adjusts 'shiftwidth' and 'expandtab'
--- Plug.add('ptzz/lf.vim', {
---     dependencies = {'voldikss/vim-floaterm'},
---     keys = {'<leader>fo', '<leader>fls', '<leader>flv', '<leader>flt'},
---     cmd = 'Lf',
--- })
+
+-- tpope/vim-sleuth: automaticly adjusts 'shiftwidth' and 'expandtab' --- {{{3
+Plug.add('tpope/vim-sleuth', {
+    event = {'BufReadPost', 'BufWrite'}
+})
+
+-- is0n/fm-nvim: open terminal file manager or other terminal app ------- {{{3
 Plug.add('is0n/fm-nvim', {
     cmd = {'Lf', 'Nnn', 'Neomutt', 'Lazygit'},
     keys = {
-        {"<leader>fo", "<cmd>Lf<cr>",  desc = "Open File with Lf",  mode = "n"},
-        {"<leader>fn", "<cmd>Nnn<cr>", desc = "Open File with nnn", mode = "n"},
-        {"<leader>gg", "<cmd>Lazygit<cr>", desc = "Open Lazy Git",  mode = "n"},
+        { "<leader>fo", "<cmd>Lf %:p:h<cr>",  desc = "Open File with Lf"  },
+        { "<leader>fn", "<cmd>Nnn %:p:h<cr>", desc = "Open File with nnn" },
+        { "<leader>gg", "<cmd>Lazygit<cr>",   desc = "Open Lazy Git"      },
     }
 })
-Plug.add('s1n7ax/nvim-window-picker', {
-    name = 'window-picker',
-    event = 'VeryLazy',
-    version = "2.*",
-})
+
+-- nvim-neo-tree/neo-tree.nvim: browse tree like structures ------------- {{{3
 Plug.add('nvim-neo-tree/neo-tree.nvim', {
     cmd = "Neotree",
     keys = {
-    {
-        "<leader>fe",
-        function()
-            require("neo-tree.command").execute({ toggle = true, dir = Util.get_root() })
-        end,
-        desc = "Explorer NeoTree (root dir)",
-      },
-      {
-        "<leader>fE",
-        function()
-            require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
-        end,
-        desc = "Explorer NeoTree (cwd)",
-      },
+        { "<leader>fe", desc = "Explorer NeoTree (root dir)",
+            function()
+                require("neo-tree.command").execute({
+                    toggle = true,
+                    dir = Util.get_root()
+                })
+            end, },
+        { "<leader>fE", desc = "Explorer NeoTree (cwd)",
+            function()
+                require("neo-tree.command").execute({
+                    toggle = true,
+                    dir = vim.loop.cwd()
+                })
+            end, },
     },
     dependencies = {
         'nvim-lua/plenary.nvim',
@@ -92,22 +97,71 @@ Plug.add('nvim-neo-tree/neo-tree.nvim', {
         if vim.fn.argc() == 1 then
             local stat = vim.loop.fs_stat(vim.fn.argv(0))
             if stat and stat.type == "directory" then
-            require("neo-tree")
+                require("neo-tree")
             end
         end
     end,
 })
-Plug.add('ibhagwan/fzf-lua', { branch = 'main' })
 
-Plug.add('machakann/vim-highlightedyank' ) -- 高亮显示复制区域
-Plug.add('haya14busa/incsearch.vim' )      -- 加强版实时高亮
--- Plug.add('mg979/vim-visual-multi' )     -- 多重选择
-Plug.add('andymass/vim-matchup' )          -- 显示匹配符号之间的内容
-Plug.add('tpope/vim-commentary' )          -- Comment stuff out
-Plug.add('junegunn/vim-easy-align' )       -- 文本对齐
-Plug.add('machakann/vim-sandwich' )        -- 操作匹配符号
-Plug.add('tpope/vim-repeat' )              -- 重复插件操作
--- 快速移动光标
+-- s1n7ax/nvim-window-picker: pick a window and returns the window id --- {{{3
+Plug.add('s1n7ax/nvim-window-picker', {
+    name = 'window-picker',
+    lazy = true,
+    version = "2.*",
+})
+-- ibhagwan/fzf-lua: Fzf Search ----------------------------------------- {{{3
+Plug.add('ibhagwan/fzf-lua', {
+    branch = 'main',
+    dependencies = { 'skywind3000/asynctasks.vim' },
+})
+
+-- gelguy/wilder.nvim: Command line Fuzzy Search and completation ------- {{{3
+Plug.add('gelguy/wilder.nvim', {
+    build = ":UpdateRemotePlugins",
+    event = {'CmdwinEnter', 'CmdlineEnter'}
+})
+
+-- machakann/vim-highlightedyank: 高亮显示复制区域 ---------------------- {{{3
+Plug.add('machakann/vim-highlightedyank' )
+
+-- kevinhwang91/nvim-hlslens: Hlsearch Lens for Neovim ------------------ {{{3
+Plug.add('kevinhwang91/nvim-hlslens', {
+    event = { "SearchWrapped", "CursorMoved" },
+}) 
+
+-- mg979/vim-visual-multi: 多重选择 ------------------------------------- {{{3
+Plug.add('mg979/vim-visual-multi', {
+    keys = {
+        {"<C-n>", mode = {'n', 'v', 'x'}},
+    }
+})     
+-- andymass/vim-matchup: 显示匹配符号之间的内容 ------------------------- {{{3
+Plug.add('andymass/vim-matchup')
+
+-- tpope/vim-commentary: Comment stuff out ------------------------------ {{{3
+Plug.add('tpope/vim-commentary')
+
+-- junegunn/vim-easy-align: text alignment tool ------------------------- {{{3
+Plug.add('junegunn/vim-easy-align', {
+    keys = {'ga', mode = {'n', 'v', 'o', 'x'}},
+    cmd = "EasyAlign",
+})
+
+-- beauwilliams/focus.nvim: Auto Ajust the size of focused window ------- {{{3
+Plug.add('beauwilliams/focus.nvim')
+
+-- folke/zen-mode.nvim: Distraction-free coding for Neovim -------------- {{{3
+Plug.add('folke/zen-mode.nvim', { cmd = "ZenMode"})
+
+-- machakann/vim-sandwich: add/delete/replace surroundings -------------- {{{3
+Plug.add('machakann/vim-sandwich')
+
+-- tpope/vim-repeat: 重复插件操作 --------------------------------------- {{{3
+Plug.add('tpope/vim-repeat', {
+    keys = {{'.', mode = {'n', 'v', 'x'}}}
+})
+
+-- ggandor/flit.nvim: Enhanced f/t motions for Leap --------------------- {{{3
 Plug.add('ggandor/flit.nvim', {
     keys = function()
       ---@type LazyKeys[]
@@ -118,6 +172,8 @@ Plug.add('ggandor/flit.nvim', {
       return ret
     end,
 })
+
+-- ggandor/leap.nvim: general-purpose motion ---------------------------- {{{3
 Plug.add('ggandor/leap.nvim', {
     keys = {
       { "ss", mode = { "n", "x", "o" }, desc = "Leap forward to" },
@@ -125,40 +181,38 @@ Plug.add('ggandor/leap.nvim', {
       { "gs", mode = { "n", "x", "o" }, desc = "Leap from windows" },
     },
 })
+
+-- easymotion/vim-easymotion: motion tools ------------------------------ {{{3
 Plug.add('easymotion/vim-easymotion', {
     event = {'UiEnter'}
-})     -- 高效移动指标插件
-Plug.add('zzhirong/vim-easymotion-zh', {event = {'UiEnter'}})
-Plug.add('nvim-treesitter/nvim-treesitter', {
-    build = ':TSUpdate',
-    cmd = 'TSEnable',
-    event = {'BufReadPost', "BufNewFile"}
 })
-Plug.add('folke/which-key.nvim', { event = "VeryLazy" })
 
--- Chinese version of vim documents
+-- zzhirong/vim-easymotion-zh: motion in Chinese text ------------------- {{{3
+Plug.add('zzhirong/vim-easymotion-zh', {event = {'UiEnter'}})
+
+-- folke/which-key.nvim: displays a popup with possible keybindings ----- {{{3
+Plug.add('folke/which-key.nvim', {event = "VeryLazy"})
+
+-- yianwillis/vimcdoc: Chinese version of vim documents ----------------- {{{3
 Plug.add('yianwillis/vimcdoc', {
     keys = {
-        {'<F1>', mode = "n"}
+        {'<F1>', mode = 'n'},
+        {'<leader>sh', mode = 'n'}
     },
     event = {'CmdwinEnter', 'CmdlineEnter'},
 })
 
--- Stay: Stay at my cursor, boy!
+-- zhimsel/vim-stay: Make Vim persist editing state without fuss -------- {{{3
 Plug.add('zhimsel/vim-stay', {
     init = function()
         vim.o.viewoptions = "cursor,folds,slash,unix"
     end
 }) 
 
--- FastFold: Speed up Vim by updating folds only when called-for
+-- Konfekt/FastFold: Speed up Vim by updating folds only when called-for {{{3 
 Plug.add('Konfekt/FastFold')
 
--- Plug.add('907th/vim-auto-save' )
--- 文本对象
--- Plug.add('wellle/targets.vim' )
--- Plug.add('kana/vim-textobj-user' )
-
+-- vim-voom/VOoM: vim Outliner of Markups ------------------------------- {{{3
 Plug.add('vim-voom/VOoM', {
     cmd = "Voom",
     keys = {
@@ -166,62 +220,104 @@ Plug.add('vim-voom/VOoM', {
     }, 
 })
 
--- Project management ==================================================== {{{1
-Plug.add('ahmedkhalf/project.nvim', { keys = {{'<leader>pp', mode = "n"}}})
-Plug.add('ludovicchabant/vim-gutentags')
-Plug.add('folke/trouble.nvim', {ft = 'c'})
-Plug.add('tpope/vim-fugitive')
-
--- Terminal tools ======================================================== {{{1
-Plug.add('voldikss/vim-floaterm', {
+-- akinsho/bufferline.nvim: buffer line (with minimal tab integration) -- {{{3
+Plug.add('akinsho/bufferline.nvim', {
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    event = "VeryLazy",
     keys = {
-        {"<leader><leader>", "<cmd>FloatermToggle<cr>", mode = "n"}
+        { "<leader>B", "<cmd>BufferLinePick<cr>", desc = "Choose Buffer" },
     }
 })
-Plug.add('skywind3000/asyncrun.vim' )       -- 异步执行终端程序
-Plug.add('skywind3000/asynctasks.vim' )
-Plug.add('liubianshi/vimcmdline' )
+
+-- nvim-lualine/lualine.nvim: neovim statusline plugin ------------------ {{{3
+Plug.add('nvim-lualine/lualine.nvim', { event = 'VeryLazy' })
+
+-- mhinz/vim-startify: fancy start screen for Vim ----------------------- {{{3
+Plug.add('mhinz/vim-startify' )
+
+-- nvim-tree/nvim-web-devicons: file type icons ------------------------- {{{3
+Plug.add('nvim-tree/nvim-web-devicons', { lazy = true } )
+
+-- windwp/nvim-autopairs: autopair tools -------------------------------- {{{3
 Plug.add('windwp/nvim-autopairs' )
 
--- Plug.add('skywind3000/vim-terminal-help' )
--- Plug.add('tpope/vim-obsession')            -- tmux Backup needed
+-- Terminal tools ------------------------------------------------------- {{{2
 
--- 个性化 UI ============================================================= {{{1
+-- voldikss/vim-floaterm: terminal manager ------------------------------ {{{3
+Plug.add('akinsho/toggleterm.nvim', {
+    version = "*",
+    cmd = "ToggleTerm",
+    keys = {
+        {   
+            "<space><space>", "<cmd>ToggleTerm<CR>",
+            desc = "Toogle Terminal",
+            noremap = true,
+            silent = true,
+            mode = {'n', 't'},
+        },
+    }
+})
+
+-- skywind3000/asyncrun.vim: run async shell command -------------------- {{{3
+Plug.add('skywind3000/asyncrun.vim', {
+    cmd = "AsyncRun",
+    keys = {{'<leader>or', desc = "AsyncRun"}}
+})
+
+-- skywind3000/asynctasks.vim: modern Task System ----------------------- {{{3
+Plug.add('skywind3000/asynctasks.vim', {
+    dependencies = {
+        'skywind3000/asyncrun.vim',
+    },
+    cmd = {"AsyncTask", "AsyncTaskList"},
+    keys = {{'<leader>ot',  desc = "Run AsnycTask", mode = "n"}}
+})
+
+-- liubianshi/vimcmdline: send lines to interpreter --------------------- {{{3
+Plug.add('liubianshi/vimcmdline' )
+
+-- Project management --------------------------------------------------- {{{2
+
+-- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
+Plug.add('ahmedkhalf/project.nvim', { keys = {{'<leader>pp', mode = "n"}}})
+
+-- ludovicchabant/vim-gutentags: tag file management -------------------- {{{3
+Plug.add('ludovicchabant/vim-gutentags', {
+    event = {'BufReadPost', 'BufNewFile'}
+})
+
+-- folke/trouble.nvim: diagnostics solution ----------------------------- {{{3
+Plug.add('folke/trouble.nvim', {ft = 'c'})
+
+-- tpope/vim-fugitive: Git ---------------------------------------------- {{{3
+Plug.add('tpope/vim-fugitive')
+
+-- Theme ---------------------------------------------------------------- {{{2
 Plug.add('luisiacc/gruvbox-baby', {lazy = true})
 Plug.add('ayu-theme/ayu-vim', {lazy = true})
 Plug.add('rebelot/kanagawa.nvim', {lazy = true})
 Plug.add('mhartington/oceanic-next', {lazy = true})
 Plug.add('sainnhe/everforest', {lazy = true})
 Plug.add('catppuccin/nvim', {name = 'catppuccin', lazy = true})
--- buffer line (with minimal tab integration) for neovim
-Plug.add('akinsho/bufferline.nvim', {
-    version = "*",
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    event = "VeryLazy",
-    keys = {
-        { "<leader>B", "<cmd>BufferLinePick<cr>", desc = "Choose Buffer", mode = "n"},
-    }
-})
--- neovim statusline plugin written in pure lua
-Plug.add('nvim-lualine/lualine.nvim', { event = 'VeryLazy' })
-Plug.add('mhinz/vim-startify' )
-Plug.add('nvim-tree/nvim-web-devicons', { lazy = true } )
--- Auto Ajust the width and height of focused window
-Plug.add('beauwilliams/focus.nvim' )
--- TrueZen.nvim: Clean and elegant distraction-free writing for NeoVim. {{{2
--- Plug.add('Pocco81/TrueZen.nvim' )
-Plug.add('folke/zen-mode.nvim' )
 
--- 补全和代码片断 -------------------------------------------------------- {{{1
+-- 补全和代码片断 ------------------------------------------------------- {{{2
+
+-- sirver/UltiSnips: Ultimate snippet solution -------------------------- {{{3
 Plug.add('sirver/UltiSnips', {
     dependencies = {'honza/vim-snippets'},
     cmd = {'UltiSnipsAddFiletypes'},
     event = 'InsertEnter',
 })
+
+-- jalvesaq/zotcite: Vim plugin for integration with Zotero ------------- {{{3
 Plug.add('jalvesaq/zotcite',{
     ft = {"pandoc", "rmd", "rmarkdown", "markdown"},
 })
+
+-- completation framework and relative sources -------------------------- {{{3
 if vim.g.complete_method == 'coc' then
+    -- neoclide/coc.nvim: Nodejs extension host for vim & neovim -------- {{{4
     Plug.add('neoclide/coc.nvim', {
         branch = 'release',
         event = 'InsertEnter',
@@ -231,59 +327,74 @@ if vim.g.complete_method == 'coc' then
         },
     })
 else
+    -- neovim/nvim-lspconfig: Quickstart configs for Nvim LSP ----------- {{{4
+    Plug.add('neovim/nvim-lspconfig')
+
+    -- hrsh7th/nvim-cmp: A completion plugin for neovim ----------------- {{{4
     local cmp_dependencies = {
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-omni',
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-cmdline',
-        'FelipeLema/cmp-async-path',
-        'jalvesaq/cmp-nvim-r',
-        'ray-x/cmp-treesitter',
-        'onsails/lspkind.nvim',
-        'quangnguyen30192/cmp-nvim-ultisnips',
-        'kristijanhusak/vim-dadbod-completion',
-        'kdheepak/cmp-latex-symbols',
-        'jalvesaq/cmp-zotcite',
+        'hrsh7th/cmp-nvim-lsp',                 -- neovim builtin LSP client
+        'hrsh7th/cmp-omni',                     -- omnifunc
+        'hrsh7th/cmp-buffer',                   -- buffer words
+        'hrsh7th/cmp-cmdline',                  -- command line keywords
+        'FelipeLema/cmp-async-path',            -- filesystem paths
+        'jalvesaq/cmp-nvim-r',                  -- r with Nvim-R as backend
+        'ray-x/cmp-treesitter',                 -- treesitter nodes
+        'onsails/lspkind.nvim',                 -- adds vscode-like pictograms
+        'quangnguyen30192/cmp-nvim-ultisnips',  -- ultisnips
+        'kristijanhusak/vim-dadbod-completion', -- dadbod
+        'kdheepak/cmp-latex-symbols',           -- latex symbol
+        'jalvesaq/cmp-zotcite',                 -- Zotero completion
     }
     for _,k in ipairs(cmp_dependencies) do
         Plug.add(k, {lazy = true})
     end
     if vim.fn.has('mac') == 0 then
-        Plug.add('wasden/cmp-flypy.nvim', { lazy = true, build = "make flypy"})
+        -- wasden/cmp-flypy.nvim: Chinese IM ---------------------------- {{{4
+        Plug.add('wasden/cmp-flypy.nvim', {
+            lazy = true,
+            build = "make flypy"
+        })
         table.insert(cmp_dependencies, 'wasden/cmp-flypy.nvim')
     end
-    Plug.add('neovim/nvim-lspconfig')
     Plug.add('hrsh7th/nvim-cmp', {
         event = "InsertEnter",
         dependencies = cmp_dependencies,
     })
 end
 
--- Command line Fuzzy Search and completation ---------------------------- {{{2
-Plug.add('gelguy/wilder.nvim', {
-    build = ":UpdateRemotePlugins",
-    event = {'CmdwinEnter', 'CmdlineEnter'}
-})
+-- Formatter and linter ------------------------------------------------- {{{2
 
--- Formatter and linter -------------------------------------------------- {{{2
+-- mhartington/formatter.nvim: autoformat tool -------------------------- {{{3
 Plug.add('mhartington/formatter.nvim', {
     ft = { 'lua', 'sh', 'perl', 'r', 'html', 'xml', 'css'}
 })
 
--- Writing and knowledge management ====================================== {{{1
+-- Writing and knowledge management ------------------------------------- {{{2
+
+-- vim-pandoc/vim-pandoc: pandoc integration and utilities for vim ------ {{{3
 Plug.add('vim-pandoc/vim-pandoc', {
     dependencies = {'vim-pandoc/vim-pandoc-syntax'},
     ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc'}
 })
+
+-- ferrine/md-img-paste.vim: paste image to markdown -------------------- {{{3
 Plug.add('ferrine/md-img-paste.vim', {
     ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc'}
 })
+
+-- hotoo/pangu.vim: 『盘古之白』中文排版自动规范化 ---------------------- {{{3
 Plug.add('hotoo/pangu.vim', {
     ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc'}
 })
+
+-- dhruvasagar/vim-table-mode: Table Mode for instant table creation ---- {{{3
 Plug.add('dhruvasagar/vim-table-mode', {
     ft = {'pandoc', 'rmd', 'org'}
 })
+
+-- 文件类型相关插件 ----------------------------------------------------- {{{2
+
+-- nvim-neorg/neorg: new org-mode in neovim ----------------------------- {{{3
 Plug.add('nvim-neorg/neorg', {
     build = ":Neorg sync-parsers",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -291,36 +402,44 @@ Plug.add('nvim-neorg/neorg', {
     cmd = {'Neorg'},
 })
 
--- 文件类型相关插件 ====================================================== {{{1
--- SQL {{{2
+-- kristijanhusak/vim-dadbod-ui: simple UI for vim-dadbod --------------- {{{3
 Plug.add('kristijanhusak/vim-dadbod-ui', {
     cmd = {'DBUI', 'DBUIToggle', 'DBUIAddConnection', 'DBUIFindBuffer'},
     dependencies = {'tpope/vim-dadbod'},
 })
--- R {{{2
+
+-- liubianshi/Nvim-R: Vim plugin to work with R ------------------------- {{{3
 Plug.add('liubianshi/Nvim-R', {
     ft = {'r', 'rmd', 'qml'},
     cmd = {'Rstart'},
 })
--- tex {{{2
+
+-- lervag/vimtex: filetype plugin for LaTeX files ----------------------- {{{3
 Plug.add('lervag/vimtex', { ft = 'tex' })
--- stata {{{2
+
+-- poliquin/stata-vim: Syntax highlighting and snippets for Stata files - {{{3
 Plug.add('poliquin/stata-vim', { ft = 'stata' })  -- stata 语法高亮
--- csv / tsv {{{2
+
+-- mechatroner/rainbow_csv: Highlight columns and run queries ----------- {{{3
 Plug.add('mechatroner/rainbow_csv', { ft = {'csv', 'tsv'}})
--- perl {{{2 
+
+-- WolfgangMehner/perl-support: filetype plugin for perl files ---------- {{{3
 Plug.add('WolfgangMehner/perl-support', { ft = 'perl'})
--- Graphviz dot {{{2
+
+-- liuchengxu/graphviz.vim: Graphviz dot -------------------------------- {{{3
 Plug.add('liuchengxu/graphviz.vim', { ft = 'dot' })
--- quickfile {{{2
--- Plug.add('kevinhwang91/nvim-bqf')
 
--- Misc ================================================================= {{{1
--- Plug.add('skywind3000/vim-dict', {
---      ft = {'markdown', 'pandoc', 'rmarkdown', 'rmd'}
--- }) 
--- Plug.add('tommcdo/vim-exchange' )
+-- kevinhwang91/nvim-bqf: Better quickfix window in Neovim -------------- {{{3
+Plug.add('kevinhwang91/nvim-bqf', { ft = 'qf' })
 
+-- TreeSitter ----------------------------------------------------------- {{{2
+
+-- nvim-treesitter/nvim-treesitter: Treesitter configurations ----------- {{{3
+Plug.add('nvim-treesitter/nvim-treesitter', {
+    build = ':TSUpdate',
+    cmd = 'TSEnable',
+    event = {'BufReadPost', "BufNewFile"}
+})
 
 -- 安装并加载插件 ------------------------------------------------------- {{{1
 local lazy = require("lazy")

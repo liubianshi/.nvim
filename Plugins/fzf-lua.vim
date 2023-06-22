@@ -252,7 +252,7 @@ vim.keymap.set('n', '<leader>ot', function()
             end,
         }
     })
-end)
+    end, {noremap = true, desc = "Run async tasks"})
 
 -- vim command fuzzy search --------------------------------------------- {{{2
 vim.keymap.set('n', '<A-x>', function()
