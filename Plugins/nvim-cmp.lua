@@ -26,7 +26,7 @@ local function constuct_cmp_source(sources)
         { name = 'orgmode' },
         { name = 'treesitter' },
         { name = 'ctags' }, 
-        { name = 'vim-dadbod-completion' },
+        -- { name = 'vim-dadbod-completion' },
         { name = 'omni' },
     })
     local fallback = gen_cmp_source({
@@ -34,7 +34,6 @@ local function constuct_cmp_source(sources)
     })
     return(cmp.config.sources(gen_cmp_source(sources, default), fallback))
 end
-
 
 vim.lsp.protocol.CompletionItemKind = {
     ' [text]',

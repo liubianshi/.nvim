@@ -42,10 +42,8 @@ end
 -- UI ------------------------------------------------------------------- {{{2
 -- lambdalisue/suda.vim: Read and write with sudo command --------------- {{{3
 Plug.add('lambdalisue/suda.vim', { cmd = {'SudaWrite', 'SudaRead'} })
-
 -- romainl/vim-cool: disables search highlighting automatic ------------- {{{3
-Plug.add('romainl/vim-cool')               
-
+Plug.add('romainl/vim-cool', { event = 'VeryLazy' })               -- disables search highlighting automatic
 -- ojroques/vim-oscyank: copy text through SSH with OSC52 --------------- {{{3
 Plug.add('ojroques/vim-oscyank', {cmd = "OSCYank"})
 
@@ -161,6 +159,15 @@ Plug.add('tpope/vim-repeat', {
     keys = {{'.', mode = {'n', 'v', 'x'}}}
 })
 
+Plug.add("nvim-pack/nvim-spectre", {
+    cmd = "Spectre",
+    opts = { open_cmd = "noswapfile vnew" },
+    dependencies = {'nvim-lua/plenary.nvim'},
+    keys = {
+        { "<leader>R", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
+    },
+})
+
 -- ggandor/flit.nvim: Enhanced f/t motions for Leap --------------------- {{{3
 Plug.add('ggandor/flit.nvim', {
     keys = function()
@@ -184,6 +191,11 @@ Plug.add('ggandor/leap.nvim', {
 
 -- easymotion/vim-easymotion: motion tools ------------------------------ {{{3
 Plug.add('easymotion/vim-easymotion', {
+    init = function()
+        vim.g.EasyMotion_do_mapping = 0 -- Disable default mappings
+        vim.g.EasyMotion_smartcase  = 1
+        vim.g.EasyMotion_use_migemo = 1
+    end,
     event = {'UiEnter'}
 })
 
@@ -300,6 +312,18 @@ Plug.add('rebelot/kanagawa.nvim', {lazy = true})
 Plug.add('mhartington/oceanic-next', {lazy = true})
 Plug.add('sainnhe/everforest', {lazy = true})
 Plug.add('catppuccin/nvim', {name = 'catppuccin', lazy = true})
+Plug.add('rcarriga/nvim-notify', {
+    keys = {
+        { 
+            "<leader>un",
+            function()
+                require("notify").dismiss({ silent = true, pending = true })
+            end,
+            desc = "Dismiss all Notifications",
+        },
+    },
+})
+
 
 -- 补全和代码片断 ------------------------------------------------------- {{{2
 
@@ -348,6 +372,12 @@ else
     for _,k in ipairs(cmp_dependencies) do
         Plug.add(k, {lazy = true})
     end
+    Plug.add('jalvesaq/cmp-nvim-r', {
+        ft = {'r', 'rmd'},
+        dependencies = { 'hrsh7th/nvim-cmp' }
+    })
+    -- 如果作为 cmp 的依赖加载，会导致 ItermKind 无法识别
+    -- table.insert(cmp_dependencies, 'jalvesaq/cmp-nvim-r')
     if vim.fn.has('mac') == 0 then
         -- wasden/cmp-flypy.nvim: Chinese IM ---------------------------- {{{4
         Plug.add('wasden/cmp-flypy.nvim', {

@@ -6,6 +6,9 @@ endfunction
 " 加载全局变量
 call <SID>Load("global")
 
+" 加载自定义 lua 全局函数
+lua require('global_functions')
+
 " 管理插件
 if has_key(g:, "plug_manage_tool") && g:plug_manage_tool == "lazyvim"
     lua require("plug")
@@ -19,9 +22,6 @@ call <SID>Load("option")
 " 设置 KeyMap
 call <SID>Load("keymap")
 
-" 加载自定义 lua 全局函数
-lua require('global_functions')
-
 " 创建命令
 call <SID>Load("command")                  
 
@@ -33,3 +33,4 @@ call <SID>Load("abbr")
 
 " 设置 UI
 call <SID>Load("theme")
+
