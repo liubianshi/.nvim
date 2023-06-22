@@ -89,9 +89,8 @@ xnoremap <silent> iu :<C-U>call text_obj#URL()<CR>
 onoremap <silent> iu :<C-U>call text_obj#URL()<CR>
 
 " Terminal =============================================================== {{{1
-tnoremap <A-space> <C-\><C-n>
 nnoremap <leader><leader> <Nop>
-nnoremap <leader><leader> :<C-U>FloatermToggle<cr>
+nnoremap <leader><leader> :<C-U>ToggleTerm<cr>
 
 " Buffer ================================================================= {{{1
 nnoremap <silent> <leader>bd :<c-u>Bclose<cr>

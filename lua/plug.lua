@@ -156,15 +156,31 @@ Plug.add('machakann/vim-sandwich')
 
 -- tpope/vim-repeat: 重复插件操作 --------------------------------------- {{{3
 Plug.add('tpope/vim-repeat', {
-    keys = {{'.', mode = {'n', 'v', 'x'}}}
+    keys = {
+        {'.', mode = {'n', 'v', 'x'}}
+    }
 })
 
+-- nvim-pack/nvim-spectre: find with rg and replace with sed ------------ {{{3
 Plug.add("nvim-pack/nvim-spectre", {
     cmd = "Spectre",
     opts = { open_cmd = "noswapfile vnew" },
     dependencies = {'nvim-lua/plenary.nvim'},
     keys = {
         { "<leader>R", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
+    },
+})
+
+-- rcarriga/nvim-notify: notification manager --------------------------- {{{3
+Plug.add('rcarriga/nvim-notify', {
+    keys = {
+        { 
+            "<leader>un",
+            function()
+                require("notify").dismiss({ silent = true, pending = true })
+            end,
+            desc = "Dismiss all Notifications",
+        },
     },
 })
 
@@ -208,7 +224,7 @@ Plug.add('folke/which-key.nvim', {event = "VeryLazy"})
 -- yianwillis/vimcdoc: Chinese version of vim documents ----------------- {{{3
 Plug.add('yianwillis/vimcdoc', {
     keys = {
-        {'<F1>', mode = 'n'},
+        {'<F1>', '<cmd>FzfLua help_tags<cr>', mode = 'n'},
         {'<leader>sh', mode = 'n'}
     },
     event = {'CmdwinEnter', 'CmdlineEnter'},
@@ -255,8 +271,7 @@ Plug.add('nvim-tree/nvim-web-devicons', { lazy = true } )
 Plug.add('windwp/nvim-autopairs' )
 
 -- Terminal tools ------------------------------------------------------- {{{2
-
--- voldikss/vim-floaterm: terminal manager ------------------------------ {{{3
+-- akinsho/toggleterm.nvim: manage multiple terminal windows ------------ {{{3
 Plug.add('akinsho/toggleterm.nvim', {
     version = "*",
     cmd = "ToggleTerm",
@@ -312,17 +327,6 @@ Plug.add('rebelot/kanagawa.nvim', {lazy = true})
 Plug.add('mhartington/oceanic-next', {lazy = true})
 Plug.add('sainnhe/everforest', {lazy = true})
 Plug.add('catppuccin/nvim', {name = 'catppuccin', lazy = true})
-Plug.add('rcarriga/nvim-notify', {
-    keys = {
-        { 
-            "<leader>un",
-            function()
-                require("notify").dismiss({ silent = true, pending = true })
-            end,
-            desc = "Dismiss all Notifications",
-        },
-    },
-})
 
 
 -- 补全和代码片断 ------------------------------------------------------- {{{2
@@ -352,7 +356,9 @@ if vim.g.complete_method == 'coc' then
     })
 else
     -- neovim/nvim-lspconfig: Quickstart configs for Nvim LSP ----------- {{{4
-    Plug.add('neovim/nvim-lspconfig')
+    Plug.add('neovim/nvim-lspconfig', {
+        event = {'BufReadPre', 'BufNewFile'},
+    })
 
     -- hrsh7th/nvim-cmp: A completion plugin for neovim ----------------- {{{4
     local cmp_dependencies = {
@@ -462,8 +468,8 @@ Plug.add('liuchengxu/graphviz.vim', { ft = 'dot' })
 -- kevinhwang91/nvim-bqf: Better quickfix window in Neovim -------------- {{{3
 Plug.add('kevinhwang91/nvim-bqf', { ft = 'qf' })
 
--- TreeSitter ----------------------------------------------------------- {{{2
 
+-- TreeSitter ----------------------------------------------------------- {{{2
 -- nvim-treesitter/nvim-treesitter: Treesitter configurations ----------- {{{3
 Plug.add('nvim-treesitter/nvim-treesitter', {
     build = ':TSUpdate',
