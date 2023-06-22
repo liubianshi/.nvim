@@ -39,14 +39,9 @@ end
 
 -- 配置插件 ------------------------------------------------------------- {{{1
 Plug.add('lambdalisue/suda.vim', { cmd = {'SudaWrite', 'SudaRead'} })
-Plug.add('romainl/vim-cool')               -- disables search highlighting automatic
+Plug.add('romainl/vim-cool', { event = 'VeryLazy' })               -- disables search highlighting automatic
 Plug.add('ojroques/vim-oscyank', {cmd = "OSCYank"})
-Plug.add('tpope/vim-sleuth')               -- automaticly adjusts 'shiftwidth' and 'expandtab'
--- Plug.add('ptzz/lf.vim', {
---     dependencies = {'voldikss/vim-floaterm'},
---     keys = {'<leader>fo', '<leader>fls', '<leader>flv', '<leader>flt'},
---     cmd = 'Lf',
--- })
+Plug.add('tpope/vim-sleuth', { event = {'BufReadPost', "BufNewFile"} })               -- automaticly adjusts 'shiftwidth' and 'expandtab'
 Plug.add('is0n/fm-nvim', {
     cmd = {'Lf', 'Nnn', 'Neomutt', 'Lazygit'},
     keys = {
@@ -92,19 +87,29 @@ Plug.add('nvim-neo-tree/neo-tree.nvim', {
         if vim.fn.argc() == 1 then
             local stat = vim.loop.fs_stat(vim.fn.argv(0))
             if stat and stat.type == "directory" then
-            require("neo-tree")
+                require("neo-tree")
             end
         end
     end,
 })
 Plug.add('ibhagwan/fzf-lua', { branch = 'main' })
-
+Plug.add("nvim-pack/nvim-spectre", {
+    cmd = "Spectre",
+    opts = { open_cmd = "noswapfile vnew" },
+    dependencies = {'nvim-lua/plenary.nvim'},
+    keys = {
+        { "<leader>R", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
+    },
+})
 Plug.add('machakann/vim-highlightedyank' ) -- 高亮显示复制区域
 Plug.add('haya14busa/incsearch.vim' )      -- 加强版实时高亮
 -- Plug.add('mg979/vim-visual-multi' )     -- 多重选择
 Plug.add('andymass/vim-matchup' )          -- 显示匹配符号之间的内容
 Plug.add('tpope/vim-commentary' )          -- Comment stuff out
-Plug.add('junegunn/vim-easy-align' )       -- 文本对齐
+Plug.add('junegunn/vim-easy-align', {
+    cmd = "EasyAlign",
+    keys = {'ga', mode = {'n', 'v', 'x'}}
+})       -- 文本对齐
 Plug.add('machakann/vim-sandwich' )        -- 操作匹配符号
 Plug.add('tpope/vim-repeat' )              -- 重复插件操作
 -- 快速移动光标
@@ -126,6 +131,11 @@ Plug.add('ggandor/leap.nvim', {
     },
 })
 Plug.add('easymotion/vim-easymotion', {
+    init = function()
+        vim.g.EasyMotion_do_mapping = 0 -- Disable default mappings
+        vim.g.EasyMotion_smartcase  = 1
+        vim.g.EasyMotion_use_migemo = 1
+    end,
     event = {'UiEnter'}
 })     -- 高效移动指标插件
 Plug.add('zzhirong/vim-easymotion-zh', {event = {'UiEnter'}})
@@ -139,7 +149,7 @@ Plug.add('folke/which-key.nvim', { event = "VeryLazy" })
 -- Chinese version of vim documents
 Plug.add('yianwillis/vimcdoc', {
     keys = {
-        {'<F1>', mode = "n"}
+        {'<F1>', '<cmd>FzfLua help_tags<cr>', mode = "n"}
     },
     event = {'CmdwinEnter', 'CmdlineEnter'},
 })
@@ -174,6 +184,13 @@ Plug.add('tpope/vim-fugitive')
 
 -- Terminal tools ======================================================== {{{1
 Plug.add('voldikss/vim-floaterm', {
+    init = function()
+        vim.g.floaterm_rootmarkers = {
+            '.project', '.git', '.hg', '.svn', '.root', '.gitignore'
+        }
+        vim.g.floaterm_keymap_toggle = '<leader><space>'
+    end,
+    cmd = "FloatermToggle",
     keys = {
         {"<leader><leader>", "<cmd>FloatermToggle<cr>", mode = "n"}
     }
@@ -210,7 +227,22 @@ Plug.add('nvim-tree/nvim-web-devicons', { lazy = true } )
 Plug.add('beauwilliams/focus.nvim' )
 -- TrueZen.nvim: Clean and elegant distraction-free writing for NeoVim. {{{2
 -- Plug.add('Pocco81/TrueZen.nvim' )
-Plug.add('folke/zen-mode.nvim' )
+Plug.add('folke/zen-mode.nvim', {
+    cmd = "ZenMode",
+})
+Plug.add('rcarriga/nvim-notify', {
+    keys = {
+        { 
+            "<leader>un",
+            function()
+                require("notify").dismiss({ silent = true, pending = true })
+            end,
+            desc = "Dismiss all Notifications",
+        },
+    },
+})
+
+
 
 -- 补全和代码片断 -------------------------------------------------------- {{{1
 Plug.add('sirver/UltiSnips', {
@@ -237,7 +269,6 @@ else
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-cmdline',
         'FelipeLema/cmp-async-path',
-        'jalvesaq/cmp-nvim-r',
         'ray-x/cmp-treesitter',
         'onsails/lspkind.nvim',
         'quangnguyen30192/cmp-nvim-ultisnips',
@@ -248,11 +279,19 @@ else
     for _,k in ipairs(cmp_dependencies) do
         Plug.add(k, {lazy = true})
     end
+    Plug.add('jalvesaq/cmp-nvim-r', {
+        ft = {'r', 'rmd'},
+        dependencies = { 'hrsh7th/nvim-cmp' }
+    })
+    -- 如果作为 cmp 的依赖加载，会导致 ItermKind 无法识别
+    -- table.insert(cmp_dependencies, 'jalvesaq/cmp-nvim-r')
     if vim.fn.has('mac') == 0 then
         Plug.add('wasden/cmp-flypy.nvim', { lazy = true, build = "make flypy"})
         table.insert(cmp_dependencies, 'wasden/cmp-flypy.nvim')
     end
-    Plug.add('neovim/nvim-lspconfig')
+    Plug.add('neovim/nvim-lspconfig', {
+        event = {'BufReadPre', 'BufNewFile'},
+    })
     Plug.add('hrsh7th/nvim-cmp', {
         event = "InsertEnter",
         dependencies = cmp_dependencies,

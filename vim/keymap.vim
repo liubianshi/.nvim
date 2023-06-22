@@ -155,9 +155,9 @@ xnoremap <expr>   L utils#Trans2clip()
 " 管理文件 ============================================================== {{{1
 nnoremap <silent> <leader>fs  :write<CR>
 nnoremap <silent> <leader>fS  :write!<CR>
-nnoremap <leader>ev :edit ~/.config/nvim/plug.vim<cr>
-nnoremap <leader>ek :edit ~/.config/nvim/keymap.vim<cr>
-nnoremap <leader>eo :edit ~/.config/nvim/option.vim<cr>
+nnoremap <leader>ev :edit ~/.config/nvim/vim/plug.vim<cr>
+nnoremap <leader>ek :edit ~/.config/nvim/vim/keymap.vim<cr>
+nnoremap <leader>eo :edit ~/.config/nvim/vim/option.vim<cr>
 nnoremap <leader>er :edit ~/.Rprofile<cr>
 nnoremap <leader>es :edit ~/.config/stata/profile.do<cr>
 nnoremap <leader>ez :edit ~/.zshrc<cr>
