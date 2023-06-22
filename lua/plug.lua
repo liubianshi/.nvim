@@ -21,9 +21,9 @@ local Plug = { plugs = {} }
 Plug.add = function(plug, opts)
     opts = opts or {}
     table.insert(opts, 1, plug)
-    local plug_name = opts.name or string.match(plug, "/([^/]+)$")
+    local plug_name        = opts.name or string.match(plug, "/([^/]+)$")
     local config_file_name = vim.fn.stdpath("config") .. "/Plugins/" .. plug_name
-    config_file_name = vim.fn.fnameescape(config_file_name)
+    config_file_name       = vim.fn.fnameescape(config_file_name)
     if not opts.config then
         if vim.fn.filereadable(config_file_name .. ".lua") == 1 then
             opts.config = function() dofile(config_file_name .. ".lua") end
@@ -129,8 +129,22 @@ Plug.add('kevinhwang91/nvim-hlslens', {
 
 -- mg979/vim-visual-multi: 多重选择 ------------------------------------- {{{3
 Plug.add('mg979/vim-visual-multi', {
+    init = function()
+        if Util.has('nvim-hlslens') then
+            vim.cmd([[
+                aug VMlens
+                    au!
+                    au User visual_multi_start lua require('vmlens').start()
+                    au User visual_multi_exit  lua require('vmlens').exit()
+                aug END
+            ]])
+        end
+    end,
+    branch = 'master',
     keys = {
         {"<C-n>", mode = {'n', 'v', 'x'}},
+        {"<leader>mj"},
+        {"<leader>mk"},
     }
 })     
 -- andymass/vim-matchup: 显示匹配符号之间的内容 ------------------------- {{{3
@@ -141,7 +155,9 @@ Plug.add('tpope/vim-commentary')
 
 -- junegunn/vim-easy-align: text alignment tool ------------------------- {{{3
 Plug.add('junegunn/vim-easy-align', {
-    keys = {'ga', mode = {'n', 'v', 'o', 'x'}},
+    keys = {
+        {'ga', mode = {'n', 'v', 'x'}}
+    },
     cmd = "EasyAlign",
 })
 
@@ -225,7 +241,7 @@ Plug.add('folke/which-key.nvim', {event = "VeryLazy"})
 Plug.add('yianwillis/vimcdoc', {
     keys = {
         {'<F1>', '<cmd>FzfLua help_tags<cr>', mode = 'n'},
-        {'<leader>sh', mode = 'n'}
+        {'<leader>sh', '<cmd>FzfLua help_tags<cr>', mode = 'n'},
     },
     event = {'CmdwinEnter', 'CmdlineEnter'},
 })
@@ -277,7 +293,7 @@ Plug.add('akinsho/toggleterm.nvim', {
     cmd = "ToggleTerm",
     keys = {
         {   
-            "<space><space>", "<cmd>ToggleTerm<CR>",
+            "<space><space>", "<cmd>ToggleTerm<cr>",
             desc = "Toogle Terminal",
             noremap = true,
             silent = true,
