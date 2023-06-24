@@ -98,12 +98,18 @@ function M.setup_rime()
         capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
     end
 
+    local rime_shared_data_dir = "/usr/share/rime-data"
+    local rime_user_dir = "~/.local/share/rime-ls"
+    if vim.fn.has('mac') then
+        rime_shared_data_dir = "/Library/Input Methods/Squirrel.app/Contents/SharedSupport"
+    end
+
     lspconfig.rime_ls.setup {
         init_options = {
             enabled                  = vim.g.rime_enabled,
-            shared_data_dir          = "/usr/share/rime-data",
-            user_data_dir            = "~/.local/share/rime-ls",
-            log_dir                  = "~/.local/share/rime-ls",
+            shared_data_dir          = rime_shared_data_dir,
+            user_data_dir            = rime_user_dir,
+            log_dir                  = rime_user_dir,
             max_candidates           = 9,
             trigger_characters       = {},
             schema_trigger_character = "&" -- [since v0.2.0] 当输入此字符串时请求补全会触发 “方案选单”
