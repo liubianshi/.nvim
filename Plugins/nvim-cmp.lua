@@ -1,5 +1,9 @@
 -- Setup nvim-cmp.
-local cmp = require'cmp'
+local cmp                    = require('cmp')
+local compare                = require('cmp.config.compare')
+local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
+
+-- source config functions ---------------------------------------------- {{{2
 local function constuct_cmp_source(sources)
     local function not_exists(s, b)
         for _,v in ipairs(b) do
@@ -17,15 +21,16 @@ local function constuct_cmp_source(sources)
         return(base)
     end
     local default = gen_cmp_source({
-        { name = 'flypy' },
+        -- { name = 'flypy' },
         { name = 'ultisnips' }, -- For ultisnips users.
         { name = 'async_path', option = { trailing_slash = true }},
         --{ name = 'nvim_lsp_signature_help' },
         --{ name = 'cmdline' },
-        { name = 'latex_symbols' },
+        { name = 'nvim_lsp' },
+        -- { name = 'latex_symbols' },
         { name = 'orgmode' },
-        { name = 'treesitter' },
-        { name = 'ctags' }, 
+        -- { name = 'treesitter' },
+        -- { name = 'ctags' }, 
         -- { name = 'vim-dadbod-completion' },
         { name = 'omni' },
     })
@@ -35,6 +40,7 @@ local function constuct_cmp_source(sources)
     return(cmp.config.sources(gen_cmp_source(sources, default), fallback))
 end
 
+-- Item Kind ------------------------------------------------------------ {{{2
 vim.lsp.protocol.CompletionItemKind = {
     ' [text]',
     ' [method]',
@@ -63,12 +69,113 @@ vim.lsp.protocol.CompletionItemKind = {
     '« [type]'
 }
 
-local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
-cmp.setup({
+-- key adjust ----------------------------------------------------------- {{{2
+local keymap_config = {
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<C-Space>'] = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = true
+    }),
+    ["<S-Tab>"] = cmp.mapping(
+        function(fallback)
+            cmp_ultisnips_mappings.jump_backwards(fallback)
+        end, {"i", "s"}
+    ),
+}
+
+-- <Space> -------------------------------------------------------------- {{{3
+keymap_config["<Space>"] = cmp.mapping(
+    function(fallback)
+        local entry = cmp.get_selected_entry()
+        if entry == nil then
+            entry = cmp.core.view:get_first_entry()
+        end
+        if entry and entry.source.name == "nvim_lsp"
+                    and entry.source.source.client.name == "rime_ls" then
+            cmp.confirm({
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true,
+            })
+        elseif cmp.visible() then
+            local selected_entry = cmp.core.view:get_selected_entry()
+            if selected_entry
+                and selected_entry.source.name == "flypy"
+                and not cmp.confirm({select=true}) then
+                    return fallback()
+            end
+        end
+        fallback()
+    end,
+    {"i","s",}
+)
+
+-- <Tab> ---------------------------------------------------------------- {{{3
+keymap_config["<Tab>"] = cmp.mapping({
+    i = function(fallback)
+        if cmp.visible() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+        else
+            fallback()
+        end
+    end,
+    s = function(fallback)
+        if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+            vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+        else
+            fallback()
+        end
+    end,
+}) 
+
+-- <CR> ----------------------------------------------------------------- {{{3
+keymap_config['<CR>'] = cmp.mapping(
+    function(fallback)
+        local entry = cmp.get_selected_entry()
+        if entry == nil then
+            entry = cmp.core.view:get_first_entry()
+        end
+        if entry and entry.source.name == "nvim_lsp"
+                    and entry.source.source.client.name == "rime_ls" then
+            cmp.abort()
+        elseif cmp.visible() then
+            local selected_entry = cmp.get_selected_entry()
+            if selected_entry then
+                if selected_entry.source.name == "flypy" then
+                    cmp.abort()
+                    vim.fn.feedkeys(" ")
+                else
+                    cmp.confirm()
+                end
+            else
+                fallback()
+            end
+        else
+            fallback()
+        end
+    end,
+    {"i", "s"}
+)
+
+-- sorting -------------------------------------------------------------- {{{2
+local sorting_config = {
+    comparators = {
+        compare.sort_text,
+        compare.offset,
+        compare.exact,
+        compare.score,
+        compare.recently_used,
+        compare.kind,
+        compare.length,
+        compare.order,
+    }
+}
+-- cmp_config ----------------------------------------------------------- {{{2
+local cmp_config = {
     menu = {},
-    completion = {
-        keyword_length = 2,
-    },
+    completion = { keyword_length = 1 },
+    sorting = sorting_config,
     snippet = {
         expand = function(args)
             vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
@@ -99,71 +206,15 @@ cmp.setup({
             return kind
         end,
     },
-    mapping = cmp.mapping.preset.insert({
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                local selected_entry = cmp.get_selected_entry()
-                if selected_entry then
-                    if selected_entry.source.name == "flypy" then
-                        cmp.abort()
-                        vim.fn.feedkeys(" ")
-                    else
-                        cmp.confirm()
-                    end
-                else
-                    fallback()
-                end
-            else
-                fallback()
-            end
-        end, {"i", "s"}
-        ),
-        ["<Space>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                local selected_entry = cmp.core.view:get_selected_entry()
-                if selected_entry
-                    and selected_entry.source.name == "flypy"
-                    and not cmp.confirm({select=true}) then
-                     return fallback()
-                end
-            end
-            fallback()
-        end, {"i","s",}),
-        ['<C-Space>'] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true
-        }),
-        ["<Tab>"] = cmp.mapping({
-            i = function(fallback)
-                if cmp.visible() then
-                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-                else
-                    fallback()
-                end
-            end,
-            s = function(fallback)
-                if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                    vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
-                else
-                    fallback()
-                end
-            end,
-        }), 
-        ["<S-Tab>"] = cmp.mapping(
-            function(fallback)
-                cmp_ultisnips_mappings.jump_backwards(fallback)
-            end, {"i", "s"}
-        ),
-    }),
+    mapping = cmp.mapping.preset.insert(keymap_config),
     sources = constuct_cmp_source(),
-})
+}
 
-cmp.setup.filetype({'pandoc', 'markdown', 'rmd', 'rmarkdown'}, {
-    sources = constuct_cmp_source({{name = 'cmp_zotcite'}})
-})
+-- cmp setup ------------------------------------------------------------ {{{2
+cmp.setup(cmp_config)
+-- cmp.setup.filetype({'pandoc', 'markdown', 'rmd', 'rmarkdown'}, {
+--     sources = constuct_cmp_source({{name = 'cmp_zotcite'}})
+-- })
 
 cmp.setup.filetype({'r'}, {
     sources = constuct_cmp_source({{name = 'cmp_nvim_r'}})
@@ -188,69 +239,46 @@ cmp.setup.filetype('sql', {
     sources = constuct_cmp_source({{name = 'vim-dadbod-completion'}})
 })
 
--- -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
--- cmp.setup.cmdline('/', {
---   mapping = cmp.mapping.preset.cmdline(),
---   sources = {
---     { name = 'buffer' }
---   }
--- })
+-- autopairs ------------------------------------------------------------ {{{2
+local status_ok, cmp_autopairs = pcall(require, 'nvim-autopairs.completion.cmp')
+if status_ok then
+    cmp.event:on(
+        'confirm_done',
+        cmp_autopairs.on_confirm_done()
+    )
 
--- cmp.setup.cmdline('?', {
---   mapping = cmp.mapping.preset.cmdline(),
---   sources = {
---     { name = 'buffer' }
---   }
--- })
-
--- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
--- cmp.setup.cmdline(':', {
---   mapping = cmp.mapping.preset.cmdline(),
---   sources = cmp.config.sources({
---     { name = 'path' },
---   }, {
---     { name = 'cmdline' }
---   })
--- })
-
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-local cmp = require('cmp')
-cmp.event:on(
-  'confirm_done',
-  cmp_autopairs.on_confirm_done()
-)
-
-local handlers = require('nvim-autopairs.completion.handlers')
-cmp.event:on(
-  'confirm_done',
-  cmp_autopairs.on_confirm_done({
-    filetypes = {
-      -- "*" is a alias to all filetypes
-      ["*"] = {
-        ["("] = {
-          kind = {
-            cmp.lsp.CompletionItemKind.Function,
-            cmp.lsp.CompletionItemKind.Method,
-          },
-          handler = handlers["*"]
-        }
-      },
-      lua = {
-        ["("] = {
-          kind = {
-            cmp.lsp.CompletionItemKind.Function,
-            cmp.lsp.CompletionItemKind.Method
-          },
-          ---@param char string
-          ---@param item item completion
-          ---@param bufnr buffer number
-          handler = function(char, item, bufnr)
-            -- Your handler function. Inpect with print(vim.inspect{char, item, bufnr})
-          end
-        }
-      },
-      -- Disable for tex
-      tex = false
-    }
-  })
-)
+    local handlers = require('nvim-autopairs.completion.handlers')
+    cmp.event:on(
+        'confirm_done',
+        cmp_autopairs.on_confirm_done({
+            filetypes = {
+            -- "*" is a alias to all filetypes
+            ["*"] = {
+                ["("] = {
+                kind = {
+                    cmp.lsp.CompletionItemKind.Function,
+                    cmp.lsp.CompletionItemKind.Method,
+                },
+                handler = handlers["*"]
+                }
+            },
+            lua = {
+                ["("] = {
+                kind = {
+                    cmp.lsp.CompletionItemKind.Function,
+                    cmp.lsp.CompletionItemKind.Method
+                },
+                ---@param char string
+                ---@param item item completion
+                ---@param bufnr buffer number
+                handler = function(char, item, bufnr)
+                    -- Your handler function. Inpect with print(vim.inspect{char, item, bufnr})
+                end
+                }
+            },
+            -- Disable for tex
+            tex = false
+            }
+        })
+    )
+end

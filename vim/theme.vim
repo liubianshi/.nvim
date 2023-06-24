@@ -1,7 +1,4 @@
-if $TERM != "dvtm-256color"
-    set termguicolors      " 真彩色
-endif
-set background=dark        " 设置颜色模式
+set background=dark
 set guifont=monospace:h14
 
 function! s:RandomTheme() abort
@@ -14,7 +11,7 @@ endfunction
 call <SID>RandomTheme()
 
 " 解决 vim 帮助文件的示例代码的不够突显的问题
-hi def link helpExample		Special
+hi def link helpExample Special
 
 highlight VertSplit      cterm=None gui=None guibg=bg
 highlight FoldColumn     guibg=bg

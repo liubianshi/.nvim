@@ -198,6 +198,7 @@ Plug.add('rcarriga/nvim-notify', {
             desc = "Dismiss all Notifications",
         },
     },
+    init = function() vim.notify = require('notify') end,
 })
 
 -- ggandor/flit.nvim: Enhanced f/t motions for Leap --------------------- {{{3

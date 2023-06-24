@@ -1,4 +1,9 @@
 " Liubianshi's Neovim
+if $TERM != "dvtm-256color"
+    set termguicolors
+endif
+
+
 function! s:Load(con) abort
     exec "source " . stdpath('config') . "/vim/" . a:con . ".vim"
 endfunction
@@ -33,4 +38,5 @@ call <SID>Load("abbr")
 
 " 设置 UI
 call <SID>Load("theme")
+
 

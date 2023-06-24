@@ -250,11 +250,18 @@ ins_right {
 ins_right {'location'}
 ins_right_inactive {'location'}
 
--- ins_right {
---   function() return '▊' end,
---   color = {fg = colors.blue},
---   right_padding = 0
--- }
+-- rime-ls status
+ins_right({
+  function()
+    if vim.g.rime_enabled then
+      return 'ㄓ'
+    else
+      return '▊' 
+    end
+  end,
+  color = {fg = colors.orange},
+  right_padding = 0
+})
 
 -- Now don't forget to initialize lualine
 lualine.setup(config)

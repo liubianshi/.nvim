@@ -271,7 +271,19 @@ vim.keymap.set('n', '<A-x>', function()
         fzf_opts = {
             ['--no-multi'] = '',
             ['--layout'] = 'default',
-        }
+        },
+        actions = {
+            ['default'] = function(selected, opts)
+                local command = selected[1]
+                vim.cmd("stopinsert")
+                local nargs = vim.api.nvim_get_commands({})[command].nargs
+                if nargs:match('[0*?]') then
+                    vim.cmd(command)
+                else
+                    vim.fn.feedkeys(string.format(":%s", command), "n")
+                end
+            end 
+        },
     })
 end, mapopts)
 EOF

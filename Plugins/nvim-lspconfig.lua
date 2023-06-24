@@ -6,7 +6,7 @@ vim.keymap.set('n', '[d',       vim.diagnostic.goto_prev,  opts)
 vim.keymap.set('n', ']d',       vim.diagnostic.goto_next,  opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
--- Preconfiguration ===========================================================
+-- Preconfiguration ----------------------------------------------------------- {{{2
 local on_attach_custom = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     -- Mappings.
@@ -35,13 +35,13 @@ if status_ok then
    local capabilities = cmp_nvim_lsp.default_capabilities()
 end
 
--- bashls (bash-language-server) ========================================
+-- bashls (bash-language-server) ---------------------------------------- {{{2
 lspconfig.bashls.setup{
     capabilities = capabilities,
     on_attach = on_attach_custom,
 }
 
--- R (r_language_server) =================================================
+-- R (r_language_server) ------------------------------------------------ {{{2
 lspconfig.r_language_server.setup({
     cmd = {
         "R", "--slave", 
@@ -56,20 +56,20 @@ lspconfig.r_language_server.setup({
     },
 })
 
--- Python (pyright) ======================================================
+-- Python (pyright) ----------------------------------------------------- {{{2
 -- lspconfig.pyright.setup({ on_attach = on_attach_custom })
 lspconfig.jedi_language_server.setup({
     capabilities = capabilities,
     on_attach = on_attach_custom
 })
 
--- vim (vimls) ===========================================================
+-- vim (vimls) ---------------------------------------------------------- {{{2
 lspconfig.vimls.setup{
     capabilities = capabilities,
     on_attach = on_attach_custom
 }
 
--- perl (perlls) =========================================================
+-- perl (perlls) -------------------------------------------------------- {{{2
 lspconfig.perlnavigator.setup({
     cmd = {
         'node',
@@ -80,12 +80,9 @@ lspconfig.perlnavigator.setup({
     on_attach = on_attach_custom,
 })
 
--- which-key setting
-wk = require("which-key")
-wk.register({
-['d'] = { "goto definition" },
-['D'] = { "goto declaration" },
-['k'] = { "lsp hover" },
-['r'] = { "list references" },
-['i'] = { "goto implementation" },
-}, { buffer = 0, prefix = 'g' })
+-- rime-ls -------------------------------------------------------------- {{{2
+local status_ok, rime_ls = pcall(require, 'rime-ls')
+if status_ok then
+    rime_ls.setup_rime()
+end
+
