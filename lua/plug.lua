@@ -484,6 +484,17 @@ Plug.add('liuchengxu/graphviz.vim', { ft = 'dot' })
 -- kevinhwang91/nvim-bqf: Better quickfix window in Neovim -------------- {{{3
 Plug.add('kevinhwang91/nvim-bqf', { ft = 'qf' })
 
+-- nvim-orgmode/orgmode: Orgmode clone written in Lua
+Plug.add('nvim-orgmode/orgmode', {
+    dependencies = {'nvim-treesitter/nvim-treesitter'},
+    ft = 'org',
+    keys = {
+        {'<leader>oa', desc = "Orgmode: agenda prompt"},
+        {'<leader>oc', desc = "Orgmode: capture prompt"},
+    }
+})
+
+
 
 -- TreeSitter ----------------------------------------------------------- {{{2
 -- nvim-treesitter/nvim-treesitter: Treesitter configurations ----------- {{{3
@@ -492,6 +503,10 @@ Plug.add('nvim-treesitter/nvim-treesitter', {
     cmd = 'TSEnable',
     event = {'BufReadPost', "BufNewFile"}
 })
+
+-- Plug.add('lukas-reineke/headlines.nvim', {
+--     dependencies = 'nvim-treesitter/nvim-treesitter'
+-- })
 
 -- 安装并加载插件 ------------------------------------------------------- {{{1
 local lazy = require("lazy")
