@@ -2,10 +2,25 @@
 local cmp                    = require('cmp')
 local compare                = require('cmp.config.compare')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
+local rimels                 = require("rime-ls")
 
 -- helper_functions
 local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local get_word_before = function(s, l)
+    l = l or 1
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    if col < s or s < l then
+        return nil
+    end
+    local line_content = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+    return line_content:sub(col - s + 1, col - s + l)
+end
+
+local feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
 -- source config functions ---------------------------------------------- {{{2
@@ -90,26 +105,50 @@ local keymap_config = {
     ),
 }
 
+-- number --------------------------------------------------------------- {{{3
+for numkey = 2,9 do
+    numkey = tostring(numkey)
+    keymap_config[numkey] = cmp.mapping(
+        function(fallback)
+            if not cmp.visible() or not vim.g.rime_enabled then
+                return fallback()
+            end
+            cmp.close()
+            feedkey(numkey, "n")
+            cmp.complete()
+            feedkey("<Space>", "m")
+        end, 
+        {"i"}
+    )
+end
+
 -- <Space> -------------------------------------------------------------- {{{3
 keymap_config["<Space>"] = cmp.mapping(
     function(fallback)
         if not cmp.visible() then
             return fallback()
         end
-        local entry = cmp.get_selected_entry()
-        if entry == nil then
-            entry = cmp.core.view:get_first_entry()
+        local select_entry = cmp.get_selected_entry()
+        local first_entry  = cmp.core.view:get_first_entry()
+        local lsp_kinds = require('cmp.types').lsp.CompletionItemKind
+
+        if select_entry then
+            if select_entry:get_kind() and
+               lsp_kinds[select_entry:get_kind()] ~= 'Text' then
+                cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = false})
+                vim.fn.feedkeys(' ')
+            else
+                cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = false})
+            end
+        elseif first_entry.source.name == "nvim_lsp" and
+               first_entry.source.source.client.name == "rime_ls" and
+               rimels.probe_all_passed() then
+            cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = true})
+        elseif first_entry.source.name == "flypy" then
+            cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = true})
+        else
+            return fallback()
         end
-        if entry and entry.source.name == "nvim_lsp"
-                 and entry.source.source.client.name == "rime_ls" then
-            cmp.confirm({
-                behavior = cmp.ConfirmBehavior.Replace,
-                select = true,
-            })
-        elseif entry.source.name == "flypy" then
-            cmp.confirm({select=true})
-        end
-        fallback()
     end,
     {"i","s"}
 )
@@ -195,9 +234,12 @@ local cmp_config = {
             local strings = vim.split(kind.kind, "%s", { trimempty = true })
             kind.kind = " " .. strings[1] .. " "
             if strings[2] == nil then
-                kind.menu = "    (other)"
+                kind.menu = "    [other]"
+            elseif strings[2] == "Text" then
+                kind.kind = ""
+                kind.menu = ""
             else
-                kind.menu = "    (" .. strings[2] .. ")"
+                kind.menu = "    [" .. strings[2] .. "]"
             end
             return kind
         end,
@@ -235,46 +277,3 @@ cmp.setup.filetype('sql', {
     sources = constuct_cmp_source({{name = 'vim-dadbod-completion'}})
 })
 
--- autopairs ------------------------------------------------------------ {{{2
-local status_ok, cmp_autopairs = pcall(require, 'nvim-autopairs.completion.cmp')
-if status_ok then
-    cmp.event:on(
-        'confirm_done',
-        cmp_autopairs.on_confirm_done()
-    )
-
-    local handlers = require('nvim-autopairs.completion.handlers')
-    cmp.event:on(
-        'confirm_done',
-        cmp_autopairs.on_confirm_done({
-            filetypes = {
-            -- "*" is a alias to all filetypes
-            ["*"] = {
-                ["("] = {
-                kind = {
-                    cmp.lsp.CompletionItemKind.Function,
-                    cmp.lsp.CompletionItemKind.Method,
-                },
-                handler = handlers["*"]
-                }
-            },
-            lua = {
-                ["("] = {
-                kind = {
-                    cmp.lsp.CompletionItemKind.Function,
-                    cmp.lsp.CompletionItemKind.Method
-                },
-                ---@param char string
-                ---@param item item completion
-                ---@param bufnr buffer number
-                handler = function(char, item, bufnr)
-                    -- Your handler function. Inpect with print(vim.inspect{char, item, bufnr})
-                end
-                }
-            },
-            -- Disable for tex
-            tex = false
-            }
-        })
-    )
-end

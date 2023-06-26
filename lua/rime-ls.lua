@@ -1,5 +1,14 @@
 local M = {}
 
+M.probes = {
+    {
+        "probe_punctuation_after_half_symbol", function()
+            local word = M.get_word_before(2,2) 
+            return word and word:match("^[%w%p]%p$")
+        end
+    }
+}
+
 function M.setup_rime(opts)
     opts = opts or {}
     -- global status
@@ -122,6 +131,29 @@ function M.setup_rime(opts)
         on_attach = rime_on_attach,
         capabilities = capabilities,
     }
+end
+
+M.get_word_before = function(s, l)
+    l = l or 1
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    if col < s or s < l then
+        return nil
+    end
+    local line_content = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+    return line_content:sub(col - s + 1, col - s + l)
+end
+
+
+M.probe_all_passed = function()
+    probes = M.get_probes()
+    for _,probe in pairs(probes) do
+        if probe[2]() then return false end
+    end
+    return(true)
+end
+
+M.get_probes = function()
+    return M.probes
 end
 
 return M

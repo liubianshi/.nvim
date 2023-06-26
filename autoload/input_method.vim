@@ -93,12 +93,19 @@ function! input_method#En()
 endfunction
 
 function! input_method#RestoreInsertMode() abort
+    if <sid>Is_rime_ls_start()
+        return
+    endif
     if s:InputMethodOfLastInsertMode() =~? "zh"
         call <sid>Active_Input_method()
     endif
 endfunction
 
 function! input_method#LeaveInsertMode() abort
+    if <sid>Is_rime_ls_start()
+        return
+    endif
+        
     let b:input_method_of_last_insert_mode =
         \ <SID>ChineseInputOn() ? "zh" : "en"
     call <sid>Inactive_Input_method()
