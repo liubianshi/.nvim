@@ -507,6 +507,12 @@ Plug.add('nvim-treesitter/nvim-treesitter', {
     event = {'BufReadPost', "BufNewFile"}
 })
 
+Plug.add('dawsers/edit-code-block.nvim', {
+    dependencies = {'nvim-treesitter/nvim-treesitter'},
+    cmd = {'EditCodeBlock', 'EditCodeBlockOrg', 'EditCodeBlockSelection'},
+    config = function() require('ecb').setup({wincmd = 'split'}) end,
+})
+
 -- 安装并加载插件 ------------------------------------------------------- {{{1
 local lazy = require("lazy")
 lazy.setup(
