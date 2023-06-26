@@ -494,7 +494,10 @@ Plug.add('nvim-orgmode/orgmode', {
     }
 })
 
-
+Plug.add('akinsho/org-bullets.nvim', {
+    dependencies = {'nvim-orgmode/orgmode'},
+    config = true
+})
 
 -- TreeSitter ----------------------------------------------------------- {{{2
 -- nvim-treesitter/nvim-treesitter: Treesitter configurations ----------- {{{3
@@ -503,10 +506,6 @@ Plug.add('nvim-treesitter/nvim-treesitter', {
     cmd = 'TSEnable',
     event = {'BufReadPost', "BufNewFile"}
 })
-
--- Plug.add('lukas-reineke/headlines.nvim', {
---     dependencies = 'nvim-treesitter/nvim-treesitter'
--- })
 
 -- 安装并加载插件 ------------------------------------------------------- {{{1
 local lazy = require("lazy")

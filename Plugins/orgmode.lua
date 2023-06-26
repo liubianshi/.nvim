@@ -2,6 +2,7 @@
 require('orgmode').setup_ts_grammar()
 
 local orglib = "~/Documents/Writing/"
+
 require('orgmode').setup({
   org_agenda_files = { orglib .. '*', orglib .. '**/*'},
   org_default_notes_file = orglib .. 'refile.org',
@@ -9,6 +10,7 @@ require('orgmode').setup({
   org_highlight_latex_and_related = 'entities',
   org_indent_mode = 'indent',
   org_hide_emphasis_markers = true,
+  org_hide_leading_stars = true,
   diagnostics = false,
   org_capture_templates = {
         t = {

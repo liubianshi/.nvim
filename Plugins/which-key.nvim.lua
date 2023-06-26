@@ -1,11 +1,11 @@
-require("which-key").setup({
+local wk = require("which-key")
+wk.setup({
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
 })
 
 -- register keymap ------------------------------------------------------ {{{1
-local wk = require("which-key")
 wk.register({
     ["<leader>"] = { -- <leader>/<space> -------------------------------- {{{2
         ["."] = "Open File",

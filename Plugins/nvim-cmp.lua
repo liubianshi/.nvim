@@ -3,6 +3,11 @@ local cmp                    = require('cmp')
 local compare                = require('cmp.config.compare')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 
+-- helper_functions
+local t = function(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
 -- source config functions ---------------------------------------------- {{{2
 local function constuct_cmp_source(sources)
     local function not_exists(s, b)
@@ -88,34 +93,32 @@ local keymap_config = {
 -- <Space> -------------------------------------------------------------- {{{3
 keymap_config["<Space>"] = cmp.mapping(
     function(fallback)
+        if not cmp.visible() then
+            return fallback()
+        end
         local entry = cmp.get_selected_entry()
         if entry == nil then
             entry = cmp.core.view:get_first_entry()
         end
         if entry and entry.source.name == "nvim_lsp"
-                    and entry.source.source.client.name == "rime_ls" then
+                 and entry.source.source.client.name == "rime_ls" then
             cmp.confirm({
                 behavior = cmp.ConfirmBehavior.Replace,
                 select = true,
             })
-        elseif cmp.visible() then
-            local selected_entry = cmp.core.view:get_selected_entry()
-            if selected_entry
-                and selected_entry.source.name == "flypy"
-                and not cmp.confirm({select=true}) then
-                    return fallback()
-            end
+        elseif entry.source.name == "flypy" then
+            cmp.confirm({select=true})
         end
         fallback()
     end,
-    {"i","s",}
+    {"i","s"}
 )
 
 -- <Tab> ---------------------------------------------------------------- {{{3
 keymap_config["<Tab>"] = cmp.mapping({
     i = function(fallback)
         if cmp.visible() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.select })
         else
             fallback()
         end
@@ -132,27 +135,20 @@ keymap_config["<Tab>"] = cmp.mapping({
 -- <CR> ----------------------------------------------------------------- {{{3
 keymap_config['<CR>'] = cmp.mapping(
     function(fallback)
+        if not cmp.visible() then return(fallback()) end
+
         local entry = cmp.get_selected_entry()
-        if entry == nil then
-            entry = cmp.core.view:get_first_entry()
-        end
-        if entry and entry.source.name == "nvim_lsp"
-                    and entry.source.source.client.name == "rime_ls" then
+        if not entry then return(fallback()) end
+        
+        if entry.source.name == "nvim_lsp" and
+           entry.source.source.client.name == "rime_ls" then
             cmp.abort()
-        elseif cmp.visible() then
-            local selected_entry = cmp.get_selected_entry()
-            if selected_entry then
-                if selected_entry.source.name == "flypy" then
-                    cmp.abort()
-                    vim.fn.feedkeys(" ")
-                else
-                    cmp.confirm()
-                end
-            else
-                fallback()
-            end
+            vim.fn.feedkeys(" ")
+        elseif entry.source.name == "flypy" then
+            cmp.abort()
+            vim.fn.feedkeys(" ")
         else
-            fallback()
+            cmp.confirm()
         end
     end,
     {"i", "s"}
