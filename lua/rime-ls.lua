@@ -6,6 +6,11 @@ M.probes = {
             local word = M.get_word_before(2,2) 
             return word and word:match("^[%w%p]%p$")
         end
+    },
+    {
+        "prove_temporarily_disabled", function()
+            return not vim.b.rime_enabled
+        end
     }
 }
 
@@ -99,6 +104,7 @@ function M.setup_rime(opts)
             end,
             { nargs = 0}
         )
+
         -- load
         if opts.load then
             vim.g.input_method_framework = "rime-ls"

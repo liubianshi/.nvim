@@ -254,13 +254,13 @@ cmp.setup(cmp_config)
 --     sources = constuct_cmp_source({{name = 'cmp_zotcite'}})
 -- })
 
-cmp.setup.filetype({'r'}, {
-    sources = constuct_cmp_source({{name = 'cmp_nvim_r'}})
-})
+-- cmp.setup.filetype({'r'}, {
+--     sources = constuct_cmp_source({{name = 'cmp_nvim_r'}})
+-- })
 
-cmp.setup.filetype({'rmd'}, {
-    sources = constuct_cmp_source({{name = 'cmp_nvim_r'}, {name = 'cmp_zotcite'}})
-})
+-- cmp.setup.filetype({'rmd'}, {
+--     sources = constuct_cmp_source({{name = 'cmp_nvim_r'}})
+-- })
 
 
 cmp.setup.filetype({'perl', 'python', 'vim', 'bash'}, {

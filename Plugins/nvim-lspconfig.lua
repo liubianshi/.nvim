@@ -51,6 +51,7 @@ lspconfig.r_language_server.setup({
     -- capabilities = capabilities,
     on_attach = on_attach_custom,
     root_dir = util.root_pattern(".git", ".vim", "NAMESPACE"),
+    single_file_support = true,
     flags = {
       debounce_text_changes = 150
     },

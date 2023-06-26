@@ -32,7 +32,11 @@ endfunction
 
 function! s:ChineseInputOn()
     if <SID>Is_rime_ls_start()
-        return g:rime_enabled
+        if has_key(b:, "rime_enabled")
+            return g:rime_enabled && b:rime_enabled
+        else
+            return g:rime_enabled
+        endif
     else
         return (trim(system(g:lbs_input_status)) == g:lbs_input_method_on)
     endif
@@ -58,6 +62,8 @@ function! s:Active_Input_method()
     if <sid>Is_rime_ls_start()
         if !g:rime_enabled
             lua ToggleRime()
+        else
+            let b:rime_enabled = v:true
         endif
     else
         call system(g:lbs_input_method_activate)
@@ -66,9 +72,7 @@ endfunction
 
 function! s:Inactive_Input_method()
     if <sid>Is_rime_ls_start()
-        if g:rime_enabled
-            lua ToggleRime()
-        endif
+        let b:rime_enabled = v:false
     else
         call system(g:lbs_input_method_inactivate)
     endif
@@ -78,7 +82,8 @@ endfunction
 " Switch to chinese input method when entering insert mode
 function! input_method#Zh()
     let b:current_input_method = "zh"
-    if !s:ChineseInputOn()
+    let b:rime_enabled = v:true
+    if !<sid>ChineseInputOn()
         call <sid>Active_Input_method()
     endif
     return ""
@@ -86,7 +91,7 @@ endfunction
 
 function! input_method#En()
     let b:current_input_method = 'en'
-    if <SID>ChineseInputOn() 
+    if <sid>ChineseInputOn() 
         call <SID>Inactive_Input_method()
     endif
     return ""
