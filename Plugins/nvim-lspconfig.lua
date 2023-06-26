@@ -83,6 +83,6 @@ lspconfig.perlnavigator.setup({
 -- rime-ls -------------------------------------------------------------- {{{2
 local status_ok, rime_ls = pcall(require, 'rime-ls')
 if status_ok then
-    rime_ls.setup_rime()
+    rime_ls.setup_rime({load = true})
 end
 

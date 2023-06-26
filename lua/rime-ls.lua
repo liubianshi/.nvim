@@ -1,6 +1,7 @@
 local M = {}
 
-function M.setup_rime()
+function M.setup_rime(opts)
+    opts = opts or {}
     -- global status
     vim.g.rime_enabled = false
 
@@ -89,6 +90,10 @@ function M.setup_rime()
             end,
             { nargs = 0}
         )
+        -- load
+        if opts.load then
+            vim.g.input_method_framework = "rime-ls"
+        end
     end
 
     -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
