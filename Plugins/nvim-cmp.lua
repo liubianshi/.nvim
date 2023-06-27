@@ -126,6 +126,7 @@ end
 keymap_config["<Space>"] = cmp.mapping(
     function(fallback)
         if not cmp.visible() then
+            rimels.auto_toggle_rime_ls_with_space()
             return fallback()
         end
         local select_entry = cmp.get_selected_entry()
@@ -147,6 +148,7 @@ keymap_config["<Space>"] = cmp.mapping(
         elseif first_entry.source.name == "flypy" then
             cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = true})
         else
+            rimels.auto_toggle_rime_ls_with_space()
             return fallback()
         end
     end,
@@ -176,21 +178,40 @@ keymap_config['<CR>'] = cmp.mapping(
     function(fallback)
         if not cmp.visible() then return(fallback()) end
 
-        local entry = cmp.get_selected_entry()
+        local select_entry = cmp.get_selected_entry()
+        local first_entry  = cmp.core.view:get_first_entry()
+        local entry = select_entry or first_entry
+
         if not entry then return(fallback()) end
         
-        if entry.source.name == "nvim_lsp" and
-           entry.source.source.client.name == "rime_ls" then
+        if (entry.source.name == "nvim_lsp" and
+            entry.source.source.client.name == "rime_ls") or
+           entry.source.name == "flypy" then
             cmp.abort()
             vim.fn.feedkeys(" ")
-        elseif entry.source.name == "flypy" then
-            cmp.abort()
-            vim.fn.feedkeys(" ")
-        else
+        elseif select_entry then
             cmp.confirm()
+        else
+            fallback()
         end
     end,
     {"i", "s"}
+)
+
+-- <bs> ----------------------------------------------------------
+keymap_config['<BS>'] = cmp.mapping(
+    function(fallback)
+        if not cmp.visible() then
+            local re = rimels.auto_toggle_rime_ls_with_backspace()
+            fallback()
+            if re == 1 then
+                cmp.complete()
+            end
+        else
+            fallback()
+        end
+    end,
+    {'i', 's'}
 )
 
 -- sorting -------------------------------------------------------------- {{{2

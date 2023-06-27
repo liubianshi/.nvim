@@ -1,10 +1,24 @@
 local M = {}
 
+local get_word_before = function(s, l)
+    l = l or 1
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    if col < s or s < l then
+        return nil
+    end
+    local line_content = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
+    return line_content:sub(col - s + 1, col - s + l)
+end
+
 M.probes = {
     {
         "probe_punctuation_after_half_symbol", function()
-            local word = M.get_word_before(2,2) 
-            return word and word:match("^[%w%p]%p$")
+            local word = get_word_before(2,2) 
+            if word and word:match("^[%w%p]%p$") then
+                return true
+            else
+                return false
+            end
         end
     },
     {
@@ -109,6 +123,21 @@ function M.setup_rime(opts)
         if opts.load then
             vim.g.input_method_framework = "rime-ls"
         end
+
+        -- define default_key_map
+        local start = (opts.keys and opts.keys.start) or ";f"
+        local stop  = (opts.keys and opts.keys.stop)  or ";;"
+        vim.keymap.set('i', start, function()
+            vim.cmd("stopinsert")
+            if not vim.g.rime_enabled then
+                toggle_rime()
+            end
+            vim.b.rime_enabled = true
+            vim.fn.feedkeys("a", "n")
+        end, {desc = "Start Chinese Input Method", noremap = true})
+        vim.keymap.set('i', stop, function()
+            vim.b.rime_enabled = false
+        end, {desc = "Start Chinese Input Method", noremap = true, expr = true})
     end
 
     -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -139,16 +168,6 @@ function M.setup_rime(opts)
     }
 end
 
-M.get_word_before = function(s, l)
-    l = l or 1
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    if col < s or s < l then
-        return nil
-    end
-    local line_content = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
-    return line_content:sub(col - s + 1, col - s + l)
-end
-
 
 M.probe_all_passed = function()
     probes = M.get_probes()
@@ -160,6 +179,40 @@ end
 
 M.get_probes = function()
     return M.probes
+end
+
+M.auto_toggle_rime_ls_with_space = function()
+    if not vim.g.rime_enabled then return 0 end
+    local word_before = get_word_before(1, 1)
+    if word_before == " " then
+        return 0
+    elseif word_before:match("[%w%p]") then
+        vim.b.rime_enabled = true
+        return 1
+    else
+        vim.b.rime_enabled = false
+        return 2
+    end
+end
+
+M.auto_toggle_rime_ls_with_backspace = function()
+    if not vim.g.rime_enabled then return 0 end
+    local word_before_1 = get_word_before(1, 1)
+    local word_before_2 = get_word_before(2, 1)
+    if not word_before_1 or not word_before_2 or word_before_2 == " " then
+        return 0
+    end
+    if word_before_2:match("[%w%p]") then
+        if word_before_1 == " " then
+            vim.b.rime_enabled = false
+        end
+        return 1
+    else
+        if word_before_1 == " " then
+            vim.b.rime_enabled = true 
+        end
+        return 2
+    end
 end
 
 return M

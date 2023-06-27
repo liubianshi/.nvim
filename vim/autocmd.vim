@@ -53,12 +53,12 @@ augroup Method_Toggle
     autocmd InsertEnter *      call input_method#RestoreInsertMode()
     autocmd CmdlineEnter [/\?] call input_method#RestoreInsertMode()
     autocmd CmdlineLeave [/\?] call input_method#LeaveInsertMode()
-    autocmd BufRead,BufNew *
-        \ inoremap <silent><expr><buffer> <space>
-        \ input_method#AutoSwitchAfterSpace()
-    autocmd BufRead,BufNew *
-        \ inoremap <silent><expr><buffer> <bs>
-        \ input_method#AutoSwitchAfterBackspace()
+    " autocmd BufRead,BufNew *
+    "     \ inoremap <silent><expr><buffer> <space>
+    "     \ input_method#AutoSwitchAfterSpace()
+    " autocmd BufRead,BufNew *
+    "     \ inoremap <silent><expr><buffer> <bs>
+    "     \ input_method#AutoSwitchAfterBackspace()
     autocmd FileType mail,org
         \ inoremap <silent><expr><buffer> <space>
         \ input_method#AutoSwitchAfterSpace()

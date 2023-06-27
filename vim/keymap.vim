@@ -253,8 +253,8 @@ inoremap ;\ <C-v>u3001
 
 " 输入法 ================================================================= {{{1
 inoremap ;<space> ;
-inoremap <silent> ;; <esc>:<c-u>call input_method#En()<cr>a
-inoremap <silent> ;f <esc>:<c-u>call input_method#Zh()<cr>a
+" inoremap <silent> ;; <esc>:<c-u>call input_method#En()<cr>a
+" inoremap <silent> ;f <esc>:<c-u>call input_method#Zh()<cr>a
 " 移动光标到指定位置 ==================================================== {{{1
 noremap  <A-m> <esc>:call utils#MoveCursorTo()<cr>
 noremap  <A-M> <esc>:call utils#ShiftLine(line('.') + 1, col('.') - 1)<cr>
