@@ -507,10 +507,13 @@ Plug.add('nvim-treesitter/nvim-treesitter', {
     event = {'BufReadPost', "BufNewFile"}
 })
 
-Plug.add('dawsers/edit-code-block.nvim', {
+Plug.add('AckslD/nvim-FeMaco.lua', {
     dependencies = {'nvim-treesitter/nvim-treesitter'},
-    cmd = {'EditCodeBlock', 'EditCodeBlockOrg', 'EditCodeBlockSelection'},
-    config = function() require('ecb').setup({wincmd = 'split'}) end,
+    cmd = 'FeMaco',
+    keys = {
+        {'<localleader>o', '<cmd>FeMaco<cr>', desc = "FeMaco: Edit Code Block"}
+    },
+    config = true,
 })
 
 -- 安装并加载插件 ------------------------------------------------------- {{{1
