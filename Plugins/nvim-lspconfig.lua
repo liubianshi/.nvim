@@ -48,7 +48,7 @@ lspconfig.r_language_server.setup({
         "--default-packages=" .. vim.g.R_start_libs,
         "-e", "languageserver::run()"
     },
-    -- capabilities = capabilities,
+    capabilities = capabilities,
     on_attach = on_attach_custom,
     root_dir = util.root_pattern(".git", ".vim", "NAMESPACE"),
     single_file_support = true,
