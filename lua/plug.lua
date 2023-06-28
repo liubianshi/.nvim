@@ -165,7 +165,12 @@ Plug.add('junegunn/vim-easy-align', {
 Plug.add('beauwilliams/focus.nvim')
 
 -- folke/zen-mode.nvim: Distraction-free coding for Neovim -------------- {{{3
-Plug.add('folke/zen-mode.nvim', { cmd = "ZenMode"})
+Plug.add('folke/zen-mode.nvim', {
+    cmd = "ZenMode",
+    keys = {
+        {'<A-z>', '<cmd>ZenMode<cr>', desc = "Toggle Zen Mode"}
+    }
+})
 
 -- machakann/vim-sandwich: add/delete/replace surroundings -------------- {{{3
 Plug.add('machakann/vim-sandwich')

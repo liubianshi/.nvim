@@ -167,7 +167,7 @@ function M.setup_rime(opts)
 
     local rime_shared_data_dir = "/usr/share/rime-data"
     local rime_user_dir = "~/.local/share/rime-ls"
-    if vim.fn.has('mac') then
+    if vim.fn.has('mac') == 1 then
         rime_shared_data_dir = "/Library/Input Methods/Squirrel.app/Contents/SharedSupport"
     end
 

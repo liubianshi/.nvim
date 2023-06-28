@@ -3,6 +3,7 @@ require('neorg').setup {
         ["core.defaults"] = {},
         ["core.keybinds"] = {
             config = {
+                default_keybinds = true,
                 hook = function(keybinds)
                     keybinds.map(
                         'norg', "n", '<localleader>o',

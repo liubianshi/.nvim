@@ -4,11 +4,11 @@ zenmode.setup{
     window = {
         options = {
             signcolumn     = "no",  -- disable signcolumn
-            number         = true, -- disable number column
-            relativenumber = true, -- disable relative numbers
+            number         = false, -- disable number column
+            relativenumber = false, -- disable relative numbers
             cursorline     = true, -- disable cursorline
             cursorcolumn   = false, -- disable cursor column
-            foldcolumn     = "0",   -- disable fold column
+            foldcolumn     = "8",   -- disable fold column
             list           = false, -- disable whitespace characters
         }
     },
