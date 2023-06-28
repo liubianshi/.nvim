@@ -118,7 +118,7 @@ ins_left {
     vim.api.nvim_command(
         'hi! LualineMode guifg=' .. mode_color[vim.fn.mode()] .. " guibg=" ..
             colors.bg)
-    return ''
+    return '●'
   end,
   color = "LualineMode",
   left_padding = 0
@@ -240,7 +240,7 @@ ins_right {
 ins_right {
   'diff',
   -- Is it me or the symbol for modified us really weird
-  symbols = {added = ' ', modified = '柳 ', removed = ' '},
+  symbols = {added = ' ', modified = '󰿨 ', removed = ' '},
   color_added = colors.green,
   color_modified = colors.orange,
   color_removed = colors.red,

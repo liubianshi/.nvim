@@ -13,11 +13,14 @@ end
 M.probes = {
     {
         "probe_punctuation_after_half_symbol", function()
-            local word = get_word_before(2,2) 
-            if word and word:match("^[%w%p]%p$") then
+            local word_pre1 = get_word_before(1,1) 
+            local word_pre2 = get_word_before(2,1) 
+            if not word_pre1:match("[%p]") then
+                return false
+            elseif not word_pre2 or word_pre2:match("[%w%p%s]") then
                 return true
             else
-                return false
+                return false 
             end
         end
     },
@@ -125,8 +128,10 @@ function M.setup_rime(opts)
         end
 
         -- define default_key_map
-        local start = (opts.keys and opts.keys.start) or ";f"
-        local stop  = (opts.keys and opts.keys.stop)  or ";;"
+        local start   = (opts.keys and opts.keys.start)   or ";f"
+        local stop    = (opts.keys and opts.keys.stop)    or ";;"
+        local esc     = (opts.keys and opts.keys.esc)     or ";j"
+        local disable = (opts.keys and opts.keys.disable) or ";:"
         vim.keymap.set('i', start, function()
             vim.cmd("stopinsert")
             if not vim.g.rime_enabled then
@@ -135,9 +140,22 @@ function M.setup_rime(opts)
             vim.b.rime_enabled = true
             vim.fn.feedkeys("a", "n")
         end, {desc = "Start Chinese Input Method", noremap = true})
+
         vim.keymap.set('i', stop, function()
             vim.b.rime_enabled = false
-        end, {desc = "Start Chinese Input Method", noremap = true, expr = true})
+        end, {desc = "Stop Chinese Input Method", noremap = true, expr = true})
+
+        vim.keymap.set('i', esc, "<cmd>stopinsert<cr>",
+            {desc = "Stop insert", noremap = true})
+
+        vim.keymap.set('i', disable, function()
+            vim.cmd("stopinsert")
+            if vim.g.rime_enabled then 
+                toggle_rime()
+            end
+            vim.b.rime_enabled = false
+            vim.fn.feedkeys("a", "n")
+        end, {desc = "Disable Rime-ls", noremap = true, expr = true})
     end
 
     -- nvim-cmp supports additional completion capabilities, so broadcast that to servers

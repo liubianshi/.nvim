@@ -452,6 +452,10 @@ Plug.add('nvim-neorg/neorg', {
     dependencies = { "nvim-lua/plenary.nvim" },
     ft = {'norg'},
     cmd = {'Neorg'},
+    keys = {
+        {'<leader>ej', '<cmd>Neorg journal today<cr>',
+         desc = "Open today's journal"}
+    }
 })
 
 -- kristijanhusak/vim-dadbod-ui: simple UI for vim-dadbod --------------- {{{3

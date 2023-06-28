@@ -34,7 +34,6 @@ wk.register({
             name = "+EditFile",
             ["a"] = "Alias",
             ["d"] = "Flypy Dictionary",
-            ["j"] = "Wiki Journal",
             ["k"] = "Neovim Keymap",
             ["o"] = "Neovim Options",
             ["r"] = "R Profile",
