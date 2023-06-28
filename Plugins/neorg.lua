@@ -12,17 +12,28 @@ require('neorg').setup {
                         'norg', 'n', '<localleader>s',
                         '<cmd>Neorg generate-workspace-summary<cr>'
                     )
+                    keybinds.map(
+                        'norg', 'n', '<localleader>j', 
+                        '<cmd>Neorg journal today<cr>'
+                    )
                 end,
             }
         },
         ["core.esupports.indent"] = {},
         ["core.summary"] = {},
         ["core.export" ] = {},
+        ["core.journal"] = {
+            config = {
+                journal_folder = "norg-journal",
+                workspace = "journal",
+            }
+        },
         ["core.concealer"] = {},
         ["core.dirman"] = {
             config = {
                 workspaces = {
-                    lbs = "~/Documents/Writing",
+                    lbs = "~/Documents/Writing/Norg",
+                    journal = "~/Documents/Writing/journal",
                 }
             }
         }
@@ -40,6 +51,7 @@ if status_ok then
             ['t'] = {name = '+Task'},
             ['o'] = "Edit Code Chunk",
             ['s'] = "Summary",
+            ['j'] = "Open today's journal",
         }
     })
 end

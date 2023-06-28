@@ -184,6 +184,7 @@ end
 M.auto_toggle_rime_ls_with_space = function()
     if not vim.g.rime_enabled then return 0 end
     local word_before = get_word_before(1, 1)
+    if not word_before then return 0 end
     if word_before == " " then
         return 0
     elseif word_before:match("[%w%p]") then
