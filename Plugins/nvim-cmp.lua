@@ -144,9 +144,9 @@ keymap_config["<Space>"] = cmp.mapping(
         elseif first_entry.source.name == "nvim_lsp" and
                first_entry.source.source.client.name == "rime_ls" and
                rimels.probe_all_passed() then
-            cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = true})
+            cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
         elseif first_entry.source.name == "flypy" then
-            cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = true})
+            cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
         else
             rimels.auto_toggle_rime_ls_with_space()
             return fallback()
@@ -284,9 +284,9 @@ cmp.setup(cmp_config)
 -- })
 
 
-cmp.setup.filetype({'perl', 'python', 'vim', 'bash'}, {
-    sources = constuct_cmp_source({{name = 'nvim_lsp'}})
-})
+-- cmp.setup.filetype({'perl', 'python', 'vim', 'bash'}, {
+--     sources = constuct_cmp_source({{name = 'nvim_lsp'}})
+-- })
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
