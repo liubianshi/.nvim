@@ -19,7 +19,7 @@ let g:quickfix_is_open                = 0          " 用于记录 quickfix 的�
 let g:input_toggle                    = 1          " 用于记录输入法状态
 let g:plug_manage_tool                = "lazyvim"
 if $NVIM_COMPLETE_METHOD ==? ""                    " 设定补全的框架
-    let g:complete_method             = "coc" 
+    let g:complete_method             = "cmp"
 else
     let g:complete_method             = $NVIM_COMPLETE_METHOD
 endif

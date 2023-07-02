@@ -52,7 +52,7 @@ local function constuct_cmp_source(sources)
         -- { name = 'treesitter' },
         -- { name = 'ctags' }, 
         -- { name = 'vim-dadbod-completion' },
-        { name = 'omni' },
+        -- { name = 'omni' },
     })
     local fallback = gen_cmp_source({
         { name = "buffer"}
@@ -271,9 +271,13 @@ local cmp_config = {
 
 -- cmp setup ------------------------------------------------------------ {{{2
 cmp.setup(cmp_config)
--- cmp.setup.filetype({'pandoc', 'markdown', 'rmd', 'rmarkdown'}, {
---     sources = constuct_cmp_source({{name = 'cmp_zotcite'}})
--- })
+cmp.setup.filetype({'stata'}, {
+    sources = constuct_cmp_source({{name = 'omni'}})
+})
+
+cmp.setup.filetype({'pandoc', 'markdown', 'rmd', 'rmarkdown'}, {
+    sources = constuct_cmp_source({{name = 'cmp_zotcite'}})
+})
 
 -- cmp.setup.filetype({'r'}, {
 --     sources = constuct_cmp_source({{name = 'cmp_nvim_r'}})

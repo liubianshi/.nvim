@@ -394,11 +394,14 @@ else
         'quangnguyen30192/cmp-nvim-ultisnips',  -- ultisnips
         'kristijanhusak/vim-dadbod-completion', -- dadbod
         'kdheepak/cmp-latex-symbols',           -- latex symbol
-        'jalvesaq/cmp-zotcite',                 -- Zotero completion
     }
     for _,k in ipairs(cmp_dependencies) do
         Plug.add(k, {lazy = true})
     end
+    Plug.add('liubianshi/cmp-zotcite', {
+        dependencies = "jalvesaq/zotcite", 
+    })
+    table.insert(cmp_dependencies, 'liubianshi/cmp-zotcite')
     Plug.add('jalvesaq/cmp-nvim-r', {
         ft = {'r', 'rmd'},
         dependencies = { 'hrsh7th/nvim-cmp' }
