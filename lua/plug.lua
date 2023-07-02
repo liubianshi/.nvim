@@ -496,7 +496,7 @@ Plug.add('liuchengxu/graphviz.vim', { ft = 'dot' })
 -- kevinhwang91/nvim-bqf: Better quickfix window in Neovim -------------- {{{3
 Plug.add('kevinhwang91/nvim-bqf', { ft = 'qf' })
 
--- nvim-orgmode/orgmode: Orgmode clone written in Lua
+-- nvim-orgmode/orgmode: Orgmode clone written in Lua ------------------- {{{3
 Plug.add('nvim-orgmode/orgmode', {
     dependencies = {'nvim-treesitter/nvim-treesitter'},
     ft = 'org',
@@ -509,6 +509,11 @@ Plug.add('nvim-orgmode/orgmode', {
 Plug.add('akinsho/org-bullets.nvim', {
     dependencies = {'nvim-orgmode/orgmode'},
     config = true
+})
+
+-- fladson/vim-kitty: kitty config syntax highlighting for vim ---------- {{{3
+Plug.add('fladson/vim-kitty', {
+    ft = 'kitty'
 })
 
 -- TreeSitter ----------------------------------------------------------- {{{2
