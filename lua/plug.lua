@@ -334,10 +334,10 @@ Plug.add('potamides/pantran.nvim', {
     }
 })
 
--- edluffy/hologram.nvim: terminal image viewer for Neovim.
+-- edluffy/hologram.nvim: terminal image viewer for Neovim -------------- {{{3
 Plug.add('edluffy/hologram.nvim', {
     ft = {'markdown', 'pandoc', 'rmd', 'rmarkdown', 'norg', 'org'},
-    enabled = function() vim.env.TERM == "xterm-kitty" end,
+    cond = function() return(vim.env.TERM == "xterm-kitty") end,
 })
 
 -- Project management --------------------------------------------------- {{{2

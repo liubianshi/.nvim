@@ -456,11 +456,11 @@ function! utils#Find_bufwinnr(buffernr) abort
 endfunction
 
 " open file in spec buffer
-function! utils#Preview_data(fname, globalvar, method = "tabnew", close = "n")
+function! utils#Preview_data(fname, globalvar, method = "tabnew", close = "n", filetype = "tsv")
     if !has_key(g:, a:globalvar)
-		if a:close ==? "y"
-			return
-		endif
+        if a:close ==? "y"
+            return
+        endif
         let bufnr = bufadd(a:fname)
         let g:[a:globalvar] = bufnr
     else
@@ -468,23 +468,25 @@ function! utils#Preview_data(fname, globalvar, method = "tabnew", close = "n")
     endif
     let l:winlist = win_findbuf(bufnr)
     if empty(l:winlist)
-		if a:close ==? "y"
-			return
-		endif
-		exec a:method | exec "buffer" . bufnr
-		setlocal buftype=nowrite
-		setlocal noswapfile
-		setlocal ft=tsv
-		try
-			RainbowAlign
-			catch /.*/
-		endtry
+        if a:close ==? "y"
+            return
+        endif
+        exec a:method | exec "buffer" . bufnr
+        setlocal buftype=nowrite
+        setlocal noswapfile
+        let &l:filetype = a:filetype
+        if a:filetype ==? "csv" || a:filetype ==? "tsv"
+            try
+                RainbowAlign
+                catch /.*/
+            endtry
+        endif
     else
         call win_gotoid(l:winlist[0])
-		exec edit
-		if a:close ==? "y"
-			quit
-		endif
+        exec edit
+        if a:close ==? "y"
+            quit
+        endif
     endif
 endfunction
 
