@@ -144,6 +144,7 @@ keymap_config["<Space>"] = cmp.mapping(
         elseif first_entry.source.name == "nvim_lsp" and
                first_entry.source.source.client.name == "rime_ls" and
                rimels.probe_all_passed() then
+            -- vim.notify(vim.inspect(first_entry.source.source))
             cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
         elseif first_entry.source.name == "flypy" then
             cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})

@@ -293,7 +293,7 @@ Plug.add('nvim-tree/nvim-web-devicons', { lazy = true } )
 Plug.add('windwp/nvim-autopairs' )
 
 
--- Terminal tools ------------------------------------------------------- {{{2
+-- Tools ---------------------------------------------------------------- {{{2
 -- akinsho/toggleterm.nvim: manage multiple terminal windows ------------ {{{3
 Plug.add('akinsho/toggleterm.nvim', {
     version = "*",
@@ -326,6 +326,13 @@ Plug.add('skywind3000/asynctasks.vim', {
 
 -- liubianshi/vimcmdline: send lines to interpreter --------------------- {{{3
 Plug.add('liubianshi/vimcmdline' )
+-- potamides/pantran.nvim: trans without leave neovim ------------------- {{{3
+Plug.add('potamides/pantran.nvim', {
+    keys = {
+        {'<leader>tr', mode = {'x', 'n'}},
+        {'<leader>trr', mode = {'n'}}
+    }
+})
 
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
@@ -432,10 +439,25 @@ Plug.add('mhartington/formatter.nvim', {
 -- Writing and knowledge management ------------------------------------- {{{2
 
 -- vim-pandoc/vim-pandoc: pandoc integration and utilities for vim ------ {{{3
-Plug.add('vim-pandoc/vim-pandoc', {
-    dependencies = {'vim-pandoc/vim-pandoc-syntax'},
-    ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc'}
+Plug.add('vim-pandoc/vim-pandoc-syntax', {
+    init = function() 
+        vim.g.tex_conceal = "adgm"
+        vim.cmd([[
+            let g:pandoc#syntax#codeblocks#embeds#langs = [
+                        \ "ruby",    "perl",       "r",
+                        \ "bash=sh", "stata",      "vim",
+                        \ "python",  "perl6=raku", "c"]
+            augroup pandoc_syntax
+                au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+            augroup END
+        ]])
+    end,
+    ft = {'markdown'}
 })
+-- Plug.add('vim-pandoc/vim-pandoc', {
+--     dependencies = {'vim-pandoc/vim-pandoc-syntax'},
+--     ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc'}
+-- })
 
 -- ferrine/md-img-paste.vim: paste image to markdown -------------------- {{{3
 Plug.add('ferrine/md-img-paste.vim', {
@@ -449,7 +471,7 @@ Plug.add('hotoo/pangu.vim', {
 
 -- dhruvasagar/vim-table-mode: Table Mode for instant table creation ---- {{{3
 Plug.add('dhruvasagar/vim-table-mode', {
-    ft = {'pandoc', 'rmd', 'org'}
+    ft = {'markdown', 'pandoc', 'rmd', 'org'}
 })
 
 -- 文件类型相关插件 ----------------------------------------------------- {{{2
