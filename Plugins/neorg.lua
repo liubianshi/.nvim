@@ -21,6 +21,8 @@ require('neorg').setup {
             }
         },
         ["core.esupports.indent"] = {},
+        ["core.itero"] = {},
+        ["core.promo"] = {},
         ["core.summary"] = {},
         ["core.export" ] = {},
         ["core.journal"] = {
