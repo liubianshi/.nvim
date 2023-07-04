@@ -483,7 +483,7 @@ function! utils#Preview_data(fname, globalvar, method = "tabnew", close = "n", f
         endif
     else
         call win_gotoid(l:winlist[0])
-        exec edit
+        exec "edit"
         if a:close ==? "y"
             quit
         endif
@@ -509,9 +509,23 @@ function! utils#StataGenHelpDocs(keywords, oft = "txt") abort
 endfunction
 
 " Markdown Snippets Preview ============================================== {{{1
-function! utils#MdPreview() range  abort
-    let command = "mdviewer --wname " . sha256(expand('.'))
-    call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command, 1, a:firstline, a:lastline)
+function! utils#MdPreview(method = "FocusSplitDown") range  abort
+    let bg = synIDattr(synIDtrans(hlID("NormalFloat")), "bg#")
+    if !($TERM ==? "xterm-kitty" && v:lua.PlugExist('hologram.nvim'))
+        let outfile = shellescape(stdpath('cache') . "/vim_markdown_preview.png")
+        let command = "mdviewer --wname " . sha256(expand('.')) . 
+                    \ " --outfile " . outfile . " --bg '" . bg . "'"
+        call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command, 1, a:firstline, a:lastline)
+        return
+    endif
+
+    let outfile = stdpath('cache') . "/kitty_markdown_preview.png"
+    let command = "mdviewer --outfile " . outfile . " --quietly --bg '" . bg . "'"
+    let lines = getline(a:firstline, a:lastline)
+    call system(command, lines)
+    exec "PreviewImage " . a:method . " " . outfile
+    nnoremap <buffer><silent> <localleader>id :<c-u>DeleteImage<cr>
+    return
 endfunction
 
 " Check the syntax group in the current cursor position, see ============= {{{1
