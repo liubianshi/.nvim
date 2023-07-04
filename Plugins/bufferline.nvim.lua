@@ -11,12 +11,15 @@ require"bufferline".setup{
         separator_style = "thin",
         always_show_bufferline = false,
         offsets = {
-          {
-            filetype = "neo-tree",
-            text = "Neo-tree",
-            highlight = "Directory",
-            text_align = "left",
-          },
+            {
+                filetype = "neo-tree",
+                text = "Neo-tree",
+                highlight = "Directory",
+                text_align = "left",
+            },
+            {
+                filetype = "kittypreview",
+            }
         }
     }
 }
