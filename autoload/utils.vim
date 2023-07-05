@@ -510,11 +510,12 @@ endfunction
 
 " Markdown Snippets Preview ============================================== {{{1
 function! utils#MdPreview(method = "FocusSplitDown") range  abort
-    let bg = synIDattr(synIDtrans(hlID("NormalFloat")), "bg#")
+    let bg = synIDattr(synIDtrans(hlID("StatusLine")), "bg#")
     if !($TERM ==? "xterm-kitty" && v:lua.PlugExist('hologram.nvim'))
         let outfile = shellescape(stdpath('cache') . "/vim_markdown_preview.png")
         let command = "mdviewer --wname " . sha256(expand('.')) . 
                     \ " --outfile " . outfile . " --bg '" . bg . "'"
+        echom command
         call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command, 1, a:firstline, a:lastline)
         return
     endif
