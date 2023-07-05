@@ -28,18 +28,15 @@ local display_image = function(file, opts)
         "DeleteImage",
         function()
             image:delete(0, {free = true})
-            vim.fn['utils#Preview_data'](
-                cache_file,
-                'kitty_image_preview_buf', opts.method, 'y', 'kittypreview'
-            )
+            if not bang then
+                vim.fn['utils#Preview_data'](
+                    cache_file,
+                    'kitty_image_preview_buf', opts.method, 'y', 'kittypreview'
+                )
+            end
         end,
-        {nargs = 0, desc = "Delete Image"}
+        {bang = true, nargs = 0, desc = "Delete Image"}
     )
-
-
-    -- vim.defer_fn(function()
-    --     image:delete(0, {free = true})
-    -- end, 5000)
 end
 
 vim.api.nvim_create_user_command(
@@ -54,4 +51,3 @@ vim.api.nvim_create_user_command(
     end,
     { nargs = '+', desc = "Display image with hologram"}
 )
-

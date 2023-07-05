@@ -509,13 +509,26 @@ function! utils#StataGenHelpDocs(keywords, oft = "txt") abort
 endfunction
 
 " Markdown Snippets Preview ============================================== {{{1
+function! utils#DeleteMdPreview(zen, close_preview_buffer = v:false) abort
+    try
+        if a:close_preview_buffer
+            DeleteImage
+        else
+            DeleteImage!
+        endif
+        catch /Not an editor command/
+    endtry
+    if a:zen
+        ZenMode
+    endif
+endfun
+
 function! utils#MdPreview(method = "FocusSplitDown") range  abort
     let bg = synIDattr(synIDtrans(hlID("StatusLine")), "bg#")
     if !($TERM ==? "xterm-kitty" && v:lua.PlugExist('hologram.nvim'))
         let outfile = shellescape(stdpath('cache') . "/vim_markdown_preview.png")
         let command = "mdviewer --wname " . sha256(expand('.')) . 
                     \ " --outfile " . outfile . " --bg '" . bg . "'"
-        echom command
         call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command, 1, a:firstline, a:lastline)
         return
     endif
@@ -524,10 +537,21 @@ function! utils#MdPreview(method = "FocusSplitDown") range  abort
     let command = "mdviewer --outfile " . outfile . " --quietly --bg '" . bg . "'"
     let lines = getline(a:firstline, a:lastline)
     call system(command, lines)
+
+    let zen_mode = v:false
+    nnoremap <buffer><silent> <localleader>id <Nop>
+    if has_key(g:, "lbs_zen_mode") && g:lbs_zen_mode == v:true
+        close " quit zen_mode before preview content
+        nnoremap <buffer><silent> <localleader>id
+            \ :<c-u>call utils#DeleteMdPreview(v:true, v:true)<cr>
+    else
+        nnoremap <buffer><silent> <localleader>id
+            \ :<c-u>call utils#DeleteMdPreview(v:fasle, v:true)<cr>
+    endif
+    call utils#DeleteMdPreview(v:false)
     exec "PreviewImage " . a:method . " " . outfile
-    nnoremap <buffer><silent> <localleader>id :<c-u>DeleteImage<cr>
-    return
 endfunction
+
 
 " Check the syntax group in the current cursor position, see ============= {{{1
 " https://stackoverflow.com/q/9464844/6064933 and
