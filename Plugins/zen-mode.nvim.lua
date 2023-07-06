@@ -15,5 +15,11 @@ zenmode.setup{
     wezterm = {
         enabled = true,
         font = "+4",
-    }
+    },
+    on_open = function(win)
+        vim.g.lbs_zen_mode = true
+    end,
+    on_close = function()
+        vim.g.lbs_zen_mode = false 
+    end,
 }
