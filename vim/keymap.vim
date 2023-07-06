@@ -249,7 +249,8 @@ inoremap ;, <C-v>uFF0C
 inoremap ;. <C-v>u3002
 " 顿号
 inoremap ;\ <C-v>u3001
-
+" 零宽空格
+inoremap ;0 <C-v>u200b
 
 " 输入法 ================================================================= {{{1
 inoremap ;<space> ;
