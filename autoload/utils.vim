@@ -563,6 +563,11 @@ function! utils#SynGroup() abort
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
 
+" Get highlight group color ============================================= {{{1
+function! utils#GetHlColor(hlg, element)
+    return synIDattr(synIDtrans(hlID(a:hlg)), a:element)
+endfun
+
 " Redirect command output to a register for later processing. ============ {{{1
 " Ref: https://stackoverflow.com/q/2573021/6064933 and https://unix.stackexchange.com/q/8101/221410 .
 function! utils#CaptureCommandOutput(command) abort
