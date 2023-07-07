@@ -147,9 +147,10 @@ vim.keymap.set('n', '<leader>bB', function()
         local buffers = {}
         for _, b in ipairs(vim.api.nvim_list_bufs()) do
             local name = vim.api.nvim_buf_get_name(b)
-            if name == "" then name = "[No Name]" end
-            if not (string.find(name, "Wilder Float") or
-                    string.find(name, "/sbin/sh")) then
+            -- if name == "" then name = "[No Name]" end
+            if not ( name == "" or
+                     string.find(name, "Wilder Float") or
+                     string.find(name, "/sbin/sh")         ) then
                 buffers[b] = name 
             end
         end
@@ -289,9 +290,9 @@ end, mapopts)
 EOF
 
 " normal keymaps {{{2
-nnoremap <silent> <leader>ff :<C-U>FzfLua files<CR>
-nnoremap <silent> <leader>fr :<C-U>FzfLua oldfiles<CR>
-nnoremap <silent> <leader>bb :<c-u>FzfLua buffers<cr>
+" nnoremap <silent> <leader>ff :<C-U>FzfLua files<CR>
+" nnoremap <silent> <leader>fr :<C-U>FzfLua oldfiles<CR>
+" nnoremap <silent> <leader>bb :<c-u>FzfLua buffers<cr>
 nnoremap <silent> <leader>ts :<c-u>FzfLua tags<cr>
 nnoremap <silent> <leader>qs :<c-u>FzfLua quickfix<cr>
 nnoremap <silent> <leader>gs :<c-u>FzfLua git_status<cr>
@@ -300,12 +301,12 @@ nnoremap <silent> <leader>gb :<c-u>FzfLua git_braches<cr>
 
 
 nnoremap <silent> <leader>ss :<C-U>FzfLua resume<CR>
-nnoremap <silent> <leader>s: :<C-U>FzfLua command_history<CR>
+" nnoremap <silent> <leader>s: :<C-U>FzfLua command_history<CR>
 nnoremap <silent> <leader>s/ :<C-U>FzfLua search_history<CR>
 nnoremap <silent> <leader>sC :<C-U>FzfLua colorschemes<CR>
-nnoremap <silent> <leader>sh :<C-U>FzfLua help_tags<CR>
+" nnoremap <silent> <leader>sh :<C-U>FzfLua help_tags<CR>
 nnoremap <silent> <F1> :<C-U>FzfLua help_tags<CR>
-nnoremap <silent> <leader>sm :<C-U>FzfLua man_pages<CR>
+" nnoremap <silent> <leader>sm :<C-U>FzfLua man_pages<CR>
 nnoremap <silent> <leader>sl :<C-U>FzfLua lgrep_curbuf<CR>
 nnoremap <silent> <leader>sr :<C-U>FzfLua grep<cr>
 nnoremap <silent> <leader>sR :<C-U>FzfLua grep_project<cr>

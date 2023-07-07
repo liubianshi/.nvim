@@ -11,7 +11,7 @@ require'nvim-treesitter.configs'.setup {
         "dot",
         "javascript",
         "markdown",
-        -- "markdown_inline",
+        "markdown_inline",
         "c",
         "bibtex",
         "css",

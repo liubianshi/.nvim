@@ -107,10 +107,26 @@ Plug.add('s1n7ax/nvim-window-picker', {
     lazy = true,
     version = "2.*",
 })
+
 -- ibhagwan/fzf-lua: Fzf Search ----------------------------------------- {{{3
 Plug.add('ibhagwan/fzf-lua', {
     branch = 'main',
     dependencies = { 'skywind3000/asynctasks.vim' },
+})
+
+-- nvim-telescope/telescope.nvim: Find, Filter, Preview, Pick ----------- {{{3
+Plug.add('nvim-telescope/telescope.nvim', {
+    tag = '0.1.2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+})
+Plug.add('nvim-telescope/telescope-fzf-native.nvim', {
+    build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release ' ..
+            '&& cmake --build build --config Release ' ..
+            '&& cmake --install build --prefix build',
+    lazy  = true,
+})
+Plug.add('FeiyouG/command_center.nvim', {
+    dependencies= 'nvim-telescope/telescope.nvim',
 })
 
 -- gelguy/wilder.nvim: Command line Fuzzy Search and completation ------- {{{3
@@ -206,25 +222,85 @@ Plug.add('rcarriga/nvim-notify', {
     init = function() vim.notify = require('notify') end,
 })
 
--- ggandor/flit.nvim: Enhanced f/t motions for Leap --------------------- {{{3
-Plug.add('ggandor/flit.nvim', {
-    keys = function()
-      ---@type LazyKeys[]
-      local ret = {}
-      for _, key in ipairs({ "f", "F", "t", "T" }) do
-        ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
-      end
-      return ret
-    end,
-})
+-- Plug.add("folke/noice.nvim", {
+--   event = "VeryLazy",
+--   dependencies = {
+--         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+--         "MunifTanjim/nui.nvim",
+--         -- OPTIONAL:
+--         --   `nvim-notify` is only needed, if you want to use the notification view.
+--         --   If not available, we use `mini` as the fallback
+--         "rcarriga/nvim-notify",
+--     }
+-- })
 
--- ggandor/leap.nvim: general-purpose motion ---------------------------- {{{3
-Plug.add('ggandor/leap.nvim', {
-    keys = {
-      { "ss", mode = { "n", "x", "o" }, desc = "Leap forward to" },
-      { "sS", mode = { "n", "x", "o" }, desc = "Leap backward to" },
-      { "gs", mode = { "n", "x", "o" }, desc = "Leap from windows" },
+
+-- ggandor/flit.nvim: Enhanced f/t motions for Leap --------------------- {{{3
+--Plug.add('ggandor/flit.nvim', {
+--    keys = function()
+--      ---@type LazyKeys[]
+--      local ret = {}
+--      for _, key in ipairs({ "f", "F", "t", "T" }) do
+--        ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
+--      end
+--      return ret
+--    end,
+--})
+
+---- ggandor/leap.nvim: general-purpose motion ---------------------------- {{{3
+--Plug.add('ggandor/leap.nvim', {
+--    keys = {
+--      { "ss", mode = { "n", "x", "o" }, desc = "Leap forward to" },
+--      { "sS", mode = { "n", "x", "o" }, desc = "Leap backward to" },
+--      { "gs", mode = { "n", "x", "o" }, desc = "Leap from windows" },
+--    },
+--})
+
+--- folke/flash.nvim: Navigate tools ------------------------------------ {{{3
+Plug.add("folke/flash.nvim", {
+  event = "VeryLazy",
+  keys = {
+    {
+      "ss",
+      mode = { "n", "x", "o" },
+      function()
+        require("flash").jump()
+      end,
+      desc = "Flash",
     },
+    {
+      "S",
+      mode = { "n", "o", "x" },
+      function()
+        require("flash").treesitter()
+      end,
+      desc = "Flash Treesitter",
+    },
+    {
+      "r",
+      mode = "o",
+      function()
+        require("flash").remote()
+      end,
+      desc = "Remote Flash",
+    },
+    {
+      "R",
+      mode = { "o", "x" },
+      function()
+        require("flash").treesitter_search()
+      end,
+      desc = "Flash Treesitter Search",
+    },
+    {
+      "<c-s>",
+      mode = { "c" },
+      function()
+        require("flash").toggle()
+      end,
+      desc = "Toggle Flash Search",
+    },
+  },
 })
 
 -- easymotion/vim-easymotion: motion tools ------------------------------ {{{3

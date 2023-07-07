@@ -4,7 +4,7 @@ local compare                = require('cmp.config.compare')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 local rimels                 = require("rime-ls")
 
--- helper_functions
+-- helper_functions ----------------------------------------------------- {{{2
 local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -303,3 +303,22 @@ cmp.setup.filetype('sql', {
     sources = constuct_cmp_source({{name = 'vim-dadbod-completion'}})
 })
 
+-- -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+-- cmp.setup.cmdline({ '/', '?' }, {
+--     mapping = cmp.mapping.preset.cmdline(),
+--     sources = {
+--         { name = 'buffer' }
+--     }
+-- })
+
+-- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+-- cmp.setup.cmdline(':', {
+--     mapping = cmp.mapping.preset.cmdline(),
+--     sources = cmp.config.sources({
+--         { name = 'path' }
+--     }, {
+--         { name = 'cmdline' }
+--     })
+-- })
+
+-- vim: set fdm=marker: ------------------------------------------------- {{{1
