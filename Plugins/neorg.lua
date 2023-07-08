@@ -25,6 +25,7 @@ require('neorg').setup {
         ["core.promo"] = {},
         ["core.summary"] = {},
         ["core.export" ] = {},
+        ["core.export.markdown"] = {},
         ["core.journal"] = {
             config = {
                 journal_folder = "norg-journal",

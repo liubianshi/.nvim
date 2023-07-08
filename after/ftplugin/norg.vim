@@ -9,3 +9,5 @@ inoremap <buffer> ;2              <esc>0i##<space><esc>A
 inoremap <buffer> ;3              <esc>0i###<space><esc>A
 inoremap <buffer> ;c              ` `<C-o>F <c-o>x
 inoremap <buffer> ;m              $ $<C-o>F <c-o>x
+
+let &l:formatlistpat = '^\s*[-\d~]\+[\]:.)}\t ]\s*'
