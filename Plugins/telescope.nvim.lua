@@ -3,15 +3,27 @@ local command_center = require("command_center")
 
 -- setup ---------------------------------------------------------------- {{{1
 telescope.setup {
-  extensions = {
-    fzf = {
-      fuzzy = true,                    -- false will only do exact matching
-      override_generic_sorter = true,  -- override the generic sorter
-      override_file_sorter = true,     -- override the file sorter
-      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                       -- the default case_mode is "smart_case"
+    extensions = {
+        fzf = {
+            fuzzy = true,                    -- false will only do exact matching
+            override_generic_sorter = true,  -- override the generic sorter
+            override_file_sorter = true,     -- override the file sorter
+            case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                            -- the default case_mode is "smart_case"
+        },
+        frecency = {
+            show_scores = false,
+            show_unindexed = true,
+            ignore_patterns = {"*.git/*", "*/tmp/*"},
+            disable_devicons = false,
+            workspaces = {
+                ["conf"]    = "~/.config",
+                ["data"]    = "~/.local/share",
+                ["project"] = "~/Repositories/",
+                ["write"]   = "~/Documents/Writing/"
+            }
+        }
     }
-  }
 }
 
 -- load extensions ------------------------------------------------------ {{{1
@@ -19,6 +31,8 @@ telescope.setup {
 -- load_extension, somewhere after setup function:
 telescope.load_extension('fzf')
 telescope.load_extension("command_center")
+telescope.load_extension("frecency")
+
 
 -- extensions config ---------------------------------------------------- {{{1
 -- command center ------------------------------------------------------- {{{2
@@ -55,5 +69,6 @@ vim.keymap.set('n', '<leader>sh', builtin.help_tags,                   kops("vim
 vim.keymap.set('n', '<leader>sk', builtin.keymaps,                     kops("keymap"))
 vim.keymap.set('n', '<leader>sm', builtin.man_pages,                   kops("man pages"))
 vim.keymap.set('n', '<leader>s:', "<cmd>Telescope command_center<cr>", kops("command center"))
+vim.keymap.set('n', '<leader>fR', "<cmd>Telescope frecency<cr>",       kops("Frecency"))
 
 -- vim: set fdm=marker: ------------------------------------------------- {{{1

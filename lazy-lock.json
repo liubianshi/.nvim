@@ -35,7 +35,6 @@
   "md-img-paste.vim": { "branch": "master", "commit": "787be15ff52ea2db5ae7b813ab8808c8d4cf749e" },
   "neo-tree.nvim": { "branch": "v2.x", "commit": "f765e75e7d2444629b5ace3cd7609c12251de254" },
   "neorg": { "branch": "main", "commit": "6fece1546d051a5f2a2d932d5978beec1ef920ab" },
-  "noice.nvim": { "branch": "main", "commit": "6c87c1d11c38180fb72bf8f45518a0a3e081afc1" },
   "nui.nvim": { "branch": "main", "commit": "d146966a423e60699b084eeb28489fe3b6427599" },
   "nvim-FeMaco.lua": { "branch": "main", "commit": "c06f8befe4b9438aa4f4b763e70d77cabf5093f1" },
   "nvim-autopairs": { "branch": "master", "commit": "e8f7dd7a72de3e7b6626c050a802000e69d53ff0" },
@@ -57,8 +56,10 @@
   "plenary.nvim": { "branch": "master", "commit": "102c02903c74b93c705406bf362049383abc87c8" },
   "project.nvim": { "branch": "main", "commit": "8c6bad7d22eef1b71144b401c9f74ed01526a4fb" },
   "rainbow_csv": { "branch": "master", "commit": "7453a3f9679f0c753ec9d77f9ea8588778f35aeb" },
+  "sqlite.lua": { "branch": "master", "commit": "b7e28c8463254c46a8e61c52d27d6a2040492fc3" },
   "stata-vim": { "branch": "master", "commit": "159d6b63def8cdc0d91380c08b32b50acb1c710b" },
   "suda.vim": { "branch": "master", "commit": "8b0fc3711760195aba104e2d190cff9af8267052" },
+  "telescope-frecency.nvim": { "branch": "master", "commit": "62d3381a32ae541233b03a129ece0aeced30ad5e" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "9bc8237565ded606e6c366a71c64c0af25cd7a50" },
   "telescope.nvim": { "branch": "master", "commit": "776b509f80dd49d8205b9b0d94485568236d1192" },
   "toggleterm.nvim": { "branch": "main", "commit": "95204ece0f2a54c89c4395295432f9aeedca7b5f" },
@@ -93,6 +94,7 @@
   "which-key.nvim": { "branch": "main", "commit": "d871f2b664afd5aed3dc1d1573bef2fb24ce0484" },
   "wilder.nvim": { "branch": "master", "commit": "679f348dc90d80ff9ba0e7c470c40a4d038dcecf" },
   "window-picker": { "branch": "main", "commit": "2c8200c5cbcdaac01dfe2c049997a1ca178506d8" },
+  "yanky.nvim": { "branch": "main", "commit": "b12561386a25645adb7504e0e6a8c5dc8b31e6da" },
   "zen-mode.nvim": { "branch": "main", "commit": "68f554702de63f4b7b6b6d4bcb10178f41a0acc7" },
   "zotcite": { "branch": "master", "commit": "87c21850f3ecf1c17a1538c8cba194bd87c9f504" }
 }

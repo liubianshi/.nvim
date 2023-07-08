@@ -67,7 +67,7 @@ inoremap <silent> <A-space> <esc>A
 inoremap <silent> <A-enter> <esc>A<cr>
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-xnoremap <silent> p "_dP
+" xnoremap <silent> p "_dP
 vnoremap <silent> < <gv
 vnoremap <silent> > >gv
 

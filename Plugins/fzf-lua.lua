@@ -1,4 +1,5 @@
-lua << EOF
+-- vim: ft=lua fdm=marker:
+local fzflua = require('fzf-lua')
 local mapopts = { silent = true, noremap = true }
 local actions = require "fzf-lua.actions"
 local fileactions = {
@@ -8,8 +9,17 @@ local fileactions = {
             ["ctrl-t"]  = actions.file_tabedit,
             ["alt-q"]   = actions.file_sel_to_qf,
 }
--- setup {{{2
-require('fzf-lua').setup({
+local fzfmap = function(key, desc, cmd, mode)
+    mode = mode or 'n'
+    vim.keymap.set(mode, key, cmd, {
+        desc = "FzfLua: " .. desc,
+        silent = true,
+        noremap = true,
+    })
+end
+
+-- setup ---------------------------------------------------------------- {{{2
+fzflua.setup({
   previewers = {
     builtin = {
       extensions = {
@@ -55,79 +65,80 @@ require('fzf-lua').setup({
               layout = 'horizontal',
           },
       }
-  }
+  },
 })
 
--- integration with project.nvim {{{2
+-- integration with project.nvim ---------------------------------------- {{{2
 local _previous_cwd
 function projects(opts)
-  if not opts then opts = {} end
-  local project_hist = vim.fn.stdpath("data") .. "/project_nvim/project_history"
-  if not vim.loop.fs_stat(project_hist) then return end
-  local project_dirs = vim.fn.readfile(project_hist)
-  local iconify = function(path, color, icon)
-    local ansi_codes = require'fzf-lua.utils'.ansi_codes
-    local icon = ansi_codes[color](icon)
-    path = require'fzf-lua.path'.relative(path, vim.fn.expand('$HOME'))
-    return ("%s  %s"):format(icon, path)
-  end
+    if not opts then opts = {} end
+    local project_hist = vim.fn.stdpath("data") .. "/project_nvim/project_history"
+    if not vim.loop.fs_stat(project_hist) then return end
 
-  local dedup = {}
-  local entries = {}
-  local add_entry = function(path, color, icon)
-    if not path then return end
-    path = vim.fn.expand(path)
-    if dedup[path] ~= nil then return end
-    entries[#entries+1] = iconify(path, color or "blue", icon or '')
-    dedup[path] = true
-  end
-
-  coroutine.wrap(function ()
-    add_entry(vim.loop.cwd(), "magenta", '')
-    add_entry(_previous_cwd, "yellow")
-    for _, path in ipairs(project_dirs) do
-      add_entry(path)
-    end
-    local fzf_fn = function(cb)
-      for _, entry in ipairs(entries) do
-        cb(entry, function(err)
-          if err then return end
-          cb(nil, function() end)
-        end)
-      end
-    end
-    opts.fzf_opts = {
-      ['--ansi']            = '',
-      ['--no-multi']        = '',
-      ['--prompt']          = 'Projects❯ ',
-      ['--header-lines']    = '1',
-      ['--preview']         = vim.fn.shellescape("exa --color always -T -L 2 -lh $HOME/{2..}"),
-    }
-
-    local get_cwd = function(selected)
-        if not selected then return end
-        _previous_cwd = vim.loop.cwd()
-        local newcwd = selected[1]:match("[A-Za-z0-9_.].*$")
-        print(newcwd)
-        newcwd = require'fzf-lua.path'.starts_with_separator(newcwd) and newcwd
-            or require'fzf-lua.path'.join({ vim.fn.expand('$HOME'), newcwd })
-        return(newcwd)
+    local project_dirs = vim.fn.readfile(project_hist)
+    local iconify = function(path, color, icon)
+        local ansi_codes = require'fzf-lua.utils'.ansi_codes
+        local icon = ansi_codes[color](icon)
+        path = require'fzf-lua.path'.relative(path, vim.fn.expand('$HOME'))
+        return ("%s  %s"):format(icon, path)
     end
 
-    opts.actions = {
-        ['default'] = function(selected, opts)
-            wd = get_cwd(selected)
-            vim.cmd("cd " .. wd)
-            require("fzf-lua").files({ cwd = wd})
-        end,
-    }
-    require'fzf-lua'.fzf_exec(fzf_fn, opts)
-  end)()
+    local dedup = {}
+    local entries = {}
+    local add_entry = function(path, color, icon)
+        if not path then return end
+        path = vim.fn.expand(path)
+        if dedup[path] ~= nil then return end
+        entries[#entries+1] = iconify(path, color or "blue", icon or '')
+        dedup[path] = true
+    end
+
+    coroutine.wrap(function ()
+        add_entry(vim.loop.cwd(), "magenta", '')
+        add_entry(_previous_cwd, "yellow")
+        for _, path in ipairs(project_dirs) do
+        add_entry(path)
+        end
+        local fzf_fn = function(cb)
+        for _, entry in ipairs(entries) do
+            cb(entry, function(err)
+            if err then return end
+            cb(nil, function() end)
+            end)
+        end
+        end
+        opts.fzf_opts = {
+        ['--ansi']            = '',
+        ['--no-multi']        = '',
+        ['--prompt']          = 'Projects❯ ',
+        ['--header-lines']    = '1',
+        ['--preview']         = vim.fn.shellescape("exa --color always -T -L 2 -lh $HOME/{2..}"),
+        }
+
+        local get_cwd = function(selected)
+            if not selected then return end
+            _previous_cwd = vim.loop.cwd()
+            local newcwd = selected[1]:match("[A-Za-z0-9_.].*$")
+            print(newcwd)
+            newcwd = require'fzf-lua.path'.starts_with_separator(newcwd) and newcwd
+                or require'fzf-lua.path'.join({ vim.fn.expand('$HOME'), newcwd })
+            return(newcwd)
+        end
+
+        opts.actions = {
+            ['default'] = function(selected, opts)
+                wd = get_cwd(selected)
+                vim.cmd("cd " .. wd)
+                require("fzf-lua").files({ cwd = wd})
+            end,
+        }
+        require'fzf-lua'.fzf_exec(fzf_fn, opts)
+    end)()
 end
-vim.keymap.set('n', '<leader>pp', projects, mapopts)
+fzfmap('<leader>pp', "Select Project", projects)
 
--- 列出常规 buffer {{{2
-vim.keymap.set('n', '<leader>ic', function()
+-- 插入参考文献的引用 --------------------------------------------------- {{{2
+fzfmap('<leader>ic', "Insert Citation Keys", function()
     require'fzf-lua'.fzf_exec("bibtex-ls ~/Documents/paper_ref.bib",{
         preview = "",
         actions = {
@@ -138,31 +149,31 @@ vim.keymap.set('n', '<leader>ic', function()
             end,
         }
     })
-end, mapopts)
+end)
 
--- 列出所有 buffers {{{2
-vim.keymap.set('n', '<leader>bB', function()
-    require'fzf-lua'.fzf_exec(function(fzf_cb)
-    coroutine.wrap(function()
-        local buffers = {}
-        for _, b in ipairs(vim.api.nvim_list_bufs()) do
-            local name = vim.api.nvim_buf_get_name(b)
-            -- if name == "" then name = "[No Name]" end
-            if not ( name == "" or
-                     string.find(name, "Wilder Float") or
-                     string.find(name, "/sbin/sh")         ) then
-                buffers[b] = name 
+-- 列出所有 buffers ----------------------------------------------------- {{{2
+fzfmap('<leader>bB', "List All Buffers", function()
+    fzflua.fzf_exec(function(fzf_cb)
+        coroutine.wrap(function()
+            local buffers = {}
+            for _, b in ipairs(vim.api.nvim_list_bufs()) do
+                local name = vim.api.nvim_buf_get_name(b)
+                -- if name == "" then name = "[No Name]" end
+                if not ( name == "" or
+                        string.find(name, "Wilder Float") or
+                        string.find(name, "/sbin/sh")         ) then
+                    buffers[b] = name 
+                end
             end
-        end
-        local co = coroutine.running()
-        for b, name in pairs(buffers) do
-            vim.schedule(function()
-                fzf_cb(b.."\t"..name, function() coroutine.resume(co) end)
-            end)
-        coroutine.yield()
-        end
-        fzf_cb()
-    end)()
+            local co = coroutine.running()
+            for b, name in pairs(buffers) do
+                vim.schedule(function()
+                    fzf_cb(b.."\t"..name, function() coroutine.resume(co) end)
+                end)
+            coroutine.yield()
+            end
+            fzf_cb()
+        end)()
     end, {
         fzf_opts = { ['+m'] = '', ['--preview-window'] = "hidden"},
         actions = {
@@ -170,12 +181,13 @@ vim.keymap.set('n', '<leader>bB', function()
                 local bufno = string.gsub(selected[1], "\t.*", '')
                 vim.cmd('buffer ' .. bufno)
             end,
-        }, })
-end, opts)
+        }
+    })
+end)
 
 -- 通过 fasd 跳转文件 {{{2
-vim.keymap.set('n', '<leader>fz', function()
-    require'fzf-lua'.fzf_exec("fasd -al",{
+fzfmap('<leader>fz', "Jump with fasd",function()
+    fzflua.fzf_exec("fasd -al",{
         actions = {
             ['default'] = actions.file_edit,
             ["ctrl-s"]      = actions.file_split,
@@ -184,14 +196,14 @@ vim.keymap.set('n', '<leader>fz', function()
             ["alt-q"]       = actions.file_sel_to_qf,
         }
     })
-end, mapopts)
+end)
 
--- 查看当前文件所在文件夹下的其他文件 --{{{2
-vim.keymap.set('n', '<leader>.', function()
-    require'fzf-lua'.fzf_exec("fd -H -t f . " .. vim.fn.expand("%:p:h"), {
+-- 查看当前文件所在文件夹下的其他文件 ----------------------------------- {{{2
+fzfmap('<leader>.', "List all buffers", function()
+    fzflua.fzf_exec("fd -H -t f . " .. vim.fn.expand("%:p:h"), {
         actions = fileactions,
     })
-end, mapopts)
+end)
 
 -- 定义查询 stata 帮助文件的命令 --{{{2
 local Shelp_Action = function(vimcmd)
@@ -227,8 +239,8 @@ vim.api.nvim_create_user_command('Shelp', function(opts)
     })
     end, { nargs = '*' })
 
--- asynctasks
-vim.keymap.set('n', '<leader>ot', function()
+-- asynctasks ----------------------------------------------------------- {{{2
+fzfmap('<leader>ot', "Run async tasks", function()
     --local tasks = {{name = "file-run", scope = "<global>", command = "test"}}
     tasks = vim.fn['asynctasks#list']('')
     local tasktable = {}
@@ -253,13 +265,13 @@ vim.keymap.set('n', '<leader>ot', function()
             end,
         }
     })
-    end, {noremap = true, desc = "Run async tasks"})
+end)
 
 -- vim command fuzzy search --------------------------------------------- {{{2
-vim.keymap.set('n', '<A-x>', function()
+fzfmap('<A-x>', "Command", function()
     require'fzf-lua'.commands({
         winopts = {
---            split            = "belowright 10new",
+            split            = "belowright 10new",
             height = 0.35,
             width  = 1,
             row = 1,
@@ -286,41 +298,20 @@ vim.keymap.set('n', '<A-x>', function()
             end 
         },
     })
-end, mapopts)
-EOF
+end)
 
-" normal keymaps {{{2
-" nnoremap <silent> <leader>ff :<C-U>FzfLua files<CR>
-" nnoremap <silent> <leader>fr :<C-U>FzfLua oldfiles<CR>
-" nnoremap <silent> <leader>bb :<c-u>FzfLua buffers<cr>
-nnoremap <silent> <leader>ts :<c-u>FzfLua tags<cr>
-nnoremap <silent> <leader>qs :<c-u>FzfLua quickfix<cr>
-nnoremap <silent> <leader>gs :<c-u>FzfLua git_status<cr>
-nnoremap <silent> <leader>gc :<c-u>FzfLua git_commits<cr>
-nnoremap <silent> <leader>gb :<c-u>FzfLua git_braches<cr>
+-- keymaps -------------------------------------------------------------- {{{2
+fzfmap("<leader>st", "tags",                "<cmd>FzfLua tags<cr>")
+fzfmap("<leader>sT", "buffer tags",         "<cmd>FzfLua btags<cr>")
+fzfmap("<leader>qs", "quickfix",            "<cmd>FzfLua quickfix<cr>")
+fzfmap("<leader>sC", "colorschemes",        "<cmd>FzfLua colorschemes<cr>")
+fzfmap("<leader>sh", "vim help tags",       "<cmd>FzfLua help_tags<cr>")
+fzfmap("<leader>sl", "Grep current buffer", "<cmd>FzfLua lgrep_curbuf<cr>")
+fzfmap("<leader>sr", "Grep lines",          "<cmd>FzfLua grep<cr>")
+fzfmap("<leader>sR", "Grep project",        "<cmd>FzfLua grep_project<cr>")
+fzfmap("<leader>pr", "Grep project",        "<cmd>FzfLua grep_project<cr>")
+fzfmap("<c-b>",      "Grep cword",          "<cmd>FzfLua grep_cword<cr>")
+fzfmap("<c-b>",      "Grep visual",         "<cmd>FzfLua grep_visual<cr>", "x")
+fzfmap("<leader>sd", "Lsp document symbos", "<cmd>FzfLua lsp_document_symbols<sr>")
+fzfmap("<leader>pd", "Lsp document symbos", "<cmd>FzfLua lsp_document_symbols<sr>")
 
-
-nnoremap <silent> <leader>ss :<C-U>FzfLua resume<CR>
-" nnoremap <silent> <leader>s: :<C-U>FzfLua command_history<CR>
-nnoremap <silent> <leader>s/ :<C-U>FzfLua search_history<CR>
-nnoremap <silent> <leader>sC :<C-U>FzfLua colorschemes<CR>
-" nnoremap <silent> <leader>sh :<C-U>FzfLua help_tags<CR>
-nnoremap <silent> <F1> :<C-U>FzfLua help_tags<CR>
-" nnoremap <silent> <leader>sm :<C-U>FzfLua man_pages<CR>
-nnoremap <silent> <leader>sl :<C-U>FzfLua lgrep_curbuf<CR>
-nnoremap <silent> <leader>sr :<C-U>FzfLua grep<cr>
-nnoremap <silent> <leader>sR :<C-U>FzfLua grep_project<cr>
-nnoremap <silent> <leader>pr :<C-U>FzfLua grep_project<cr>
-nnoremap <silent> <C-B>      :<C-U>FzfLua grep_cword<CR>
-vnoremap <silent> <C-B>      :<C-U>FzfLua grep_visual<CR>
-
-
-noremap <silent> <leader>st :<C-U>FzfLua btags<CR>
-noremap <silent> <leader>sT :<C-U>FzfLua tags<CR>
-noremap <silent> <leader>pt :<C-U>FzfLua tags<CR>
-
-" if utils#PlugHasLoaded('nvim-lspconfig') 
-    noremap <silent> <leader>sd :<C-U>FzfLua lsp_document_symbols<CR>
-    noremap <silent> <leader>pd :<C-U>FzfLua lsp_document_symbols<CR>
-    noremap <silent> <leader>sD :<C-U>FzfLua lsp_live_workspace_symbols<CR>
-" endif

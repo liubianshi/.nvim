@@ -112,6 +112,14 @@ Plug.add('s1n7ax/nvim-window-picker', {
 Plug.add('ibhagwan/fzf-lua', {
     branch = 'main',
     dependencies = { 'skywind3000/asynctasks.vim' },
+    cmd = {'FzfLua', 'Shelp'},
+    keys = {
+        '<leader>pp', '<leader>ic', '<leader>fz', '<leader>bB', '<leader>.',
+        '<leader>ot', '<A-x>',      "<leader>st", "<leader>sT", "<leader>qs",
+        "<leader>sC", "<leader>sh", "<leader>sl", "<leader>sr", "<leader>sR", "<leader>pr",
+        "<leader>sd", "<leader>pd",
+        {"<c-b>", mode = {'n', 'x'}}
+    }
 })
 
 -- nvim-telescope/telescope.nvim: Find, Filter, Preview, Pick ----------- {{{3
@@ -126,7 +134,11 @@ Plug.add('nvim-telescope/telescope-fzf-native.nvim', {
     lazy  = true,
 })
 Plug.add('FeiyouG/command_center.nvim', {
+    keys = {'<leader>s:'},
     dependencies= 'nvim-telescope/telescope.nvim',
+})
+Plug.add("nvim-telescope/telescope-frecency.nvim", {
+    dependencies = {"kkharji/sqlite.lua"}
 })
 
 -- gelguy/wilder.nvim: Command line Fuzzy Search and completation ------- {{{3
@@ -415,6 +427,36 @@ Plug.add('vhyrro/hologram.nvim', {
     ft = {'markdown', 'pandoc', 'rmd', 'rmarkdown', 'norg', 'org'},
     cond = (vim.env.TERM == "xterm-kitty"),
     cmd = 'PreviewImage',
+})
+
+-- gbprod/yanky.nvim: Improved Yank and Put functionalities for Neovim -- {{{3
+Plug.add('gbprod/yanky.nvim', {
+    dependencies = {
+        { "kkharji/sqlite.lua", enabled = not jit.os:find("Windows") }
+    },
+    keys = {
+        { "<leader>sp", function()
+                require("telescope").extensions.yank_history.yank_history({ })
+          end, desc = "Open Yank History" },
+
+        { "y",         "<Plug>(YankyYank)",                      desc = "Yank text",                        mode = {'n', 'x'} },
+        { "p",         "<Plug>(YankyPutAfter)",                  desc = "Put yanked text after cursor",     mode = {'n', 'x'}  },
+        { "P",         "<Plug>(YankyPutBefore)",                 desc = "Put yanked text before cursor",    mode = {'n', 'x'}  },
+        { "gp",        "<Plug>(YankyGPutAfter)",                 desc = "Put yanked text after selection",  mode = {'n', 'x'}  },
+        { "gP",        "<Plug>(YankyGPutBefore)",                desc = "Put yanked text before selection", mode = {'n', 'x'}  },
+        { "[y",        "<Plug>(YankyCycleForward)",              desc = "Cycle forward through yank history" },
+        { "]y",        "<Plug>(YankyCycleBackward)",             desc = "Cycle backward through yank history" },
+        { "]p",        "<Plug>(YankyPutIndentAfterLinewise)",    desc = "Put indented after cursor (linewise)" },
+        { "[p",        "<Plug>(YankyPutIndentBeforeLinewise)",   desc = "Put indented before cursor (linewise)" },
+        { "]P",        "<Plug>(YankyPutIndentAfterLinewise)",    desc = "Put indented after cursor (linewise)" },
+        { "[P",        "<Plug>(YankyPutIndentBeforeLinewise)",   desc = "Put indented before cursor (linewise)" },
+        { ">p",        "<Plug>(YankyPutIndentAfterShiftRight)",  desc = "Put and indent right" },
+        { "<p",        "<Plug>(YankyPutIndentAfterShiftLeft)",   desc = "Put and indent left" },
+        { ">P",        "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put before and indent right" },
+        { "<P",        "<Plug>(YankyPutIndentBeforeShiftLeft)",  desc = "Put before and indent left" },
+        { "=p",        "<Plug>(YankyPutAfterFilter)",            desc = "Put after applying a filter" },
+        { "=P",        "<Plug>(YankyPutBeforeFilter)",           desc = "Put before applying a filter" },
+    }
 })
 
 -- Project management --------------------------------------------------- {{{2
