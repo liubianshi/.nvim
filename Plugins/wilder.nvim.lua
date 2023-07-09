@@ -24,12 +24,18 @@ wilder.set_option('pipeline', {
 })
 
 wilder.set_option('renderer', wilder.renderer_mux({
-    [':'] = wilder.popupmenu_renderer({
+    [':'] = wilder.popupmenu_renderer( wilder.popupmenu_border_theme{
         highlighter = {
             wilder.lua_pcre2_highlighter(),
             wilder.basic_highlighter(),
         },
         highlights = highlights,
+        min_width = '100%',
+        border = {
+                '', '─', '',
+                '',  '', '',
+                '', '', '',
+        },
         left = {' ', wilder.popupmenu_devicons()},
         right = {' ', wilder.popupmenu_scrollbar()},
     }),

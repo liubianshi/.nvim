@@ -85,20 +85,4 @@ command_center.add({
   }
 })
 
--- keymap --------------------------------------------------------------- {{{1
-local builtin = require('telescope.builtin')
-local extensions = telescope.extensions
-local kops = function(desc)
-    return { noremap = true, silent = true, desc = "Telescope: " .. desc }
-end
-
-vim.keymap.set('n', '<leader>ff', builtin.find_files,                  kops("find files"))
-vim.keymap.set('n', '<leader>fr', builtin.oldfiles,                    kops("fild recent files"))
-vim.keymap.set('n', '<leader>bb', builtin.buffers,                     kops("select buffers"))
-vim.keymap.set('n', '<leader>sh', builtin.help_tags,                   kops("vim help tags"))
-vim.keymap.set('n', '<leader>sk', builtin.keymaps,                     kops("keymap"))
-vim.keymap.set('n', '<leader>sm', builtin.man_pages,                   kops("man pages"))
-vim.keymap.set('n', '<leader>s:', "<cmd>Telescope command_center<cr>", kops("command center"))
-vim.keymap.set('n', '<leader>fR', "<cmd>Telescope frecency<cr>",       kops("Frecency"))
-
 -- vim: set fdm=marker: ------------------------------------------------- {{{1

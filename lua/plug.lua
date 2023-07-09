@@ -114,11 +114,19 @@ Plug.add('ibhagwan/fzf-lua', {
     dependencies = { 'skywind3000/asynctasks.vim' },
     cmd = {'FzfLua', 'Shelp'},
     keys = {
-        '<leader>pp', '<leader>ic', '<leader>fz', '<leader>bB', '<leader>.',
-        '<leader>ot', '<A-x>',      "<leader>st", "<leader>sT", "<leader>qs",
-        "<leader>sC", "<leader>sh", "<leader>sl", "<leader>sr", "<leader>sR", "<leader>pr",
-        "<leader>sd", "<leader>pd",
-        {"<c-b>", mode = {'n', 'x'}}
+        '<leader>pp', '<leader>ic', '<leader>fz', '<leader>bB', '<leader>.', '<leader>ot', '<A-x>',      
+        { "<leader>st", "<cmd>FzfLua tags<cr>"                , desc = "FzfLua: tags",                                  },
+        { "<leader>sT", "<cmd>FzfLua btags<cr>"               , desc = "FzfLua: buffer tags",                           },
+        { "<leader>qs", "<cmd>FzfLua quickfix<cr>"            , desc = "FzfLua: quickfix",                              },
+        { "<leader>sC", "<cmd>FzfLua colorschemes<cr>"        , desc = "FzfLua: colorschemes",                          },
+        { "<leader>sh", "<cmd>FzfLua help_tags<cr>"           , desc = "FzfLua: vim help tags",                         },
+        { "<leader>sl", "<cmd>FzfLua lgrep_curbuf<cr>"        , desc = "FzfLua: Grep current buffer",                   },
+        { "<leader>sr", "<cmd>FzfLua grep<cr>"                , desc = "FzfLua: Grep lines",                            },
+        { "<leader>sR", "<cmd>FzfLua grep_project<cr>"        , desc = "FzfLua: Grep project",                          },
+        { "<leader>pr", "<cmd>FzfLua grep_project<cr>"        , desc = "FzfLua: Grep project",                          },
+        { "<c-b>"     , "<cmd>FzfLua grep_cword<cr>"          , desc = "FzfLua: Grep cword",          mode = {'n', 'x'} },
+        { "<leader>sd", "<cmd>FzfLua lsp_document_symbols<sr>", desc = "FzfLua: Lsp document symbos",                   },
+        { "<leader>pd", "<cmd>FzfLua lsp_document_symbols<sr>", desc = "FzfLua: Lsp document symbos",                   },
     }
 })
 
@@ -126,6 +134,16 @@ Plug.add('ibhagwan/fzf-lua', {
 Plug.add('nvim-telescope/telescope.nvim', {
     tag = '0.1.2',
     dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = {
+        { "<leader>ff", Util.telescope("files"),                                      desc = "Telescope: Find Files (root dir)" },
+        { "<leader>fF", Util.telescope("files", { cwd = vim.fn.expand('%:p:h') }),    desc = "Telescope: Find Files (cwd)"      },
+        { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                                desc = "Telescope: Recent"                },
+        { "<leader>fR", Util.telescope("oldfiles", { cwd = vim.fn.expand('%:p:h') }), desc = "Telescope: Recent (cwd)"          },
+        { "<leader>sk", Util.telescope('keymaps'),                                    desc = "Telescope: Keymaps"               },
+        { "<leader>sm", Util.telescope('man_pages'),                                  desc = "Telescope: Man Pages"             },
+        { "<leader>fp", "<cmd>Telescope frecency<cr>",                                desc = "Telescope: Frecency"              },
+        { "<leader>:" , "<cmd>Telescope command_center<cr>",                          desc = "Telescope: Command Center"        },
+    }
 })
 Plug.add('nvim-telescope/telescope-fzf-native.nvim', {
     build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release ' ..
