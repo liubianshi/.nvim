@@ -134,11 +134,12 @@ Plug.add('nvim-telescope/telescope-fzf-native.nvim', {
     lazy  = true,
 })
 Plug.add('FeiyouG/command_center.nvim', {
-    keys = {'<leader>s:'},
     dependencies= 'nvim-telescope/telescope.nvim',
+    lazy = true,
 })
 Plug.add("nvim-telescope/telescope-frecency.nvim", {
-    dependencies = {"kkharji/sqlite.lua"}
+    dependencies = {"kkharji/sqlite.lua"},
+    lazy = true,
 })
 
 -- gelguy/wilder.nvim: Command line Fuzzy Search and completation ------- {{{3
@@ -380,6 +381,8 @@ Plug.add('nvim-tree/nvim-web-devicons', { lazy = true } )
 -- windwp/nvim-autopairs: autopair tools -------------------------------- {{{3
 Plug.add('windwp/nvim-autopairs' )
 
+-- stevearc/dressing.nvim: improve the default vim.ui interfaces -------- {{{3
+Plug.add('stevearc/dressing.nvim')
 
 -- Tools ---------------------------------------------------------------- {{{2
 -- akinsho/toggleterm.nvim: manage multiple terminal windows ------------ {{{3
@@ -510,7 +513,7 @@ if vim.g.complete_method == 'coc' then
 else
     -- neovim/nvim-lspconfig: Quickstart configs for Nvim LSP ----------- {{{4
     Plug.add('neovim/nvim-lspconfig', {
-        event = {'BufReadPre', 'BufNewFile'},
+        event = {'BufReadPre', 'BufNewFile', 'BufWinEnter'},
     })
 
     -- hrsh7th/nvim-cmp: A completion plugin for neovim ----------------- {{{4

@@ -20,6 +20,7 @@ end
 
 -- setup ---------------------------------------------------------------- {{{2
 fzflua.setup({
+  'telescope',
   previewers = {
     builtin = {
       extensions = {
@@ -45,13 +46,13 @@ fzflua.setup({
         cmd ="echo %s | tr -d \'()\'  | xargs -r man | col -bx"
     },
   },
-  fzf_opts  = {
-      ['--preview'] = vim.fn.shellescape("printf {1} | perl -plE 's!\\A[^\\s\\/A-z]+\\s!!' | xargs scope"),
-  },
   files = {
       previewer = "builtin",
       prompt    = 'Files❯ ',
       file_icons = true,
+      fzf_opts  = {
+          ['--preview'] = vim.fn.shellescape("printf {1} | perl -plE 's!\\A[^\\s\\/A-z]+\\s!!' | xargs scope"),
+      },
   },
   grep = {
       winopts = {
@@ -190,11 +191,11 @@ fzfmap('<leader>fz', "Jump with fasd",function()
     fzflua.fzf_exec("fasd -al",{
         actions = {
             ['default'] = actions.file_edit,
-            ["ctrl-s"]      = actions.file_split,
-            ["ctrl-v"]      = actions.file_vsplit,
-            ["ctrl-t"]      = actions.file_tabedit,
-            ["alt-q"]       = actions.file_sel_to_qf,
-        }
+            ["ctrl-s"]  = actions.file_split,
+            ["ctrl-v"]  = actions.file_vsplit,
+            ["ctrl-t"]  = actions.file_tabedit,
+            ["alt-q"]   = actions.file_sel_to_qf,
+        },
     })
 end)
 
