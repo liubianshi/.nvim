@@ -319,7 +319,7 @@ Plug.add('easymotion/vim-easymotion', {
         vim.g.EasyMotion_smartcase  = 1
         vim.g.EasyMotion_use_migemo = 1
     end,
-    dependencies = {'zzhirong/vim-easymotion-zh'}
+    dependencies = {'zzhirong/vim-easymotion-zh'},
     keys = {
         { 's.',  '<Plug>(easymotion-repeat)', desc = 'EasyMotion: Repeat last motion'},
         { 'sc',  '<Plug>(easymotion-s2)',     desc = 'EasyMotion: Search for 2 chars'},
@@ -397,7 +397,7 @@ Plug.add('nvim-tree/nvim-web-devicons', { lazy = true } )
 Plug.add('windwp/nvim-autopairs' )
 
 -- stevearc/dressing.nvim: improve the default vim.ui interfaces -------- {{{3
-Plug.add('stevearc/dressing.nvim', "lazy = true")
+Plug.add('stevearc/dressing.nvim', {lazy = true})
 
 -- Tools ---------------------------------------------------------------- {{{2
 -- akinsho/toggleterm.nvim: manage multiple terminal windows ------------ {{{3
