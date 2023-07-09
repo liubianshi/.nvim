@@ -107,17 +107,17 @@ local keymap_config = {
 
 -- number --------------------------------------------------------------- {{{3
 for numkey = 2,9 do
-    numkey = tostring(numkey)
-    keymap_config[numkey] = cmp.mapping(
+    local numkey_str = tostring(numkey)
+    keymap_config[numkey_str] = cmp.mapping(
         function(fallback)
             if not cmp.visible() or not vim.g.rime_enabled then
                 return fallback()
             end
             cmp.close()
-            feedkey(numkey, "n")
+            feedkey(numkey_str, "n")
             cmp.complete()
             feedkey("<Space>", "m")
-        end, 
+        end,
         {"i"}
     )
 end

@@ -114,7 +114,7 @@ Plug.add('ibhagwan/fzf-lua', {
     dependencies = { 'skywind3000/asynctasks.vim' },
     cmd = {'FzfLua', 'Shelp'},
     keys = {
-        '<leader>pp', '<leader>ic', '<leader>fz', '<leader>bB', '<leader>.', '<leader>ot', '<A-x>',      
+        '<leader>pp', '<leader>ic', '<leader>fz', '<leader>bB', '<leader>.', '<leader>ot', '<A-x>',
         { "<leader>bb", "<cmd>FzfLua buffers<cr>"             , desc = "FzfLua: Select buffer",                         },
         { "<leader>st", "<cmd>FzfLua tags<cr>"                , desc = "FzfLua: tags",                                  },
         { "<leader>sT", "<cmd>FzfLua btags<cr>"               , desc = "FzfLua: buffer tags",                           },
@@ -126,8 +126,6 @@ Plug.add('ibhagwan/fzf-lua', {
         { "<leader>sR", "<cmd>FzfLua grep_project<cr>"        , desc = "FzfLua: Grep project",                          },
         { "<leader>pr", "<cmd>FzfLua grep_project<cr>"        , desc = "FzfLua: Grep project",                          },
         { "<c-b>"     , "<cmd>FzfLua grep_cword<cr>"          , desc = "FzfLua: Grep cword",          mode = {'n', 'x'} },
-        { "<leader>sd", "<cmd>FzfLua lsp_document_symbols<sr>", desc = "FzfLua: Lsp document symbos",                   },
-        { "<leader>pd", "<cmd>FzfLua lsp_document_symbols<sr>", desc = "FzfLua: Lsp document symbos",                   },
     }
 })
 
@@ -144,8 +142,42 @@ Plug.add('nvim-telescope/telescope.nvim', {
         { "<leader>sm", Util.telescope('man_pages'),                                  desc = "Telescope: Man Pages"             },
         { "<leader>fp", "<cmd>Telescope frecency<cr>",                                desc = "Telescope: Frecency"              },
         { "<leader>:" , "<cmd>Telescope command_center<cr>",                          desc = "Telescope: Command Center"        },
-    }
+        { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
+        { "<leader>sG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
+        { "<leader>sw", Util.telescope("grep_string"), desc = "Word (root dir)" },
+        { "<leader>sW", Util.telescope("grep_string", { cwd = false }), desc = "Word (cwd)" },
+        { "<leader>ss", Util.telescope("lsp_document_symbols", {
+                symbols = {
+                "Class",
+                "Function",
+                "Method",
+                "Constructor",
+                "Interface",
+                "Module",
+                "Struct",
+                "Trait",
+                "Field",
+                "Property",
+                },
+            }), desc = "Goto Symbol", },
+        { "<leader>sS", Util.telescope("lsp_dynamic_workspace_symbols", {
+                symbols = {
+                "Class",
+                "Function",
+                "Method",
+                "Constructor",
+                "Interface",
+                "Module",
+                "Struct",
+                "Trait",
+                "Field",
+                "Property",
+                },
+            }), desc = "Goto Symbol (Workspace)", },
+    },
+    cmd = "Telescope",
 })
+
 Plug.add('nvim-telescope/telescope-fzf-native.nvim', {
     build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release ' ..
             '&& cmake --build build --config Release ' ..
@@ -173,7 +205,7 @@ Plug.add('machakann/vim-highlightedyank' )
 -- kevinhwang91/nvim-hlslens: Hlsearch Lens for Neovim ------------------ {{{3
 Plug.add('kevinhwang91/nvim-hlslens', {
     event = { "SearchWrapped", "CursorMoved" },
-}) 
+})
 
 -- mg979/vim-visual-multi: 多重选择 ------------------------------------- {{{3
 Plug.add('mg979/vim-visual-multi', {
@@ -194,11 +226,9 @@ Plug.add('mg979/vim-visual-multi', {
         {"<A-j>", '<Plug>(VM-Add-Cursor-Down)', desc = "Add Cursors Down"},
         {"<A-k>", '<Plug>(VM-Add-Cursor-Up)',   desc = "Add Cursors Up"},
     }
-})     
--- andymass/vim-matchup: 显示匹配符号之间的内容 ------------------------- {{{3
-Plug.add('andymass/vim-matchup', {
-    event = 'VeryLazy'
 })
+-- andymass/vim-matchup: 显示匹配符号之间的内容 ------------------------- {{{3
+Plug.add('andymass/vim-matchup')
 
 -- tpope/vim-commentary: Comment stuff out ------------------------------ {{{3
 Plug.add('tpope/vim-commentary', {
@@ -361,7 +391,7 @@ Plug.add('zhimsel/vim-stay', {
     init = function()
         vim.o.viewoptions = "cursor,folds,slash,unix"
     end
-}) 
+})
 
 -- Konfekt/FastFold: updating folds only when called-for ---------------- {{{3
 Plug.add('Konfekt/FastFold')
@@ -371,7 +401,7 @@ Plug.add('vim-voom/VOoM', {
     cmd = "Voom",
     keys = {
         {"<leader>v", "<cmd>Voom<cr>", desc = "VOom: Show Outliner"},
-    }, 
+    },
 })
 
 -- akinsho/bufferline.nvim: buffer line with minimal tab integration ---- {{{3
@@ -611,7 +641,7 @@ Plug.add('ferrine/md-img-paste.vim', {
 
 -- hotoo/pangu.vim: 『盘古之白』中文排版自动规范化 ---------------------- {{{3
 Plug.add('hotoo/pangu.vim', {
-    ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc'}
+    ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc', 'norg', 'org'}
 })
 
 -- dhruvasagar/vim-table-mode: Table Mode for instant table creation ---- {{{3

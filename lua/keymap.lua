@@ -6,7 +6,7 @@ local vimkey = function(key, desc, cmd, opts)
         noremap = true,
     })
 
-    mode = opts.mode
+    local mode = opts.mode
     opts.mode =nil
     vim.keymap.set(mode, key, cmd, opts)
 end
@@ -42,7 +42,7 @@ vimkey('L', 'Translate', 'utils#Trans2clip()', {
 })
 
 --- search -------------------------------------------------------------- {{{1
-vimkey('<leader>sg', 'Display Highlight Group', function()
+vimkey('<leader>og', 'Display Highlight Group', function()
     vim.fn['utils#Extract_hl_group_link']()
 end)
 

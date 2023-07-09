@@ -44,12 +44,12 @@ wk.register({
         -- ["m"] = { name = "+MultVisual" },
         ["o"] = {
             name = "Open Command"
-        }, 
-        ["p"] = { 
+        },
+        ["p"] = {
             name = "Project",
             ["d"] = "LSP Document Symbols in Project",
             ["p"] = "Change Project",
-            ["r"] = "Grep Project", 
+            ["r"] = "Grep Project",
             ["t"] = "Tags in Project",
         },
         ["q"] = { name = "Quickfix"},
@@ -59,12 +59,5 @@ wk.register({
         ["w"] = { name = "Wndow" },
         ["x"] = { name = "+Trouble" },
         ["z"] = { name = "+Fold" },
-        ["t"] = { name = "+Tab mode" },
-    },
-    ["s"] = { -- Search ------------------------------------------------- {{{2
-        ["r"] = {
-            name = "Surfraw",
-            ["h"] = "Surfraw Github",
-        },
     },
 })

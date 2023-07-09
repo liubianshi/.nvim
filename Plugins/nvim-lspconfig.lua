@@ -1,13 +1,13 @@
 local lspconfig = require('lspconfig')
 local util = require 'lspconfig.util'
 local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '<space>te', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d',       vim.diagnostic.goto_prev,  opts)
 vim.keymap.set('n', ']d',       vim.diagnostic.goto_next,  opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+vim.keymap.set('n', '<space>tq', vim.diagnostic.setloclist, opts)
 
 -- Preconfiguration ----------------------------------------------------------- {{{2
-local on_attach_custom = function(client, bufnr)
+local on_attach_custom = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -31,8 +31,9 @@ local on_attach_custom = function(client, bufnr)
     -- end, bufopts)
 end
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+local capabilities
 if status_ok then
-   local capabilities = cmp_nvim_lsp.default_capabilities()
+   capabilities = cmp_nvim_lsp.default_capabilities()
 end
 
 -- bashls (bash-language-server) ---------------------------------------- {{{2
@@ -44,7 +45,7 @@ lspconfig.bashls.setup{
 -- R (r_language_server) ------------------------------------------------ {{{2
 lspconfig.r_language_server.setup({
     cmd = {
-        "R", "--slave", 
+        "R", "--slave",
         "--default-packages=" .. vim.g.R_start_libs,
         "-e", "languageserver::run()"
     },
@@ -82,9 +83,35 @@ lspconfig.perlnavigator.setup({
     on_attach = on_attach_custom,
 })
 
+-- lua (lua-language-server) -------------------------------------------- {{{2
+lspconfig.lua_ls.setup {
+  capabilities = capabilities,
+  single_file_support = true,
+  on_attach = on_attach_custom,
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
 -- rime-ls -------------------------------------------------------------- {{{2
-local status_ok, rime_ls = pcall(require, 'rime-ls')
-if status_ok then
+local rimels_ok, rime_ls = pcall(require, 'rime-ls')
+if rimels_ok then
     rime_ls.setup_rime({load = true})
 end
 
