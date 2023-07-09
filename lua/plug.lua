@@ -115,6 +115,7 @@ Plug.add('ibhagwan/fzf-lua', {
     cmd = {'FzfLua', 'Shelp'},
     keys = {
         '<leader>pp', '<leader>ic', '<leader>fz', '<leader>bB', '<leader>.', '<leader>ot', '<A-x>',      
+        { "<leader>bb", "<cmd>FzfLua buffers<cr>"             , desc = "FzfLua: Select buffer",                         },
         { "<leader>st", "<cmd>FzfLua tags<cr>"                , desc = "FzfLua: tags",                                  },
         { "<leader>sT", "<cmd>FzfLua btags<cr>"               , desc = "FzfLua: buffer tags",                           },
         { "<leader>qs", "<cmd>FzfLua quickfix<cr>"            , desc = "FzfLua: quickfix",                              },
@@ -189,16 +190,20 @@ Plug.add('mg979/vim-visual-multi', {
     end,
     branch = 'master',
     keys = {
-        {"<C-n>", mode = {'n', 'v', 'x'}},
-        {"<leader>mj"},
-        {"<leader>mk"},
+        {"<C-n>",                               desc = "Find Word", mode = {'n', 'v', 'x'}},
+        {"<A-j>", '<Plug>(VM-Add-Cursor-Down)', desc = "Add Cursors Down"},
+        {"<A-k>", '<Plug>(VM-Add-Cursor-Up)',   desc = "Add Cursors Up"},
     }
 })     
 -- andymass/vim-matchup: 显示匹配符号之间的内容 ------------------------- {{{3
-Plug.add('andymass/vim-matchup')
+Plug.add('andymass/vim-matchup', {
+    event = 'VeryLazy'
+})
 
 -- tpope/vim-commentary: Comment stuff out ------------------------------ {{{3
-Plug.add('tpope/vim-commentary')
+Plug.add('tpope/vim-commentary', {
+    cmd = "Commentary", keys = {'gc', 'gcc'}
+})
 
 -- junegunn/vim-easy-align: text alignment tool ------------------------- {{{3
 Plug.add('junegunn/vim-easy-align', {
@@ -209,18 +214,33 @@ Plug.add('junegunn/vim-easy-align', {
 })
 
 -- beauwilliams/focus.nvim: Auto Ajust the size of focused window ------- {{{3
-Plug.add('beauwilliams/focus.nvim')
+Plug.add('beauwilliams/focus.nvim', {
+    keys = {
+        { '<leader>wh', '<cmd>FocusSplitLeft<cr>',  desc = "Focus Split Left"  },
+        { '<leader>wl', '<cmd>FocusSplitRight<cr>', desc = "Focus Split Right" },
+        { '<leader>wj', '<cmd>FocusSplitDown<cr>',  desc = "Focus Split Down"  },
+        { '<leader>wk', '<cmd>FocusSplitUp<cr>',    desc = "Focus Split Up"    },
+        { '<leader>wm', '<cmd>FocusMaximise<cr>',   desc = "Focus Maximise"    },
+        { '<leader>we', '<cmd>FocusEqualise<cr>',   desc = "Focus Equalise"    },
+        { '<leader>ww', '<cmd>FocusSplitNicely<cr>',desc = "Focus Equalise"    },
+    }
+})
 
 -- folke/zen-mode.nvim: Distraction-free coding for Neovim -------------- {{{3
 Plug.add('folke/zen-mode.nvim', {
     cmd = "ZenMode",
     keys = {
-        {'<A-z>', '<cmd>ZenMode<cr>', desc = "Toggle Zen Mode"}
+        {'<leader>oZ', '<cmd>ZenMode<cr>', desc = "Toggle Zen Mode"}
     }
 })
 
 -- machakann/vim-sandwich: add/delete/replace surroundings -------------- {{{3
-Plug.add('machakann/vim-sandwich')
+Plug.add('machakann/vim-sandwich', {
+    init = function()
+        vim.g.operator_sandwich_no_default_key_mappings = 1
+    end,
+    keys = {'ds', 'cs', 'ys'}
+})
 
 -- tpope/vim-repeat: 重复插件操作 --------------------------------------- {{{3
 Plug.add('tpope/vim-repeat', {
@@ -243,7 +263,7 @@ Plug.add("nvim-pack/nvim-spectre", {
 Plug.add('rcarriga/nvim-notify', {
     keys = {
         { 
-            "<leader>un",
+            "<leader>nu",
             function()
                 require("notify").dismiss({ silent = true, pending = true })
             end,
@@ -252,40 +272,6 @@ Plug.add('rcarriga/nvim-notify', {
     },
     init = function() vim.notify = require('notify') end,
 })
-
--- Plug.add("folke/noice.nvim", {
---   event = "VeryLazy",
---   dependencies = {
---         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
---         "MunifTanjim/nui.nvim",
---         -- OPTIONAL:
---         --   `nvim-notify` is only needed, if you want to use the notification view.
---         --   If not available, we use `mini` as the fallback
---         "rcarriga/nvim-notify",
---     }
--- })
-
-
--- ggandor/flit.nvim: Enhanced f/t motions for Leap --------------------- {{{3
---Plug.add('ggandor/flit.nvim', {
---    keys = function()
---      ---@type LazyKeys[]
---      local ret = {}
---      for _, key in ipairs({ "f", "F", "t", "T" }) do
---        ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
---      end
---      return ret
---    end,
---})
-
----- ggandor/leap.nvim: general-purpose motion ---------------------------- {{{3
---Plug.add('ggandor/leap.nvim', {
---    keys = {
---      { "ss", mode = { "n", "x", "o" }, desc = "Leap forward to" },
---      { "sS", mode = { "n", "x", "o" }, desc = "Leap backward to" },
---      { "gs", mode = { "n", "x", "o" }, desc = "Leap from windows" },
---    },
---})
 
 --- folke/flash.nvim: Navigate tools ------------------------------------ {{{3
 Plug.add("folke/flash.nvim", {
@@ -298,14 +284,6 @@ Plug.add("folke/flash.nvim", {
         require("flash").jump()
       end,
       desc = "Flash",
-    },
-    {
-      "S",
-      mode = { "n", "o", "x" },
-      function()
-        require("flash").treesitter()
-      end,
-      desc = "Flash Treesitter",
     },
     {
       "r",
@@ -341,11 +319,30 @@ Plug.add('easymotion/vim-easymotion', {
         vim.g.EasyMotion_smartcase  = 1
         vim.g.EasyMotion_use_migemo = 1
     end,
-    event = {'UiEnter'}
+    dependencies = {'zzhirong/vim-easymotion-zh'}
+    keys = {
+        { 's.',  '<Plug>(easymotion-repeat)', desc = 'EasyMotion: Repeat last motion'},
+        { 'sc',  '<Plug>(easymotion-s2)',     desc = 'EasyMotion: Search for 2 chars'},
+        { 'sl',  '<Plug>(easymotion-sl)',     desc = 'EasyMotion: Find Char (current line)'},
+        { 'sj',  '<plug>(easymotion-j)',      desc = 'EasyMotion: Line Downward'},
+        { 'sJ',  '<plug>(easymotion-eol-j)',  desc = 'EasyMotion: Line Downword (end)'},
+        { 'sk',  '<plug>(easymotion-k)',      desc = 'EasyMotion: Line Forward'},
+        { 'sK',  '<plug>(easymotion-eol-k)',  desc = 'EasyMotion: Line Forward (end)'},
+        { 'sn',  '<Plug>(easymotion-n)',      desc = 'EasyMotion: latest search'},
+        { 'sN',  '<Plug>(easymotion-N)',      desc = 'EasyMotion: latest search (backward)'},
+        { 'sw',  '<Plug>(easymotion-w)',      desc = 'EasyMotion: Beginning of word'},
+        { 'sW',  '<Plug>(easymotion-W)',      desc = 'EasyMotion: Beginning of WORD'},
+        { 'sb',  '<Plug>(easymotion-b)',      desc = 'EasyMotion: EasyMotion: Beginning of word (backward)'},
+        { 'sB',  '<Plug>(easymotion-B)',      desc = 'EasyMotion: EasyMotion: Beginning of WORD (backward)'},
+        { 'se',  '<Plug>(easymotion-e)',      desc = 'EasyMotion: End of word'},
+        { 'sE',  '<Plug>(easymotion-E)',      desc = 'EasyMotion: End of WROD'},
+        { 'sge', '<Plug>(easymotion-e)',      desc = 'EasyMotion: End of word (backward)'},
+        { 'sgE', '<Plug>(easymotion-E)',      desc = 'EasyMotion: End of WROD (backward)'},
+    }
 })
 
 -- zzhirong/vim-easymotion-zh: motion in Chinese text ------------------- {{{3
-Plug.add('zzhirong/vim-easymotion-zh', {event = {'UiEnter'}})
+Plug.add('zzhirong/vim-easymotion-zh', {lazy = true})
 
 -- folke/which-key.nvim: displays a popup with possible keybindings ----- {{{3
 Plug.add('folke/which-key.nvim', {event = "VeryLazy"})
@@ -373,7 +370,7 @@ Plug.add('Konfekt/FastFold')
 Plug.add('vim-voom/VOoM', {
     cmd = "Voom",
     keys = {
-        {"<leader>v", mode = "n"},
+        {"<leader>v", "<cmd>Voom<cr>", desc = "VOom: Show Outliner"},
     }, 
 })
 
@@ -400,7 +397,7 @@ Plug.add('nvim-tree/nvim-web-devicons', { lazy = true } )
 Plug.add('windwp/nvim-autopairs' )
 
 -- stevearc/dressing.nvim: improve the default vim.ui interfaces -------- {{{3
-Plug.add('stevearc/dressing.nvim')
+Plug.add('stevearc/dressing.nvim', "lazy = true")
 
 -- Tools ---------------------------------------------------------------- {{{2
 -- akinsho/toggleterm.nvim: manage multiple terminal windows ------------ {{{3
@@ -414,14 +411,14 @@ Plug.add('akinsho/toggleterm.nvim', {
             noremap = true,
             silent = true,
             mode = {'n', 't'},
+            remap = true,
         },
     }
 })
 
 -- skywind3000/asyncrun.vim: run async shell command -------------------- {{{3
 Plug.add('skywind3000/asyncrun.vim', {
-    cmd = "AsyncRun",
-    keys = {{'<leader>or', desc = "AsyncRun"}}
+    cmd = "AsyncRun"
 })
 
 -- skywind3000/asynctasks.vim: modern Task System ----------------------- {{{3
@@ -430,7 +427,9 @@ Plug.add('skywind3000/asynctasks.vim', {
         'skywind3000/asyncrun.vim',
     },
     cmd = {"AsyncTask", "AsyncTaskList"},
-    keys = {{'<leader>ot',  desc = "Run AsnycTask", mode = "n"}}
+    keys = {
+        {'<leader>ot',  desc = "Run AsnycTask"}
+    }
 })
 
 -- liubianshi/vimcmdline: send lines to interpreter --------------------- {{{3
@@ -492,7 +491,7 @@ Plug.add('ludovicchabant/vim-gutentags', {
 Plug.add('folke/trouble.nvim', {ft = 'c'})
 
 -- tpope/vim-fugitive: Git ---------------------------------------------- {{{3
-Plug.add('tpope/vim-fugitive')
+Plug.add('tpope/vim-fugitive', { cmd = 'G'})
 
 -- Theme ---------------------------------------------------------------- {{{2
 Plug.add('luisiacc/gruvbox-baby',    {lazy = false})
@@ -723,4 +722,5 @@ end
 _G.PlugExist = function(plug)
     return(Util.has(plug))
 end
+
 

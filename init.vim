@@ -26,6 +26,7 @@ call <SID>Load("option")
 
 " 设置 KeyMap
 call <SID>Load("keymap")
+lua require('keymap')
 
 " 创建命令
 call <SID>Load("command")                  

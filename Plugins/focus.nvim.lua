@@ -14,15 +14,3 @@ require("focus").setup({
     signcolumn = false,
 })
 
--- keymap --------------------------------------------------------------- {{{1
-vkey("n", "<Leader>wh", vimcmd .. ".split_command('h')<cr>", mapopts)
-vkey("n", "<Leader>wl", vimcmd .. ".split_command('l')<cr>", mapopts)
-vkey("n", "<Leader>wk", vimcmd .. ".split_command('k')<cr>", mapopts)
-vkey("n", "<Leader>wj", vimcmd .. ".split_command('j')<cr>", mapopts)
-vkey("n", "<leader>we", vimcmd .. ".focus_enable()<cr>",     mapopts)
-vkey("n", "<leader>wd", vimcmd .. ".focus_disable()<cr>",    mapopts)
-vkey("n", "<leader>wf", vimcmd .. ".focus_toggle()<cr>",     mapopts)
-vkey("n", "<leader>wm", vimcmd .. ".focus_maximise()<cr>",   mapopts)
-vkey("n", "<leader>we", vimcmd .. ".focus_equalise()<cr>",   mapopts)
-vkey("n", "<leader>ws", vimcmd .. ".resize()<cr>",           mapopts)
-vkey("n", "<leader>ww", ":FocusSplitNicely<cr>",             mapopts)

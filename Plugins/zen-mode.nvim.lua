@@ -16,6 +16,10 @@ zenmode.setup{
         enabled = true,
         font = "+4",
     },
+    kitty = {
+        enabled = true,
+        font = "+4",
+    },
     on_open = function(win)
         vim.g.lbs_zen_mode = true
     end,

@@ -89,67 +89,36 @@ xnoremap <silent> iu :<C-U>call text_obj#URL()<CR>
 onoremap <silent> iu :<C-U>call text_obj#URL()<CR>
 
 " Terminal =============================================================== {{{1
-nnoremap <leader><leader> <Nop>
-nnoremap <leader><leader> :<C-U>ToggleTerm<cr>
-
-" Buffer ================================================================= {{{1
-nnoremap <silent> <leader>bd :<c-u>Bclose<cr>
-nnoremap <silent> <leader>bp :<c-u>bp<cr>
-nnoremap <silent> <leader>bn :<c-u>bn<cr>
-nnoremap <silent> <leader>bq :q<cr>
-nnoremap <silent> <leader>bQ :q!<cr>
-nnoremap <silent> <leader>bw :w<cr>
-nnoremap <silent> <leader>bW :w!<cr>
 
 " 管理 quickfix ========================================================== {{{1
 nnoremap <leader>qq :call utils#QuickfixToggle()<cr>
 
 " window manager ========================================================= {{{1
-nnoremap <silent> w0 <C-U>:88wincmd \|<cr>
-nnoremap <silent> wt <C-U>:wincmd T<cr>
-nnoremap <silent> wo :<c-u>only<cr>
-nnoremap <silent> wv <c-w>v
-nnoremap <silent> ws <c-w>s
-nnoremap <silent> w= <c-w>=
-nnoremap <silent> ww <c-w>w
-nnoremap <silent> wj <c-w>j
-nnoremap <silent> wk <c-w>k
-nnoremap <silent> wh <c-w>h
-nnoremap <silent> wl <c-w>l
-nnoremap <silent> wq <c-w>q
-nnoremap <silent> wx <c-w>x
-nnoremap <silent> wn :vsplit \| enew<cr>
-nnoremap <silent> <C-J>  :resize -2<CR>
-nnoremap <C-K> <Nop>
-nnoremap <silent> <C-K>  :resize +2<CR>
-nnoremap <silent> <C-H>  :vertical resize -2<CR>
-nnoremap <silent> <C-L> :vertical resize +2<CR>
+" nnoremap <silent> w0 <C-U>:88wincmd \|<cr>
+" nnoremap <silent> wt <C-U>:wincmd T<cr>
+" nnoremap <silent> wo :<c-u>only<cr>
+" nnoremap <silent> wv <c-w>v
+" nnoremap <silent> ws <c-w>s
+" nnoremap <silent> w= <c-w>=
+" nnoremap <silent> ww <c-w>w
+" nnoremap <silent> wj <c-w>j
+" nnoremap <silent> wk <c-w>k
+" nnoremap <silent> wh <c-w>h
+" nnoremap <silent> wl <c-w>l
+" nnoremap <silent> wq <c-w>q
+" nnoremap <silent> wx <c-w>x
+" nnoremap <silent> wn :vsplit \| enew<cr>
+" nnoremap <silent> <C-J>  :resize -2<CR>
+" nnoremap <C-K> <Nop>
+" nnoremap <silent> <C-K>  :resize +2<CR>
+" nnoremap <silent> <C-H>  :vertical resize -2<CR>
+" nnoremap <silent> <C-L> :vertical resize +2<CR>
 
-" tab managing =========================================================== {{{1
-nnoremap <silent> <leader>tt :tabnew<cr>
-nnoremap <silent> <leader>tx :tabclose<cr>
-nnoremap <silent> <leader>tn :tabnext<cr>
-nnoremap <silent> <leader>tp :tabprevious<cr>
-nnoremap <silent> <leader>tP :tabfirst<cr>
-nnoremap <silent> <leader>tN :tablast<cr>
 
-" run ==================================================================== {{{1
-nnoremap <silent> <leader><enter> :noh<cr>
-nnoremap <silent> <leader>o: :<C-U>FloatermNew 
-nnoremap <silent> <leader>ob :call utils#Status()<cr>
-nnoremap <silent> <leader>od :<c-u>source $MYVIMRC<cr>
-nnoremap <silent> <leader>oh :noh<cr>
-nnoremap <silent> <leader>ol :<C-R>=printf("FloatermSend%s", "")<CR><CR>
-nnoremap <silent> <leader>on :FloatermNew nnn<CR>
-nnoremap <silent> <leader>oo :AsyncRun xdg-open "%"<cr>
-nnoremap <silent> <leader>op :<c-u>execute "cd" expand("%:p:h")<cr>
-nnoremap <silent> <leader>or :<C-U>AsyncRun 
-nnoremap <silent> <leader>oz :<c-u>call utils#ToggleZenMode()<cr>
-nnoremap <silent> <leader>oZ :Goyo<cr>
 
 " 翻译 =================================================================== {{{1
-nnoremap <expr>   L utils#Trans2clip()
-xnoremap <expr>   L utils#Trans2clip()
+" nnoremap <expr>   L utils#Trans2clip()
+" xnoremap <expr>   L utils#Trans2clip()
 
 " 管理文件 ============================================================== {{{1
 nnoremap <silent> <leader>fs  :write<CR>
@@ -168,11 +137,11 @@ nnoremap <leader>ed :edit ~/Repositories/ssnhd-rime/配置文件/flypy_top.txt<c
 
 " search ================================================================= {{{1
 " check the syntax group of current cursor position
-if has('nvim')
-    nnoremap <silent> <leader>sg :<C-U>call utils#Extract_hl_group_link()<CR>
-else
-    nnoremap <silent> <leader>sg :<C-U>call utils#SynGroup()<CR>
-endif
+" if has('nvim')
+"     nnoremap <silent> <leader>sg :<C-U>call utils#Extract_hl_group_link()<CR>
+" else
+"     nnoremap <silent> <leader>sg :<C-U>call utils#SynGroup()<CR>
+" endif
 
 " search by surfraw ------------------------------------------------------ {{{2
 noremap  <silent> <leader>ss :<C-U>SR<space>
@@ -238,19 +207,19 @@ nnoremap <silent> <leader>z3 g_a <esc>3a{<esc>a3<esc>
 
 " 快捷标点符号输入 ======================================================= {{{1
 " 成对括号
-inoremap ;) <C-v>uFF08 <C-v>uFF09<C-o>F <c-o>x
+" inoremap ;) <C-v>uFF08 <C-v>uFF09<C-o>F <c-o>x
 " 成对直角引号̀
-inoremap ;] <C-v>u300c <C-v>u300d<C-o>F <c-o>x
+" inoremap ;] <C-v>u300c <C-v>u300d<C-o>F <c-o>x
 " 成对双引号
-inoremap ;} <C-v>u201C <C-v>u201D<C-o>F <c-o>x
+" inoremap ;} <C-v>u201C <C-v>u201D<C-o>F <c-o>x
 " 逗号
-inoremap ;, <C-v>uFF0C
-" 句号
-inoremap ;. <C-v>u3002
-" 顿号
-inoremap ;\ <C-v>u3001
-" 零宽空格
-inoremap ;0 <C-v>u200b
+" inoremap ;, <C-v>uFF0C
+" " 句号
+" inoremap ;. <C-v>u3002
+" " 顿号
+" inoremap ;\ <C-v>u3001
+" " 零宽空格
+" inoremap ;0 <C-v>u200b
 
 " 输入法 ================================================================= {{{1
 inoremap ;<space> ;
