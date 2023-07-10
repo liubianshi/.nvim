@@ -144,7 +144,6 @@ nnoremap <leader>ed :edit ~/Repositories/ssnhd-rime/配置文件/flypy_top.txt<c
 " endif
 
 " search by surfraw ------------------------------------------------------ {{{2
-noremap  <silent> <leader>ss :<C-U>SR<space>
 vnoremap <silent> <c-s>      "0y:<C-U>SR google <C-R>0<CR>
 nnoremap <silent> <c-s>      :<C-U><C-R>=printf("SR google %s", expand("<cword>"))<CR><CR>
 nnoremap <silent> srh        :<C-U><C-R>=printf("SR github %s", expand("<cword>"))<CR><CR>

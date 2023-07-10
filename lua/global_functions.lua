@@ -4,16 +4,16 @@ function _G.extract_hl_group_link(buf, row, col)
     local treesitter = info.treesitter
     local hl_group_links = {}
 
-    for k, v in ipairs(syntax) do
+    for _, v in ipairs(syntax) do
         table.insert(hl_group_links, v.hl_group_link)
     end
 
-    for k, v in ipairs(treesitter) do
+    for _, v in ipairs(treesitter) do
         local hl = string.gsub(v.hl_group_link, "^@", "")
         table.insert(hl_group_links, hl)
     end
 
-    return hl_group_links 
+    return hl_group_links
 end
 
 function _G.set_terminal_keymaps()
@@ -25,4 +25,15 @@ function _G.set_terminal_keymaps()
   -- vim.keymap.set('t', '<C-k>',     [[<Cmd>wincmd k<CR>]], opts)
   -- vim.keymap.set('t', '<C-l>',     [[<Cmd>wincmd l<CR>]], opts)
   -- vim.keymap.set('t', '<C-w>',     [[<C-\><C-n><C-w>]],   opts)
+end
+
+function _G.BufIsBig(bufnr)
+    bufnr = bufnr or 0
+	local max_filesize = 100 * 1024 -- 100 KB
+	local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+	if ok and stats and stats.size > max_filesize then
+		return true
+	else
+		return false
+	end
 end

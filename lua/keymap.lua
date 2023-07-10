@@ -80,17 +80,18 @@ vimkey('<c-h>', 'vertical resize -2',                '<cmd>vertical resize -2<cr
 vimkey('<c-l>', 'vertical resize +2',                '<cmd>vertical resize +2<cr>')
 
 --- edit special files -------------------------------------------------- {{{1
-vimkey('<leader>ev', "Neovim Plugin List", '<cmd>edit ~/.config/nvim/vim/plug.vim<cr>')
-vimkey('<leader>ek', "Neovim Keymap",      '<cmd>edit ~/.config/nvim/vim/keymap.vim<cr>')
-vimkey('<leader>eo', "Neovim Options",     '<cmd>edit ~/.config/nvim/vim/option.vim<cr>')
-vimkey('<leader>er', "R Profile",          '<cmd>edit ~/.Rprofile<cr>')
-vimkey('<leader>es', "Stata profile",      '<cmd>edit ~/.config/stata/profile.do<cr>')
-vimkey('<leader>ez', "Zshrc",              '<cmd>edit ~/.zshrc<cr>')
-vimkey('<leader>eZ', "User Zshrc",         '<cmd>edit ~/useScript/usr.zshrc<cr>')
-vimkey('<leader>ea', "Alias",              '<cmd>edit ~/useScript/alias<cr>')
-vimkey('<leader>eu', "Snippets",           '<cmd>edit ~/.config/nvim/UltiSnips<cr>')
-vimkey('<leader>ed', "Flypy Dictionary",   '<cmd>edit ~/Repositories/ssnhd-rime/配置文件/flypy_top.txt<cr> | exec "normal! G"')
-
+vimkey('<leader>ev', "Neovim Plugin List",  '<cmd>edit ~/.config/nvim/vim/plug.vim<cr>')
+vimkey('<leader>ek', "Neovim Keymap",       '<cmd>edit ~/.config/nvim/vim/keymap.vim<cr>')
+vimkey('<leader>eo', "Neovim Options",      '<cmd>edit ~/.config/nvim/vim/option.vim<cr>')
+vimkey('<leader>er', "R Profile",           '<cmd>edit ~/.Rprofile<cr>')
+vimkey('<leader>es', "Stata profile",       '<cmd>edit ~/.config/stata/profile.do<cr>')
+vimkey('<leader>ez', "Zshrc",               '<cmd>edit ~/.zshrc<cr>')
+vimkey('<leader>eZ', "User Zshrc",          '<cmd>edit ~/useScript/usr.zshrc<cr>')
+vimkey('<leader>ea', "Alias",               '<cmd>edit ~/useScript/alias<cr>')
+vimkey('<leader>eu', "Snippets",            '<cmd>edit ~/.config/nvim/UltiSnips<cr>')
+vimkey('<leader>ed', "Flypy Dictionary",    '<cmd>edit ~/Repositories/ssnhd-rime/配置文件/flypy_top.txt<cr> | exec "normal! G"')
+vimkey('<leader>et', "Open Plan to Do",     '<cmd>edit ~/Documents/Writing/plantodo.norg<cr>')
+vimkey('<leader>eT', "Open todolist (org)", '<cmd>edit ~/Documents/Writing/todo.org<cr>')
 
 
 

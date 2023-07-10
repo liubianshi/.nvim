@@ -14,7 +14,7 @@ require('neorg').setup {
                         '<cmd>Neorg generate-workspace-summary<cr>'
                     )
                     keybinds.map(
-                        'norg', 'n', '<localleader>j', 
+                        'norg', 'n', '<localleader>j',
                         '<cmd>Neorg journal today<cr>'
                     )
                 end,
