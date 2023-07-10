@@ -48,13 +48,14 @@ local function constuct_cmp_source(sources)
         --{ name = 'cmdline' },
         { name = 'nvim_lsp' },
         -- { name = 'latex_symbols' },
-        { name = 'orgmode' },
+        -- { name = 'orgmode' },
         -- { name = 'treesitter' },
         -- { name = 'ctags' }, 
         -- { name = 'vim-dadbod-completion' },
         -- { name = 'omni' },
     })
     local fallback = gen_cmp_source({
+        { name = 'omni' },
         { name = "buffer"}
     })
     return(cmp.config.sources(gen_cmp_source(sources, default), fallback))
@@ -172,7 +173,7 @@ keymap_config["<Tab>"] = cmp.mapping({
             fallback()
         end
     end,
-}) 
+})
 
 -- <CR> ----------------------------------------------------------------- {{{3
 keymap_config['<CR>'] = cmp.mapping(
@@ -183,8 +184,10 @@ keymap_config['<CR>'] = cmp.mapping(
         local first_entry  = cmp.core.view:get_first_entry()
         local entry = select_entry or first_entry
 
-        if not entry then return(fallback()) end
-        
+        if not entry then
+            return(fallback())
+        end
+
         if (entry.source.name == "nvim_lsp" and
             entry.source.source.client.name == "rime_ls") or
            entry.source.name == "flypy" then

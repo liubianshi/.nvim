@@ -25,14 +25,37 @@ require('neorg').setup {
         ["core.promo"] = {},
         ["core.summary"] = {},
         ["core.export" ] = {},
-        ["core.export.markdown"] = {},
+        ["core.export.markdown"] = {
+            config = {
+                extension = 'md',
+                extensions = 'all',
+                ['metadata'] = {
+                    ['end'] = "---",
+                    ['start'] = "---",
+                },
+            },
+        },
         ["core.journal"] = {
             config = {
                 journal_folder = "norg-journal",
                 workspace = "journal",
             }
         },
-        ["core.concealer"] = {},
+        ["core.concealer"] = {
+            config = {
+                icons = {
+                    heading = {
+                        icons = {"", "", "", "", "", ""}
+                    },
+                    ordered = {
+                        icons = { "1", "A", "a", "⑴", "Ⓐ", "ⓐ"},
+                    },
+                    list = {
+                        icons = {"", "", "󰻂", "", "󱥸", ""}
+                    }
+                }
+            }
+        },
         ["core.dirman"] = {
             config = {
                 workspaces = {
@@ -40,7 +63,8 @@ require('neorg').setup {
                     journal = "~/Documents/Writing/journal",
                 }
             }
-        }
+        },
+        ['core.integrations.telescope'] = {},
     }
 }
 
@@ -59,3 +83,22 @@ if status_ok then
         }
     })
 end
+
+--- neorg-telescope -----------------------------------------------------
+local neorg_callbacks = require("neorg.callbacks")
+neorg_callbacks.on_event("core.keybinds.events.enable_keybinds", function(_, keybinds)
+    -- Map all the below keybinds only when the "norg" mode is active
+    keybinds.map_event_to_mode("norg", {
+        n = { -- Bind keys in normal mode
+            { "<localleader>ll", "core.integrations.telescope.find_linkable", opts = { desc = "Find Linkable"} },
+        },
+
+        i = { -- Bind in insert mode
+            { "<localleader><tab>", "core.integrations.telescope.insert_link", opts = { desc = "Insert Link"} },
+        },
+    }, {
+            silent = true,
+        noremap = true,
+    })
+end)
+

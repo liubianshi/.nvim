@@ -615,16 +615,13 @@ Plug.add('mhartington/formatter.nvim', {
 
 -- vim-pandoc/vim-pandoc: pandoc integration and utilities for vim ------ {{{3
 Plug.add('vim-pandoc/vim-pandoc-syntax', {
-    init = function() 
+    init = function()
         vim.g.tex_conceal = "adgm"
         vim.cmd([[
             let g:pandoc#syntax#codeblocks#embeds#langs = [
                         \ "ruby",    "perl",       "r",
                         \ "bash=sh", "stata",      "vim",
                         \ "python",  "perl6=raku", "c"]
-            augroup pandoc_syntax
-                au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-            augroup END
         ]])
     end,
     ft = {'markdown'}
@@ -654,12 +651,14 @@ Plug.add('dhruvasagar/vim-table-mode', {
 -- nvim-neorg/neorg: new org-mode in neovim ----------------------------- {{{3
 Plug.add('nvim-neorg/neorg', {
     build = ":Neorg sync-parsers",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-neorg/neorg-telescope",
+    },
     ft = {'norg'},
     cmd = {'Neorg'},
     keys = {
-        {'<leader>ej', '<cmd>Neorg journal today<cr>',
-         desc = "Open today's journal"}
+        {'<leader>ej', '<cmd>Neorg journal today<cr>', desc = "Open today's journal"}
     }
 })
 

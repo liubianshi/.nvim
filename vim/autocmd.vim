@@ -26,7 +26,9 @@ autocmd InsertLeave,WinEnter *  setlocal cursorline
 autocmd InsertEnter,WinLeave *  setlocal nocursorline
 autocmd TermOpen             *  setlocal nonumber norelativenumber bufhidden=hide
 autocmd FileType   r,stata,vim  call s:FoldMethodSetting()
-autocmd TermOpen      term://*  lua set_terminal_keymaps()
+autocmd TermOpen      term://*  call v:lua.set_terminal_keymaps()
+autocmd FileType   norg,org,markdown,rmd,rmarkdown
+            \ syntax match NonText /​/ conceal
 
 " Fasd ------------------------------------------------------------------ {{{2
 autocmd BufWinEnter,BufFilePost * call <SID>fasd_update()
