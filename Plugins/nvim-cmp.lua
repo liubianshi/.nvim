@@ -32,10 +32,10 @@ local function constuct_cmp_source(sources)
         return(true)
     end
 
-    local function gen_cmp_source(sources, base) 
-        if sources == nil then return base end
+    local function gen_cmp_source(ss, base)
+        if ss == nil then return base end
         base = base or {}
-        for _,v in ipairs(sources) do
+        for _,v in ipairs(ss) do
             if not_exists(v, base) then table.insert(base, v) end
         end
         return(base)
@@ -304,6 +304,10 @@ cmp.setup.filetype('gitcommit', {
 -- Set -- Set configuration for sql
 cmp.setup.filetype('sql', {
     sources = constuct_cmp_source({{name = 'vim-dadbod-completion'}})
+})
+
+cmp.setup.filetype('norg', {
+    sources = constuct_cmp_source({{name = 'neorg'}})
 })
 
 -- -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).

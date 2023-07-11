@@ -89,12 +89,25 @@ vimkey('<leader>ez', "Zshrc",               '<cmd>edit ~/.zshrc<cr>')
 vimkey('<leader>eZ', "User Zshrc",          '<cmd>edit ~/useScript/usr.zshrc<cr>')
 vimkey('<leader>ea', "Alias",               '<cmd>edit ~/useScript/alias<cr>')
 vimkey('<leader>eu', "Snippets",            '<cmd>edit ~/.config/nvim/UltiSnips<cr>')
-vimkey('<leader>ed', "Flypy Dictionary",    '<cmd>edit ~/Repositories/ssnhd-rime/配置文件/flypy_top.txt<cr> | exec "normal! G"')
-vimkey('<leader>et', "Open Plan to Do",     '<cmd>edit ~/Documents/Writing/plantodo.norg<cr>')
-vimkey('<leader>eT', "Open todolist (org)", '<cmd>edit ~/Documents/Writing/todo.org<cr>')
+vimkey('<leader>ed', "Flypy Dictionary",    '<cmd>edit +$ ~/Repositories/ssnhd-rime/配置文件/flypy_top.txt<cr>')
+vimkey('<leader>et', "Open Plan to Do", function()
+    vim.cmd([[
+        edit +$ ~/Documents/Writing/plantodo.norg
+        normal zt<cr>
+    ]])
+end)
+vimkey('<leader>eT', "Open Plan to Do", function()
+    vim.cmd([[
+        edit +$ ~/Documents/Writing/todo.norg
+        normal zt<cr>
+    ]])
+end)
 
-
-
+--- notifications ------------------------------------------------------- {{{1
+vimkey('<leader>nn', "Display Notifications", '<cmd>Notifications<cr>')
+vimkey('<leader>nN', "Redir Notifications",   '<cmd>Redir Notifications<cr>')
+vimkey('<leader>nm', "Display messages",      '<cmd>messages<cr>')
+vimkey('<leader>nM', "Redir messages",        '<cmd>Redir messages<cr>')
 
 
 
