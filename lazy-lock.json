@@ -26,6 +26,7 @@
   "focus.nvim": { "branch": "master", "commit": "3d9df42aa4f9b572348418207b752f81adea09a5" },
   "formatter.nvim": { "branch": "master", "commit": "fa4f2729cc2909db599169f22d8e55632d4c8d59" },
   "fzf-lua": { "branch": "main", "commit": "546e3eb8012f46eb862bcd021598f5f1df8b82bb" },
+  "fzy-lua-native": { "branch": "master", "commit": "820f745b7c442176bcc243e8f38ef4b985febfaf" },
   "graphviz.vim": { "branch": "master", "commit": "773d5a5d014af5ed19ec3f2c182c1a167ff958f2" },
   "gruvbox-baby": { "branch": "main", "commit": "4f45f5182b986ea8099b8ad0207e07f1bc49a47f" },
   "hologram.nvim": { "branch": "main", "commit": "f5194f71ec1578d91b2e3119ff08e574e2eab542" },

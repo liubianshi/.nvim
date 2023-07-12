@@ -7,27 +7,28 @@ local highlights = {
     }),
 },
 
-wilder.setup({modes = {':', '/', '?'}})
+wilder.setup({
+    ['modes'] = {':', '/', '?'},
+    ['enable_cmdline_enter'] = 0,
+})
+
+-- Disable Python remote plugin
+wilder.set_option('use_python_remote_plugin', 0)
+
 wilder.set_option('pipeline', {
   wilder.branch(
     wilder.cmdline_pipeline({
-      language = 'python',
       fuzzy = 1,
-      set_prce2_pattern = 1,
+      fuzzy_filter = wilder.lua_fzy_filter(),
     }),
-    wilder.python_search_pipeline({
-      pattern = wilder.python_fuzzy_pattern(),
-      sorter = wilder.python_difflib_sorter(),
-      engine = 're',
-    })
-  ),
+    wilder.vim_search_pipeline()
+  )
 })
 
 wilder.set_option('renderer', wilder.renderer_mux({
     [':'] = wilder.popupmenu_renderer( wilder.popupmenu_border_theme{
         highlighter = {
-            wilder.lua_pcre2_highlighter(),
-            wilder.basic_highlighter(),
+            wilder.lua_fzy_highlighter(),
         },
         highlights = highlights,
         min_width = '100%',
@@ -40,12 +41,10 @@ wilder.set_option('renderer', wilder.renderer_mux({
         right = {' ', wilder.popupmenu_scrollbar()},
     }),
     ['/'] = wilder.wildmenu_renderer({
-        highlighter = wilder.basic_highlighter(),
-        highlights = highlights,
+        highlighter = wilder.lua_fzy_highlighter(),
     }),
     ['?'] = wilder.wildmenu_renderer({
-        highlighter = wilder.basic_highlighter(),
-        highlights = highlights,
+        highlighter = wilder.lua_fzy_highlighter(),
     }),
 }))
 
