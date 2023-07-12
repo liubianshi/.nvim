@@ -61,6 +61,8 @@ call <SID>RandomTheme()
 " 解决 vim 帮助文件的示例代码的不够突显的问题
 hi def link helpExample Special
 
+highlight MyBorder guifg=#ff7600
+
 " highlight VertSplit      cterm=None gui=None guibg=bg
 " highlight FoldColumn     guibg=bg
 " highlight folded         gui=bold guifg=LightGreen guibg=bg

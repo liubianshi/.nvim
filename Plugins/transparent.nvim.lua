@@ -6,7 +6,7 @@ require("transparent").setup({
     'SignColumn', 'CursorLineNr', 'EndOfBuffer',
   },
   -- table: additional groups that should be cleared
-  extra_groups = {"NormalFloat", "MyBorder"},
+  extra_groups = {},
   exclude_groups = {}, -- table: groups you don't want to clear
 })
 

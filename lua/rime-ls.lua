@@ -148,13 +148,21 @@ function M.setup_rime(opts)
         vim.keymap.set('i', esc, "<cmd>stopinsert<cr>",
             {desc = "Stop insert", noremap = true})
 
-        vim.keymap.set('i', disable, function()
+        vim.keymap.set({'i'}, disable, function()
             vim.cmd("stopinsert")
-            if vim.g.rime_enabled then 
+            if vim.g.rime_enabled then
                 toggle_rime()
             end
             vim.b.rime_enabled = false
             vim.fn.feedkeys("a", "n")
+        end, {desc = "Disable Rime-ls", noremap = true, expr = true})
+
+        vim.keymap.set('n', disable, function()
+            vim.cmd("stopinsert")
+            if vim.g.rime_enabled then
+                toggle_rime()
+            end
+            vim.b.rime_enabled = false
         end, {desc = "Disable Rime-ls", noremap = true, expr = true})
     end
 
@@ -188,7 +196,7 @@ end
 
 
 M.probe_all_passed = function()
-    probes = M.get_probes()
+    local probes = M.get_probes()
     for _,probe in pairs(probes) do
         if probe[2]() then return false end
     end

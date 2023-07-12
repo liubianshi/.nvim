@@ -1,6 +1,7 @@
 -- vim: ft=lua fdm=marker:
+vim.env.FZF_DEFAULT_OPTS = vim.env.FZF_DEFAULT_OPTS .. ' --color=gutter:-1'
+
 local fzflua = require('fzf-lua')
-local mapopts = { silent = true, noremap = true }
 local actions = require "fzf-lua.actions"
 local fileactions = {
             ['default'] = actions.file_edit,
@@ -21,6 +22,9 @@ end
 -- setup ---------------------------------------------------------------- {{{2
 fzflua.setup({
   'telescope',
+  winopts = {
+    border = { '', '', '',  '', '', '', '', {'│', "MyBorder"} },
+  },
   previewers = {
     builtin = {
       extensions = {

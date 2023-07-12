@@ -247,7 +247,13 @@ local cmp_config = {
         completion = {
             border = { '', '', '',  '', '', '', '', {'│', "MyBorder"} },
             winhighlight = "CursorLine:PmenuSel,Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-            col_offset = -3,
+            col_offset = 0,
+            side_padding = 0,
+        },
+        documentation = {
+            border = { '', '', '',  '', '', '', '', {'│', "MyBorder"} },
+            winhighlight = "CursorLine:PmenuSel,Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+            col_offset = 0,
             side_padding = 0,
         },
     },

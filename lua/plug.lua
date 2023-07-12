@@ -120,7 +120,6 @@ Plug.add('ibhagwan/fzf-lua', {
         { "<leader>sT", "<cmd>FzfLua btags<cr>"               , desc = "FzfLua: buffer tags",                           },
         { "<leader>qs", "<cmd>FzfLua quickfix<cr>"            , desc = "FzfLua: quickfix",                              },
         { "<leader>sC", "<cmd>FzfLua colorschemes<cr>"        , desc = "FzfLua: colorschemes",                          },
-        { "<leader>sh", "<cmd>FzfLua help_tags<cr>"           , desc = "FzfLua: vim help tags",                         },
         { "<leader>sl", "<cmd>FzfLua lgrep_curbuf<cr>"        , desc = "FzfLua: Grep current buffer",                   },
         { "<leader>sr", "<cmd>FzfLua grep<cr>"                , desc = "FzfLua: Grep lines",                            },
         { "<leader>sR", "<cmd>FzfLua grep_project<cr>"        , desc = "FzfLua: Grep project",                          },
@@ -144,6 +143,7 @@ Plug.add('nvim-telescope/telescope.nvim', {
         { "<leader>:" , "<cmd>Telescope command_center<cr>",                          desc = "Telescope: Command Center"        },
         { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
         { "<leader>sG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
+        { "<leader>sh" , "<cmd>Telescope help_tags<cr>",                          desc = "Telescope: Vim Helper"        },
         { "<leader>sw", Util.telescope("grep_string"), desc = "Word (root dir)" },
         { "<leader>sW", Util.telescope("grep_string", { cwd = false }), desc = "Word (cwd)" },
         { "<leader>ss", Util.telescope("lsp_document_symbols", {
@@ -233,7 +233,10 @@ Plug.add('andymass/vim-matchup')
 
 -- tpope/vim-commentary: Comment stuff out ------------------------------ {{{3
 Plug.add('tpope/vim-commentary', {
-    cmd = "Commentary", keys = {'gc', 'gcc'}
+    cmd = "Commentary", keys = {
+        {'gc', mode ={'n', 'v', 'x'}},
+        'gcc'
+    }
 })
 
 -- junegunn/vim-easy-align: text alignment tool ------------------------- {{{3
