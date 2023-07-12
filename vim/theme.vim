@@ -63,11 +63,11 @@ hi def link helpExample Special
 
 highlight MyBorder guifg=#ff7600
 
-" highlight VertSplit      cterm=None gui=None guibg=bg
-" highlight FoldColumn     guibg=bg
-" highlight folded         gui=bold guifg=LightGreen guibg=bg
-" highlight SignColumn     guibg=bg
-" highlight LineNr         guibg=bg
+highlight VertSplit      cterm=None gui=None guibg=bg
+highlight FoldColumn     guibg=bg
+highlight folded         gui=bold guifg=LightGreen guibg=bg
+highlight SignColumn     guibg=bg
+highlight LineNr         guibg=bg
 " highlight FloatermBorder guifg=Cyan
 " 
 " 
