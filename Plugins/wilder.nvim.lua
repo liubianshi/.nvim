@@ -8,8 +8,7 @@ local highlights = {
 },
 
 wilder.setup({
-    ['modes'] = {':', '/', '?'},
-    ['enable_cmdline_enter'] = 0,
+    modes = {':', '/', '?'}
 })
 
 -- Disable Python remote plugin
@@ -42,9 +41,11 @@ wilder.set_option('renderer', wilder.renderer_mux({
     }),
     ['/'] = wilder.wildmenu_renderer({
         highlighter = wilder.lua_fzy_highlighter(),
+        highlights = highlights,
     }),
     ['?'] = wilder.wildmenu_renderer({
         highlighter = wilder.lua_fzy_highlighter(),
+        highlights = highlights,
     }),
 }))
 
