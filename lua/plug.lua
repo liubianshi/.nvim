@@ -131,7 +131,10 @@ Plug.add('ibhagwan/fzf-lua', {
 -- nvim-telescope/telescope.nvim: Find, Filter, Preview, Pick ----------- {{{3
 Plug.add('nvim-telescope/telescope.nvim', {
     tag = '0.1.2',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'fhill2/telescope-ultisnips.nvim',
+    },
     keys = {
         { "<leader>ff", Util.telescope("files"),                                      desc = "Telescope: Find Files (root dir)" },
         { "<leader>fF", Util.telescope("files", { cwd = vim.fn.expand('%:p:h') }),    desc = "Telescope: Find Files (cwd)"      },
@@ -141,11 +144,12 @@ Plug.add('nvim-telescope/telescope.nvim', {
         { "<leader>sm", Util.telescope('man_pages'),                                  desc = "Telescope: Man Pages"             },
         { "<leader>fp", "<cmd>Telescope frecency<cr>",                                desc = "Telescope: Frecency"              },
         { "<leader>:" , "<cmd>Telescope command_center<cr>",                          desc = "Telescope: Command Center"        },
-        { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
-        { "<leader>sG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
-        { "<leader>sh" , "<cmd>Telescope help_tags<cr>",                          desc = "Telescope: Vim Helper"        },
-        { "<leader>sw", Util.telescope("grep_string"), desc = "Word (root dir)" },
-        { "<leader>sW", Util.telescope("grep_string", { cwd = false }), desc = "Word (cwd)" },
+        { "<leader>sg", Util.telescope("live_grep"),                                  desc = "Grep (root dir)"                  },
+        { "<leader>sG", Util.telescope("live_grep", { cwd = false }),                 desc = "Grep (cwd)"                       },
+        { "<leader>sh", "<cmd>Telescope help_tags<cr>",                               desc = "Telescope: Vim Helper"            },
+        { "<leader>su", "<cmd>Telescope ultisnips<cr>",                               desc = "Telescope: Ultisnips"             },
+        { "<leader>sw", Util.telescope("grep_string"),                                desc = "Word (root dir)"                  },
+        { "<leader>sW", Util.telescope("grep_string", { cwd = false }),               desc = "Word (cwd)"                       },
         { "<leader>ss", Util.telescope("lsp_document_symbols", {
                 symbols = {
                 "Class",
