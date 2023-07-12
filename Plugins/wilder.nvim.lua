@@ -1,34 +1,21 @@
 local wilder = require('wilder')
+
+local highlighters = {
+  wilder.pcre2_highlighter(),
+  wilder.lua_fzy_highlighter(),
+}
+
 local highlights = {
     accent = wilder.make_hl('WilderAccent', 'Pmenu', {
         {a = 1},
         {a = 1},
         {foreground = vim.fn['utils#GetHlColor']('Identifier', 'fg#'), underline = true}
     }),
-},
+}
 
-wilder.setup({
-    modes = {':', '/', '?'}
-})
-
--- Disable Python remote plugin
-wilder.set_option('use_python_remote_plugin', 0)
-
-wilder.set_option('pipeline', {
-  wilder.branch(
-    wilder.cmdline_pipeline({
-      fuzzy = 1,
-      fuzzy_filter = wilder.lua_fzy_filter(),
-    }),
-    wilder.vim_search_pipeline()
-  )
-})
-
-wilder.set_option('renderer', wilder.renderer_mux({
-    [':'] = wilder.popupmenu_renderer( wilder.popupmenu_border_theme{
-        highlighter = {
-            wilder.lua_fzy_highlighter(),
-        },
+local popupmenu_renderer = wilder.popupmenu_renderer(
+    wilder.popupmenu_border_theme{
+        highlighter = highlighters,
         highlights = highlights,
         min_width = '100%',
         border = {
@@ -38,45 +25,48 @@ wilder.set_option('renderer', wilder.renderer_mux({
         },
         left = {' ', wilder.popupmenu_devicons()},
         right = {' ', wilder.popupmenu_scrollbar()},
+    })
+
+local wildmenu_renderer = wilder.wildmenu_renderer({
+        highlighter = highlighters,
+        separator = ' · ',
+        left = {' ', wilder.wildmenu_spinner(), ' '},
+        right = {' ', wilder.wildmenu_index()},
+})
+
+wilder.setup({ modes = {':', '/', '?'} })
+
+wilder.set_option('pipeline', {
+  wilder.branch(
+    wilder.substitute_pipeline({
+      pipeline = wilder.python_search_pipeline({
+        skip_cmdtype_check = 1,
+        pattern = wilder.python_fuzzy_pattern({
+          start_at_boundary = 0,
+        }),
+      }),
     }),
-    ['/'] = wilder.wildmenu_renderer({
-        highlighter = wilder.lua_fzy_highlighter(),
-        highlights = highlights,
+    wilder.cmdline_pipeline({
+      fuzzy = 2,
+      fuzzy_filter = wilder.lua_fzy_filter(),
     }),
-    ['?'] = wilder.wildmenu_renderer({
-        highlighter = wilder.lua_fzy_highlighter(),
-        highlights = highlights,
-    }),
+    {
+      wilder.check(function(_, x) return x == '' end),
+      wilder.history(),
+    },
+    wilder.python_search_pipeline({
+      pattern = wilder.python_fuzzy_pattern({
+        start_at_boundary = 0,
+      }),
+    })
+  )
+})
+
+wilder.set_option('renderer', wilder.renderer_mux({
+    [':'] = popupmenu_renderer,
+    ['/'] = wildmenu_renderer,
+    ['?'] = wildmenu_renderer,
+    substitute = wildmenu_renderer,
 }))
-
-
--- wilder.set_option('renderer', wilder.renderer_mux({
---     [':'] = wilder.popupmenu_renderer(
---         wilder.popupmenu_palette_theme({
---             border = "rounded",
---             highlighter = {
---                 wilder.lua_pcre2_highlighter(),
---                 wilder.basic_highlighter(),
---             },
---             highlights = highlights,
---             left = { ' ', wilder.popupmenu_devicons() },
---             right = { ' ', wilder.popupmenu_scrollbar() },
---             max_height = '45%',         -- max height of the palette
---             min_height = 0,             -- set to the same as 'max_height' for a fixed height window
---             prompt_position = 'bottom', -- 'top' or 'bottom' to set the location of the prompt
---             reverse = 1,                -- set to 1 to reverse the order of the list, use in combination with 'prompt_position'
---         })
---     ),
-
---     ['/'] = wilder.wildmenu_renderer({
---         highlighter = wilder.basic_highlighter(),
---         highlights = highlights,
---     }),
-
---     ['?'] = wilder.wildmenu_renderer({
---         highlighter = wilder.basic_highlighter(),
---         highlights = highlights,
---     }),
--- }))
 
 
