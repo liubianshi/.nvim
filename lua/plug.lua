@@ -430,6 +430,9 @@ Plug.add('windwp/nvim-autopairs' )
 -- stevearc/dressing.nvim: improve the default vim.ui interfaces -------- {{{3
 Plug.add('stevearc/dressing.nvim', {lazy = true})
 
+-- xiyaowong/transparent.nvim: make nvim transparent -------------------- {{{3
+Plug.add('xiyaowong/transparent.nvim')
+
 -- Tools ---------------------------------------------------------------- {{{2
 -- akinsho/toggleterm.nvim: manage multiple terminal windows ------------ {{{3
 Plug.add('akinsho/toggleterm.nvim', {

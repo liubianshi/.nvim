@@ -57,21 +57,21 @@ function! s:RandomTheme() abort
 endfunction
 call <SID>RandomTheme()
 
+" 用于实现弹出窗口背景透明
 " 解决 vim 帮助文件的示例代码的不够突显的问题
 hi def link helpExample Special
 
-highlight VertSplit      cterm=None gui=None guibg=bg
-highlight FoldColumn     guibg=bg
-highlight folded         gui=bold guifg=LightGreen guibg=bg
-highlight SignColumn     guibg=bg
-highlight LineNr         guibg=bg
-highlight FloatermBorder guifg=Cyan
+" highlight VertSplit      cterm=None gui=None guibg=bg
+" highlight FoldColumn     guibg=bg
+" highlight folded         gui=bold guifg=LightGreen guibg=bg
+" highlight SignColumn     guibg=bg
+" highlight LineNr         guibg=bg
+" highlight FloatermBorder guifg=Cyan
+" 
+" 
+" " 用于实现透明效果
+" highlight Normal      ctermbg=none guibg=none
+" highlight NonText     ctermbg=none guibg=none
+" highlight EndOfBuffer ctermbg=none guibg=none
 
 
-" 用于实现透明效果
-highlight Normal      ctermbg=none guibg=none
-highlight NonText     ctermbg=none guibg=none
-highlight EndOfBuffer ctermbg=none guibg=none
-
-" 用于实现弹出窗口背景透明
-highlight! Pmenu guibg=NONE guifg=#569CD6

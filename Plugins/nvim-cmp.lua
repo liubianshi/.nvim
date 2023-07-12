@@ -4,6 +4,7 @@ local compare                = require('cmp.config.compare')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 local rimels                 = require("rime-ls")
 
+
 -- helper_functions ----------------------------------------------------- {{{2
 local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -233,6 +234,7 @@ local sorting_config = {
 }
 -- cmp_config ----------------------------------------------------------- {{{2
 local cmp_config = {
+    view = 'native',
     menu = {},
     completion = { keyword_length = 1 },
     sorting = sorting_config,
@@ -242,21 +244,12 @@ local cmp_config = {
         end,
     },
     window = {
-        completion = cmp.config.window.bordered({
+        completion = {
+            border = { '', '', '',  '', '', '', '', {'│', "MyBorder"} },
             winhighlight = "CursorLine:PmenuSel,Normal:Pmenu,FloatBorder:Pmenu,Search:None",
             col_offset = -3,
             side_padding = 0,
-        }),
-        documentation = cmp.config.window.bordered({
-            winhighlight = "CursorLine:PmenuSel,Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-            col_offset = -3,
-            side_padding = 0,
-        }),
-        -- completion = {
-        --     winhighlight = "CursorLine:PmenuSel,Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-        --     col_offset = -3,
-        --     side_padding = 0,
-        -- },
+        },
     },
     formatting = {
         fields = { "kind", "abbr", "menu" },
@@ -337,5 +330,5 @@ cmp.setup.filetype('norg', {
 --         { name = 'cmdline' }
 --     })
 -- })
-
 -- vim: set fdm=marker: ------------------------------------------------- {{{1
+
