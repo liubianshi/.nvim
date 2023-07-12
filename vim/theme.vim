@@ -73,4 +73,5 @@ highlight Normal      ctermbg=none guibg=none
 highlight NonText     ctermbg=none guibg=none
 highlight EndOfBuffer ctermbg=none guibg=none
 
-
+" 用于实现弹出窗口背景透明
+highlight! Pmenu guibg=NONE guifg=#569CD6
