@@ -10,22 +10,25 @@ local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-local get_word_before = function(s, l)
-    l = l or 1
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    if col < s or s < l then
-        return nil
-    end
-    local line_content = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
-    return line_content:sub(col - s + 1, col - s + l)
+local feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(t(key), mode, true)
 end
 
-local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(
-        vim.api.nvim_replace_termcodes(key, true, false, true),
-        mode,
-        true)
+local input_method_take_effect = function(entry, method)
+    if not entry then return(false) end
+
+    method = method or "rime-ls"
+    if method == "rime-ls" then
+        if entry.source.name == "nvim_lsp" and
+           entry.source.source.client.name == "rime_ls" and
+           rimels.probe_all_passed() then
+            return true
+        else
+            return false
+        end
+    end
 end
+
 
 -- source config functions ---------------------------------------------- {{{2
 local function constuct_cmp_source(sources)
@@ -150,10 +153,7 @@ keymap_config["<Space>"] = cmp.mapping(
             else
                 cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = false})
             end
-        elseif first_entry.source.name == "nvim_lsp" and
-               first_entry.source.source.client.name == "rime_ls" and
-               rimels.probe_all_passed() then
-            -- vim.notify(vim.inspect(first_entry.source.source))
+        elseif input_method_take_effect(first_entry) then
             cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
         elseif first_entry.source.name == "flypy" then
             cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
