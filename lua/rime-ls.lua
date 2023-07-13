@@ -13,14 +13,14 @@ end
 M.probes = {
     {
         "probe_punctuation_after_half_symbol", function()
-            local word_pre1 = get_word_before(1,1) 
-            local word_pre2 = get_word_before(2,1) 
-            if not word_pre1:match("[%p]") then
+            local word_pre1 = get_word_before(1,1)
+            local word_pre2 = get_word_before(2,1)
+            if not (word_pre1 and word_pre1:match("[%p]")) then
                 return false
             elseif not word_pre2 or word_pre2:match("[%w%p%s]") then
                 return true
             else
-                return false 
+                return false
             end
         end
     },
@@ -98,15 +98,22 @@ function M.setup_rime(opts)
         -- command for toogle 
         vim.api.nvim_create_user_command(
             'ToggleRime',
-            function() 
-                if vim.g.input_method_framework == 'rime-ls' then
-                    toggle_rime()
-                else
+            function(opt)
+                if vim.g.input_method_framework ~= 'rime-ls' then
                     error_rime_ls_not_start_yet()
+                    return 0
+                end
+                local args = opt.args
+                if not args or
+                   (args ~= 'on' and args ~= 'off') or
+                   (args == "on" and not vim.g.rime_enabled) or
+                   (args == "off" and vim.g.rime_enabled) then
+                    toggle_rime()
                 end
             end,
-            { nargs = 0}
+            { nargs = '?', desc = "Toggle Rime"}
         )
+
         -- command sync
         vim.api.nvim_create_user_command(
             'RimeSync',
@@ -131,7 +138,6 @@ function M.setup_rime(opts)
         local start   = (opts.keys and opts.keys.start)   or ";f"
         local stop    = (opts.keys and opts.keys.stop)    or ";;"
         local esc     = (opts.keys and opts.keys.esc)     or ";j"
-        local disable = (opts.keys and opts.keys.disable) or ";:"
         vim.keymap.set('i', start, function()
             vim.cmd("stopinsert")
             if not vim.g.rime_enabled then
@@ -142,28 +148,16 @@ function M.setup_rime(opts)
         end, {desc = "Start Chinese Input Method", noremap = true})
 
         vim.keymap.set('i', stop, function()
-            vim.b.rime_enabled = false
-        end, {desc = "Stop Chinese Input Method", noremap = true, expr = true})
-
-        vim.keymap.set('i', esc, "<cmd>stopinsert<cr>",
-            {desc = "Stop insert", noremap = true})
-
-        vim.keymap.set({'i'}, disable, function()
             vim.cmd("stopinsert")
             if vim.g.rime_enabled then
                 toggle_rime()
             end
             vim.b.rime_enabled = false
             vim.fn.feedkeys("a", "n")
-        end, {desc = "Disable Rime-ls", noremap = true, expr = true})
+        end, {desc = "Stop Chinese Input Method", noremap = true, expr = true})
 
-        vim.keymap.set('n', disable, function()
-            vim.cmd("stopinsert")
-            if vim.g.rime_enabled then
-                toggle_rime()
-            end
-            vim.b.rime_enabled = false
-        end, {desc = "Disable Rime-ls", noremap = true, expr = true})
+        vim.keymap.set('i', esc, "<cmd>stopinsert<cr>",
+            {desc = "Stop insert", noremap = true})
     end
 
     -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -208,36 +202,35 @@ M.get_probes = function()
 end
 
 M.auto_toggle_rime_ls_with_space = function()
-    if not vim.g.rime_enabled then return 0 end
+    if not vim.b.rime_enabled then return 0 end
+
     local word_before = get_word_before(1, 1)
     if not word_before then return 0 end
     if word_before == " " then
         return 0
     elseif word_before:match("[%w%p]") then
-        vim.b.rime_enabled = true
+        vim.cmd("ToggleRime on")
         return 1
     else
-        vim.b.rime_enabled = false
+        vim.cmd("ToggleRime off")
         return 2
     end
 end
 
 M.auto_toggle_rime_ls_with_backspace = function()
-    if not vim.g.rime_enabled then return 0 end
+    if not vim.b.rime_enabled then return 0 end
+
     local word_before_1 = get_word_before(1, 1)
     local word_before_2 = get_word_before(2, 1)
-    if not word_before_1 or not word_before_2 or word_before_2 == " " then
+    if not word_before_1 or word_before_1 ~= " "  or not word_before_2 or word_before_2 == " " then
         return 0
     end
-    if word_before_2:match("[%w%p]") then
-        if word_before_1 == " " then
-            vim.b.rime_enabled = false
-        end
+    local is_ascii_before = word_before_2:match("[%w%p]")
+    if is_ascii_before then
+        vim.cmd("ToggleRime off")
         return 1
     else
-        if word_before_1 == " " then
-            vim.b.rime_enabled = true 
-        end
+        vim.cmd("ToggleRime on")
         return 2
     end
 end

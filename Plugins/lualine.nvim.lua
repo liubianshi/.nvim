@@ -253,12 +253,12 @@ ins_right_inactive {'location'}
 -- rime-ls status
 ins_right({
   function()
-    if vim.g.rime_enabled and vim.b.rime_enabled then
+    if vim.b.rime_enabled and vim.g.rime_enabled then
       return 'ㄓ(on)'
-    elseif vim.g.rime_enabled then
+    elseif vim.b.rime_enabled then
       return 'ㄓ(off)'
     else
-      return '▊' 
+      return '▊'
     end
   end,
   color = {fg = colors.orange},
