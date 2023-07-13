@@ -47,7 +47,11 @@ local function constuct_cmp_source(sources)
         { name = 'async_path', option = { trailing_slash = true }},
         --{ name = 'nvim_lsp_signature_help' },
         --{ name = 'cmdline' },
-        { name = 'nvim_lsp' },
+        {
+            name = 'nvim_lsp',
+            keyword_length = 1,
+            keyword_pattern = '[-,.?!$<>A-Za-z]\\+',
+        },
         -- { name = 'latex_symbols' },
         -- { name = 'orgmode' },
         -- { name = 'treesitter' },
@@ -203,14 +207,16 @@ keymap_config['<CR>'] = cmp.mapping(
     {"i", "s"}
 )
 
--- <bs> ----------------------------------------------------------
+-- <bs> ---------------------------------------------------------- {{{3
 keymap_config['<BS>'] = cmp.mapping(
     function(fallback)
         if not cmp.visible() then
             local re = rimels.auto_toggle_rime_ls_with_backspace()
-            fallback()
             if re == 1 then
-                cmp.complete()
+                local bs = vim.api.nvim_replace_termcodes("<bs>", true, false, true)
+                vim.api.nvim_feedkeys(bs, 'n', false)
+            else
+                fallback()
             end
         else
             fallback()
@@ -236,7 +242,7 @@ local sorting_config = {
 local cmp_config = {
     view = 'native',
     menu = {},
-    completion = { keyword_length = 1 },
+    completion = { keyword_length = 2 },
     sorting = sorting_config,
     snippet = {
         expand = function(args)
