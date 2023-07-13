@@ -404,6 +404,16 @@ Plug.add('zhimsel/vim-stay', {
 -- Konfekt/FastFold: updating folds only when called-for ---------------- {{{3
 Plug.add('Konfekt/FastFold')
 
+-- kevinhwang91/nvim-ufo: ultra fold in Neovim -------------------------- {{{3
+Plug.add('kevinhwang91/nvim-ufo', {
+    dependencies = 'kevinhwang91/promise-async',
+    init = function()
+        vim.o.foldcolumn = '1' -- '0' is not bad
+        vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+        vim.o.foldlevelstart = 99
+        vim.o.foldenable = true
+    end,
+})
 -- vim-voom/VOoM: vim Outliner of Markups ------------------------------- {{{3
 Plug.add('vim-voom/VOoM', {
     cmd = "Voom",
@@ -446,7 +456,7 @@ Plug.add('akinsho/toggleterm.nvim', {
     version = "*",
     cmd = "ToggleTerm",
     keys = {
-        {   
+        {
             "<space><space>", "<cmd>ToggleTerm<cr>",
             desc = "Toogle Terminal",
             noremap = true,
@@ -593,7 +603,7 @@ else
         Plug.add(k, {lazy = true})
     end
     Plug.add('liubianshi/cmp-zotcite', {
-        dependencies = "jalvesaq/zotcite", 
+        dependencies = "jalvesaq/zotcite",
     })
     table.insert(cmp_dependencies, 'liubianshi/cmp-zotcite')
     Plug.add('jalvesaq/cmp-nvim-r', {
