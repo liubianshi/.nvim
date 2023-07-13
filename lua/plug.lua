@@ -478,8 +478,9 @@ Plug.add('liubianshi/vimcmdline' )
 -- potamides/pantran.nvim: trans without leave neovim ------------------- {{{3
 Plug.add('potamides/pantran.nvim', {
     keys = {
-        {'<leader>tr', mode = {'x', 'n'}},
-        {'<leader>trr', mode = {'n'}}
+        {'<leader>tr', mode = {'x', 'n'}, desc = "Pantran: translate"},
+        {'<leader>trr', mode = {'n'}, desc = "Pantran: translate"},
+        {'<leader>T', "<cmd>Pantran target=en<cr>", desc = "Pantran: to English", mode = {'n', 'v'}},
     }
 })
 

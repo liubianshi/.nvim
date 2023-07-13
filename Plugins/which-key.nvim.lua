@@ -13,9 +13,6 @@ wk.register({
     ["w"] = { name = "+window"},
     ["<leader>"] = { -- <leader>/<space> -------------------------------- {{{2
         ["."] = "Open File",
-        ["<leader>:"] = {
-            name = "Command",
-        },
         ["a"] = {
             name = "Attach",
             ["*"] = "Attach Symbol *",
@@ -24,9 +21,7 @@ wk.register({
             ["."] = "Attach Symbol .",
         },
         ["b"] = { name = "+buffer", },
-        ["c"] = {
-            name = "Code Operater",
-        },
+        ["c"] = { name = "Code Operater", },
         ["d"] = { name = "diff" },
         ["e"] = { -- <leader>e Edit File -------------------------------- {{{3
             name = "+EditFile",
@@ -52,11 +47,10 @@ wk.register({
             ["r"] = "Grep Project",
             ["t"] = "Tags in Project",
         },
-        ["q"] = { name = "Quickfix"},
-        ["s"] = { name = "Search" },
-        ["t"] = { name = "Tab" },
-        ["T"] = { name = "Translate" },
-        ["w"] = { name = "Wndow" },
+        ["q"] = { name = "+Quickfix"},
+        ["s"] = { name = "+Search" },
+        ["t"] = { name = "+Tab" },
+        ["w"] = { name = "+Window" },
         ["x"] = { name = "+Trouble" },
         ["z"] = { name = "+Fold" },
     },

@@ -47,13 +47,17 @@ vimkey('<leader>og', 'Display Highlight Group', function()
 end)
 
 --- insert special symbol ----------------------------------------------- {{{1
-vimkey('<localleader>)',  "Chinese Punctuation: Paired parentheses",        '<C-v>uFF08 <C-v>uFF09<C-o>F <c-o>x', {mode = 'i'})
-vimkey('<localleader>]',  "Chinese Punctuation: Paired right angle quotes", '<C-v>u300c <C-v>u300d<C-o>F <c-o>x', {mode = 'i'})
-vimkey('<localleader>}',  "Chinese Punctuation: Paired double quotes",      '<C-v>u201C <C-v>u201D<C-o>F <c-o>x', {mode = 'i'})
-vimkey('<localleader>,',  "Chinese Punctuation: Comma",                     '<C-v>uFF0C',                         {mode = 'i'})
-vimkey('<localleader>.',  "Chinese Punctuation: Period",                    '<C-v>u3002',                         {mode = 'i'})
-vimkey('<localleader>\\', "Chinese Punctuation: Dun Hao",                   '<C-v>u3001',                         {mode = 'i'})
-vimkey('<localleader>0',  "Special Symbol: zero-width spaces",              '<C-v>u200b',                         {mode = 'i'})
+vimkey('<localleader>0',  "Special Symbol: zero-width spaces", '<C-v>u200b',                         {mode = 'i'})
+vimkey('<localleader>)',  "Chinese Punctuation: （I）",        '<C-v>uFF08 <C-v>uFF09<C-o>F <c-o>x', {mode = 'i'})
+vimkey('<localleader>]',  "Chinese Punctuation: 「I」",        '<C-v>u300c <C-v>u300d<C-o>F <c-o>x', {mode = 'i'})
+vimkey('<localleader>}',  "Chinese Punctuation: “I”",          '<C-v>u201C <C-v>u201D<C-o>F <c-o>x', {mode = 'i'})
+vimkey('<localleader>,',  "Chinese Punctuation: ，",           '<C-v>uFF0C',                         {mode = 'i'})
+vimkey('<localleader>.',  "Chinese Punctuation: 。",           '<C-v>u3002',                         {mode = 'i'})
+vimkey('<localleader>\\', "Chinese Punctuation: 、",           '<C-v>u3001',                         {mode = 'i'})
+vimkey('<localleader>?',  "Special Punctuation: ？",           '<C-v>uff1f',                          {mode = 'i'})
+vimkey('<localleader>-',  "Special Punctuation: —",            '<C-v>u2014',                          {mode = 'i'})
+
+
 
 --- window manager ------------------------------------------------------ {{{1
 vimkey('w0',    'Window: Suitable Width',            '<cmd>88wincmd |<cr>')
