@@ -21,7 +21,10 @@ local get_word_before = function(s, l)
 end
 
 local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+  vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes(key, true, false, true),
+        mode,
+        true)
 end
 
 -- source config functions ---------------------------------------------- {{{2
@@ -50,7 +53,7 @@ local function constuct_cmp_source(sources)
         {
             name = 'nvim_lsp',
             keyword_length = 1,
-            keyword_pattern = '[-,.?!$<>A-Za-z]\\+',
+            keyword_pattern = '[-,.?!$<>A-Za-z0-9]\\+',
         },
         -- { name = 'latex_symbols' },
         -- { name = 'orgmode' },
@@ -116,7 +119,7 @@ for numkey = 2,9 do
     local numkey_str = tostring(numkey)
     keymap_config[numkey_str] = cmp.mapping(
         function(fallback)
-            if not cmp.visible() or not vim.g.rime_enabled then
+            if not cmp.visible() or not vim.b.rime_enabled then
                 return fallback()
             end
             cmp.close()
