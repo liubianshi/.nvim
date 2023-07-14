@@ -359,6 +359,7 @@ Plug.add('easymotion/vim-easymotion', {
     end,
     dependencies = {'zzhirong/vim-easymotion-zh'},
     keys = {
+        { '<localleader>s',  '<esc><Plug>(easymotion-sl)', mode = {'i'}, desc = 'EasyMotion: Find Char (current line)'},
         { 's.',  '<Plug>(easymotion-repeat)', desc = 'EasyMotion: Repeat last motion'},
         { 'sc',  '<Plug>(easymotion-s2)',     desc = 'EasyMotion: Search for 2 chars'},
         { 'sl',  '<Plug>(easymotion-sl)',     desc = 'EasyMotion: Find Char (current line)'},
