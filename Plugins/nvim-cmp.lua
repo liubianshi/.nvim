@@ -29,6 +29,13 @@ local input_method_take_effect = function(entry, method)
     end
 end
 
+local rimels_auto_upload = function(entries)
+    if #entries == 1 then
+        if input_method_take_effect(entries[1]) then
+            cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
+        end
+    end
+end
 
 -- source config functions ---------------------------------------------- {{{2
 local function constuct_cmp_source(sources)
@@ -118,6 +125,15 @@ local keymap_config = {
 }
 
 -- number --------------------------------------------------------------- {{{3
+keymap_config['0'] = cmp.mapping(
+    function(fallback)
+        if not cmp.visible() or not vim.b.rime_enabled then
+            return fallback()
+        elseif rimels_auto_upload(cmp.core.view:get_entries()) then
+            cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
+        end
+    end, {'i'}
+)
 for numkey = 2,9 do
     local numkey_str = tostring(numkey)
     keymap_config[numkey_str] = cmp.mapping(
@@ -125,10 +141,10 @@ for numkey = 2,9 do
             if not cmp.visible() or not vim.b.rime_enabled then
                 return fallback()
             end
-            cmp.close()
+            cmp.mapping.close()
             feedkey(numkey_str, "n")
             cmp.complete()
-            feedkey("<Space>", "m")
+            feedkey('0', "m")
         end,
         {"i"}
     )
@@ -345,5 +361,7 @@ cmp.setup.filetype('norg', {
 --         { name = 'cmdline' }
 --     })
 -- })
+
+
 -- vim: set fdm=marker: ------------------------------------------------- {{{1
 
