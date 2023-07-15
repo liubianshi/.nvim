@@ -647,7 +647,7 @@ Plug.add('vim-pandoc/vim-pandoc-syntax', {
                         \ "python",  "perl6=raku", "c"]
         ]])
     end,
-    ft = {'markdown'}
+    ft = {'markdown', 'pandoc', 'markdown.pandoc'}
 })
 -- Plug.add('vim-pandoc/vim-pandoc', {
 --     dependencies = {'vim-pandoc/vim-pandoc-syntax'},

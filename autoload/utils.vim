@@ -529,6 +529,7 @@ function! utils#MdPreview(method = "FocusSplitDown") range  abort
         let outfile = shellescape(stdpath('cache') . "/vim_markdown_preview.png")
         let command = "mdviewer --wname " . sha256(expand('.')) . 
                     \ " --outfile " . outfile . " --bg '" . bg . "'"
+        Lazy! load asyncrun.vim
         call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command, 1, a:firstline, a:lastline)
         return
     endif

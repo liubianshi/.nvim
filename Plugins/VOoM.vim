@@ -1,5 +1,6 @@
 let g:voom_ft_modes = {
             \ 'markdown': 'pandoc',
+            \ 'markdown.pandoc': 'pandoc',
             \ 'rmd': 'pandoc',
             \ 'rnoweb': 'latex',
             \ 'pandoc': 'pandoc',
