@@ -10,6 +10,7 @@ local fileactions = {
             ["ctrl-t"]  = actions.file_tabedit,
             ["alt-q"]   = actions.file_sel_to_qf,
 }
+
 local fzfmap = function(key, desc, cmd, mode)
     mode = mode or 'n'
     vim.keymap.set(mode, key, cmd, {
@@ -23,7 +24,15 @@ end
 fzflua.setup({
   'telescope',
   winopts = {
-    border = { '', '', '',  '', '', '', '', {'│', "MyBorder"} },
+    -- help nvim_open_win()
+    --[ "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" ]
+    border = { '', {'═', "MyBorder"}, '', '', '', '', '', ''},
+    preview = {
+     scrollchars = {'│', ''},
+      winopts = {
+        border = { '', {'═', "MyBorder"}, '', '', '', '', '', ''},
+      },
+    },
   },
   previewers = {
     builtin = {
@@ -245,32 +254,41 @@ vim.api.nvim_create_user_command('Shelp', function(opts)
     end, { nargs = '*' })
 
 -- asynctasks ----------------------------------------------------------- {{{2
-fzfmap('<leader>ot', "Run async tasks", function()
-    --local tasks = {{name = "file-run", scope = "<global>", command = "test"}}
-    tasks = vim.fn['asynctasks#list']('')
-    local tasktable = {}
-    for i, b in ipairs(tasks) do
-        tasktable[i] = b['name'] .. '  <' .. b['scope'] .. '>  : ' .. b['command']
-    end
-    require'fzf-lua'.fzf_exec(tasktable, {
+-- From:
+-- https://github.com/skywind3000/asynctasks.vim/wiki/UI-Integration
+fzfmap('<leader>ot', 'Run async tasks', function()
+    local rows = vim.fn['asynctasks#source'](vim.go.columns * 48 / 100)
+    fzflua.fzf_exec(function(cb)
+      for _, e in ipairs(rows) do
+        local color = fzflua.utils.ansi_codes
+        local line = color.green(e[1]) .. ' ' .. color.cyan(e[2]) .. ': ' .. color.yellow(e[3])
+        cb(line)
+      end
+      cb()
+    end,
+      {
+        actions = {
+          ['default'] = function(selected)
+            local str = fzflua.utils.strsplit(selected[1], ' ')
+            local command = 'AsyncTask ' .. vim.fn.fnameescape(str[1]);
+            vim.api.nvim_exec(command, false)
+          end
+        },
         fzf_opts = {
-            ['--no-multi'] = '',
-            ['--preview-window'] = 'hidden',
+          ["--no-multi"] = '',
+          ['--preview-window'] = 'hidden',
+          ["--nth"]      = '1',
         },
         winopts = {
-            height           = 0.25,
-            width            = 0.55,
-            row              = 0.45,
-            col              = 0.50,
-        },
-        actions = {
-            ['default'] = function(selected, opts)
-                local name = string.gsub(selected[1], "%s+<.*", '')
-                vim.cmd('AsyncTask ' .. name)
-            end,
+          height = 0.6,
+          width = 0.6,
         }
-    })
-end)
+      })
+  end)
+
+
+
+
 
 -- vim command fuzzy search --------------------------------------------- {{{2
 fzfmap('<A-x>', "Command", function()

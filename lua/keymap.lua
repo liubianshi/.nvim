@@ -28,12 +28,12 @@ vimkey('<leader>bq', 'Quit Buffer', '<cmd>q<cr>')
 vimkey('<leader>bQ', 'Quit Buffer (force)', '<cmd>q!<cr>')
 
 --- tab ----------------------------------------------------------------- {{{1
-vimkey('<tab><tab>', 'Tab: New', '<cmd>tabnew<cr>')
-vimkey('<tab>x', 'Tab: Close', '<cmd>tabclose<cr>')
-vimkey('<tab>n', 'Tab: Next', '<cmd>tabnext<cr>')
-vimkey('<tab>p', 'Tab: Previous', '<cmd>tabprevious<cr>')
-vimkey('<tab>P', 'Tab: First', '<cmd>tabfirst<cr>')
-vimkey('<tab>N', 'Tab: Last', '<cmd>tablast<cr>')
+vimkey('<leader>tt', 'Tab: New', '<cmd>tabnew<cr>')
+vimkey('<leader>tx', 'Tab: Close', '<cmd>tabclose<cr>')
+vimkey('<leader>tn', 'Tab: Next', '<cmd>tabnext<cr>')
+vimkey('<leader>tp', 'Tab: Previous', '<cmd>tabprevious<cr>')
+vimkey('<leader>tP', 'Tab: First', '<cmd>tabfirst<cr>')
+vimkey('<leader>tN', 'Tab: Last', '<cmd>tablast<cr>')
 
 --- translate ----------------------------------------------------------- {{{1
 vimkey('L', 'Translate', 'utils#Trans2clip()', {

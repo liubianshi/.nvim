@@ -134,6 +134,8 @@ Plug.add('nvim-telescope/telescope.nvim', {
     dependencies = {
         'nvim-lua/plenary.nvim',
         'fhill2/telescope-ultisnips.nvim',
+        'FeiyouG/command_center.nvim',
+        "nvim-telescope/telescope-frecency.nvim"
     },
     keys = {
         { "<leader>ff", Util.telescope("files"),                                      desc = "Telescope: Find Files (root dir)" },
@@ -188,10 +190,7 @@ Plug.add('nvim-telescope/telescope-fzf-native.nvim', {
             '&& cmake --install build --prefix build',
     lazy  = true,
 })
-Plug.add('FeiyouG/command_center.nvim', {
-    dependencies= 'nvim-telescope/telescope.nvim',
-    lazy = true,
-})
+Plug.add('FeiyouG/command_center.nvim', { lazy = true, })
 Plug.add("nvim-telescope/telescope-frecency.nvim", {
     dependencies = {"kkharji/sqlite.lua"},
     lazy = true,
@@ -311,7 +310,7 @@ Plug.add('rcarriga/nvim-notify', {
     init = function() vim.notify = require('notify') end,
 })
 
---- folke/flash.nvim: Navigate tools ------------------------------------ {{{3
+-- folke/flash.nvim: Navigate tools ------------------------------------- {{{3
 Plug.add("folke/flash.nvim", {
   event = "VeryLazy",
   keys = {
@@ -388,10 +387,7 @@ Plug.add('folke/which-key.nvim', {event = "VeryLazy"})
 
 -- yianwillis/vimcdoc: Chinese version of vim documents ----------------- {{{3
 Plug.add('yianwillis/vimcdoc', {
-    keys = {
-        {'<F1>', '<cmd>FzfLua help_tags<cr>', mode = 'n'},
-        {'<leader>sh', '<cmd>FzfLua help_tags<cr>', mode = 'n'},
-    },
+    keys = { '<F1>', '<leader>sh' },
     event = {'CmdwinEnter', 'CmdlineEnter'},
 })
 

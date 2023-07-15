@@ -1,8 +1,19 @@
 local lspconfig = require('lspconfig')
 local util = require 'lspconfig.util'
-local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '[d',       vim.diagnostic.goto_prev,  opts)
-vim.keymap.set('n', ']d',       vim.diagnostic.goto_next,  opts)
+local lspmap = function(key, desc, cmd, opts)
+    opts = opts or {}
+    local mode = opts.mode or 'n'
+    opts.mode = nil
+    opts = vim.tbl_extend("keep", opts or {}, {
+        desc = "LSP: " .. desc,
+        silent = true,
+        noremap = true,
+    })
+    vim.keymap.set(mode, key, cmd, opts)
+end
+lspmap('[d', "Jump to previous diagnostic", vim.diagnostic.goto_prev)
+lspmap(']d', "Jump to next diagnostic",     vim.diagnostic.goto_next)
+
 -- vim.keymap.set('n', '<space>te', vim.diagnostic.open_float, opts)
 -- vim.keymap.set('n', '<space>tq', vim.diagnostic.setloclist, opts)
 
@@ -11,30 +22,24 @@ local on_attach_custom = function(_, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
-    vim.keymap.set('n', 'gD',        vim.lsp.buf.declaration,             bufopts)
-    vim.keymap.set('n', 'gd',        vim.lsp.buf.definition,              bufopts)
-    vim.keymap.set('n', 'gk',        vim.lsp.buf.hover,                   bufopts)
-    vim.keymap.set('n', 'gi',        vim.lsp.buf.implementation,          bufopts)
-    vim.keymap.set('n', '<C-k>',     vim.lsp.buf.signature_help,          bufopts)
-    -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder,    bufopts)
-    -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    -- vim.keymap.set('n', '<space>wl', function()
-    --     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    -- end, bufopts)
-    -- vim.keymap.set('n', '<space>D',  vim.lsp.buf.type_definition,         bufopts)
-    -- vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename,                  bufopts)
-    -- vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action,             bufopts)
-    vim.keymap.set('n', 'gr',        vim.lsp.buf.references,              bufopts)
-    -- vim.keymap.set('n', '<space>f',  function()
-    --     vim.lsp.buf.format { async = true }
-    -- end, bufopts)
+    local bufopts = { buffer=bufnr }
+    lspmap('gD', "Declaration",    vim.lsp.buf.declaration,    bufopts)
+    lspmap('gd', "Definition",     vim.lsp.buf.definition,     bufopts)
+    lspmap('gr', "References",     vim.lsp.buf.references,     bufopts)
+    lspmap('<leader>cr', "Rename",         vim.lsp.buf.rename,         bufopts)
+    lspmap('gi', "Implementation", vim.lsp.buf.implementation, bufopts)
+    lspmap('gk', "Hover",          vim.lsp.buf.hover,          bufopts)
+    lspmap('gK', "Signature_help", vim.lsp.buf.signature_help, bufopts)
 end
-local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-local capabilities
-if status_ok then
-   capabilities = cmp_nvim_lsp.default_capabilities()
-end
+
+local capabilities = (function()
+    local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+    if status_ok then
+        return cmp_nvim_lsp.default_capabilities()
+    else
+        return nil
+    end
+end)()
 
 -- bashls (bash-language-server) ---------------------------------------- {{{2
 lspconfig.bashls.setup{

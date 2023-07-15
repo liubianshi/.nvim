@@ -6,7 +6,7 @@ require("transparent").setup({
     'SignColumn', 'CursorLineNr', 'EndOfBuffer',
   },
   -- table: additional groups that should be cleared
-  extra_groups = {},
+  extra_groups = {'FzfLuaPreviewBorder', 'FzfLuaPreviewNormal'},
   exclude_groups = {}, -- table: groups you don't want to clear
 })
 

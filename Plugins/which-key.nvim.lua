@@ -37,19 +37,12 @@ wk.register({
             ["c"] = "Insert Citation",
         },
         -- ["m"] = { name = "+MultVisual" },
-        ["o"] = {
-            name = "Open Command"
-        },
-        ["p"] = {
-            name = "Project",
-            ["d"] = "LSP Document Symbols in Project",
-            ["p"] = "Change Project",
-            ["r"] = "Grep Project",
-            ["t"] = "Tags in Project",
-        },
+        ["n"] = { name = "Notification"},
+        ["o"] = { name = "Open Command" },
+        ["p"] = { name = "Project" },
         ["q"] = { name = "+Quickfix"},
         ["s"] = { name = "+Search" },
-        ["t"] = { name = "+Tab" },
+        ["t"] = { name = "+Tab/Translate" },
         ["w"] = { name = "+Window" },
         ["x"] = { name = "+Trouble" },
         ["z"] = { name = "+Fold" },
