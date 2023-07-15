@@ -739,6 +739,7 @@ Plug.add('nvim-treesitter/nvim-treesitter', {
     event = {'BufReadPost', "BufNewFile"}
 })
 
+-- AckslD/nvim-FeMaco.lua: Fenced Markdown Code-block editing ----------- {{{3
 Plug.add('AckslD/nvim-FeMaco.lua', {
     dependencies = {'nvim-treesitter/nvim-treesitter'},
     cmd = 'FeMaco',

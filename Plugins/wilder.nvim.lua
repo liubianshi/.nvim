@@ -19,7 +19,7 @@ local popupmenu_renderer = wilder.popupmenu_renderer(
         highlights = highlights,
         min_width = '100%',
         border = {
-                '', '─', '',
+                '', '▔', '',
                 '',  '', '',
                 '', '', '',
         },
