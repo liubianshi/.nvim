@@ -105,9 +105,11 @@ function M.setup_rime(opts)
                 end
                 local args = opt.args
                 if not args or
-                   (args ~= 'on' and args ~= 'off') or
                    (args == "on" and not vim.g.rime_enabled) or
                    (args == "off" and vim.g.rime_enabled) then
+                    toggle_rime()
+                elseif args == "start" then
+                    vim.g.rime_enabled = false
                     toggle_rime()
                 end
             end,

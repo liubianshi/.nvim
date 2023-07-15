@@ -147,8 +147,8 @@ set nolinebreak            " 折行
 set shiftround
 
 " 折叠相关 ============================================================== {{{1 
-set foldtext=fold#FoldText()
-set foldlevel=2             " 折叠层级
+" set foldtext=fold#FoldText()
+" set foldlevel=2             " 折叠层级
 set foldcolumn=1
 set formatoptions=t,n1mMp,Bj,coq
 "set foldmethod=expr

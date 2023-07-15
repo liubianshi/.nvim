@@ -129,12 +129,17 @@ keymap_config['0'] = cmp.mapping(
     function(fallback)
         if not cmp.visible() or not vim.b.rime_enabled then
             return fallback()
-        elseif rimels_auto_upload(cmp.core.view:get_entries()) then
+        end
+        local first_entry  = cmp.core.view:get_first_entry()
+        if not input_method_take_effect(first_entry) then
+            return fallback()
+        end
+        if rimels_auto_upload(cmp.core.view:get_entries()) then
             cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
         end
     end, {'i'}
 )
-for numkey = 2,9 do
+for numkey = 1,9 do
     local numkey_str = tostring(numkey)
     keymap_config[numkey_str] = cmp.mapping(
         function(fallback)
@@ -232,7 +237,8 @@ keymap_config['<BS>'] = cmp.mapping(
         if not cmp.visible() then
             local re = rimels.auto_toggle_rime_ls_with_backspace()
             if re == 1 then
-                local bs = vim.api.nvim_replace_termcodes("<bs>", true, false, true)
+                cmp.abort()
+                local bs = vim.api.nvim_replace_termcodes("<left>", true, true, true)
                 vim.api.nvim_feedkeys(bs, 'n', false)
             else
                 fallback()
