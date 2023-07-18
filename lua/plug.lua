@@ -251,7 +251,7 @@ Plug.add('junegunn/vim-easy-align', {
 })
 
 -- beauwilliams/focus.nvim: Auto Ajust the size of focused window ------- {{{3
-Plug.add('beauwilliams/focus.nvim', {
+Plug.add('nvim-focus/focus.nvim', {
     keys = {
         { '<leader>wh', '<cmd>FocusSplitLeft<cr>',  desc = "Focus Split Left"  },
         { '<leader>wl', '<cmd>FocusSplitRight<cr>', desc = "Focus Split Right" },
@@ -442,7 +442,7 @@ Plug.add('nvim-tree/nvim-web-devicons', { lazy = true } )
 Plug.add('windwp/nvim-autopairs' )
 
 -- stevearc/dressing.nvim: improve the default vim.ui interfaces -------- {{{3
-Plug.add('stevearc/dressing.nvim', {lazy = true})
+Plug.add('stevearc/dressing.nvim', {lazy = false})
 
 -- xiyaowong/transparent.nvim: make nvim transparent -------------------- {{{3
 Plug.add('xiyaowong/transparent.nvim')
