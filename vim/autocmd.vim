@@ -31,7 +31,7 @@ autocmd FileType   norg,org,markdown,rmd,rmarkdown
             \ syntax match NonText /​/ conceal
 
 " Fasd ------------------------------------------------------------------ {{{2
-autocmd BufWinEnter,BufFilePost * call <SID>fasd_update()
+"autocmd BufWinEnter,BufFilePost * call <SID>fasd_update()
 
 " Resize all windows when we resize the terminal ------------------------ {{{2
 " From:
