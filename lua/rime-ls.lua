@@ -1,4 +1,9 @@
 local M = {}
+local filetypes = {
+    'norg', 'org',     'markdown', 'md',    'Rmarkdown', 'rmd',   'org',
+    'text', 'unknown', 'mail',     'latex', 'tex',
+    'r',    'lua',     'perl',     'raku',  'vim',       'stata',
+}
 
 local get_line_before = function(shift)
     shift = shift or 0
@@ -58,7 +63,7 @@ function M.setup_rime(opts)
                 name = "rime_ls",
                 cmd = { 'rime_ls' },
                 -- cmd = vim.lsp.rpc.connect('127.0.0.1', 9257),
-                filetypes = { '*' },
+                filetypes = filetypes,
                 single_file_support = true,
             },
             settings = {},
@@ -192,7 +197,7 @@ function M.setup_rime(opts)
             enabled                  = vim.g.rime_enabled,
             shared_data_dir          = rime_shared_data_dir,
             user_data_dir            = rime_user_dir,
-            log_dir                  = rime_user_dir,
+            log_dir                  = rime_user_dir .. "/log",
             max_candidates           = 9,
             trigger_characters       = {},
             schema_trigger_character = "&" -- [since v0.2.0] 当输入此字符串时请求补全会触发 “方案选单”

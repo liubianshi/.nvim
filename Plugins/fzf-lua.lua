@@ -1,5 +1,9 @@
 -- vim: ft=lua fdm=marker:
 vim.env.FZF_DEFAULT_OPTS = vim.env.FZF_DEFAULT_OPTS .. ' --color=gutter:-1'
+local external_command = {
+    exa = vim.env.HOME .. "/.zinit/polaris/bin/exa",
+}
+
 
 local fzflua = require('fzf-lua')
 local actions = require "fzf-lua.actions"
@@ -126,7 +130,7 @@ function projects(opts)
         ['--no-multi']        = '',
         ['--prompt']          = 'Projects❯ ',
         ['--header-lines']    = '1',
-        ['--preview']         = vim.fn.shellescape("exa --color always -T -L 2 -lh $HOME/{2..}"),
+        ['--preview']         = vim.fn.shellescape(external_command.exa .. " --color always -T -L 2 -lh $HOME/{2..}"),
         }
 
         local get_cwd = function(selected)
