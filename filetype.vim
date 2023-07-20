@@ -1,5 +1,5 @@
 function s:DefaultFileType()
-    if empty(&l:filetype)
+    if empty(&l:filetype) && empty('&l:buftype')
         let &l:filetype = "unknown"
     end
 endfunction

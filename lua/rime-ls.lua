@@ -4,6 +4,14 @@ local filetypes = {
     'text', 'unknown', 'mail',     'latex', 'tex',
     'r',    'lua',     'perl',     'raku',  'vim',       'stata',
 }
+local rime_shared_data_dir = "/usr/share/rime-data"
+local rime_user_dir = "~/.local/share/rime-ls"
+local rime_ls_cmd = {"/sbin/rime_ls"}
+if vim.fn.has('mac') == 1 then
+    rime_shared_data_dir = "/Library/Input Methods/Squirrel.app/Contents/SharedSupport"
+    rime_ls_cmd = {vim.env.HOME .. "/.local/bin/rime_ls"}
+end
+
 
 local get_line_before = function(shift)
     shift = shift or 0
@@ -61,7 +69,7 @@ function M.setup_rime(opts)
         configs.rime_ls = {
             default_config = {
                 name = "rime_ls",
-                cmd = { 'rime_ls' },
+                cmd = rime_ls_cmd,
                 -- cmd = vim.lsp.rpc.connect('127.0.0.1', 9257),
                 filetypes = filetypes,
                 single_file_support = true,
@@ -186,12 +194,6 @@ function M.setup_rime(opts)
         capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
     end
 
-    local rime_shared_data_dir = "/usr/share/rime-data"
-    local rime_user_dir = "~/.local/share/rime-ls"
-    if vim.fn.has('mac') == 1 then
-        rime_shared_data_dir = "/Library/Input Methods/Squirrel.app/Contents/SharedSupport"
-    end
-
     lspconfig.rime_ls.setup {
         init_options = {
             enabled                  = vim.g.rime_enabled,
@@ -202,7 +204,6 @@ function M.setup_rime(opts)
             trigger_characters       = {},
             schema_trigger_character = "&" -- [since v0.2.0] 当输入此字符串时请求补全会触发 “方案选单”
         },
-        cmd = {vim.env.HOME .. "/.local/bin/rime_ls"},
         on_attach = rime_on_attach,
         capabilities = capabilities,
     }

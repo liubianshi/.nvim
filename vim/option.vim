@@ -1,6 +1,5 @@
 " vim: set fdm=marker:
 " Gui ==================================================================== {{{1
-set mouse=nic              " 支持使用鼠标
 set clipboard+=unnamedplus " 剪切板的整合
 " set lazyredraw             " 只在需要时重绘，出于性能上的考虑
 set hidden

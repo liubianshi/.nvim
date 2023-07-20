@@ -23,9 +23,6 @@ endif
 
 " 设置选项
 call <SID>Load("option")
-if exists("g:neovide")
-    lua require("neovide")
-endif
 
 
 " 设置 KeyMap

@@ -38,7 +38,8 @@ Plug.get = function()
 end
 
 -- 配置插件 ------------------------------------------------------------- {{{1
-
+-- GUI
+Plug.add('equalsraf/neovim-gui-shim')
 -- UI ------------------------------------------------------------------- {{{2
 -- lambdalisue/suda.vim: Read and write with sudo command --------------- {{{3
 Plug.add('lambdalisue/suda.vim', { cmd = {'SudaWrite', 'SudaRead'} })
