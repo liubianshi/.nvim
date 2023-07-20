@@ -24,7 +24,6 @@ endif
 " 设置选项
 call <SID>Load("option")
 
-
 " 设置 KeyMap
 call <SID>Load("keymap")
 lua require('keymap')
@@ -40,5 +39,3 @@ call <SID>Load("abbr")
 
 " 设置 UI
 call <SID>Load("theme")
-
-

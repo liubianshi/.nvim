@@ -21,6 +21,8 @@ endfunction
 augroup LOAD_ENTER
 autocmd!
 
+
+
 " cmd: global setting --------------------------------------------------- {{{2
 autocmd InsertLeave,WinEnter *  setlocal cursorline
 autocmd InsertEnter,WinLeave *  setlocal nocursorline
@@ -68,3 +70,8 @@ augroup END
     "     \ inoremap <silent><expr><buffer <bs>
     "     \ input_method#AutoSwitchAfterBackspace()
 " augroup END
+"
+"
+"
+
+
