@@ -1,5 +1,4 @@
 set background=dark
-set guifont=monospace:h14
 
 " From kitty faq --------------------------------------------------------
 " Mouse support
