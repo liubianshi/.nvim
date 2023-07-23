@@ -21,10 +21,16 @@ elseif exists("g:fvim_loaded")
     FVimCursorSmoothMove v:true
     FVimCursorSmoothBlink v:true
 else
-    GuiFont! MonoSpace:h12
+    if has('mac')
+        GuiFont! FiraCode\ Nerd\ Font\ Mono:h6
+        let &guifontwide = "LXGW WenKai Mono"
+        GuiLinespace 5
+    else
+        GuiFont! MonoSpace:h12
+        GuiLinespace 12
+    endif
     GuiAdaptiveFont 1
-    GuiLinespace 12
-    GuiPopupmenu 1
+    GuiPopupmenu 0
 
     if has('linux')
         " linux capsloak keymap througn xmodmap
