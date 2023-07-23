@@ -145,6 +145,11 @@ for numkey = 1,9 do
         function(fallback)
             if not cmp.visible() or not vim.b.rime_enabled then
                 return fallback()
+            else
+                local first_entry  = cmp.core.view:get_first_entry()
+                if not input_method_take_effect(first_entry) then
+                    return fallback()
+                end
             end
             cmp.mapping.close()
             feedkey(numkey_str, "n")

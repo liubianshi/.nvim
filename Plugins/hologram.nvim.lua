@@ -7,7 +7,7 @@ local display_image = function(file, opts)
        not file:match("%.png$") then
         return nil
     end
-    default_opts = {
+    local default_opts = {
         method = "split"
     }
     opts = vim.tbl_extend("force", default_opts, opts or {})
