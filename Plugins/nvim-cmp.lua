@@ -63,7 +63,7 @@ local function constuct_cmp_source(sources)
         {
             name = 'nvim_lsp',
             keyword_length = 1,
-            keyword_pattern = '[-,.?!$<>A-Za-z0-9]\\+',
+            keyword_pattern = '[-/,.?!$<>A-Za-z0-9]\\+',
         },
         -- { name = 'latex_symbols' },
         -- { name = 'orgmode' },

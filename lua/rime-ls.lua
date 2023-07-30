@@ -12,7 +12,6 @@ if vim.fn.has('mac') == 1 then
     rime_ls_cmd = {vim.env.HOME .. "/.local/bin/rime_ls"}
 end
 
-
 local get_line_before = function(shift)
     shift = shift or 0
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -52,6 +51,11 @@ M.probes = {
     {
         "prove_temporarily_disabled", function()
             return not vim.b.rime_enabled
+        end
+    },
+    {
+        "All_Caps", function()
+            return get_line_before():match("[A-Z][%w]*%s*$")
         end
     }
 }

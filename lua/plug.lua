@@ -510,6 +510,7 @@ Plug.add('lukas-reineke/indent-blankline.nvim', {
         char = "▏",
         context_char = "▏",
         show_current_context = true,
+        show_current_context_start = true,
     }
 })
 
@@ -748,7 +749,8 @@ Plug.add('nvim-neorg/neorg', {
     ft = {'norg'},
     cmd = {'Neorg'},
     keys = {
-        {'<leader>ej', '<cmd>Neorg journal today<cr>', desc = "Open today's journal"}
+        {'<leader>ej', '<cmd>Neorg journal today<cr>', desc = "Open today's journal"},
+        {'<leader>sn', '<cmd>Telescope neorg switch_workspace<cr>', desc = "Switch Norg Workspace"},
     }
 })
 
