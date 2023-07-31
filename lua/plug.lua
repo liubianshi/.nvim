@@ -738,7 +738,6 @@ Plug.add('dhruvasagar/vim-table-mode', {
 })
 
 -- 文件类型相关插件 ----------------------------------------------------- {{{2
-
 -- nvim-neorg/neorg: new org-mode in neovim ----------------------------- {{{3
 Plug.add('nvim-neorg/neorg', {
     build = ":Neorg sync-parsers",
@@ -802,6 +801,11 @@ Plug.add('akinsho/org-bullets.nvim', {
 -- fladson/vim-kitty: kitty config syntax highlighting for vim ---------- {{{3
 Plug.add('fladson/vim-kitty', {
     ft = 'kitty'
+})
+
+-- kmonad/kmonad-vim: Vim syntax highlighting for .kbd files ------------ {{{2
+Plug.add('kmonad/kmonad-vim', {
+    ft = 'kbd',
 })
 
 -- TreeSitter ----------------------------------------------------------- {{{2
