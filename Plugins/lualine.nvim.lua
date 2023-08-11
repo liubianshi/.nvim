@@ -5,16 +5,6 @@ local lualine = require 'lualine'
 
 -- Color table for highlights
 local colors = vim.g.lbs_colors
-local conditions = {
-  buffer_not_empty = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 end,
-  encoding_not_utf8 = function() return vim.o.encoding ~= 'utf-8' end,
-  hide_in_width = function() return vim.fn.winwidth(0) > 80 end,
-  check_git_workspace = function()
-    local filepath = vim.fn.expand('%:p:h')
-    local gitdir = vim.fn.finddir('.git', filepath .. ';')
-    return gitdir and #gitdir > 0 and #gitdir < #filepath
-  end
-}
 
 -- conponent
 local fname = {
@@ -28,8 +18,8 @@ local fname = {
         readonly = '[-]',      -- if the file is not modifiable or readonly
         unnamed = '[No Name]', -- default display name for unnamed buffers
     },
-    condition = conditions.buffer_not_empty,
-    color = {fg = colors.magenta, gui = 'bold'}
+    color = {fg = colors.orange, gui = 'bold'},
+    separator = { left = '', right = ''},
 }
 
 local diagnostics = {
@@ -45,6 +35,7 @@ local diff = {
   'diff',
   -- Is it me or the symbol for modified us really weird
   symbols = {added = ' ', modified = '󰿨 ', removed = ' '},
+  colored = true,
   color_added = colors.green,
   color_modified = colors.orange,
   color_removed = colors.red,
@@ -52,7 +43,7 @@ local diff = {
 
 local encoding = {
   function()
-    if vim.o.encoding == 'utf-8' then
+    if vim.bo.fileencoding == 'utf-8' then
       return ''
     else
       return vim.o.encoding
@@ -63,14 +54,27 @@ local encoding = {
 local rime_status = {
   function()
     if vim.b.rime_enabled and vim.g.rime_enabled then
-      return 'ㄓ📍'
-    elseif vim.b.rime_enabled then
       return 'ㄓ'
+    elseif vim.b.rime_enabled then
+      return 'ㄨ'
     else
       return ''
     end
   end,
+  padding = { left = 0, right = 1 },
   color = {fg = colors.orange},
+}
+
+-- Fold Method
+local foldmethod = {
+  function()
+    local fdm =vim.wo.foldmethod
+    local symbols = {
+      manual = 'U', marker = 'M', indent = 'I',
+      expr = 'E',   syntax = 'S', diff = 'D'
+    }
+    return '󰧄 ' .. symbols[fdm] .. '-' .. vim.wo.foldlevel
+  end
 }
 
 -- Config
@@ -95,12 +99,18 @@ lualine.setup {
   },
   sections = {
     -- these are to remove the defaults
-    lualine_a = {'mode'},
-    lualine_b = {'branch', diff, diagnostics},
-    lualine_c = {fname},
-    lualine_x = {encoding, 'filetype', rime_status},
-    lualine_y = {'progress'},
-    lualine_z = {'searchcount', 'location'},
+    lualine_a = {{'mode', separator = { left = '', right = ''}}},
+    lualine_b = {},
+    lualine_c = {
+      {
+        'progress',
+        padding = { left = 1, right = 0 },
+        color = {fg = colors.yellow},
+      }, 'location', diff, diagnostics
+    },
+    lualine_x = {fname},
+    lualine_y = {'filetype', encoding, foldmethod, rime_status},
+    lualine_z = {'selectioncount', 'searchcount'},
   },
   inactive_sections = {
     -- these are to remove the defaults

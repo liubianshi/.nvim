@@ -1,6 +1,7 @@
 local ftMap = {
     python = {'indent'},
     stata = '',
+    lua = {'treesitter', 'indent'},
     norg = {'treesitter'},
     org = {'treesitter'},
     r = '',
