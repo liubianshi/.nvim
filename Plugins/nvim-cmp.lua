@@ -282,7 +282,7 @@ local cmp_config = {
     window = {
         completion = {
             -- [ "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" ]
-            border = { '', '', '',  '', '', '', '', {'▐', "MyBorder"} },
+            border = { '', '', '',  '', '', '', '', {'│', "MyBorder"} },
             winhighlight = "CursorLine:PmenuSel,Normal:Pmenu,FloatBorder:Pmenu,Search:None",
             col_offset = 0,
             side_padding = 0,

@@ -38,4 +38,4 @@ call <SID>Load("autocmd")
 call <SID>Load("abbr")
 
 " 设置 UI
-call <SID>Load("theme")
+lua require("theme")

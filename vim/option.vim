@@ -3,6 +3,7 @@
 set clipboard+=unnamedplus " 剪切板的整合
 " set lazyredraw             " 只在需要时重绘，出于性能上的考虑
 set hidden
+
  
 " Ignore certain files and folders when globing ========================= {{{1
 set wildignore+=*.o,*.obj,*.dylib,*.bin,*.dll,*.exe

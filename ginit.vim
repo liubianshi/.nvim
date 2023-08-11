@@ -27,7 +27,7 @@ else
         GuiLinespace 5
     else
         GuiFont! MonoSpace:h12
-        GuiLinespace 12
+        GuiLinespace 8
     endif
     GuiAdaptiveFont 1
     GuiPopupmenu 0

@@ -515,7 +515,7 @@ Plug.add('lukas-reineke/indent-blankline.nvim', {
 })
 
 -- xiyaowong/transparent.nvim: make nvim transparent -------------------- {{{3
-Plug.add('xiyaowong/transparent.nvim')
+-- Plug.add('xiyaowong/transparent.nvim')
 
 -- Tools ---------------------------------------------------------------- {{{2
 -- akinsho/toggleterm.nvim: manage multiple terminal windows ------------ {{{3
@@ -616,10 +616,17 @@ Plug.add('tpope/vim-fugitive', { cmd = 'G'})
 -- Theme ---------------------------------------------------------------- {{{2
 Plug.add('luisiacc/gruvbox-baby',    {lazy = false})
 Plug.add('ayu-theme/ayu-vim',        {lazy = false})
-Plug.add('rebelot/kanagawa.nvim',    {lazy = false})
+Plug.add('rebelot/kanagawa.nvim',    {lazy = false, priority = 100})
 Plug.add('mhartington/oceanic-next', {lazy = false})
-Plug.add('sainnhe/everforest',       {lazy = false})
-Plug.add('catppuccin/nvim',          {name = 'catppuccin', lazy = true})
+Plug.add('sainnhe/everforest',       {
+    init = function()
+        vim.g.everforest_better_performance = 1
+        vim.g.everforest_enable_italic = 1
+        vim.g.everforest_transparent_background = 2
+    end,
+    lazy = false,
+})
+Plug.add('catppuccin/nvim',          {name = 'catppuccin', lazy = false})
 Plug.add('folke/tokyonight.nvim',    {lazy = false, priority = 1000})
 
 -- 补全和代码片断 ------------------------------------------------------- {{{2
