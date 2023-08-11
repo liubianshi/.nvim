@@ -1,21 +1,21 @@
 local default_opts = {
     background = 'dark',
     colorscheme = {
-	dark = 'kanagawa',
-	light = 'github_light',
+        dark = 'kanagawa',
+        light = 'github_light',
     },
     palette = {
-	bg       = '#202328',
-	fg       = '#bbc2cf',
-	yellow   = '#ECBE7B',
-	cyan     = '#008080',
-	darkblue = '#081633',
-	green    = '#98be65',
-	orange   = '#FF8800',
-	violet   = '#a9a1e1',
-	magenta  = '#c678dd',
-	blue     = '#51afef',
-	red      = '#ec5f67'
+        bg       = '#202328',
+        fg       = '#bbc2cf',
+        yellow   = '#ECBE7B',
+        cyan     = '#008080',
+        darkblue = '#081633',
+        green    = '#98be65',
+        orange   = '#FF8800',
+        violet   = '#a9a1e1',
+        magenta  = '#c678dd',
+        blue     = '#51afef',
+        red      = '#ec5f67'
     },
 }
 
@@ -25,19 +25,26 @@ vim.api.nvim_create_autocmd({'ColorScheme'}, {
     pattern = '*',
     group = higroup,
     callback = function()
-	vim.cmd([[
-	    " 解决 vim 帮助文件的示例代码的不够突显的问题
-	    hi def link helpExample Special
-	    highlight MyBorder guifg=#34c841 guibg=NONE
-	    " 用于实现弹出窗口背景透明
-	    highlight VertSplit      cterm=None gui=None guibg=bg
-	    highlight FoldColumn     guibg=bg
-	    highlight folded         gui=bold guifg=LightGreen guibg=bg
-	    highlight SignColumn     guibg=bg
-	    highlight LineNr         guibg=bg
-	]])
+        vim.cmd([[
+            " 用于实现弹出窗口背景透明
+            highlight VertSplit      cterm=None gui=None guibg=bg
+            highlight FoldColumn     guibg=bg
+            highlight folded         gui=bold guifg=LightGreen guibg=bg
+            highlight SignColumn     guibg=bg
+            highlight LineNr         guibg=bg
+        ]])
     end,
     desc = "remove unnecessary background",
+})
+vim.api.nvim_create_autocmd({'ColorScheme'}, {
+    pattern = '*',
+    group = higroup,
+    callback = function()
+        -- 解决 vim 帮助文件的示例代码的不够突显的问题
+        vim.cmd("hi def link helpExample Special")
+        vim.cmd("highlight MyBorder guifg=".. vim.g.lbs_colors.orange .. " guibg=NONE")
+    end,
+    desc = "Define personal highlight group",
 })
 
 -- set colorscheme ------------------------------------------------------

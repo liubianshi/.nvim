@@ -1,7 +1,7 @@
 -- vim: ft=lua fdm=marker:
 vim.env.FZF_DEFAULT_OPTS = vim.env.FZF_DEFAULT_OPTS .. ' --color=gutter:-1'
 local external_command = {
-    exa = vim.env.HOME .. "/.zinit/polaris/bin/exa",
+    exa = vim.fn.systemlist('which exa')[1]
 }
 
 
