@@ -628,6 +628,7 @@ Plug.add('sainnhe/everforest',       {
 })
 Plug.add('catppuccin/nvim',          {name = 'catppuccin', lazy = false})
 Plug.add('folke/tokyonight.nvim',    {lazy = false, priority = 1000})
+Plug.add('projekt0n/github-nvim-theme', { lazy = false, priority = 1000 })
 
 -- 补全和代码片断 ------------------------------------------------------- {{{2
 

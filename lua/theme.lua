@@ -2,7 +2,7 @@ local default_opts = {
     background = 'dark',
     colorscheme = {
 	dark = 'kanagawa',
-	light = 'catppuccin-latte',
+	light = 'github_light',
     },
     palette = {
 	bg       = '#202328',
@@ -49,9 +49,7 @@ else
 end
 
 -- adjust palette according to color scheme -----------------------------
-if vim.g.lbs_colors then
-    vim.g.lbs_colors = vim.tbl_extend("keep", vim.g.lbs_colors, default_opts.palette)
-else
-    vim.g.lbs_colors = default_opts.palette
-end
+if not vim.g.lbs_colors then vim.g.lbs_colors = default_opts.palette end
+
+
 

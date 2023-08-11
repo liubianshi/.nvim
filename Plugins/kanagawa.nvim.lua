@@ -1,10 +1,19 @@
 local kanagawa = require('kanagawa')
 kanagawa.setup({
-    transparent = true,
+    transparent = false,
     undercurl = true,
     background= {
         dark = 'wave',
         light = 'lotus',
+    },
+    colors = {
+        theme = {
+            wave = {
+                ui = {
+                    bg = '#1E1E2E',
+                }
+            }
+        }
     },
     overides = function(colors)
         local theme = colors.theme
@@ -70,4 +79,5 @@ vim.g.lbs_colors = {
     magenta   = palette.dragonPink,
     red       = palette.waveRed,
 }
+
 

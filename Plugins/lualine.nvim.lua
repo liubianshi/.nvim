@@ -5,9 +5,9 @@ local lualine = require 'lualine'
 
 -- Color table for highlights
 local colors = vim.g.lbs_colors
-
 local conditions = {
   buffer_not_empty = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 end,
+  encoding_not_utf8 = function() return vim.o.encoding ~= 'utf-8' end,
   hide_in_width = function() return vim.fn.winwidth(0) > 80 end,
   check_git_workspace = function()
     local filepath = vim.fn.expand('%:p:h')
@@ -16,117 +16,7 @@ local conditions = {
   end
 }
 
--- Config
-local config = {
-  options = {
-    -- Disable sections and component separators
-    component_separators = "",
-    section_separators = "",
-    theme = "auto",
-  },
-  sections = {
-    -- these are to remove the defaults
-    lualine_a = {},
-    lualine_b = {},
-    lualine_y = {},
-    lualine_z = {},
-    -- These will be filled later
-    lualine_c = {},
-    lualine_x = {}
-  },
-  inactive_sections = {
-    -- these are to remove the defaults
-    lualine_a = {},
-    lualine_c = {},
-    lualine_v = {},
-    lualine_x = {},
-    lualine_y = {},
-    lualine_z = {},
-  }
-}
-
--- Inserts a component in lualine_c at left section
-local function ins_left(component)
-  table.insert(config.sections.lualine_c, component)
-end
-
--- Inserts a component in lualine_c at left inactive_section
-local function ins_left_inactive(component)
-  table.insert(config.inactive_sections.lualine_c, component)
-end
-
--- Inserts a component in lualine_x ot right section
-local function ins_right(component)
-  table.insert(config.sections.lualine_x, component)
-end
-
--- Inserts a component in lualine_c at left inactive_section
-local function ins_right_inactive(component)
-  table.insert(config.inactive_sections.lualine_x, component)
-end
-
-ins_left {
-  function() return '▊' end,
-  color = {fg = colors.blue}, -- Sets highlighting of component
-  left_padding = 0 -- We don't need space before this
-}
-
-ins_left {
-  -- mode component
-  function()
-    -- auto change color according to neovims mode
-    local mode_color = {
-      n = colors.red,
-      i = colors.green,
-      v = colors.blue,
-      [''] = colors.blue,
-      V = colors.blue,
-      c = colors.magenta,
-      no = colors.red,
-      s = colors.orange,
-      S = colors.orange,
-      [''] = colors.orange,
-      ic = colors.yellow,
-      R = colors.violet,
-      Rv = colors.violet,
-      cv = colors.red,
-      ce = colors.red,
-      r = colors.cyan,
-      rm = colors.cyan,
-      ['r?'] = colors.cyan,
-      ['!'] = colors.red,
-      t = colors.red
-    }
-    vim.api.nvim_command(
-        'hi! LualineMode guifg=' .. mode_color[vim.fn.mode()] .. " guibg=" ..
-            colors.bg)
-    return '●'
-  end,
-  color = "LualineMode",
-  left_padding = 0
-}
-
-ins_left {
-  -- filesize component
-  function()
-    local function format_file_size(file)
-      local size = vim.fn.getfsize(file)
-      if size <= 0 then return '' end
-      local sufixes = {'b', 'k', 'm', 'g'}
-      local i = 1
-      while size > 1024 do
-        size = size / 1024
-        i = i + 1
-      end
-      return string.format('%.1f%s', size, sufixes[i])
-    end
-    local file = vim.fn.expand('%:p')
-    if string.len(file) == 0 then return '' end
-    return format_file_size(file)
-  end,
-  condition = conditions.buffer_not_empty
-}
-
+-- conponent
 local fname = {
     'filename',
     file_status = true,   -- displays file status (readonly status, modified status)
@@ -142,10 +32,7 @@ local fname = {
     color = {fg = colors.magenta, gui = 'bold'}
 }
 
-ins_left(fname)
-ins_left_inactive { 'filename' }
-
-ins_left {
+local diagnostics = {
   'diagnostics',
   sources = {'nvim_lsp'},
   symbols = {error = ' ', warn = ' ', info = ' '},
@@ -154,99 +41,75 @@ ins_left {
   color_info = colors.cyan
 }
 
-local ftype = {
-  -- Lsp server name .
-  function()
-    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    local msg = buf_ft .. ''
-    local clients = vim.lsp.get_active_clients()
-    if next(clients) == nil then return msg end
-    for _, client in ipairs(clients) do
-      local filetypes = client.config.filetypes
-      if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        return client.name
-      end
-    end
-    return msg
-  end,
-  icon = '',
-  color = {fg = '#ffffff', gui = 'bold'}
-}
-ins_left(ftype)
-ins_left_inactive(ftype)
-
--- Add components to right sections
-local fencoding = {
-  'o:encoding', -- option component same as &encoding in viml
-  upper = true, -- I'm not sure why it's upper case either ;)
-  condition = conditions.hide_in_width,
-  color = {fg = colors.green, gui = 'bold'}
-}
-ins_left(fencoding)
-ins_left_inactive(fencoding)
-
-ins_left {'progress', color = {fg = colors.fg, gui = 'bold'}}
-ins_left_inactive {'progress', color = {fg = colors.fg, gui = 'bold'}}
-
--- Insert mid section. You can make any number of sections in neovim :)
--- for lualine it's any number greater then 2
-ins_left {function() return '%=' end}
-
-
-ins_right {
-    'searchcount',
-    color = {fg = colors.orange, gui = 'bold'}
-}
-
--- local fformat =  {
---   'fileformat',
---   upper = true,
---   icons_enabled = true,
---   symbols = {
---           unix = '', -- e712
---           dos = '', -- e70f
---           mac = '', -- e711
---       },
---   color = {fg = colors.green, gui = 'bold'}
--- }
--- ins_right(fformat)
--- ins_right_inactive(fformat)
-
-ins_right {
-  'branch',
-  icon = '',
-  condition = conditions.check_git_workspace,
-  color = {fg = colors.violet, gui = 'bold'}
-}
-
-ins_right {
+local diff = {
   'diff',
   -- Is it me or the symbol for modified us really weird
   symbols = {added = ' ', modified = '󰿨 ', removed = ' '},
   color_added = colors.green,
   color_modified = colors.orange,
   color_removed = colors.red,
-  condition = conditions.hide_in_width
 }
 
-ins_right {'location'}
-ins_right_inactive {'location'}
-
+local encoding = {
+  function()
+    if vim.o.encoding == 'utf-8' then
+      return ''
+    else
+      return vim.o.encoding
+    end
+  end
+}
 -- rime-ls status
-ins_right({
+local rime_status = {
   function()
     if vim.b.rime_enabled and vim.g.rime_enabled then
-      return 'ㄓ(on)'
+      return 'ㄓ📍'
     elseif vim.b.rime_enabled then
-      return 'ㄓ(off)'
+      return 'ㄓ'
     else
-      return '▊'
+      return ''
     end
   end,
   color = {fg = colors.orange},
-  right_padding = 0
-})
+}
 
--- Now don't forget to initialize lualine
-lualine.setup(config)
+-- Config
+lualine.setup {
+  options = {
+    -- Disable sections and component separators
+    component_separators = "",
+    section_separators = "",
+    theme = "auto",
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+    }
+  },
+  sections = {
+    -- these are to remove the defaults
+    lualine_a = {'mode'},
+    lualine_b = {'branch', diff, diagnostics},
+    lualine_c = {fname},
+    lualine_x = {encoding, 'filetype', rime_status},
+    lualine_y = {'progress'},
+    lualine_z = {'searchcount', 'location'},
+  },
+  inactive_sections = {
+    -- these are to remove the defaults
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {fname},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  }
+}
 
