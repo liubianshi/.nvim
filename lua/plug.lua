@@ -391,7 +391,7 @@ Plug.add('folke/which-key.nvim', {event = "VeryLazy"})
 
 -- yianwillis/vimcdoc: Chinese version of vim documents ----------------- {{{3
 Plug.add('yianwillis/vimcdoc', {
-    keys = { '<F1>', '<leader>sh' },
+    keys = { '<F1>' },
     event = {'CmdwinEnter', 'CmdlineEnter'},
 })
 
