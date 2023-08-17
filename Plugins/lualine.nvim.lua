@@ -54,9 +54,9 @@ local encoding = {
 local rime_status = {
   function()
     if vim.b.rime_enabled and vim.g.rime_enabled then
-      return 'ㄓ'
+      return '· ㄓ'
     elseif vim.b.rime_enabled then
-      return 'ㄨ'
+      return '· ㄨ'
     else
       return ''
     end
@@ -65,7 +65,7 @@ local rime_status = {
   color = {fg = colors.orange},
 }
 
--- Fold Method
+-- Fold Method  
 local foldmethod = {
   function()
     local fdm =vim.wo.foldmethod
@@ -73,8 +73,9 @@ local foldmethod = {
       manual = 'U', marker = 'M', indent = 'I',
       expr = 'E',   syntax = 'S', diff = 'D'
     }
-    return '󰧄 ' .. symbols[fdm] .. '-' .. vim.wo.foldlevel
-  end
+    return '· ｢' .. symbols[fdm] .. '-' .. vim.wo.foldlevel .. '｣'
+  end,
+  padding = { left = 0, right = 1 },
 }
 
 -- Config

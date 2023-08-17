@@ -6,7 +6,7 @@ if exists("g:neovide")
         let &linespace = 18
     else
         let &guifont =  "LXGW WenKai Mono,FiraCode Nerd Font Mono:h11"
-        let &linespace = 14
+        let &linespace = 15
     endif
     let g:neovide_underline_automatic_scaling = v:true
 elseif exists("g:fvim_loaded")
