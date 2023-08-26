@@ -28,3 +28,5 @@ let g:Perldoc_path = $HOME . "/.cache/perldoc/"
 let g:R_start_libs = "base,stats,graphics,grDevices,utils,methods," . 
                    \ "rlang,data.table,readxl,haven,lbs,purrr,stringr," .
                    \ "fst,box,future,devtools,ggplot,fixest"
+
+let g:page_popup_winblend = 25

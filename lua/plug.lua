@@ -124,6 +124,7 @@ Plug.add('ibhagwan/fzf-lua', {
         { "<leader>sT", "<cmd>FzfLua btags<cr>"               , desc = "FzfLua: buffer tags",                           },
         { "<leader>qs", "<cmd>FzfLua quickfix<cr>"            , desc = "FzfLua: quickfix",                              },
         { "<leader>sC", "<cmd>FzfLua colorschemes<cr>"        , desc = "FzfLua: colorschemes",                          },
+        { "<leader>sH", "<cmd>FzfLua highlights<cr>"          , desc = "FzfLua: highlights",                            },
         { "<leader>sl", "<cmd>FzfLua lgrep_curbuf<cr>"        , desc = "FzfLua: Grep current buffer",                   },
         { "<leader>sr", "<cmd>FzfLua grep<cr>"                , desc = "FzfLua: Grep lines",                            },
         { "<leader>sR", "<cmd>FzfLua grep_project<cr>"        , desc = "FzfLua: Grep project",                          },

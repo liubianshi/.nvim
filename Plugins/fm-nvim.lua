@@ -4,14 +4,13 @@ local ui = {
     default = "float",
     float = {
         -- Floating window border (see ':h nvim_open_win')
-        border    = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-        -- Highlight group for floating window/border (see ':h winhl')
-        float_hl  = "Normal",
-        border_hl = "FloatBorder",
+        border    = "rounded",
+        float_hl  = "TelescopeNormal",
+        border_hl = "TelescopeBorder",
         -- Floating Window Transparency (see ':h winblend')
         blend     = 0,
         -- Num from 0 - 1 for measurements
-        height    = 0.8,
+        height    = 0.7,
         width     = 0.8,
         -- X and Y Axis of Window
         x         = 0.5,
@@ -55,7 +54,7 @@ fm.setup({
     edit_cmd = "edit",
     on_close = {},
     on_open = {},
-    ui = ui, 
+    ui = ui,
     cmds = cmds,
     mappings = mappings,
     -- Path to broot config

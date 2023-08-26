@@ -3,7 +3,7 @@ require("focus").setup({
     minwidth = 0,
     bufnew = false,
     autoresize = {
-        enable = false,
+        enable = true,
     },
     excluded_buftypes = {"help", "terminal", "nofile", "promp", "popup"},
     excluded_filetypes = {

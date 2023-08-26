@@ -21,3 +21,4 @@ for _, motion in ipairs({ "f", "t", "F", "T" }) do
     }, Char.motions[motion]))
   end)
 end
+
