@@ -14,14 +14,14 @@ local feedkey = function(key, mode)
   vim.api.nvim_feedkeys(t(key), mode, true)
 end
 
-local input_method_take_effect = function(entry, method)
+local input_method_take_effect = function(entry, method, ignore_probes)
     if not entry then return(false) end
 
     method = method or "rime-ls"
     if method == "rime-ls" then
         if entry.source.name == "nvim_lsp" and
            entry.source.source.client.name == "rime_ls" and
-           rimels.probe_all_passed() then
+           rimels.probe_all_passed(ignore_probes) then
             return true
         else
             return false
@@ -147,14 +147,17 @@ for numkey = 1,9 do
                 return fallback()
             else
                 local first_entry  = cmp.core.view:get_first_entry()
-                if not input_method_take_effect(first_entry) then
+                if not input_method_take_effect(
+                    first_entry,
+                    'rime-ls',
+                    {"probe_punctuation_after_half_symbol"}) then
                     return fallback()
                 end
             end
             cmp.mapping.close()
             feedkey(numkey_str, "n")
             cmp.complete()
-            feedkey('0', "m")
+            feedkey("0", "m")
         end,
         {"i"}
     )

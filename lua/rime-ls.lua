@@ -33,7 +33,6 @@ local typing_english = function(shift)
     if not content_before then return nil end
     return content_before:match("%s[%w%p]+$")
 end
-
 M.probes = {
     {
         "probe_punctuation_after_half_symbol", function()
@@ -213,11 +212,13 @@ function M.setup_rime(opts)
     }
 end
 
-
-M.probe_all_passed = function()
+M.probe_all_passed = function(ignore_probes)
     local probes = M.get_probes()
     for _,probe in pairs(probes) do
-        if probe[2]() then return false end
+        if (not ignore_probes or vim.fn.index(ignore_probes, probe[1]) > 0)
+            and probe[2]() then
+            return false
+        end
     end
     return(true)
 end
