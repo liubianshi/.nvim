@@ -416,7 +416,7 @@ function! utils#Trans2clip(type = '')
         else
             let source_to = "zh:en"
         endif
-        let cmd = "trans -b --no-ansi %s '%s'"
+        let cmd = "trans -b --no-ansi %s \"%s\" 2>/dev/null"
         let cmd = printf(cmd, shellescape(source_to), oritext)
         let @" = system(cmd)
         cexpr @"
