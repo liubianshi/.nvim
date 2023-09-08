@@ -84,8 +84,8 @@ vimkey('<c-h>', 'vertical resize -2',                '<cmd>vertical resize -2<cr
 vimkey('<c-l>', 'vertical resize +2',                '<cmd>vertical resize +2<cr>')
 
 --- edit special files -------------------------------------------------- {{{1
-vimkey('<leader>ev', "Neovim Plugin List",  '<cmd>edit ~/.config/nvim/vim/plug.vim<cr>')
-vimkey('<leader>ek', "Neovim Keymap",       '<cmd>edit ~/.config/nvim/vim/keymap.vim<cr>')
+vimkey('<leader>ev', "Neovim Plugin List",  '<cmd>edit ~/.config/nvim/lua/plug.lua<cr>')
+vimkey('<leader>ek', "Neovim Keymap",       '<cmd>edit ~/.config/nvim/lua/keymap.lua<cr>')
 vimkey('<leader>eo', "Neovim Options",      '<cmd>edit ~/.config/nvim/vim/option.vim<cr>')
 vimkey('<leader>er', "R Profile",           '<cmd>edit ~/.Rprofile<cr>')
 vimkey('<leader>es', "Stata profile",       '<cmd>edit ~/.config/stata/profile.do<cr>')

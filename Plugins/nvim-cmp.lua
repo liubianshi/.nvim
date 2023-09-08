@@ -273,7 +273,6 @@ local sorting_config = {
 }
 -- cmp_config ----------------------------------------------------------- {{{2
 local cmp_config = {
-    view = 'native',
     menu = {},
     completion = { keyword_length = 2 },
     sorting = sorting_config,

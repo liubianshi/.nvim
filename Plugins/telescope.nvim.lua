@@ -1,6 +1,6 @@
 local telescope = require('telescope')
 local actions = require('telescope.actions')
-local command_center = require("command_center")
+local commander = require("commander")
 
 local function flash(prompt_bufnr)
   require("flash").jump({
@@ -60,13 +60,13 @@ telescope.setup {
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
 telescope.load_extension('fzf')
-telescope.load_extension("command_center")
+telescope.load_extension("commander")
 telescope.load_extension("frecency")
 telescope.load_extension('ultisnips')
 
 -- extensions config ---------------------------------------------------- {{{1
 -- command center ------------------------------------------------------- {{{2
-command_center.add({
+commander.add({
   {
     desc = "Search inside current buffer",
     cmd = "<CMD>Telescope current_buffer_fuzzy_find<CR>",

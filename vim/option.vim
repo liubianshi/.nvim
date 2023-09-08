@@ -150,9 +150,18 @@ set shiftround
 " set foldtext=fold#FoldText()
 set foldlevel=99             " 折叠层级
 set foldcolumn=1
-set formatoptions=t,n1mMp,Bj,coq
-"set foldmethod=expr
-"set foldexpr=nvim_treesitter#foldexpr()
+set formatoptions=tcn,1mp],Bj,oq
+" t: 自动回绕文本
+" c: 自动回绕注释
+" n: 识别编号的列表 
+" 1: 不在单字母单词后断行
+" m: 可在任何值高于 255 的多字节字符上分行
+" p: 不在句号后的单个空白上断行
+" ]: 严格遵循 'textwidth' 选项
+" B: 在链接行时，不在多字节字符之间插入空格
+" j: 在合适的场合，连接行时删除注释前导符
+" o: 在普通模式按 'o' 或者 'O' 时，自动插入当前注释前导符
+" q: 允许使用 gq 排版时排版注释
 
 " 字典 和 tags 相关 ===================================================== {{{1
 set dictionary+=~/.config/nvim/paper.dict,~/.config/nvim/dict

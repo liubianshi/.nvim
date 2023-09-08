@@ -123,16 +123,6 @@ nnoremap <leader>qq :call utils#QuickfixToggle()<cr>
 " 管理文件 ============================================================== {{{1
 nnoremap <silent> <leader>fs  :write<CR>
 nnoremap <silent> <leader>fS  :write!<CR>
-nnoremap <leader>ev :edit ~/.config/nvim/vim/plug.vim<cr>
-nnoremap <leader>ek :edit ~/.config/nvim/vim/keymap.vim<cr>
-nnoremap <leader>eo :edit ~/.config/nvim/vim/option.vim<cr>
-nnoremap <leader>er :edit ~/.Rprofile<cr>
-nnoremap <leader>es :edit ~/.config/stata/profile.do<cr>
-nnoremap <leader>ez :edit ~/.zshrc<cr>
-nnoremap <leader>eZ :edit ~/useScript/usr.zshrc<cr>
-nnoremap <leader>ea :edit ~/useScript/alias<cr>
-nnoremap <leader>eu :edit ~/.config/nvim/UltiSnips<cr>
-nnoremap <leader>ed :edit ~/Repositories/ssnhd-rime/配置文件/flypy_top.txt<cr> | exec "normal! G"
 
 
 " search ================================================================= {{{1
