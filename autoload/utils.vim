@@ -81,6 +81,51 @@ function! utils#RFormat() range
     call RInsert(cmd, "here") 
 endfunction
 
+" insert org-mode roam node ============================================= {{{1
+function! utils#RoamInsertNode(title, method = "")
+    let external_command = 'org-mode-roam-node "' . a:title . '"'
+    let ori = @0
+    let line = getline(line('.'))
+    let pos = col('.') - 1
+    let @0 = substitute(system(external_command), "\n$", "", "g")
+    if pos != 0 && line[pos - 1:pos - 1] != " "
+        let @0 = " " . @0
+    end
+    if line[pos:pos] != " " && line[pos:pos] != ""
+        let @0 = @0 . " "
+    end
+    exec "normal! i\<c-r>0\<esc>2h"
+    let @0 = ori
+    if a:method !=? ""
+        call utils#RoamOpenNode(a:method)
+    endif
+endfunction
+
+" open org-roam node under cursor ======================================= {{{1
+function! utils#RoamOpenNode(method = "edit")
+    let ori = @0
+    let line = getline(line('.'))
+    let pos = col('.') - 1
+    if line[pos:pos+1] == "[[" || line[pos-1:pos] == "]]"
+        normal! "0yi[
+    elseif line[pos-1:pos] == "[["
+        normal! h"0yi[
+    elseif line[pos:pos+1] == "]]"
+        normal! l"0yi[
+    elseif line[pos:pos+1] == "][" || line[pos-1:pos] == "]["
+        normal! f]l"0yi[
+    elseif line[0:pos] =~? '\[\[[^\]]\+$'
+        normal! F[h"0yi[
+    elseif line[pos+1:] =~? '^[^\]]\+\]\]'
+        normal! f]l"0yi[
+    else
+        return
+    endif
+
+    let filepath = system("org-mode-roam-node -j " . shellescape(@0))
+    exec a:method . " " . filepath
+endfunction
+
 " insert rmd-style picture =============================================== {{{1
 function! utils#RmdClipBoardImage()
     execute "normal! i```{r, out.width = '70%', fig.pos = 'h', fig.show = 'hold'}\n"
@@ -93,6 +138,12 @@ function! utils#RmarkdownPasteImage(relpath)
     execute "normal! i```{r, out.width = '70%', fig.pos = 'h', fig.show = 'hold'}\n" .
           \ "knitr::include_graphics(\"" . a:relpath . "\")\r" .
           \ "```\n"
+endfunction
+
+" insert org-mode style image =========================================== {{{1
+function! utils#OrgModeClipBoardImage()
+    call mdip#MarkdownClipboardImage()
+    s/\v!\[([^]]*)]\(([^)]+)\)/[[\2][\1]]/
 endfunction
 
 " 选择光标下文字 Super useful! From an idea by Michael Naumann =========== {{{1

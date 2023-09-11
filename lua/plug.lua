@@ -732,8 +732,8 @@ Plug.add('vim-pandoc/vim-pandoc-syntax', {
 -- })
 
 -- ferrine/md-img-paste.vim: paste image to markdown -------------------- {{{3
-Plug.add('ferrine/md-img-paste.vim', {
-    ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc'}
+Plug.add('img-paste-devs/img-paste.vim', {
+    ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc', 'org'}
 })
 
 -- hotoo/pangu.vim: 『盘古之白』中文排版自动规范化 ---------------------- {{{3
