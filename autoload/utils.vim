@@ -84,6 +84,7 @@ endfunction
 " insert org-mode roam node ============================================= {{{1
 function! utils#RoamInsertNode(title, method = "")
     let external_command = 'org-mode-roam-node "' . a:title . '"'
+    let @* = a:title
     let ori = @0
     let line = getline(line('.'))
     let pos = col('.') - 1

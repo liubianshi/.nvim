@@ -113,5 +113,12 @@ vimkey('<leader>nN', "Redir Notifications",   '<cmd>Redir Notifications<cr>')
 vimkey('<leader>nm', "Display messages",      '<cmd>messages<cr>')
 vimkey('<leader>nM', "Redir messages",        '<cmd>Redir messages<cr>')
 
+-- format --------------------------------------------------------------- {{{1
+-- vimkey('gQ', "gq after Pangu", 'vip<cmd>Pangu<cr>gqip')
+-- vimkey('gQ', "gq after Pangu", '<cmd>Pangu<cr>vgvgq', { mode = 'v'})
+vim.cmd[[
+    nnoremap gQ vip:Pangu<cr>gqip
+    vnoremap gQ :Pangu<cr>vgvgq
+]]
 
 

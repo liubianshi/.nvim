@@ -38,5 +38,5 @@ vim.keymap.set(
     }
 )
 
-
+vim.b.foldlevel = 99
 
