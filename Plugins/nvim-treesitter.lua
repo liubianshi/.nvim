@@ -1,4 +1,5 @@
-require'nvim-treesitter.configs'.setup {
+local ts = require'nvim-treesitter.configs'
+ts.setup({
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
     ensure_installed = {
         "r",
@@ -18,6 +19,8 @@ require'nvim-treesitter.configs'.setup {
         "json",
     },
     sync_install = false,
+    auto_install = true,
+    ignore_install = {"javascript", "css", "json"},
 
     highlight = {
         enable = true,
@@ -25,6 +28,6 @@ require'nvim-treesitter.configs'.setup {
         additional_vim_regex_highlighting = {'org'},
     },
     indent = {
-        enable = false,
+        enable = {"r"},
     },
-}
+})
