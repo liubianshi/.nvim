@@ -17,7 +17,7 @@ set wildignorecase  " ignore file and dir name cases in cmd-completion
 " 语言环境配置 =========================================================== {{{1
 " perl {{{2
 " let g:loaded_perl_provider = 1
-let g:perl_host_prog = '/sbin/perl'
+let g:perl_host_prog = '/usr/bin/perl'
 
 
 " Python 相关设置 {{{2
