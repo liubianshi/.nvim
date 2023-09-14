@@ -1,15 +1,30 @@
+local color = vim.g.lbs_colors
+local trans = { bg = "bg"}
 require"bufferline".setup{
     highlights = {
-        fill = {
-            guibg = {
-                attribute = "bg",
-                highlight = "bg",
-            }
-        },
+        background = { bg = "bg", fg = color['bg_pmenu'] },
+        fill = { fg = color['cyan'], bg = "bg" },
+        buffer_selected = { fg = color.orange, bg = "bg", bold = true, italic = true, underline = false},
+        close_button_selected = {bg = "bg", underline = false, fg = color.orange},
+        separator = {bg = "bg", fg = color.bg_pmenu},
+        separator_selected = {bg = "bg", fg = color.bg_pmenu},
+        separator_visible = trans,
+        tab = trans,
+        tab_separator = {bg = "bg", fg = color.bg_pmenu},
+        tab_separator_selected = {bg = "bg", fg = color.bg_pmenu},
+        tab_selected = { bg = "bg", underline = false},
+        tab_close = trans,
+        close_button = trans,
+        trunc_marker = trans,
+        offset_separator = trans,
     },
     options = {
-        separator_style = "thin",
+        themable = true,
+        indicator = { icon = ' 📌 ', style = 'none', },
+        show_buffer_close_icon = false,
+        separator_style = "thick",
         always_show_bufferline = false,
+        color_icons =  true,
         offsets = {
             {
                 filetype = "neo-tree",

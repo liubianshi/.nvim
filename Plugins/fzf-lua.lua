@@ -257,6 +257,18 @@ vim.api.nvim_create_user_command('Shelp', function(opts)
     })
     end, { nargs = '*' })
 
+vim.api.nvim_create_user_command('Urlopen', function(opts)
+    local content
+    require('fzf-lua').fzf_exec(vim.fn['utils#Fetch_urls'](opts.args), {
+        preview = nil,
+        actions = {
+            ['default'] = function(selected, _)
+                vim.fn.system("linkhandler " .. vim.fn.shellescape(selected[1]))
+            end,
+        }
+    })
+end, { nargs = 0, desc = "FzfLua: Open urls"})
+
 -- asynctasks ----------------------------------------------------------- {{{2
 -- From:
 -- https://github.com/skywind3000/asynctasks.vim/wiki/UI-Integration

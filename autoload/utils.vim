@@ -5,6 +5,22 @@ function! utils#Warn(msg)
   echohl NONE
 endfunction
 
+" Extract all urls ====================================================== {{{1
+function! utils#Fetch_urls(update = "")
+    if has_key(b:, "fetched_urls") && a:update !=? "update"
+        return b:fetched_urls
+    endif
+
+    let fn = expand('%')
+    let uniq_from_perl = "perl -nle '$c{$_} //= $. } { print join q/\n/, (sort {$c{a} <=> $c{b}} keys %c)'"
+    if fn == ""
+        let urls = system("xurls | " . uniq_from_perl, getline(1, '$'))
+    else
+        let urls = system("xurls " . shellescape(fn) . " | " . uniq_from_perl)
+    endif
+    let b:fetched_urls = split(urls, '\n', 0)
+    return b:fetched_urls
+endfunction
 
 " math equation preview ================================================== {{{1
 function! utils#Math_Preview() range
