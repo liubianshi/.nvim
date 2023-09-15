@@ -2,8 +2,14 @@ local zenmode = require('zen-mode')
 
 zenmode.setup{
     window = {
+        width = function()
+            if vim.fn.winwidth(0) > 125 then
+                return 100
+            else
+                return 0.8
+            end
+        end,
         options = {
-            signcolumn     = "no",  -- disable signcolumn
             number         = false, -- disable number column
             relativenumber = false, -- disable relative numbers
             cursorline     = true, -- disable cursorline
@@ -24,6 +30,6 @@ zenmode.setup{
         vim.g.lbs_zen_mode = true
     end,
     on_close = function()
-        vim.g.lbs_zen_mode = false 
+        vim.g.lbs_zen_mode = false
     end,
 }

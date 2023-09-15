@@ -50,9 +50,10 @@ function! s:mylib_extact_note(line = -1)
 endfunction
 
 " Basic Setting
-if !has_key(b:, "fetched_urls")
-    let b:fetched_urls = systemlist("xurls", getline(1, '$'))
-endif
+" if !has_key(b:, "fetched_urls")
+"     let b:fetched_urls = systemlist("xurls", getline(1, '$'))
+" endif
+call utils#Fetch_urls()
 set wrap
 
 " Keymap ---------------------------------------------------------------- {{1
@@ -61,4 +62,5 @@ nnoremap <silent><buffer> <localleader>e :call <sid>mylib_edit()<cr>
 nnoremap <silent><buffer> <localleader>n :call <sid>mylib_note()<cr>
 nnoremap <silent><buffer> <localleader>o :Urlopen<cr>
 vnoremap <silent><buffer> <localleader>y "+y:<c-u>call <sid>mylib_extact_note()<cr>
+nnoremap <silent><buffer> <localleader>y vip"+y:<c-u>call <sid>mylib_extact_note()<cr>
 

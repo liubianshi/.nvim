@@ -12,7 +12,7 @@ function! utils#Fetch_urls(update = "")
     endif
 
     let fn = expand('%')
-    let uniq_from_perl = "perl -nle '$c{$_} //= $. } { print join q/\n/, (sort {$c{a} <=> $c{b}} keys %c)'"
+    let uniq_from_perl = "perl -nle '$c{$_} //= $. } { print join q/\n/, (sort {$c{$a} <=> $c{$b}} keys %c)'"
     if fn == ""
         let urls = system("xurls | " . uniq_from_perl, getline(1, '$'))
     else
