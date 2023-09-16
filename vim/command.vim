@@ -9,3 +9,6 @@ command! RUN FloatermNew --name=repl --wintype=normal --position=right
 
 command! -nargs=* -complete=customlist,perldoc#PerldocComplete Perldoc :call perldoc#Perldoc(<q-args>)
 command! -nargs=* -nargs=? -complete=customlist,RLisObjs Rdoc :call rdoc#Rdoc(<q-args>)
+
+command! -nargs=+ -complete=customlist,mylib#Complete Mylib :call mylib#run(<f-args>)
+

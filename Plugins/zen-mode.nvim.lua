@@ -3,10 +3,11 @@ local zenmode = require('zen-mode')
 zenmode.setup{
     window = {
         width = function()
-            if vim.fn.winwidth(0) > 125 then
+            local ww = vim.fn.winwidth(0)
+            if ww > 125 then
                 return 100
             else
-                return 0.8
+                return vim.fn.floor(ww * 0.8)
             end
         end,
         options = {

@@ -266,7 +266,8 @@ Plug.add('nvim-focus/focus.nvim', {
         { '<leader>wm', '<cmd>FocusMaximise<cr>',   desc = "Focus Maximise"    },
         { '<leader>we', '<cmd>FocusEqualise<cr>',   desc = "Focus Equalise"    },
         { '<leader>ww', '<cmd>FocusSplitNicely<cr>',desc = "Focus Equalise"    },
-    }
+    },
+    cmd = {"FocusToggle", "FocusEnable"},
 })
 
 -- folke/zen-mode.nvim: Distraction-free coding for Neovim -------------- {{{3
@@ -537,9 +538,7 @@ Plug.add('akinsho/toggleterm.nvim', {
 })
 
 -- skywind3000/asyncrun.vim: run async shell command -------------------- {{{3
-Plug.add('skywind3000/asyncrun.vim', {
-    cmd = "AsyncRun"
-})
+Plug.add('skywind3000/asyncrun.vim')
 
 -- skywind3000/asynctasks.vim: modern Task System ----------------------- {{{3
 Plug.add('skywind3000/asynctasks.vim', {

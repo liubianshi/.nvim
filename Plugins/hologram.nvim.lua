@@ -3,35 +3,36 @@ require('hologram').setup{
 }
 
 local display_image = function(file, opts)
-    if vim.fn.filereadable(file) == 0 or
-       not file:match("%.png$") then
+    if vim.fn.filereadable(file) == 0 or not file:match("%.png$") then
         return nil
     end
-    local default_opts = {
-        method = "split"
-    }
+    local default_opts = { method = "split" }
     opts = vim.tbl_extend("force", default_opts, opts or {})
+    local display_row = 1
+    local display_column = 0
     local cache_file = vim.fn.stdpath('cache') .. 'kitty_image_preview'
-    vim.fn['utils#Preview_data'](
-        cache_file,
-        'kitty_image_preview_buf', opts.method, 'n', 'kittypreview'
-    )
-
+    if opts.method == "infile" then
+        vim.cmd[[normal! zt]]
+        display_row = vim.fn.line('.')
+    else
+        vim.fn['utils#Preview_data'](
+            cache_file,
+            'kitty_image_preview_buf', opts.method, 'n', 'kittypreview'
+        )
+        vim.wo.number = false
+        vim.wo.relativenumber = false
+    end
     local buf = vim.api.nvim_get_current_buf()
-    vim.wo.number = false
-    vim.wo.relativenumber = false
     local image = require('hologram.image'):new(file, {})
-
-    image:display(1, 0, buf)
+    image:display(display_row, display_column, buf)
 
     vim.api.nvim_create_user_command(
         "DeleteImage",
-        function()
+        function(o)
             image:delete(0, {free = true})
-            if not bang then
+            if not o.bang and opts.method ~= "infile" then
                 vim.fn['utils#Preview_data'](
-                    cache_file,
-                    'kitty_image_preview_buf', opts.method, 'y', 'kittypreview'
+                    cache_file, 'kitty_image_preview_buf', opts.method, 'y', 'kittypreview'
                 )
             end
         end,

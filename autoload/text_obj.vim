@@ -81,6 +81,25 @@ function! text_obj#MdCodeBlock(type) abort
   execute 'normal! `<V`>'
 endfunction
 
+" org-mode block ======================================================== {{{1
+function! text_obj#OrgCodeBlock(type) abort
+  normal! $
+  let start_row = searchpos('\s*#+begin_', 'bnW')[0]
+  let end_row = searchpos('\s*#+end_', 'nW')[0]
+
+  let buf_num = bufnr()
+  if a:type ==# 'i'
+    let start_row += 1
+    let end_row -= 1
+  endif
+  " echo a:type start_row end_row
+
+  call setpos("'<", [buf_num, start_row, 1, 0])
+  call setpos("'>", [buf_num, end_row, 1, 0])
+  execute 'normal! `<V`>'
+endfunction
+
+
 " Stata Program block =================================================== {{{1
 function! text_obj#StataProgramDefine() abort
   let start_row = searchpos('\v^\s*cap(ture)? prog(ram)?', 'bnW')[0]

@@ -38,5 +38,12 @@ vim.keymap.set(
     }
 )
 
+vim.cmd[[
+xnoremap <silent><buffer> ib :<C-U>call text_obj#OrgCodeBlock("i")<CR>
+onoremap <silent><buffer> ib :<C-U>call text_obj#OrgCodeBlock("i")<CR>
+xnoremap <silent><buffer> ab :<C-U>call text_obj#OrgCodeBlock("a")<CR>
+onoremap <silent><buffer> ab :<C-U>call text_obj#OrgCodeBlock("a")<CR>
+]]
+
 vim.cmd[[setlocal foldlevel=99]]
 

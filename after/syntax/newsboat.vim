@@ -13,7 +13,7 @@ syn match newsDate    /\v^Date: .*$/          contains=newsKeyword
 syn match newsLink    /\v^Link: [^ ]*$/hs=s+6 contains=newsKeyword
 syn match newsInLink /\v\[[^\]\(]+\(link [^\)]+\)\]/ contains=newsLinkBracket
 syn match newsLinkBracket /[\[\]]/ conceal contained
-syn match newsLinkID /\v^\[[0-9]+\]:/ 
+syn match newsLinkID /\v\[[0-9]+\]:?/ 
 syn match newsLinkHeader /\vLinks:\ze\s*$/
 syn region newsLink start="\v https://"hs=s+1 end=/\v \([^\)]+\)/he=s-1  oneline contains=newsLinkType
 syn match newsLinkType /\v\([^\)]+\)/hs=s+1,he=e-1 contained

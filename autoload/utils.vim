@@ -5,6 +5,50 @@ function! utils#Warn(msg)
   echohl NONE
 endfunction
 
+" Get content between =================================================== {{{1
+function! utils#GetContentBetween(left, right)
+    let col = col('.')
+    let line = getline('.')
+
+    let num = col - 1
+    let inpair = 0
+    while num >= 0
+        if line[num] == a:left
+            if inpair == 0 | break | endif
+            let inpair -= 1
+        elseif line[num] == a:right
+            let inpair += 1
+        endif
+        let num -= 1
+    endwhile
+    if num == -1 | return "" | end
+    if num == col - 1
+        let lcontent = ""
+    else
+        let lcontent = line[num+1:col-1]
+    endif
+
+    let num = col
+    let inpair = 0
+    while num <= col('$') - 2
+        if line[num] == a:right
+            if inpair == 0 | break | endif
+            let inpair -= 1
+        elseif line[num] == a:left
+            let inpair += 1
+        endif
+        let num += 1
+    endwhile
+    if num == col('$') - 1 | return "" | end
+    if num == col
+        let rcontent = ""
+    else
+        let rcontent = line[col:num-1]
+    endif
+    return lcontent . rcontent
+endfunction
+
+
 " Extract all urls ====================================================== {{{1
 function! utils#Fetch_urls(update = "")
     if has_key(b:, "fetched_urls") && a:update !=? "update"
@@ -21,6 +65,33 @@ function! utils#Fetch_urls(update = "")
     let b:fetched_urls = split(urls, '\n', 0)
     return b:fetched_urls
 endfunction
+
+" Open url ============================================================== {{{1
+function! utils#OpenUrl(url, in = "", type = "")
+    if type(a:url) == v:t_dict
+        let url = a:url['url']
+        let type = a:url['type']
+    else
+        let url = a:url
+        let type = a:type
+    endif
+
+    if url == "" | return | end
+    if url !~ '\v^(http|(\w+\.)+)' | return | end
+    let command = "linkhandler " . (type ==# "image" ? "-t image " : "")
+    if a:in ==# "in"
+        let image_path = system(command . "-V " . url)
+        try
+            DeleteImage
+            catch /Not an editor command/
+        endtry
+        exec "PreviewImage infile " . image_path
+    else
+        Lazy! load asyncrun.vim
+        call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command . url )
+    endif
+endfunction
+
 
 " math equation preview ================================================== {{{1
 function! utils#Math_Preview() range
@@ -526,9 +597,7 @@ endfunction
 " open file in spec buffer
 function! utils#Preview_data(fname, globalvar, method = "tabnew", close = "n", filetype = "tsv")
     if !has_key(g:, a:globalvar)
-        if a:close ==? "y"
-            return
-        endif
+        if a:close ==? "y" | return | endif
         let bufnr = bufadd(a:fname)
         let g:[a:globalvar] = bufnr
     else
@@ -536,9 +605,7 @@ function! utils#Preview_data(fname, globalvar, method = "tabnew", close = "n", f
     endif
     let l:winlist = win_findbuf(bufnr)
     if empty(l:winlist)
-        if a:close ==? "y"
-            return
-        endif
+        if a:close ==? "y" | return | endif
         exec a:method | exec "buffer" . bufnr
         setlocal buftype=nowrite
         setlocal noswapfile
@@ -553,6 +620,7 @@ function! utils#Preview_data(fname, globalvar, method = "tabnew", close = "n", f
         call win_gotoid(l:winlist[0])
         exec "edit"
         if a:close ==? "y"
+            Bclose
             quit
         endif
     endif
@@ -615,7 +683,7 @@ function! utils#MdPreview(method = "FocusSplitDown") range  abort
             \ :<c-u>call utils#DeleteMdPreview(v:true, v:true)<cr>
     else
         nnoremap <buffer><silent> <localleader>id
-            \ :<c-u>call utils#DeleteMdPreview(v:fasle, v:true)<cr>
+            \ :<c-u>call utils#DeleteMdPreview(v:false, v:true)<cr>
     endif
     call utils#DeleteMdPreview(v:false)
     exec "PreviewImage " . a:method . " " . outfile
