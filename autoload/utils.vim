@@ -69,18 +69,20 @@ endfunction
 " Open url ============================================================== {{{1
 function! utils#OpenUrl(url, in = "", type = "")
     if type(a:url) == v:t_dict
+        if len(a:url) == 0 | return | endif
         let url = a:url['url']
         let type = a:url['type']
     else
+        if a:url == "" | return | endif
         let url = a:url
         let type = a:type
     endif
 
-    if url == "" | return | end
     if url !~ '\v^(http|(\w+\.)+)' | return | end
     let command = "linkhandler " . (type ==# "image" ? "-t image " : "")
     if a:in ==# "in"
-        let image_path = system(command . "-V " . url)
+        let image_path = system(command . "-V " . "'".url."'")
+        echom image_path
         try
             DeleteImage
             catch /Not an editor command/
@@ -88,7 +90,7 @@ function! utils#OpenUrl(url, in = "", type = "")
         exec "PreviewImage infile " . image_path
     else
         Lazy! load asyncrun.vim
-        call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command . url )
+        call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command . "'".url."'" )
     endif
 endfunction
 
@@ -300,6 +302,7 @@ function! s:zenmodeinsert() abort
                        \ 'number': &number,
                        \ 'relativenumber': &relativenumber,
                        \ 'foldenable': &foldenable,
+                       \ 'laststatus': &laststatus,
                        \ }
     setlocal nonumber
     setlocal norelativenumber
@@ -317,7 +320,6 @@ function! s:zenmodeinsert() abort
     endif
 endfunction
 function! s:zenmodeleave() abort
-    set laststatus=2
     set noshowcmd
     if !exists('b:zen_oriwin')
         return
@@ -325,7 +327,7 @@ function! s:zenmodeleave() abort
     for attr in keys(b:zen_oriwin)
         if attr ==# 'zenmode'
             let b:zen_oriwin[attr] = 0
-        elseif attr ==# 'foldcolumn'
+        elseif attr ==# 'foldcolumn' || attr ==# 'laststatus'
             exec 'setlocal ' . attr . "=" . b:zen_oriwin[attr]
         elseif b:zen_oriwin[attr] == 1
             exec 'setlocal ' . attr
@@ -661,7 +663,7 @@ endfun
 
 function! utils#MdPreview(method = "FocusSplitDown") range  abort
     let bg = synIDattr(synIDtrans(hlID("StatusLine")), "bg#")
-    if !($TERM ==? "xterm-kitty" && v:lua.PlugExist('hologram.nvim'))
+    if !(($TERM ==? "xterm-kitty" || $WEZTERM_EXECUTABLE != "") && v:lua.PlugExist('hologram.nvim'))
         let outfile = shellescape(stdpath('cache') . "/vim_markdown_preview.png")
         let command = "mdviewer --wname " . sha256(expand('.')) . 
                     \ " --outfile " . outfile . " --bg '" . bg . "'"

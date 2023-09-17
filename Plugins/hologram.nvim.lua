@@ -48,7 +48,7 @@ vim.api.nvim_create_user_command(
         local method = "split"
         if args_number > 1 then method = args.fargs[1] end
         display_image(file, {method = method})
-        vim.cmd([[wincmd w]])
+        -- vim.cmd([[wincmd w]])
     end,
     { nargs = '+', desc = "Display image with hologram"}
 )

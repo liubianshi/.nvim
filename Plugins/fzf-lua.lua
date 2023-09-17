@@ -258,12 +258,11 @@ vim.api.nvim_create_user_command('Shelp', function(opts)
     end, { nargs = '*' })
 
 vim.api.nvim_create_user_command('Urlopen', function(opts)
-    local content
     require('fzf-lua').fzf_exec(vim.fn['utils#Fetch_urls'](opts.args), {
         preview = nil,
         actions = {
             ['default'] = function(selected, _)
-                local command = "linkhandler " .. vim.fn.shellescape(selected[1])
+                local command = "linkhandler '" .. selected[1] .. "'"
                 vim.cmd[[Lazy! load asyncrun.vim]]
                 vim.fn['asyncrun#run']("", {silent = 1, pos = 'hide'}, command)
             end,

@@ -31,6 +31,7 @@
   "github-nvim-theme": { "branch": "main", "commit": "58d3d585b9cd90c113e7b63a12f0719aaf5541db" },
   "graphviz.vim": { "branch": "master", "commit": "773d5a5d014af5ed19ec3f2c182c1a167ff958f2" },
   "gruvbox-baby": { "branch": "main", "commit": "4f45f5182b986ea8099b8ad0207e07f1bc49a47f" },
+  "hologram.nvim": { "branch": "main", "commit": "f5194f71ec1578d91b2e3119ff08e574e2eab542" },
   "img-paste.vim": { "branch": "master", "commit": "787be15ff52ea2db5ae7b813ab8808c8d4cf749e" },
   "indent-blankline.nvim": { "branch": "master", "commit": "9637670896b68805430e2f72cf5d16be5b97a22a" },
   "kanagawa.nvim": { "branch": "master", "commit": "0a24e504a3a278849ad0aef31cd6dd24c73ca3db" },

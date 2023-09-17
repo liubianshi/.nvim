@@ -564,8 +564,9 @@ Plug.add('potamides/pantran.nvim', {
 
 -- edluffy/hologram.nvim: terminal image viewer for Neovim -------------- {{{3
 Plug.add('edluffy/hologram.nvim', {
-    ft = {'markdown', 'pandoc', 'rmd', 'rmarkdown', 'norg', 'org'},
-    cond = (vim.env.TERM == "xterm-kitty"),
+    ft = {'markdown', 'pandoc', 'rmd', 'rmarkdown', 'norg', 'org', 'newsboat'},
+    cond = (vim.env.TERM == "xterm-kitty" or
+            vim.env.WEZTERM_EXECUTABLE ~= ""),
     cmd = 'PreviewImage',
 })
 

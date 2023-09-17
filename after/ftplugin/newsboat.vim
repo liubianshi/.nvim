@@ -11,10 +11,39 @@ function! s:get_link_under_cursur_line()
             DeleteImage
             catch /Not an editor command/
         endtry
-        return ""
+        return {}
     endif
 endfunction
 
+function! s:get_link_citation_under_cursor(ft = "org")
+    " if ! has_key("b:", "mylib_key")
+    "     echo "Need save html file to lib first"
+    "     return
+    " endif
+
+    let link = s:get_link_under_cursur_line()
+    if len(link) == 0 | return | endif
+
+    Mylib note quiet
+    let note_wnr = bufwinid(b:mylib_note)
+
+    if link['type'] == "image"
+        let image_path = system("linkhandler -t image -V '" . link['url'] . "'")
+        let imagename = v:lua.vim.fs.basename(image_path)
+        let subdir = v:lua.vim.fs.basename(v:lua.vim.fs.dirname(image_path))
+        let target_dir = v:lua.vim.fs.dirname(b:mylib_note) . "/img/" . subdir
+        let target_path = target_dir . "/" . imagename
+        if ! filereadable(target_path)
+            call mkdir(target_dir, "p")
+            call system("link '" . image_path . "' '" . target_path . "'") 
+        endif
+        let content = "[[./img/" . subdir . "/" . imagename . "]]"
+    else
+        let content = system("url_cite org '" . link['url'] . "'")
+    endif
+
+    return content
+endfunction
 
 function! s:generate_url_dict() " --------------------------------------- {{{1
     if has_key(b:, "newsboat_url_dict") | return | end
@@ -30,15 +59,13 @@ function! s:generate_url_dict() " --------------------------------------- {{{1
     endif
 endfunction
 
-function! s:mylib_extact_note(line = -1)
+function! s:mylib_send_content_to_note(content, line = -1)
     if ! has_key(b:, "mylib_key")
         echo "Need save html file to lib first"
         return
     endif
-    if @+ == "" | return | end
-    let ori = @+
-    let @+ = "\n#+begin_quote\n" . trim(@+) . "\n#+end_quote\n"
-    let current_wnr = bufwinid('%')
+    if a:content !~ '\S' | return | endif
+    let current_wnr = bufwinid(@%)
 
     Mylib note quiet
     let note_wnr = bufwinid(b:mylib_note)
@@ -55,11 +82,28 @@ function! s:mylib_extact_note(line = -1)
         exec "normal! " . a:line . 'Gzt'
     endif
 
+    let ori = @+
+    let @+ = a:content 
     normal! "+p
-
     let @+ = ori
+
     write
     call win_gotoid(current_wnr)
+endfunction
+
+function! s:mylib_send_clipboard_to_note(line = -1)
+    if @+ == "" | return | end
+    let content = "\n#+begin_quote\n" . trim(@+) . "\n#+end_quote\n"
+    call s:mylib_send_content_to_note(content, a:line)
+endfunction
+
+function! s:mylib_send_link_citation_to_note(line = -1)
+    if ! has_key(b:, "mylib_key")
+        echo "Need save html file to lib first"
+        return
+    endif
+    let content = s:get_link_citation_under_cursor()
+    call s:mylib_send_content_to_note(content, a:line)
 endfunction
 
 function! s:cache_link_snapshot()
@@ -89,8 +133,9 @@ nnoremap <silent><buffer> <localleader>e :Mylib edit<cr>
 nnoremap <silent><buffer> <localleader>n :Mylib note<cr>
 nnoremap <silent><buffer> <localleader>O :Urlopen<cr>
 nnoremap <silent><buffer> <localleader>o "+yiu:call utils#OpenUrl(@+, "in")<cr>
-vnoremap <silent><buffer> <localleader>y "+y:<c-u>call <sid>mylib_extact_note()<cr>
-nnoremap <silent><buffer> <localleader>y vip"+y:<c-u>call <sid>mylib_extact_note()<cr>
+vnoremap <silent><buffer> <localleader>y "+y:<c-u>call <sid>mylib_send_clipboard_to_note()<cr>
+nnoremap <silent><buffer> <localleader>y vip"+y:<c-u>call <sid>mylib_send_clipboard_to_note()<cr>
 nnoremap <silent><buffer> <localleader>q :qall<cr>
 nnoremap <silent><buffer> <enter> :<c-u>call utils#OpenUrl(<sid>get_link_under_cursur_line(), "in")<cr>
+nnoremap <silent><buffer> <s-enter> :<c-u>call <sid>mylib_send_link_citation_to_note()<cr>
 
