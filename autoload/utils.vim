@@ -6,48 +6,128 @@ function! utils#Warn(msg)
 endfunction
 
 " Get content between =================================================== {{{1
-function! utils#GetContentBetween(left, right)
-    let col = col('.')
+function! s:GetLeftContentBetween(left, right, col = -1)
+    if a:left == "" || a:right == "" | return -1 | endif
+    let col = a:col == -1 ? col('.') : a:col
+    
     let line = getline('.')
+    let len_l = len(a:left)
+    let len_r = len(a:right)
 
-    let num = col - 1
-    let inpair = 0
-    while num >= 0
-        if line[num] == a:left
-            if inpair == 0 | break | endif
-            let inpair -= 1
-        elseif line[num] == a:right
-            let inpair += 1
+    let i = 0
+    while i < len_l
+        if (col-1-i + (len_l - 1)) >= col('$') - 1 | break | endif
+        if line[(col-1-i):(col-1-i + (len_l - 1))] == a:left
+            return {"row": line('.'), "col": col-1-i + (len_l - 1) + 1 + 1}
         endif
-        let num -= 1
+        let i += 1
     endwhile
-    if num == -1 | return "" | end
-    if num == col - 1
-        let lcontent = ""
-    else
-        let lcontent = line[num+1:col-1]
-    endif
 
-    let num = col
     let inpair = 0
-    while num <= col('$') - 2
-        if line[num] == a:right
-            if inpair == 0 | break | endif
-            let inpair -= 1
-        elseif line[num] == a:left
-            let inpair += 1
-        endif
-        let num += 1
+    let lnum = line('.')
+    while lnum >= 1 && getline(lnum) =~? '\v\S'
+        let line = getline(lnum)
+        let num = lnum == line('.') ? col : len(line)
+        while num >= len_l
+            if line[(num - len_l):(num-1)] == a:left
+                if inpair == 0
+                    return {"row": lnum, "col": num + 1}
+                endif
+                let inpair -= 1
+                let num -= len_l
+            elseif num != col && num >= len_r && a:left != a:right && line[(num-len_r):(num-1)] == a:right
+                let inpair += 1
+                let num -= len_r
+            else
+                let num -= 1
+            endif
+        endwhile
+        let lnum -= 1
     endwhile
-    if num == col('$') - 1 | return "" | end
-    if num == col
-        let rcontent = ""
-    else
-        let rcontent = line[col:num-1]
-    endif
-    return lcontent . rcontent
+    return -1
 endfunction
 
+function! s:GetRightContentBetween(left, right, col = -1)
+    if a:left == "" || a:right == "" | return -1 | endif
+    let col = a:col == -1 ? col('.') : a:col
+    
+    let line = getline('.')
+    let len_l = len(a:left)
+    let len_r = len(a:right)
+
+    let i = 0
+    while i < len_r
+        if ((col + i - 1) - (len_r - 1)) < 0 | break | endif
+        if line[((col + i - 1) - (len_r - 1)):(col + i - 1)] == a:right
+            return {"row": line('.'), "col":(col + i - 1) - (len_r - 1)}
+        endif
+        let i += 1
+    endwhile
+
+    let inpair = 0
+    let lnum = line('.')
+    while lnum <= line('$') && getline(lnum) =~? '\v\S'
+        let num = lnum == line('.') ? col : 1
+        let line = getline(lnum)
+        let max_col = len(line)
+
+        while num <= max_col - len_r + 1
+            if line[(num-1):(num - 1 + len_r - 1)] == a:right
+                if inpair == 0
+                    return {"row": lnum, "col": num - 1}
+                endif
+                let inpair -= 1
+                let num += len_r
+            elseif num != col &&
+                \ num <= max_col - len_l + 1 &&
+                \ a:left != a:right &&
+                \ line[(num-1):(num-1 + len_l - 1)] == a:left
+                let inpair += 1
+                let num += len_l
+            else
+                let num += 1
+            endif
+        endwhile
+
+        let lnum += 1
+    endwhile
+    return -1
+endfunction
+
+function! utils#GetContentBetween(left, right, col = -1)
+    if a:left == "" || a:right == "" | return "" | endif
+    
+    let l = s:GetLeftContentBetween(a:left, a:right, a:col)
+    if type(l) != v:t_dict | return "" | endif
+
+    let r = s:GetRightContentBetween(a:left, a:right, a:col)
+    if  type(r) != v:t_dict | return "" | endif
+
+
+    if l['row'] > r['row'] | return "" | endif
+
+    if l['row'] == r['row']
+        return getline('.')[(l['col']-1):(r['col']-1)]
+    endif
+
+    let content = []
+
+    let lline = getline(l['row'])
+    if l['col'] <= len(lline)
+        let content = add(content, lline[(l['col']-1):])
+    endif
+
+    if r['row'] >= l['row'] + 2
+        let content = content + getline(l['row'] + 1, r['row'] - 1)
+    endif
+
+    let rline = getline(r['row'])
+    if r['col'] >= 1
+        let content = add(content, rline[0:(r['col']-1)]) 
+    endif
+
+    return join(content, "\n")
+endfunction
 
 " Extract all urls ====================================================== {{{1
 function! utils#Fetch_urls(update = "")
@@ -78,7 +158,7 @@ function! utils#OpenUrl(url, in = "", type = "")
         let type = a:type
     endif
 
-    if url !~ '\v^(http|(\w+\.)+)' | return | end
+    if url !~ '\v^\s*(https?://|[-A-z_]+(.[-A-z_]+){3,}/)' | return | end
     let command = "linkhandler " . (type ==# "image" ? "-t image " : "")
     if a:in ==# "in"
         let image_path = system(command . "-V " . "'".url."'")
@@ -193,28 +273,37 @@ endfunction
 
 " open org-roam node under cursor ======================================= {{{1
 function! utils#RoamOpenNode(method = "edit")
-    let ori = @0
-    let line = getline(line('.'))
-    let pos = col('.') - 1
-    if line[pos:pos+1] == "[[" || line[pos-1:pos] == "]]"
-        normal! "0yi[
-    elseif line[pos-1:pos] == "[["
-        normal! h"0yi[
-    elseif line[pos:pos+1] == "]]"
-        normal! l"0yi[
-    elseif line[pos:pos+1] == "][" || line[pos-1:pos] == "]["
-        normal! f]l"0yi[
-    elseif line[0:pos] =~? '\[\[[^\]]\+$'
-        normal! F[h"0yi[
-    elseif line[pos+1:] =~? '^[^\]]\+\]\]'
-        normal! f]l"0yi[
+    let content = utils#GetContentBetween('[[',']]')
+    let id = content == "" ? "" : split(content, '][')[0]
+    if id =~? '\v^\s*(https?://|[-A-z_]+(.[-A-z_]+){3,}/)'
+        call utils#OpenUrl(id, "in")
+    elseif id =~? '\v\.png$'
+        let dirname = v:lua.vim.fs.dirname(expand('%:p'))
+        call utils#Preview_image_under_cursor(dirname . "/" . id)
+    elseif id =~ '\v\s*id:'
+        let filepath = system("org-mode-roam-node -j " . shellescape(id))
+        exec a:method . " " . filepath
     else
+        try
+            DeleteImage
+            catch /Not an editor command/
+        endtry
+    endif
+endfunction
+
+" Prewiew file under cursor ============================================= {{{1
+function! utils#Preview_image_under_cursor(filename)
+    let fname = fnamemodify(a:filename, ":p")
+    if fname !~? '\v\.png$' || ! filereadable(fname)
         return
     endif
 
-    let filepath = system("org-mode-roam-node -j " . shellescape(@0))
-    exec a:method . " " . filepath
-endfunction
+    try
+        DeleteImage
+        catch /Not an editor command/
+    endtry
+    exec "PreviewImage infile " . fname 
+endfunction    
 
 " insert rmd-style picture =============================================== {{{1
 function! utils#RmdClipBoardImage()

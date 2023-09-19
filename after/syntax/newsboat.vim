@@ -16,6 +16,7 @@ syn match newsLinkBracket /[\[\]]/ conceal contained
 syn match newsLinkID /\v\[[0-9]+\]:?/ 
 syn match newsLinkHeader /\vLinks:\ze\s*$/
 syn region newsLink start="\v https://"hs=s+1 end=/\v \([^\)]+\)/he=s-1  oneline contains=newsLinkType
+syn region newsInLink start='\v\[image\s' end='\v\(link #[0-9]+\)\]'  contains=newsLinkBracket keepend
 syn match newsLinkType /\v\([^\)]+\)/hs=s+1,he=e-1 contained
 
 

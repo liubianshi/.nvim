@@ -1,22 +1,8 @@
 local ts = require'nvim-treesitter.configs'
 ts.setup({
-    -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-    ensure_installed = {
-        "r",
-        -- "perl",
-        "python",
-        "bash",
-        "vim",
-        "org",
-        "lua",
-        "dot",
-        "javascript",
-        "markdown",
-        "markdown_inline",
-        "c",
-        "bibtex",
-        "css",
-        "json",
+    modules = {},
+    ensure_installed = { "r", "bash", "vim", "org", "lua", "dot",
+                        "markdown", "markdown_inline", "bibtex", "css", "json",
     },
     sync_install = false,
     auto_install = true,
@@ -24,10 +10,10 @@ ts.setup({
 
     highlight = {
         enable = true,
-        disable = {'r', 'vim'},
+        disable = {'r', 'vim', 'tsv'},
         additional_vim_regex_highlighting = {'org'},
     },
     indent = {
-        enable = {"r"},
+        enable = false,
     },
 })

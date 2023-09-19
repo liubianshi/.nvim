@@ -602,7 +602,7 @@ Plug.add('gbprod/yanky.nvim', {
 
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
-Plug.add('ahmedkhalf/project.nvim', { keys = {{'<leader>pp', mode = "n"}}})
+Plug.add('ahmedkhalf/project.nvim')
 -- ludovicchabant/vim-gutentags: tag file management -------------------- {{{3
 Plug.add('ludovicchabant/vim-gutentags', {
     event = {'BufReadPost', 'BufNewFile'}

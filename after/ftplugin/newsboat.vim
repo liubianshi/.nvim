@@ -82,6 +82,7 @@ function! s:mylib_send_content_to_note(content, line = -1)
         exec "normal! " . a:line . 'Gzt'
     endif
 
+    normal! o
     let ori = @+
     let @+ = a:content 
     normal! "+p
@@ -93,7 +94,7 @@ endfunction
 
 function! s:mylib_send_clipboard_to_note(line = -1)
     if @+ == "" | return | end
-    let content = "\n#+begin_quote\n" . trim(@+) . "\n#+end_quote\n"
+    let content = "#+begin_quote\n" . trim(@+) . "\n#+end_quote\n"
     call s:mylib_send_content_to_note(content, a:line)
 endfunction
 

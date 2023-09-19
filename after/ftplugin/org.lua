@@ -29,7 +29,7 @@ vim.keymap.set(
 vim.keymap.set(
     {'n', 'v'},
     "<enter>",
-    '<cmd>call utils#RoamOpenNode("split")<cr><c-w>J<cmd>res 8<cr>',
+    '<cmd>call utils#RoamOpenNode("split")<cr>',
     {
         desc = "Open Roam Node under Cursor",
         silent = true,
