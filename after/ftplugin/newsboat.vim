@@ -59,15 +59,22 @@ function! s:generate_url_dict() " --------------------------------------- {{{1
     endif
 endfunction
 
-function! s:mylib_send_content_to_note(content, line = -1)
+function! s:mylib_send_content_to_note(content, line = -1) abort
     if ! has_key(b:, "mylib_key")
-        echo "Need save html file to lib first"
+        lua vim.notify("Need save html file to lib first")
         return
     endif
     if a:content !~ '\S' | return | endif
-    let current_wnr = bufwinid(@%)
-
     Mylib note quiet
+
+    let content = "\n" . a:content
+    let on_zen_mode = has_key(g:, "lbs_zen_mode") ? g:lbs_zen_mode : v:false
+    if on_zen_mode == v:true
+        echo system("cat >> " . b:mylib_note, content) 
+        return v:true
+    endif
+
+    let current_wnr = bufwinid(@%)
     let note_wnr = bufwinid(b:mylib_note)
       
     if note_wnr == -1
@@ -82,23 +89,27 @@ function! s:mylib_send_content_to_note(content, line = -1)
         exec "normal! " . a:line . 'Gzt'
     endif
 
-    normal! o
     let ori = @+
-    let @+ = a:content 
+    let @+ = content 
     normal! "+p
     let @+ = ori
 
     write
     call win_gotoid(current_wnr)
+    return v:true
 endfunction
 
 function! s:mylib_send_clipboard_to_note(line = -1)
     if @+ == "" | return | end
     let content = "#+begin_quote\n" . trim(@+) . "\n#+end_quote\n"
-    call s:mylib_send_content_to_note(content, a:line)
+    let result  = s:mylib_send_content_to_note(content, a:line)
+    if result == v:true
+        let @+ = "‹[" . @+ . "]›"
+        normal! gv"+p
+    endif
 endfunction
 
-function! s:mylib_send_link_citation_to_note(line = -1)
+function! s:mylib_send_link_citation_to_note(line = -1) abort
     if ! has_key(b:, "mylib_key")
         echo "Need save html file to lib first"
         return
@@ -122,11 +133,35 @@ function! s:cache_link_snapshot()
     let b:newsboat_link_cached = v:true
 endfunction
 
+function! s:pangu()
+    if has_key(b:, "formated") && b:formated == v:true
+        return
+    endif
+
+    normal! m'
+
+    normal! gg
+    let start = search('\v^\s*$', 'W')
+    let start = start == 0 ? 1 : start
+
+    normal! G
+    let end = search('\v^Links:\s*$', 'bW')
+    let end = end == 0 ? line('$') : end
+
+    lua require("lazy").load({plugins = "pangu.vim", wait = true})
+    exec start . "," . end . "Pangu"
+    exec "normal! " . start . "GV" . end . "Ggq"
+    let b:formated = v:true
+
+    normal! ''
+endfunction
+
 " set options ----------------------------------------------------------- {{{1
 call s:generate_url_dict()
 call utils#Fetch_urls()
 call s:cache_link_snapshot()
-set wrap
+" call s:pangu()
+set wrap nocindent
 
 " Keymap ---------------------------------------------------------------- {{{1
 nnoremap <silent><buffer> <localleader>s :Mylib new<cr>

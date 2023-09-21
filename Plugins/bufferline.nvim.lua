@@ -5,6 +5,7 @@ require"bufferline".setup{
         background = { bg = "bg", fg = color['bg_pmenu'] },
         fill = { fg = color['cyan'], bg = "bg" },
         buffer_selected = { fg = color.orange, bg = "bg", bold = true, italic = true, underline = false},
+        buffer_visible = {bg = "bg", fg = color.cyan},
         close_button_selected = {bg = "bg", underline = false, fg = color.orange},
         separator = {bg = "bg", fg = color.bg_pmenu},
         separator_selected = {bg = "bg", fg = color.bg_pmenu},

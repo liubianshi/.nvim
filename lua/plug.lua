@@ -739,7 +739,11 @@ Plug.add('img-paste-devs/img-paste.vim', {
 
 -- hotoo/pangu.vim: 『盘古之白』中文排版自动规范化 ---------------------- {{{3
 Plug.add('hotoo/pangu.vim', {
-    ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc', 'norg', 'org'}
+    ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc', 'norg', 'org', 'newsboat'},
+    init = function()
+        vim.g.pangu_rule_spacing_punctuation = 1
+        vim.g.pangu_rule_remove_zero_width_whitespace = 0
+    end
 })
 
 -- dhruvasagar/vim-table-mode: Table Mode for instant table creation ---- {{{3

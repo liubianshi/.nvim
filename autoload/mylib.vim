@@ -1,6 +1,6 @@
 let s:mylib_command_list = ['new', 'tag', 'note', 'edit', 'open']
 
-function! s:mylib_new()
+function! s:mylib_new() abort
     if has_key(b:, "mylib_key") && b:mylib_key != ""
         return b:mylib_key
     endif
@@ -14,6 +14,16 @@ function! s:mylib_new()
         if key == "" | return | endif
         let b:mylib_key = key
     endif
+    let file = system("mylib get html -- '" . b:mylib_key . "'")
+    let file = fnamemodify(file, ":p:r") . ".newsboat"
+    if filereadable(file)
+        normal! ggdG
+        exec "read " . file
+        normal! ggdd
+    endif
+    exec 'write! ' . file
+    setlocal buftype=
+    exec 'file! ' . file
     return b:mylib_key
 endfunction
 
