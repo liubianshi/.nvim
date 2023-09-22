@@ -104,7 +104,8 @@ function! s:mylib_send_clipboard_to_note(line = -1)
     let content = "#+begin_quote\n" . trim(@+) . "\n#+end_quote\n"
     let result  = s:mylib_send_content_to_note(content, a:line)
     if result == v:true
-        let @+ = "‹[" . @+ . "]›"
+        let @+ = "〚" . @+ . "〛"
+        let @+ = substitute(@+, '\v([\n\s]+)〛$', '〛\1', "")
         normal! gv"+p
     endif
 endfunction
@@ -137,7 +138,8 @@ function! s:pangu()
     if has_key(b:, "formated") && b:formated == v:true
         return
     endif
-
+    silent %s/\v\n(\s*\n)+/\r\r/g
+    " silent %s/\v^　+//g
     normal! m'
 
     normal! gg
@@ -160,7 +162,7 @@ endfunction
 call s:generate_url_dict()
 call utils#Fetch_urls()
 call s:cache_link_snapshot()
-" call s:pangu()
+call s:pangu()
 set wrap nocindent
 
 " Keymap ---------------------------------------------------------------- {{{1

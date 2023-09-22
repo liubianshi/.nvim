@@ -368,7 +368,7 @@ Plug.add('easymotion/vim-easymotion', {
         { '<localleader>s',  '<esc><Plug>(easymotion-sl)', mode = {'i'}, desc = 'EasyMotion: Find Char (current line)'},
         { 's.',  '<Plug>(easymotion-repeat)', desc = 'EasyMotion: Repeat last motion'},
         { 'sc',  '<Plug>(easymotion-s2)',     desc = 'EasyMotion: Search for 2 chars'},
-        { 'sl',  '<Plug>(easymotion-sl)',     desc = 'EasyMotion: Find Char (current line)'},
+        { 'sl',  '<Plug>(easymotion-sl)',    mode = {'n', 'v'}, desc = 'EasyMotion: Find Char (current line)'},
         { 'sj',  '<plug>(easymotion-j)',      desc = 'EasyMotion: Line Downward'},
         { 'sJ',  '<plug>(easymotion-eol-j)',  desc = 'EasyMotion: Line Downword (end)'},
         { 'sk',  '<plug>(easymotion-k)',      desc = 'EasyMotion: Line Forward'},
@@ -437,7 +437,7 @@ Plug.add('akinsho/bufferline.nvim', {
 })
 
 -- nvim-lualine/lualine.nvim: neovim statusline plugin ------------------ {{{3
-Plug.add('nvim-lualine/lualine.nvim', { event = 'VeryLazy' })
+Plug.add('nvim-lualine/lualine.nvim')
 
 -- mhinz/vim-startify: fancy start screen for Vim ----------------------- {{{3
 Plug.add('mhinz/vim-startify' )
@@ -741,6 +741,7 @@ Plug.add('img-paste-devs/img-paste.vim', {
 Plug.add('hotoo/pangu.vim', {
     ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc', 'norg', 'org', 'newsboat'},
     init = function()
+        vim.g.pangu_rule_fullwidth_punctuation = 0
         vim.g.pangu_rule_spacing_punctuation = 1
         vim.g.pangu_rule_remove_zero_width_whitespace = 0
     end

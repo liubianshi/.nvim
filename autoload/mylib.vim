@@ -21,9 +21,9 @@ function! s:mylib_new() abort
         exec "read " . file
         normal! ggdd
     endif
-    exec 'write! ' . file
     setlocal buftype=
     exec 'file! ' . file
+    exec 'write! ' . file
     return b:mylib_key
 endfunction
 

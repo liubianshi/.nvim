@@ -17,5 +17,6 @@ augroup filetypedetect
     autocmd BufNewFile,BufRead *.ihlp                         set filetype=smcl
     autocmd BufNewFile,BufRead .gitignore                     set filetype=gitignore
     autocmd BufNewFile,BufRead /tmp/newsboat-article.*        set filetype=newsboat
+    autocmd BufNewFile,BufRead *.newsboat                     set filetype=newsboat
     autocmd BufWinEnter *                                     call s:DefaultFileType()
 augroup END

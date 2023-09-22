@@ -20,7 +20,9 @@ syn region newsLink start="\v https://"hs=s+1 end=/\v \([^\)]+\)/he=s-1  oneline
 syn region newsInLink start='\v\[image\s' end='\v\(link #[0-9]+\)\]'  contains=newsLinkBracket keepend
 syn match newsLinkType /\v\([^\)]+\)/hs=s+1,he=e-1 contained
 syn match newsHighlightSymbol /\v(‹\[|\]›)/ contained conceal
+syn match newsHighlightSymbol /\v(〚|〛)/ contained conceal
 syn region newsHighlight start=/\V‹[/hs=s+2 end=/\V]›/he=s+1 contains=newsHighlightSymbol keepend
+syn region newsHighlight start=/\V〚/hs=s+1 end=/\V〛/he=s+1 contains=newsHighlightSymbol keepend
 
 
 exec "hi def newsHighlight guifg=" . g:lbs_colors['orange'] . " guisp=" . g:lbs_colors['cyan']
