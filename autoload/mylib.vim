@@ -16,6 +16,7 @@ function! s:mylib_new() abort
     endif
     let file = system("mylib get html -- '" . b:mylib_key . "'")
     let file = fnamemodify(file, ":p:r") . ".newsboat"
+    let file = fnameescape(file)
     if filereadable(file)
         normal! ggdG
         exec "read " . file

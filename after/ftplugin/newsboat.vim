@@ -159,11 +159,12 @@ function! s:pangu()
 endfunction
 
 " set options ----------------------------------------------------------- {{{1
+set nocindent nosmartindent wrap 
+
 call s:generate_url_dict()
 call utils#Fetch_urls()
 call s:cache_link_snapshot()
 call s:pangu()
-set wrap nocindent
 
 " Keymap ---------------------------------------------------------------- {{{1
 nnoremap <silent><buffer> <localleader>s :Mylib new<cr>
