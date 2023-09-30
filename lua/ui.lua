@@ -1,7 +1,9 @@
--- local Popup = require("nui.popup")
 -- local Layout = require("nui.layout")
+local Popup = require("nui.popup")
 local Input = require("nui.input")
 local event = require("nui.utils.autocmd").event
+local NuiLine = require("nui.line")
+local NuiText = require("nui.text")
 local M = {}
 
 M.prompt = function(top, callback, default)
@@ -48,6 +50,46 @@ M.mylib_tag = function()
         vim.cmd("Mylib tag " .. value)
     end)
     input:mount()
+end
+
+M.float_buffer = function(opts)
+    opts = vim.tbl_extend("keep", opts or {}, {
+        filetype = "org",
+        commit = function() vim.cmd("quit") end,
+        contents = nil,
+    })
+
+    local popup = Popup(
+        {
+            enter = true,
+            focusable = true,
+            border = {
+                style = "rounded"
+            },
+            position = "50%",
+            size = {
+                width = "80%",
+                height = "40%",
+            },
+            buf_options = {
+                modifiable = true,
+                readonly = false,
+                filetype = opts.filetype,
+            },
+            win_options = {
+                winblend = 10,
+                winhighlight = "Normal:Normal,FloatBorder:Normal",
+            },
+        }
+    )
+    popup:map("n", "<localleader>s", opts.commit, { noremap = true, silent = true})
+    popup:mount()
+    if not opts.contents then
+        local line = NuiLine()
+        local contents = NuiText(opts.contents, "WarningMsg")
+        line:append({contents, ""})
+        line:render(popup.bufnr, -1, 1)
+    end
 end
 
 return M
