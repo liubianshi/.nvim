@@ -16,16 +16,10 @@ function! s:get_link_under_cursur_line()
 endfunction
 
 function! s:get_link_citation_under_cursor(ft = "org")
-    " if ! has_key("b:", "mylib_key")
-    "     echo "Need save html file to lib first"
-    "     return
-    " endif
-
     let link = s:get_link_under_cursur_line()
     if len(link) == 0 | return | endif
 
     Mylib note quiet
-    let note_wnr = bufwinid(b:mylib_note)
 
     if link['type'] == "image"
         let image_path = system("linkhandler -t image -V '" . link['url'] . "'")
@@ -37,7 +31,11 @@ function! s:get_link_citation_under_cursor(ft = "org")
             call mkdir(target_dir, "p")
             call system("link '" . image_path . "' '" . target_path . "'") 
         endif
-        let content = "[[./img/" . subdir . "/" . imagename . "]]"
+        let label = input("Please Input image title: ")
+        if label != ""
+            let label = "[" . label . "]"
+        endif
+        let content = "[[./img/" . subdir . "/" . imagename . "]" . label ."]"
     else
         let content = system("url_cite org '" . link['url'] . "'")
     endif
@@ -59,29 +57,22 @@ function! s:generate_url_dict() " --------------------------------------- {{{1
     endif
 endfunction
 
-function! s:mylib_send_content_to_note(content, line = -1) abort
+function! s:mylib_send_content_to_note(content, line = -1, method = "") abort
     if ! has_key(b:, "mylib_key")
         lua vim.notify("Need save html file to lib first")
         return
     endif
     if a:content !~ '\S' | return | endif
     Mylib note quiet
-
     let content = "\n" . a:content
-    let on_zen_mode = has_key(g:, "lbs_zen_mode") ? g:lbs_zen_mode : v:false
-    if on_zen_mode == v:true
+
+    if a:method ==? "quiet" 
         echo system("cat >> " . b:mylib_note, content) 
         return v:true
     endif
 
     let current_wnr = bufwinid(@%)
-    let note_wnr = bufwinid(b:mylib_note)
-      
-    if note_wnr == -1
-        Mylib note
-    else
-        call win_gotoid(note_wnr)
-    endif    
+    call mylib#run("note", a:method)
 
     if a:line == -1
         normal! Gzt
@@ -91,22 +82,25 @@ function! s:mylib_send_content_to_note(content, line = -1) abort
 
     let ori = @+
     let @+ = content 
-    normal! "+p
+    normal! zt"+pGo
     let @+ = ori
 
     write
-    call win_gotoid(current_wnr)
+    " call win_gotoid(current_wnr)
     return v:true
 endfunction
 
-function! s:mylib_send_clipboard_to_note(line = -1)
+function! s:mylib_send_clipboard_to_note(method = "quiet")
     if @+ == "" | return | end
     let content = "#+begin_quote\n" . trim(@+) . "\n#+end_quote\n"
-    let result  = s:mylib_send_content_to_note(content, a:line)
-    if result == v:true
-        let @+ = "〚" . @+ . "〛"
-        let @+ = substitute(@+, '\v([\n\s]+)〛$', '〛\1', "")
-        normal! gv"+p
+
+    let @+ = "〚" . @+ . "〛"
+    let @+ = substitute(@+, '\v([\n\s]+)〛$', '〛\1', "")
+    normal! gv"+p
+
+    let result  = s:mylib_send_content_to_note(content, -1, a:method)
+    if result != v:true
+        normal! u
     endif
 endfunction
 
@@ -116,7 +110,7 @@ function! s:mylib_send_link_citation_to_note(line = -1) abort
         return
     endif
     let content = s:get_link_citation_under_cursor()
-    call s:mylib_send_content_to_note(content, a:line)
+    call s:mylib_send_content_to_note(content, a:line, "quiet")
 endfunction
 
 function! s:cache_link_snapshot()
@@ -173,6 +167,7 @@ nnoremap <silent><buffer> <localleader>n :Mylib note<cr>
 nnoremap <silent><buffer> <localleader>O :Urlopen<cr>
 nnoremap <silent><buffer> <localleader>o "+yiu:call utils#OpenUrl(@+, "in")<cr>
 vnoremap <silent><buffer> <localleader>y "+y:<c-u>call <sid>mylib_send_clipboard_to_note()<cr>
+vnoremap <silent><buffer> N "+y:<c-u>call <sid>mylib_send_clipboard_to_note("popup")<cr>
 nnoremap <silent><buffer> <localleader>y vip"+y:<c-u>call <sid>mylib_send_clipboard_to_note()<cr>
 nnoremap <silent><buffer> <localleader>q :qall<cr>
 nnoremap <silent><buffer> <enter> :<c-u>call utils#OpenUrl(<sid>get_link_under_cursur_line(), "in")<cr>

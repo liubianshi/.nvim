@@ -5,6 +5,14 @@ function! utils#Warn(msg)
   echohl NONE
 endfunction
 
+" Get char under cursor ================================================= {{{1
+function! utils#IsPrintable_CharUnderCursor()
+    let line = getline('.')
+    let col = col('.')
+    let code = char2nr(line[col-1:col-1])
+    return code < 128 ? v:true : v:false
+endfunction
+
 " Get content between =================================================== {{{1
 function! s:GetLeftContentBetween(left, right, col = -1)
     if a:left == "" || a:right == "" | return -1 | endif

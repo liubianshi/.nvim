@@ -270,6 +270,8 @@ vim.api.nvim_create_user_command('Urlopen', function(opts)
     })
 end, { nargs = 0, desc = "FzfLua: Open urls"})
 
+
+
 -- asynctasks ----------------------------------------------------------- {{{2
 -- From:
 -- https://github.com/skywind3000/asynctasks.vim/wiki/UI-Integration
@@ -335,7 +337,7 @@ fzfmap('<A-x>', "Command", function()
                 else
                     vim.fn.feedkeys(string.format(":%s", command), "n")
                 end
-            end 
+            end
         },
     })
 end)

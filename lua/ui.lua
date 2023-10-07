@@ -52,44 +52,63 @@ M.mylib_tag = function()
     input:mount()
 end
 
-M.float_buffer = function(opts)
+M.popup = function(opts)
     opts = vim.tbl_extend("keep", opts or {}, {
-        filetype = "org",
-        commit = function() vim.cmd("quit") end,
-        contents = nil,
+        enter = true,
+        focusable = true,
+        border = {
+            style = "rounded"
+        },
+        position = "50%",
+        size = {
+            width = "80%",
+            height = "40%",
+        },
+        buf_options = {
+            modifiable = true,
+            readonly = false,
+        },
+        win_options = {
+            winblend = 10,
+            winhighlight = "Normal:Normal,FloatBorder:Normal",
+        },
     })
 
-    local popup = Popup(
-        {
-            enter = true,
-            focusable = true,
-            border = {
-                style = "rounded"
-            },
-            position = "50%",
-            size = {
-                width = "80%",
-                height = "40%",
-            },
-            buf_options = {
-                modifiable = true,
-                readonly = false,
-                filetype = opts.filetype,
-            },
-            win_options = {
-                winblend = 10,
-                winhighlight = "Normal:Normal,FloatBorder:Normal",
-            },
-        }
-    )
-    popup:map("n", "<localleader>s", opts.commit, { noremap = true, silent = true})
+    local popup = Popup(opts)
+    return popup
+end
+
+M.mylib_popup = function(bufnr)
+    local opts = {
+        bufnr = bufnr,
+        enter = true,
+        focusable = true,
+        border = {
+            style = "rounded"
+        },
+        position = {
+            row = "75%",
+            col = "50%",
+        },
+        size = {
+            width = "80%",
+            height = "50%",
+        },
+        buf_options = {
+            modifiable = true,
+            readonly = false,
+            filetype = "org",
+        },
+        win_options = {
+            winblend = 2,
+            winhighlight = "Normal:TelescopeNormal,FloatBorder:TelescopeBorder",
+        },
+    }
+
+    local popup = Popup(opts)
+    popup:on(event.BufLeave, function() popup:unmount() end)
+    popup:map("n", "<leader><leader>", function() popup:unmount() end, { noremap = true })
     popup:mount()
-    if not opts.contents then
-        local line = NuiLine()
-        local contents = NuiText(opts.contents, "WarningMsg")
-        line:append({contents, ""})
-        line:render(popup.bufnr, -1, 1)
-    end
 end
 
 return M

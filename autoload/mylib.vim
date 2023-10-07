@@ -33,7 +33,7 @@ function! s:mylib_edit()
     call system("mylib edit " . b:mylib_key)
 endfunction
 
-function! s:mylib_note(method = "")
+function! s:mylib_note(method = "") abort
     call s:mylib_new()
     if ! has_key(b:, "mylib_note")
         let b:mylib_note = system("mylib note " . b:mylib_key)
@@ -47,14 +47,18 @@ function! s:mylib_note(method = "")
     endif
 
     let method = a:method
-    if method == ""
-        if &columns < 120
-            let method = "split"
-        else
-            let method = "vsplit"
-        endif
+    if method ==? "popup"
+        normal zt
+        let notebufnr = bufadd(b:mylib_note)
+        exec 'lua require("ui").mylib_popup(' . notebufnr . ')'
+    elseif method == "" &&  &columns < 120
+        exec "split " . b:mylib_note
+    elseif method == "" &&  &columns >= 120
+        exec "vsplit " . b:mylib_note
+        wincmd L
+    else
+        exec method . " " . b:mylib_note
     endif
-    exec method . " " . b:mylib_note
 endfunction
 
 
@@ -64,7 +68,7 @@ function! s:mylib_tag(...)
     let tags = system("mylib tag -o " . tags . " -- " . b:mylib_key)
     if tags == "" | return | endif
 
-    Mylib note
+    Mylib note popup
     normal! mmgg
     let filtag_pos = searchpos('^#+filetags:', 'nW')[0]
     let titletag_pos = searchpos('^#+title:', 'nW')[0]
@@ -74,7 +78,7 @@ function! s:mylib_tag(...)
         exec "normal! " . titletag_pos . "Go"
         call setline(titletag_pos + 1, "#+filetags: :". tags . ":")
     endif
-    normal! 'm
+    normal! \<space>\<space>
 endfunction
 
 function! mylib#run(command, ...)
