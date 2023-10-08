@@ -39,6 +39,11 @@ function! s:mylib_note(method = "") abort
         let b:mylib_note = system("mylib note " . b:mylib_key)
     endif
     if b:mylib_note ==# @%  | return | endif
+    if ! bufloaded(b:mylib_note)
+        let bufnr = bufadd(b:mylib_note)
+        call bufload(bufnr)
+    endif
+
     if a:method ==? "quiet" | return | endif
 
     let note_wnr = bufwinid(b:mylib_note)
@@ -75,10 +80,11 @@ function! s:mylib_tag(...)
     if filtag_pos != 0
         call setline(filtag_pos, "#+filetags: :". tags . ":")
     elseif titletag_pos != 0
-        exec "normal! " . titletag_pos . "Go"
-        call setline(titletag_pos + 1, "#+filetags: :". tags . ":")
+        exec "normal! " . titletag_pos . "G"
+        call append(titletag_pos, "#+filetags: :". tags . ":")
     endif
-    normal! \<space>\<space>
+    write
+    wincmd w
 endfunction
 
 function! mylib#run(command, ...)

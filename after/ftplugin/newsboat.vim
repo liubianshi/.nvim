@@ -63,11 +63,12 @@ function! s:mylib_send_content_to_note(content, line = -1, method = "") abort
         return
     endif
     if a:content !~ '\S' | return | endif
-    Mylib note quiet
     let content = "\n" . a:content
 
+    Mylib note quiet
     if a:method ==? "quiet" 
-        echo system("cat >> " . b:mylib_note, content) 
+        call appendbufline(b:mylib_note, "$", split(content, "\n", 1))
+        write
         return v:true
     endif
 
@@ -154,6 +155,7 @@ endfunction
 
 " set options ----------------------------------------------------------- {{{1
 set nocindent nosmartindent wrap 
+set fo-=q
 
 call s:generate_url_dict()
 call utils#Fetch_urls()
@@ -163,7 +165,7 @@ call s:pangu()
 " Keymap ---------------------------------------------------------------- {{{1
 nnoremap <silent><buffer> <localleader>s :Mylib new<cr>
 nnoremap <silent><buffer> <localleader>e :Mylib edit<cr>
-nnoremap <silent><buffer> <localleader>n :Mylib note<cr>
+nnoremap <silent><buffer> <localleader>n :Mylib note popup<cr>
 nnoremap <silent><buffer> <localleader>O :Urlopen<cr>
 nnoremap <silent><buffer> <localleader>o "+yiu:call utils#OpenUrl(@+, "in")<cr>
 vnoremap <silent><buffer> <localleader>y "+y:<c-u>call <sid>mylib_send_clipboard_to_note()<cr>
@@ -173,7 +175,3 @@ nnoremap <silent><buffer> <localleader>q :qall<cr>
 nnoremap <silent><buffer> <enter> :<c-u>call utils#OpenUrl(<sid>get_link_under_cursur_line(), "in")<cr>
 nnoremap <silent><buffer> <s-enter> :<c-u>call <sid>mylib_send_link_citation_to_note()<cr>
 nnoremap <silent><buffer> <localleader>t :<c-u>lua require("ui").mylib_tag()<cr>
-
-
-
-
