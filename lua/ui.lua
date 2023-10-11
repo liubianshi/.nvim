@@ -106,9 +106,10 @@ M.mylib_popup = function(bufnr)
     }
 
     local popup = Popup(opts)
-    popup:on(event.BufLeave, function() popup:unmount() end)
+    -- popup:on(event.BufLeave, function() popup:unmount() end)
     popup:map("n", "<leader><leader>", function() popup:unmount() end, { noremap = true })
     popup:mount()
+    return popup
 end
 
 return M

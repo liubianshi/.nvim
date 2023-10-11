@@ -56,6 +56,7 @@ function! s:mylib_note(method = "") abort
         normal zt
         let notebufnr = bufadd(b:mylib_note)
         exec 'lua require("ui").mylib_popup(' . notebufnr . ')'
+        setlocal ft=org
     elseif method == "" &&  &columns < 120
         exec "split " . b:mylib_note
     elseif method == "" &&  &columns >= 120
@@ -84,7 +85,7 @@ function! s:mylib_tag(...)
         call append(titletag_pos, "#+filetags: :". tags . ":")
     endif
     write
-    wincmd w
+    quit 
 endfunction
 
 function! mylib#run(command, ...)
