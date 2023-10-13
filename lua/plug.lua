@@ -248,6 +248,13 @@ Plug.add('tpope/vim-commentary', {
     }
 })
 
+-- TODO folke/todo-comments.nvim: ✅ Highlight, list and search todo comments  {{{3
+Plug.add("folke/todo-comments.nvim", {
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = true,
+    lazy = true,
+})
+
 -- junegunn/vim-easy-align: text alignment tool ------------------------- {{{3
 Plug.add('junegunn/vim-easy-align', {
     keys = {
@@ -464,58 +471,7 @@ Plug.add('stevearc/dressing.nvim', {
 })
 
 -- "lukas-reineke/indent-blankline.nvim"
-Plug.add('lukas-reineke/indent-blankline.nvim', {
-    opts = {
-        buftype_exclude = {
-            "nofile",
-            "terminal",
-        },
-        filetype_exclude = {
-            "help",
-            "startify",
-            "aerial",
-            "alpha",
-            "dashboard",
-            "lazy",
-            "neogitstatus",
-            "NvimTree",
-            "neo-tree",
-            "Trouble",
-            'norg',
-            'org',
-            'markdown',
-            'rmarkdown',
-        },
-        context_patterns = {
-            "class",
-            "return",
-            "function",
-            "method",
-            "^if",
-            "^while",
-            "jsx_element",
-            "^for",
-            "^object",
-            "^table",
-            "block",
-            "arguments",
-            "if_statement",
-            "else_clause",
-            "jsx_element",
-            "jsx_self_closing_element",
-            "try_statement",
-            "catch_clause",
-            "import_statement",
-            "operation_type",
-        },
-        show_trailing_blankline_indent = false,
-        use_treesitter = true,
-        char = "▏",
-        context_char = "▏",
-        show_current_context = true,
-        show_current_context_start = true,
-    }
-})
+Plug.add('lukas-reineke/indent-blankline.nvim', { main = "ibl" })
 
 -- xiyaowong/transparent.nvim: make nvim transparent -------------------- {{{3
 -- Plug.add('xiyaowong/transparent.nvim')
