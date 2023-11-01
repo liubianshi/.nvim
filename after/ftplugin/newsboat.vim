@@ -165,7 +165,7 @@ call s:pangu()
 " Keymap ---------------------------------------------------------------- {{{1
 nnoremap <silent><buffer> <localleader>s :Mylib new<cr>
 nnoremap <silent><buffer> <localleader>e :Mylib edit<cr>
-nnoremap <silent><buffer> <localleader>n :Mylib note popup<cr>
+nnoremap <silent><buffer> <localleader>n :Mylib note<cr>
 nnoremap <silent><buffer> <localleader>O :Urlopen<cr>
 nnoremap <silent><buffer> <localleader>o "+yiu:call utils#OpenUrl(@+, "in")<cr>
 vnoremap <silent><buffer> <localleader>y "+y:<c-u>call <sid>mylib_send_clipboard_to_note()<cr>

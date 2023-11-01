@@ -15,8 +15,8 @@ let s:character_pattern = {
     \ }
 
 function! s:Is_rime_ls_start()
-    if has_key(g:, "input_method_framework") && g:input_method_framework == "rime-ls"
-        return v:true
+    if has_key(b:, "rime_enabled")
+        return b:rime_enabled
     else
         return v:false
     end

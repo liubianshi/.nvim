@@ -51,12 +51,12 @@ autocmd FocusGained,CursorHold * call <SID>checktime()
 augroup END
 
 " Input Method Toggle =================================================== {{{1
-" augroup Method_Toggle
-"     autocmd!
-    " autocmd InsertLeavePre *   call input_method#LeaveInsertMode()
-    " autocmd InsertEnter *      call input_method#RestoreInsertMode()
-    " autocmd CmdlineEnter [/\?] call input_method#RestoreInsertMode()
-    " autocmd CmdlineLeave [/\?] call input_method#LeaveInsertMode()
+augroup Method_Toggle
+    autocmd!
+    autocmd InsertLeavePre *   call input_method#LeaveInsertMode()
+    autocmd InsertEnter *      call input_method#RestoreInsertMode()
+    autocmd CmdlineLeave *     call system(g:lbs_input_method_inactivate)
+    autocmd CmdlineEnter [/\?] call input_method#RestoreInsertMode()
     " autocmd BufRead,BufNew *
     "     \ inoremap <silent><expr><buffer> <space>
     "     \ input_method#AutoSwitchAfterSpace()
@@ -69,7 +69,7 @@ augroup END
     " autocmd FileType mail,org
     "     \ inoremap <silent><expr><buffer <bs>
     "     \ input_method#AutoSwitchAfterBackspace()
-" augroup END
+augroup END
 "
 "
 "

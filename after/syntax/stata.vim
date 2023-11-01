@@ -16,7 +16,7 @@ syn match  stataTripleSlash   "\s///" containedin=stataSlashComment
 syn region stataSlashComment start="\s///"  end=/$/ contains=stataComment,stataTodo oneline
 
 " Multi Line String
-syn region stataString  start=/^\s*(/ end=/) \/\{2,3}\s*/ oneline contains=@stataMacroGroup,stataQuote,stataString,stataEString,stataSlashComment
+"syn region stataString  start=/^\s*(/ end=/) \/\{2,3}\s*/ oneline contains=@stataMacroGroup,stataQuote,stataString,stataEString,stataSlashComment
 syn match stataString  "^\s\+\zs.\+\ze/\{2,3}\s*>.*$"      contains=@stataMacroGroup,stataQuote,stataString,stataEString,stataSlashComment
 syn region stataEString matchgroup=Nothing start=/`"$/ end=/^"'/ contains=@stataMacroGroup,stataQuote,stataString,stataEString,stataSlashComment
 

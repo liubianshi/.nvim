@@ -34,6 +34,7 @@ local typing_english = function(shift)
     if not content_before then return nil end
     return content_before:match("%s[%w%p]+$")
 end
+
 M.probes = {
     {
         "probe_punctuation_after_half_symbol", function()
@@ -124,6 +125,7 @@ function M.setup_rime(opts)
             end,
             { nargs = 0, desc = "Toggle rime-ls input method framework"}
         )
+
         -- command for toogle 
         vim.api.nvim_create_user_command(
             'ToggleRime',
@@ -176,7 +178,7 @@ function M.setup_rime(opts)
             end
             vim.b.rime_enabled = true
             vim.fn.feedkeys("a", "n")
-        end, {desc = "Start Chinese Input Method", noremap = true})
+        end, {desc = "Start Chinese Input Method", noremap = true, buffer = true})
 
         vim.keymap.set('i', stop, function()
             vim.cmd("stopinsert")
@@ -185,10 +187,10 @@ function M.setup_rime(opts)
             end
             vim.b.rime_enabled = false
             vim.fn.feedkeys("a", "n")
-        end, {desc = "Stop Chinese Input Method", noremap = true, expr = true})
+        end, {desc = "Stop Chinese Input Method", noremap = true, expr = true, buffer = true})
 
         vim.keymap.set('i', esc, "<cmd>stopinsert<cr>",
-            {desc = "Stop insert", noremap = true})
+            {desc = "Stop insert", noremap = true, buffer = true})
     end
 
     -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
