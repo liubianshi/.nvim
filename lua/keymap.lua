@@ -54,8 +54,13 @@ vimkey('<localleader>}',  "Chinese Punctuation: “I”",          '<C-v>u201C <
 vimkey('<localleader>,',  "Chinese Punctuation: ，",           '<C-v>uFF0C',                         {mode = 'i'})
 vimkey('<localleader>.',  "Chinese Punctuation: 。",           '<C-v>u3002',                         {mode = 'i'})
 vimkey('<localleader>\\', "Chinese Punctuation: 、",           '<C-v>u3001',                         {mode = 'i'})
-vimkey('<localleader>?',  "Special Punctuation: ？",           '<C-v>uff1f',                          {mode = 'i'})
-vimkey('<localleader>-',  "Special Punctuation: —",            '<C-v>u2014',                          {mode = 'i'})
+vimkey('<localleader>:',  "Chinese Punctuation: ：",           '<C-v>uff1a',                         {mode = 'i'})
+vimkey('<localleader>_',  "Chinese Punctuation: ——",           '<C-v>u2014<c-v>u2014',               {mode = 'i'})
+vimkey('<localleader>^',  "Chinese Punctuation: ……",           '<C-v>u2026<c-v>u2026',               {mode = 'i'})
+vimkey('<localleader>?',  "Special Punctuation: ？",           '<C-v>uff1f',                         {mode = 'i'})
+vimkey('<localleader>-',  "Special Punctuation: —",            '<C-v>u2014',                         {mode = 'i'})
+
+
 
 
 
