@@ -116,7 +116,7 @@ Plug.add('s1n7ax/nvim-window-picker', {
 Plug.add('ibhagwan/fzf-lua', {
     branch = 'main',
     dependencies = { 'skywind3000/asynctasks.vim' },
-    cmd = {'FzfLua', 'Shelp', 'Urlopen'},
+    cmd = {'FzfLua', 'Shelp', 'Urlopen', 'RoamNodeFind'},
     keys = {
         '<leader>pp', '<leader>ic', '<leader>fz', '<leader>bB', '<leader>.', '<leader>ot', '<A-x>',
         { "<leader>bb", "<cmd>FzfLua buffers<cr>"             , desc = "FzfLua: Select buffer",                         },

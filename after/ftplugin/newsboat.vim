@@ -62,13 +62,19 @@ function! s:mylib_send_content_to_note(content, line = -1, method = "") abort
         lua vim.notify("Need save html file to lib first")
         return
     endif
-    if a:content !~ '\S' | return | endif
-    let content = "\n" . a:content
 
+    if a:content !~ '\S' | return | endif
+    let content = a:content
+    let content = "\n" . trim(content)
+
+    let curbufnr = bufnr('%')
     Mylib note quiet
     if a:method ==? "quiet" 
+        let notebufnr = bufnr(b:mylib_note)
+        if notebufnr == 0 | return 0 | endif
         call appendbufline(b:mylib_note, "$", split(content, "\n", 1))
-        write
+        exec notebufnr . "," . notebufnr . "bufdo write"
+        exec "buf " . curbufnr
         return v:true
     endif
 
@@ -82,8 +88,8 @@ function! s:mylib_send_content_to_note(content, line = -1, method = "") abort
     endif
 
     let ori = @+
-    let @+ = content 
-    normal! zt"+pGo
+    let @+ = "\n" . content 
+    normal! $"+pG
     let @+ = ori
 
     write
@@ -121,7 +127,6 @@ function! s:cache_link_snapshot()
     let url_list = []
     for i in keys(b:newsboat_url_dict)
         let url = b:newsboat_url_dict[i]
-        echom url['url']
         call insert(url_list, url['url'] . "\t" . url['type'])
     endfor
     call system("cat >" . tmpfile, url_list)

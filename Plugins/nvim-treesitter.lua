@@ -10,8 +10,8 @@ ts.setup({
 
     highlight = {
         enable = true,
-        disable = {'r', 'vim', 'tsv', 'org'},
-        additional_vim_regex_highlighting = {'org'},
+        disable = {'r', 'vim', 'tsv'},
+        additional_vim_regex_highlighting = {},
     },
     indent = {
         enable = false,

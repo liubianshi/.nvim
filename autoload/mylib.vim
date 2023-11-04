@@ -14,17 +14,20 @@ function! s:mylib_new() abort
         if key == "" | return | endif
         let b:mylib_key = key
     endif
-    let file = system("mylib get html -- '" . b:mylib_key . "'")
-    let file = fnamemodify(file, ":p:r") . ".newsboat"
-    let file = fnameescape(file)
-    if filereadable(file)
-        normal! ggdG
-        exec "read " . file
-        normal! ggdd
+    let filename = system("mylib get html -- '" . b:mylib_key . "'")
+    let filename = fnamemodify(filename, ":p:r") . ".newsboat"
+    let filename = fnameescape(filename)
+    if filereadable(filename)
+        let bufnr = bufnr()
+        let libkey = b:mylib_key
+        exec "edit " . filename
+        let b:mylib_key = libkey
+        call utils#ToggleZenMode()
+        exec "bwipeout " . bufnr
+    else
+        setlocal buftype=
+        exec "write " . filename
     endif
-    setlocal buftype=
-    exec 'file! ' . file
-    exec 'write! ' . file
     return b:mylib_key
 endfunction
 
@@ -39,24 +42,21 @@ function! s:mylib_note(method = "") abort
         let b:mylib_note = system("mylib note " . b:mylib_key)
     endif
     if b:mylib_note ==# @%  | return | endif
-    if ! bufloaded(b:mylib_note)
-        let bufnr = bufadd(b:mylib_note)
-        call bufload(bufnr)
-    endif
+
+    let bufnr = bufnr(b:mylib_note, 1)
+    if bufnr == 0 | return 0 | endif
+    if ! bufloaded(b:mylib_note) | call bufload(bufnr) | endif
 
     if a:method ==? "quiet" | return | endif
 
-    let note_wnr = bufwinid(b:mylib_note)
+    let note_wnr = bufwinid(bufnr)
     if note_wnr != -1
         return win_gotoid(note_wnr)
     endif
 
     let method = a:method
     if method ==? "popup"
-        normal zt
-        let notebufnr = bufadd(b:mylib_note)
-        exec 'lua require("ui").mylib_popup(' . notebufnr . ')'
-        setlocal ft=org
+        exec 'lua require("ui").mylib_popup(' . bufnr . ')'
     elseif method == "" &&  &columns < 120
         exec "split " . b:mylib_note
     elseif method == "" &&  &columns >= 120
@@ -85,7 +85,12 @@ function! s:mylib_tag(...)
         call append(titletag_pos, "#+filetags: :". tags . ":")
     endif
     write
-    quit 
+    normal! `m
+    if win_gettype() == "popup"
+        quit
+    else
+        wincmd p
+    endif
 endfunction
 
 function! mylib#run(command, ...)
