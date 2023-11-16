@@ -1,8 +1,7 @@
 -- vim: set foldmethod=marker:
 -- 使用 lazyvim 加载插件
--- package.path = package.path .. ";"
---             .. vim.env.HOME .. "/.luarocks/share/lua/5.1/?/init.lua;"
---             .. vim.env.HOME .. "/.luarocks/share/lua/5.1/?.lua;"
+package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua;"
+package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua;"
 
 -- 在 lazyvim 尚未安装时安装 -------------------------------------------- {{{1
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -516,6 +515,11 @@ Plug.add('potamides/pantran.nvim', {
         {'<leader>trr', mode = {'n'}, desc = "Pantran: translate"},
         {'<leader>T', "<cmd>Pantran target=en<cr>", desc = "Pantran: to English", mode = {'n', 'v'}},
     }
+})
+
+-- 3rd/image.nvim: 🖼️ Bringing images to Neovim.
+Plug.add('3rd/image.nvim', {
+    ft = {'markdown', 'pandoc', 'rmd', 'rmarkdown', 'norg', 'org', 'newsboat'},
 })
 
 -- edluffy/hologram.nvim: terminal image viewer for Neovim -------------- {{{3

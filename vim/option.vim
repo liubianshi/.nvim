@@ -97,6 +97,8 @@ set fillchars=fold:\
 set signcolumn=yes:1
 set mat=2                  " 设置匹配括号时闪缩的时间
 set scrolloff=3            " 光标上下两侧最少保留的屏幕行数
+set splitbelow
+set splitright
 
 " Set matching pairs of characters and highlight matching brackets
 set matchpairs+=<:>,（:）,「:」,『:』,【:】,“:”,‘:’,《:》
