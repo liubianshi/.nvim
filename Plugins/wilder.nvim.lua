@@ -14,18 +14,19 @@ local highlights = {
 }
 
 local popupmenu_renderer = wilder.popupmenu_renderer(
-wilder.popupmenu_border_theme{
-    highlighter = highlighters,
-    highlights = highlights,
-    min_width = '100%',
-    border = {
-        '', '▔', '',
-        '',  '', '',
-        '', '', '',
-    },
-    left = {' ', wilder.popupmenu_devicons()},
-    right = {' ', wilder.popupmenu_scrollbar()},
-})
+    wilder.popupmenu_border_theme{
+        highlighter = highlighters,
+        highlights = highlights,
+        min_width = '100%',
+        border = {
+            '', '▔', '',
+            '',  '', '',
+            '', '', '',
+        },
+        left = {' ', wilder.popupmenu_devicons()},
+        right = {' ', wilder.popupmenu_scrollbar()},
+    }
+)
 
 local wildmenu_renderer = wilder.wildmenu_renderer({
     highlighter = highlighters,
@@ -38,27 +39,27 @@ wilder.setup({ modes = {':', '/', '?'} })
 
 wilder.set_option('pipeline', {
     wilder.branch(
-    wilder.substitute_pipeline({
-        pipeline = wilder.python_search_pipeline({
-            skip_cmdtype_check = 1,
+        wilder.substitute_pipeline({
+            pipeline = wilder.python_search_pipeline({
+                skip_cmdtype_check = 1,
+                pattern = wilder.python_fuzzy_pattern({
+                    start_at_boundary = 0,
+                }),
+            }),
+        }),
+        wilder.cmdline_pipeline({
+            fuzzy = 2,
+            fuzzy_filter = wilder.lua_fzy_filter(),
+        }),
+        {
+            wilder.check(function(_, x) return x == '' end),
+            wilder.history(),
+        },
+        wilder.python_search_pipeline({
             pattern = wilder.python_fuzzy_pattern({
                 start_at_boundary = 0,
             }),
-        }),
-    }),
-    wilder.cmdline_pipeline({
-        fuzzy = 2,
-        fuzzy_filter = wilder.lua_fzy_filter(),
-    }),
-    {
-        wilder.check(function(_, x) return x == '' end),
-        wilder.history(),
-    },
-    wilder.python_search_pipeline({
-        pattern = wilder.python_fuzzy_pattern({
-            start_at_boundary = 0,
-        }),
-    })
+        })
     )
 })
 
