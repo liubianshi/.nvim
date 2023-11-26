@@ -194,22 +194,6 @@ nnoremap <silent> <leader>z1 g_a <esc>3a{<esc>a1<esc>
 nnoremap <silent> <leader>z2 g_a <esc>3a{<esc>a2<esc>
 nnoremap <silent> <leader>z3 g_a <esc>3a{<esc>a3<esc>
 
-" 快捷标点符号输入 ======================================================= {{{1
-" 成对括号
-" inoremap ;) <C-v>uFF08 <C-v>uFF09<C-o>F <c-o>x
-" 成对直角引号̀
-" inoremap ;] <C-v>u300c <C-v>u300d<C-o>F <c-o>x
-" 成对双引号
-" inoremap ;} <C-v>u201C <C-v>u201D<C-o>F <c-o>x
-" 逗号
-" inoremap ;, <C-v>uFF0C
-" " 句号
-" inoremap ;. <C-v>u3002
-" " 顿号
-" inoremap ;\ <C-v>u3001
-" " 零宽空格
-" inoremap ;0 <C-v>u200b
-
 " 输入法 ================================================================= {{{1
 inoremap ;<space> ;
 inoremap <silent> ;; <esc>:<c-u>call input_method#En()<cr>a
@@ -219,24 +203,4 @@ noremap  <A-m> <esc>:call utils#MoveCursorTo()<cr>
 noremap  <A-M> <esc>:call utils#ShiftLine(line('.') + 1, col('.') - 1)<cr>
 inoremap <A-m> <esc>:call utils#MoveCursorTo()<cr>
 inoremap <A-M> <esc>:call utils#MoveCursorTo("")<cr>a
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
 

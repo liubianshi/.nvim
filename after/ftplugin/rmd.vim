@@ -1,14 +1,4 @@
-" for plugname in ['Nvim-R', 'vim-pandoc', 'vim-pandoc-syntax',
-"             \    'md-img-paste.vim', 'pangu.vim',
-"             \   ]
-"     call utils#Load_Plug(plugname)
-" endfor
-
-"let g:PasteImageFunction = 'g:RmarkdownPasteImage'
-
-" set fdm=expr
 runtime ftplugin/pandoc.vim
-" init vim-pandoc-after, if present {{{2
 try
     call pandoc#after#Init()
 catch /E117/
@@ -37,7 +27,7 @@ inoremap <silent> <A-\|>         %<>%
 inoremap <silent> <A-=>          <-<Space>
 "inoremap <buffer> <A-j>          x<left><enter><esc>lxi
 nmap     <buffer> <localleader>l              <Plug>RSendLine
-vmap     <buffer> <localleader>l              <Plug>RendSelection
+vmap     <buffer> <localleader>l              <Plug>REDSendSelection
 nmap     <silent> <LocalLeader>: :RSend 
 
 inoremap <silent> ;rq                     <esc>vap:LbsRF<cr>

@@ -2,8 +2,8 @@
 
 " Function =================================================================== {{{1
 let b:cached_data = "/tmp/r_obj_preview.tsv"
-setlocal foldmethod=expr
 setlocal foldexpr=fold#GetFold()
+setlocal foldmethod=expr
 setlocal formatprg=r-format
 setlocal tags+=~/.cache/Nvim-R/Rtags,~/.cache/Nvim-R/RsrcTags 
 
@@ -40,10 +40,9 @@ if has("mac")
 endif
 
 nmap     <buffer> <localleader>l              <Plug>RSendLine
-vmap     <buffer> <localleader>l              <Plug>RSendSelection
+vmap     <buffer> <localleader>l              <Plug>REDSendSelection
 nmap     <buffer> <LocalLeader>: :RSend 
 
-inoremap <buffer> ;rq                     <esc>vap:LbsRF<cr>
 nnoremap <buffer> <tab>rq                 vap:LbsRF<cr>
 vnoremap <buffer> <tab>rq                 :LbsRF<cr>
 
