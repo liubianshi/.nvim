@@ -35,7 +35,8 @@ let voom_ft_modes = {'rmd': 'pandoc', 'rnoweb': 'latex'}
 "endif
 
 let R_notmuxconf = 1
-let R_csv_app = "terminal:viewdata"
+" let R_csv_app = "terminal:viewdata"
+let R_csv_app = "terminal:vd"
 
 command! RStart let oldft=&ft
     \ | set ft=r
