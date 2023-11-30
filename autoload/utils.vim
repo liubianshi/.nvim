@@ -649,13 +649,8 @@ function! utils#Trans2clip(type = '')
         let commands = #{line: "'[V']y", char: "`[v`]y", block: "`[\<c-v>`]y", v:"`<v`>y"}
         silent exe 'noautocmd normal! ' .. get(commands, a:type, '')
         let oritext = substitute(@", "\n", " ", "g")
-        if oritext =~# "^ *[A-Za-z]"
-            let source_to = "en:zh"
-        else
-            let source_to = "zh:en"
-        endif
-        let cmd = "trans -b --no-ansi %s \"%s\" 2>/dev/null"
-        let cmd = printf(cmd, shellescape(source_to), oritext)
+        let cmd = "deepl \"%s\" 2>/dev/null"
+        let cmd = printf(cmd, oritext)
         let @" = system(cmd)
         cexpr @"
     finally
