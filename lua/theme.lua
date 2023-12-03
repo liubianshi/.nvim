@@ -29,7 +29,7 @@ vim.api.nvim_create_autocmd({'ColorScheme'}, {
             " 用于实现弹出窗口背景透明
             highlight VertSplit      cterm=None gui=None guibg=bg
             highlight FoldColumn     guibg=bg
-            highlight folded         gui=bold guifg=LightGreen guibg=bg
+            highlight Folded         gui=bold guifg=LightGreen guibg=bg
             highlight SignColumn     guibg=bg
             highlight LineNr         guibg=bg
         ]])
@@ -56,7 +56,9 @@ else
 end
 
 -- adjust palette according to color scheme -----------------------------
-if not vim.g.lbs_colors then vim.g.lbs_colors = default_opts.palette end
+if not vim.g.lbs_colors then
+    vim.g.lbs_colors = default_opts.palette
+end
 
 
 
