@@ -67,6 +67,8 @@ function! s:Active_Input_method()
         endif
     else
         call system(g:lbs_input_method_activate)
+        inoremap <silent><expr><buffer> <space> input_method#AutoSwitchAfterSpace()
+        inoremap <silent><expr><buffer> <bs>    input_method#AutoSwitchAfterBackspace()
     endif
 endfunction
 
@@ -82,7 +84,9 @@ endfunction
 " Switch to chinese input method when entering insert mode
 function! input_method#Zh()
     let b:current_input_method = "zh"
-    let b:rime_enabled = v:true
+    if has_key(b:, "rime_enabled")
+        let b:rime_enabled = v:true
+    endif
     if !<sid>ChineseInputOn()
         call <sid>Active_Input_method()
     endif
@@ -122,7 +126,7 @@ function! s:PreviousCharacterIsHalfWidth(preceding_num) abort
 endfunction
 
 function! input_method#AutoSwitchAfterSpace()
-    if s:GetBufferCurrentInputMethod() !~? 'zh'
+    if <sid>Is_rime_ls_start() || s:GetBufferCurrentInputMethod() !~? 'zh'
         return "\<space>"
     endif
 
@@ -143,7 +147,7 @@ function! input_method#AutoSwitchAfterSpace()
 endfunction
 
 function! input_method#AutoSwitchAfterBackspace()
-    if s:GetBufferCurrentInputMethod() !~? 'zh'
+    if <sid>Is_rime_ls_start() || s:GetBufferCurrentInputMethod() !~? 'zh'
         return "\<bs>"
     endif
 

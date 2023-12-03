@@ -57,18 +57,6 @@ augroup Method_Toggle
     autocmd InsertEnter *      call input_method#RestoreInsertMode()
     autocmd CmdlineLeave *     call system(g:lbs_input_method_inactivate)
     autocmd CmdlineEnter [/\?] call input_method#RestoreInsertMode()
-    " autocmd BufRead,BufNew *
-    "     \ inoremap <silent><expr><buffer> <space>
-    "     \ input_method#AutoSwitchAfterSpace()
-    " autocmd BufRead,BufNew *
-    "     \ inoremap <silent><expr><buffer> <bs>
-    "     \ input_method#AutoSwitchAfterBackspace()
-    " autocmd FileType mail,org
-    "     \ inoremap <silent><expr><buffer> <space>
-    "     \ input_method#AutoSwitchAfterSpace()
-    " autocmd FileType mail,org
-    "     \ inoremap <silent><expr><buffer <bs>
-    "     \ input_method#AutoSwitchAfterBackspace()
 augroup END
 "
 "

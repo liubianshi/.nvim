@@ -12,6 +12,13 @@ if vim.fn.has('mac') == 1 then
     rime_shared_data_dir = "/Library/Input Methods/Squirrel.app/Contents/SharedSupport"
     rime_ls_cmd = {vim.env.HOME .. "/.local/bin/rime_ls"}
 end
+local t = function(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(t(key), mode, true)
+end
 
 local get_line_before = function(shift)
     shift = shift or 0
