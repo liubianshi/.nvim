@@ -150,7 +150,7 @@ Plug.add('nvim-telescope/telescope.nvim', {
         { "<leader>sk", Util.telescope('keymaps'),                                    desc = "Telescope: Keymaps"               },
         { "<leader>sm", Util.telescope('man_pages'),                                  desc = "Telescope: Man Pages"             },
         { "<leader>fp", "<cmd>Telescope frecency<cr>",                                desc = "Telescope: Frecency"              },
-        { "<leader>:" , "<cmd>Telescope command_center<cr>",                          desc = "Telescope: Command Center"        },
+        { "<leader>:" , "<cmd>Telescope commands<cr>",                                desc = "Telescope: Commands"              },
         { "<leader>sg", Util.telescope("live_grep"),                                  desc = "Grep (root dir)"                  },
         { "<leader>sG", Util.telescope("live_grep", { cwd = false }),                 desc = "Grep (cwd)"                       },
         { "<leader>sh", "<cmd>Telescope help_tags<cr>",                               desc = "Telescope: Vim Helper"            },
