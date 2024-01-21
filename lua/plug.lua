@@ -247,11 +247,9 @@ Plug.add('tpope/vim-commentary', {
     }
 })
 
--- TODO folke/todo-comments.nvim: ✅ Highlight, list and search todo comments  {{{3
+-- folke/todo-comments.nvim: Highlight, list and search todo comments --- {{{3
 Plug.add("folke/todo-comments.nvim", {
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = true,
-    lazy = true,
 })
 
 -- junegunn/vim-easy-align: text alignment tool ------------------------- {{{3
@@ -476,6 +474,16 @@ Plug.add('lukas-reineke/indent-blankline.nvim', { main = "ibl" })
 -- Plug.add('xiyaowong/transparent.nvim')
 
 -- Tools ---------------------------------------------------------------- {{{2
+-- jackMort/ChatGPT.nvim: Effortless Natural Language Generation -------- {{{3
+Plug.add('jackMort/ChatGPT.nvim', {
+    dependencies = {
+        "MunifTanjim/nui.nvim",
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+    },
+    event = "VeryLazy",
+})
+
 -- akinsho/toggleterm.nvim: manage multiple terminal windows ------------ {{{3
 Plug.add('akinsho/toggleterm.nvim', {
     version = "*",
@@ -523,12 +531,12 @@ Plug.add('3rd/image.nvim', {
 })
 
 -- edluffy/hologram.nvim: terminal image viewer for Neovim -------------- {{{3
-Plug.add('edluffy/hologram.nvim', {
-    ft = {'markdown', 'pandoc', 'rmd', 'rmarkdown', 'norg', 'org', 'newsboat'},
-    cond = (vim.env.TERM == "xterm-kitty" or
-            vim.env.WEZTERM_EXECUTABLE ~= ""),
-    cmd = 'PreviewImage',
-})
+-- Plug.add('edluffy/hologram.nvim', {
+--     ft = {'markdown', 'pandoc', 'rmd', 'rmarkdown', 'norg', 'org', 'newsboat'},
+--     cond = (vim.env.TERM == "xterm-kitty" or
+--             vim.env.WEZTERM_EXECUTABLE ~= ""),
+--     cmd = 'PreviewImage',
+-- })
 
 -- gbprod/yanky.nvim: Improved Yank and Put functionalities for Neovim -- {{{3
 Plug.add('gbprod/yanky.nvim', {
@@ -699,7 +707,7 @@ Plug.add('img-paste-devs/img-paste.vim', {
 
 -- hotoo/pangu.vim: 『盘古之白』中文排版自动规范化 ---------------------- {{{3
 Plug.add('hotoo/pangu.vim', {
-    ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc', 'norg', 'org', 'newsboat'},
+    ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc', 'norg', 'org', 'newsboat', 'html'},
     init = function()
         vim.g.pangu_rule_fullwidth_punctuation = 0
         vim.g.pangu_rule_spacing_punctuation = 1
@@ -778,7 +786,7 @@ Plug.add('fladson/vim-kitty', {
     ft = 'kitty'
 })
 
--- kmonad/kmonad-vim: Vim syntax highlighting for .kbd files ------------ {{{2
+-- kmonad/kmonad-vim: Vim syntax highlighting for .kbd files ------------ {{{3
 Plug.add('kmonad/kmonad-vim', {
     ft = 'kbd',
 })

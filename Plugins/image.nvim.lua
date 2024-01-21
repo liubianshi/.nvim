@@ -42,14 +42,14 @@ local display_image = function(file, opts)
     local default_opts = { method = "infile" }
     opts = vim.tbl_extend("force", default_opts, opts or {})
 
+    local cache_file = vim.fn.stdpath('cache') .. 'kitty_image_preview'
     if opts.method ~= "infile" then
-        local cache_file = vim.fn.stdpath('cache') .. 'kitty_image_preview'
         vim.fn['utils#Preview_data'](cache_file, 'kitty_image_preview_buf', opts.method, 'n', 'kittypreview')
         vim.wo.number = false
         vim.wo.relativenumber = false
     end
 
-    local window_shift   = vim.fn.wincol()
+    -- local window_shift   = vim.fn.wincol()
     local line           = opts.line or vim.fn.line('.')
     local window_id      = vim.fn.win_getid()
     local window         = require('image.utils.window').get_window(window_id)
@@ -63,11 +63,25 @@ local display_image = function(file, opts)
     })
     preview_image:render()
     preview_image:move(display_column, display_row)
+
+    vim.api.nvim_create_user_command(
+        "DeleteImage",
+        function(o)
+            preview_image:clear()
+            if not o.bang and opts.method ~= "infile" then
+                vim.fn['utils#Preview_data'](
+                    cache_file, 'kitty_image_preview_buf', opts.method, 'y', 'kittypreview'
+                )
+            end
+        end,
+        {bang = true, nargs = 0, desc = "Delete Image"}
+    )
+
     return preview_image
 end
 
 vim.api.nvim_create_user_command(
-    'ImagePreview',
+    'PreviewImage',
     function(args)
         local args_number = #args.fargs
         local file = args.fargs[args_number]

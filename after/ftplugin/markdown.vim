@@ -32,7 +32,7 @@ nnoremap <buffer> <localleader>ic ysiW`
 nnoremap <buffer> <localleader>ab :<c-u>AsyncRun 
     \ xsel -ob >> %:p:h/ref.bib; xsel -ob \| perl -ne 'print "\@$1\n" if ($_ =~ /^\@\w+\{([^,]+)\,/)' >> ~/.config/nvim/paper.dict<cr>
 nnoremap <buffer> <silent> <leader>nH
-    \ :w !pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
+    \ :!!pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
 noremap <buffer> <silent> <leader>nh
     \ :r  !xclip -o -t text/html -sel clip \| pandoc -f html -t markdown_strict<cr>
 setlocal tw=78 formatoptions=tcq,ro/,n,lm]1,Bj tabstop=4 shiftwidth=4
