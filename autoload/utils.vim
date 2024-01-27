@@ -869,5 +869,22 @@ endfunction
 function! utils#Extract_hl_group_link()
     echom v:lua.extract_hl_group_link(0, line('.') - 1, col('.') -1)
 endfunction
+
+" 获取光标下方最接近的空行行号 ========================================== {{{1
+function! utils#GetNearestEmptyLine()
+    let cursor_line = line('.')
+    let total_lines = line('$')
+    let nearest_empty_line = -1
+
+    for line_number in range(cursor_line + 1, total_lines)
+        if getline(line_number) =~# '^\s*$'
+            let nearest_empty_line = line_number
+            break
+        endif
+    endfor
+
+    return nearest_empty_line
+endfunction
+
 " End =================================================================== {{{1
 " vim: fdm=marker:

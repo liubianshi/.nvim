@@ -50,10 +50,12 @@ local display_image = function(file, opts)
     end
 
     -- local window_shift   = vim.fn.wincol()
-    local line           = opts.line or vim.fn.line('.')
+    local line           = opts.line or vim.fn['utils#GetNearestEmptyLine']()
     local window_id      = vim.fn.win_getid()
     local window         = require('image.utils.window').get_window(window_id)
-    local display_row    = (line - window.scroll_y)
+    -- local display_row    = (line - window.scroll_y)
+    local display_row    = line
+    if window.scroll_y > 3 then display_row = display_row - 1 end
     local display_column = vim.fn.getline(line):match("^%s*"):len()
 
     local preview_image = require("image").from_file(file, {
