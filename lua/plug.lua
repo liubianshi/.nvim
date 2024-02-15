@@ -705,6 +705,14 @@ Plug.add('img-paste-devs/img-paste.vim', {
     ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc', 'org'}
 })
 
+Plug.add('HakonHarnes/img-clip.nvim', {
+    ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc', 'org', 'tex', 'html', 'norg'},
+    keys = {
+        { '<leader>ip', '<cmd>PasteImage<cr>', desc = "Paste clipboard image"},
+    }
+})
+
+
 -- hotoo/pangu.vim: 『盘古之白』中文排版自动规范化 ---------------------- {{{3
 Plug.add('hotoo/pangu.vim', {
     ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc', 'norg', 'org', 'newsboat', 'html'},
