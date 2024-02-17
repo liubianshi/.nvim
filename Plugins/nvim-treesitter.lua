@@ -2,9 +2,9 @@ local ts = require'nvim-treesitter.configs'
 vim.treesitter.language.register("markdown", "rmd")
 ts.setup({
     modules = {},
-    ensure_installed = { "r", "bash", "vim", "org", "lua", "dot", 'perl',
-                        "markdown", "markdown_inline", "bibtex", "css", "json",
-                        "vim", "vimdoc", "query", "latex",
+    ensure_installed = { "r",       "bash",            "vim",    "org",   "lua",  "dot", 'perl',
+                        "markdown", "markdown_inline", "bibtex", "css",   "json",
+                        "vim",      "vimdoc",          "query",  "latex", "jq",
     },
     sync_install = false,
     auto_install = true,
