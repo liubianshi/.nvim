@@ -1,3 +1,49 @@
+" Auxiliary functions =================================================== {{{1
+function! s:find_paired_line_number(start_prefix, end_prefix) abort
+  let no_match = [0, 0]
+  let lineno = line('.')
+  normal! $
+
+  let start_row = searchpos(a:start_prefix, 'bnW')[0]
+  if start_row == 0 | return no_match | endif
+
+  if &filetype ==# 'org'
+    let key = substitute(getline(start_row), a:start_prefix . '(\S+)?.*', '\1', "")
+    let start_pattern = a:start_prefix . key
+    let end_pattern = a:end_prefix . key
+  else
+    let start_pattern = a:start_prefix
+    let end_pattern = a:end_prefix
+  endif 
+
+  let nesting_level = 0
+  let end_row = start_row + 1
+  while end_row <= line("$")
+    let line = getline(end_row)
+
+    if match(line, start_pattern) != -1
+      let nesting_level += 1
+    elseif match(line, end_pattern) != -1 && nesting_level > 0
+      let nesting_level -= 1
+    elseif match(line, end_pattern) != -1 && nesting_level == 0
+      break
+    endif
+
+    let end_row += 1
+  endwhile
+
+  if end_row < lineno
+    if start_row == 1 | return no_match | endif
+    exec "normal! " . (start_row - 1 ) . "G"
+    return s:find_paired_line_number(a:start_prefix, a:end_prefix)
+  elseif end_row > line("$")
+    return no_match
+  else
+    return [start_row, end_row]
+  endif
+
+endfunction
+
 " URL Objects =========================================================== {{{1
 " From: https://github.com/jdhao/nvim-config/blob/master/autoload/text_obj.vim
 function! text_obj#URL() abort
@@ -83,19 +129,21 @@ endfunction
 
 " org-mode block ======================================================== {{{1
 function! text_obj#OrgCodeBlock(type) abort
-  normal! $
-  let start_row = searchpos('\s*#+begin_', 'bnW')[0]
-  let end_row = searchpos('\s*#+end_', 'nW')[0]
-
   let buf_num = bufnr()
+  let pos = getpos('.')
+  let [start_row, end_row] = s:find_paired_line_number('\v^.*#\+begin_', '\v^.*#\+end_')
+  if start_row == 0
+    call setpos(".", pos)
+    return
+  endif
+
   if a:type ==# 'i'
     let start_row += 1
     let end_row -= 1
   endif
-  " echo a:type start_row end_row
 
   call setpos("'<", [buf_num, start_row, 1, 0])
-  call setpos("'>", [buf_num, end_row, 1, 0])
+  call setpos("'>", [buf_num, end_row, len(getline(end_row)), 0])
   execute 'normal! `<V`>'
 endfunction
 

@@ -4,7 +4,7 @@ local ftMap = {
     lua = {'treesitter', 'indent'},
     norg = {'treesitter'},
     org = {'treesitter'},
-    r = '',
+    r = {'treesitter'},
     vim = '',
     git = '',
 }

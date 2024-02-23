@@ -333,7 +333,7 @@ endfunction
 
 function! fold#GetFold()
     if v:lnum == 1
-        let b:lbs_foldlevels = fold#GetAllLineFoldLevels(10)
+        let b:lbs_foldlevels = fold#GetAllLineFoldLevels(5)
     endif
     let fdl = b:lbs_foldlevels[v:lnum - 1]        
 

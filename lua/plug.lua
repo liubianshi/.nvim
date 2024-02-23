@@ -737,6 +737,7 @@ Plug.add("potamides/pantran.nvim", {
 
 -- 3rd/image.nvim: 🖼️ Bringing images to Neovim.
 Plug.add("3rd/image.nvim", {
+  cond = (vim.fn.exists("g:neovide") == 0),
   ft = { "markdown", "pandoc", "rmd", "rmarkdown", "norg", "org", "newsboat" },
 })
 
@@ -786,8 +787,10 @@ Plug.add("mhartington/oceanic-next", { lazy = false })
 Plug.add("sainnhe/everforest", {
   init = function()
     vim.g.everforest_better_performance = 1
+    vim.g.everforest_background = "hard"
     vim.g.everforest_enable_italic = 1
     vim.g.everforest_transparent_background = 2
+    vim.g.everforest_dim_inactive_windows = 1
   end,
   lazy = false,
 })

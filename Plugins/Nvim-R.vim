@@ -18,7 +18,6 @@ let R_rcomment_string = '#> '
 let R_nvimpager = "vertical"
 let Rout_more_colors = 1
 let R_hi_fun = 1
-let R_hi_fun_globenv = 1
 let R_hi_fun_paren = 1
 let R_assign = 0
 let R_rmdchunk = 1

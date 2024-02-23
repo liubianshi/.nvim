@@ -16,17 +16,17 @@ function! s:mylib_new() abort
     endif
     let filename = system("mylib get html -- '" . b:mylib_key . "'")
     let filename = fnamemodify(filename, ":p:r") . ".newsboat"
-    let filename = fnameescape(filename)
+    let filename_escape = fnameescape(filename)
     if filereadable(filename)
         let bufnr = bufnr()
         let libkey = b:mylib_key
-        exec "edit " . filename
+        exec "edit " . filename_escape
         let b:mylib_key = libkey
         call utils#ToggleZenMode()
         exec "bwipeout " . bufnr
     else
         setlocal buftype=
-        exec "write " . filename
+        exec 'write ' . fnameescape(filename)
     endif
     return b:mylib_key
 endfunction
@@ -53,7 +53,6 @@ function! s:mylib_note(method = "") abort
     if note_wnr != -1
         return win_gotoid(note_wnr)
     endif
-
     let method = a:method
     if method ==? "popup"
         exec 'lua require("ui").mylib_popup(' . bufnr . ')'

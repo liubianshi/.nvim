@@ -8,7 +8,7 @@ require('orgmode').setup({
   org_default_notes_file = orglib .. 'refile.org',
   org_todo_keywords = {'TODO(t)', 'PROJ(p)', 'LOOP(r)', 'STRT(s)', 'WAIT(w)', 'HOLD(h)', 'IDEA(i)', '|', 'DONE(d)', 'KILL(k)'},
   org_highlight_latex_and_related = 'entities',
-  org_startup_indented = true,
+  org_startup_indented = false,
   org_hide_emphasis_markers = true,
   org_hide_leading_stars = true,
   diagnostics = false,

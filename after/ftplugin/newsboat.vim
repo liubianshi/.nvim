@@ -69,8 +69,9 @@ function! s:mylib_send_content_to_note(content, line = -1, method = "") abort
 
     let curbufnr = bufnr('%')
     Mylib note quiet
+    let notebufnr = bufnr(b:mylib_note)
+
     if a:method ==? "quiet" 
-        let notebufnr = bufnr(b:mylib_note)
         if notebufnr == 0 | return 0 | endif
         call appendbufline(b:mylib_note, "$", split(content, "\n", 1))
         exec notebufnr . "," . notebufnr . "bufdo write"
@@ -89,10 +90,18 @@ function! s:mylib_send_content_to_note(content, line = -1, method = "") abort
 
     let ori = @+
     let @+ = "\n" . content 
-    normal! $"+pG
+    normal! $"+p
+    if match(@+, '\v\s*#\+begin_') != -1
+        call search('\v^\s*#\+begin_')
+        call text_obj#OrgCodeBlock('i')
+        normal! gvgq
+        normal! 2j
+    else
+        exec "normal! " . len(spit(@+, "\n")) . "j"
+    endif
     let @+ = ori
 
-    write
+    exec notebufnr . "," . notebufnr . "bufdo write"
     " call win_gotoid(current_wnr)
     return v:true
 endfunction

@@ -38,7 +38,7 @@ local rimels_auto_upload = function(entries)
 end
 
 -- source config functions ---------------------------------------------- {{{2
-local function constuct_cmp_source(sources)
+local function construct_cmp_source(sources)
     local function not_exists(s, b)
         for _,v in ipairs(b) do
             if v.name == s.name then return(false) end
@@ -63,7 +63,7 @@ local function constuct_cmp_source(sources)
         {
             name = 'nvim_lsp',
             keyword_length = 1,
-            keyword_pattern = '[-/,.?!$<>A-Za-z0-9]\\+',
+            keyword_pattern = '[-_/,.?!$<>A-Za-z0-9]\\+',
         },
         -- { name = 'latex_symbols' },
         -- { name = 'orgmode' },
@@ -318,44 +318,44 @@ local cmp_config = {
         end,
     },
     mapping = cmp.mapping.preset.insert(keymap_config),
-    sources = constuct_cmp_source(),
+    sources = construct_cmp_source(),
 }
 
 -- cmp setup ------------------------------------------------------------ {{{2
 cmp.setup(cmp_config)
 cmp.setup.filetype({'stata'}, {
-    sources = constuct_cmp_source({{name = 'omni'}})
+    sources = construct_cmp_source({{name = 'omni'}})
 })
 
 cmp.setup.filetype({'pandoc', 'markdown', 'rmd', 'rmarkdown'}, {
-    sources = constuct_cmp_source({{name = 'cmp_zotcite'}})
+    sources = construct_cmp_source({{name = 'cmp_zotcite'}})
 })
 
 -- cmp.setup.filetype({'r'}, {
---     sources = constuct_cmp_source({{name = 'cmp_nvim_r'}})
+--     sources = construct_cmp_source({{name = 'cmp_nvim_r'}})
 -- })
 
 -- cmp.setup.filetype({'rmd'}, {
---     sources = constuct_cmp_source({{name = 'cmp_nvim_r'}})
+--     sources = construct_cmp_source({{name = 'cmp_nvim_r'}})
 -- })
 
 
 -- cmp.setup.filetype({'perl', 'python', 'vim', 'bash'}, {
---     sources = constuct_cmp_source({{name = 'nvim_lsp'}})
+--     sources = construct_cmp_source({{name = 'nvim_lsp'}})
 -- })
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
-    sources = constuct_cmp_source({{name = 'cmp_git'}})
+    sources = construct_cmp_source({{name = 'cmp_git'}})
 })
 
 -- Set -- Set configuration for sql
 cmp.setup.filetype('sql', {
-    sources = constuct_cmp_source({{name = 'vim-dadbod-completion'}})
+    sources = construct_cmp_source({{name = 'vim-dadbod-completion'}})
 })
 
 cmp.setup.filetype('norg', {
-    sources = constuct_cmp_source({{name = 'neorg'}})
+    sources = construct_cmp_source({{name = 'neorg'}})
 })
 
 -- -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
