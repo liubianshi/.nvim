@@ -159,10 +159,10 @@ function! s:R_GetFoldEndInfo(lnum)
                     \   'contain_end_line': v:false,
                     \ },
                     \]
-    elseif content =~? '\v^\s*[A-z$:.]+[([]'
+    elseif content =~? '\v^\s*[A-z$:.]+[([]"?'
         let syntax_name = 'function_call'
         let end_condition = [
-                    \ { 'regex': '\V\^\s\*\[)\]}]',
+                    \ { 'regex': '\V\^\[\s"\]\*\[)\]}]',
                     \   'indent': indent_level,
                     \   'contain_end_line': v:true,
                     \ },
