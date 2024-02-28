@@ -61,7 +61,6 @@ telescope.setup {
 -- load_extension, somewhere after setup function:
 telescope.load_extension('fzf')
 telescope.load_extension("commander")
-telescope.load_extension("frecency")
 telescope.load_extension('ultisnips')
 
 -- extensions config ---------------------------------------------------- {{{1

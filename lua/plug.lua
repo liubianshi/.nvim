@@ -211,7 +211,6 @@ Plug.add("nvim-telescope/telescope.nvim", {
     "nvim-lua/plenary.nvim",
     "fhill2/telescope-ultisnips.nvim",
     "FeiyouG/command_center.nvim",
-    "nvim-telescope/telescope-frecency.nvim",
   },
   keys = {
     {
@@ -245,13 +244,8 @@ Plug.add("nvim-telescope/telescope.nvim", {
       desc = "Telescope: Man Pages",
     },
     {
-      "<leader>fp",
-      "<cmd>Telescope frecency<cr>",
-      desc = "Telescope: Frecency",
-    },
-    {
       "<leader>:",
-      "<cmd>Telescope commands<cr>",
+      "<cmd>Telescope command_history<cr>",
       desc = "Telescope: Commands",
     },
     {
@@ -332,7 +326,19 @@ Plug.add("nvim-telescope/telescope-fzf-native.nvim", {
 })
 Plug.add("FeiyouG/command_center.nvim", { lazy = true })
 Plug.add("nvim-telescope/telescope-frecency.nvim", {
-  dependencies = { "kkharji/sqlite.lua" },
+  dependencies = {
+    "kkharji/sqlite.lua",
+    "nvim-telescope/telescope.nvim",
+  },
+  keys = {
+    {
+      "<leader>fp",
+      function()
+        require("telescope").extensions.frecency.frecency()
+      end,
+      desc = "Telescope: Frecency",
+    },
+  },
   lazy = true,
 })
 
@@ -757,9 +763,7 @@ Plug.add("AckslD/nvim-neoclip.lua", {
   keys = {
     {
       "<leader>sp",
-      function()
-        require("telescope").extensions.neoclip.default()
-      end,
+      "<cmd>Telescope neoclip extro=star,plus<cr>",
       desc = "Open Yank History",
     },
   },
