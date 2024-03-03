@@ -10,21 +10,21 @@ wk.setup({
 
 -- register keymap ------------------------------------------------------ {{{1
 wk.register({
-    ["w"] = { name = "+window"},
+    ["w"] = { name = "+window ..."},
     ["<leader>"] = { -- <leader>/<space> -------------------------------- {{{2
         ["."] = "Open File",
         ["a"] = {
-            name = "Attach",
+            name = "Attach ...",
             ["*"] = "Attach Symbol *",
             ["-"] = "Attach Symbol -",
             ["="] = "Attach Symbol +",
             ["."] = "Attach Symbol .",
         },
-        ["b"] = { name = "+buffer", },
-        ["c"] = { name = "Code Operater", },
-        ["d"] = { name = "diff" },
+        ["b"] = { name = "+buffer ...", },
+        ["c"] = { name = "Code Operater ...", },
+        ["d"] = { name = "diff ..." },
         ["e"] = { -- <leader>e Edit File -------------------------------- {{{3
-            name = "+EditFile",
+            name = "+EditFile ...",
         },
         ["f"] = { -- <leader>f: File Handle ----------------------------- {{{3
             name = "File ...",
@@ -32,19 +32,25 @@ wk.register({
             ["S"] = "File Save Force :write!",
             ["z"] = "FASD",
         },
+        ["h"] = {
+            name = "Help/Notification ...",
+        },
+        ["g"] = {
+            name = "Git ..."
+        },
         ["i"] = { -- <leader>f: Insert ---------------------------------- {{{3
-            name = "Insert",
+            name = "Insert ...",
             ["c"] = "Insert Citation",
         },
         -- ["m"] = { name = "+MultVisual" },
-        ["n"] = { name = "Notification"},
-        ["o"] = { name = "Open Command" },
-        ["p"] = { name = "Project" },
-        ["q"] = { name = "+Quickfix"},
-        ["s"] = { name = "+Search" },
-        ["t"] = { name = "+Tab/Translate" },
-        ["w"] = { name = "+Window" },
-        ["x"] = { name = "+Trouble" },
-        ["z"] = { name = "+Fold" },
+        ["n"] = { name = "Obsidian ..."},
+        ["o"] = { name = "Open Command ..." },
+        ["p"] = { name = "Project ..." },
+        ["q"] = { name = "Quickfix ..."},
+        ["s"] = { name = "Search ..." },
+        ["t"] = { name = "Tab/Translate ..." },
+        ["w"] = { name = "Window ..." },
+        ["x"] = { name = "Trouble ..." },
+        ["z"] = { name = "Fold ..." },
     },
 })

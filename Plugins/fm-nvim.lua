@@ -23,10 +23,11 @@ local ui = {
         size      = 24
     }
 }
-local cmd = {
+local cmds = {
     lf_cmd      = "lf", -- eg: lf_cmd = "lf -command 'set hidden'"
     fm_cmd      = "fm",
     nnn_cmd     = "nnn",
+    newsboat    = "newsboat",
     fff_cmd     = "fff",
     twf_cmd     = "twf",
     fzf_cmd     = "fzf", -- eg: fzf_cmd = "fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"

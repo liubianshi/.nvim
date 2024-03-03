@@ -1,5 +1,5 @@
 -- vim: ft=lua fdm=marker:
-vim.env.FZF_DEFAULT_OPTS = vim.env.FZF_DEFAULT_OPTS .. ' --color=gutter:-1'
+-- vim.env.FZF_DEFAULT_OPTS = vim.env.FZF_DEFAULT_OPTS .. ' --color=gutter:-1'
 local external_command = {
     exa = vim.fn.systemlist('which exa')[1]
 }
@@ -88,7 +88,7 @@ fzflua.setup({
 
 -- integration with project.nvim ---------------------------------------- {{{2
 local _previous_cwd
-function projects(opts)
+local projects = function(opts)
     if not opts then opts = {} end
     local project_hist = vim.fn.stdpath("data") .. "/project_nvim/project_history"
     if not vim.loop.fs_stat(project_hist) then return end
@@ -97,7 +97,7 @@ function projects(opts)
     local iconify = function(path, color, icon)
         local ansi_codes = require'fzf-lua.utils'.ansi_codes
         local icon = ansi_codes[color](icon)
-        path = require'fzf-lua.path'.relative(path, vim.fn.expand('$HOME'))
+        path = require'fzf-lua.path'.relative_to(path, vim.fn.expand('$HOME'))
         return ("%s  %s"):format(icon, path)
     end
 
@@ -130,7 +130,7 @@ function projects(opts)
         ['--no-multi']        = '',
         ['--prompt']          = 'Projects❯ ',
         ['--header-lines']    = '1',
-        ['--preview']         = vim.fn.shellescape(external_command.exa .. " --color always -T -L 2 -lh $HOME/{2..}"),
+        ['--preview']         = external_command.exa .. " --color always -T -L 2 -lh $HOME/{2..}",
         }
 
         local get_cwd = function(selected)
@@ -138,14 +138,14 @@ function projects(opts)
             _previous_cwd = vim.loop.cwd()
             local newcwd = selected[1]:match("[A-Za-z0-9_.].*$")
             print(newcwd)
-            newcwd = require'fzf-lua.path'.starts_with_separator(newcwd) and newcwd
+            newcwd = require'fzf-lua.path'.is_absolute(newcwd) and newcwd
                 or require'fzf-lua.path'.join({ vim.fn.expand('$HOME'), newcwd })
             return(newcwd)
         end
 
         opts.actions = {
             ['default'] = function(selected, opts)
-                wd = get_cwd(selected)
+                local wd = get_cwd(selected)
                 vim.cmd("cd " .. wd)
                 require("fzf-lua").files({ cwd = wd})
             end,
