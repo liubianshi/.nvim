@@ -2,7 +2,7 @@ local default_opts = {
   background = "dark",
   colorscheme = {
     dark = "catppuccin-mocha",
-    light = "everforest",
+    light = "onenord-light",
   },
   palette = {
     dark = {

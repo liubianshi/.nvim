@@ -284,7 +284,8 @@ local cmp_config = {
     window = {
         completion = {
             -- [ "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" ]
-            border = { '', '', '',  '', '', '', '', {'│', "MyBorder"} },
+            -- border = { '', '', '',  '', '', '', '', {'│', "MyBorder"} },
+            border = { '', '', '',  '', '', '', '', '' },
             winhighlight = "CursorLine:PmenuSel,Normal:Pmenu,FloatBorder:Pmenu,Search:None",
             col_offset = 0,
             side_padding = 0,
@@ -328,7 +329,9 @@ cmp.setup.filetype({'stata'}, {
 })
 
 cmp.setup.filetype({'pandoc', 'markdown', 'rmd', 'rmarkdown'}, {
-    sources = construct_cmp_source({{name = 'cmp_zotcite'}})
+    sources = construct_cmp_source({
+        {name = 'cmp_zotcite'},
+    })
 })
 
 -- cmp.setup.filetype({'r'}, {
@@ -378,4 +381,3 @@ cmp.setup.filetype('norg', {
 
 
 -- vim: set fdm=marker: ------------------------------------------------- {{{1
-

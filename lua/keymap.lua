@@ -63,10 +63,6 @@ vimkey('<localleader>^',  "Chinese Punctuation: ……",           '<C-v>u2026<c
 vimkey('<localleader>?',  "Special Punctuation: ？",           '<C-v>uff1f',                         {mode = 'i'})
 vimkey('<localleader>-',  "Special Punctuation: —",            '<C-v>u2014',                         {mode = 'i'})
 
-
-
-
-
 --- window manager ------------------------------------------------------ {{{1
 vimkey('w0',    'Window: Suitable Width',            '<cmd>88wincmd |<cr>')
 vimkey('wt',    'Move Current Window to a New Tab',  '<cmd>wincmd T<cr>')
@@ -116,10 +112,10 @@ vimkey('<leader>eT', "Open Plan to Do", function()
 end)
 
 --- notifications ------------------------------------------------------- {{{1
-vimkey('<leader>nn', "Display Notifications", '<cmd>Notifications<cr>')
-vimkey('<leader>nN', "Redir Notifications",   '<cmd>Redir Notifications<cr>')
-vimkey('<leader>nm', "Display messages",      '<cmd>messages<cr>')
-vimkey('<leader>nM', "Redir messages",        '<cmd>Redir messages<cr>')
+vimkey('<leader>hn', "Display Notifications", '<cmd>Notifications<cr>')
+vimkey('<leader>hN', "Redir Notifications",   '<cmd>Redir Notifications<cr>')
+vimkey('<leader>hm', "Display messages",      '<cmd>messages<cr>')
+vimkey('<leader>hM', "Redir messages",        '<cmd>Redir messages<cr>')
 
 -- format --------------------------------------------------------------- {{{1
 -- vimkey('gQ', "gq after Pangu", 'vip<cmd>Pangu<cr>gqip')

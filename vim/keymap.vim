@@ -198,6 +198,7 @@ nnoremap <silent> <leader>z3 g_a <esc>3a{<esc>a3<esc>
 inoremap ;<space> ;
 inoremap <silent> ;; <esc>:<c-u>call input_method#En()<cr>a
 inoremap <silent> ;f <esc>:<c-u>call input_method#Zh()<cr>a
+
 " 移动光标到指定位置 ==================================================== {{{1
 noremap  <A-m> <esc>:call utils#MoveCursorTo()<cr>
 noremap  <A-M> <esc>:call utils#ShiftLine(line('.') + 1, col('.') - 1)<cr>
