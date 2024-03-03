@@ -20,6 +20,7 @@ function! s:get_link_citation_under_cursor(ft = "org")
     if len(link) == 0 | return | endif
 
     Mylib note quiet
+    let note_file_ext = fnamemodify(b:mylib_note, ":e")
 
     if link['type'] == "image"
         let image_path = system("linkhandler -t image -V '" . link['url'] . "'")
@@ -27,19 +28,29 @@ function! s:get_link_citation_under_cursor(ft = "org")
         let subdir = v:lua.vim.fs.basename(v:lua.vim.fs.dirname(image_path))
         let target_dir = v:lua.vim.fs.dirname(b:mylib_note) . "/img/" . subdir
         let target_path = target_dir . "/" . imagename
+
         if ! filereadable(target_path)
             call mkdir(target_dir, "p")
             call system("link '" . image_path . "' '" . target_path . "'") 
         endif
         let label = input("Please Input image title: ")
-        if label != ""
-            let label = "[" . label . "]"
-        endif
-        let content = "[[./img/" . subdir . "/" . imagename . "]" . label ."]"
-    else
-        let content = system("url_cite org '" . link['url'] . "'")
-    endif
 
+        if note_file_ext ==? "org" 
+            if label != ""
+                let label = "[" . label . "]"
+            endif
+            let content = "[[./img/" . subdir . "/" . imagename . "]" . label ."]"
+        elseif note_file_ext ==? "md"
+            let content = "![" . label . "](" . "img/" . subdir . "/" . imagename . ")"
+        endif
+    else
+        if note_file_ext ==? "org"
+            let content = system("url_cite org '" . link['url'] . "'")
+        elseif note_file_ext ==? "md"
+            let content = system("url_cite markdown '" . link['url'] . "'")
+        endif
+    endif
+    
     return content
 endfunction
 
@@ -97,7 +108,7 @@ function! s:mylib_send_content_to_note(content, line = -1, method = "") abort
         normal! gvgq
         normal! 2j
     else
-        exec "normal! " . len(spit(@+, "\n")) . "j"
+        exec "normal! " . len(split(@+, "\n")) . "j"
     endif
     let @+ = ori
 
@@ -108,7 +119,12 @@ endfunction
 
 function! s:mylib_send_clipboard_to_note(method = "quiet")
     if @+ == "" | return | end
-    let content = "#+begin_quote\n" . trim(@+) . "\n#+end_quote\n"
+    let content = trim(@+)
+    if b:mylib_note =~? '\.org$'
+        let content = "#+begin_quote\n" . content. "\n#+end_quote\n"
+    elseif b:mylib_note =~? '\v\.(md|norg)$'
+        let content = join(map(split(content, "\n"), '"> " . v:val'), "\n")
+    endif
 
     let @+ = "〚" . @+ . "〛"
     let @+ = substitute(@+, '\v([\n\s]+)〛$', '〛\1', "")
@@ -184,7 +200,7 @@ nnoremap <silent><buffer> <localleader>n :Mylib note<cr>
 nnoremap <silent><buffer> <localleader>O :Urlopen<cr>
 nnoremap <silent><buffer> <localleader>o "+yiu:call utils#OpenUrl(@+, "in")<cr>
 vnoremap <silent><buffer> <localleader>y "+y:<c-u>call <sid>mylib_send_clipboard_to_note()<cr>
-vnoremap <silent><buffer> N "+y:<c-u>call <sid>mylib_send_clipboard_to_note("popup")<cr>
+vnoremap <silent><buffer> N "+y:<c-u>call <sid>mylib_send_clipboard_to_note("split")<cr>
 nnoremap <silent><buffer> <localleader>y vip"+y:<c-u>call <sid>mylib_send_clipboard_to_note()<cr>
 nnoremap <silent><buffer> <localleader>q :qall<cr>
 nnoremap <silent><buffer> <enter> :<c-u>call utils#OpenUrl(<sid>get_link_under_cursur_line(), "in")<cr>

@@ -7,7 +7,7 @@ function! s:mylib_new() abort
     if &filetype ==# "newsboat"
         let url = b:fetched_urls[0]
         if url == "" | return | endif
-        let b:mylib_key = system("mylib new '" . url . "'")
+        let b:mylib_key = systemlist("mylib new '" . url . "'")[-1]
     else
         let key = substitute(expand("%:t"), '\.\w\+$', "", "")
         let key = system("mylib get md5_long -- " . key)
@@ -39,7 +39,7 @@ endfunction
 function! s:mylib_note(method = "") abort
     call s:mylib_new()
     if ! has_key(b:, "mylib_note")
-        let b:mylib_note = system("mylib note " . b:mylib_key)
+        let b:mylib_note = system("mylib note --type obsidian " . b:mylib_key)
     endif
     if b:mylib_note ==# @%  | return | endif
 
@@ -75,16 +75,33 @@ function! s:mylib_tag(...)
 
     Mylib note popup
     normal! mmgg
-    let filtag_pos = searchpos('^#+filetags:', 'nW')[0]
-    let titletag_pos = searchpos('^#+title:', 'nW')[0]
-    if filtag_pos != 0
-        call setline(filtag_pos, "#+filetags: :". tags . ":")
-    elseif titletag_pos != 0
-        exec "normal! " . titletag_pos . "G"
-        call append(titletag_pos, "#+filetags: :". tags . ":")
+    if &filetype == "org"
+        let filetags = searchpos('^#+filetags:', 'nW')[0]
+        let titletag_pos = searchpos('^#+title:', 'nW')[0]
+        if filetags != 0
+            call setline(filetags, "#+filetags: :". tags . ":")
+        elseif titletag_pos != 0
+            exec "normal! " . titletag_pos . "G"
+            call append(titletag_pos, "#+filetags: :". tags . ":")
+        endif
+    elseif &filetype == "markdown" && match(getline(1), '\v^\-{3,}') == 0
+        let tags_line = searchpos('^tags:', 'nW')[0]
+        let end_meta_line = searchpos('\v^\-{3,}')[0]
+        if end_meta_line == 0 | return | end
+
+        let tags = "tags: [" . join(map(split(tags, "[:：]"), '"\"" . v:val . "\""'), ", ") .. "]"
+        if tags_line != 0
+            while(getline(tags_line + 1) =~? '\v^\s+\-')
+                exec 'normal! ' . (tags_line + 1) . "Gdd"
+            endwhile
+            call setline(tags_line, tags)
+        else
+            call append(end_meta_line - 1, tags)
+        endif
     endif
-    write
+
     normal! `m
+    write
     if win_gettype() == "popup"
         quit
     else

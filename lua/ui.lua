@@ -2,8 +2,6 @@
 local Popup = require("nui.popup")
 local Input = require("nui.input")
 local event = require("nui.utils.autocmd").event
-local NuiLine = require("nui.line")
-local NuiText = require("nui.text")
 local M = {}
 
 M.prompt = function(top, callback, default)
@@ -97,7 +95,6 @@ M.mylib_popup = function(bufnr)
         buf_options = {
             modifiable = true,
             readonly = false,
-            filetype = "org",
         },
         win_options = {
             winblend = 2,

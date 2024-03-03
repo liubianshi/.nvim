@@ -42,6 +42,18 @@ local typing_english = function(shift)
     return content_before:match("%s[%w%p]+$")
 end
 
+
+local isRimeLsAttached = function()
+    local clients = vim.lsp.buf_get_clients()
+    for _, client in pairs(clients) do
+        if client.name == "rime_ls" then
+            return true
+        end
+    end
+    return false
+end
+
+
 M.probes = {
     {
         "probe_punctuation_after_half_symbol", function()
@@ -95,7 +107,8 @@ function M.setup_rime(opts)
 
     local rime_on_attach = function(client, _)
         local toggle_rime = function()
-            client.request('workspace/executeCommand',
+            client.request(
+                'workspace/executeCommand',
                 { command = "rime-ls.toggle-rime" },
                 function(_, result, ctx, _)
                     if ctx.client_id == client.id then
