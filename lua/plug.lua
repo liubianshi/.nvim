@@ -10,27 +10,27 @@ package.path = package.path
   .. "/.luarocks/share/lua/5.1/?.lua;"
 
 -- 在 lazyvim 尚未安装时安装 -------------------------------------------- {{{1
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath("data")  .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system {
+  vim.fn.system({
     "git",
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
     "--branch=stable", -- latest stable release
     lazypath,
-  }
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
 -- 初始化 --------------------------------------------------------------- {{{1
-local Util = require "util"
+local Util = require("util")
 local Plug = { plugs = {} }
 Plug.add = function(plug, opts)
   opts = opts or {}
   table.insert(opts, 1, plug)
   local plug_name = opts.name or string.match(plug, "/([^/]+)$")
-  local config_file_name = vim.fn.stdpath "config" .. "/Plugins/" .. plug_name
+  local config_file_name = vim.fn.stdpath("config") .. "/Plugins/" .. plug_name
   config_file_name = vim.fn.fnameescape(config_file_name)
   if not opts.config then
     if vim.fn.filereadable(config_file_name .. ".lua") == 1 then
@@ -51,7 +51,7 @@ end
 
 -- 配置插件 ------------------------------------------------------------- {{{1
 -- GUI
-Plug.add "equalsraf/neovim-gui-shim"
+Plug.add("equalsraf/neovim-gui-shim")
 -- UI ------------------------------------------------------------------- {{{2
 -- lambdalisue/suda.vim: Read and write with sudo command --------------- {{{3
 Plug.add("lambdalisue/suda.vim", { cmd = { "SudaWrite", "SudaRead" } })
@@ -149,6 +149,13 @@ Plug.add("ibhagwan/fzf-lua", {
       "<leader>u",
       "<cmd>Urlopen<cr>",
       desc = "FzfLua: Open urls",
+    },
+    {
+      "<leader>sn",
+      function()
+        require('fzf-lua').live_grep({cwd = vim.env.WRITING_LIB or vim.env.HOME .. "/Documents/writing"})
+      end,
+      desc = "Search Personal Notes",
     },
     {
       "<leader>st",
@@ -264,6 +271,11 @@ Plug.add("nvim-telescope/telescope.nvim", {
       desc = "Telescope: Vim Helper",
     },
     {
+      "<leader>hh",
+      "<cmd>Telescope help_tags<cr>",
+      desc = "Telescope: Vim Helper",
+    },
+    {
       "<leader>su",
       "<cmd>Telescope ultisnips<cr>",
       desc = "Telescope: Ultisnips",
@@ -350,7 +362,7 @@ Plug.add("gelguy/wilder.nvim", {
 })
 
 -- machakann/vim-highlightedyank: 高亮显示复制区域 ---------------------- {{{3
-Plug.add "machakann/vim-highlightedyank"
+Plug.add("machakann/vim-highlightedyank")
 
 -- kevinhwang91/nvim-hlslens: Hlsearch Lens for Neovim ------------------ {{{3
 Plug.add("kevinhwang91/nvim-hlslens", {
@@ -382,7 +394,7 @@ Plug.add("mg979/vim-visual-multi", {
   },
 })
 -- andymass/vim-matchup: 显示匹配符号之间的内容 ------------------------- {{{3
-Plug.add "andymass/vim-matchup"
+Plug.add("andymass/vim-matchup")
 
 -- tpope/vim-commentary: Comment stuff out ------------------------------ {{{3
 Plug.add("tpope/vim-commentary", {
@@ -618,7 +630,7 @@ Plug.add("zhimsel/vim-stay", {
 })
 
 -- Konfekt/FastFold: updating folds only when called-for ---------------- {{{3
-Plug.add "Konfekt/FastFold"
+Plug.add("Konfekt/FastFold")
 
 -- kevinhwang91/nvim-ufo: ultra fold in Neovim -------------------------- {{{3
 Plug.add("kevinhwang91/nvim-ufo", {
@@ -649,16 +661,16 @@ Plug.add("akinsho/bufferline.nvim", {
 })
 
 -- nvim-lualine/lualine.nvim: neovim statusline plugin ------------------ {{{3
-Plug.add "nvim-lualine/lualine.nvim"
+Plug.add("nvim-lualine/lualine.nvim")
 
 -- mhinz/vim-startify: fancy start screen for Vim ----------------------- {{{3
-Plug.add "mhinz/vim-startify"
+Plug.add("mhinz/vim-startify")
 
 -- nvim-tree/nvim-web-devicons: file type icons ------------------------- {{{3
 Plug.add("nvim-tree/nvim-web-devicons", { lazy = true })
 
 -- windwp/nvim-autopairs: autopair tools -------------------------------- {{{3
-Plug.add "windwp/nvim-autopairs"
+-- Plug.add("windwp/nvim-autopairs")
 
 -- stevearc/dressing.nvim: improve the default vim.ui interfaces -------- {{{3
 Plug.add("stevearc/dressing.nvim", {
@@ -712,7 +724,7 @@ Plug.add("akinsho/toggleterm.nvim", {
 })
 
 -- skywind3000/asyncrun.vim: run async shell command -------------------- {{{3
-Plug.add "skywind3000/asyncrun.vim"
+Plug.add("skywind3000/asyncrun.vim")
 
 -- skywind3000/asynctasks.vim: modern Task System ----------------------- {{{3
 Plug.add("skywind3000/asynctasks.vim", {
@@ -726,7 +738,7 @@ Plug.add("skywind3000/asynctasks.vim", {
 })
 
 -- liubianshi/vimcmdline: send lines to interpreter --------------------- {{{3
-Plug.add "liubianshi/vimcmdline"
+Plug.add("liubianshi/vimcmdline")
 -- potamides/pantran.nvim: trans without leave neovim ------------------- {{{3
 Plug.add("potamides/pantran.nvim", {
   keys = {
@@ -756,22 +768,37 @@ Plug.add("3rd/image.nvim", {
 -- })
 
 -- gbprod/yanky.nvim: Improved Yank and Put functionalities for Neovim -- {{{3
-Plug.add("AckslD/nvim-neoclip.lua", {
-  dependencies = {
-    { "kkharji/sqlite.lua", enabled = not jit.os:find "Windows" },
-  },
+Plug.add("gbprod/yanky.nvim", {
+  requires = {"kkharji/sqlite.lua"},
   keys = {
-    {
-      "<leader>sp",
-      "<cmd>Telescope neoclip extro=star,plus<cr>",
-      desc = "Open Yank History",
-    },
-  },
+    { "p", "<Plug>(YankyPutAfter)", mode = {"n", "x"} },
+    { "P", "<Plug>(YankyPutBefore)", mode = {"n", "x"} },
+    { "gp", "<Plug>(YankyGPutAfter)", mode = {"n", "x"} },
+    { "gP", "<Plug>(YankyGPutBefore)", mode = {"n", "x"} },
+    { "<leader>sp", "<Plug>(YankyPreviousEntry)", desc = "Yank History" },
+    { "lp",
+      function() require('yanky.textobj').last_put() end,
+      mode =  {'o', "x"}
+    }
+  }
 })
+
+-- Plug.add("AckslD/nvim-neoclip.lua", {
+--   dependencies = {
+--     { "kkharji/sqlite.lua", enabled = not jit.os:find "Windows" },
+--   },
+--   keys = {
+--     {
+--       "<leader>sp",
+--       "<cmd>Telescope neoclip extra=star,plus<cr>",
+--       desc = "Open Yank History",
+--     },
+--   },
+-- })
 
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
-Plug.add "ahmedkhalf/project.nvim"
+Plug.add("ahmedkhalf/project.nvim")
 -- ludovicchabant/vim-gutentags: tag file management -------------------- {{{3
 Plug.add("ludovicchabant/vim-gutentags", {
   event = { "BufReadPost", "BufNewFile" },
@@ -787,6 +814,10 @@ Plug.add("tpope/vim-fugitive", { cmd = "G" })
 Plug.add("luisiacc/gruvbox-baby", { lazy = false })
 Plug.add("ayu-theme/ayu-vim", { lazy = false })
 Plug.add("rebelot/kanagawa.nvim", { lazy = false, priority = 100 })
+Plug.add("olimorris/onedarkpro.nvim", { priority = 100 })
+Plug.add("Mofiqul/vscode.nvim", { priority = 100 })
+Plug.add("rmehri01/onenord.nvim", { priority = 100 })
+Plug.add("nyoom-engineering/oxocarbon.nvim", { priority = 100 })
 Plug.add("mhartington/oceanic-next", { lazy = false })
 Plug.add("sainnhe/everforest", {
   init = function()
@@ -861,7 +892,7 @@ else
   })
   -- 如果作为 cmp 的依赖加载，会导致 ItermKind 无法识别
   -- table.insert(cmp_dependencies, 'jalvesaq/cmp-nvim-r')
-  if vim.fn.has "mac" == 0 then
+  if vim.fn.has("mac") == 0 then
     -- wasden/cmp-flypy.nvim: Chinese IM ---------------------------- {{{4
     Plug.add("wasden/cmp-flypy.nvim", {
       lazy = true,
@@ -947,6 +978,24 @@ Plug.add("dhruvasagar/vim-table-mode", {
   ft = { "markdown", "pandoc", "rmd", "org" },
 })
 
+-- epwalsh/obsidian.nvim
+Plug.add("epwalsh/obsidian.nvim", {
+  version = "*",
+  requires = {
+    "nvim-lua/plenary.nvim",
+  },
+  ft = {"markdown"},
+  cmd = {"ObsidianQuickSwitch", "ObsidianNew", "ObsidianSearch"},
+  keys = {
+    { "<leader>nl", "<cmd>ObsidianQuickSwitch<cr>", desc = "Obsidian: Switch Note"                     },
+    { "<leader>nn", "<cmd>ObsidianNew<cr>",         desc = "Obsidian: Create new note"                 },
+    { "<leader>no", "<cmd>ObsidianOpen<cr>",        desc = "Obsidian: open a note in the Obsidian app" },
+    { "<leader>nj", "<cmd>ObsidianToday<cr>",       desc = "Obsidian: open/create a new daily note"    },
+    { "<leader>ns", "<cmd>ObsidianSearch<cr>",      desc = "Obsidian: search for (or create) notes"    },
+    { "<leader>sn", "<cmd>ObsidianSearch<cr>",      desc = "Obsidian: search for (or create) notes"    },
+  },
+})
+
 -- 文件类型相关插件 ----------------------------------------------------- {{{2
 -- nvim-neorg/neorg: new org-mode in neovim ----------------------------- {{{3
 Plug.add("nvim-neorg/neorg", {
@@ -962,11 +1011,6 @@ Plug.add("nvim-neorg/neorg", {
       "<leader>ej",
       "<cmd>Neorg journal today<cr>",
       desc = "Open today's journal",
-    },
-    {
-      "<leader>sn",
-      "<cmd>Telescope neorg switch_workspace<cr>",
-      desc = "Switch Norg Workspace",
     },
   },
 })
@@ -1045,7 +1089,7 @@ Plug.add("AckslD/nvim-FeMaco.lua", {
 })
 
 -- 安装并加载插件 ------------------------------------------------------- {{{1
-local lazy = require "lazy"
+local lazy = require("lazy")
 lazy.setup(Plug.get(), dofile(vim.fn.stdpath "config" .. "/Plugins/lazy.lua"))
 
 -- 创建辅助函数 --------------------------------------------------------- {{{1
