@@ -4,7 +4,7 @@ local Util = require("lazy.core.util")
 
 local M = {}
 
-M.root_patterns = { ".git", "lua" }
+M.root_patterns = { ".git", "lua", ".obsidian", ".vim" }
 
 ---@param on_attach fun(client, buffer)
 function M.on_attach(on_attach)
@@ -55,9 +55,9 @@ end
 -- * root pattern of filename of the current buffer
 -- * root pattern of cwd
 ---@return string
-function M.get_root()
+function M.get_root(path)
   ---@type string?
-  local path = vim.api.nvim_buf_get_name(0)
+  path = path or vim.api.nvim_buf_get_name(0)
   path = path ~= "" and vim.loop.fs_realpath(path) or nil
   ---@type string[]
   local roots = {}

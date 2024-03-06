@@ -11,7 +11,7 @@ ts.setup({
     ignore_install = {"javascript", "css", "json"},
     highlight = {
         enable = true,
-        additional_vim_regex_highlighting = {},
+        additional_vim_regex_highlighting = {"markdown"},
         disable = function(lang, buf)
             local disable_lang_list = {'tsv', 'perl'}
             for _, v in ipairs(disable_lang_list) do

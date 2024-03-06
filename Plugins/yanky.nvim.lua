@@ -1,7 +1,13 @@
 local yanky    = require('yanky')
 local mapping  = require("yanky.telescope.mapping")
 local mappings = mapping.get_defaults()
-mappings.i["<c-p>"] = nil
+mappings.i["<c-p>"]      = nil
+mappings.n["o"]   = mapping.special_put("YankyPutAfterFilter")
+mappings.n["O"]   = mapping.special_put("YankyPutBeforeFilter")
+mappings.n["]"]   = mapping.special_put("YankyPutIndentBeforeShiftRight")
+mappings.n["["]   = mapping.special_put("YankyPutIndentBeforeShiftLeft")
+mappings.n[">"] = mapping.special_put("YankyPutIndentAfterShiftRight")
+mappings.n["<"] = mapping.special_put("YankyPutIndentAfterShiftLeft")
 
 yanky.setup({
     highlight = { timer = 200 },
@@ -18,9 +24,4 @@ yanky.setup({
     textobj = { enabled = true,}
 })
 
-require("telescope").load_extension("yank_history")
-vim.keymap.set("n", "<leader>sp", "<cmd>Telescope yank_history<cr>", {
-    desc = "Telescope: yank history",
-    silent = true,
-})
 

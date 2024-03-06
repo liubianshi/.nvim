@@ -1,6 +1,9 @@
 let g:PasteImageFunction = 'g:MarkdownPasteImage'
 
 " Text objects for Markdown code blocks.
+vnoremap <buffer><silent> <localleader>l
+    \ "0di[[
+
 xnoremap <buffer><silent> ic :<C-U>call text_obj#MdCodeBlock('i')<CR>
 xnoremap <buffer><silent> ac :<C-U>call text_obj#MdCodeBlock('a')<CR>
 onoremap <buffer><silent> ic :<C-U>call text_obj#MdCodeBlock('i')<CR>

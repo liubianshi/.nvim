@@ -4,10 +4,12 @@ local fmt = require('formatter')
 fmt.setup({
     logging = false,
     filetype = {
-        lua = { require("formatter.filetypes.lua").stylua },
-        sh = { require("formatter.filetypes.sh").shfmt },
-        html = { require("formatter.filetypes.html").prettier },
-        css = { require("formatter.filetypes.css").prettier },
+        lua      = { require("formatter.filetypes.lua").stylua },
+        sh       = { require("formatter.filetypes.sh").shfmt },
+        html     = { require("formatter.filetypes.html").prettier },
+        css      = { require("formatter.filetypes.css").prettier },
+        markdown = { require("formatter.filetypes.markdown").prettier},
+        javascript = { require("formatter.filetypes.javascript").prettier },
         xml = {
             function()
                 return {
@@ -37,7 +39,7 @@ fmt.setup({
 
                 return {
                     exe = "r-format",
-                    args = { "-i", shiftwidth}, 
+                    args = { "-i", shiftwidth},
                     stdin =true,
                 }
             end

@@ -1,19 +1,55 @@
 let s:mylib_command_list = ['new', 'tag', 'note', 'edit', 'open']
 
+function! s:mylib_open(method = "vsplit")
+    call s:mylib_new()
+    if ! has_key(b:, "mylib_key") || b:mylib_key == ""
+        call luaeval('vim.notify("No related library iterm!!", "Error", {title = "Mylib"})')
+        return v:false
+    endif
+
+    let paper = system("mylib get newsboat -- " .. b:mylib_key)
+    if paper !=? ""
+        let key = b:mylib_key
+        let paper = fnameescape(trim(paper))
+        exec a:method . " " . paper
+        let b:mylib_key = key
+        call utils#ToggleZenMode()
+    else
+        call job_start(["mylib", "open", b:mylib_key])
+    endif
+
+    return v:true
+endfunction
+
+function! s:mylib_edit()
+    call s:mylib_new()
+    if ! has_key(b:, "mylib_key") || b:mylib_key == ""
+        call luaeval('vim.notify("No related library iterm!!", "Error", {title = "Mylib"})')
+        return v:false
+    endif
+
+    call job_start(["mylib", "edit", "--", b:mylib_key])
+    return v:true
+endfunction
+
+
 function! s:mylib_new() abort
     if has_key(b:, "mylib_key") && b:mylib_key != ""
         return b:mylib_key
     endif
-    if &filetype ==# "newsboat"
-        let url = b:fetched_urls[0]
-        if url == "" | return | endif
-        let b:mylib_key = systemlist("mylib new '" . url . "'")[-1]
-    else
-        let key = substitute(expand("%:t"), '\.\w\+$', "", "")
+
+    if &filetype !~? 'newsboat'
+        let key = substitute(expand("%:t"), '\v^([A-Fa-f0-9]+).*', "\\1", "")
         let key = system("mylib get md5_long -- " . key)
         if key == "" | return | endif
         let b:mylib_key = key
-    endif
+        return b:mylib_key
+    end
+
+    " 处理文件类型为 newsboat 的特殊情况
+    let url = b:fetched_urls[0]
+    if url == "" | return | endif
+    let b:mylib_key = systemlist("mylib new '" . url . "'")[-1]
     let filename = system("mylib get html -- '" . b:mylib_key . "'")
     let filename = fnamemodify(filename, ":p:r") . ".newsboat"
     let filename_escape = fnameescape(filename)

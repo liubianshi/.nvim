@@ -17,6 +17,8 @@ function! s:checktime() abort
     endif
 endfunction
 
+
+
 " 初始 ================================================================== {{{1
 augroup LOAD_ENTER
 autocmd!

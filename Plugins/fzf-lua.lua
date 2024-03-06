@@ -157,7 +157,7 @@ fzfmap('<leader>pp', "Select Project", projects)
 
 -- 插入参考文献的引用 --------------------------------------------------- {{{2
 fzfmap('<leader>ic', "Insert Citation Keys", function()
-    require'fzf-lua'.fzf_exec("bibtex-ls ~/Documents/paper_ref.bib",{
+    require'fzf-lua'.fzf_exec("bibtex-ls ~/Documents/url_ref.bib",{
         preview = "",
         actions = {
             ['default'] = function(selected, opts)

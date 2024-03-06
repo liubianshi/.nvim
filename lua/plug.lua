@@ -445,7 +445,7 @@ Plug.add("machakann/vim-sandwich", {
   init = function()
     vim.g.operator_sandwich_no_default_key_mappings = 1
   end,
-  keys = { "ds", "cs", "ys" },
+  keys = { "ds", "cs", "ys", {"S", mode = {"v", "x"} } },
 })
 
 -- tpope/vim-repeat: 重复插件操作 --------------------------------------- {{{3
@@ -771,15 +771,28 @@ Plug.add("3rd/image.nvim", {
 Plug.add("gbprod/yanky.nvim", {
   requires = {"kkharji/sqlite.lua"},
   keys = {
-    { "p", "<Plug>(YankyPutAfter)", mode = {"n", "x"} },
-    { "P", "<Plug>(YankyPutBefore)", mode = {"n", "x"} },
-    { "gp", "<Plug>(YankyGPutAfter)", mode = {"n", "x"} },
-    { "gP", "<Plug>(YankyGPutBefore)", mode = {"n", "x"} },
-    { "<leader>sp", "<Plug>(YankyPreviousEntry)", desc = "Yank History" },
-    { "lp",
-      function() require('yanky.textobj').last_put() end,
-      mode =  {'o', "x"}
-    }
+    {
+      "<leader>sp", function()
+        require("telescope").extensions.yank_history.yank_history({ initial_mode = "normal"})
+      end, desc = "Open Yank History"
+    },
+    { "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text" },
+    { "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after cursor" },
+    { "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before cursor" },
+    { "gp", "<Plug>(YankyGPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after selection" },
+    { "gP", "<Plug>(YankyGPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before selection" },
+    { "[y", "<Plug>(YankyCycleForward)", desc = "Cycle forward through yank history" },
+    { "]y", "<Plug>(YankyCycleBackward)", desc = "Cycle backward through yank history" },
+    { "]p", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
+    { "[p", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
+    { "]P", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
+    { "[P", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
+    { ">p", "<Plug>(YankyPutIndentAfterShiftRight)", desc = "Put and indent right" },
+    { "<p", "<Plug>(YankyPutIndentAfterShiftLeft)", desc = "Put and indent left" },
+    { ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put before and indent right" },
+    { "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", desc = "Put before and indent left" },
+    { "=p", "<Plug>(YankyPutAfterFilter)", desc = "Put after applying a filter" },
+    { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put before applying a filter" },
   }
 })
 
@@ -822,7 +835,7 @@ Plug.add("mhartington/oceanic-next", { lazy = false })
 Plug.add("sainnhe/everforest", {
   init = function()
     vim.g.everforest_better_performance = 1
-    vim.g.everforest_background = "hard"
+    vim.g.everforest_background = "medium"
     vim.g.everforest_enable_italic = 1
     vim.g.everforest_transparent_background = 2
     vim.g.everforest_dim_inactive_windows = 1
@@ -910,7 +923,7 @@ end
 
 -- mhartington/formatter.nvim: autoformat tool -------------------------- {{{3
 Plug.add("mhartington/formatter.nvim", {
-  ft = { "lua", "sh", "perl", "r", "html", "xml", "css" },
+  ft = { "lua", "sh", "perl", "r", "html", "xml", "css", "markdown", "javascript" },
 })
 
 -- Writing and knowledge management ------------------------------------- {{{2
@@ -987,12 +1000,12 @@ Plug.add("epwalsh/obsidian.nvim", {
   ft = {"markdown"},
   cmd = {"ObsidianQuickSwitch", "ObsidianNew", "ObsidianSearch"},
   keys = {
-    { "<leader>nl", "<cmd>ObsidianQuickSwitch<cr>", desc = "Obsidian: Switch Note"                     },
-    { "<leader>nn", "<cmd>ObsidianNew<cr>",         desc = "Obsidian: Create new note"                 },
-    { "<leader>no", "<cmd>ObsidianOpen<cr>",        desc = "Obsidian: open a note in the Obsidian app" },
-    { "<leader>nj", "<cmd>ObsidianToday<cr>",       desc = "Obsidian: open/create a new daily note"    },
-    { "<leader>ns", "<cmd>ObsidianSearch<cr>",      desc = "Obsidian: search for (or create) notes"    },
-    { "<leader>sn", "<cmd>ObsidianSearch<cr>",      desc = "Obsidian: search for (or create) notes"    },
+    { "<leader>nl", "<cmd>ObsidianQuickSwitch<cr>", desc = "Obsidian: Switch Note"                             },
+    { "<leader>nn", "<cmd>ObsidianNew<cr>",         desc = "Obsidian: Create new note"                         },
+    { "<leader>no", "<cmd>ObsidianOpen<cr>",        desc = "Obsidian: open a note in the Obsidian app"         },
+    { "<leader>nj", "<cmd>ObsidianToday<cr>",       desc = "Obsidian: open/create a new daily note"            },
+    { "<leader>ns", "<cmd>ObsidianSearch<cr>",      desc = "Obsidian: search for (or create) notes"            },
+    { "<leader>sn", "<cmd>ObsidianSearch<cr>",      desc = "Obsidian: search for (or create) notes"            },
   },
 })
 

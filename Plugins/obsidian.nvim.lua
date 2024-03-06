@@ -13,7 +13,7 @@ require("obsidian").setup({
   },
 
   -- Optional, if you keep notes in a specific subdirectory of your vault.
-  notes_subdir = "notes",
+  -- notes_subdir = "notes",
 
   -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log
   -- levels defined by "vim.log.levels.*".
@@ -48,13 +48,17 @@ require("obsidian").setup({
       end,
       opts = { noremap = false, expr = true, buffer = true },
     },
+    ["gb"] = {
+      action = "<cmd>ObsidianBacklinks<cr>",
+      opts = { noremap = true, buffer = true },
+    },
     -- Toggle check-boxes.
-    ["<leader>ch"] = {
+    ["<leader>nh"] = {
       action = function()
         return require("obsidian").util.toggle_checkbox()
       end,
       opts = { buffer = true },
-    },
+    }
   },
 
   -- Where to put new notes. Valid options are
@@ -70,14 +74,15 @@ require("obsidian").setup({
     local suffix = ""
     if title ~= nil then
       -- If title is given, transform it into valid file name.
-      suffix = title:gsub(" ", "-"):gsub('[^%w\128-\191\192-\255\194-\244\227-\233]', "_"):gsub('_+', '_'):lower()
+      -- suffix = title:gsub(" ", "-"):gsub('[^%w\128-\191\192-\255\194-\244\227-\233]', "_"):gsub('_+', '_'):lower()
+      suffix = title
     else
       -- If title is nil, just add 4 random uppercase letters to the suffix.
       for _ = 1, 4 do
         suffix = suffix .. string.char(math.random(65, 90))
       end
     end
-    return tostring(os.time()) .. "-" .. suffix
+    return suffix
   end,
 
   -- Optional, customize how wiki links are formatted.
@@ -107,7 +112,7 @@ require("obsidian").setup({
   ---@return string
   image_name_func = function()
     -- Prefix image names with timestamp.
-    return string.format("%s-", os.time())
+    return string.format("%s-", os.date("%Y%m%d%H%M"))
   end,
 
   -- Optional, boolean or a function that takes a filename and returns a boolean.
@@ -136,13 +141,13 @@ require("obsidian").setup({
   end,
 
   -- Optional, for templates (see below).
-  -- templates = {
-  --   subdir = "templates",
-  --   date_format = "%Y-%m-%d",
-  --   time_format = "%H:%M",
-  --   -- A map for custom variables, the key should be the variable and the value a function
-  --   substitutions = {},
-  -- },
+  templates = {
+    subdir = "templates",
+    date_format = "%Y-%m-%d",
+    time_format = "%H:%M",
+    -- A map for custom variables, the key should be the variable and the value a function
+    substitutions = {},
+  },
 
   -- Optional, by default when you use `:ObsidianFollowLink` on a link to an external
   -- URL it will be ignored but you can customize this behavior here.

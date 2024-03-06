@@ -8,6 +8,20 @@ let g:sandwich#recipes += [
     \      'input': ["`"]
     \   },
     \   {
+    \      'buns': ["[[", "]]"],
+    \      'filetype': ["markdown"],
+    \      'nesting': 1,
+    \      'kind': ["add", "delete", "replace", 'textobj'],
+    \      'input': ["w"]
+    \   },
+    \   {
+    \      'buns': ["==", "=="],
+    \      'filetype': ["markdown"],
+    \      'nesting': 1,
+    \      'kind': ["add", "delete", "replace", 'textobj'],
+    \      'input': ["h"]
+    \   },
+    \   {
     \      'buns': ['`"', "\"'"],
     \      'filetype': ["stata"],
     \      'nesting': 1,

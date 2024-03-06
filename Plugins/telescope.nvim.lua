@@ -52,7 +52,10 @@ telescope.setup {
                 ["project"] = "~/Repositories/",
                 ["write"]   = "~/Documents/Writing/"
             }
-        }
+        },
+        yanky_history = {
+            initial_mode = "normal"
+        },
     }
 }
 

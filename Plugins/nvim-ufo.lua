@@ -5,6 +5,7 @@ local ftMap = {
     norg = {'treesitter'},
     org = {'treesitter'},
     r = {'treesitter'},
+    markdown = {'treesitter'},
     vim = '',
     git = '',
 }

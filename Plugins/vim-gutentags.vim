@@ -1,5 +1,5 @@
 let g:gutentags_exclude_filetypes = ['md', 'pandoc', 'markdown', 'rmd', 'Rmd']
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.obsidian']
 let g:gutentags_ctags_tagfile = 'tags'
 let g:gutentags_generate_on_missing = 1
 let g:gutentags_generate_on_new = 1
