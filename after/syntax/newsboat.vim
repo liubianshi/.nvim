@@ -25,7 +25,7 @@ syn region newsHighlight start=/\V‹[/hs=s+2 end=/\V]›/he=s+1 contains=newsHi
 syn region newsHighlight start=/\V〚/hs=s+1 end=/\V〛/he=s+1 contains=newsHighlightSymbol keepend
 
 
-exec "hi def newsHighlight guifg=" . g:lbs_colors['orange'] . " guisp=" . g:lbs_colors['cyan']
+exec "hi def newsHighlight guifg=" . g:lbs_colors['special'] . " guisp=" . g:lbs_colors['cyan']
 hi def link newsLinkType Keyword
 hi def link newsLinkHeader HighlightedYankRegion 
 hi def link newsLinkID Constant

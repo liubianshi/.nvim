@@ -1,2 +1,2 @@
-let g:mdip_imgdir = '.assets'
+let g:mdip_imgdir = 'img'
 let g:mdip_imgname = 'image'

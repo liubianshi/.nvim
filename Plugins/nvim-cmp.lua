@@ -63,7 +63,17 @@ local function construct_cmp_source(sources)
         {
             name = 'nvim_lsp',
             keyword_length = 1,
-            keyword_pattern = '[-_/,.?!$<>A-Za-z0-9]\\+',
+            option = {
+                r_language_server = {
+                    keyword_pattern = '[-_/,.?!$<>A-Za-z0-9]\\+',
+                },
+                rime_ls = {
+                    keyword_pattern = '[-_/,.?!$<>A-Za-z0-9]\\+',
+                },
+                markdown_oxide = {
+                    keyword_pattern = [[\(\k\| \|\/\|#\)\+]]
+                },
+            },
         },
         -- { name = 'latex_symbols' },
         -- { name = 'orgmode' },
@@ -239,7 +249,7 @@ keymap_config['<CR>'] = cmp.mapping(
     {"i", "s"}
 )
 
--- <bs> ---------------------------------------------------------- {{{3
+-- <bs> ----------------------------------------------------------------- {{{3
 keymap_config['<BS>'] = cmp.mapping(
     function(fallback)
         if not cmp.visible() then

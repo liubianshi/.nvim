@@ -72,10 +72,16 @@ vnoremap <silent> < <gv
 vnoremap <silent> > >gv
 
 " 中文语境下断行 -------------------------------------------------------- {{{2
-noremap <buffer><silent> <A-/>
-    \ ?\v[,.:?")，。)，。：》”；？、」）]<cr>:noh<cr>a<enter><esc>`^g_
-inoremap <buffer><silent> <A-/>
-    \ <esc>?\v[,.:?")，。)，。：》”；？、」）]<cr>:noh<cr>a<enter><esc>`^A
+if has('mac')
+    nnoremap <buffer><silent>  ÷ ?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^g_
+    inoremap <buffer><silent> ÷ <esc>?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^A
+else 
+    nnoremap <buffer><silent> <A-/>
+        \ ?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^g_
+    inoremap <buffer><silent> <A-/>
+        \ <esc>?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^A
+endif
+inoremap <buffer><silent> <localleader><enter> <esc>?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^A
 
 " Change text without putting it into the vim register, ------------------ {{{2
 " see https://stackoverflow.com/q/54255/6064933

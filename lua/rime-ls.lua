@@ -3,7 +3,7 @@ local filetypes = {
     'norg', 'org',     'markdown', 'md',    'Rmarkdown', 'rmd',   'org',
     'text', 'unknown', 'mail',     'latex', 'tex',
     'r',    'lua',     'perl',     'raku',  'vim',       'stata',
-    'uifloat', 'newsboat'
+    'uifloat'
 }
 local rime_shared_data_dir = "/usr/share/rime-data"
 local rime_user_dir = "~/.local/share/rime-ls"

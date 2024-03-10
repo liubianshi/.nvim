@@ -90,15 +90,16 @@ function! s:mylib_note(method = "") abort
         return win_gotoid(note_wnr)
     endif
     let method = a:method
+    let notepath = fnameescape(b:mylib_note)
     if method ==? "popup"
         exec 'lua require("ui").mylib_popup(' . bufnr . ')'
     elseif method == "" &&  &columns < 120
-        exec "split " . b:mylib_note
+        exec "split " . notepath
     elseif method == "" &&  &columns >= 120
-        exec "vsplit " . b:mylib_note
+        exec "vsplit " . notepath
         wincmd L
     else
-        exec method . " " . b:mylib_note
+        exec method . " " . notepath
     endif
 endfunction
 

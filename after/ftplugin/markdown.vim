@@ -1,15 +1,8 @@
-let g:PasteImageFunction = 'g:MarkdownPasteImage'
-
-" Text objects for Markdown code blocks.
-vnoremap <buffer><silent> <localleader>l
-    \ "0di[[
-
 xnoremap <buffer><silent> ic :<C-U>call text_obj#MdCodeBlock('i')<CR>
 xnoremap <buffer><silent> ac :<C-U>call text_obj#MdCodeBlock('a')<CR>
 onoremap <buffer><silent> ic :<C-U>call text_obj#MdCodeBlock('i')<CR>
 
 nnoremap <buffer><silent> <M-t> :<c-u>Voom pandoc<cr>
-nnoremap <buffer> <silent> <localleader>pi :<c-u>call mdip#MarkdownClipboardImage()<CR>
 
 inoremap <buffer> ;1              <esc>0i#<space><esc>A
 inoremap <buffer> ;2              <esc>0i##<space><esc>A
@@ -29,16 +22,16 @@ nnoremap <A-V>V vip:call utils#MdPreview(1)<cr>
 vnoremap <A-v> :call utils#MdPreview()<cr>
 vnoremap <A-V> :call utils#MdPreview(1)<cr>
 
-
-
 nnoremap <buffer> <localleader>ic ysiW`
-nnoremap <buffer> <localleader>ab :<c-u>AsyncRun 
-    \ xsel -ob >> %:p:h/ref.bib; xsel -ob \| perl -ne 'print "\@$1\n" if ($_ =~ /^\@\w+\{([^,]+)\,/)' >> ~/.config/nvim/paper.dict<cr>
-nnoremap <buffer> <silent> <leader>nH
-    \ :!!pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
-noremap <buffer> <silent> <leader>nh
-    \ :r  !xclip -o -t text/html -sel clip \| pandoc -f html -t markdown_strict<cr>
-setlocal tw=78 formatoptions=tcq,ro/,n,lm]1,Bj tabstop=4 shiftwidth=4
+if !has('mac')
+    nnoremap <buffer> <silent> <localleader>nH
+        \ :!!pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
+    noremap <buffer> <silent> <localleader>nh
+        \ :r  !xclip -o -t text/html -sel clip \| pandoc -f html -t markdown_strict<cr>
+endif
+
+setlocal formatoptions=tcq,ro/,n,lm]1,Bj tabstop=4 shiftwidth=4
+
 "set formatexpr=format#Markdown()
 let &l:formatprg="prettier --tab-width 4 --parser markdown"
 let &l:formatlistpat = '^\s*\d\+\.\s\+\|^[-*+]\s\+\|^\[^\ze[^\]]\+\]:'

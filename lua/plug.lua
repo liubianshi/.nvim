@@ -51,7 +51,7 @@ end
 
 -- 配置插件 ------------------------------------------------------------- {{{1
 -- GUI
-Plug.add("equalsraf/neovim-gui-shim")
+-- Plug.add("equalsraf/neovim-gui-shim")
 -- UI ------------------------------------------------------------------- {{{2
 -- lambdalisue/suda.vim: Read and write with sudo command --------------- {{{3
 Plug.add("lambdalisue/suda.vim", { cmd = { "SudaWrite", "SudaRead" } })
@@ -131,7 +131,7 @@ Plug.add("s1n7ax/nvim-window-picker", {
 Plug.add("ibhagwan/fzf-lua", {
   branch = "main",
   dependencies = { "skywind3000/asynctasks.vim" },
-  cmd = { "FzfLua", "Shelp", "Urlopen", "RoamNodeFind" },
+  cmd = { "FzfLua", "Shelp", "Urlopen", "RoamNodeFind", "Cheat" },
   keys = {
     "<leader>pp",
     "<leader>ic",
@@ -140,6 +140,7 @@ Plug.add("ibhagwan/fzf-lua", {
     "<leader>.",
     "<leader>ot",
     "<A-x>",
+    {"<leader>hc", "<cmd>Cheat<cr>", desc = "FzfLua: Cheatsheet"},
     {
       "<leader>bb",
       "<cmd>FzfLua buffers<cr>",
@@ -312,6 +313,8 @@ Plug.add("nvim-telescope/telescope.nvim", {
       "<leader>sS",
       Util.telescope("lsp_dynamic_workspace_symbols", {
         symbols = {
+          "File",
+          "Key",
           "Class",
           "Function",
           "Method",
@@ -670,7 +673,7 @@ Plug.add("mhinz/vim-startify")
 Plug.add("nvim-tree/nvim-web-devicons", { lazy = true })
 
 -- windwp/nvim-autopairs: autopair tools -------------------------------- {{{3
--- Plug.add("windwp/nvim-autopairs")
+Plug.add("windwp/nvim-autopairs")
 
 -- stevearc/dressing.nvim: improve the default vim.ui interfaces -------- {{{3
 Plug.add("stevearc/dressing.nvim", {
@@ -835,7 +838,7 @@ Plug.add("mhartington/oceanic-next", { lazy = false })
 Plug.add("sainnhe/everforest", {
   init = function()
     vim.g.everforest_better_performance = 1
-    vim.g.everforest_background = "medium"
+    vim.g.everforest_background = "soft"
     vim.g.everforest_enable_italic = 1
     vim.g.everforest_transparent_background = 2
     vim.g.everforest_dim_inactive_windows = 1
@@ -1004,7 +1007,7 @@ Plug.add("epwalsh/obsidian.nvim", {
     { "<leader>nn", "<cmd>ObsidianNew<cr>",         desc = "Obsidian: Create new note"                         },
     { "<leader>no", "<cmd>ObsidianOpen<cr>",        desc = "Obsidian: open a note in the Obsidian app"         },
     { "<leader>nj", "<cmd>ObsidianToday<cr>",       desc = "Obsidian: open/create a new daily note"            },
-    { "<leader>ns", "<cmd>ObsidianSearch<cr>",      desc = "Obsidian: search for (or create) notes"            },
+    { "<leader>nf", "<cmd>ObsidianSearch<cr>",      desc = "Obsidian: search for (or create) notes"            },
     { "<leader>sn", "<cmd>ObsidianSearch<cr>",      desc = "Obsidian: search for (or create) notes"            },
   },
 })
@@ -1106,7 +1109,7 @@ local lazy = require("lazy")
 lazy.setup(Plug.get(), dofile(vim.fn.stdpath "config" .. "/Plugins/lazy.lua"))
 
 -- 创建辅助函数 --------------------------------------------------------- {{{1
-_G.LoadedPlugins = function()
+LoadedPlugins = function()
   local plugs = require("lazy").plugins()
   local loaded_plugs = {}
   for _, plug in ipairs(plugs) do
@@ -1117,6 +1120,6 @@ _G.LoadedPlugins = function()
   return loaded_plugs
 end
 
-_G.PlugExist = function(plug)
+PlugExist = function(plug)
   return (Util.has(plug))
 end

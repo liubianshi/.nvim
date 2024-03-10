@@ -7,13 +7,13 @@ ts.setup({
                         "vim",      "vimdoc",          "query",  "latex", "jq",
     },
     sync_install = false,
-    auto_install = true,
+    auto_install = false,
     ignore_install = {"javascript", "css", "json"},
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = {"markdown"},
         disable = function(lang, buf)
-            local disable_lang_list = {'tsv', 'perl'}
+            local disable_lang_list = {'tsv', 'perl', 'markdown'}
             for _, v in ipairs(disable_lang_list) do
                 if v == lang then return true end
             end

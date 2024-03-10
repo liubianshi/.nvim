@@ -21,7 +21,7 @@ require("obsidian").setup({
 
   daily_notes = {
     -- Optional, if you keep daily notes in a separate directory.
-    folder = "notes/dailies",
+    folder = "dailies",
     -- Optional, if you want to change the date format for the ID of daily notes.
     date_format = "%Y-%m-%d",
     -- Optional, if you want to change the date format of the default alias of daily notes.
@@ -33,7 +33,7 @@ require("obsidian").setup({
   -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
   completion = {
     -- Set to false to disable completion.
-    nvim_cmp = true,
+    nvim_cmp = false,
     -- Trigger completion at 2 chars.
     min_chars = 0,
   },
@@ -251,7 +251,7 @@ require("obsidian").setup({
       if start_pos and end_pos then
         link_path = "img/" .. string.sub(abs_path, end_pos + 1, -1)
       else
-        link_path = "img/" .. vim.fs.basename()
+        link_path = "img/" .. vim.fs.basename(abs_path)
         vim.loop.fs_link(abs_path, (buffer_dir .. "/" .. link_path), "file")
       end
 
