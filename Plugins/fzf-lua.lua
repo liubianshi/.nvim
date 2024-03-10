@@ -277,6 +277,11 @@ end, { nargs = 0, desc = "FzfLua: Open urls"})
 -- https://github.com/skywind3000/asynctasks.vim/wiki/UI-Integration
 fzfmap('<leader>ot', 'Run async tasks', function()
     local rows = vim.fn['asynctasks#source'](vim.go.columns * 48 / 100)
+    if #rows == 0 then
+        local LOG_LEVEL_WARN = 3
+        vim.notify("No task attated to the buffer", LOG_LEVEL_WARN, {title = "AsyncTasks"})
+        return
+    end
     fzflua.fzf_exec(function(cb)
       for _, e in ipairs(rows) do
         local color = fzflua.utils.ansi_codes
@@ -373,24 +378,62 @@ local fzf_selection_action = function(cmd)
     end
 end
 
-local fzflua_ok,fzf = pcall(require, "fzf-lua")
-if fzflua_ok then
-    vim.api.nvim_create_user_command('RoamNodeFind', function(_)
-        fzf.fzf_exec(
-            "roam_id_title",
-            {
-                preview = 'cd "' .. vim.env.HOME .. '/Documents/Writing/roam/"; scope {-1}',
-                fzf_opts = { ['--no-multi'] = '' },
-                actions = {
-                    ['default'] = fzf_selection_action("edit"),
-                    ['ctrl-l'] = function(_, _) insert_new_node() end,
-                    ['ctrl-e'] = fzf_selection_action("cite"),
-                }
+vim.api.nvim_create_user_command('RoamNodeFind', function(_)
+    fzflua.fzf_exec(
+        "roam_id_title",
+        {
+            preview = 'cd "' .. vim.env.home .. '/documents/writing/roam/"; scope {-1}',
+            fzf_opts = { ['--no-multi'] = '' },
+            actions = {
+                ['default'] = fzf_selection_action("edit"),
+                ['ctrl-l'] = function(_, _) insert_new_node() end,
+                ['ctrl-e'] = fzf_selection_action("cite"),
             }
-        )
+        }
+    )
 
-    end, { nargs = 0, desc = "FzfLua: Find Org Roam Node"})
+end, { nargs = 0, desc = "fzflua: find org roam node"})
+
+local Cheat_Action = function(vimcmd)
+    return(function(selected, opts)
+        local item = next(selected) and selected[1] or opts.last_query
+        if not item then
+            return
+        end
+        local dir = vim.env.HOME .. "/.config/cheat/cheatsheets/personal/"
+        local target_file = vim.fn.system("help -p '" .. item .. "'")
+        if string.match(target_file, "\n") then
+            return
+        end
+
+        if vimcmd == "rename" then
+            local newname = vim.fn.input("Enter newname: ")
+            vim.fn.system("help -r " .. newname .. " " .. item)
+        else
+            vim.cmd(vimcmd .. " " .. vim.fn.fnameescape(target_file))
+            vim.cmd("cd " .. dir)
+        end
+    end)
 end
+vim.api.nvim_create_user_command('Cheat', function(_)
+    local command = vim.env.HOME .. "/useScript/bin/help"
+    fzflua.fzf_exec(command .. " -l", {
+        preview = command .. " {}",
+        fzf_opts ={
+            ['--no-multi'] = '',
+        },
+        actions = {
+            ['default'] = Cheat_Action("edit"),
+            ['ctrl-v'] = Cheat_Action("vsplit"),
+            ['ctrl-x'] = Cheat_Action("split"),
+            ['ctrl-t'] = Cheat_Action("tabedit"),
+            ['ctrl-r'] = Cheat_Action("rename"),
+        }
+    })
+end, {nargs = '*', desc = "FzfLua: Cheat"})
+
+
+
 
 -- keymaps -------------------------------------------------------------- {{{2
 -- fzfmap("<leader>st", "tags",                "<cmd>FzfLua tags<cr>")
