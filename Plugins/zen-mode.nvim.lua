@@ -13,7 +13,7 @@ zenmode.setup{
         options = {
             number         = false, -- disable number column
             relativenumber = false, -- disable relative numbers
-            cursorline     = true, -- disable cursorline
+            cursorline     = false, -- disable cursorline
             cursorcolumn   = false, -- disable cursor column
             foldcolumn     = "8",   -- disable fold column
             list           = false, -- disable whitespace characters
@@ -27,10 +27,22 @@ zenmode.setup{
         enabled = true,
         font = "+4",
     },
-    on_open = function(win)
-        vim.g.lbs_zen_mode = true
+    on_open = function(_)
+        vim.wo.scrolloff = 9999
+        -- clear previewed images
+        local is_ok, _ = pcall(require, "image")
+        if is_ok then
+            require("util").clear_previewed_images(0)
+        end
+        vim.g.lbs_zen_mode = true -- Centering the cursor row
     end,
-    on_close = function()
+    on_close = function(_)
+        local is_ok, image = pcall(require, "image")
+        if is_ok then
+            image.setup()
+        end
         vim.g.lbs_zen_mode = false
+        vim.wo.scrolloff = -1
     end,
 }
+

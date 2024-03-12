@@ -1,6 +1,6 @@
 -- from:
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/init.lua
-local Util = require("lazy.core.util")
+local Util = require "lazy.core.util"
 
 local M = {}
 
@@ -24,7 +24,8 @@ end
 
 function M.fg(name)
   ---@type {foreground?:number}?
-  local hl = vim.api.nvim_get_hl and vim.api.nvim_get_hl(0, { name = name }) or vim.api.nvim_get_hl_by_name(name, true)
+  local hl = vim.api.nvim_get_hl and vim.api.nvim_get_hl(0, { name = name })
+    or vim.api.nvim_get_hl_by_name(name, true)
   local fg = hl and hl.fg or hl.foreground
   return fg and { fg = string.format("#%06x", fg) }
 end
@@ -45,7 +46,7 @@ function M.opts(name)
   if not plugin then
     return {}
   end
-  local Plugin = require("lazy.core.plugin")
+  local Plugin = require "lazy.core.plugin"
   return Plugin.values(plugin, "opts", false)
 end
 
@@ -62,11 +63,14 @@ function M.get_root(path)
   ---@type string[]
   local roots = {}
   if path then
-    for _, client in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+    for _, client in pairs(vim.lsp.get_active_clients { bufnr = 0 }) do
       local workspace = client.config.workspace_folders
-      local paths = workspace and vim.tbl_map(function(ws)
-        return vim.uri_to_fname(ws.uri)
-      end, workspace) or client.config.root_dir and { client.config.root_dir } or {}
+      local paths = workspace
+          and vim.tbl_map(function(ws)
+            return vim.uri_to_fname(ws.uri)
+          end, workspace)
+        or client.config.root_dir and { client.config.root_dir }
+        or {}
       for _, p in ipairs(paths) do
         local r = vim.loop.fs_realpath(p)
         if path:find(r, 1, true) then
@@ -110,11 +114,16 @@ function M.telescope(builtin, opts)
     if opts.cwd and opts.cwd ~= vim.loop.cwd() then
       opts.attach_mappings = function(_, map)
         map("i", "<a-c>", function()
-          local action_state = require("telescope.actions.state")
+          local action_state = require "telescope.actions.state"
           local line = action_state.get_current_line()
           M.telescope(
             params.builtin,
-            vim.tbl_deep_extend("force", {}, params.opts or {}, { cwd = false, default_text = line })
+            vim.tbl_deep_extend(
+              "force",
+              {},
+              params.opts or {},
+              { cwd = false, default_text = line }
+            )
           )()
         end)
         return true
@@ -138,7 +147,12 @@ function M.float_term(cmd, opts)
   }, opts or {}, { persistent = true })
   ---@cast opts LazyCmdOptions|{interactive?:boolean, esc_esc?:false}
 
-  local termkey = vim.inspect({ cmd = cmd or "shell", cwd = opts.cwd, env = opts.env, count = vim.v.count1 })
+  local termkey = vim.inspect {
+    cmd = cmd or "shell",
+    cwd = opts.cwd,
+    env = opts.env,
+    count = vim.v.count1,
+  }
 
   if terminals[termkey] and terminals[termkey]:buf_valid() then
     terminals[termkey]:toggle()
@@ -176,7 +190,10 @@ function M.toggle(option, silent, values)
     else
       vim.opt_local[option] = values[1]
     end
-    return Util.info("Set " .. option .. " to " .. vim.opt_local[option]:get(), { title = "Option" })
+    return Util.info(
+      "Set " .. option .. " to " .. vim.opt_local[option]:get(),
+      { title = "Option" }
+    )
   end
   vim.opt_local[option] = not vim.opt_local[option]:get()
   if not silent then
@@ -201,7 +218,10 @@ function M.toggle_diagnostics()
 end
 
 function M.deprecate(old, new)
-  Util.warn(("`%s` is deprecated. Please use `%s` instead"):format(old, new), { title = "LazyVim" })
+  Util.warn(
+    ("`%s` is deprecated. Please use `%s` instead"):format(old, new),
+    { title = "LazyVim" }
+  )
 end
 
 -- delay notifications till vim.notify was replaced or after 500ms
@@ -242,20 +262,76 @@ function M.lazy_notify()
 end
 
 function M.lsp_get_config(server)
-  local configs = require("lspconfig.configs")
+  local configs = require "lspconfig.configs"
   return rawget(configs, server)
 end
 
 ---@param server string
 ---@param cond fun( root_dir, config): boolean
 function M.lsp_disable(server, cond)
-  local util = require("lspconfig.util")
+  local util = require "lspconfig.util"
   local def = M.lsp_get_config(server)
-  def.document_config.on_new_config = util.add_hook_before(def.document_config.on_new_config, function(config, root_dir)
-    if cond(root_dir, config) then
-      config.enabled = false
+  def.document_config.on_new_config = util.add_hook_before(
+    def.document_config.on_new_config,
+    function(config, root_dir)
+      if cond(root_dir, config) then
+        config.enabled = false
+      end
     end
-  end)
+  )
+end
+
+-- Clearing images previewed with image.nvim
+function M.clear_previewed_images(win)
+  win = win or 0
+  local is_ok, api = pcall(require, "image")
+  if not is_ok then
+    return
+  end
+
+  local images = api.get_images()
+  if not next(images) then
+    return
+  end
+
+  local windows_in_current_tab = vim.api.nvim_tabpage_list_wins(win)
+  local windows_in_current_tab_map = {}
+  for _, current_window in ipairs(windows_in_current_tab) do
+    windows_in_current_tab_map[current_window] = true
+  end
+
+  for _, current_image in ipairs(images) do
+    if not current_image.window or not current_image.buffer then
+      goto continue
+    end
+
+    local window_ok, is_valid_window =
+      pcall(vim.api.nvim_win_is_valid, current_image.window)
+    if not (window_ok and is_valid_window) then
+      goto continue
+    end
+
+    local buf_ok, is_valid_buffer =
+      pcall(vim.api.nvim_buf_is_valid, current_image.buffer)
+    if not buf_ok or not is_valid_buffer then
+      goto continue
+    end
+
+    local is_window_in_current_tab = windows_in_current_tab_map[current_image.window]
+    if not is_window_in_current_tab then
+      goto continue
+    end
+
+    local is_buffer_in_window = vim.api.nvim_win_get_buf(
+      current_image.window
+    ) == current_image.buffer
+    if not is_buffer_in_window then
+      goto continue
+    end
+
+    current_image:clear()
+  end
+  ::continue::
 end
 
 return M
