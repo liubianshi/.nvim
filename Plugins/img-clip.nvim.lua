@@ -13,6 +13,8 @@ local neorg_template = [[
 $CURSOR
 ]]
 
+local obisdian_template = "![[$FILE_PATH]]$CURSOR"
+
 require("img-clip").setup {
   default = {
     dir_path = dirpath,
@@ -21,9 +23,10 @@ require("img-clip").setup {
     show_dir_path_in_prompt = true,
   },
   filetypes = {
-    rmd = { template = rmd_template },
-    norg = { template = neorg_template },
+    rmd      = { template = rmd_template },
+    norg     = { template = neorg_template },
     markdown = {
+        template = obisdian_template,
         relative_to_current_file = true,
     },
   },

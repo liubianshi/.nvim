@@ -32,7 +32,7 @@ end
 local rimels_auto_upload = function(entries)
     if #entries == 1 then
         if input_method_take_effect(entries[1]) then
-            cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
+            cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = true})
         end
     end
 end
@@ -68,7 +68,7 @@ local function construct_cmp_source(sources)
                     keyword_pattern = '[-_/,.?!$<>A-Za-z0-9]\\+',
                 },
                 rime_ls = {
-                    keyword_pattern = '[-_/,.?!$<>A-Za-z0-9]\\+',
+                    keyword_pattern = '[_.,A-Za-z0-9]\\+',
                 },
                 markdown_oxide = {
                     keyword_pattern = [[\(\k\| \|\/\|#\)\+]]
@@ -193,7 +193,7 @@ keymap_config["<Space>"] = cmp.mapping(
                 cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = false})
             end
         elseif input_method_take_effect(first_entry) then
-            cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
+            cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = true})
         elseif first_entry.source.name == "flypy" then
             cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
         else

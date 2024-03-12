@@ -15,6 +15,17 @@ function! s:get_link_under_cursur_line()
     endif
 endfunction
 
+function! s:open_link(count)
+    if has('mac')
+        let open = "open"
+    else
+        let open = "xdg-open"
+    endif
+    echom(open . " '" . b:newsboat_url_dict[a:count]['url'] . "'")
+    call system(open . " '" . b:newsboat_url_dict[a:count]['url'] . "'")
+endfunction
+
+
 function! s:get_link_citation_under_cursor(ft = "org")
     let link = s:get_link_under_cursur_line()
     if len(link) == 0 | return | endif
@@ -47,7 +58,12 @@ function! s:get_link_citation_under_cursor(ft = "org")
             endif
             let content = "[[./img/" . subdir . "/" . imagename . "]" . label ."]"
         elseif note_file_ext ==? "md"
-            let content = "![" . label . "](" . "img/" . subdir . "/" . imagename . ")"
+            let path = "img/" . subdir . "/" . imagename
+            if label != ""
+                let content = "![[" . path . "|" . label . "]]"
+            else
+                let content = "![[" . path . "]]"
+            endif
         endif
     else
         if note_file_ext ==? "org"
@@ -200,6 +216,9 @@ call s:cache_link_snapshot()
 call s:pangu()
 
 " Keymap ---------------------------------------------------------------- {{{1
+" unmap <silent><buffer> q
+nnoremap <silent><buffer> q :wq<cr>
+
 nnoremap <silent><buffer> <localleader>s :Mylib new<cr>
 nnoremap <silent><buffer> <localleader>e :Mylib edit<cr>
 nnoremap <silent><buffer> <localleader>n :Mylib note<cr>
@@ -212,3 +231,4 @@ nnoremap <silent><buffer> <localleader>q :qall<cr>
 nnoremap <silent><buffer> <enter> :<c-u>call utils#OpenUrl(<sid>get_link_under_cursur_line(), "in")<cr>
 nnoremap <silent><buffer> <s-enter> :<c-u>call <sid>mylib_send_link_citation_to_note()<cr>
 nnoremap <silent><buffer> <localleader>t :<c-u>lua require("ui").mylib_tag()<cr>
+nnoremap <silent><buffer> # :<C-u>call <sid>open_link(v:count1)<cr>
