@@ -56,20 +56,7 @@ end
 
 M.probes = {
     {
-        "probe_punctuation_after_half_symbol", function()
-            local word_pre1 = get_chars_before_cursor(1,1)
-            local word_pre2 = get_chars_before_cursor(2,1)
-            if not (word_pre1 and word_pre1:match("[%p]")) then
-                return false
-            elseif not word_pre2 or word_pre2:match("[%w%p%s]") then
-                return true
-            else
-                return false
-            end
-        end
-    },
-    {
-        "prove_temporarily_disabled", function()
+        "probe_temporarily_disabled", function()
             return not vim.b.rime_enabled
         end
     },
@@ -77,7 +64,20 @@ M.probes = {
         "All_Caps", function()
             return get_line_before():match("[A-Z][%w]*%s*$")
         end
-    }
+    },
+    {
+        "probe_punctuation_after_half_symbol", function()
+            local word_pre1 = get_chars_before_cursor(1,1)
+            local word_pre2 = get_chars_before_cursor(2,1)
+            if not (word_pre1 and word_pre1:match("[-%p]")) then
+                return false
+            elseif not word_pre2 or word_pre2 == "" or word_pre2:match("[%w%p%s]") then
+                return true
+            else
+                return false
+            end
+        end
+    },
 }
 
 function M.setup_rime(opts)
