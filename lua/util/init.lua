@@ -334,4 +334,60 @@ function M.clear_previewed_images(win)
   ::continue::
 end
 
+local get_item_info = function(b, field, command)
+  field = field or "note"
+  local item_path
+  if field == "note" then
+    item_path = vim.fn.trim(vim.fn.system("mylib note @" .. b))
+  elseif vim.tbl_contains({"pdf", "bib", "newsboat", "html", "md", "path", "title"}, field) then
+    item_path = vim.fn.trim(vim.fn.system("mylib get " .. field .. " -- @" .. b))
+  end
+  if command then
+    if vim.fn.filewritable(item_path) == 0 then return end
+    vim.cmd(command .. " " .. vim.fn.fnameescape(item_path))
+  else
+    return item_path
+  end
+end
+
+function M.bibkey_action(bibkey)
+  if not bibkey then return end
+  bibkey = "@" .. bibkey
+  local open_app = vim.fn.has('mac') == 1 and "open " or "xdg-open "
+  local command = {
+    e = function() get_item_info(bibkey, "note",     "edit ")   end,
+    v = function() get_item_info(bibkey, "note",     "vsplit ") end,
+    t = function() get_item_info(bibkey, "note",     "tabnew ") end,
+    s = function() get_item_info(bibkey, "note",     "split ")  end,
+    o = function() get_item_info(bibkey, "path",     "Lf ")     end,
+    n = function() get_item_info(bibkey, "newsboat", "edit ")   end,
+    p = function()
+      local pdf_file = get_item_info(bibkey, "pdf")
+      if vim.fn.filereadable(pdf_file) == 0 then return end
+      vim.fn.system( open_app .. '"' .. pdf_file .. '"')
+    end,
+    u = function()
+      vim.fn.system( open_app .. get_item_info(bibkey, "url"))
+    end,
+  }
+
+  local bib_title = get_item_info(bibkey, "title")
+  local prompt = {
+    bib_title .. ", Choose a action: ",
+    "-------------------------------------------------------------------------------",
+    "(p): open pdf file   (u): open url      (o): open dir          (n): newsboat",
+    "(e): edit note       (s): split note    (v): vsplite note      (t): tabnew note",
+    "-------------------------------------------------------------------------------",
+    "q: Quit",
+    "",
+    "Please key for an action:",
+  }
+  vim.cmd(string.format('echon "%s"', table.concat(prompt, '\\n')))
+  local choice = vim.fn.nr2char(vim.fn.getchar())
+  vim.cmd('redraw!')
+  if vim.tbl_contains({"p", "u", "o", "e", "s", "v", "t"}, choice) then
+    command[choice]()
+  end
+end
+
 return M

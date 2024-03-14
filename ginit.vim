@@ -21,8 +21,8 @@ if exists("g:neovide")
     let g:neovide_cursor_animate_in_insert_mode = v:false
     let g:neovide_floating_blur_amount_x = 0
     let g:neovide_floating_blur_amount_y = 0
-    let g:neovide_transparency = 0.90
-
+    let g:neovide_transparency = 0.98
+    let g:neovide_border = [['', 'NormalFloat'], ['', 'NormalFloat']]
     let g:neovide_confirm_quit = v:true
     let g:neovide_cursor_vfx_mode = "ripple"
 elseif exists("g:fvim_loaded")

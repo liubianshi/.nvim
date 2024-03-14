@@ -1012,6 +1012,11 @@ Plug.add("epwalsh/obsidian.nvim", {
   },
 })
 
+-- lukas-reineke/headlines.nvim  adds horizontal highlights ------------- {{{3
+-- Plug.add("lukas-reineke/headlines.nvim", {
+--   ft = {"markdown", "org", "rmd", "rmarkdown", "norg"},
+--   dependencies = "nvim-treesitter/nvim-treesitter",
+-- })
 -- 文件类型相关插件 ----------------------------------------------------- {{{2
 -- nvim-neorg/neorg: new org-mode in neovim ----------------------------- {{{3
 Plug.add("nvim-neorg/neorg", {
