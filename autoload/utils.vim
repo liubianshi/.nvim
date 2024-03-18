@@ -394,13 +394,14 @@ endfunction
 " Zen {{{1 
 function! s:zenmodeinsert() abort
     let ww = winwidth(0)
-    let b:zen_oriwin = { 'zenmode': 1,
-                       \ 'foldcolumn': &foldcolumn,
-                       \ 'number': &number,
-                       \ 'relativenumber': &relativenumber,
-                       \ 'foldenable': &foldenable,
-                       \ 'laststatus': &laststatus,
-                       \ }
+    let b:zen_oriwin = {
+                \ 'zenmode': 1,
+                \ 'foldcolumn': &foldcolumn,
+                \ 'number': &number,
+                \ 'relativenumber': &relativenumber,
+                \ 'foldenable': &foldenable,
+                \ 'laststatus': &laststatus,
+                \ }
     setlocal nonumber
     setlocal norelativenumber
     setlocal nofoldenable
@@ -408,29 +409,26 @@ function! s:zenmodeinsert() abort
     set noshowcmd
     if ww < 81
         setlocal foldcolumn=1
-    elseif ww < 85
-        setlocal foldcolumn=2
-    elseif ww < 90
-        setlocal foldcolumn=4
     else
-        setlocal foldcolumn=8
+        exec "setlocal foldcolumn=" . min([((ww - 80) / 2), 9])
     endif
 endfunction
-function! s:zenmodeleave() abort
+
+function! s:zenmodeleave(bufleave = v:false) abort
     set noshowcmd
-    if !exists('b:zen_oriwin')
+    if !exists('b:zen_oriwin') || b:zen_oriwin['zenmode'] != 1
         return
     endif
     for attr in keys(b:zen_oriwin)
-        if attr ==# 'zenmode'
-            let b:zen_oriwin[attr] = 0
-        elseif attr ==# 'foldcolumn' || attr ==# 'laststatus'
-            exec 'setlocal ' . attr . "=" . b:zen_oriwin[attr]
-        elseif b:zen_oriwin[attr] == 1
-            exec 'setlocal ' . attr
+        if attr != 'zenmode'
+            exec 'let &' . attr . " = " . b:zen_oriwin[attr]
         endif
     endfor
+    if ! a:bufleave
+        unlet b:zen_oriwin
+    endif
 endfunction
+
 function! utils#ToggleZenMode() abort
     if ! exists('b:zen_oriwin') || b:zen_oriwin['zenmode'] == 0
         call <SID>zenmodeinsert()

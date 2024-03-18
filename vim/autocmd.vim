@@ -17,6 +17,33 @@ function! s:checktime() abort
     endif
 endfunction
 
+function! s:adjust_zen_mode(event)
+    let windows = a:event['windows']
+    for win in windows
+        let bufnr = winbufnr(win)
+        let zen_oriwin = getbufvar(bufnr, "zen_oriwin")
+        if type(zen_oriwin) == v:t_dict && zen_oriwin['zenmode'] == 1
+            let ww = winwidth(win)
+            if ww < 81
+                call luaeval('vim.api.nvim_win_set_option(' . win . ", 'foldcolumn', '1')")
+            else
+                call luaeval('vim.api.nvim_win_set_option(' . win . ", 'foldcolumn', '" . min([((ww - 80) / 2), 9]) . "')")
+            endif
+        endif
+    endfor
+endfunction
+
+function! s:leave_zen_mode_buf()
+    set noshowcmd
+    if !exists('b:zen_oriwin') || b:zen_oriwin['zenmode'] != 1
+        return
+    endif
+    for attr in keys(b:zen_oriwin)
+        if attr != 'zenmode'
+            exec 'let &' . attr . " = " . b:zen_oriwin[attr]
+        endif
+    endfor
+endfunction
 
 
 " 初始 ================================================================== {{{1
@@ -32,6 +59,10 @@ autocmd TermOpen             *  setlocal nonumber norelativenumber bufhidden=hid
 autocmd FileType   r,stata,vim  call s:FoldMethodSetting()
 autocmd FileType   norg,org,markdown,rmd,rmarkdown
             \ syntax match NonText /​/ conceal
+autocmd WinResized           * call s:adjust_zen_mode(v:event)
+autocmd BufLeave             * call s:leave_zen_mode_buf()
+
+
 
 " Fasd ------------------------------------------------------------------ {{{2
 autocmd BufWinEnter,BufFilePost * call <SID>fasd_update()
