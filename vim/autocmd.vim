@@ -60,8 +60,8 @@ autocmd FileType   r,stata,vim  call s:FoldMethodSetting()
 autocmd FileType   norg,org,markdown,rmd,rmarkdown
             \ syntax match NonText /​/ conceal
 autocmd WinResized           * call s:adjust_zen_mode(v:event)
-autocmd BufLeave             * call s:leave_zen_mode_buf()
-
+autocmd BufLeave             * call utils#ZenMode_Leave(v:false)
+autocmd BufWinEnter          * call utils#ZenMode_Insert(v:false)
 
 
 " Fasd ------------------------------------------------------------------ {{{2

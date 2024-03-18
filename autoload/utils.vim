@@ -392,16 +392,22 @@ function! utils#MoveCursorTo(...)
 endfunction
 
 " Zen {{{1 
-function! s:zenmodeinsert() abort
+function! utils#ZenMode_Insert(start = v:true) abort
     let ww = winwidth(0)
-    let b:zen_oriwin = {
-                \ 'zenmode': 1,
-                \ 'foldcolumn': &foldcolumn,
-                \ 'number': &number,
-                \ 'relativenumber': &relativenumber,
-                \ 'foldenable': &foldenable,
-                \ 'laststatus': &laststatus,
-                \ }
+    if ! exists('b:zen_oriwin') || b:zen_oriwin['zenmode'] == 0
+        if a:start
+            let b:zen_oriwin = {
+                        \ 'zenmode': 1,
+                        \ 'foldcolumn': &foldcolumn,
+                        \ 'number': &number,
+                        \ 'relativenumber': &relativenumber,
+                        \ 'foldenable': &foldenable,
+                        \ 'laststatus': &laststatus,
+                        \ }
+        else
+            return
+        endif
+    endif
     setlocal nonumber
     setlocal norelativenumber
     setlocal nofoldenable
@@ -414,7 +420,7 @@ function! s:zenmodeinsert() abort
     endif
 endfunction
 
-function! s:zenmodeleave(bufleave = v:false) abort
+function! utils#ZenMode_Leave(exit = v:true) abort
     set noshowcmd
     if !exists('b:zen_oriwin') || b:zen_oriwin['zenmode'] != 1
         return
@@ -424,16 +430,16 @@ function! s:zenmodeleave(bufleave = v:false) abort
             exec 'let &' . attr . " = " . b:zen_oriwin[attr]
         endif
     endfor
-    if ! a:bufleave
+    if a:exit 
         unlet b:zen_oriwin
     endif
 endfunction
 
 function! utils#ToggleZenMode() abort
     if ! exists('b:zen_oriwin') || b:zen_oriwin['zenmode'] == 0
-        call <SID>zenmodeinsert()
+        call utils#ZenMode_Insert()
     else
-        call <SID>zenmodeleave()
+        call utils#ZenMode_Leave()
     endif
 endfunction
 
