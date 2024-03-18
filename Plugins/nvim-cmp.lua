@@ -65,10 +65,10 @@ local function construct_cmp_source(sources)
             keyword_length = 1,
             option = {
                 r_language_server = {
-                    keyword_pattern = '[-_/,.?!$<>A-Za-z0-9]\\+',
+                    keyword_pattern = '[-_$:A-Za-z0-9]\\+',
                 },
                 rime_ls = {
-                    keyword_pattern = '[_.,A-Za-z0-9]\\+',
+                    keyword_pattern = '[__:/,.?!$<>A-Za-z0-9]\\+',
                 },
                 markdown_oxide = {
                     keyword_pattern = [[\(\k\| \|\/\|#\)\+]]
@@ -144,9 +144,10 @@ keymap_config['0'] = cmp.mapping(
         if not input_method_take_effect(first_entry) then
             return fallback()
         end
-        if rimels_auto_upload(cmp.core.view:get_entries()) then
-            cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
-        end
+        -- if rimels_auto_upload(cmp.core.view:get_entries()) then
+        --     cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
+        -- end
+        rimels_auto_upload(cmp.core.view:get_entries())
     end, {'i'}
 )
 for numkey = 1,9 do
@@ -248,6 +249,68 @@ keymap_config['<CR>'] = cmp.mapping(
     end,
     {"i", "s"}
 )
+
+-- [: 实现 rime 选词定字，选中词的第一个字 ------------------------------ {{{3
+keymap_config['['] = cmp.mapping(
+    function(fallback)
+        if not cmp.visible() then return(fallback()) end
+
+        local select_entry = cmp.get_selected_entry()
+        local first_entry  = cmp.core.view:get_first_entry()
+        local entry = select_entry or first_entry
+
+        if not entry then
+            return(fallback())
+        end
+
+        if (entry.source.name == "nvim_lsp" and
+            entry.source.source.client.name == "rime_ls") or
+           entry.source.name == "flypy" then
+            local text = entry.completion_item.textEdit.newText
+            text = vim.fn.split(text, '\\zs')[1]
+            cmp.abort()
+            vim.cmd([[normal diw]])
+            vim.api.nvim_put({text}, "c", true, true)
+        elseif select_entry then
+            cmp.confirm()
+        else
+            fallback()
+        end
+    end,
+    {"i", "s"}
+)
+
+-- ]: 实现 rime 选词定字，选中词的最后一个字 ------------------------------ {{{3
+keymap_config[']'] = cmp.mapping(
+    function(fallback)
+        if not cmp.visible() then return(fallback()) end
+
+        local select_entry = cmp.get_selected_entry()
+        local first_entry  = cmp.core.view:get_first_entry()
+        local entry = select_entry or first_entry
+
+        if not entry then
+            return(fallback())
+        end
+
+        if (entry.source.name == "nvim_lsp" and
+            entry.source.source.client.name == "rime_ls") or
+           entry.source.name == "flypy" then
+            local text = entry.completion_item.textEdit.newText
+            text = vim.fn.split(text, '\\zs')
+            text = text[#text]
+            cmp.abort()
+            vim.cmd([[normal diw]])
+            vim.api.nvim_put({text}, "c", true, true)
+        elseif select_entry then
+            cmp.confirm()
+        else
+            fallback()
+        end
+    end,
+    {"i", "s"}
+)
+
 
 -- <bs> ----------------------------------------------------------------- {{{3
 keymap_config['<BS>'] = cmp.mapping(

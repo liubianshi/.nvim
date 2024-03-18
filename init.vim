@@ -8,6 +8,8 @@ function! s:Load(con) abort
     exec "source " . stdpath('config') . "/vim/" . a:con . ".vim"
 endfunction
 
+runtime plugin/man.lua
+
 " 加载全局变量
 call <SID>Load("global")
 

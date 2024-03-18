@@ -253,7 +253,7 @@ Plug.add("nvim-telescope/telescope.nvim", {
     },
     {
       "<leader>:",
-      "<cmd>Telescope command_history<cr>",
+      "<cmd>Telescope commander<cr>",
       desc = "Telescope: Commands",
     },
     {
@@ -840,8 +840,8 @@ Plug.add("sainnhe/everforest", {
     vim.g.everforest_better_performance = 1
     vim.g.everforest_background = "soft"
     vim.g.everforest_enable_italic = 1
-    vim.g.everforest_transparent_background = 2
-    vim.g.everforest_dim_inactive_windows = 1
+    vim.g.everforest_transparent_background = 0
+    vim.g.everforest_dim_inactive_windows = 0
   end,
   lazy = false,
 })

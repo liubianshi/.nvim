@@ -19,7 +19,13 @@ end
 
 toggleterm.setup(uniform_background_color({
     open_mapping    = nil,
-    size            = 7,
+    size            = function(term)
+        if term.direction == "horizontal" then
+            return 10
+        elseif term.direction == "vertical" then
+            return vim.o.columns * 0.4
+        end
+    end,
     shade_filetypes = {"none"},
     shade_terminals = true,
     start_in_insert = true,
@@ -33,4 +39,6 @@ toggleterm.setup(uniform_background_color({
     on_open = function() end,
 }))
 
-vim.wo.signcolumn = "no"
+
+
+

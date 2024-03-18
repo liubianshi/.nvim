@@ -1,7 +1,7 @@
 local default_opts = {
   background = "dark",
   colorscheme = {
-    dark = "everforest",
+    dark = "kanagawa-wave",
     light = "everforest",
   },
   palette = {
@@ -60,6 +60,9 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
     vim.cmd "hi def link helpExample Special"
     vim.cmd(
       "highlight MyBorder guifg=" .. vim.g.lbs_colors.orange .. " guibg=NONE"
+    )
+    vim.cmd(
+      "highlight ChatGptBorder guibg=NONE"
     )
   end,
   desc = "Define personal highlight group",

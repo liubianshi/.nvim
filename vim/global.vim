@@ -30,3 +30,9 @@ let g:R_start_libs = "base,stats,graphics,grDevices,utils,methods," .
                    \ "fst,box,future,devtools,ggplot,fixest"
 
 let g:page_popup_winblend = 25
+
+" Man page related
+let g:ft_man_open_mode = 'vert'
+let g:ft_man_no_sect_fallback = 1
+let g:ft_man_folding_enable = 1
+

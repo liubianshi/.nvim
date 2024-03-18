@@ -16,7 +16,7 @@ function! s:show_documentation()
             execute 'Rdoc '.expand('<cword>')
         endif
     else
-        execute '!' . &keywordprg . " " . expand('<cword>')
+        execute &keywordprg . " " . expand('<cword>')
     endif
 endfunction
 
@@ -66,7 +66,7 @@ inoremap <silent> <A-;> <esc>A;<enter>
 inoremap <silent> <A-space> <esc>A
 inoremap <silent> <A-enter> <esc>A<cr>
 
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 " xnoremap <silent> p "_dP
 vnoremap <silent> < <gv
 vnoremap <silent> > >gv
@@ -81,7 +81,8 @@ else
     inoremap <buffer><silent> <A-/>
         \ <esc>?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^A
 endif
-inoremap <buffer><silent> <localleader><enter> <esc>?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^A
+inoremap <buffer><silent> <localleader><enter> 
+    \ <esc>?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^A
 
 " Change text without putting it into the vim register, ------------------ {{{2
 " see https://stackoverflow.com/q/54255/6064933

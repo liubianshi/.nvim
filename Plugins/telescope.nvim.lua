@@ -68,23 +68,46 @@ telescope.load_extension('ultisnips')
 
 -- extensions config ---------------------------------------------------- {{{1
 -- command center ------------------------------------------------------- {{{2
+local Terminal  = require('toggleterm.terminal').Terminal
 commander.add({
   {
     desc = "Search inside current buffer",
     cmd = "<CMD>Telescope current_buffer_fuzzy_find<CR>",
-  },  {
+  },
+  {
     desc = "Find Files",
     cmd = "<CMD>Telescope find_files<CR>",
-  }, {
+  },
+  {
     desc = "Find hidden files",
     cmd = "<CMD>Telescope find_files hidden=true<CR>",
-  }, {
+  },
+  {
     desc = "Show document symbols",
     cmd = "<CMD>Telescope lsp_document_symbols<CR>",
-  }, {
+  },
+  {
     desc = "Fine vim Options",
     cmd = "<cmd>Telescope vim_options<cr>",
-  }
+  },
+  {
+    desc = "Terminal: Float",
+    cmd  = function()
+      Terminal:new({direction = "float", name = "float"}):toggle()
+    end,
+  },
+  {
+    desc = "Terminal: Vertical Split",
+    cmd  = function()
+      Terminal:new({direction = "vertical", name = "vsplit", size = 60}):toggle()
+    end
+  },
+  {
+    desc = "Terminal: Horizontal Split",
+    cmd  = function()
+      Terminal:new({direction = "horizontal", name = "split"}):toggle()
+    end
+  },
 })
 
 -- vim: set fdm=marker: ------------------------------------------------- {{{1

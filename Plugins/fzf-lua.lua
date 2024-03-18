@@ -244,7 +244,7 @@ local Shelp_Action = function(vimcmd)
 end
 vim.api.nvim_create_user_command('Shelp', function(opts)
     require'fzf-lua'.fzf_exec(",sh -l " .. opts.args, {
-        preview = ",sh -o term -f {2..}",
+        preview = "scope {2..}",
         fzf_opts = {
             ['--no-multi'] = '',
         },

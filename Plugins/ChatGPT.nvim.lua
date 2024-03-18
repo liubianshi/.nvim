@@ -25,8 +25,8 @@ chatgpt.setup({
 		border_right_sign = ">",
 		max_line_length = 120,
 		sessions_window = {
-			active_sign = "  ",
-			inactive_sign = "  ",
+			active_sign = " 󰄲",
+			inactive_sign = " 󰄱 ",
 			current_line_sign = "",
 			border = {
 				style = "rounded",
@@ -77,7 +77,7 @@ chatgpt.setup({
 	},
 	popup_window = {
 		border = {
-			highlight = "TelescopeBorder",
+			highlight = "Normal",
 			style = "rounded",
 			text = {
 				top = " ChatGPT ",
@@ -113,7 +113,7 @@ chatgpt.setup({
 	popup_input = {
 		prompt = "  ",
 		border = {
-			highlight = "TelescopeBorder",
+			highlight = "Normal",
 			style = "rounded",
 			text = {
 				top_align = "center",
@@ -185,7 +185,7 @@ local status_ok, wk = pcall(require, "which-key")
 if status_ok then
 	wk.register({
 		["H"] = {
-			name = "+ChatGPT",
+			name = "+CTelescopeBorderhatGPT",
 			c = { "<cmd>ChatGPT<CR>",                              "ChatGPT",                   mode = { "n"      } },
 			e = { "<cmd>ChatGPTEditWithInstruction<CR>",           "Edit with instruction",     mode = { "n", "v" } },
 			g = { "<cmd>ChatGPTRun grammar_correction<CR>",        "Grammar Correction",        mode = { "n", "v" } },

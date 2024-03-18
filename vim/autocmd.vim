@@ -30,7 +30,6 @@ autocmd InsertLeave,WinEnter *  setlocal cursorline
 autocmd InsertEnter,WinLeave *  setlocal nocursorline
 autocmd TermOpen             *  setlocal nonumber norelativenumber bufhidden=hide
 autocmd FileType   r,stata,vim  call s:FoldMethodSetting()
-autocmd TermOpen      term://*  call v:lua.set_terminal_keymaps()
 autocmd FileType   norg,org,markdown,rmd,rmarkdown
             \ syntax match NonText /​/ conceal
 
@@ -61,7 +60,14 @@ augroup Method_Toggle
     autocmd CmdlineEnter [/\?] call input_method#RestoreInsertMode()
 augroup END
 "
-"
-"
+" Keywordprg
+augroup Keyword_Group
+    autocmd!
+    autocmd FileType perl,perldoc   let &keywordprg = ":Perldoc"
+    autocmd FileType stata,statadoc let &keywordprg = ":Shelp"
+    autocmd FileType r,rmd,rdoc     let &keywordprg = 
+        \ (has_key(g:, 'rplugin') && g:rplugin['jobs']['R'] != 0) ? ":Rhelp" : ":Rdoc"
+    autocmd FileType man,sh,bash    let &keywordprg = ":Man"
+augroup END
 
 

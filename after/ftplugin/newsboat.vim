@@ -227,7 +227,7 @@ nnoremap <silent><buffer> <localleader>o "+yiu:call utils#OpenUrl(@+, "in")<cr>
 vnoremap <silent><buffer> <localleader>y "+y:<c-u>call <sid>mylib_send_clipboard_to_note()<cr>
 vnoremap <silent><buffer> N "+y:<c-u>call <sid>mylib_send_clipboard_to_note("split")<cr>
 nnoremap <silent><buffer> <localleader>y vip"+y:<c-u>call <sid>mylib_send_clipboard_to_note()<cr>
-nnoremap <silent><buffer> <localleader>q :qall<cr>
+nnoremap <silent><buffer> <localleader>q :Bclose<cr>
 nnoremap <silent><buffer> <enter> :<c-u>call utils#OpenUrl(<sid>get_link_under_cursur_line(), "in")<cr>
 nnoremap <silent><buffer> <s-enter> :<c-u>call <sid>mylib_send_link_citation_to_note()<cr>
 nnoremap <silent><buffer> <localleader>t :<c-u>lua require("ui").mylib_tag()<cr>

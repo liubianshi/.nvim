@@ -3,7 +3,7 @@ local filetypes = {
     'norg', 'org',     'markdown', 'md',    'Rmarkdown', 'rmd',   'org',
     'text', 'unknown', 'mail',     'latex', 'tex',
     'r',    'lua',     'perl',     'raku',  'vim',       'stata',
-    'uifloat'
+    'uifloat', 'chatgpt-input'
 }
 local rime_shared_data_dir = "/usr/share/rime-data"
 local rime_user_dir = "~/.local/share/rime-ls"
@@ -11,13 +11,6 @@ local rime_ls_cmd = {"/sbin/rime_ls"}
 if vim.fn.has('mac') == 1 then
     rime_shared_data_dir = "/Library/Input Methods/Squirrel.app/Contents/SharedSupport"
     rime_ls_cmd = {vim.env.HOME .. "/.local/bin/rime_ls"}
-end
-local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(t(key), mode, true)
 end
 
 local get_line_before = function(shift)
@@ -42,17 +35,30 @@ local typing_english = function(shift)
     return content_before:match("%s[%w%p]+$")
 end
 
-
-local isRimeLsAttached = function()
-    local clients = vim.lsp.buf_get_clients()
-    for _, client in pairs(clients) do
-        if client.name == "rime_ls" then
+local in_english_environment = function()
+    local info = vim.inspect_pos()
+    local englist_env = false
+    for _,ts in ipairs(info.treesitter) do
+        if ts.capture == "markup.math" or ts.capture == "markup.raw" then
+            return true
+        elseif ts.capture == "markup.raw.block" then
+            englist_env = true
+        elseif ts.capture == "comment" then
+            englist_env = false
+        end
+    end
+    if englist_env then
+        return englist_env
+    end
+    for _,syn in ipairs(info.syntax) do
+        if syn.hl_group_link:match("MathBlock")
+        or syn.hl_group_link:match("NoFormatted")
+        then
             return true
         end
     end
-    return false
+    return englist_env
 end
-
 
 M.probes = {
     {
@@ -76,6 +82,23 @@ M.probes = {
             else
                 return false
             end
+        end
+    },
+    {
+        "probe_in_MathBlock", function()
+            local info = vim.inspect_pos()
+            for _,syn in ipairs(info.syntax) do
+                if syn.hl_group_link:match("MathBlock")
+                then
+                    return true
+                end
+            end
+            for _,ts in ipairs(info.treesitter) do
+                if ts.capture == "markup.math" then
+                    return true
+                end
+            end
+            return false
         end
     },
 }
@@ -182,6 +205,22 @@ function M.setup_rime(opts)
             { nargs = 0}
         )
 
+        -- Close rime_ls when opening a new window
+        local rime_group = vim.api.nvim_create_augroup("RimeAutoToggle", {clear = true}) 
+        vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+            pattern = "*",
+            group = rime_group,
+            callback = function()
+                if  vim.g.input_method_framework ~= 'rime-ls' then return end
+                if (vim.g.rime_enabled and not vim.b.rime_enabled) then
+                    vim.cmd([[ToggleRime off]])
+                elseif (not vim.g.rime_enabled and vim.b.rime_enabled) then
+                    vim.cmd([[ToggleRime on]])
+                end
+            end,
+            desc = "Close rime_ls when opening a new buffer",
+        })
+
         -- load
         if opts.load then
             vim.g.input_method_framework = "rime-ls"
@@ -259,7 +298,7 @@ M.auto_toggle_rime_ls_with_space = function()
 
     -- 最后一个字符为英文字符，数字或标点符号时，切换为中文输入法
     -- 否则切换为英文输入法
-    if word_before:match("[%w%p]") then
+    if word_before:match("[%w%p]") and not in_english_environment() then
         vim.cmd("ToggleRime on")
         return 1
     else
@@ -270,7 +309,7 @@ end
 
 M.auto_toggle_rime_ls_with_backspace = function()
     if not vim.b.rime_enabled then return 0 end
-
+    local english_env = in_english_environment()
     -- 只有在删除空格时才启用输入法切换功能
     local word_before_1 = get_chars_before_cursor(1)
     if not word_before_1 or word_before_1 ~= " " then return 0 end
@@ -279,9 +318,10 @@ M.auto_toggle_rime_ls_with_backspace = function()
     local word_before_2 = get_chars_before_cursor(2)
     if not word_before_2 or word_before_2 == " " then return 0 end
 
-    -- 删除的空格前是一个空格分隔的 WORD 时，才切换成英文输入法
+    -- 删除的空格前是一个空格分隔的 WORD ，或者处在英文输入环境下时，
+    -- 切换成英文输入法
     -- 否则切换成中文输入法
-    if typing_english(1) then
+    if typing_english(1) or english_env then
         vim.cmd("ToggleRime off")
         return 1
     else

@@ -111,6 +111,43 @@ vimkey('<leader>eT', "Open Plan to Do", function()
     ]])
 end)
 
+--- Teminal ------------------------------------------------------------- {{{1
+local newterm = function(direction)
+    local Terminal  = require('toggleterm.terminal').Terminal
+    Terminal:new({direction = direction}):toggle()
+end
+vimkey('<space><space>v', "Toggle Terminal vertical",   "<cmd>ToggleTerm direction=vertical<cr>")
+vimkey('<space><space>s', "Toggle Terminal Horizontal", "<cmd>ToggleTerm direction=horizontal<cr>")
+vimkey('<space><space>f', "Toggle Terminal Float",      "<cmd>ToggleTerm direction=float<cr>")
+vimkey('<space><space>t', "Toggle Terminal Tab",        "<cmd>ToggleTerm direction=tab<cr>")
+vimkey('<space><space>V', "New Terminal vertical",      function() newterm("vertical") end)
+vimkey('<space><space>S', "New Terminal Horizontal",    function() newterm("horizontal") end)
+vimkey('<space><space>F', "New Terminal Float",         function() newterm("float") end)
+vimkey('<space><space>T', "New Terminal Tab",           function() newterm("tab") end)
+
+if vim.fn.has "mac" == 1 then
+    vimkey('<c-space>', "Esc",          [[<C-\><C-n>]],       { mode = "t" })
+    vimkey('<M-w>',     "Wincmd",       [[<C-\><C-n><C-w>]],  { mode = "t" })
+    vimkey('∑',         "Wincmd",       [[<C-\><C-n><C-w>]],  { mode = "t" })
+    vimkey('<M-h>',     "WinCmd Left",  [[<C-\><C-n><C-w>H]], { mode = "t" })
+    vimkey('˙',         "WinCmd Left",  [[<C-\><C-n><C-w>H]], { mode = "t" })
+    vimkey('<M-j>',     "WinCmd Down",  [[<C-\><C-n><C-w>J]], { mode = "t" })
+    vimkey('∆',         "WinCmd Down",  [[<C-\><C-n><C-w>J]], { mode = "t" })
+    vimkey('<M-k>',     "WinCmd Up",    [[<C-\><C-n><C-w>K]], { mode = "t" })
+    vimkey('˚',         "WinCmd Up",    [[<C-\><C-n><C-w>K]], { mode = "t" })
+    vimkey('<M-l>',     "WinCmd Right", [[<C-\><C-n><C-w>L]], { mode = "t" })
+    vimkey('¬',         "WinCmd Right", [[<C-\><C-n><C-w>L]], { mode = "t" })
+else
+    vimkey('<A-space>', "Esc",          [[<C-\><C-n>]],       { mode = "t" })
+    vimkey('<A-w>',     "Wincmd",       [[<C-\><C-n><C-w>]],  { mode = "t" })
+    vimkey('<A-h>',     "WinCmd Left",  [[<C-\><C-n><C-w>H]], { mode = "t" })
+    vimkey('<A-j>',     "WinCmd Down",  [[<C-\><C-n><C-w>J]], { mode = "t" })
+    vimkey('<A-k>',     "WinCmd Up",    [[<C-\><C-n><C-w>K]], { mode = "t" })
+    vimkey('<A-l>',     "WinCmd Right", [[<C-\><C-n><C-w>L]], { mode = "t" })
+  
+end
+vimkey(';j',     "Esc",           [[<C-\><C-n>]],        { mode = "t" })
+
 --- notifications ------------------------------------------------------- {{{1
 vimkey('<leader>hn', "Display Notifications", '<cmd>Notifications<cr>')
 vimkey('<leader>hN', "Redir Notifications",   '<cmd>Redir Notifications<cr>')

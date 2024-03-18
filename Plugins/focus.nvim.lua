@@ -24,7 +24,7 @@ local ignore_filetypes = {
 
 local ignore_buftypes = {
   "help",
-  "terminal",
+  -- "terminal",
   "nofile",
   "promp",
   "popup",
