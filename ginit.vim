@@ -10,7 +10,7 @@ if exists("g:neovide")
         let &guifont =  "Maple Mono NF,LXGW WenKai Mono,:h16:w-1.5"
         let &linespace = 18
     else
-        let &guifont =  "Maple Mono NF,LXGW WenKai Mono, FiraCode Nerd Font Mono:h11"
+        let &guifont =  "Maple Mono NF,LXGW WenKai Mono,FiraCode Nerd Font Mono:h11"
         let &linespace = 15
     endif
     let g:neovide_underline_automatic_scaling = v:true
