@@ -26,3 +26,4 @@ require('orgmode').setup({
   },
 })
 
+-- vim: set foldlevel=99 :

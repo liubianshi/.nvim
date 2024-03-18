@@ -13,6 +13,7 @@ if exists("g:neovide")
         let &guifont =  "Maple Mono NF,LXGW WenKai Mono,FiraCode Nerd Font Mono:h11"
         let &linespace = 15
     endif
+    let g:neovide_input_macos_alt_is_meta = v:true
     let g:neovide_underline_automatic_scaling = v:true
     let g:neovide_padding_top = 0
     let g:neovide_padding_bottom = 0

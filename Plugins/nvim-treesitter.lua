@@ -13,7 +13,7 @@ ts.setup({
         enable = true,
         additional_vim_regex_highlighting = {"markdown"},
         disable = function(lang, buf)
-            local disable_lang_list = {'tsv', 'perl',}
+            local disable_lang_list = {'tsv', 'perl', 'markdown'}
             for _, v in ipairs(disable_lang_list) do
                 if v == lang then return true end
             end

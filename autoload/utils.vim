@@ -394,10 +394,10 @@ endfunction
 " Zen {{{1 
 function! utils#ZenMode_Insert(start = v:true) abort
     let ww = winwidth(0)
-    if ! exists('b:zen_oriwin') || b:zen_oriwin['zenmode'] == 0
+    if ! exists('b:zen_oriwin') || ! b:zen_oriwin['zenmode']
         if a:start
             let b:zen_oriwin = {
-                        \ 'zenmode': 1,
+                        \ 'zenmode': v:true,
                         \ 'foldcolumn': &foldcolumn,
                         \ 'number': &number,
                         \ 'relativenumber': &relativenumber,
@@ -418,11 +418,12 @@ function! utils#ZenMode_Insert(start = v:true) abort
     else
         exec "setlocal foldcolumn=" . min([((ww - 80) / 2), 9])
     endif
+    let w:zen_mode = v:true
 endfunction
 
 function! utils#ZenMode_Leave(exit = v:true) abort
     set noshowcmd
-    if !exists('b:zen_oriwin') || b:zen_oriwin['zenmode'] != 1
+    if !exists('b:zen_oriwin') || !b:zen_oriwin['zenmode']
         return
     endif
     for attr in keys(b:zen_oriwin)
@@ -433,10 +434,11 @@ function! utils#ZenMode_Leave(exit = v:true) abort
     if a:exit 
         unlet b:zen_oriwin
     endif
+    let w:zen_mode = v:false
 endfunction
 
 function! utils#ToggleZenMode() abort
-    if ! exists('b:zen_oriwin') || b:zen_oriwin['zenmode'] == 0
+    if ! exists('b:zen_oriwin') || ! b:zen_oriwin['zenmode']
         call utils#ZenMode_Insert()
     else
         call utils#ZenMode_Leave()
