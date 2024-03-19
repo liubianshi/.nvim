@@ -6,12 +6,13 @@ let b:current_syntax = "newsboat"
 setlocal conceallevel=2
 
 syn match newsKeyword /\v^(Feed|Link|Title|Author|Date):\ze/ conceal cchar= contained
+syn match newsDecodeurl /\v(\%[0-9A-Fa-f]{2}){8,}.*$/ conceal cchar=󰇘 contained
 syn match newsFeed    /\v^Feed: .*$/          contains=newsKeyword
 syn match newsTitle   /\v^Title: .*$/         contains=newsKeyword
 syn match newsAuthor  /\v^Author: .*$/        contains=newsKeyword
 syn match newsLinkType  /\v^Flags: .*$/        contains=newsKeyword
 syn match newsDate    /\v^Date: .*$/          contains=newsKeyword
-syn match newsLink    /\v^Link: [^ ]*$/hs=s+6 contains=newsKeyword
+syn match newsLink    /\v^Link: [^ ]*$/hs=s+6 contains=newsKeyword,newsDecodeurl keepend
 syn match newsInLink /\v\[[^\]\(]+\(link [^\)]+\)\]/ contains=newsLinkBracket
 syn match newsLinkBracket /[\[\]]/ conceal contained
 syn match newsLinkID /\v\[[0-9]+\]:?/ 

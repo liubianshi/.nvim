@@ -26,6 +26,13 @@ if exists("g:neovide")
     let g:neovide_border = [['', 'NormalFloat'], ['', 'NormalFloat']]
     let g:neovide_confirm_quit = v:true
     let g:neovide_cursor_vfx_mode = "ripple"
+    let g:neovide_scale_factor=1.0
+    " 动态调整 Neovide 的字体大小 / Dynamically resize Neovide's fonts
+    function! ChangeScaleFactor(delta)
+        let g:neovide_scale_factor = g:neovide_scale_factor * a:delta
+    endfunction
+    nnoremap <expr><D-=> ChangeScaleFactor(1.15)
+    nnoremap <expr><D--> ChangeScaleFactor(1/1.15)
 elseif exists("g:fvim_loaded")
     if has('mac')
         let &guifont = "FiraCode Nerd Font Mono:h18"

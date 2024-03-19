@@ -152,13 +152,6 @@ Plug.add("ibhagwan/fzf-lua", {
       desc = "FzfLua: Open urls",
     },
     {
-      "<leader>sn",
-      function()
-        require('fzf-lua').live_grep({cwd = vim.env.WRITING_LIB or vim.env.HOME .. "/Documents/writing"})
-      end,
-      desc = "Search Personal Notes",
-    },
-    {
       "<leader>st",
       "<cmd>FzfLua tags<cr>",
       desc = "FzfLua: tags",
@@ -182,11 +175,6 @@ Plug.add("ibhagwan/fzf-lua", {
       "<leader>sH",
       "<cmd>FzfLua highlights<cr>",
       desc = "FzfLua: highlights",
-    },
-    {
-      "<leader>sl",
-      "<cmd>FzfLua lgrep_curbuf<cr>",
-      desc = "FzfLua: Grep current buffer",
     },
     {
       "<leader>sr",
@@ -247,9 +235,29 @@ Plug.add("nvim-telescope/telescope.nvim", {
       desc = "Telescope: Keymaps",
     },
     {
+      "<leader>sj",
+      Util.telescope("jumplist"),
+      desc = "Telescope: Jumplist"
+    },
+    {
+      "<leader>sl",
+      Util.telescope("current_buffer_fuzzy_find"),
+      desc = "Telescope: Search Current Buffer"
+    },
+    {
       "<leader>sm",
       Util.telescope "man_pages",
       desc = "Telescope: Man Pages",
+    },
+    {
+      "<leader>sn",
+      function()
+        require('telescope.builtin').live_grep({
+          prompt_title = "Search in Personal Library ...",
+          cwd = (vim.env.WRITING_LIB or vim.env.HOME .. "/Documents/writing")
+        })
+      end,
+      desc = "Telescope: Search Personal Notes",
     },
     {
       "<leader>:",
@@ -838,7 +846,7 @@ Plug.add("mhartington/oceanic-next", { lazy = false })
 Plug.add("sainnhe/everforest", {
   init = function()
     vim.g.everforest_better_performance = 1
-    vim.g.everforest_background = "soft"
+    vim.g.everforest_background = "hard"
     vim.g.everforest_enable_italic = 1
     vim.g.everforest_transparent_background = 0
     vim.g.everforest_dim_inactive_windows = 0
@@ -1008,7 +1016,6 @@ Plug.add("epwalsh/obsidian.nvim", {
     { "<leader>no", "<cmd>ObsidianOpen<cr>",        desc = "Obsidian: open a note in the Obsidian app"         },
     { "<leader>nj", "<cmd>ObsidianToday<cr>",       desc = "Obsidian: open/create a new daily note"            },
     { "<leader>nf", "<cmd>ObsidianSearch<cr>",      desc = "Obsidian: search for (or create) notes"            },
-    { "<leader>sn", "<cmd>ObsidianSearch<cr>",      desc = "Obsidian: search for (or create) notes"            },
   },
 })
 
@@ -1097,6 +1104,16 @@ Plug.add("nvim-treesitter/nvim-treesitter", {
   build = ":TSUpdate",
   cmd = "TSEnable",
   event = { "BufReadPost", "BufNewFile" },
+})
+
+-- Wansmer/treesj: Neovim plugin for splitting/joining blocks of code --- {{{3
+Plug.add("Wansmer/treesj", {
+  cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
+  keys = {
+    { "<leader>cj", "<cmd>TSJJoin<cr>",   desc = "Join Code Block"       },
+    { "<leader>cs", "<cmd>TSJSplit<cr>",  desc = "Split Code Block"      },
+    { "<leader>cm", "<cmd>TSJToggle<cr>", desc = "Join/Split Code Block" },
+  }
 })
 
 -- AckslD/nvim-FeMaco.lua: Fenced Markdown Code-block editing ----------- {{{3

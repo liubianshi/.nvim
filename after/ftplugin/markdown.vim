@@ -15,6 +15,11 @@ inoremap <buffer> ;c              ` `<C-o>F <c-o>x
 inoremap <buffer> ;m              $ $<C-o>F <c-o>x
 inoremap <buffer> ;i              * *<C-o>F <c-o>x
 inoremap <buffer> ;b              ** **<C-o>F <c-o>x
+inoremap <buffer> ;h              == ==<C-o>F <c-o>x
+
+
+inoremap <buffer><silent> <localleader><enter> 
+    \ <esc>?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^A
 
 " preview markdown snippet ============================================== {{{1
 nnoremap <A-v> vip:call utils#MdPreview()<cr>

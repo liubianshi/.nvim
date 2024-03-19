@@ -35,11 +35,6 @@ vimkey('<leader>tp', 'Tab: Previous', '<cmd>tabprevious<cr>')
 vimkey('<leader>tP', 'Tab: First', '<cmd>tabfirst<cr>')
 vimkey('<leader>tN', 'Tab: Last', '<cmd>tablast<cr>')
 
---- translate ----------------------------------------------------------- {{{1
-vimkey('L', 'Translate', 'utils#Trans2clip()', {
-    mode = {'n', 'x'},
-    expr = true,
-})
 
 --- search -------------------------------------------------------------- {{{1
 vimkey('<leader>og', 'Display Highlight Group', function()
@@ -100,7 +95,7 @@ vimkey('<leader>eu', "Snippets",            '<cmd>edit ~/.config/nvim/UltiSnips<
 vimkey('<leader>ed', "Flypy Dictionary",    '<cmd>edit +$ ~/Repositories/ssnhd-rime/配置文件/flypy_top.txt<cr>')
 vimkey('<leader>et', "Open Plan to Do", function()
     vim.cmd([[
-        edit +$ ~/Documents/Writing/plantodo.norg
+        edit  +ToggleZenMode ~/Documents/Writing/plantodo.norg
         normal zt<cr>
     ]])
 end)

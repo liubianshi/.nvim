@@ -643,6 +643,17 @@ function! utils#AutoFormatNewline()
 endfunction
 
 " 翻译操作符 ============================================================= {{{1
+function! utils#Trans_string(str)
+    let cmd = "deepl \"%s\" 2>/dev/null"
+    let cmd = printf(cmd, a:str)
+    let re = system(cmd)
+    if v:shell_error != 0
+        return ""
+    else
+        return re
+    endif
+endfunction
+
 function! utils#Trans2clip(type = '')
     if a:type == ''
         set opfunc=utils#Trans2clip
@@ -655,15 +666,25 @@ function! utils#Trans2clip(type = '')
         let commands = #{line: "'[V']y", char: "`[v`]y", block: "`[\<c-v>`]y", v:"`<v`>y"}
         silent exe 'noautocmd normal! ' .. get(commands, a:type, '')
         let oritext = substitute(@", "\n", " ", "g")
-        let cmd = "deepl \"%s\" 2>/dev/null"
-        let cmd = printf(cmd, oritext)
-        let @" = system(cmd)
+        let @" = utils#Trans_string(oritext)
         cexpr @"
     finally
         call setpos("'<", visual_marks_save[0])
         call setpos("'>", visual_marks_save[1])
     endtry
 endfunction
+
+function! utils#Trans_Subs()
+    normal! vF=d
+    let string_ori = substitute(getreg('"'), '\v^\s*\=\s*', "", "")
+    let string_translated = trim(utils#Trans_string(string_ori))
+    echom string_translated
+    if string_translated == ""
+        let string_translated = string_ori
+    endif
+    call luaeval('vim.api.nvim_put({_A.str}, "c", true, true)', {'str': string_translated})
+endfunction
+
 
 " tab, window, buffer related ============================================ {{{1
 " 查找 bufnr 所在的标签序号 ---------------------------------------------- {{{2

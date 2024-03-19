@@ -206,7 +206,7 @@ function! s:pangu()
 endfunction
 
 " set options ----------------------------------------------------------- {{{1
-set nocindent nosmartindent wrap 
+set nocindent nosmartindent nowrap 
 set fo-=q
 setlocal scrolloff=10
 

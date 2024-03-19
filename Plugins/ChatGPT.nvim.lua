@@ -184,7 +184,7 @@ chatgpt.setup({
 local status_ok, wk = pcall(require, "which-key")
 if status_ok then
 	wk.register({
-		["H"] = {
+		[","] = {
 			name = "+CTelescopeBorderhatGPT",
 			c = { "<cmd>ChatGPT<CR>",                              "ChatGPT",                   mode = { "n"      } },
 			e = { "<cmd>ChatGPTEditWithInstruction<CR>",           "Edit with instruction",     mode = { "n", "v" } },

@@ -1,9 +1,8 @@
 -- vim: ft=lua fdm=marker:
--- vim.env.FZF_DEFAULT_OPTS = vim.env.FZF_DEFAULT_OPTS .. ' --color=gutter:-1'
+vim.env.FZF_DEFAULT_OPTS = vim.env.FZF_DEFAULT_OPTS .. ' --color=gutter:-1'
 local external_command = {
     exa = vim.fn.systemlist('which exa')[1]
 }
-
 
 local fzflua = require('fzf-lua')
 local actions = require "fzf-lua.actions"

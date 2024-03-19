@@ -65,6 +65,7 @@ onoremap <silent> iB :<C-U>call text_obj#Buffer()<CR>
 inoremap <silent> <A-;> <esc>A;<enter>
 inoremap <silent> <A-space> <esc>A
 inoremap <silent> <A-enter> <esc>A<cr>
+inoremap <silent> ;a <esc>A
 
 " nnoremap <silent> K :call <SID>show_documentation()<CR>
 " xnoremap <silent> p "_dP
@@ -72,15 +73,8 @@ vnoremap <silent> < <gv
 vnoremap <silent> > >gv
 
 " 中文语境下断行 -------------------------------------------------------- {{{2
-if has('mac')
-    nnoremap <buffer><silent>  ÷ ?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^g_
-    inoremap <buffer><silent> ÷ <esc>?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^A
-else 
-    nnoremap <buffer><silent> <A-/>
-        \ ?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^g_
-    inoremap <buffer><silent> <A-/>
-        \ <esc>?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^A
-endif
+nnoremap <buffer><silent> <A-/> ?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^g_
+inoremap <buffer><silent> <A-/> <esc>?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^A
 inoremap <buffer><silent> <localleader><enter> 
     \ <esc>?\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^A
 
@@ -100,32 +94,10 @@ onoremap <silent> iu :<C-U>call text_obj#URL()<CR>
 " 管理 quickfix ========================================================== {{{1
 nnoremap <leader>qq :call utils#QuickfixToggle()<cr>
 
-" window manager ========================================================= {{{1
-" nnoremap <silent> w0 <C-U>:88wincmd \|<cr>
-" nnoremap <silent> wt <C-U>:wincmd T<cr>
-" nnoremap <silent> wo :<c-u>only<cr>
-" nnoremap <silent> wv <c-w>v
-" nnoremap <silent> ws <c-w>s
-" nnoremap <silent> w= <c-w>=
-" nnoremap <silent> ww <c-w>w
-" nnoremap <silent> wj <c-w>j
-" nnoremap <silent> wk <c-w>k
-" nnoremap <silent> wh <c-w>h
-" nnoremap <silent> wl <c-w>l
-" nnoremap <silent> wq <c-w>q
-" nnoremap <silent> wx <c-w>x
-" nnoremap <silent> wn :vsplit \| enew<cr>
-" nnoremap <silent> <C-J>  :resize -2<CR>
-" nnoremap <C-K> <Nop>
-" nnoremap <silent> <C-K>  :resize +2<CR>
-" nnoremap <silent> <C-H>  :vertical resize -2<CR>
-" nnoremap <silent> <C-L> :vertical resize +2<CR>
-
-
-
 " 翻译 =================================================================== {{{1
-" nnoremap <expr>   L utils#Trans2clip()
-" xnoremap <expr>   L utils#Trans2clip()
+nnoremap <expr><silent>   L utils#Trans2clip()
+xnoremap <expr><silent>   L utils#Trans2clip()
+inoremap <silent>        ;l <esc>:call utils#Trans_Subs()<cr>
 
 " 管理文件 ============================================================== {{{1
 nnoremap <silent> <leader>fs  :write<CR>
@@ -176,7 +148,6 @@ let g:UltiSnipsJumpBackwardTrigger      = "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
 inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <silent><expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> ;<tab> coc#refresh()
 
 
 " Navigation ============================================================= {{{1
