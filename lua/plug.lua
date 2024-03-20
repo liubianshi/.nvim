@@ -835,14 +835,14 @@ Plug.add("folke/trouble.nvim", { ft = "c" })
 Plug.add("tpope/vim-fugitive", { cmd = "G" })
 
 -- Theme ---------------------------------------------------------------- {{{2
-Plug.add("luisiacc/gruvbox-baby", { lazy = false })
-Plug.add("ayu-theme/ayu-vim", { lazy = false })
-Plug.add("rebelot/kanagawa.nvim", { lazy = false, priority = 100 })
-Plug.add("olimorris/onedarkpro.nvim", { priority = 100 })
-Plug.add("Mofiqul/vscode.nvim", { priority = 100 })
-Plug.add("rmehri01/onenord.nvim", { priority = 100 })
+Plug.add("luisiacc/gruvbox-baby",            { lazy = false })
+Plug.add("ayu-theme/ayu-vim",                { lazy = false })
+Plug.add("rebelot/kanagawa.nvim",            { lazy = false, priority = 100 })
+Plug.add("olimorris/onedarkpro.nvim",        { priority = 100 })
+Plug.add("Mofiqul/vscode.nvim",              { priority = 100 })
+Plug.add("rmehri01/onenord.nvim",            { priority = 100 })
 Plug.add("nyoom-engineering/oxocarbon.nvim", { priority = 100 })
-Plug.add("mhartington/oceanic-next", { lazy = false })
+Plug.add("mhartington/oceanic-next",         { lazy = false })
 Plug.add("sainnhe/everforest", {
   init = function()
     vim.g.everforest_better_performance = 1

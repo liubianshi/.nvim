@@ -359,13 +359,13 @@ local cmp_config = {
             -- [ "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" ]
             -- border = { '', '', '',  '', '', '', '', {'│', "MyBorder"} },
             border = { '', '', '',  '', '', '', '', '' },
-            winhighlight = "CursorLine:PmenuSel,Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+            winhighlight = "CursorLine:PmenuSel,Normal:MyPmenu,Pmenu:MyPmenu,FloatBorder:Pmenu,Search:None",
             col_offset = 0,
             side_padding = 0,
         },
         documentation = {
             border = { '', '', '',  '', '', '', '', {'│', "MyBorder"} },
-            winhighlight = "CursorLine:PmenuSel,Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+            winhighlight = "CursorLine:PmenuSel,Normal:MyPmenu,Pmenu:MyPmenu,FloatBorder:Pmenu,Search:None",
             col_offset = 0,
             side_padding = 0,
         },
