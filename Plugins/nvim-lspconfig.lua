@@ -55,6 +55,32 @@ lspconfig.perlnavigator.setup({
 
 -- lua (lua-language-server) -------------------------------------------- {{{2
 lspconfig.lua_ls.setup {
+  on_init = function(client)
+    local path = client.workspace_folders[1].name
+    if vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc') then
+      return
+    end
+
+    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+      runtime = {
+        -- Tell the language server which version of Lua you're using
+        -- (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT'
+      },
+      -- Make the server aware of Neovim runtime files
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME
+          -- Depending on the usage, you might want to add additional paths here.
+          -- "${3rd}/luv/library"
+          -- "${3rd}/busted/library",
+        }
+        -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+        -- library = vim.api.nvim_get_runtime_file("", true)
+      }
+    })
+  end,
   capabilities = capabilities,
   single_file_support = true,
   settings = {
@@ -79,10 +105,11 @@ lspconfig.lua_ls.setup {
     },
   },
 }
+
 -- rime-ls -------------------------------------------------------------- {{{2
 local rimels_ok, rime_ls = pcall(require, 'rime-ls')
 if rimels_ok then
-    rime_ls.setup_rime({load = true})
+    rime_ls.setup({load = true})
 end
 
 -- markdown_oxide ------------------------------------------------------- {{{2
@@ -95,14 +122,14 @@ lspconfig.markdown_oxide.setup({
 })
 
 -- ltex ----------------------------------------------------------------- {{{2
-lspconfig.ltex.setup({
-    root_dir = util.root_pattern(".obsidian", ".git", ".vim"),
-    settings = {
-        ltex = {
-            language = "zh-CN",
-        },
-    },
-})
+-- lspconfig.ltex.setup({
+--     root_dir = util.root_pattern(".obsidian", ".git", ".vim"),
+--     settings = {
+--         ltex = {
+--             language = "zh-CN",
+--         },
+--     },
+-- })
 
 -- Global mappings ------------------------------------------------------ {{{2
 local lspmap = function(key, desc, cmd, opts)
@@ -156,4 +183,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- })
 
 -- -- trigger codelens refresh
--- vim.api.nvim_exec_autocmds('User', { pattern = 'LspAttached' })
+vim.api.nvim_exec_autocmds('User', { pattern = 'LspAttached' })

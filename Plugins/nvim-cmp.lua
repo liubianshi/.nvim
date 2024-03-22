@@ -4,7 +4,6 @@ local compare                = require('cmp.config.compare')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 local rimels                 = require("rime-ls")
 
-
 -- helper_functions ----------------------------------------------------- {{{2
 local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)

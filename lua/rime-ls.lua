@@ -103,7 +103,7 @@ M.probes = {
     },
 }
 
-function M.setup_rime(opts)
+function M.setup(opts)
     opts = opts or {}
     -- global status
     vim.g.rime_enabled = false
@@ -346,6 +346,10 @@ end
 
 M.buf_attach_rime_ls = function(bufnr, launched)
     bufnr = bufnr or vim.api.nvim_get_current_buf()
+    local buftype = vim.api.nvim_buf_get_option(bufnr, "buftype") 
+    if buftype == "" and buftype == "nofile" then
+        return
+    end
     local rime_ls_cilent = M.buf_get_rime_ls_client(bufnr)
     if rime_ls_cilent then
         return rime_ls_cilent
