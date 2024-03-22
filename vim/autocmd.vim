@@ -75,6 +75,7 @@ autocmd WinResized           * call s:adjust_zen_mode(v:event)
 " autocmd BufWinLeave          * call utils#ZenMode_Leave(v:false)
 " autocmd BufWinEnter,BufRead,BufEnter  * call utils#ZenMode_Insert(v:false)
 autocmd BufWinEnter,BufRead,BufEnter  * call s:adjust_window_based_on_zen_mode_status()
+autocmd BufEnter,BufWinEnter * lua require('rime-ls').buf_attach_rime_ls()
 
 
 " Fasd ------------------------------------------------------------------ {{{2
