@@ -140,7 +140,6 @@ function M.setup_rime(opts)
                 end
             )
         end
-        _G.ToggleRime = toggle_rime
 
         local error_rime_ls_not_start_yet = function()
             local status_ok,notify = pcall(require, 'notify')
@@ -328,6 +327,58 @@ M.auto_toggle_rime_ls_with_backspace = function()
         vim.cmd("ToggleRime on")
         return 2
     end
+end
+
+M.buf_get_rime_ls_client = function(bufnr)
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
+
+    -- Get all LSP clients that have attached to the current buffer
+    local current_buffer_clients = vim.lsp.buf_get_clients(bufnr)
+    if #current_buffer_clients > 0 then
+        for _, client in ipairs(current_buffer_clients) do
+            if client.name == "rime_ls" then
+                return client
+            end
+        end
+    end
+    return nil
+end
+
+M.buf_attach_rime_ls = function(bufnr, launched)
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
+    local rime_ls_cilent = M.buf_get_rime_ls_client(bufnr)
+    if rime_ls_cilent then
+        return rime_ls_cilent
+    end
+
+    -- Get all currently active LSP clients
+    local active_clients = vim.lsp.get_active_clients()
+    if #active_clients > 0 then
+        for _, client in ipairs(active_clients) do
+            if client.name == 'rime_ls' then
+                vim.lsp.buf_attach_client(bufnr, client.id)
+                return client
+            end
+        end
+    end
+    if not launched then
+        require('lspconfig').rime_ls.launch()
+        return M.buf_attach_rime_ls(bufnr, true)
+    end
+end
+
+M.ToggleRime = function(client)
+    client = client or M.buf_get_rime_ls_client()
+    if not client or client.name ~= "rime_ls" then return end
+    client.request(
+        'workspace/executeCommand',
+        { command = "rime-ls.toggle-rime" },
+        function(_, result, ctx, _)
+            if ctx.client_id == client.id then
+                vim.g.rime_enabled = result
+            end
+        end
+    )
 end
 
 return M

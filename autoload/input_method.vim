@@ -61,7 +61,7 @@ endfunction
 function! s:Active_Input_method()
     if <sid>Is_rime_ls_start()
         if !g:rime_enabled
-            lua ToggleRime()
+            call luaeval('require("rime-ls").ToggleRime()')
         else
             let b:rime_enabled = v:true
         endif
