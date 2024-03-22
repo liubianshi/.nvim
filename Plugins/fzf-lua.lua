@@ -1,5 +1,8 @@
 -- vim: ft=lua fdm=marker:
 vim.env.FZF_DEFAULT_OPTS = vim.env.FZF_DEFAULT_OPTS .. ' --color=gutter:-1'
+if vim.o.background == "light" then
+    vim.env.FZF_DEFAULT_OPTS = "--select-1 --exit-0"
+end
 local external_command = {
     exa = vim.fn.systemlist('which exa')[1]
 }

@@ -7,18 +7,21 @@ if exists("g:neovide")
         call setenv("NVIM_BACKGROUND", "light")
     endif
     if has('mac') 
-        let &guifont =  "Maple Mono NF,LXGW WenKai Mono,:h16:w-1.5"
+        let &guifont =  "Maple Mono NF,LXGW WenKai Mono:h16:w-1.5"
         let &linespace = 18
+        let g:neovide_padding_top = 0
+        let g:neovide_padding_bottom = 0
+        let g:neovide_padding_right = 0
+        let g:neovide_padding_left = 0
     else
-        let &guifont =  "Maple Mono NF,LXGW WenKai Mono,FiraCode Nerd Font Mono:h11"
-        let &linespace = 15
+        let &linespace = 13
+        let g:neovide_padding_top = 15
+        let g:neovide_padding_bottom = 0
+        let g:neovide_padding_right = 0
+        let g:neovide_padding_left = 0
     endif
     let g:neovide_input_macos_alt_is_meta = v:true
     let g:neovide_underline_automatic_scaling = v:true
-    let g:neovide_padding_top = 0
-    let g:neovide_padding_bottom = 0
-    let g:neovide_padding_right = 0
-    let g:neovide_padding_left = 0
     let g:neovide_cursor_animate_in_insert_mode = v:false
     let g:neovide_floating_blur_amount_x = 0
     let g:neovide_floating_blur_amount_y = 0

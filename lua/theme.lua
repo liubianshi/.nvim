@@ -22,6 +22,7 @@ local default_opts = {
     light = {
       bg       = "#FFFBEF",
       fg       = "#5c6A72",
+      fg_float = "#D1E3FA",
       bg_dim   = "#F2EFDF",
       yellow   = "#FBD26A",
       cyan     = "#35A77C",
