@@ -820,6 +820,10 @@ Plug.add("gbprod/yanky.nvim", {
 --   },
 -- })
 
+-- rareitems/anki.nvim: creation of Anki cards directly from neovim ----- {{{3
+Plug.add('rolf-stargate/ankifly.nvim', {
+  cmd = {"Anki", "AnkiBasic", "AnkiCloze", "AnkiReverse"}
+})
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
 Plug.add("ahmedkhalf/project.nvim")
