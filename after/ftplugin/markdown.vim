@@ -37,6 +37,8 @@ endif
 
 setlocal formatoptions=tcq,ro/,n,lm]1,Bj tabstop=4 shiftwidth=4
 
+setlocal foldexpr=nvim_treesitter#foldexpr() foldmethod=expr foldlevel=99 foldlevelstart=99
+
 "set formatexpr=format#Markdown()
 let &l:formatprg="prettier --tab-width 4 --parser markdown"
 let &l:formatlistpat = '^\s*\d\+\.\s\+\|^[-*+]\s\+\|^\[^\ze[^\]]\+\]:'
