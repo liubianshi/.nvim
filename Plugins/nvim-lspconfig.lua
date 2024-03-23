@@ -107,10 +107,10 @@ lspconfig.lua_ls.setup {
 }
 
 -- rime-ls -------------------------------------------------------------- {{{2
-local rimels_ok, rime_ls = pcall(require, 'rime-ls')
-if rimels_ok then
-    rime_ls.setup({load = true})
-end
+-- local rimels_ok, rime_ls = pcall(require, 'rime-ls')
+-- if rimels_ok then
+--     rime_ls.setup({load = true})
+-- end
 
 -- markdown_oxide ------------------------------------------------------- {{{2
 lspconfig.markdown_oxide.setup({

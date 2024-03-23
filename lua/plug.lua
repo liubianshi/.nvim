@@ -28,7 +28,11 @@ local Util = require("util")
 local Plug = { plugs = {} }
 Plug.add = function(plug, opts)
   opts = opts or {}
-  table.insert(opts, 1, plug)
+  if type(plug) == 'table' then
+    opts = vim.tbl_extend("keep", plug, opts)
+  else
+    table.insert(opts, 1, plug)
+  end
   local plug_name = opts.name or string.match(plug, "/([^/]+)$")
   local config_file_name = vim.fn.stdpath("config") .. "/Plugins/" .. plug_name
   config_file_name = vim.fn.fnameescape(config_file_name)
@@ -707,6 +711,9 @@ Plug.add("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
 -- Plug.add('xiyaowong/transparent.nvim')
 
 -- Tools ---------------------------------------------------------------- {{{2
+-- liubianshi/nvim-rime ------------------------------------------------- {{{3
+Plug.add({dir = "~/Repositories/nvim-rime"}, {event = "VeryLazy", name = "nvim-rime"})
+
 -- jackMort/ChatGPT.nvim: Effortless Natural Language Generation -------- {{{3
 Plug.add("jackMort/ChatGPT.nvim", {
   dependencies = {

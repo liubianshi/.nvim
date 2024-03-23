@@ -2,39 +2,6 @@
 local cmp                    = require('cmp')
 local compare                = require('cmp.config.compare')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
-local rimels                 = require("rime-ls")
-
--- helper_functions ----------------------------------------------------- {{{2
-local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(t(key), mode, true)
-end
-
-local input_method_take_effect = function(entry, method, ignore_probes)
-    if not entry then return(false) end
-
-    method = method or "rime-ls"
-    if method == "rime-ls" then
-        if entry.source.name == "nvim_lsp" and
-           entry.source.source.client.name == "rime_ls" and
-           rimels.probe_all_passed(ignore_probes) then
-            return true
-        else
-            return false
-        end
-    end
-end
-
-local rimels_auto_upload = function(entries)
-    if #entries == 1 then
-        if input_method_take_effect(entries[1]) then
-            cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = true})
-        end
-    end
-end
 
 -- source config functions ---------------------------------------------- {{{2
 local function construct_cmp_source(sources)
@@ -126,210 +93,28 @@ local keymap_config = {
         behavior = cmp.ConfirmBehavior.Replace,
         select = true
     }),
+    ["<TAB>"] = cmp.mapping({
+        i = function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.select })
+            else
+                fallback()
+            end
+        end,
+        s = function(fallback)
+            if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+                vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+            else
+                fallback()
+            end
+        end,
+    }),
     ["<S-Tab>"] = cmp.mapping(
         function(fallback)
             cmp_ultisnips_mappings.jump_backwards(fallback)
         end, {"i", "s"}
     ),
 }
-
--- number --------------------------------------------------------------- {{{3
-keymap_config['0'] = cmp.mapping(
-    function(fallback)
-        if not cmp.visible() or not vim.b.rime_enabled then
-            return fallback()
-        end
-        local first_entry  = cmp.core.view:get_first_entry()
-        if not input_method_take_effect(first_entry) then
-            return fallback()
-        end
-        -- if rimels_auto_upload(cmp.core.view:get_entries()) then
-        --     cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
-        -- end
-        rimels_auto_upload(cmp.core.view:get_entries())
-    end, {'i'}
-)
-for numkey = 1,9 do
-    local numkey_str = tostring(numkey)
-    keymap_config[numkey_str] = cmp.mapping(
-        function(fallback)
-            if not cmp.visible() or not vim.b.rime_enabled then
-                return fallback()
-            else
-                local first_entry  = cmp.core.view:get_first_entry()
-                if not input_method_take_effect(
-                    first_entry,
-                    'rime-ls',
-                    {"probe_punctuation_after_half_symbol"}) then
-                    return fallback()
-                end
-            end
-            cmp.mapping.close()
-            feedkey(numkey_str, "n")
-            cmp.complete()
-            feedkey("0", "m")
-        end,
-        {"i"}
-    )
-end
-
--- <Space> -------------------------------------------------------------- {{{3
-keymap_config["<Space>"] = cmp.mapping(
-    function(fallback)
-        if not cmp.visible() then
-            rimels.auto_toggle_rime_ls_with_space()
-            return fallback()
-        end
-        local select_entry = cmp.get_selected_entry()
-        local first_entry  = cmp.core.view:get_first_entry()
-        local lsp_kinds = require('cmp.types').lsp.CompletionItemKind
-
-        if select_entry then
-            if select_entry:get_kind() and
-               lsp_kinds[select_entry:get_kind()] ~= 'Text' then
-                cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = false})
-                vim.fn.feedkeys(' ')
-            else
-                cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = false})
-            end
-        elseif input_method_take_effect(first_entry) then
-            cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = true})
-        elseif first_entry.source.name == "flypy" then
-            cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
-        else
-            rimels.auto_toggle_rime_ls_with_space()
-            return fallback()
-        end
-    end,
-    {"i","s"}
-)
-
--- <Tab> ---------------------------------------------------------------- {{{3
-keymap_config["<Tab>"] = cmp.mapping({
-    i = function(fallback)
-        if cmp.visible() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.select })
-        else
-            fallback()
-        end
-    end,
-    s = function(fallback)
-        if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-            vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
-        else
-            fallback()
-        end
-    end,
-})
-
--- <CR> ----------------------------------------------------------------- {{{3
-keymap_config['<CR>'] = cmp.mapping(
-    function(fallback)
-        if not cmp.visible() then return(fallback()) end
-
-        local select_entry = cmp.get_selected_entry()
-        local first_entry  = cmp.core.view:get_first_entry()
-        local entry = select_entry or first_entry
-
-        if not entry then
-            return(fallback())
-        end
-
-        if (entry.source.name == "nvim_lsp" and
-            entry.source.source.client.name == "rime_ls") or
-           entry.source.name == "flypy" then
-            cmp.abort()
-            vim.fn.feedkeys(" ")
-        elseif select_entry then
-            cmp.confirm()
-        else
-            fallback()
-        end
-    end,
-    {"i", "s"}
-)
-
--- [: 实现 rime 选词定字，选中词的第一个字 ------------------------------ {{{3
-keymap_config['['] = cmp.mapping(
-    function(fallback)
-        if not cmp.visible() then return(fallback()) end
-
-        local select_entry = cmp.get_selected_entry()
-        local first_entry  = cmp.core.view:get_first_entry()
-        local entry = select_entry or first_entry
-
-        if not entry then
-            return(fallback())
-        end
-
-        if (entry.source.name == "nvim_lsp" and
-            entry.source.source.client.name == "rime_ls") or
-           entry.source.name == "flypy" then
-            local text = entry.completion_item.textEdit.newText
-            text = vim.fn.split(text, '\\zs')[1]
-            cmp.abort()
-            vim.cmd([[normal diw]])
-            vim.api.nvim_put({text}, "c", true, true)
-        elseif select_entry then
-            cmp.confirm()
-        else
-            fallback()
-        end
-    end,
-    {"i", "s"}
-)
-
--- ]: 实现 rime 选词定字，选中词的最后一个字 ------------------------------ {{{3
-keymap_config[']'] = cmp.mapping(
-    function(fallback)
-        if not cmp.visible() then return(fallback()) end
-
-        local select_entry = cmp.get_selected_entry()
-        local first_entry  = cmp.core.view:get_first_entry()
-        local entry = select_entry or first_entry
-
-        if not entry then
-            return(fallback())
-        end
-
-        if (entry.source.name == "nvim_lsp" and
-            entry.source.source.client.name == "rime_ls") or
-           entry.source.name == "flypy" then
-            local text = entry.completion_item.textEdit.newText
-            text = vim.fn.split(text, '\\zs')
-            text = text[#text]
-            cmp.abort()
-            vim.cmd([[normal diw]])
-            vim.api.nvim_put({text}, "c", true, true)
-        elseif select_entry then
-            cmp.confirm()
-        else
-            fallback()
-        end
-    end,
-    {"i", "s"}
-)
-
-
--- <bs> ----------------------------------------------------------------- {{{3
-keymap_config['<BS>'] = cmp.mapping(
-    function(fallback)
-        if not cmp.visible() then
-            local re = rimels.auto_toggle_rime_ls_with_backspace()
-            if re == 1 then
-                cmp.abort()
-                local bs = vim.api.nvim_replace_termcodes("<left>", true, true, true)
-                vim.api.nvim_feedkeys(bs, 'n', false)
-            else
-                fallback()
-            end
-        else
-            fallback()
-        end
-    end,
-    {'i', 's'}
-)
-
 -- sorting -------------------------------------------------------------- {{{2
 local sorting_config = {
     comparators = {
