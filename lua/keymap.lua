@@ -157,20 +157,4 @@ vim.cmd[[
     vnoremap gQ :Pangu<cr>vgvgq
 ]]
 
--- input method
-vimkey(';f', "Toggle Input Method", function()
-    vim.cmd("stopinsert")
-    local rime = require("rime-ls")
-    local bufnr = vim.api.nvim_get_current_buf()
-    local client = rime.buf_get_rime_ls_client(bufnr)
-
-    if not client then
-        client = rime.buf_attach_rime_ls(bufnr)
-    end
-    if not vim.g.rime_enabled then
-        rime.ToggleRime(client)
-    end
-    vim.b.rime_enabled = true
-    vim.fn.feedkeys("a", "n")
-end, { mode = "i" })
 

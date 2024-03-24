@@ -711,8 +711,11 @@ Plug.add("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
 -- Plug.add('xiyaowong/transparent.nvim')
 
 -- Tools ---------------------------------------------------------------- {{{2
--- liubianshi/nvim-rime ------------------------------------------------- {{{3
-Plug.add({dir = "~/Repositories/nvim-rime"}, {event = "VeryLazy", name = "nvim-rime"})
+-- liubianshi/nvim-rimels ----------------------------------------------- {{{3
+Plug.add("liubianshi/cmp-lsp-rimels", {
+  event = "VeryLazy",
+  dev = true,
+})
 
 -- jackMort/ChatGPT.nvim: Effortless Natural Language Generation -------- {{{3
 Plug.add("jackMort/ChatGPT.nvim", {
