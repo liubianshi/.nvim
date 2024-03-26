@@ -398,11 +398,13 @@ function! utils#ZenMode_Insert(start = v:true) abort
         if a:start
             let b:zen_oriwin = {
                         \ 'zenmode': v:true,
-                        \ 'foldcolumn': &foldcolumn,
-                        \ 'number': &number,
-                        \ 'relativenumber': &relativenumber,
-                        \ 'foldenable': &foldenable,
-                        \ 'laststatus': &laststatus,
+                        \ 'foldcolumn': &l:foldcolumn,
+                        \ 'number': &l:number,
+                        \ 'scrolloff': &l:scrolloff,
+                        \ 'relativenumber': &l:relativenumber,
+                        \ 'foldenable': &l:foldenable,
+                        \ 'laststatus': &l:laststatus,
+                        \ 'showcmd': &l:showcmd,
                         \ }
         else
             return
@@ -411,12 +413,14 @@ function! utils#ZenMode_Insert(start = v:true) abort
     setlocal nonumber
     setlocal norelativenumber
     setlocal nofoldenable
-    set laststatus=0
+    set laststatus=1
     set noshowcmd
+    let winh = winheight(0)
+    let &l:scrolloff = min([winh / 3, max([0, winh - 6])])
     if ww < 81
-        setlocal foldcolumn=1
+        let &l:foldcolumn = 1
     else
-        exec "setlocal foldcolumn=" . min([((ww - 80) / 2), 9])
+        let &l:foldcolumn = min([((ww - 80) / 2), 9])
     endif
     let w:zen_mode = v:true
 endfunction
@@ -428,7 +432,7 @@ function! utils#ZenMode_Leave(exit = v:true) abort
     endif
     for attr in keys(b:zen_oriwin)
         if attr != 'zenmode'
-            exec 'let &' . attr . " = " . b:zen_oriwin[attr]
+            exec 'let &l:' . attr . " = " . b:zen_oriwin[attr]
         endif
     endfor
     if a:exit 

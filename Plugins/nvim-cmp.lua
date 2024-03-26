@@ -34,7 +34,7 @@ local function construct_cmp_source(sources)
                     keyword_pattern = '[-_$:A-Za-z0-9]\\+',
                 },
                 rime_ls = {
-                    keyword_pattern = '[__:/,.?!$<>A-Za-z0-9]\\+',
+                    keyword_pattern = '[-_:/,.?!$&<>A-Za-z0-9]\\+',
                 },
                 markdown_oxide = {
                     keyword_pattern = [[\(\k\| \|\/\|#\)\+]]
@@ -218,23 +218,23 @@ cmp.setup.filetype('norg', {
     sources = construct_cmp_source({{name = 'neorg'}})
 })
 
--- -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
--- cmp.setup.cmdline({ '/', '?' }, {
---     mapping = cmp.mapping.preset.cmdline(),
---     sources = {
---         { name = 'buffer' }
---     }
--- })
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' }
+    }
+})
 
--- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
--- cmp.setup.cmdline(':', {
---     mapping = cmp.mapping.preset.cmdline(),
---     sources = cmp.config.sources({
---         { name = 'path' }
---     }, {
---         { name = 'cmdline' }
---     })
--- })
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        { name = 'cmdline' }
+    })
+})
 
 
 -- vim: set fdm=marker: ------------------------------------------------- {{{1

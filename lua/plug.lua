@@ -370,11 +370,11 @@ Plug.add("nvim-telescope/telescope-frecency.nvim", {
 })
 
 -- gelguy/wilder.nvim: Command line Fuzzy Search and completation ------- {{{3
-Plug.add("gelguy/wilder.nvim", {
-  dependencies = { "romgrk/fzy-lua-native" },
-  build = ":UpdateRemotePlugins",
-  event = { "CmdwinEnter", "CmdlineEnter" },
-})
+-- Plug.add("gelguy/wilder.nvim", {
+--   dependencies = { "romgrk/fzy-lua-native" },
+--   build = ":UpdateRemotePlugins",
+--   event = { "CmdwinEnter", "CmdlineEnter" },
+-- })
 
 -- machakann/vim-highlightedyank: 高亮显示复制区域 ---------------------- {{{3
 Plug.add("machakann/vim-highlightedyank")
