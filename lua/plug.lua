@@ -54,6 +54,7 @@ Plug.get = function()
 end
 
 -- 配置插件 ------------------------------------------------------------- {{{1
+Plug.add("vhyrro/luarocks.nvim", { priority = 1000, config = true })
 -- GUI
 -- Plug.add("equalsraf/neovim-gui-shim")
 -- UI ------------------------------------------------------------------- {{{2
@@ -411,14 +412,8 @@ Plug.add("mg979/vim-visual-multi", {
 -- andymass/vim-matchup: 显示匹配符号之间的内容 ------------------------- {{{3
 Plug.add("andymass/vim-matchup")
 
--- tpope/vim-commentary: Comment stuff out ------------------------------ {{{3
-Plug.add("tpope/vim-commentary", {
-  cmd = "Commentary",
-  keys = {
-    { "gc", mode = { "n", "v", "x" } },
-    "gcc",
-  },
-})
+-- numToStr/Comment.nvim: Smart and powerful comment plugin for neovim -- {{{3
+Plug.add('numToStr/Comment.nvim', { lazy = false })
 
 -- folke/todo-comments.nvim: Highlight, list and search todo comments --- {{{3
 Plug.add("folke/todo-comments.nvim", {
@@ -682,7 +677,8 @@ Plug.add("nvim-lualine/lualine.nvim")
 Plug.add("mhinz/vim-startify")
 
 -- nvim-tree/nvim-web-devicons: file type icons ------------------------- {{{3
-Plug.add("nvim-tree/nvim-web-devicons", { lazy = true })
+Plug.add("nvim-tree/nvim-web-devicons", { config = true })
+
 
 -- windwp/nvim-autopairs: autopair tools -------------------------------- {{{3
 Plug.add("windwp/nvim-autopairs")
@@ -711,7 +707,7 @@ Plug.add("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
 -- Plug.add('xiyaowong/transparent.nvim')
 
 -- Tools ---------------------------------------------------------------- {{{2
--- liubianshi/nvim-rimels ----------------------------------------------- {{{3
+-- liubianshi/cmp-lsp-rimels: ------------------------------------------- {{{3
 Plug.add("liubianshi/cmp-lsp-rimels", {
   event = "VeryLazy",
   dev = true,
@@ -780,13 +776,6 @@ Plug.add("3rd/image.nvim", {
   ft = { "markdown", "pandoc", "rmd", "rmarkdown", "norg", "org", "newsboat" },
 })
 
--- edluffy/hologram.nvim: terminal image viewer for Neovim -------------- {{{3
--- Plug.add('edluffy/hologram.nvim', {
---     ft = {'markdown', 'pandoc', 'rmd', 'rmarkdown', 'norg', 'org', 'newsboat'},
---     cond = (vim.env.TERM == "xterm-kitty" or
---             vim.env.WEZTERM_EXECUTABLE ~= ""),
---     cmd = 'PreviewImage',
--- })
 
 -- gbprod/yanky.nvim: Improved Yank and Put functionalities for Neovim -- {{{3
 Plug.add("gbprod/yanky.nvim", {
@@ -834,6 +823,9 @@ Plug.add("gbprod/yanky.nvim", {
 Plug.add('rolf-stargate/ankifly.nvim', {
   cmd = {"Anki", "AnkiBasic", "AnkiCloze", "AnkiReverse"}
 })
+
+-- sindrets/diffview.nvim: cycling through diffs for all modified files - {{{3
+Plug.add('sindrets/diffview.nvim', { cmd = { "DiffviewOpen", "DiffviewFileHistory" } })
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
 Plug.add("ahmedkhalf/project.nvim")
@@ -847,6 +839,7 @@ Plug.add("folke/trouble.nvim", { ft = "c" })
 
 -- tpope/vim-fugitive: Git ---------------------------------------------- {{{3
 Plug.add("tpope/vim-fugitive", { cmd = "G" })
+
 
 -- Theme ---------------------------------------------------------------- {{{2
 Plug.add("luisiacc/gruvbox-baby",            { lazy = false })
@@ -1041,8 +1034,9 @@ Plug.add("epwalsh/obsidian.nvim", {
 -- 文件类型相关插件 ----------------------------------------------------- {{{2
 -- nvim-neorg/neorg: new org-mode in neovim ----------------------------- {{{3
 Plug.add("nvim-neorg/neorg", {
-  build = ":Neorg sync-parsers",
+  lazy = false,
   dependencies = {
+    "luarocks.nvim",
     "nvim-lua/plenary.nvim",
     "nvim-neorg/neorg-telescope",
   },
