@@ -674,7 +674,8 @@ Plug.add("akinsho/bufferline.nvim", {
 Plug.add("nvim-lualine/lualine.nvim")
 
 -- mhinz/vim-startify: fancy start screen for Vim ----------------------- {{{3
-Plug.add("mhinz/vim-startify")
+-- Plug.add("mhinz/vim-startify")
+Plug.add('goolord/alpha-nvim')
 
 -- nvim-tree/nvim-web-devicons: file type icons ------------------------- {{{3
 Plug.add("nvim-tree/nvim-web-devicons", { config = true })
