@@ -674,7 +674,6 @@ Plug.add("akinsho/bufferline.nvim", {
 Plug.add("nvim-lualine/lualine.nvim")
 
 -- mhinz/vim-startify: fancy start screen for Vim ----------------------- {{{3
--- Plug.add("mhinz/vim-startify")
 Plug.add('goolord/alpha-nvim')
 
 -- nvim-tree/nvim-web-devicons: file type icons ------------------------- {{{3
@@ -740,6 +739,9 @@ Plug.add("akinsho/toggleterm.nvim", {
     },
   },
 })
+
+-- willothy/flatten.nvim: open files in your current neovim instance ---- {{{3
+Plug.add("willothy/flatten.nvim", { lazy = false, priority = 1001 })
 
 -- skywind3000/asyncrun.vim: run async shell command -------------------- {{{3
 Plug.add("skywind3000/asyncrun.vim")
