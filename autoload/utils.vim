@@ -422,6 +422,7 @@ function! utils#ZenMode_Insert(start = v:true) abort
     else
         let &l:foldcolumn = min([((ww - 80) / 2), 9])
     endif
+    lua require('lualine').hide()
     let w:zen_mode = v:true
 endfunction
 
@@ -438,6 +439,7 @@ function! utils#ZenMode_Leave(exit = v:true) abort
     if a:exit 
         unlet b:zen_oriwin
     endif
+    lua require('lualine').hide({unhide=true})
     let w:zen_mode = v:false
 endfunction
 
@@ -506,7 +508,7 @@ endfun
 function! utils#Status()
     if &laststatus == 0
         "call plug#load('vim-airline', 'vim-airline-themes')
-        let &laststatus = 2
+        let &laststatus = 1
     else
         let &laststatus = 0
     endif

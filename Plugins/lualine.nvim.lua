@@ -86,7 +86,7 @@ lualine.setup {
     section_separators = "",
     theme = "auto",
     disabled_filetypes = {
-      statusline = {},
+      statusline = {"alpha"},
       winbar = {},
     },
     ignore_focus = {},
