@@ -1,3 +1,6 @@
+local neodev_ok, neodev = pcall(require, "neodev")
+if neodev_ok then neodev.setup{} end
+
 local lspconfig = require('lspconfig')
 local util = require 'lspconfig.util'
 
@@ -102,6 +105,9 @@ lspconfig.lua_ls.setup {
       telemetry = {
         enable = false,
       },
+      completion = {
+        callSnippet = "Replace"
+      }
     },
   },
 }
@@ -164,7 +170,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     lspmap('gd',              "Definition",     vim.lsp.buf.definition,     {buffer = ev.buf})
     lspmap('gr',              "References",     vim.lsp.buf.references,     {buffer = ev.buf})
     lspmap('<localleader>cr', "Rename",         vim.lsp.buf.rename,         {buffer = ev.buf})
-    lspmap('<localleader>ca', "Action",         vim.lsp.buf.code_action,    {buffer = ev.buf, mode = {'n', 'v'}})
+    -- lspmap('<localleader>ca', "Action",         vim.lsp.buf.code_action,    {buffer = ev.buf, mode = {'n', 'v'}})
     lspmap('gi',              "Implementation", vim.lsp.buf.implementation, {buffer = ev.buf})
     lspmap('gk',              "Hover",          vim.lsp.buf.hover,          {buffer = ev.buf})
     lspmap('gK',              "Signature_help", vim.lsp.buf.signature_help, {buffer = ev.buf})

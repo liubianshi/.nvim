@@ -239,10 +239,8 @@ require("obsidian").setup({
     -- A function that determines the text to insert in the note when pasting an image.
     -- It takes two arguments, the `obsidian.Client` and an `obsidian.Path` to the image file.
     -- This is the default implementation.
-    ---@param client obsidian.Client
-    ---@param path obsidian.Path the absolute path to the image file
     ---@return string
-    img_text_func = function(client, path)
+    img_text_func = function(_, path)
       local link_path
       local buffer_dir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p:h")
       local abs_path = vim.fn.fnamemodify(path, ":p")

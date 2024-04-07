@@ -2,7 +2,6 @@
 local cmp                    = require('cmp')
 local compare                = require('cmp.config.compare')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
-
 -- source config functions ---------------------------------------------- {{{2
 local function construct_cmp_source(sources)
     local function not_exists(s, b)
@@ -41,6 +40,7 @@ local function construct_cmp_source(sources)
                 },
             },
         },
+        { name = 'nvim_lsp_signature_help'},
         -- { name = 'latex_symbols' },
         -- { name = 'orgmode' },
         -- { name = 'treesitter' },
@@ -103,7 +103,15 @@ local keymap_config = {
         end,
         s = function(fallback)
             if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+                vim.api.nvim_feedkeys(
+                    vim.api.nvim_replace_termcodes(
+                        "<Plug>(ultisnips_jump_forward)",
+                        true,
+                        true,
+                        true
+                    ),
+                    'm',
+                    true)
             else
                 fallback()
             end
@@ -181,6 +189,7 @@ local cmp_config = {
 
 -- cmp setup ------------------------------------------------------------ {{{2
 cmp.setup(cmp_config)
+
 cmp.setup.filetype({'stata'}, {
     sources = construct_cmp_source({{name = 'omni'}})
 })

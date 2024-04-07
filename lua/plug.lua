@@ -54,7 +54,7 @@ Plug.get = function()
 end
 
 -- 配置插件 ------------------------------------------------------------- {{{1
-Plug.add("vhyrro/luarocks.nvim", { priority = 1000, config = true })
+-- Plug.add("vhyrro/luarocks.nvim", { priority = 1000, config = true })
 -- GUI
 -- Plug.add("equalsraf/neovim-gui-shim")
 -- UI ------------------------------------------------------------------- {{{2
@@ -533,6 +533,12 @@ Plug.add("folke/flash.nvim", {
       end,
       desc = "Toggle Flash Search",
     },
+    {
+      "S",
+      mode = { "n", "x", "o" },
+      function() require("flash").treesitter() end,
+      desc = "Flash Treesitter",
+    },
   },
 })
 
@@ -673,7 +679,7 @@ Plug.add("akinsho/bufferline.nvim", {
 -- nvim-lualine/lualine.nvim: neovim statusline plugin ------------------ {{{3
 Plug.add("nvim-lualine/lualine.nvim")
 
--- mhinz/vim-startify: fancy start screen for Vim ----------------------- {{{3
+-- goolord/alpha-nvim: a lua powered greeter ---------------------------- {{{3
 Plug.add('goolord/alpha-nvim')
 
 -- nvim-tree/nvim-web-devicons: file type icons ------------------------- {{{3
@@ -713,6 +719,14 @@ Plug.add("liubianshi/cmp-lsp-rimels", {
   dev = true,
 })
 
+-- nvimdev/lspsaga.nvim: ------------------------------------------------ {{{3
+Plug.add("nvimdev/lspsaga.nvim", {
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter',
+    'nvim-tree/nvim-web-devicons',
+  }
+})
+
 -- jackMort/ChatGPT.nvim: Effortless Natural Language Generation -------- {{{3
 Plug.add("jackMort/ChatGPT.nvim", {
   dependencies = {
@@ -742,7 +756,6 @@ Plug.add("akinsho/toggleterm.nvim", {
 
 -- willothy/flatten.nvim: open files in your current neovim instance ---- {{{3
 Plug.add("willothy/flatten.nvim", { lazy = false, priority = 1001 })
-
 -- skywind3000/asyncrun.vim: run async shell command -------------------- {{{3
 Plug.add("skywind3000/asyncrun.vim")
 
@@ -829,6 +842,11 @@ Plug.add('rolf-stargate/ankifly.nvim', {
 
 -- sindrets/diffview.nvim: cycling through diffs for all modified files - {{{3
 Plug.add('sindrets/diffview.nvim', { cmd = { "DiffviewOpen", "DiffviewFileHistory" } })
+-- ThePrimeagen/harpoon: 
+Plug.add("ThePrimeagen/harpoon", {
+  branch = "harpoon2",
+  dependencies = { "nvim-lua/plenary.nvim" },
+})
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
 Plug.add("ahmedkhalf/project.nvim")
@@ -838,7 +856,7 @@ Plug.add("ludovicchabant/vim-gutentags", {
 })
 
 -- folke/trouble.nvim: diagnostics solution ----------------------------- {{{3
-Plug.add("folke/trouble.nvim", { ft = "c" })
+Plug.add("folke/trouble.nvim", { ft = {"c", "lua", "perl", "sh"} })
 
 -- tpope/vim-fugitive: Git ---------------------------------------------- {{{3
 Plug.add("tpope/vim-fugitive", { cmd = "G" })
@@ -868,7 +886,6 @@ Plug.add("folke/tokyonight.nvim", { lazy = false, priority = 1000 })
 Plug.add("projekt0n/github-nvim-theme", { lazy = false, priority = 1000 })
 
 -- 补全和代码片断 ------------------------------------------------------- {{{2
-
 -- sirver/UltiSnips: Ultimate snippet solution -------------------------- {{{3
 Plug.add("sirver/UltiSnips", {
   dependencies = { "honza/vim-snippets" },
@@ -894,13 +911,19 @@ if vim.g.complete_method == "coc" then
   })
 else
   -- neovim/nvim-lspconfig: Quickstart configs for Nvim LSP ----------- {{{4
+  Plug.add("folke/neodev.nvim", {config = true})
   Plug.add("neovim/nvim-lspconfig", {
     event = { "BufReadPre", "BufNewFile", "BufWinEnter" },
+    dependencies = {
+      "folke/neodev.nvim" -- Dev setup for init.lua and plugin development
+    },
   })
+
 
   -- hrsh7th/nvim-cmp: A completion plugin for neovim ----------------- {{{4
   local cmp_dependencies = {
     "hrsh7th/cmp-nvim-lsp", -- neovim builtin LSP client
+    "hrsh7th/cmp-nvim-lsp-signature-help", -- displaying function signatures
     "hrsh7th/cmp-omni", -- omnifunc
     "hrsh7th/cmp-buffer", -- buffer words
     "hrsh7th/cmp-cmdline", -- command line keywords
@@ -939,7 +962,7 @@ else
     dependencies = cmp_dependencies,
   })
 end
-
+---
 -- Formatter and linter ------------------------------------------------- {{{2
 
 -- mhartington/formatter.nvim: autoformat tool -------------------------- {{{3
@@ -1037,9 +1060,8 @@ Plug.add("epwalsh/obsidian.nvim", {
 -- 文件类型相关插件 ----------------------------------------------------- {{{2
 -- nvim-neorg/neorg: new org-mode in neovim ----------------------------- {{{3
 Plug.add("nvim-neorg/neorg", {
-  lazy = false,
   dependencies = {
-    "luarocks.nvim",
+    {"vhyrro/luarocks.nvim",  priority = 1000, config = true },
     "nvim-lua/plenary.nvim",
     "nvim-neorg/neorg-telescope",
   },
@@ -1086,7 +1108,10 @@ Plug.add("kevinhwang91/nvim-bqf", { ft = "qf" })
 
 -- nvim-orgmode/orgmode: Orgmode clone written in Lua ------------------- {{{3
 Plug.add("nvim-orgmode/orgmode", {
-  dependencies = { "nvim-treesitter/nvim-treesitter" },
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter",
+    {"akinsho/org-bullets.nvim", config = true}
+  },
   ft = "org",
   keys = {
     { "<leader>oa", desc = "Orgmode: agenda prompt" },
@@ -1094,20 +1119,11 @@ Plug.add("nvim-orgmode/orgmode", {
   },
 })
 
-Plug.add("akinsho/org-bullets.nvim", {
-  dependencies = { "nvim-orgmode/orgmode" },
-  config = true,
-})
-
 -- fladson/vim-kitty: kitty config syntax highlighting for vim ---------- {{{3
-Plug.add("fladson/vim-kitty", {
-  ft = "kitty",
-})
+Plug.add("fladson/vim-kitty", { ft = "kitty" })
 
 -- kmonad/kmonad-vim: Vim syntax highlighting for .kbd files ------------ {{{3
-Plug.add("kmonad/kmonad-vim", {
-  ft = "kbd",
-})
+Plug.add("kmonad/kmonad-vim", { ft = "kbd" })
 
 -- TreeSitter ----------------------------------------------------------- {{{2
 -- nvim-treesitter/nvim-treesitter: Treesitter configurations ----------- {{{3
@@ -1134,7 +1150,6 @@ Plug.add("AckslD/nvim-FeMaco.lua", {
   keys = {
     { "<localleader>o", "<cmd>FeMaco<cr>", desc = "FeMaco: Edit Code Block" },
   },
-  config = true,
 })
 
 -- 安装并加载插件 ------------------------------------------------------- {{{1
@@ -1156,3 +1171,5 @@ end
 PlugExist = function(plug)
   return (Util.has(plug))
 end
+
+

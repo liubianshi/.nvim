@@ -20,6 +20,10 @@ if exists("g:neovide")
         let g:neovide_padding_right = 0
         let g:neovide_padding_left = 0
     endif
+    let g:neovide_floating_shadow = v:true
+    let g:neovide_floating_z_height = 10
+    let g:neovide_light_angle_degrees = 30
+    let g:neovide_light_radius = 5
     let g:neovide_input_macos_alt_is_meta = v:true
     let g:neovide_underline_automatic_scaling = v:true
     let g:neovide_cursor_animate_in_insert_mode = v:false

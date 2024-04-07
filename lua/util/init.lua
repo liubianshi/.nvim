@@ -4,7 +4,7 @@ local Util = require "lazy.core.util"
 
 local M = {}
 
-M.root_patterns = { ".git", "lua", ".obsidian", ".vim" }
+M.root_patterns = { ".git", "lua", ".obsidian", ".vim", '.exercism' }
 
 ---@param on_attach fun(client, buffer)
 function M.on_attach(on_attach)
