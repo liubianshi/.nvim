@@ -199,7 +199,7 @@ function! s:pangu()
 
     lua require("lazy").load({plugins = "pangu.vim", wait = true})
     exec start . "," . end . "Pangu"
-    exec "normal! " . start . "GV" . end . "Ggq"
+    " exec "normal! " . start . "GV" . end . "Ggq"
     let b:formated = v:true
 
     normal! ''
@@ -214,6 +214,7 @@ call s:generate_url_dict()
 call utils#Fetch_urls()
 call s:cache_link_snapshot()
 call s:pangu()
+call utils#ToggleZenMode()
 
 " Keymap ---------------------------------------------------------------- {{{1
 " unmap <silent><buffer> q
