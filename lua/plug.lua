@@ -911,12 +911,10 @@ if vim.g.complete_method == "coc" then
   })
 else
   -- neovim/nvim-lspconfig: Quickstart configs for Nvim LSP ----------- {{{4
-  Plug.add("folke/neodev.nvim", {config = true})
+  Plug.add("folke/neodev.nvim", {opts = {}})
   Plug.add("neovim/nvim-lspconfig", {
     event = { "BufReadPre", "BufNewFile", "BufWinEnter" },
-    dependencies = {
-      "folke/neodev.nvim" -- Dev setup for init.lua and plugin development
-    },
+    dependencies= {"folke/neodev.nvim"},
   })
 
 

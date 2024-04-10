@@ -1,3 +1,40 @@
+function! s:GetReferenceLinkID(url) abort
+    let links_line = search('^<!-- Links -->$', 'n')
+    if links_line == 0
+        call append(line('$'), ["<!-- Links -->", "[1]: " .. a:url])
+        return '1'
+    endif
+    let lno = links_line
+    let linkid = 0
+    while (lno <= line('$'))
+        let lno += 1
+        let line = getline(lno)
+        let match_re = matchlist(line, '\v^\[([0-9]+)\]:\s+(.*)\s*$') 
+        if len(match_re) == 0 | continue | endif
+        let linkid = match_re[1]
+        if match_re[2] ==? a:url
+            return linkid
+        endif
+    endwhile
+    call append(line('$'), "\[" . (linkid + 1) . "\]: " . a:url)
+    return (linkid + 1)
+endfunction
+
+function! s:RefereceLink() abort
+    let url = trim(getreg('+'))
+    if !url =~? "\v^(https?:\/\/)?\w+\.\w+"
+        let url = trim(input("Input url: "))
+        call inputrestore()
+        echo ""
+        if url == '' | return | endif
+    endif
+    let title = trim( system('fetch-url-info "' . url . '"') )
+    let linkid = s:GetReferenceLinkID(url)
+    call luaeval('vim.api.nvim_put({_A}, "c", true, true)', " [" . title . "][" . linkid . "]")
+endfun
+
+nnoremap <buffer><silent> <localleader>il :<c-u>call <sid>RefereceLink()<cr>
+
 xnoremap <buffer><silent> ic :<C-U>call text_obj#MdCodeBlock('i')<CR>
 xnoremap <buffer><silent> ac :<C-U>call text_obj#MdCodeBlock('a')<CR>
 onoremap <buffer><silent> ic :<C-U>call text_obj#MdCodeBlock('i')<CR>
@@ -40,7 +77,7 @@ setlocal formatoptions=tcq,ro/,n,lm]1,Bj tabstop=4 shiftwidth=4
 setlocal foldexpr=nvim_treesitter#foldexpr() foldmethod=expr foldlevel=99 foldlevelstart=99
 
 "set formatexpr=format#Markdown()
-let &l:formatprg="prettier --tab-width 4 --parser markdown"
-let &l:formatlistpat = '^\s*\d\+\.\s\+\|^[-*+]\s\+\|^\[^\ze[^\]]\+\]:'
+let &l:formatprg="text_wrap"
+let &l:formatlistpat = '^\s*\d\+\.\s\+\|^\[-*+>]\s\+\|^\s*\[^[^\]]\+\]\[:\s]'
 
 " UltiSnipsAddFiletype rmd.r.markdown.pandoc

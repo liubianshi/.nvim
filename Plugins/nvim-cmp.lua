@@ -2,6 +2,8 @@
 local cmp                    = require('cmp')
 local compare                = require('cmp.config.compare')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
+vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
+
 -- source config functions ---------------------------------------------- {{{2
 local function construct_cmp_source(sources)
     local function not_exists(s, b)
@@ -182,6 +184,11 @@ local cmp_config = {
             end
             return kind
         end,
+    },
+    experimental = {
+      ghost_text = {
+        hl_group = "CmpGhostText",
+      },
     },
     mapping = cmp.mapping.preset.insert(keymap_config),
     sources = construct_cmp_source(),

@@ -1,131 +1,105 @@
-local neodev_ok, neodev = pcall(require, "neodev")
-if neodev_ok then neodev.setup{} end
-
-local lspconfig = require('lspconfig')
-local util = require 'lspconfig.util'
+require("neodev").setup {
+  library = {
+    enabled = true, -- when not enabled, neodev will not change any settings to the LSP server
+    -- these settings will be used for your Neovim config directory
+    runtime = true, -- runtime path
+    types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
+    plugins = true, -- installed opt or start plugins in packpath
+    -- you can also specify the list of plugins to make available as a workspace library
+    -- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
+  },
+  override = function(root_dir, library)
+      library.enabled = true
+      library.plugins = false
+  end,
+  setup_jsonls = true, -- configures jsonls to provide completion for project specific .luarc.json files
+  lspconfig = true,
+  pathStrict = true,
+}
+local lspconfig = require "lspconfig"
+local util = require "lspconfig.util"
 
 -- Preconfiguration ----------------------------------------------------------- {{{2
 local capabilities = (function()
-    local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-    if status_ok then
-        return cmp_nvim_lsp.default_capabilities()
-    else
-        return nil
-    end
+  local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+  if status_ok then
+    return cmp_nvim_lsp.default_capabilities()
+  else
+    return nil
+  end
 end)()
 
 -- bashls (bash-language-server) ---------------------------------------- {{{2
-lspconfig.bashls.setup{
-    capabilities = capabilities,
+lspconfig.bashls.setup {
+  capabilities = capabilities,
 }
 
 -- R (r_language_server) ------------------------------------------------ {{{2
-lspconfig.r_language_server.setup({
-    cmd = {
-        "R", "--slave",
-        "--default-packages=" .. vim.g.R_start_libs,
-        "-e", "languageserver::run()"
-    },
-    capabilities = capabilities,
-    root_dir = util.root_pattern(".git", ".vim", "NAMESPACE"),
-    single_file_support = true,
-    flags = {
-      debounce_text_changes = 150
-    },
-})
+lspconfig.r_language_server.setup {
+  cmd = {
+    "R",
+    "--slave",
+    "--default-packages=" .. vim.g.R_start_libs,
+    "-e",
+    "languageserver::run()",
+  },
+  capabilities = capabilities,
+  root_dir = util.root_pattern(".git", ".vim", "NAMESPACE"),
+  single_file_support = true,
+  flags = {
+    debounce_text_changes = 150,
+  },
+}
 
 -- Python (pyright) ----------------------------------------------------- {{{2
 -- lspconfig.pyright.setup({ on_attach = on_attach_custom })
-lspconfig.jedi_language_server.setup({
-    capabilities = capabilities,
-})
+lspconfig.jedi_language_server.setup {
+  capabilities = capabilities,
+}
 
 -- vim (vimls) ---------------------------------------------------------- {{{2
-lspconfig.vimls.setup{
-    capabilities = capabilities,
+lspconfig.vimls.setup {
+  capabilities = capabilities,
 }
 
 -- perl (perlls) -------------------------------------------------------- {{{2
-lspconfig.perlnavigator.setup({
-    cmd = {
-        'node',
-        vim.env.HOME .. "/Repositories/PerlNavigator/server/out/server.js",
-        "--stdio"
-    },
-    capabilities = capabilities,
-    single_file_support = true,
-})
+lspconfig.perlnavigator.setup {
+  cmd = {
+    "node",
+    vim.env.HOME .. "/Repositories/PerlNavigator/server/out/server.js",
+    "--stdio",
+  },
+  capabilities = capabilities,
+  single_file_support = true,
+}
 
 -- lua (lua-language-server) -------------------------------------------- {{{2
 lspconfig.lua_ls.setup {
-  on_init = function(client)
-    local path = client.workspace_folders[1].name
-    if vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc') then
-      return
-    end
-
-    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-      runtime = {
-        -- Tell the language server which version of Lua you're using
-        -- (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT'
-      },
-      -- Make the server aware of Neovim runtime files
-      workspace = {
-        checkThirdParty = false,
-        library = {
-          vim.env.VIMRUNTIME
-          -- Depending on the usage, you might want to add additional paths here.
-          -- "${3rd}/luv/library"
-          -- "${3rd}/busted/library",
-        }
-        -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-        -- library = vim.api.nvim_get_runtime_file("", true)
-      }
-    })
-  end,
   capabilities = capabilities,
   single_file_support = true,
   settings = {
     Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
       workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-        checkThirdParty = false, -- THIS IS THE IMPORTANT LINE TO ADD
+        checkThirdParty = false,
       },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
+      codeLens = {
+        enable = true,
       },
       completion = {
-        callSnippet = "Replace"
-      }
+        callSnippet = "Replace",
+      },
     },
   },
 }
 
--- rime-ls -------------------------------------------------------------- {{{2
--- local rimels_ok, rime_ls = pcall(require, 'rime-ls')
--- if rimels_ok then
---     rime_ls.setup({load = true})
--- end
-
 -- markdown_oxide ------------------------------------------------------- {{{2
-lspconfig.markdown_oxide.setup({
-    cmd = {vim.env.HOME .. "/.cargo/bin/markdown-oxide"},
-    root_dir = util.root_pattern(".obsidian", ".git", ".vim"),
-    on_attach = function(client, bufnr)
-        client.handlers["textDocument/publishDiagnostics"] = function() end
-    end,
-})
+lspconfig.markdown_oxide.setup {
+  cmd = { vim.env.HOME .. "/.cargo/bin/markdown-oxide" },
+  root_dir = util.root_pattern(".obsidian", ".git", ".vim"),
+  on_attach = function(client, bufnr)
+    client.handlers["textDocument/publishDiagnostics"] = function() end
+  end,
+}
 
 -- ltex ----------------------------------------------------------------- {{{2
 -- lspconfig.ltex.setup({
@@ -139,41 +113,51 @@ lspconfig.markdown_oxide.setup({
 
 -- Global mappings ------------------------------------------------------ {{{2
 local lspmap = function(key, desc, cmd, opts)
-    opts = opts or {}
-    local mode = opts.mode or 'n'
-    opts.mode = nil
-    opts = vim.tbl_extend("keep", opts or {}, {
-        desc = "LSP: " .. desc,
-        silent = true,
-        noremap = true,
-    })
-    vim.keymap.set(mode, key, cmd, opts)
+  opts = opts or {}
+  local mode = opts.mode or "n"
+  opts.mode = nil
+  opts = vim.tbl_extend("keep", opts or {}, {
+    desc = "LSP: " .. desc,
+    silent = true,
+    noremap = true,
+  })
+  vim.keymap.set(mode, key, cmd, opts)
 end
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-lspmap('[d',             "Jump to previous diagnostic", vim.diagnostic.goto_prev)
-lspmap(']d',             "Jump to next diagnostic",     vim.diagnostic.goto_next)
-lspmap('<localleader>d', "Diagnsotic open float",       vim.diagnostic.open_float)
-lspmap('<localleader>D', "Diagnsotic set loc list",     vim.diagnostic.setloclist)
+lspmap("[d", "Jump to previous diagnostic", vim.diagnostic.goto_prev)
+lspmap("]d", "Jump to next diagnostic", vim.diagnostic.goto_next)
+lspmap("<localleader>d", "Diagnsotic open float", vim.diagnostic.open_float)
+lspmap("<localleader>D", "Diagnsotic set loc list", vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)
     -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+    vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    lspmap('gD',              "Declaration",    vim.lsp.buf.declaration,    {buffer = ev.buf})
-    lspmap('gd',              "Definition",     vim.lsp.buf.definition,     {buffer = ev.buf})
-    lspmap('gr',              "References",     vim.lsp.buf.references,     {buffer = ev.buf})
-    lspmap('<localleader>cr', "Rename",         vim.lsp.buf.rename,         {buffer = ev.buf})
+    lspmap("gD", "Declaration", vim.lsp.buf.declaration, { buffer = ev.buf })
+    lspmap("gd", "Definition", vim.lsp.buf.definition, { buffer = ev.buf })
+    lspmap("gr", "References", vim.lsp.buf.references, { buffer = ev.buf })
+    lspmap("<localleader>cr", "Rename", vim.lsp.buf.rename, { buffer = ev.buf })
     -- lspmap('<localleader>ca', "Action",         vim.lsp.buf.code_action,    {buffer = ev.buf, mode = {'n', 'v'}})
-    lspmap('gi',              "Implementation", vim.lsp.buf.implementation, {buffer = ev.buf})
-    lspmap('gk',              "Hover",          vim.lsp.buf.hover,          {buffer = ev.buf})
-    lspmap('gK',              "Signature_help", vim.lsp.buf.signature_help, {buffer = ev.buf})
+    lspmap(
+      "gi",
+      "Implementation",
+      vim.lsp.buf.implementation,
+      { buffer = ev.buf }
+    )
+    lspmap("gk", "Hover", vim.lsp.buf.hover, { buffer = ev.buf })
+    lspmap(
+      "gK",
+      "Signature_help",
+      vim.lsp.buf.signature_help,
+      { buffer = ev.buf }
+    )
   end,
 })
 
@@ -189,4 +173,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- })
 
 -- -- trigger codelens refresh
-vim.api.nvim_exec_autocmds('User', { pattern = 'LspAttached' })
+vim.api.nvim_exec_autocmds("User", { pattern = "LspAttached" })
