@@ -22,18 +22,29 @@ endfunction
 
 function! s:RefereceLink() abort
     let url = trim(getreg('+'))
-    if !url =~? "\v^(https?:\/\/)?\w+\.\w+"
+    if url !~? '\v^https?:\/\/'
         let url = trim(input("Input url: "))
         call inputrestore()
         echo ""
         if url == '' | return | endif
     endif
-    let title = trim( system('fetch-url-info "' . url . '"') )
     let linkid = s:GetReferenceLinkID(url)
-    call luaeval('vim.api.nvim_put({_A}, "c", true, true)', " [" . title . "][" . linkid . "]")
+    let title = utils#GetContentBetween('[', ']')
+    if title == ""
+        let title = trim( system('fetch-url-info "' . url . '"') )
+        call luaeval('vim.api.nvim_put({_A}, "c", true, true)', " [" . title . "][" . linkid . "]")
+    else
+        if col('.') == 1
+            normal! f]
+        else
+            normal! hf]
+        endif
+        call luaeval('vim.api.nvim_put({_A}, "c", true, true)', "[" . linkid . "]")
+    endif    
 endfun
 
 nnoremap <buffer><silent> <localleader>il :<c-u>call <sid>RefereceLink()<cr>
+inoremap <buffer><silent> <localleader>il <esc>:<c-u>call <sid>RefereceLink()<cr>
 
 xnoremap <buffer><silent> ic :<C-U>call text_obj#MdCodeBlock('i')<CR>
 xnoremap <buffer><silent> ac :<C-U>call text_obj#MdCodeBlock('a')<CR>

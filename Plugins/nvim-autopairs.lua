@@ -19,6 +19,6 @@ npairs.add_rules({
     Rule("`", "`", "-stata"),
     Rule('"', '"', "-vim"),
     Rule("`", "'", "stata"),
-    Rule("$", "$", "markdown"),
+    -- Rule("$", "$", "markdown"),
 })
 

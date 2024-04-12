@@ -30,10 +30,17 @@ require('rimels').setup({
     cmd = { vim.env.HOME .. "/.local/bin/rime_ls" },
     rime_user_dir = "~/.local/share/rime-ls",
     shared_data_dir = "/Library/Input Methods/Squirrel.app/Contents/SharedSupport",
+    trigger_characters = {},
     detectors = {
         with_treesitter = {
             norg = detector_for_norg,
         }
+    },
+    cmp_keymaps = {
+      disable = {
+        numbers = false,
+        space = false,
+      }
     }
 })
 

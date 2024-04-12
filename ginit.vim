@@ -4,7 +4,8 @@ if exists("g:neovide")
     " use light colorscheme during daytime
     let current_time = strftime("%H:%M")
     if current_time >= "07:00" && current_time <= "17:00"
-        call setenv("NVIM_BACKGROUND", "light")
+        call setenv("NVIM_BACKGROUND", "dark")
+        call setenv("NVIM_COLOR_SCHEME_DARK", "OceanicNext")
     endif
     if has('mac') 
         let &guifont =  "Maple Mono NF,LXGW WenKai Mono:h16:w-1.5"
@@ -38,8 +39,8 @@ if exists("g:neovide")
     function! ChangeScaleFactor(delta)
         let g:neovide_scale_factor = g:neovide_scale_factor * a:delta
     endfunction
-    nnoremap <expr><D-=> ChangeScaleFactor(1.15)
-    nnoremap <expr><D--> ChangeScaleFactor(1/1.15)
+    nnoremap <expr><D-=> ChangeScaleFactor(1.05)
+    nnoremap <expr><D--> ChangeScaleFactor(1/1.05)
 elseif exists("g:fvim_loaded")
     if has('mac')
         let &guifont = "FiraCode Nerd Font Mono:h18"

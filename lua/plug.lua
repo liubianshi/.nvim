@@ -841,7 +841,13 @@ Plug.add('rolf-stargate/ankifly.nvim', {
 })
 
 -- sindrets/diffview.nvim: cycling through diffs for all modified files - {{{3
-Plug.add('sindrets/diffview.nvim', { cmd = { "DiffviewOpen", "DiffviewFileHistory" } })
+Plug.add('sindrets/diffview.nvim', {
+  cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+  keys = {
+    { "<leader>dd", "<cmd>DiffviewOpen<cr>", desc = "DiffviewOpen"},
+    { "<leader>dh", "<cmd>DiffviewFileHistory<cr>", desc = "DiffviewOpen"},
+  },
+})
 -- ThePrimeagen/harpoon: 
 Plug.add("ThePrimeagen/harpoon", {
   branch = "harpoon2",
@@ -916,7 +922,6 @@ else
     event = { "BufReadPre", "BufNewFile", "BufWinEnter" },
     dependencies= {"folke/neodev.nvim"},
   })
-
 
   -- hrsh7th/nvim-cmp: A completion plugin for neovim ----------------- {{{4
   local cmp_dependencies = {
@@ -1083,7 +1088,7 @@ Plug.add("kristijanhusak/vim-dadbod-ui", {
 -- liubianshi/Nvim-R: Vim plugin to work with R ------------------------- {{{3
 Plug.add("liubianshi/Nvim-R", {
   ft = { "r", "rmd", "qml" },
-  cmd = { "Rstart" },
+  cmd = { "RStart" },
 })
 
 -- lervag/vimtex: filetype plugin for LaTeX files ----------------------- {{{3

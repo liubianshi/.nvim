@@ -139,7 +139,6 @@ else
     vimkey('<A-j>',     "WinCmd Down",  [[<C-\><C-n><C-w>J]], { mode = "t" })
     vimkey('<A-k>',     "WinCmd Up",    [[<C-\><C-n><C-w>K]], { mode = "t" })
     vimkey('<A-l>',     "WinCmd Right", [[<C-\><C-n><C-w>L]], { mode = "t" })
-  
 end
 vimkey(';j',     "Esc",           [[<C-\><C-n>]],        { mode = "t" })
 
@@ -150,6 +149,7 @@ vimkey('<leader>hm', "Display messages",      '<cmd>messages<cr>')
 vimkey('<leader>hM', "Redir messages",        '<cmd>Redir messages<cr>')
 
 -- format --------------------------------------------------------------- {{{1
+vimkey('<localleader>w', "Format Line", "<esc>gqq0A", { mode = "i" })
 -- vimkey('gQ', "gq after Pangu", 'vip<cmd>Pangu<cr>gqip')
 -- vimkey('gQ', "gq after Pangu", '<cmd>Pangu<cr>vgvgq', { mode = 'v'})
 vim.cmd[[
