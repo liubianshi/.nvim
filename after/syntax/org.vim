@@ -12,8 +12,8 @@
 " syn match orgQuoteMarker /quote/ containedin=@OrgTSBlock
 " syn region orgQuote start=/^\s*\#\+begin_quote$/ 
 "
- exec "hi OrgTSBlock guifg=" . g:lbs_colors['blue']
- exec "hi OrgTSDirective cterm=bold guifg=" . g:lbs_colors['special']
+exec "hi OrgTSBlock guifg=" . g:lbs_colors['blue']
+exec "hi OrgTSDirective cterm=bold guifg=" . g:lbs_colors['orange']
 " hi def link orgQuoteMarker Underlined
 
 

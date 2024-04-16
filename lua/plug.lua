@@ -719,8 +719,35 @@ Plug.add("liubianshi/cmp-lsp-rimels", {
   dev = true,
 })
 
+-- ziontee113/icon-picker.nvim: pick Nerd Font Icons, Symbols & Emojis -- {{{3
+Plug.add("ziontee113/icon-picker.nvim", {
+  dev = true,
+  config = function()
+    require("icon-picker").setup({ disable_legacy_commands = true })
+  end,
+  cmd = { "IconPickerNormal", "IconPickerYank"},
+  keys = {
+    {
+      '<localleader>i',
+      '<cmd>IconPickerInsert history nerd_font_v3 alt_font symbols emoji<cr>',
+      desc = ' Pick Icon and insert it to the buffer',
+      mode = "i",
+      silent = true,
+      noremap = true,
+    },
+    {
+      '<leader>si',
+      '<cmd>IconPickerYank history nerd_font_v3 alt_font symbols emoji<cr>',
+      desc = 'Pick Icon and yank it to register',
+      mode = "n",
+      silent = true,
+      noremap = true,
+    }
+  }
+})
 -- nvimdev/lspsaga.nvim: ------------------------------------------------ {{{3
 Plug.add("nvimdev/lspsaga.nvim", {
+  event = 'LspAttach',
   dependencies = {
     'nvim-treesitter/nvim-treesitter',
     'nvim-tree/nvim-web-devicons',
@@ -746,10 +773,9 @@ Plug.add("akinsho/toggleterm.nvim", {
       "<space><space>",
       "<cmd>ToggleTerm<cr>",
       desc = "Toogle Terminal",
-      noremap = true,
       silent = true,
       mode = { "n", "t" },
-      remap = true,
+      noremap = true,
     },
   },
 })
@@ -772,6 +798,13 @@ Plug.add("skywind3000/asynctasks.vim", {
 
 -- liubianshi/vimcmdline: send lines to interpreter --------------------- {{{3
 Plug.add("liubianshi/vimcmdline")
+Plug.add("voldikss/vim-translator", {
+  cmd = {"Translate"},
+  keys = {
+    {"<leader>k", desc = "Translate", mode = {"n", "v"}},
+  }
+})
+
 -- potamides/pantran.nvim: trans without leave neovim ------------------- {{{3
 Plug.add("potamides/pantran.nvim", {
   keys = {
@@ -837,7 +870,8 @@ Plug.add("gbprod/yanky.nvim", {
 
 -- rareitems/anki.nvim: creation of Anki cards directly from neovim ----- {{{3
 Plug.add('rolf-stargate/ankifly.nvim', {
-  cmd = {"Anki", "AnkiBasic", "AnkiCloze", "AnkiReverse"}
+  cmd = {"Anki", "AnkiBasic", "AnkiCloze", "AnkiReverse"},
+  dev = true,
 })
 
 -- sindrets/diffview.nvim: cycling through diffs for all modified files - {{{3
@@ -988,6 +1022,13 @@ Plug.add("vim-pandoc/vim-pandoc-syntax", {
   end,
   ft = { "markdown", "pandoc", "markdown.pandoc" },
 })
+Plug.add("ellisonleao/glow.nvim", {
+  cmd = {"Glow"},
+  config = function()
+    require('glow').setup { style = "dark", width = 86}
+  end
+})
+
 -- Plug.add('vim-pandoc/vim-pandoc', {
 --     dependencies = {'vim-pandoc/vim-pandoc-syntax'},
 --     ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc'}

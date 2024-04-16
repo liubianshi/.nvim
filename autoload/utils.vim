@@ -604,6 +604,7 @@ function! utils#ViewLines() range
     else
         return 0
     endif
+
     let listcontents = system("xsv flatten -s '" . repeat("─", 30) . "' -d '" . sep . "'", selectedLines)
     let listcontents = repeat("─", 30) . "\n" . listcontents
     silent cexpr listcontents
@@ -651,6 +652,11 @@ endfunction
 " 翻译操作符 ============================================================= {{{1
 function! utils#Trans_string(str)
     let cmd = "deepl \"%s\" 2>/dev/null"
+    if len(split(a:str, ' ')) == 1
+        Lazy! load vim-translator
+        exec "TranslateW " . a:str
+        return ""
+    endif
     let cmd = printf(cmd, a:str)
     let re = system(cmd)
     if v:shell_error != 0

@@ -95,8 +95,11 @@ lspconfig.lua_ls.setup {
 -- markdown_oxide ------------------------------------------------------- {{{2
 lspconfig.markdown_oxide.setup {
   cmd = { vim.env.HOME .. "/.cargo/bin/markdown-oxide" },
+  filetype = {'markdown', "rmd", "rmarkdown"},
   root_dir = util.root_pattern(".obsidian", ".git", ".vim"),
-  on_attach = function(client, bufnr)
+  capabilities = capabilities,
+  single_file_support = false,
+  on_attach = function(client, _) -- _ bufnr
     client.handlers["textDocument/publishDiagnostics"] = function() end
   end,
 }

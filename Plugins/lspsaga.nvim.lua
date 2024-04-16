@@ -1,6 +1,10 @@
 -- local keymap = vim.keymap.set
 local saga = require('lspsaga')
-saga.setup({})
+saga.setup({
+    symbol_in_winbar = {
+        enable = false,
+    }
+})
 
 local sagamap = function(key, desc, cmd, opts)
     opts = opts or {}

@@ -8,7 +8,7 @@ if exists("g:neovide")
         call setenv("NVIM_COLOR_SCHEME_DARK", "OceanicNext")
     endif
     if has('mac') 
-        let &guifont =  "Maple Mono NF,LXGW WenKai Mono:h16:w-1.5"
+        let &guifont =  "Maple Mono NF,LXGW WenKai Mono:Apple Color Emoji:h16:w-1.5"
         let &linespace = 18
         let g:neovide_padding_top = 0
         let g:neovide_padding_bottom = 0

@@ -5,8 +5,8 @@ zenmode.setup {
     backdrop = 0.85,
     width = function()
       local ww = vim.fn.winwidth(0)
-      if ww > 150 then
-        return 120
+      if ww > 125 then
+        return 100
       else
         return vim.fn.floor(ww * 0.8)
       end

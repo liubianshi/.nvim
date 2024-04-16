@@ -4,7 +4,7 @@ local orglib = "~/Documents/Writing/"
 require('orgmode').setup({
   org_agenda_files = { orglib .. '*.org'},
   org_default_notes_file = orglib .. 'refile.org',
-  org_todo_keywords = {'TODO(t)', 'PROJ(p)', 'LOOP(r)', 'STRT(s)', 'WAIT(w)', 'HOLD(h)', 'IDEA(i)', '|', 'DONE(d)', 'KILL(k)'},
+  org_todo_keywords = {'TODO(t)', 'PROJ(p)', 'LOOP(r)', 'STRT(s)', 'WAIT(w)', 'HOLD(h)', 'IDEA(i)', '|', 'DONE(d)', 'KILL(k)', 'CANCELLED(c)'},
   org_highlight_latex_and_related = 'entities',
   org_startup_indented = false,
   org_hide_emphasis_markers = true,

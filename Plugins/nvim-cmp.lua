@@ -36,7 +36,7 @@ local function construct_cmp_source(sources)
                     keyword_pattern = '[-_$:A-Za-z0-9]\\+',
                 },
                 rime_ls = {
-                    keyword_pattern = '[-*_:\\,.?!$&<>A-Za-z0-9]\\+',
+                    keyword_pattern = '[,.a-z0-9]\\+',
                 },
                 markdown_oxide = {
                     keyword_pattern = [[\(\k\| \|\/\|#\)\+]]
@@ -215,13 +215,13 @@ local cmp_config = {
         hl_group = "CmpGhostText",
       },
     },
-    matching = {
-        disallow_fuzzy_matching = true,
-        disallow_fullfuzzy_matching = true,
-        disallow_partial_fuzzy_matching = true,
-        disallow_partial_matching = false,
-        disallow_prefix_unmatching = true,
-    },
+    -- matching = {
+    --     disallow_fuzzy_matching = true,
+    --     disallow_fullfuzzy_matching = true,
+    --     disallow_partial_fuzzy_matching = true,
+    --     disallow_partial_matching = false,
+    --     disallow_prefix_unmatching = true,
+    -- },
     mapping = cmp.mapping.preset.insert(keymap_config),
     sources = construct_cmp_source(),
 }

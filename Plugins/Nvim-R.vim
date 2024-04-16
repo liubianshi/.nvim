@@ -37,11 +37,13 @@ let R_notmuxconf = 1
 " let R_csv_app = "terminal:viewdata"
 let R_csv_app = "terminal:vd"
 
-command! RStart let oldft=&ft
-    \ | set ft=r
+command! RStart
+    \   let oldft=&ft
+    \ | set ft=rmd
     \ | exe 'set ft='.oldft
-    \ | let b:IsInRCode = function("DefaultIsInRCode")
-    \ | normal <LocalLeader>rf
+    \ | let b:IsInRCode = function("RmdIsInRCode")
+    \ | let b:SendChunkToR = function("SendRmdChunkToR")
+    \ | normal! <localleader>rf
 
 " for coc
 let b:coc_additional_keywords = [ "." ]

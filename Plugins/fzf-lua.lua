@@ -398,19 +398,19 @@ end, { nargs = 0, desc = "fzflua: find org roam node"})
 
 local Cheat_Action = function(vimcmd)
     return(function(selected, opts)
-        local item = next(selected) and selected[1] or opts.last_query
-        if not item then
-            return
-        end
+        local item = next(selected) and selected[1] or opts.last_query:gsub("^'", "")
+        if not item then return end
         local dir = vim.env.HOME .. "/.config/cheat/cheatsheets/personal/"
-        local target_file = vim.fn.system("help -p '" .. item .. "'")
-        if string.match(target_file, "\n") then
-            return
-        end
+        local target_file = vim.fn.system("help -p '" .. item .. "' 2>/dev/null")
+        if string.match(target_file, "\n") then return end
 
         if vimcmd == "rename" then
             local newname = vim.fn.input("Enter newname: ")
             vim.fn.system("help -r " .. newname .. " " .. item)
+        elseif vimcmd == "Glow" then
+            local tmp = vim.fn.tempname() .. ".md"
+            vim.fn.system("ln -sf " .. vim.fn.fnameescape(target_file) .. " " .. tmp)
+            vim.cmd("Glow " .. tmp)
         else
             vim.cmd(vimcmd .. " " .. vim.fn.fnameescape(target_file))
             vim.cmd("cd " .. dir)
@@ -425,7 +425,8 @@ vim.api.nvim_create_user_command('Cheat', function(_)
             ['--no-multi'] = '',
         },
         actions = {
-            ['default'] = Cheat_Action("edit"),
+            ['default'] = Cheat_Action("Glow"),
+            ['ctrl-e'] = Cheat_Action("edit"),
             ['ctrl-v'] = Cheat_Action("vsplit"),
             ['ctrl-x'] = Cheat_Action("split"),
             ['ctrl-t'] = Cheat_Action("tabedit"),

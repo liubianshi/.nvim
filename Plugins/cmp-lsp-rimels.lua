@@ -27,10 +27,7 @@ end
 
 require('rimels').setup({
     keys = { start = ";f", stop = ";;", esc = ";j" },
-    cmd = { vim.env.HOME .. "/.local/bin/rime_ls" },
-    rime_user_dir = "~/.local/share/rime-ls",
-    shared_data_dir = "/Library/Input Methods/Squirrel.app/Contents/SharedSupport",
-    trigger_characters = {},
+    always_incomplete = false,
     detectors = {
         with_treesitter = {
             norg = detector_for_norg,
