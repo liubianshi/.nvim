@@ -96,4 +96,77 @@ vim.api.nvim_create_user_command(
     { nargs = '+', desc = "Preview image"}
 )
 
+-- local function is_image_rendered(bufnr, file)
+--     bufnr = bufnr or vim.api.nvim_get_current_buf()
+--
+--     local images = require('image').get_images()
+--     for _, img in ipairs(images) do
+--         if  img.buffer and img.buffer == bufnr
+--         and (
+--             (file and img.path and img.path == file) or (
+--                 img.geometry and img.geometry.y and
+--                 img.geometry.y == vim.fn['utils#GetNearestEmptyLine']()
+--             )
+--         )
+--         then
+--             return true
+--         end
+--     end
+--     return false
+-- end
+
+
+
+local function clear_image(bufnr, file)
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
+
+    local images = require('image').get_images()
+    for _, img in ipairs(images) do
+        if  img.buffer and img.buffer == bufnr
+        and (
+            (file and img.path and img.path == file) or (
+                img.geometry and img.geometry.y and (
+                    img.geometry.y == vim.fn['utils#GetNearestEmptyLine']() or
+                    img.geometry.y >= vim.fn.line('.') - 1 or
+                    img.geometry.y <= vim.fn.line('.') + 1
+                )
+            )
+        )
+        then
+            img:clear()
+            return true
+        end
+    end
+    return false
+end
+
+vim.api.nvim_create_user_command(
+    'ImageClear',
+    function(args)
+        local args_number = #args.fargs
+        local file = nil
+        if args_number > 0 then
+            file = args.fargs[1]
+        end
+        clear_image(nil, file)
+    end,
+    { nargs = '?', desc = "Clear image preview"}
+)
+
+vim.api.nvim_create_user_command(
+    'ImageToggle',
+    function(args)
+        local args_number = #args.fargs
+        local file = nil
+        if args_number > 0 then
+            file = args.fargs[1]
+        end
+        if not clear_image(nil, file) and file then
+            display_image(file, {method = "infile"})
+        end
+    end,
+    { nargs = '?', desc = "Toggle image preview"}
+)
+
+
 

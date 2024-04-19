@@ -43,6 +43,18 @@ function! s:RefereceLink() abort
     endif    
 endfun
 
+function s:MylibOpen()
+    let fname = expand('%')
+    Mylib new
+    if ! has_key(b:, "mylib_key")
+        return
+    endif
+    Mylib open
+    let b:mylib_note = fname
+endfunction
+
+nnoremap <buffer><silent> <localleader>ms :<c-u>call <sid>MylibOpen()<cr>
+
 nnoremap <buffer><silent> <localleader>il :<c-u>call <sid>RefereceLink()<cr>
 inoremap <buffer><silent> <localleader>il <esc>:<c-u>call <sid>RefereceLink()<cr>
 

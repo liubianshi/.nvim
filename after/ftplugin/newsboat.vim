@@ -7,10 +7,6 @@ function! s:get_link_under_cursur_line()
         let content = substitute(content, '\v.*\(link #([0-9]+)\).*$', '\1', '')
         return b:newsboat_url_dict[content]
     else
-        try
-            DeleteImage
-            catch /Not an editor command/
-        endtry
         return {}
     endif
 endfunction
@@ -140,6 +136,11 @@ function! s:mylib_send_content_to_note(content, line = -1, method = "") abort
 endfunction
 
 function! s:mylib_send_clipboard_to_note(method = "quiet")
+    if ! has_key(b:, "mylib_key")
+        lua vim.notify("Need save html file to lib first")
+        return
+    endif
+
     if @+ == "" | return | end
     let content = trim(@+)
     if b:mylib_note =~? '\.org$'

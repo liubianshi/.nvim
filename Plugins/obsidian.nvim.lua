@@ -212,7 +212,7 @@ require("obsidian").setup({
     bullets = { char = "•", hl_group = "ObsidianBullet" },
     external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
     -- Replace the above with this if you don't have a patched font:
-    -- external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
+    external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
     reference_text = { hl_group = "ObsidianRefText" },
     highlight_text = { hl_group = "ObsidianHighlightText" },
     tags = { hl_group = "ObsidianTag" },
@@ -226,7 +226,7 @@ require("obsidian").setup({
       ObsidianRefText = { underline = true, fg = "#c792ea" },
       ObsidianExtLinkIcon = { fg = "#c792ea" },
       ObsidianTag = { italic = true, fg = "#89ddff" },
-      ObsidianHighlightText = { bg = "#75662e" },
+      -- ObsidianHighlightText = { bg = "#75662e" },
     },
   },
 

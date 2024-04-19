@@ -2,12 +2,16 @@ runtime syntax/pandoc.vim
 
 syntax match MarkdownQuote /\v^\>\ze( |$)/ conceal cchar=┃
 syntax match MarkdownQuoteSpecial_pre /\v^\>\ze \[![^]]+\]/ conceal cchar=┏  contained
-syntax region MarkdownQuoteSpecial start='\v^\> \[![^]]+\]' end='$' keepend contains=MarkdownQuoteSpecial_pre,MarkdownQuoteSpecialMarker
+syntax match MarkdownQuoteSpecial /\v^\> \[![^]]+\]\s.*$/hs=s+2 keepend contains=MarkdownQuoteSpecial_pre,MarkdownQuoteSpecialMarker
 syntax match MarkdownQuoteSpecialMarker /\v\[![^]]+\]/ contained
+syntax match MarkdownHighlightPre /\v\={2}/ conceal contained
+syntax match MarkdownHighlight /\v\={2}([^=]|\n[^=])+(\={2}|\n\n)/ contains=MarkdownHighlightPre,MarkdownQuote
 
 exec "highlight def MarkdownQuoteSpecial_pre guifg=" . g:lbs_colors['orange']
-highlight link MarkdownQuoteSpecial @text.literal 
-highlight link MarkdownQuoteSpecialMarker TSTitle
+exec "highlight def MarkdownHighlight guibg=" . g:lbs_colors['yellow'] . " guifg=" . g:lbs_colors['darkblue']
+exec "highlight def MarkdownQuoteSpecial gui=underline guifg=" . g:lbs_colors['yellow']
+exec "highlight def MarkdownQuoteSpecialMarker gui=bold guibg=" . g:lbs_colors['yellow'] ." guifg=" . g:lbs_colors['darkblue']
+
 
 " source:
 " https://github.com/vim-pandoc/vim-rmarkdown/blob/a1787cb55e45b8778eaed7b392648deb4706cd0b/syntax/rmarkdown.vim

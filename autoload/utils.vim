@@ -171,11 +171,7 @@ function! utils#OpenUrl(url, in = "", type = "")
     if a:in ==# "in"
         let image_path = system(command . "-V " . "'".url."'")
         echom image_path
-        try
-            DeleteImage
-            catch /Not an editor command/
-        endtry
-        exec "PreviewImage infile " . image_path
+        exec "ImageToggle " . image_path
     else
         Lazy! load asyncrun.vim
         call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command . "'".url."'" )
@@ -910,8 +906,8 @@ function! utils#Extract_hl_group_link()
 endfunction
 
 " 获取光标下方最接近的空行行号 ========================================== {{{1
-function! utils#GetNearestEmptyLine()
-    let cursor_line = line('.')
+function! utils#GetNearestEmptyLine(linenr = -1)
+    let cursor_line = a:linenr == -1 ? line('.') : a:linenr
     let total_lines = line('$')
     let nearest_empty_line = -1
 

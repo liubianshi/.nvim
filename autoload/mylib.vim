@@ -37,19 +37,27 @@ function! s:mylib_new() abort
     if has_key(b:, "mylib_key") && b:mylib_key != ""
         return b:mylib_key
     endif
-
-    if &filetype !~? 'newsboat'
-        let key = substitute(expand("%:t"), '\v^([A-Fa-f0-9]+).*', "\\1", "")
-        let key = system("mylib get md5_long -- " . key)
-        if key == "" | return | endif
+    let key = system("mylib get md5_long -- " . fnameescape(expand('%')))
+    let key = trim(key)
+    if key =~? '\v^[a-f0-9]{32}$' 
         let b:mylib_key = key
         return b:mylib_key
-    end
+    endif
 
-    " 处理文件类型为 newsboat 的特殊情况
+    if &filetype !=? 'newsboat'
+        return
+    endif
+
     let url = b:fetched_urls[0]
     if url == "" | return | endif
-    let b:mylib_key = systemlist("mylib new '" . url . "'")[-1]
+    let key = systemlist("mylib new --nonewsboat '" . url . "'")[-1]
+    let key = trim(key)
+    if key !~? '\v[a-f0-9]{32}'
+        lua vim.notify("Failed to generate mylibrary entry", vim.log.levels.ERROR)
+        return ""
+    endif
+
+    let b:mylib_key = key
     let filename = system("mylib get html -- '" . b:mylib_key . "'")
     let filename = fnamemodify(filename, ":p:r") . ".newsboat"
     let filename_escape = fnameescape(filename)
