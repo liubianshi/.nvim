@@ -1,6 +1,7 @@
 function! s:fasd_update() abort
   if empty(&buftype) || &filetype ==# 'dirvish'
-    call jobstart(['fasd', '-A', fnameescape(expand('%:p'))])
+      if expand('%') == "" | return | endif
+      call jobstart(['fasd', '-A', fnameescape(expand('%:p'))])
   endif
 endfunction
 
@@ -80,7 +81,7 @@ autocmd BufWinEnter,BufRead,BufEnter  * call s:adjust_window_based_on_zen_mode_s
 
 
 " Fasd ------------------------------------------------------------------ {{{2
-autocmd BufWinEnter,BufFilePost * call <SID>fasd_update()
+autocmd BufNewFile * call s:fasd_update()
 
 " Resize all windows when we resize the terminal ------------------------ {{{2
 " From:

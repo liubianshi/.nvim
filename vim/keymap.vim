@@ -88,6 +88,11 @@ xnoremap c "_c
 " Text objects for URL --------------------------------------------------- {{{2
 xnoremap <silent> iu :<C-U>call text_obj#URL()<CR>
 onoremap <silent> iu :<C-U>call text_obj#URL()<CR>
+xnoremap <silent> il ^o$h
+onoremap <silent> il :normal vil<cr>
+xnoremap <silent> al ^o$
+onoremap <silent> al :normal val<cr>
+
 
 " Terminal =============================================================== {{{1
 

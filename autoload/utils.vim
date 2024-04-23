@@ -921,5 +921,44 @@ function! utils#GetNearestEmptyLine(linenr = -1)
     return nearest_empty_line
 endfunction
 
+" 调整到特定的 Buffer
+function! utils#JumpToBuffer(bufname)
+    let windows = getwininfo()
+    for window in windows
+        " 检查每个窗口中的缓冲区名称
+        let win_bufname = bufname(window.bufnr)
+        " 如果缓冲区名称与给定名称匹配，则跳转到该窗口
+        if win_bufname == a:bufname
+            execute window.winnr . "wincmd w"
+            return
+        endif
+    endfor
+    echo "Buffer not found in current tab."
+endfunction
+
+" Insert line before or after
+function! utils#InsertLine(content, target, bufnr = 0, check = v:null, after = v:false) abort
+    let cur_bufnr = bufnr()
+    if a:bufnr != 0
+        exec "buffer " . a:bufnr
+    endif
+    if a:check != v:null && search(a:check, 'n') != 0
+        exec "buffer " . cur_bufnr     
+        return -1 
+    endif
+    let target_linenr = search(a:target, 'n')
+    if target_linenr == 0 
+        let target_linenr = line('$')
+    endif
+    if a:after
+        call append(target_linenr, a:content)
+    else
+        call append(target_linenr - 1, a:content)
+    endif
+    exec "buffer " . cur_bufnr     
+    return 1
+endfunction
+
+
 " End =================================================================== {{{1
 " vim: fdm=marker:

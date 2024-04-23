@@ -15,6 +15,7 @@ require("focus").setup {
 
 local ignore_filetypes = {
   "rbrowser",
+  "sagaoutline",
   "floaterm",
   "rdoc",
   "fzf",

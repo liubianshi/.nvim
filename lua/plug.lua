@@ -70,6 +70,9 @@ Plug.add("tpope/vim-sleuth", {
   event = { "BufReadPost", "BufWrite" },
 })
 
+-- typicode/bg.nvim: Automatically sync your terminal background -------- {{{3
+Plug.add( "typicode/bg.nvim", { lazy = false })
+
 -- is0n/fm-nvim: open terminal file manager or other terminal app ------- {{{3
 Plug.add("is0n/fm-nvim", {
   cmd = { "Lf", "Nnn", "Neomutt", "Lazygit" },
@@ -177,11 +180,6 @@ Plug.add("ibhagwan/fzf-lua", {
       desc = "FzfLua: colorschemes",
     },
     {
-      "<leader>sH",
-      "<cmd>FzfLua highlights<cr>",
-      desc = "FzfLua: highlights",
-    },
-    {
       "<leader>sr",
       "<cmd>FzfLua grep<cr>",
       desc = "FzfLua: Grep lines",
@@ -218,6 +216,11 @@ Plug.add("nvim-telescope/telescope.nvim", {
       "<leader>ff",
       Util.telescope "files",
       desc = "Telescope: Find Files (root dir)",
+    },
+    {
+      "<leader>sH",
+      Util.telescope "highlights",
+      desc = "Telescope: highlights",
     },
     {
       "<leader>fF",

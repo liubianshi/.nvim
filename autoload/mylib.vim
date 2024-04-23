@@ -32,8 +32,43 @@ function! s:mylib_edit()
     return v:true
 endfunction
 
+function! s:gen_newsboat_base_current_buffer(url)
+    let key = systemlist("mylib new --nonewsboat '" . a:url . "'")[-1]
+    let key = trim(key)
+    if key !~? '\v[a-f0-9]{32}'
+        lua vim.notify("Failed to generate mylibrary entry", vim.log.levels.ERROR)
+        return ""
+    endif
 
-function! s:mylib_new() abort
+    let filename = system("mylib get html -- '" . key . "'")
+    let filename = fnamemodify(filename, ":p:r") . ".newsboat"
+    let filename_escape = fnameescape(filename)
+    if filereadable(filename)
+        let bufnr = bufnr()
+        exec "edit " . filename_escape
+        call utils#ToggleZenMode()
+        exec "bwipeout " . bufnr
+    else
+        setlocal buftype=
+        exec 'write ' . fnameescape(filename)
+    endif
+    return key
+endfunction
+
+
+function! s:mylib_new(item = "", cmd = "vsplit") abort
+    if a:item != ""
+        let key = system("mylib new " . shellescape(a:item))
+        let key = trim(key)
+        if key =~? '\v^[a-f0-9]{32}$' 
+            let filename = system("mylib get newsboat -- '" . key . "'")
+            let filename = fnameescape(trim(filename))
+            exec a:cmd . " " . filename
+            let b:mylib_key = key
+            return b:mylib_key
+        endif
+        return
+    endif
     if has_key(b:, "mylib_key") && b:mylib_key != ""
         return b:mylib_key
     endif
@@ -50,28 +85,22 @@ function! s:mylib_new() abort
 
     let url = b:fetched_urls[0]
     if url == "" | return | endif
-    let key = systemlist("mylib new --nonewsboat '" . url . "'")[-1]
-    let key = trim(key)
-    if key !~? '\v[a-f0-9]{32}'
-        lua vim.notify("Failed to generate mylibrary entry", vim.log.levels.ERROR)
-        return ""
-    endif
+    let linenum = getline('$')
 
-    let b:mylib_key = key
-    let filename = system("mylib get html -- '" . b:mylib_key . "'")
-    let filename = fnamemodify(filename, ":p:r") . ".newsboat"
-    let filename_escape = fnameescape(filename)
-    if filereadable(filename)
+    if linenum <= 15
+        let key = s:gen_newsboat_base_current_buffer(url)
+        let b:mylib_key = key
+    else
+        let key = systemlist("mylib new '" . url . "'")[-1]
+        let filename = system("mylib get newsboat -- '" . key . "'")
+        let filename_escape = fnameescape(filename)
         let bufnr = bufnr()
-        let libkey = b:mylib_key
         exec "edit " . filename_escape
-        let b:mylib_key = libkey
+        let b:mylib_key = key
         call utils#ToggleZenMode()
         exec "bwipeout " . bufnr
-    else
-        setlocal buftype=
-        exec 'write ' . fnameescape(filename)
     endif
+
     return b:mylib_key
 endfunction
 
