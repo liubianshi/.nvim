@@ -18,6 +18,7 @@ require("neodev").setup {
 }
 local lspconfig = require "lspconfig"
 local util = require "lspconfig.util"
+vim.lsp.set_log_level "ERROR"
 
 -- Preconfiguration ----------------------------------------------------------- {{{2
 local capabilities = (function()
@@ -93,11 +94,17 @@ lspconfig.lua_ls.setup {
 }
 
 -- markdown_oxide ------------------------------------------------------- {{{2
+local capabilities_oxide = capabilities
+capabilities_oxide.workspace = {
+    didChangeWatchedFiles = {
+      dynamicRegistration = true,
+    },
+}
 lspconfig.markdown_oxide.setup {
   cmd = { vim.env.HOME .. "/.cargo/bin/markdown-oxide" },
   filetype = {'markdown', "rmd", "rmarkdown"},
   root_dir = util.root_pattern(".obsidian", ".git", ".vim"),
-  capabilities = capabilities,
+  capabilities = capabilities_oxide,
   single_file_support = false,
   on_attach = function(client, _) -- _ bufnr
     client.handlers["textDocument/publishDiagnostics"] = function() end

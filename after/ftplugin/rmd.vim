@@ -55,7 +55,7 @@ nnoremap <silent> <localleader>ab :<c-u>AsyncRun
 "    \ :w !pandoc --from=markdown+east_asian_line_breaks -t html - \| xclip -t text/html -sel clip -i<cr>
 "noremap <silent> <leader>nh
 "    \ :r  !xclip -o -t text/html -sel clip \| pandoc -f html -t markdown_strict<cr>
-setlocal tw=78 formatoptions=tcq,ro/,n,lm]1,Bj tabstop=4 shiftwidth=4
+setlocal formatoptions=tcq,ro/,n,lm]1,Bj tabstop=4 shiftwidth=4
 UltiSnipsAddFiletype rmd.r.markdown.pandoc
 
 
