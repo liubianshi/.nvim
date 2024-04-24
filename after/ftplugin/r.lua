@@ -37,10 +37,6 @@ vimkey("<localleader>t1", "DataLib: table list",    "<cmd>call    utils#R_view_s
 vimkey("<localleader>t2", "DataLib: variable list", "<cmd>call    utils#R_view_srdm_var()<cr>")
 
 
-
-
-
-
 wk.register({
     ['a'] = { name = "Send file / ALE" },
     ['b'] = { name = "Send block / debug" },

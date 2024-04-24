@@ -5,10 +5,12 @@ re_map = re.compile(r';([^;]+)')
 endglobal
 
 snippet head "Rscript Header" b
-library("magrittr")
-library("stringr")
-library("data.table")
-my <- new.env(parent = emptyenv())
+box::use(
+	magrittr[\`%>%\`, \`%<>%\`, \`%T>%\`],
+	stringr,
+	data.table[\`:=\`]
+)
+$0
 endsnippet
 
 snippet '/((?:[^\s:\\]|\\\\|\\\s)+)((\s+(?:[^\s:\\]|\\\\|\\\s)+)*)/'  "perl style string vector" r

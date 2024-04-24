@@ -36,7 +36,7 @@ local function construct_cmp_source(sources)
                     keyword_pattern = '[-_$:A-Za-z0-9]\\+',
                 },
                 rime_ls = {
-                    keyword_pattern = '[-?:<>,\\.a-z0-9]\\+',
+                    keyword_pattern = '[-?:<>,{}*\\.a-z0-9]\\+',
                 },
                 markdown_oxide = {
                     keyword_pattern = [[\(\k\| \|\/\|#\)\+]]
@@ -239,9 +239,9 @@ cmp.setup.filetype({'pandoc', 'markdown', 'rmd', 'rmarkdown'}, {
     })
 })
 
--- cmp.setup.filetype({'r'}, {
---     sources = construct_cmp_source({{name = 'cmp_nvim_r'}})
--- })
+cmp.setup.filetype({'r'}, {
+    sources = construct_cmp_source({{name = 'cmp_nvim_r'}})
+})
 
 -- cmp.setup.filetype({'rmd'}, {
 --     sources = construct_cmp_source({{name = 'cmp_nvim_r'}})
