@@ -30,3 +30,4 @@ exe 'syn region pandocPythonChunk '.
 
 syn region pandocInlinePython matchgroup=Operator start=/`python\s/ end=/`/ contains=@Python concealends
 
+hi pandocStrong gui=underline

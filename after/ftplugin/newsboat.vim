@@ -208,6 +208,7 @@ endfunction
 
 " set options ----------------------------------------------------------- {{{1
 set nocindent nosmartindent nowrap 
+let &l:formatprg = "text_wrap -tonewsboat"
 set fo-=q
 setlocal scrolloff=10
 

@@ -6,3 +6,4 @@ let g:pandoc#syntax#codeblocks#embeds#langs = [
             \ "lua",]
 let g:pandoc#syntax#conceal#blacklist = []
 let g:pandoc#syntax#conceal#cchar_overrides = {'titleblock': "*"}
+hi pandocStrong gui=underline
