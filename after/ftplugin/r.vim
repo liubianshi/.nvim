@@ -11,17 +11,17 @@ setlocal tags+=~/.cache/Nvim-R/Rtags,~/.cache/Nvim-R/RsrcTags
 inoremap <buffer> <A-\>          %>%
 inoremap <buffer> <A-\|>         %<>%
 inoremap <buffer> <A-=>          <-<Space>
-imap     <buffer> <A-1>          <Esc><Plug>RSendLine
-nmap     <buffer> <A-1>          <Plug>RSendLine
+" imap     <buffer> <A-1>          <Esc><Plug>RSendLine
+" nmap     <buffer> <A-1>          <Plug>RSendLine
 if has("mac")
     inoremap <buffer> «          %>%
     inoremap <buffer> »          %<>%
     inoremap <buffer> ≠          <-<Space>
-    imap     <buffer> ¡          <Esc><Plug>RDSendLine
-    nmap     <buffer> ¡          <Plug>RDSendLine
+    " imap     <buffer> ¡          <Esc><Plug>RDSendLine
+    " nmap     <buffer> ¡          <Plug>RDSendLine
 endif
 
-nmap     <buffer> <localleader>l              <Plug>RSendLine
-vmap     <buffer> <localleader>l              <Plug>REDSendSelection
-nmap     <buffer> <LocalLeader>: :RSend 
+" nmap     <buffer> <localleader>l              <Plug>RSendLine
+" vmap     <buffer> <localleader>l              <Plug>REDSendSelection
+" nmap     <buffer> <LocalLeader>: :RSend 
 

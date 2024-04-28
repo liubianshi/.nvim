@@ -4,7 +4,7 @@ ts.setup({
     modules = {},
     ensure_installed = { "r",       "bash",            "vim",    "org",   "lua",  "dot", 'perl',
                         "markdown", "markdown_inline", "bibtex", "css",   "json",
-                        "vim",      "vimdoc",          "query",  "latex", "jq",
+                        "vim",      "vimdoc",          "query",  "latex", "jq", 'rnoweb'
     },
     sync_install = false,
     auto_install = false,

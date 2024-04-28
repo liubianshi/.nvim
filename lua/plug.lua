@@ -968,7 +968,8 @@ else
     "hrsh7th/cmp-buffer", -- buffer words
     "hrsh7th/cmp-cmdline", -- command line keywords
     "FelipeLema/cmp-async-path", -- filesystem paths
-    "jalvesaq/cmp-nvim-r", -- r with Nvim-R as backend
+    -- "jalvesaq/cmp-nvim-r", -- r with Nvim-R as backend
+    "R-nvim/cmp-r",
     "ray-x/cmp-treesitter", -- treesitter nodes
     "onsails/lspkind.nvim", -- adds vscode-like pictograms
     "quangnguyen30192/cmp-nvim-ultisnips", -- ultisnips
@@ -983,10 +984,10 @@ else
     ft = { "markdown", "pandoc", "rmarkdown", "Rmd" },
   })
   table.insert(cmp_dependencies, "liubianshi/cmp-zotcite")
-  Plug.add("jalvesaq/cmp-nvim-r", {
-    ft = { "r", "rmd" },
-    dependencies = { "hrsh7th/nvim-cmp" },
-  })
+  -- Plug.add("jalvesaq/cmp-nvim-r", {
+  --   ft = { "r", "rmd" },
+  --   dependencies = { "hrsh7th/nvim-cmp" },
+  -- })
   -- 如果作为 cmp 的依赖加载，会导致 ItermKind 无法识别
   -- table.insert(cmp_dependencies, 'jalvesaq/cmp-nvim-r')
   if vim.fn.has("mac") == 0 then
@@ -1129,11 +1130,14 @@ Plug.add("kristijanhusak/vim-dadbod-ui", {
   dependencies = { "tpope/vim-dadbod" },
 })
 
--- liubianshi/Nvim-R: Vim plugin to work with R ------------------------- {{{3
-Plug.add("liubianshi/Nvim-R", {
-  ft = { "r", "rmd", "qml" },
-  cmd = { "RStart" },
-})
+-- -- liubianshi/Nvim-R: Vim plugin to work with R ------------------------- {{{3
+-- Plug.add("liubianshi/Nvim-R", {
+--   ft = { "r", "rmd", "qml" },
+--   cmd = { "RStart" },
+-- })
+
+Plug.add("liubianshi/R.nvim", { dev = true, lazy = false })
+
 
 -- lervag/vimtex: filetype plugin for LaTeX files ----------------------- {{{3
 Plug.add("lervag/vimtex", { ft = "tex" })

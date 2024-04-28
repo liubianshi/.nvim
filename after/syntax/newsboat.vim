@@ -29,10 +29,12 @@ syn match newsHighlightSymbol /\v(〚|〛)/ contained conceal
 syn region newsHighlight start=/\V‹[/hs=s+2 end=/\V]›/he=s+1 contains=newsHighlightSymbol keepend
 syn region newsHighlight start=/\V〚/hs=s+1 end=/\V〛/he=s+1 contains=newsHighlightSymbol keepend
 
+syntax match MarkdownCode  /\v`[^`]+`/
 syntax match MarkdownQuote /\v^\>\ze( |$)/ conceal cchar=┃
 syntax match MarkdownQuoteSpecial_pre /\v^\>\ze \[![^]]+\]/ conceal cchar=┏  contained
 syntax match MarkdownQuoteSpecial /\v^\> \[![^]]+\]\s.*$/hs=s+2 keepend contains=MarkdownQuoteSpecial_pre,MarkdownQuoteSpecialMarker
 syntax match MarkdownQuoteSpecialMarker /\v\[![^]]+\]/ contained
+exec "highlight def MarkdownCode guifg=" . g:lbs_colors['green']
 exec "highlight def MarkdownQuoteSpecial_pre guifg=" . g:lbs_colors['orange']
 exec "highlight def MarkdownHighlight guibg=" . g:lbs_colors['yellow'] . " guifg=" . g:lbs_colors['darkblue']
 exec "highlight def MarkdownQuoteSpecial gui=underline guifg=" . g:lbs_colors['yellow']

@@ -41,4 +41,9 @@ require('rimels').setup({
     }
 })
 
+vim.api.nvim_create_user_command("RimeDeleteLockFile", function()
+  local rime_user_dir = require('rimels').opts.rime_user_dir
+  rime_user_dir = vim.fn.expand(rime_user_dir)
+  vim.loop.fs_unlink(rime_user_dir .. "/rime_ice.userdb/LOCK")
+end, { nargs = 0, desc = "Delete Lock file of Rime"})
 

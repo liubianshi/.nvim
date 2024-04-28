@@ -215,13 +215,13 @@ local cmp_config = {
         hl_group = "CmpGhostText",
       },
     },
-    -- matching = {
-    --     disallow_fuzzy_matching = true,
-    --     disallow_fullfuzzy_matching = true,
-    --     disallow_partial_fuzzy_matching = true,
-    --     disallow_partial_matching = false,
-    --     disallow_prefix_unmatching = true,
-    -- },
+    matching = {
+        -- disallow_fuzzy_matching = true,
+        -- disallow_fullfuzzy_matching = true,
+        disallow_partial_fuzzy_matching = true,
+        disallow_partial_matching = false,
+        disallow_prefix_unmatching = true,
+    },
     mapping = cmp.mapping.preset.insert(keymap_config),
     sources = construct_cmp_source(),
 }
@@ -233,19 +233,15 @@ cmp.setup.filetype({'stata'}, {
     sources = construct_cmp_source({{name = 'omni'}})
 })
 
-cmp.setup.filetype({'pandoc', 'markdown', 'rmd', 'rmarkdown'}, {
-    sources = construct_cmp_source({
-        {name = 'cmp_zotcite'},
-    })
-})
+-- cmp.setup.filetype({'pandoc', 'markdown', 'rmd', 'rmarkdown'}, {
+--     sources = construct_cmp_source({
+--         {name = 'cmp_zotcite'},
+--     })
+-- })
 
 cmp.setup.filetype({'r'}, {
-    sources = construct_cmp_source({{name = 'cmp_nvim_r'}})
+    sources = construct_cmp_source({{name = 'cmp_r'}})
 })
-
--- cmp.setup.filetype({'rmd'}, {
---     sources = construct_cmp_source({{name = 'cmp_nvim_r'}})
--- })
 
 
 -- cmp.setup.filetype({'perl', 'python', 'vim', 'bash'}, {

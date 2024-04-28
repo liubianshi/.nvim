@@ -85,17 +85,17 @@ function! s:mylib_new(item = "", cmd = "vsplit") abort
 
     let url = b:fetched_urls[0]
     if url == "" | return | endif
-    let linenum = getline('$')
+    let linenum = line('$')
 
-    if linenum <= 15
+    if linenum > 15
         let key = s:gen_newsboat_base_current_buffer(url)
         let b:mylib_key = key
     else
         let key = systemlist("mylib new '" . url . "'")[-1]
         let filename = system("mylib get newsboat -- '" . key . "'")
-        let filename_escape = fnameescape(filename)
+        " let filename_escape = fnameescape(filename)
         let bufnr = bufnr()
-        exec "edit " . filename_escape
+        exec "edit " . filename
         let b:mylib_key = key
         call utils#ToggleZenMode()
         exec "bwipeout " . bufnr

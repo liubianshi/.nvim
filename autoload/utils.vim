@@ -450,7 +450,8 @@ endfunction
 " R 语言函数定义 ========================================================= {{{1
 function! utils#R_view_df(dfname, row, method, max_width)
     let fname = "/tmp/r_obj_preview_data.tsv"
-    call g:SendCmdToR('fViewDFonVim("' . a:dfname . '", ' . a:row . ', "' . a:method . '", ' . a:max_width . ', "' . fname . '")')
+    let Rcommand = 'fViewDFonVim("' . a:dfname . '", ' . a:row . ', "' . a:method . '", ' . a:max_width . ', "' . fname . '")'
+    exec "lua require('r.send').source_lines({'" . Rcommand . "'})"
     sleep 100m
     call utils#Preview_data(fname, "r_obj_preview_bufnr")
 endfunction
