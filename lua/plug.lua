@@ -831,7 +831,7 @@ Plug.add("3rd/image.nvim", {
 
 -- gbprod/yanky.nvim: Improved Yank and Put functionalities for Neovim -- {{{3
 Plug.add("gbprod/yanky.nvim", {
-  requires = {"kkharji/sqlite.lua"},
+  dependencies = {"kkharji/sqlite.lua"},
   keys = {
     {
       "<leader>sp", function()
@@ -936,11 +936,6 @@ Plug.add("sirver/UltiSnips", {
   event = "InsertEnter",
 })
 
--- jalvesaq/zotcite: Vim plugin for integration with Zotero ------------- {{{3
-Plug.add("jalvesaq/zotcite", {
-  ft = { "pandoc", "rmd", "rmarkdown", "markdown" },
-})
-
 -- completation framework and relative sources -------------------------- {{{3
 if vim.g.complete_method == "coc" then
   -- neoclide/coc.nvim: Nodejs extension host for vim & neovim -------- {{{4
@@ -968,7 +963,6 @@ else
     "hrsh7th/cmp-buffer", -- buffer words
     "hrsh7th/cmp-cmdline", -- command line keywords
     "FelipeLema/cmp-async-path", -- filesystem paths
-    -- "jalvesaq/cmp-nvim-r", -- r with Nvim-R as backend
     "R-nvim/cmp-r",
     "ray-x/cmp-treesitter", -- treesitter nodes
     "onsails/lspkind.nvim", -- adds vscode-like pictograms
@@ -978,25 +972,6 @@ else
   }
   for _, k in ipairs(cmp_dependencies) do
     Plug.add(k, { lazy = true })
-  end
-  Plug.add("liubianshi/cmp-zotcite", {
-    dependencies = "jalvesaq/zotcite",
-    ft = { "markdown", "pandoc", "rmarkdown", "Rmd" },
-  })
-  table.insert(cmp_dependencies, "liubianshi/cmp-zotcite")
-  -- Plug.add("jalvesaq/cmp-nvim-r", {
-  --   ft = { "r", "rmd" },
-  --   dependencies = { "hrsh7th/nvim-cmp" },
-  -- })
-  -- 如果作为 cmp 的依赖加载，会导致 ItermKind 无法识别
-  -- table.insert(cmp_dependencies, 'jalvesaq/cmp-nvim-r')
-  if vim.fn.has("mac") == 0 then
-    -- wasden/cmp-flypy.nvim: Chinese IM ---------------------------- {{{4
-    Plug.add("wasden/cmp-flypy.nvim", {
-      lazy = true,
-      build = "make flypy",
-    })
-    table.insert(cmp_dependencies, "wasden/cmp-flypy.nvim")
   end
   Plug.add("hrsh7th/nvim-cmp", {
     event = "InsertEnter",
@@ -1086,7 +1061,7 @@ Plug.add("dhruvasagar/vim-table-mode", {
 -- epwalsh/obsidian.nvim
 Plug.add("epwalsh/obsidian.nvim", {
   version = "*",
-  requires = {
+  dependencies = {
     "nvim-lua/plenary.nvim",
   },
   ft = {"markdown"},

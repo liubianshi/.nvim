@@ -26,7 +26,7 @@ local opts = {
   setwd = 'nvim',
   open_pdf = "no",
   open_html = "no",
-  pdfviewer = "open",
+  pdfviewer = vim.fn.has('mac') == 0 and "zathura" or "open",
   synctex = false,
   listmethods = true,
   start_libs = vim.g.R_start_libs,

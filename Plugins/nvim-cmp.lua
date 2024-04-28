@@ -23,11 +23,8 @@ local function construct_cmp_source(sources)
         return(base)
     end
     local default = gen_cmp_source({
-        -- { name = 'flypy' },
         { name = 'ultisnips' }, -- For ultisnips users.
         { name = 'async_path', option = { trailing_slash = true }},
-        --{ name = 'nvim_lsp_signature_help' },
-        --{ name = 'cmdline' },
         {
             name = 'nvim_lsp',
             keyword_length = 1,
