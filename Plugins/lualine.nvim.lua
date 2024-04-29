@@ -112,6 +112,12 @@ local rsttcolor = function()
   return { fg = rstt[vim.g.R_Nvim_status][2] }
 end
 
+local current_time = {
+  function() return os.date("%H:%M") end,
+  padding = { left = 1, right = 1 },
+  colors = { bg = colors.fg, fg = colors.bg },
+}
+
 -- Config
 lualine.setup {
   options = {
@@ -148,7 +154,7 @@ lualine.setup {
     },
     lualine_x = { fname },
     lualine_y = { "filetype", encoding, {rstatus, color = rsttcolor}, foldmethod, rime_status },
-    lualine_z = { "selectioncount", "searchcount" },
+    lualine_z = { "selectioncount", "searchcount", current_time },
   },
   inactive_sections = {
     -- these are to remove the defaults

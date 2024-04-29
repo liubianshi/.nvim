@@ -25,8 +25,7 @@ end
 function M.fg(name)
   ---@type {foreground?:number}?
   local hl = vim.api.nvim_get_hl and vim.api.nvim_get_hl(0, { name = name })
-    or vim.api.nvim_get_hl_by_name(name, true)
-  local fg = hl and hl.fg or hl.foreground
+  local fg = hl and (hl['fg'] or hl.foreground)
   return fg and { fg = string.format("#%06x", fg) }
 end
 
@@ -72,7 +71,7 @@ function M.get_root(path)
         or client.config.root_dir and { client.config.root_dir }
         or {}
       for _, p in ipairs(paths) do
-        local r = vim.loop.fs_realpath(p)
+        local r = vim.loop.fs_realpath(p) or ""
         if path:find(r, 1, true) then
           roots[#roots + 1] = r
         end
@@ -132,53 +131,6 @@ function M.telescope(builtin, opts)
 
     require("telescope.builtin")[builtin](opts)
   end
-end
-
----@type table<string,LazyFloat>
-local terminals = {}
-
--- Opens a floating terminal (interactive by default)
----@param cmd? string[]|string
----@param opts? LazyCmdOptions|{interactive?:boolean, esc_esc?:false, ctrl_hjkl?:false}
-function M.float_term(cmd, opts)
-  opts = vim.tbl_deep_extend("force", {
-    ft = "lazyterm",
-    size = { width = 0.9, height = 0.9 },
-  }, opts or {}, { persistent = true })
-  ---@cast opts LazyCmdOptions|{interactive?:boolean, esc_esc?:false}
-
-  local termkey = vim.inspect {
-    cmd = cmd or "shell",
-    cwd = opts.cwd,
-    env = opts.env,
-    count = vim.v.count1,
-  }
-
-  if terminals[termkey] and terminals[termkey]:buf_valid() then
-    terminals[termkey]:toggle()
-  else
-    terminals[termkey] = require("lazy.util").float_term(cmd, opts)
-    local buf = terminals[termkey].buf
-    vim.b[buf].lazyterm_cmd = cmd
-    if opts.esc_esc == false then
-      vim.keymap.set("t", "<esc>", "<esc>", { buffer = buf, nowait = true })
-    end
-    if opts.ctrl_hjkl == false then
-      vim.keymap.set("t", "<c-h>", "<c-h>", { buffer = buf, nowait = true })
-      vim.keymap.set("t", "<c-j>", "<c-j>", { buffer = buf, nowait = true })
-      vim.keymap.set("t", "<c-k>", "<c-k>", { buffer = buf, nowait = true })
-      vim.keymap.set("t", "<c-l>", "<c-l>", { buffer = buf, nowait = true })
-    end
-
-    vim.api.nvim_create_autocmd("BufEnter", {
-      buffer = buf,
-      callback = function()
-        vim.cmd.startinsert()
-      end,
-    })
-  end
-
-  return terminals[termkey]
 end
 
 ---@param silent boolean?
@@ -389,5 +341,35 @@ function M.bibkey_action(bibkey)
     command[choice]()
   end
 end
+
+function M.execute_async(command, callback_funs)
+    callback_funs = callback_funs or {}
+    callback_funs = vim.tbl_extend("keep", callback_funs, {
+      on_stdout = function(_, data, _)
+        if type(data) ~= "table" then data = {data} end
+        print(vim.fn.join(data, ""))
+      end,
+      on_error  = function(_, data, _)
+        if type(data) ~= "table" then data = {data} end
+        print(vim.fn.join(data, ""))
+      end,
+      on_exit   = function(_, data, _)
+        if type(data) ~= "table" then data = {data} end
+        print(vim.fn.join(data, ""))
+      end,
+    })
+
+    local job_id = vim.fn.jobstart(command, {
+        on_stdout = callback_funs.on_stdout,
+        on_stderr = callback_funs.on_stderr,
+        on_exit   = callback_funs.on_exit,
+    })
+
+    return job_id
+end
+
+
+
+
 
 return M

@@ -954,6 +954,7 @@ else
     event = { "BufReadPre", "BufNewFile", "BufWinEnter" },
     dependencies= {"folke/neodev.nvim"},
   })
+  Plug.add("R-nvim/cmp-r", { dev = true, lazy = true})
 
   -- hrsh7th/nvim-cmp: A completion plugin for neovim ----------------- {{{4
   local cmp_dependencies = {
@@ -963,7 +964,6 @@ else
     "hrsh7th/cmp-buffer", -- buffer words
     "hrsh7th/cmp-cmdline", -- command line keywords
     "FelipeLema/cmp-async-path", -- filesystem paths
-    "R-nvim/cmp-r",
     "ray-x/cmp-treesitter", -- treesitter nodes
     "onsails/lspkind.nvim", -- adds vscode-like pictograms
     "quangnguyen30192/cmp-nvim-ultisnips", -- ultisnips

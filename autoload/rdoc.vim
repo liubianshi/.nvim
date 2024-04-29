@@ -1,15 +1,6 @@
-function! s:RdocWord(word)
-    if s:DocExist(a:word)
-        " call s:ShowCmd("0read!Rscript --no-init-file -e 'help(" . a:word . ", try.all.packages = T)'", a:word)
-        call s:ShowCmd("0read!,rhelp " . a:word, a:word)
-    else
-        echo 'No documentation found for "' . a:word . '".'
-    endif
-endfunction
 
-function! s:DocExist(word)
-    let result = system("Rscript --no-init-file -e 'cat(length(unclass(help(" . a:word . ", try.all.packages = T))))'")
-    return result == 0 ? 0 : 1
+function! s:RdocWord(word)
+    call s:ShowCmd("0read!,rhelp " . a:word, a:word)
 endfunction
 
 function! s:ShowCmd(cmd, word)
@@ -21,6 +12,11 @@ function! s:ShowCmd(cmd, word)
   setlocal filetype=rdoc
   setlocal nomodifiable
 endfunction
+
+function! rdoc#RLisObjs(ArgLead, CmdLine, CursorPos)
+    return luaeval('require("r.server").list_objs(_A)', a:ArgLead)
+endfunction
+
 
 function! rdoc#Rdoc(...)
   let word = (empty(a:000) ? expand('<cword>') : join(a:000, ' '))

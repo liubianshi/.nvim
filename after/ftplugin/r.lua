@@ -5,6 +5,7 @@ local vimkey = function(key, desc, cmd, opts)
         desc = desc,
         silent = true,
         noremap = true,
+        buffer = true,
     })
 
     local mode = opts.mode
@@ -18,8 +19,6 @@ vimkey("<localleader>dt", "Test whole parogram",       "<cmd>call r#TestWholePro
 vimkey("<localleader>dl", "devtools: load package",    "<cmd>RSend devtools::load_all()<cr>")
 vimkey("<localleader>dd", "devtools: update document", "<cmd>RSend devtools::document()<cr>")
 vimkey("<localleader>db", "devtools: trace back",      "<cmd>RSend rlang::trace_back()<cr>")
-
-
 
 vimkey("<localleader>tv", "view data: head+tail",   "yiw<cmd>call utils#R_view_df_sample('ht')<cr>")
 vimkey("<localleader>tr", "view data: random",      "yiw<cmd>call utils#R_view_df_sample('r')<cr>")

@@ -212,7 +212,6 @@ require("obsidian").setup({
     bullets = { char = "•", hl_group = "ObsidianBullet" },
     external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
     -- Replace the above with this if you don't have a patched font:
-    external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
     reference_text = { hl_group = "ObsidianRefText" },
     highlight_text = { hl_group = "ObsidianHighlightText" },
     tags = { hl_group = "ObsidianTag" },
@@ -250,7 +249,7 @@ require("obsidian").setup({
         link_path = "img/" .. string.sub(abs_path, end_pos + 1, -1)
       else
         link_path = "img/" .. vim.fs.basename(abs_path)
-        vim.loop.fs_link(abs_path, (buffer_dir .. "/" .. link_path), "file")
+        vim.loop.fs_link(abs_path, (buffer_dir .. "/" .. link_path))
       end
 
       local display_name = vim.fs.basename(link_path)

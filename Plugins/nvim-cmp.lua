@@ -3,6 +3,7 @@ local cmp                    = require('cmp')
 local compare                = require('cmp.config.compare')
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 local types                  = require("cmp.types")
+require("cmp_r").setup({filetypes = {"r", "rmd", "markdown"}})
 vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 
 -- source config functions ---------------------------------------------- {{{2
@@ -236,10 +237,9 @@ cmp.setup.filetype({'stata'}, {
 --     })
 -- })
 
-cmp.setup.filetype({'r'}, {
-    sources = construct_cmp_source({{name = 'cmp_r'}})
+cmp.setup.filetype({'r', 'rmd'}, {
+    sources = construct_cmp_source({{ name = 'cmp_r' }})
 })
-
 
 -- cmp.setup.filetype({'perl', 'python', 'vim', 'bash'}, {
 --     sources = construct_cmp_source({{name = 'nvim_lsp'}})
