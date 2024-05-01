@@ -7,8 +7,14 @@ vim.keymap.set("n", '<localleader>rf', function()
     local cmp = require('cmp')
     local config = require('cmp.config')
     local cmp_sources = {}
+    local cmp_source_list = {}
     for _, s in pairs(cmp.core.sources) do
-        if config.get_source_config(s.name) and s:is_available() then
+        if
+            config.get_source_config(s.name) and
+            s:is_available() and
+            not cmp_source_list[s.name]
+        then
+            cmp_source_list[s.name] = 1
             table.insert(cmp_sources, config.get_source_config(s.name))
         end
     end
