@@ -893,6 +893,12 @@ Plug.add("ThePrimeagen/harpoon", {
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
 Plug.add("ahmedkhalf/project.nvim")
+-- jedrzejboczar/possession.nvim: Flexible session management for Neovim {{{3 
+-- Plug.add('jedrzejboczar/possession.nvim', {
+--   dependencies = { 'nvim-lua/plenary.nvim' },
+-- })
+Plug.add('rmagatti/auto-session')
+
 -- ludovicchabant/vim-gutentags: tag file management -------------------- {{{3
 Plug.add("ludovicchabant/vim-gutentags", {
   event = { "BufReadPost", "BufNewFile" },

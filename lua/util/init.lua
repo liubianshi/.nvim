@@ -368,6 +368,19 @@ function M.execute_async(command, callback_funs)
     return job_id
 end
 
+function M.in_project()
+  local cwd = vim.fn.getcwd()
+  local ok,project = pcall(require, "project_nvim")
+  if not ok then return end
+  local projects = project.get_recent_projects()
+  for _, proj in ipairs(projects) do
+    if cwd == proj then
+      return true
+    end
+  end
+  return false
+end
+
 
 
 
