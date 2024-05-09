@@ -143,6 +143,7 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
     vim.cmd("highlight MyPmenu guibg="          .. pallete.background)
     vim.cmd("highlight CmpItemAbbr guifg="      .. pallete.fg)
     vim.cmd("highlight CmpItemAbbrMatch guifg=" .. pallete.strong)
+    vim.cmd("highlight MsgSeparator guibg=bg guifg=" .. pallete.strong)
   end,
   desc = "Define personal highlight group",
 })

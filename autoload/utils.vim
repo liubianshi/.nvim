@@ -650,15 +650,24 @@ endfunction
 function! utils#Trans_string(str)
     let cmd = "deepl \"%s\" 2>/dev/null"
     if len(split(a:str, ' ')) == 1
-        Lazy! load vim-translator
-        exec "TranslateW " . a:str
-        return ""
+        let cmd = "sdcv -j " .. a:str
+        let re = system(cmd)
+        if v:shell_error != 0 | return | endif
+        let re = json_decode(re)
+        let re = trim(re[0]['definition'])
+        echon re
+
+        let re = substitute(re, '\v(\*\[[^\]]+\])\ze\n', '\1*', "")
+        let re = substitute(re, "\n", "\n| ", "g")
+        let re = "| " . re
+        return re
     endif
     let cmd = printf(cmd, a:str)
     let re = system(cmd)
     if v:shell_error != 0
         return ""
     else
+        echon re
         return re
     endif
 endfunction
@@ -676,7 +685,7 @@ function! utils#Trans2clip(type = '')
         silent exe 'noautocmd normal! ' .. get(commands, a:type, '')
         let oritext = substitute(@", "\n", " ", "g")
         let @" = utils#Trans_string(oritext)
-        cexpr @"
+        " cexpr @"
     finally
         call setpos("'<", visual_marks_save[0])
         call setpos("'>", visual_marks_save[1])

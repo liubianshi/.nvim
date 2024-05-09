@@ -102,5 +102,6 @@ setlocal foldexpr=nvim_treesitter#foldexpr() foldmethod=expr foldlevel=99 foldle
 "set formatexpr=format#Markdown()
 let &l:formatprg="text_wrap"
 let &l:formatlistpat = '^\s*\d\+\.\s\+\|^\[-*+>]\s\+\|^\s*\[^[^\]]\+\]\[:\s]'
+call utils#ToggleZenMode()
 
 " UltiSnipsAddFiletype rmd.r.markdown.pandoc
