@@ -968,7 +968,7 @@ Plug.add('sindrets/diffview.nvim', {
     { "<leader>dh", "<cmd>DiffviewFileHistory<cr>", desc = "DiffviewOpen"},
   },
 })
--- ThePrimeagen/harpoon: 
+-- ThePrimeagen/harpoon:
 Plug.add("ThePrimeagen/harpoon", {
   branch = "harpoon2",
   dependencies = { "nvim-lua/plenary.nvim" },
@@ -976,7 +976,7 @@ Plug.add("ThePrimeagen/harpoon", {
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
 Plug.add("ahmedkhalf/project.nvim")
--- jedrzejboczar/possession.nvim: Flexible session management for Neovim {{{3 
+-- jedrzejboczar/possession.nvim: Flexible session management for Neovim {{{3
 -- Plug.add('jedrzejboczar/possession.nvim', {
 --   dependencies = { 'nvim-lua/plenary.nvim' },
 -- })
@@ -1286,5 +1286,3 @@ end
 PlugExist = function(plug)
   return (Util.has(plug))
 end
-
-
