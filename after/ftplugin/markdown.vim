@@ -64,16 +64,6 @@ onoremap <buffer><silent> ic :<C-U>call text_obj#MdCodeBlock('i')<CR>
 
 nnoremap <buffer><silent> <M-t> :<c-u>Voom pandoc<cr>
 
-inoremap <buffer> ;1              <esc>0i#<space><esc>A
-inoremap <buffer> ;2              <esc>0i##<space><esc>A
-inoremap <buffer> ;3              <esc>0i###<space><esc>A
-inoremap <buffer> ;-              <esc>^d0i-<tab><esc>A
-inoremap <buffer> ;_              <esc>^d0i<tab>-<tab><esc>A
-inoremap <buffer> ;=              <esc>^d0i1.<tab><esc>A
-inoremap <buffer> ;+              <esc>^d0i<tab>1.<tab><esc>A
-inoremap <buffer> ;c              ` `<C-o>F <c-o>x
-inoremap <buffer> ;m              $ $<C-o>F <c-o>x
-inoremap <buffer> ;i              * *<C-o>F <c-o>x
 inoremap <buffer> ;b              ** **<C-o>F <c-o>x
 inoremap <buffer> ;h              == ==<C-o>F <c-o>x
 

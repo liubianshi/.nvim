@@ -98,7 +98,7 @@ local projects = function(opts)
     local project_dirs = vim.fn.readfile(project_hist)
     local iconify = function(path, color, icon)
         local ansi_codes = require'fzf-lua.utils'.ansi_codes
-        local icon = ansi_codes[color](icon)
+        icon = ansi_codes[color](icon)
         path = require'fzf-lua.path'.relative_to(path, vim.fn.expand('$HOME'))
         return ("%s  %s"):format(icon, path)
     end
@@ -146,7 +146,7 @@ local projects = function(opts)
         end
 
         opts.actions = {
-            ['default'] = function(selected, opts)
+            ['default'] = function(selected, _)
                 local wd = get_cwd(selected)
                 vim.cmd("cd " .. wd)
                 require("fzf-lua").files({ cwd = wd})
@@ -162,7 +162,7 @@ fzfmap('<leader>ic', "Insert Citation Keys", function()
     require'fzf-lua'.fzf_exec("bibtex-ls ~/Documents/url_ref.bib",{
         preview = "",
         actions = {
-            ['default'] = function(selected, opts)
+            ['default'] = function(selected, _)
                 local r = vim.fn.system("bibtex-cite -prefix='@' -postfix='' -separator='; @'", selected)
                 vim.api.nvim_command('normal! i' .. r)
                 vim.fn.feedkeys('a', 'n')
@@ -182,7 +182,7 @@ fzfmap('<leader>bB', "List All Buffers", function()
                 if not ( name == "" or
                         string.find(name, "Wilder Float") or
                         string.find(name, "/sbin/sh")         ) then
-                    buffers[b] = name 
+                    buffers[b] = name
                 end
             end
             local co = coroutine.running()
@@ -197,7 +197,7 @@ fzfmap('<leader>bB', "List All Buffers", function()
     end, {
         fzf_opts = { ['+m'] = '', ['--preview-window'] = "hidden"},
         actions = {
-            ['default'] = function(selected, opts)
+            ['default'] = function(selected, _)
                 local bufno = string.gsub(selected[1], "\t.*", '')
                 vim.cmd('buffer ' .. bufno)
             end,
@@ -227,7 +227,7 @@ end)
 
 -- 定义查询 stata 帮助文件的命令 --{{{2
 local Shelp_Action = function(vimcmd)
-    return(function(selected, opts)
+    return(function(selected, _)
                 local path = string.gsub(selected[1], "^.*\t", "")
                 local command = string.gsub(selected[1], " *\t+.*$", "")
                 local r = vim.fn.system(",sh -v -r " .. path)
@@ -297,7 +297,7 @@ fzfmap('<leader>ot', 'Run async tasks', function()
           ['default'] = function(selected)
             local str = fzflua.utils.strsplit(selected[1], ' ')
             local command = 'AsyncTask ' .. vim.fn.fnameescape(str[1]);
-            vim.api.nvim_exec(command, false)
+            vim.api.nvim_exec2(command)
           end
         },
         fzf_opts = {
@@ -333,7 +333,7 @@ fzfmap('<A-x>', "Command", function()
             ['--layout'] = 'default',
         },
         actions = {
-            ['default'] = function(selected, opts)
+            ['default'] = function(selected, _)
                 local command = selected[1]
                 vim.cmd("stopinsert")
                 local nargs = vim.api.nvim_get_commands({})[command].nargs

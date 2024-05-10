@@ -658,8 +658,8 @@ function! utils#Trans_string(str)
         echon re
 
         let re = substitute(re, '\v(\*\[[^\]]+\])\ze\n', '\1*', "")
-        let re = substitute(re, "\n", "\n| ", "g")
-        let re = "| " . re
+        let re = substitute(re, "\n", "\n    | ", "g")
+        let re = a:str .. "\n:   | " . re
         return re
     endif
     let cmd = printf(cmd, a:str)

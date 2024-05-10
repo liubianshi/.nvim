@@ -27,7 +27,10 @@ wk.register {
       ["="] = "Attach Symbol +",
       ["."] = "Attach Symbol .",
     },
-    ["b"] = { name = "+buffer ..." },
+    ["b"] = {
+      name = "+buffer ...",
+      B = "List all Buffers",
+    },
     ["c"] = { name = "Code Operater ..." },
     ["d"] = { name = "diff ..." },
     ["e"] = { -- <leader>e Edit File -------------------------------- {{{3
@@ -48,6 +51,10 @@ wk.register {
     ["i"] = { -- <leader>f: Insert ---------------------------------- {{{3
       name = "Insert ...",
       ["c"] = "Insert Citation",
+    },
+    ['l'] = {
+      name = "Session Manager ...",
+      ["s"] = "List Saved Session",
     },
     -- ["m"] = { name = "+MultVisual" },
     ["n"] = { name = "Obsidian ..." },

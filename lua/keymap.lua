@@ -22,6 +22,7 @@ vimkey('<leader>oz', 'Toggle Zen Mode (diy)', '<cmd>call utils#ToggleZenMode()<c
 
 --- buffer --------------------------------------------------------------- {{{1
 vimkey('<leader>bd', 'Delete Buffer', '<cmd>Bclose<cr>')
+vimkey('<leader>bD', 'Delete Buffer (force)', '<cmd>Bclose!<cr>')
 vimkey('<leader>bp', 'Previous Buffer', '<cmd>bp<cr>')
 vimkey('<leader>bn', 'Next Buffer', '<cmd>bn<cr>')
 vimkey('<leader>bq', 'Quit Buffer', '<cmd>q<cr>')
