@@ -1,9 +1,8 @@
 -- local keymap = vim.keymap.set
 local saga = require('lspsaga')
 saga.setup({
-    symbol_in_winbar = {
-        enable = false,
-    }
+    symbol_in_winbar = { enable = false },
+    lightbulb = {enable = false},
 })
 
 local sagamap = function(key, desc, cmd, opts)

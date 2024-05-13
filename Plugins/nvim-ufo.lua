@@ -7,6 +7,7 @@ local ftMap = {
     r = {'treesitter'},
     markdown = {'treesitter'},
     vim = '',
+    sagaoutline = '',
     git = '',
 }
 local ufo = require('ufo')

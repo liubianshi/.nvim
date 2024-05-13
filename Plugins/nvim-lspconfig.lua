@@ -8,7 +8,7 @@ require("neodev").setup {
     -- you can also specify the list of plugins to make available as a workspace library
     -- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
   },
-  override = function(root_dir, library)
+  override = function(_, library)
       library.enabled = true
       library.plugins = false
   end,
@@ -181,3 +181,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- -- trigger codelens refresh
 vim.api.nvim_exec_autocmds("User", { pattern = "LspAttached" })
+

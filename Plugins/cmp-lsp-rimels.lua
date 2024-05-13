@@ -47,3 +47,4 @@ vim.api.nvim_create_user_command("RimeDeleteLockFile", function()
   vim.loop.fs_unlink(rime_user_dir .. "/rime_ice.userdb/LOCK")
 end, { nargs = 0, desc = "Delete Lock file of Rime"})
 
+
