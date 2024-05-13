@@ -955,9 +955,14 @@ Plug.add("gbprod/yanky.nvim", {
 -- })
 
 -- rareitems/anki.nvim: creation of Anki cards directly from neovim ----- {{{3
-Plug.add('rolf-stargate/ankifly.nvim', {
-  cmd = {"Anki", "AnkiBasic", "AnkiCloze", "AnkiReverse"},
+-- Plug.add('rolf-stargate/ankifly.nvim', {
+--   cmd = {"Anki", "AnkiBasic", "AnkiCloze", "AnkiReverse"},
+--   dev = true,
+-- })
+
+Plug.add('liubianshi/anki-panky', {
   dev = true,
+  filetype = { 'markdown' },
 })
 
 -- sindrets/diffview.nvim: cycling through diffs for all modified files - {{{3

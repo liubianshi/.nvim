@@ -2,6 +2,14 @@ vim.keymap.set("n", '<c-x>', function()
     require("util").bibkey_action(vim.fn.expand('<cword>'))
 end, { desc = "Show action related bibkey" })
 
+vim.keymap.set("n", "<localleader>aa", function()
+    require("anki-panky").parse_buffer()
+end, { buffer = true, desc = "Anki: Push" })
+
+vim.keymap.set("n", "<localleader>af", function()
+    require("anki-panky").parse_buffer(0, {force = true})
+end, { buffer = true, desc = "Anki: Push" })
+
 vim.keymap.set("n", '<localleader>rf', function()
     vim.api.nvim_buf_set_option(0, "filetype", "rmd")
     local cmp = require('cmp')
