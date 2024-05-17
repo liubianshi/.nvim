@@ -723,7 +723,7 @@ Plug.add("liubianshi/cmp-lsp-rimels", {
 })
 
 -- ziontee113/icon-picker.nvim: pick Nerd Font Icons, Symbols & Emojis -- {{{3
-Plug.add("ziontee113/icon-picker.nvim", {
+Plug.add("liubianshi/icon-picker.nvim", {
   dev = true,
   config = function()
     require("icon-picker").setup({ disable_legacy_commands = true })
@@ -779,37 +779,38 @@ Plug.add("robitx/gp.nvim", {
     "GpContext",
   },
   keys = {
-    { "<C-g>c", "<cmd>GpChatNew<cr>",    desc = "GPT prompt New Chat",    nowait = true, mode = {"n", "i"} },
-    { "<C-g>t", "<cmd>GpChatToggle<cr>", desc = "GPT prompt Toggle Chat", nowait = true, mode = {"n", "i"} },
-    { "<C-g>f", "<cmd>GpChatFinder<cr>", desc = "GPT prompt Chat Finder", nowait = true, mode = {"n", "i"} },
+    { "<C-g>c",     "<cmd>GpChatNew vsplit<cr>",    desc = "GPT prompt New Chat",    nowait = true },
+    { "<C-g>t",     "<cmd>GpChatToggle vsplit<cr>", desc = "GPT prompt Toggle Chat", nowait = true },
+    { "<C-g>f",     "<cmd>GpChatFinder<cr>",        desc = "GPT prompt Chat Finder", nowait = true },
+    { "<leader>sc", "<cmd>GpChatFinder<cr>",        desc = "GPT prompt Chat Finder", nowait = true },
 
     { "<C-g>c", ":<C-u>'<,'>GpChatNew<cr>",    desc = "GPT prompt Visual Chat New",    nowait = true, mode = "v" },
     { "<C-g>p", ":<C-u>'<,'>GpChatPaste<cr>",  desc = "GPT prompt Visual Chat Paste",  nowait = true, mode = "v" },
     { "<C-g>t", ":<C-u>'<,'>GpChatToggle<cr>", desc = "GPT prompt Visual Toggle Chat", nowait = true, mode = "v" },
 
-    { "<C-g><C-x>", "<cmd>GpChatNew split<cr>",  desc = "GPT prompt New Chat split",  nowait = true, mode = { "n", "i" } },
-    { "<C-g><C-v>", "<cmd>GpChatNew vsplit<cr>", desc = "GPT prompt New Chat vsplit", nowait = true, mode = { "n", "i" } },
-    { "<C-g><C-t>", "<cmd>GpChatNew tabnew<cr>", desc = "GPT prompt New Chat tabnew", nowait = true, mode = { "n", "i" } },
+    { "<C-g><C-x>", "<cmd>GpChatNew split<cr>",  desc = "GPT prompt New Chat split",  nowait = true },
+    { "<C-g><C-v>", "<cmd>GpChatNew vsplit<cr>", desc = "GPT prompt New Chat vsplit", nowait = true },
+    { "<C-g><C-t>", "<cmd>GpChatNew tabnew<cr>", desc = "GPT prompt New Chat tabnew", nowait = true },
 
     { "<C-g><C-x>", ":<C-u>'<,'>GpChatNew split<cr>",  desc = "GPT prompt Visual Chat New split",  nowait = true, mode = "v" },
     { "<C-g><C-v>", ":<C-u>'<,'>GpChatNew vsplit<cr>", desc = "GPT prompt Visual Chat New vsplit", nowait = true, mode = "v" },
     { "<C-g><C-t>", ":<C-u>'<,'>GpChatNew tabnew<cr>", desc = "GPT prompt Visual Chat New tabnew", nowait = true, mode = "v" },
 
     -- Prompt commands
-    { "<C-g>r", "<cmd>GpRewrite<cr>", desc = "GPT prompt Inline Rewrite",   nowait = true, mode = {"n", "i"} },
-    { "<C-g>a", "<cmd>GpAppend<cr>",  desc = "GPT prompt Append (after)",   nowait = true, mode = {"n", "i"} },
-    { "<C-g>b", "<cmd>GpPrepend<cr>", desc = "GPT prompt Prepend (before)", nowait = true, mode = {"n", "i"} },
+    { "<C-g>r", "<cmd>GpRewrite<cr>", desc = "GPT prompt Inline Rewrite",   nowait = true },
+    { "<C-g>a", "<cmd>GpAppend<cr>",  desc = "GPT prompt Append (after)",   nowait = true },
+    { "<C-g>b", "<cmd>GpPrepend<cr>", desc = "GPT prompt Prepend (before)", nowait = true },
 
     { "<C-g>r", ":<C-u>'<,'>GpRewrite<cr>",   desc = "GPT prompt Visual Rewrite",          nowait = true, mode = "v" },
     { "<C-g>a", ":<C-u>'<,'>GpAppend<cr>",    desc = "GPT prompt Visual Append (after)",   nowait = true, mode = "v" },
     { "<C-g>b", ":<C-u>'<,'>GpPrepend<cr>",   desc = "GPT prompt Visual Prepend (before)", nowait = true, mode = "v" },
     { "<C-g>i", ":<C-u>'<,'>GpImplement<cr>", desc = "GPT prompt Implement selection",     nowait = true, mode = "v" },
 
-    { "<C-g>gp", "<cmd>GpPopup<cr>",  desc = "GPT prompt Popup",    nowait = true, mode = {"n", "i"} },
-    { "<C-g>ge", "<cmd>GpEnew<cr>",   desc = "GPT prompt GpEnew",   nowait = true, mode = {"n", "i"} },
-    { "<C-g>gn", "<cmd>GpNew<cr>",    desc = "GPT prompt GpNew",    nowait = true, mode = {"n", "i"} },
-    { "<C-g>gv", "<cmd>GpVnew<cr>",   desc = "GPT prompt GpVnew",   nowait = true, mode = {"n", "i"} },
-    { "<C-g>gt", "<cmd>GpTabnew<cr>", desc = "GPT prompt GpTabnew", nowait = true, mode = {"n", "i"} },
+    { "<C-g>gp", "<cmd>GpPopup<cr>",  desc = "GPT prompt Popup",    nowait = true },
+    { "<C-g>ge", "<cmd>GpEnew<cr>",   desc = "GPT prompt GpEnew",   nowait = true },
+    { "<C-g>gn", "<cmd>GpNew<cr>",    desc = "GPT prompt GpNew",    nowait = true },
+    { "<C-g>gv", "<cmd>GpVnew<cr>",   desc = "GPT prompt GpVnew",   nowait = true },
+    { "<C-g>gt", "<cmd>GpTabnew<cr>", desc = "GPT prompt GpTabnew", nowait = true },
 
     { "<C-g>gp", ":<C-u>'<,'>GpPopup<cr>",  desc = "GPT prompt Visual Popup",    nowait = true, mode = "v" },
     { "<C-g>ge", ":<C-u>'<,'>GpEnew<cr>",   desc = "GPT prompt Visual GpEnew",   nowait = true, mode = "v" },
@@ -817,35 +818,12 @@ Plug.add("robitx/gp.nvim", {
     { "<C-g>gv", ":<C-u>'<,'>GpVnew<cr>",   desc = "GPT prompt Visual GpVnew",   nowait = true, mode = "v" },
     { "<C-g>gt", ":<C-u>'<,'>GpTabnew<cr>", desc = "GPT prompt Visual GpTabnew", nowait = true, mode = "v" },
 
-    { "<C-g>x", "<cmd>GpContext<cr>",       desc = "GPT prompt Toggle Context",        nowait = true, mode = {"n",  "i"} },
+    { "<C-g>x", "<cmd>GpContext<cr>",       desc = "GPT prompt Toggle Context",        nowait = true },
     { "<C-g>x", ":<C-u>'<,'>GpContext<cr>", desc = "GPT prompt Visual Toggle Context", nowait = true, mode = "v" },
 
-    { "<C-g>s", "<cmd>GpStop<cr>",      desc = "GPT prompt Stop",       nowait = true, mode = {"n", "i", "v", "x"} },
-    { "<C-g>n", "<cmd>GpNextAgent<cr>", desc = "GPT prompt Next Agent", nowait = true, mode = {"n", "i", "v", "x"} },
+    { "<C-g>s", "<cmd>GpStop<cr>",      desc = "GPT prompt Stop",       nowait = true, mode = {"n", "v", "x"} },
+    { "<C-g>n", "<cmd>GpNextAgent<cr>", desc = "GPT prompt Next Agent", nowait = true, mode = {"n", "v", "x"} },
 
-    -- optional Whisper commands with prefix <C-g>w
-    { "<C-g>ww", "<cmd>GpWhisper<cr>",       desc = "GPT prompt Whisper",        nowait = true, mode = {"n",  "i"} },
-    { "<C-g>ww", ":<C-u>'<,'>GpWhisper<cr>", desc = "GPT prompt Visual Whisper", nowait = true, mode = "v" },
-
-    { "<C-g>wr", "<cmd>GpWhisperRewrite<cr>", desc = "GPT prompt Whisper Inline Rewrite",    nowait = true, mode = {"n", "i"} },
-    { "<C-g>wa", "<cmd>GpWhisperAppend<cr>",  desc = "GPT prompt Whisper Append (after)",    nowait = true, mode = {"n", "i"} },
-    { "<C-g>wb", "<cmd>GpWhisperPrepend<cr>", desc = "GPT prompt Whisper Prepend (before) ", nowait = true, mode = {"n", "i"} },
-
-    { "<C-g>wr", ":<C-u>'<,'>GpWhisperRewrite<cr>", desc = "GPT prompt Visual Whisper Rewrite",          nowait = true, mode = "v" },
-    { "<C-g>wa", ":<C-u>'<,'>GpWhisperAppend<cr>",  desc = "GPT prompt Visual Whisper Append (after)",   nowait = true, mode = "v" },
-    { "<C-g>wb", ":<C-u>'<,'>GpWhisperPrepend<cr>", desc = "GPT prompt Visual Whisper Prepend (before)", nowait = true, mode = "v" },
-
-    { "<C-g>wp", "<cmd>GpWhisperPopup<cr>",  desc = "GPT prompt Whisper Popup",  nowait = true, mode = {"n", "i"} },
-    { "<C-g>we", "<cmd>GpWhisperEnew<cr>",   desc = "GPT prompt Whisper Enew",   nowait = true, mode = {"n", "i"} },
-    { "<C-g>wn", "<cmd>GpWhisperNew<cr>",    desc = "GPT prompt Whisper New",    nowait = true, mode = {"n", "i"} },
-    { "<C-g>wv", "<cmd>GpWhisperVnew<cr>",   desc = "GPT prompt Whisper Vnew",   nowait = true, mode = {"n", "i"} },
-    { "<C-g>wt", "<cmd>GpWhisperTabnew<cr>", desc = "GPT prompt Whisper Tabnew", nowait = true, mode = {"n", "i"} },
-
-    { "<C-g>wp", ":<C-u>'<,'>GpWhisperPopup<cr>",  desc = "GPT prompt Visual Whisper Popup",  nowait = true, mode = "v" },
-    { "<C-g>we", ":<C-u>'<,'>GpWhisperEnew<cr>",   desc = "GPT prompt Visual Whisper Enew",   nowait = true, mode = "v" },
-    { "<C-g>wn", ":<C-u>'<,'>GpWhisperNew<cr>",    desc = "GPT prompt Visual Whisper New",    nowait = true, mode = "v" },
-    { "<C-g>wv", ":<C-u>'<,'>GpWhisperVnew<cr>",   desc = "GPT prompt Visual Whisper Vnew",   nowait = true, mode = "v" },
-    { "<C-g>wt", ":<C-u>'<,'>GpWhisperTabnew<cr>", desc = "GPT prompt Visual Whisper Tabnew", nowait = true, mode = "v" },
   }
 })
 
@@ -962,7 +940,10 @@ Plug.add("gbprod/yanky.nvim", {
 
 Plug.add('liubianshi/anki-panky', {
   dev = true,
-  filetype = { 'markdown' },
+  -- ft = { 'markdown' },
+  cmd = {'AnkiNew', 'AnkiPush'},
+  keys = {'<localleader>aa', '<localleader>af'},
+  config = true,
 })
 
 -- sindrets/diffview.nvim: cycling through diffs for all modified files - {{{3
@@ -1150,6 +1131,10 @@ Plug.add("hotoo/pangu.vim", {
 -- dhruvasagar/vim-table-mode: Table Mode for instant table creation ---- {{{3
 Plug.add("dhruvasagar/vim-table-mode", {
   ft = { "markdown", "pandoc", "rmd", "org" },
+  init = function()
+    vim.g.table_mode_map_prefix = "<localleader>t"
+    vim.g.table_mode_corner = '|'
+  end,
 })
 
 -- epwalsh/obsidian.nvim

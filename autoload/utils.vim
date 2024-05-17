@@ -654,12 +654,13 @@ function! utils#Trans_string(str)
         let re = system(cmd)
         if v:shell_error != 0 | return | endif
         let re = json_decode(re)
+        let wd = trim(re[0]['word'])
         let re = trim(re[0]['definition'])
         echon re
 
         let re = substitute(re, '\v(\*\[[^\]]+\])\ze\n', '\1*', "")
         let re = substitute(re, "\n", "\n>\n> ", "g")
-        let re = "> [!ANKI word] " . a:str . "\n>\n> " . re
+        let re = "> [!ANKI word] " . wd . "\n>\n> " . re
         return re
     endif
     let cmd = printf(cmd, a:str)

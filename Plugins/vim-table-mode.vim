@@ -1,5 +1,3 @@
-let g:table_mode_map_prefix = "<tab>t"
-let g:table_mode_corner='|'
 function! s:isAtStartOfLine(mapping)
     let text_before_cursor = getline('.')[0 : col('.')-1]
     let mapping_pattern = '\V' . escape(a:mapping, '\')
@@ -12,3 +10,10 @@ inoreabbrev <expr> <bar><bar>
 inoreabbrev <expr> __
             \ <SID>isAtStartOfLine('__') ?
             \ '<c-o>:silent! TableModeDisable<cr>' : '__'
+
+lua <<EOF
+require('util').wk_reg(
+    { t = { name = "Table Mode .."} },
+    { prefix = '<localleader>'}
+)
+EOF
