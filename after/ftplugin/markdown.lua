@@ -4,7 +4,7 @@ end, { desc = "Show action related bibkey" })
 
 
 vim.keymap.set("n", '<localleader>rf', function()
-    vim.api.nvim_buf_set_option(0, "filetype", "rmd")
+    vim.api.nvim_set_option_value("filetype", "rmd", { scope = "local"})
     local cmp = require('cmp')
     local config = require('cmp.config')
     local cmp_sources = {}
@@ -19,10 +19,10 @@ vim.keymap.set("n", '<localleader>rf', function()
             table.insert(cmp_sources, config.get_source_config(s.name))
         end
     end
-    vim.api.nvim_buf_set_option(0, "filetype", "markdown")
-    cmp_sources[#cmp_sources + 1] = {
-        name = "cmp_r",
-        group_index = 2,
-    }
+    vim.api.nvim_set_option_value("filetype", "markdown", { scope = "local"})
+    -- cmp_sources[#cmp_sources + 1] = {
+    --     name = "cmp_r",
+    --     group_index = 2,
+    -- }
     cmp.setup.buffer( { sources = cmp.config.sources(cmp_sources) })
 end, { desc = "Start R.nvim"})

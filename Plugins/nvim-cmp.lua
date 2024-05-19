@@ -218,7 +218,7 @@ local cmp_config = {
         -- disallow_fullfuzzy_matching = true,
         disallow_partial_fuzzy_matching = true,
         disallow_partial_matching = false,
-        disallow_prefix_unmatching = true,
+        disallow_prefix_unmatching = false,
     },
     mapping = cmp.mapping.preset.insert(keymap_config),
     sources = construct_cmp_source(),

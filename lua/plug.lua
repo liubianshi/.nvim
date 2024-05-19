@@ -120,8 +120,8 @@ Plug.add("nvim-neo-tree/neo-tree.nvim", {
   init = function()
     vim.g.neo_tree_remove_legacy_commands = 1
     if vim.fn.argc() == 1 then
-      local stat = vim.uv.fs_stat(vim.fn.argv(0))
-      if stat and stat.type == "directory" then
+      local stat = vim.fn.isdirectory(vim.fn.argv(0))
+      if stat and stat == 1 then
         require "neo-tree"
       end
     end
@@ -129,11 +129,7 @@ Plug.add("nvim-neo-tree/neo-tree.nvim", {
 })
 
 -- s1n7ax/nvim-window-picker: pick a window and returns the window id --- {{{3
-Plug.add("s1n7ax/nvim-window-picker", {
-  name = "window-picker",
-  lazy = true,
-  version = "2.*",
-})
+Plug.add("s1n7ax/nvim-window-picker", { name = "window-picker", lazy = true })
 
 -- ibhagwan/fzf-lua: Fzf Search ----------------------------------------- {{{3
 Plug.add("ibhagwan/fzf-lua", {
@@ -205,7 +201,6 @@ Plug.add("ibhagwan/fzf-lua", {
 
 -- nvim-telescope/telescope.nvim: Find, Filter, Preview, Pick ----------- {{{3
 Plug.add("nvim-telescope/telescope.nvim", {
-  tag = "0.1.2",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "fhill2/telescope-ultisnips.nvim",
@@ -372,13 +367,6 @@ Plug.add("nvim-telescope/telescope-frecency.nvim", {
   },
   lazy = true,
 })
-
--- gelguy/wilder.nvim: Command line Fuzzy Search and completation ------- {{{3
--- Plug.add("gelguy/wilder.nvim", {
---   dependencies = { "romgrk/fzy-lua-native" },
---   build = ":UpdateRemotePlugins",
---   event = { "CmdwinEnter", "CmdlineEnter" },
--- })
 
 -- machakann/vim-highlightedyank: 高亮显示复制区域 ---------------------- {{{3
 Plug.add("machakann/vim-highlightedyank")
@@ -671,7 +659,6 @@ Plug.add("vim-voom/VOoM", {
 
 -- akinsho/bufferline.nvim: buffer line with minimal tab integration ---- {{{3
 Plug.add("akinsho/bufferline.nvim", {
-  version = "*",
   dependencies = "nvim-tree/nvim-web-devicons",
   event = "VeryLazy",
   keys = {
@@ -709,11 +696,13 @@ Plug.add("stevearc/dressing.nvim", {
   config = true,
 })
 
+-- Make your nvim window separators colorful ---------------------------- {{{3
+Plug.add("nvim-zh/colorful-winsep.nvim", {
+  event = { "WinNew" },
+})
+
 -- "lukas-reineke/indent-blankline.nvim"
 Plug.add("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
-
--- xiyaowong/transparent.nvim: make nvim transparent -------------------- {{{3
--- Plug.add('xiyaowong/transparent.nvim')
 
 -- Tools ---------------------------------------------------------------- {{{2
 -- liubianshi/cmp-lsp-rimels: ------------------------------------------- {{{3
@@ -748,6 +737,14 @@ Plug.add("liubianshi/icon-picker.nvim", {
     }
   }
 })
+
+--
+Plug.add("brenoprata10/nvim-highlight-colors", {
+  ft = { "html", "lua", "css" },
+})
+
+
+
 -- nvimdev/lspsaga.nvim: ------------------------------------------------ {{{3
 Plug.add("nvimdev/lspsaga.nvim", {
   event = 'LspAttach',
@@ -919,25 +916,6 @@ Plug.add("gbprod/yanky.nvim", {
   }
 })
 
--- Plug.add("AckslD/nvim-neoclip.lua", {
---   dependencies = {
---     { "kkharji/sqlite.lua", enabled = not jit.os:find "Windows" },
---   },
---   keys = {
---     {
---       "<leader>sp",
---       "<cmd>Telescope neoclip extra=star,plus<cr>",
---       desc = "Open Yank History",
---     },
---   },
--- })
-
--- rareitems/anki.nvim: creation of Anki cards directly from neovim ----- {{{3
--- Plug.add('rolf-stargate/ankifly.nvim', {
---   cmd = {"Anki", "AnkiBasic", "AnkiCloze", "AnkiReverse"},
---   dev = true,
--- })
-
 Plug.add('liubianshi/anki-panky', {
   dev = true,
   -- ft = { 'markdown' },
@@ -954,19 +932,29 @@ Plug.add('sindrets/diffview.nvim', {
     { "<leader>dh", "<cmd>DiffviewFileHistory<cr>", desc = "DiffviewOpen"},
   },
 })
+
 -- ThePrimeagen/harpoon:
 Plug.add("ThePrimeagen/harpoon", {
   branch = "harpoon2",
   dependencies = { "nvim-lua/plenary.nvim" },
 })
+
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
 Plug.add("ahmedkhalf/project.nvim")
--- jedrzejboczar/possession.nvim: Flexible session management for Neovim {{{3
--- Plug.add('jedrzejboczar/possession.nvim', {
---   dependencies = { 'nvim-lua/plenary.nvim' },
--- })
-Plug.add('rmagatti/auto-session')
+Plug.add("olimorris/persisted.nvim", {
+  dependencies = { "nvim-telescope/telescope.nvim"},
+  cmd = {"SessionLoad", "SessionLoadLast"},
+  keys = {
+    {
+      "<leader>ls", function()
+        require("telescope").extensions.persisted.persisted()
+      end,
+      desc = "Select Sessions",
+    }
+  },
+  config = true
+})
 
 -- ludovicchabant/vim-gutentags: tag file management -------------------- {{{3
 Plug.add("ludovicchabant/vim-gutentags", {
@@ -1082,6 +1070,18 @@ Plug.add("ellisonleao/glow.nvim", {
     require('glow').setup { style = "dark", width = 86}
   end
 })
+
+-- Plug.add( "denstiny/styledoc.nvim", {
+--   dependencies = {
+--     "nvim-treesitter/nvim-treesitter",
+--     "vhyrro/luarocks.nvim",
+--     "3rd/image.nvim",
+--   },
+--   opts = true,
+--   ft = "markdown",
+-- })
+
+
 
 -- Plug.add('vim-pandoc/vim-pandoc', {
 --     dependencies = {'vim-pandoc/vim-pandoc-syntax'},
@@ -1262,7 +1262,7 @@ local lazy = require("lazy")
 lazy.setup(Plug.get(), dofile(vim.fn.stdpath "config" .. "/Plugins/lazy.lua"))
 
 -- 创建辅助函数 --------------------------------------------------------- {{{1
-LoadedPlugins = function()
+_G.LoadedPlugins = function()
   local plugs = require("lazy").plugins()
   local loaded_plugs = {}
   for _, plug in ipairs(plugs) do
@@ -1273,6 +1273,6 @@ LoadedPlugins = function()
   return loaded_plugs
 end
 
-PlugExist = function(plug)
+_G.PlugExist = function(plug)
   return (Util.has(plug))
 end

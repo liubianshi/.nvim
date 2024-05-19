@@ -88,7 +88,7 @@ set number                 " 开启行号显示
 set relativenumber         " 相对行号
 set noruler                " 显示光标当前位置
 set cmdheight=1            " 命令行高度
-set laststatus=1           " 总是显示状态栏
+set laststatus=3           " 总是显示状态栏
 set cmdheight=1
 set list
 set listchars=tab:\ \ \|,trail:\ ,precedes:<,extends:>
@@ -171,14 +171,6 @@ set complete+=k
 set tags=./tags,tags
 let $GTAGSLABEL = 'native-pygments'
 let $GTAGSCONF = $HOME . "/.globalrc"
-
-" nvui ================================================================== {{{1
-if exists('g:nvui')
-  " Configure nvui
-  NvuiCmdFontFamily monospace
-  NvuiCmdFontSize 14.0
-  NvuiScrollAnimationDuration 0.2
-endif
 
 " Remove certain character from file name pattern matching ============== {{{1
 set isfname-==

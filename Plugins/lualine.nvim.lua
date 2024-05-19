@@ -124,6 +124,7 @@ lualine.setup {
     -- Disable sections and component separators
     component_separators = "",
     section_separators = "",
+    globalstatus = true,
     theme = "auto",
     disabled_filetypes = {
       statusline = { "alpha" },
@@ -131,7 +132,6 @@ lualine.setup {
     },
     ignore_focus = {},
     always_divide_middle = true,
-    globalstatus = false,
     refresh = {
       statusline = 1000,
       tabline = 1000,

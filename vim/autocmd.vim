@@ -57,8 +57,6 @@ function! s:adjust_window_based_on_zen_mode_status() abort
     endif
 endfunction
 
-
-
 " 初始 ================================================================== {{{1
 augroup LOAD_ENTER
 autocmd!
@@ -72,7 +70,7 @@ autocmd VimLeave * call jobstart('notify-send "Neovim Exit!"', {"detach": v:true
 " cmd: global setting --------------------------------------------------- {{{2
 autocmd InsertLeave,WinEnter *  setlocal cursorline
 autocmd InsertEnter,WinLeave *  setlocal nocursorline
-autocmd TermOpen             *  setlocal nonumber norelativenumber bufhidden=hide
+autocmd TermOpen             *  setlocal nonumber norelativenumber bufhidden=hide foldcolumn=0
 autocmd FileType   r,stata,vim  call s:FoldMethodSetting()
 autocmd FileType   norg,org,markdown,rmd,rmarkdown
             \ syntax match NonText /​/ conceal
@@ -81,7 +79,7 @@ autocmd WinResized           * call s:adjust_zen_mode(v:event)
 " autocmd BufWinEnter,BufRead,BufEnter  * call utils#ZenMode_Insert(v:false)
 autocmd BufWinEnter,BufRead,BufEnter  * call s:adjust_window_based_on_zen_mode_status()
 " autocmd VimEnter * lua require('lspconfig').rime_ls.launch()
-
+autocmd LspAttach * set formatoptions-=cro
 
 
 " Fasd ------------------------------------------------------------------ {{{2
