@@ -5,11 +5,9 @@ re_map = re.compile(r';([^;]+)')
 endglobal
 
 snippet head "Rscript Header" b
-box::use(
-	magrittr[\`%>%\`, \`%<>%\`, \`%T>%\`],
-	stringr,
-	data.table[\`:=\`]
-)
+box::use(magrittr[\`%>%\`, \`%<>%\`, \`%T>%\`])
+box::use(stringr)
+box::use(data.table[setDT, as.dat.table, data.table])
 $0
 endsnippet
 

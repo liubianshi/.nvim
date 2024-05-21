@@ -55,7 +55,7 @@ local display_image = function(file, opts)
     local window_id      = vim.fn.win_getid()
     local window         = require('image.utils.window').get_window(window_id)
     -- local display_row    = (line - window.scroll_y)
-    local display_row    = line
+    local display_row    = line - 1
     if window.scroll_y > 3 then display_row = display_row - 1 end
     local display_column = vim.fn.getline(line):match("^%s*"):len()
 

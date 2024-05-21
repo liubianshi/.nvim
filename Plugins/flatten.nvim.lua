@@ -57,5 +57,10 @@ require("flatten").setup {
         end
       end)
     end,
+    pipe_path = require("flatten").default_pipe_path,
+    one_per = {
+      kitty = true,
+      wezterm = true,
+    }
   },
 }
