@@ -12,6 +12,12 @@ exec "highlight def MarkdownHighlight guibg=" . g:lbs_colors['yellow'] . " guifg
 exec "highlight def MarkdownQuoteSpecial gui=underline guifg=" . g:lbs_colors['yellow']
 exec "highlight def MarkdownQuoteSpecialMarker gui=bold guibg=" . g:lbs_colors['yellow'] ." guifg=" . g:lbs_colors['darkblue']
 
+syn match pandocAtxHeaderMark1 /^#\ze\s/      contained containedin=pandocAtxHeader conceal cchar=󰉫
+syn match pandocAtxHeaderMark2 /^##\ze\s/     contained containedin=pandocAtxHeader conceal cchar=󰉬
+syn match pandocAtxHeaderMark3 /^###\ze\s/    contained containedin=pandocAtxHeader conceal cchar=󰉭
+syn match pandocAtxHeaderMark4 /^####\ze\s/   contained containedin=pandocAtxHeader conceal cchar=󰉮
+syn match pandocAtxHeaderMark5 /^#####\ze\s/  contained containedin=pandocAtxHeader conceal cchar=󰉯
+syn match pandocAtxHeaderMark6 /^######\ze\s/ contained containedin=pandocAtxHeader conceal cchar=󰉰
 
 " source:
 " https://github.com/vim-pandoc/vim-rmarkdown/blob/a1787cb55e45b8778eaed7b392648deb4706cd0b/syntax/rmarkdown.vim
