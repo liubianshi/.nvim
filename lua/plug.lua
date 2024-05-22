@@ -1017,7 +1017,7 @@ else
     event = { "BufReadPre", "BufNewFile", "BufWinEnter" },
     dependencies= {"folke/neodev.nvim"},
   })
-  Plug.add("R-nvim/cmp-r", { dev = true, lazy = true})
+  Plug.add("liubianshi/cmp-r", { dev = true, lazy = true})
 
   -- hrsh7th/nvim-cmp: A completion plugin for neovim ----------------- {{{4
   local cmp_dependencies = {
