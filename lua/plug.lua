@@ -703,6 +703,12 @@ Plug.add("nvim-zh/colorful-winsep.nvim", {
 
 -- "lukas-reineke/indent-blankline.nvim"
 -- Plug.add("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
+Plug.add("Mr-LLLLL/cool-chunk.nvim", {
+  event = { "CursorHold", "CursorHoldI" },
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter",
+  },
+})
 
 -- Tools ---------------------------------------------------------------- {{{2
 -- liubianshi/cmp-lsp-rimels: ------------------------------------------- {{{3
