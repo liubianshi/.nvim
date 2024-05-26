@@ -1159,6 +1159,10 @@ Plug.add("epwalsh/obsidian.nvim", {
     { "<leader>nf", "<cmd>ObsidianSearch<cr>",      desc = "Obsidian: search for (or create) notes"            },
   },
 })
+Plug.add("zk-org/zk-nvim", {
+
+})
+
 
 -- lukas-reineke/headlines.nvim  adds horizontal highlights ------------- {{{3
 -- Plug.add("lukas-reineke/headlines.nvim", {
