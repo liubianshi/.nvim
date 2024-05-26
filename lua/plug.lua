@@ -957,19 +957,19 @@ Plug.add("ThePrimeagen/harpoon", {
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
 Plug.add("ahmedkhalf/project.nvim")
-Plug.add("olimorris/persisted.nvim", {
-  dependencies = { "nvim-telescope/telescope.nvim"},
-  cmd = {"SessionLoad", "SessionLoadLast"},
-  keys = {
-    {
-      "<leader>ls", function()
-        require("telescope").extensions.persisted.persisted()
-      end,
-      desc = "Select Sessions",
-    }
-  },
-  config = true
-})
+-- Plug.add("olimorris/persisted.nvim", {
+--   dependencies = { "nvim-telescope/telescope.nvim"},
+--   cmd = {"SessionLoad", "SessionLoadLast"},
+--   keys = {
+--     {
+--       "<leader>ls", function()
+--         require("telescope").extensions.persisted.persisted()
+--       end,
+--       desc = "Select Sessions",
+--     }
+--   },
+--   config = true
+-- })
 
 -- ludovicchabant/vim-gutentags: tag file management -------------------- {{{3
 Plug.add("ludovicchabant/vim-gutentags", {
@@ -977,7 +977,7 @@ Plug.add("ludovicchabant/vim-gutentags", {
 })
 
 -- folke/trouble.nvim: diagnostics solution ----------------------------- {{{3
-Plug.add("folke/trouble.nvim", { ft = {"c", "lua", "perl", "sh"} })
+Plug.add("folke/trouble.nvim", { ft = {"c", "lua", "perl", "sh", "r"} })
 
 -- tpope/vim-fugitive: Git ---------------------------------------------- {{{3
 Plug.add("tpope/vim-fugitive", { cmd = "G" })

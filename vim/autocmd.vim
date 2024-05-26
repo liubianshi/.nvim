@@ -64,7 +64,7 @@ autocmd!
 " Error when closing Neovim with VimLeavePre autocommands that execute shell
 " commands. #21856
 " https://github.com/neovim/neovim/issues/21856
-autocmd VimLeave * call jobstart('notify-send "Neovim Exit!"', {"detach": v:true})
+" autocmd VimLeave * call jobstart('notify-send "Neovim Exit!"', {"detach": v:true})
 
 
 " cmd: global setting --------------------------------------------------- {{{2

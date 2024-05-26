@@ -6,8 +6,8 @@ endglobal
 
 snippet head "Rscript Header" b
 box::use(magrittr[\`%>%\`, \`%<>%\`, \`%T>%\`])
-box::use(stringr)
-box::use(data.table[setDT, as.data.table, data.table])
+box::use(stringr[glue = str_glue])
+box::use(data.table[setDT, as.data.table, data.table, setnames])
 $0
 endsnippet
 
