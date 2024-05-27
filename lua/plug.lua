@@ -144,6 +144,11 @@ Plug.add("ibhagwan/fzf-lua", {
     "<leader>.",
     "<leader>ot",
     "<A-x>",
+    {
+      "<leader>:",
+      "<cmd>FzfLua command_history<cr>",
+      desc = "FzfLua: Command History",
+    },
     {"<leader>hc", "<cmd>Cheat<cr>", desc = "FzfLua: Cheatsheet"},
     {
       "<leader>bb",
@@ -261,11 +266,6 @@ Plug.add("nvim-telescope/telescope.nvim", {
         })
       end,
       desc = "Telescope: Search Personal Notes",
-    },
-    {
-      "<leader>:",
-      "<cmd>Telescope commander<cr>",
-      desc = "Telescope: Commands",
     },
     {
       "<leader>sg",
@@ -1015,49 +1015,42 @@ Plug.add("sirver/UltiSnips", {
 })
 
 -- completation framework and relative sources -------------------------- {{{3
-if vim.g.complete_method == "coc" then
-  -- neoclide/coc.nvim: Nodejs extension host for vim & neovim -------- {{{4
-  Plug.add("neoclide/coc.nvim", {
-    branch = "release",
-    event = "InsertEnter",
-    dependencies = {
-      "sirver/UltiSnips",
-      "honza/vim-snippets",
-    },
-  })
-else
-  -- neovim/nvim-lspconfig: Quickstart configs for Nvim LSP ----------- {{{4
-  Plug.add("folke/neodev.nvim", {opts = {}})
-  Plug.add("neovim/nvim-lspconfig", {
-    event = { "BufReadPre", "BufNewFile", "BufWinEnter" },
-    dependencies= {"folke/neodev.nvim"},
-  })
-  Plug.add("liubianshi/cmp-r", { dev = true, lazy = true})
+Plug.add("folke/neodev.nvim", {opts = {}})
+Plug.add("neovim/nvim-lspconfig", {
+  event = { "BufReadPre", "BufNewFile", "BufWinEnter" },
+  dependencies= {"folke/neodev.nvim"},
+})
+Plug.add("liubianshi/cmp-r", { dev = true, lazy = true})
 
-  -- hrsh7th/nvim-cmp: A completion plugin for neovim ----------------- {{{4
-  local cmp_dependencies = {
-    "hrsh7th/cmp-nvim-lsp", -- neovim builtin LSP client
-    "hrsh7th/cmp-nvim-lsp-signature-help", -- displaying function signatures
-    "hrsh7th/cmp-omni", -- omnifunc
-    "hrsh7th/cmp-buffer", -- buffer words
-    "hrsh7th/cmp-cmdline", -- command line keywords
-    "FelipeLema/cmp-async-path", -- filesystem paths
-    "ray-x/cmp-treesitter", -- treesitter nodes
-    "onsails/lspkind.nvim", -- adds vscode-like pictograms
-    "quangnguyen30192/cmp-nvim-ultisnips", -- ultisnips
-    "kristijanhusak/vim-dadbod-completion", -- dadbod
-    "kdheepak/cmp-latex-symbols", -- latex symbol
-  }
-  for _, k in ipairs(cmp_dependencies) do
-    Plug.add(k, { lazy = true })
-  end
-  Plug.add("hrsh7th/nvim-cmp", {
-    event = "InsertEnter",
-    dependencies = cmp_dependencies,
-  })
+-- hrsh7th/nvim-cmp: A completion plugin for neovim ----------------- {{{4
+local cmp_dependencies = {
+  "hrsh7th/cmp-nvim-lsp", -- neovim builtin LSP client
+  "hrsh7th/cmp-nvim-lsp-signature-help", -- displaying function signatures
+  "hrsh7th/cmp-omni", -- omnifunc
+  "hrsh7th/cmp-buffer", -- buffer words
+  "hrsh7th/cmp-cmdline", -- command line keywords
+  "FelipeLema/cmp-async-path", -- filesystem paths
+  "ray-x/cmp-treesitter", -- treesitter nodes
+  "onsails/lspkind.nvim", -- adds vscode-like pictograms
+  "quangnguyen30192/cmp-nvim-ultisnips", -- ultisnips
+  "kristijanhusak/vim-dadbod-completion", -- dadbod
+  "kdheepak/cmp-latex-symbols", -- latex symbol
+}
+for _, k in ipairs(cmp_dependencies) do
+  Plug.add(k, { lazy = true })
 end
----
+Plug.add("hrsh7th/nvim-cmp", {
+  event = "InsertEnter",
+  dependencies = cmp_dependencies,
+})
+
 -- Formatter and linter ------------------------------------------------- {{{2
+-- mfussenegger/nvim-dap
+-- Plug.add("mfussenegger/nvim-dap")
+-- Plug.add("rcarriga/nvim-dap-ui", {
+--   dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
+--   config = true,
+-- })
 
 -- mhartington/formatter.nvim: autoformat tool -------------------------- {{{3
 Plug.add("mhartington/formatter.nvim", {
