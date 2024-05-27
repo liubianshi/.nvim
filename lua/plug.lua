@@ -630,14 +630,19 @@ Plug.add("yianwillis/vimcdoc", {
 })
 
 -- zhimsel/vim-stay: Make Vim persist editing state without fuss -------- {{{3
-Plug.add("zhimsel/vim-stay", {
-  init = function()
-    vim.o.viewoptions = "cursor,folds,slash,unix"
-  end,
-})
+-- Plug.add("zhimsel/vim-stay", {
+--   init = function()
+--     vim.o.viewoptions = "cursor,folds,slash,unix"
+--   end,
+-- })
 
 -- Konfekt/FastFold: updating folds only when called-for ---------------- {{{3
-Plug.add("Konfekt/FastFold")
+-- Plug.add("Konfekt/FastFold")
+
+Plug.add("chrisgrieser/nvim-origami", {
+	event = "BufReadPost", -- later or on keypress would prevent saving folds
+	opts = true, -- needed even when using default config
+})
 
 -- kevinhwang91/nvim-ufo: ultra fold in Neovim -------------------------- {{{3
 Plug.add("kevinhwang91/nvim-ufo", {
@@ -703,11 +708,15 @@ Plug.add("nvim-zh/colorful-winsep.nvim", {
 
 -- "lukas-reineke/indent-blankline.nvim"
 -- Plug.add("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
-Plug.add("Mr-LLLLL/cool-chunk.nvim", {
-  event = { "CursorHold", "CursorHoldI" },
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter",
-  },
+Plug.add("shellRaining/hlchunk.nvim", {
+  event = { "BufReadPre", "BufNewFile" },
+  config = function()
+    require("hlchunk").setup {
+      chunk = { enable = true },
+      indent = { enable = true },
+      line_num = { enable = true },
+    }
+  end,
 })
 
 -- Tools ---------------------------------------------------------------- {{{2
