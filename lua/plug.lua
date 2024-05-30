@@ -991,6 +991,8 @@ Plug.add("olimorris/onedarkpro.nvim",        { priority = 100 })
 Plug.add("Mofiqul/vscode.nvim",              { priority = 100 })
 Plug.add("rmehri01/onenord.nvim",            { priority = 100 })
 Plug.add("nyoom-engineering/oxocarbon.nvim", { priority = 100 })
+Plug.add("Verf/deepwhite.nvim",              { lazy = false, priority = 100  })
+
 Plug.add("mhartington/oceanic-next",         { lazy = false })
 Plug.add("sainnhe/everforest", {
   init = function()
