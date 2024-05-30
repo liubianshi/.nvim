@@ -708,17 +708,13 @@ Plug.add("nvim-zh/colorful-winsep.nvim", {
 
 -- "lukas-reineke/indent-blankline.nvim"
 -- Plug.add("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
-Plug.add("shellRaining/hlchunk.nvim", {
-  event = { "BufReadPre", "BufNewFile" },
+Plug.add("nvimdev/indentmini.nvim", {
   config = function()
-    require("hlchunk").setup {
-      chunk = { enable = true },
-      indent = { enable = true },
-      line_num = { enable = true },
-    }
+    require("indentmini").setup({
+       exclude = {"markdown", "alpha"} 
+    })
   end,
 })
-
 -- Tools ---------------------------------------------------------------- {{{2
 -- liubianshi/cmp-lsp-rimels: ------------------------------------------- {{{3
 Plug.add("liubianshi/cmp-lsp-rimels", {
@@ -753,12 +749,10 @@ Plug.add("liubianshi/icon-picker.nvim", {
   }
 })
 
---
+-- brenoprata10/nvim-highlight-colors: Highlight colors for neovim ------ {{{3
 Plug.add("brenoprata10/nvim-highlight-colors", {
-  ft = { "html", "lua", "css" },
+  ft = { "html", "lua", "css", "vim" },
 })
-
-
 
 -- nvimdev/lspsaga.nvim: ------------------------------------------------ {{{3
 Plug.add("nvimdev/lspsaga.nvim", {

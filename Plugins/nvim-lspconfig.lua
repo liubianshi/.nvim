@@ -21,14 +21,19 @@ local util = require "lspconfig.util"
 vim.lsp.set_log_level "ERROR"
 
 -- Preconfiguration ----------------------------------------------------------- {{{2
-local capabilities = (function()
-  local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-  if status_ok then
-    return cmp_nvim_lsp.default_capabilities()
-  else
-    return nil
-  end
-end)()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+local cmp_lsp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+local ufo_ok, _ = pcall(require, 'ufo')
+if cmp_lsp_ok then
+  capabilities.textDocument.completion = cmp_nvim_lsp.default_capabilities().textDocument.completion
+end
+if ufo_ok then
+  capabilities.textDocument.foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true
+  }
+end
+
 
 -- bashls (bash-language-server) ---------------------------------------- {{{2
 lspconfig.bashls.setup {
