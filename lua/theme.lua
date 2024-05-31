@@ -145,6 +145,9 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
     vim.cmd("highlight CmpItemAbbr guifg="      .. pallete.fg)
     vim.cmd("highlight CmpItemAbbrMatch guifg=" .. pallete.strong)
     vim.cmd("highlight MsgSeparator guibg=bg guifg=" .. pallete.strong)
+
+    vim.cmd.highlight('link IndentLine LineNr')
+    vim.cmd.highlight('IndentLineCurrent guifg=' .. vim.g.lbs_colors.orange)
   end,
   desc = "Define personal highlight group",
 })

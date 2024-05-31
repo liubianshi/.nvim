@@ -488,6 +488,24 @@ Plug.add("rcarriga/nvim-notify", {
   end,
 })
 
+-- 
+Plug.add("folke/noice.nvim", {
+  event = "VeryLazy",
+  opts = {
+    -- add any options here
+  },
+  dependencies = {
+    -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    "MunifTanjim/nui.nvim",
+    -- OPTIONAL:
+    --   `nvim-notify` is only needed, if you want to use the notification view.
+    --   If not available, we use `mini` as the fallback
+    "rcarriga/nvim-notify",
+  }
+})
+
+
+
 -- folke/flash.nvim: Navigate tools ------------------------------------- {{{3
 Plug.add("folke/flash.nvim", {
   event = "VeryLazy",
@@ -711,7 +729,8 @@ Plug.add("nvim-zh/colorful-winsep.nvim", {
 Plug.add("nvimdev/indentmini.nvim", {
   config = function()
     require("indentmini").setup({
-       exclude = {"markdown", "alpha"} 
+       char = "│",
+       exclude = {"markdown", "alpha", "norg"}
     })
   end,
 })

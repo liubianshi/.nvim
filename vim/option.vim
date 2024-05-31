@@ -41,7 +41,7 @@ filetype on                " 开启文件类型侦测
 filetype plugin on         " 根据侦测到的不同类型加载对应插件支持
 syntax enable              " 语法高亮
 syntax on                  " 允许用指定语法高亮配色方案替换默认方案
-set synmaxcol=200  " Text after this column number is not highlighted
+set synmaxcol=300  " Text after this column number is not highlighted
 set nostartofline
 
 " 文件同步、备份和回滚 =================================================== {{{1
@@ -66,7 +66,7 @@ set fileencodings=ucs-bom,utf-8,cp936,gb2312,gb18030,big5,enc-jp,enc-krlatin1
 set noerrorbells           " 关闭出错时的提示音
 set novisualbell           " 关闭使用可视响铃代替呼叫
 set t_vb=                  " 置空错误铃声的终端代码
-set shortmess+=cSI
+set shortmess+=cI
 
 " 响应速度设置 =========================================================== {{{1
 set updatetime=300

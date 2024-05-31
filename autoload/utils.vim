@@ -414,15 +414,11 @@ function! utils#ZenMode_Insert(start = v:true) abort
     set noshowcmd
     let winh = winheight(0)
     let &l:scrolloff = min([winh / 3, max([0, winh - 6])])
+    let &l:foldcolumn = "0"
     if ww < 84
-        let &l:foldcolumn = "auto:1"
         let &l:signcolumn = "yes:1"
-    elseif ww <= 126
-        let &l:foldcolumn = "auto:1"
-        let &l:signcolumn = "yes:" . min([((ww - 81) / 4), 9])
     else
-        let &l:signcolumn = "yes:9"
-        let &l:foldcolumn = "auto:" . min([((ww - 125) / 2), 9])
+        let &l:signcolumn = "yes:" . min([((ww - 81) / 4), 9])
     endif
     lua require('lualine').hide()
     let w:zen_mode = v:true
