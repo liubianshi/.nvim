@@ -393,30 +393,36 @@ function! utils#ZenMode_Insert(start = v:true) abort
     if ! exists('b:zen_oriwin') || ! b:zen_oriwin['zenmode']
         if a:start
             let b:zen_oriwin = {
-                        \ 'zenmode': v:true,
-                        \ 'foldcolumn': &l:foldcolumn,
-                        \ 'number': &l:number,
-                        \ 'scrolloff': &l:scrolloff,
-                        \ 'relativenumber': &l:relativenumber,
-                        \ 'foldenable': &l:foldenable,
-                        \ 'laststatus': &l:laststatus,
-                        \ 'showcmd': &l:showcmd,
-                        \ }
+                \ 'zenmode': v:true,
+                \ 'foldcolumn': &l:foldcolumn,
+                \ 'signcolumn': &l:signcolumn,
+                \ 'number': &l:number,
+                \ 'numberwidth': &l:numberwidth,
+                \ 'scrolloff': &l:scrolloff,
+                \ 'relativenumber': &l:relativenumber,
+                \ 'foldenable': &l:foldenable,
+                \ 'laststatus': &l:laststatus,
+                \ 'showcmd': &l:showcmd,
+                \ }
         else
             return
         endif
     endif
     setlocal nonumber
     setlocal norelativenumber
-    setlocal nofoldenable
     set laststatus=0
     set noshowcmd
     let winh = winheight(0)
     let &l:scrolloff = min([winh / 3, max([0, winh - 6])])
-    if ww < 81
-        let &l:foldcolumn = 1
+    if ww < 84
+        let &l:foldcolumn = "auto:1"
+        let &l:signcolumn = "yes:1"
+    elseif ww <= 126
+        let &l:foldcolumn = "auto:1"
+        let &l:signcolumn = "yes:" . min([((ww - 81) / 4), 9])
     else
-        let &l:foldcolumn = min([((ww - 80) / 2), 9])
+        let &l:signcolumn = "yes:9"
+        let &l:foldcolumn = "auto:" . min([((ww - 125) / 2), 9])
     endif
     lua require('lualine').hide()
     let w:zen_mode = v:true
@@ -429,7 +435,7 @@ function! utils#ZenMode_Leave(exit = v:true) abort
     endif
     for attr in keys(b:zen_oriwin)
         if attr != 'zenmode'
-            exec 'let &l:' . attr . " = " . b:zen_oriwin[attr]
+            exec 'let &l:' . attr . " = '" . b:zen_oriwin[attr] . "'"
         endif
     endfor
     if a:exit 
@@ -649,7 +655,7 @@ endfunction
 " 翻译操作符 ============================================================= {{{1
 function! utils#Trans_string(str)
     let cmd = "deepl \"%s\" 2>/dev/null"
-    if len(split(a:str, ' ')) == 1
+    if len(split(a:str, ' ')) == 1 && a:str =~? '\v^[a-z]'
         let cmd = "sdcv -j " .. a:str
         let re = system(cmd)
         if v:shell_error != 0 | return | endif

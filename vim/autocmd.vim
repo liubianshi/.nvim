@@ -20,24 +20,37 @@ endfunction
 
 function! s:adjust_zen_mode(event)
     let windows = a:event['windows']
-    for win in windows
-        let ww = winwidth(win)
+    echom windows
 
+    for win in windows
+        let winnr = win_id2win(win)
+        if winnr == 0 | continue | endif
+
+        let ww = winwidth(win)
         let bufnr = winbufnr(win)
         let zen_oriwin = getbufvar(bufnr, "zen_oriwin")
-        if type(zen_oriwin) == v:t_dict && zen_oriwin['zenmode']
-            if ww < 81
-                call luaeval('vim.api.nvim_win_set_option(' . win . ", 'foldcolumn', '0')")
-            elseif ww < 91
-                call luaeval('vim.api.nvim_win_set_option(' . win . ", 'foldcolumn', '1')")
+        if luaeval('vim.api.nvim_get_option_value("syntax", {buf = _A})', bufnr) == "rbrowser"
+            if ww <= 30 | continue | endif
+            exec "vertical " . winnr . "resize 30"
+            return
+        elseif type(zen_oriwin) == v:t_dict && zen_oriwin['zenmode']
+            if ww < 84
+                call luaeval('vim.api.nvim_set_option_value("foldcolumn", "auto:1", { win = _A})', win)
+                call luaeval('vim.api.nvim_set_option_value("signcolumn", "yes:1", { win = _A})', win)
+            elseif ww <= 126
+                call luaeval('vim.api.nvim_set_option_value("foldcolumn", "auto:1", { win = _A})', win)
+                call luaeval('vim.api.nvim_set_option_value("signcolumn", "yes:" .. _A[2], { win = _A[1]})', [win, min([((ww - 81) / 4), 9])])
             else
-                call luaeval('vim.api.nvim_win_set_option(' . win . ", 'foldcolumn', '" . min([((ww - 89) / 2), 9]) . "')")
+                call luaeval('vim.api.nvim_set_option_value("signcolumn", "yes:9", { win = _A})', win)
+                call luaeval('vim.api.nvim_set_option_value("foldcolumn", "auto:" .. _A[2], { win = _A[1]})', [win, min([((ww - 125) / 2), 9])])
             endif
         else
             if ww < 40
-                call luaeval('vim.api.nvim_win_set_option(' . win . ", 'foldcolumn', '0')")
+                call luaeval('vim.api.nvim_set_option_value("signcolumn", "no", { win = _A})', win)
+                call luaeval('vim.api.nvim_set_option_value("foldcolumn", "0", { win = _A})', win)
             else
-                call luaeval('vim.api.nvim_win_set_option(' . win . ", 'foldcolumn', '1')")
+                call luaeval('vim.api.nvim_set_option_value("signcolumn", "yes:1", { win = _A})', win)
+                call luaeval('vim.api.nvim_set_option_value("foldcolumn", "auto:1", { win = _A})', win)
             endif
         endif
     endfor

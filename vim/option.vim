@@ -91,7 +91,7 @@ set cmdheight=1            " 命令行高度
 set laststatus=3           " 总是显示状态栏
 set cmdheight=1
 set list
-set listchars=tab:\ \ \|,trail:\ ,precedes:<,extends:>
+set listchars=tab:\ \ ,trail:\ ,precedes:<,extends:>
 let &formatlistpat = '\v^\s*(\d{1,2}\.|\(\d{1,2}\)|\[\d{1,2}\]|[-+*])\s+'
 set fillchars=fold:\ 
 set signcolumn=yes:1
@@ -151,7 +151,7 @@ set shiftround
 " 折叠相关 ============================================================== {{{1 
 " set foldtext=fold#FoldText()
 set foldlevel=99             " 折叠层级
-set foldcolumn=1
+set foldcolumn=auto:1
 set formatoptions=tcn,1mp],Bj,oq
 " t: 自动回绕文本
 " c: 自动回绕注释
