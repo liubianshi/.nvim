@@ -125,39 +125,16 @@ local keymap_config = {
     ),
 }
 -- sorting -------------------------------------------------------------- {{{2
-
-local modified_priority = {
-    [types.lsp.CompletionItemKind.Variable] = types.lsp.CompletionItemKind.Method,
-    [types.lsp.CompletionItemKind.Snippet] = 0, -- top
-    [types.lsp.CompletionItemKind.Keyword] = 0, -- top
-    [types.lsp.CompletionItemKind.Text] = 100, -- bottom
-}
-local function modified_kind(kind)
-    return modified_priority[kind] or kind
-end
-
 local sorting_config = {
+    priority_weight = 2,
     comparators = {
         compare.offset,
         compare.exact,
         compare.sort_text,
         compare.recently_used,
         compare.locality,
-        function(entry1, entry2) -- sort by compare kind (Variable, Function etc)
-            local kind1 = modified_kind(entry1:get_kind())
-            local kind2 = modified_kind(entry2:get_kind())
-            if kind1 ~= kind2 then
-                return kind1 - kind2 < 0
-            end
-        end,
         compare.score,
-        function(entry1, entry2) -- sort by length ignoring "=~"
-          local len1 = string.len(string.gsub(entry1.completion_item.label, "[=~()_]", ""))
-          local len2 = string.len(string.gsub(entry2.completion_item.label, "[=~()_]", ""))
-          if len1 ~= len2 then
-            return len1 - len2 < 0
-          end
-        end,
+        compare.length,
         compare.order,
     }
 }
@@ -214,10 +191,11 @@ local cmp_config = {
       },
     },
     matching = {
-        -- disallow_fuzzy_matching = true,
-        -- disallow_fullfuzzy_matching = true,
+        disallow_fuzzy_matching = true,
+        disallow_fullfuzzy_matching = true,
+        disallow_symbol_nonprefix_matching = true,
         disallow_partial_fuzzy_matching = true,
-        disallow_partial_matching = false,
+        disallow_partial_matching = true,
         disallow_prefix_unmatching = false,
     },
     mapping = cmp.mapping.preset.insert(keymap_config),

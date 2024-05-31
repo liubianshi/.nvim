@@ -80,7 +80,8 @@ function! s:mylib_new(item = "", cmd = "vsplit") abort
     endif
 
     if &filetype !=? 'newsboat'
-        return
+        let b:mylib_key = system("mylib get md5_long")
+        return b:mylib_key
     endif
 
     let url = b:fetched_urls[0]

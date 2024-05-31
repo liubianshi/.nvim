@@ -215,7 +215,7 @@ setlocal scrolloff=10
 call s:generate_url_dict()
 call utils#Fetch_urls()
 call s:cache_link_snapshot()
-call s:pangu()
+" call s:pangu()
 call utils#ToggleZenMode()
 
 " Keymap ---------------------------------------------------------------- {{{1
