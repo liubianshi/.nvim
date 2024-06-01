@@ -65,11 +65,6 @@ Plug.add("romainl/vim-cool", { event = "VeryLazy" })
 -- ojroques/vim-oscyank: copy text through SSH with OSC52 --------------- {{{3
 Plug.add("ojroques/vim-oscyank", { cmd = "OSCYank" })
 
--- tpope/vim-sleuth: automaticly adjusts 'shiftwidth' and 'expandtab' --- {{{3
-Plug.add("tpope/vim-sleuth", {
-  event = { "BufReadPost", "BufWrite" },
-})
-
 -- typicode/bg.nvim: Automatically sync your terminal background -------- {{{3
 Plug.add( "typicode/bg.nvim", { lazy = false })
 
@@ -730,7 +725,7 @@ Plug.add("nvimdev/indentmini.nvim", {
   config = function()
     require("indentmini").setup({
        char = "│",
-       exclude = {"markdown", "alpha", "norg"}
+       exclude = {"markdown", "alpha", "norg", "help"}
     })
   end,
 })
@@ -1258,6 +1253,11 @@ Plug.add("kmonad/kmonad-vim", { ft = "kbd" })
 Plug.add("nvim-treesitter/nvim-treesitter", {
   build = ":TSUpdate",
   cmd = "TSEnable",
+  event = { "BufReadPost", "BufNewFile" },
+})
+
+Plug.add("nvim-treesitter/nvim-treesitter-textobjects", {
+  dependencies = { "nvim-treesitter/nvim-treesitter" },
   event = { "BufReadPost", "BufNewFile" },
 })
 

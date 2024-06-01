@@ -658,7 +658,7 @@ function! utils#Trans_string(str)
         let re = json_decode(re)
         let wd = trim(re[0]['word'])
         let re = trim(re[0]['definition'])
-        echon re
+        call luaeval("vim.notify(_A[2], vim.log.levels.INFO, {title = _A[1]})", [a:str, re])
 
         let re = substitute(re, '\v(\*\[[^\]]+\])\ze\n', '\1*', "")
         let re = substitute(re, "\n", "\n>\n> ", "g")
@@ -666,11 +666,14 @@ function! utils#Trans_string(str)
         return re
     endif
     let cmd = printf(cmd, a:str)
-    let re = system(cmd)
+    let re = systemlist(cmd)
+    let engine = re[0]
+    let re = join(re[1:], "\n")
+    echom re
     if v:shell_error != 0
         return ""
     else
-        echon re
+        call luaeval("vim.notify(_A[1] .. '\\n' .. _A[2], vim.log.levels.INFO, {title = _A[3]})", [a:str, re, engine])
         return re
     endif
 endfunction

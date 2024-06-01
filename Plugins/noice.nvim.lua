@@ -15,19 +15,63 @@ require("noice").setup {
     inc_rename = false, -- enables an input dialog for inc-rename.nvim
     lsp_doc_border = false, -- add a border to hover docs and signature help
   },
+  messages = {
+    enabled = true,
+    view = "mini",
+    view_warn = "mini",
+  },
+  popupmenu = {
+    backend = "nui",
+  },
   cmdline = {
+    opts = {
+      position = {
+        row = "90%", -- 将行位置设置为 100%，即底部
+        col = "50%", -- 将列位置设置为 50%，即居中
+      },
+    },
     format = {
-      cmdline = {
-        pattern = "^:",
-        icon = "",
-        lang = "vim",
+      search_down = {
+        kind = "search",
+        pattern = "^/",
+        icon = " ",
+        lang = "regex",
         opts = {
           position = {
-            row = "90%", -- 将行位置设置为 100%，即底部
+            row = "100%", -- 将行位置设置为 100%，即底部
             col = "50%", -- 将列位置设置为 50%，即居中
           },
         },
       },
+      search_up = {
+        opts = {
+          position = {
+            row = "100%", -- 将行位置设置为 100%，即底部
+            col = "50%", -- 将列位置设置为 50%，即居中
+          },
+        },
+        kind = "search",
+        pattern = "^%?",
+        icon = " ",
+        lang = "regex",
+      },
+    },
+  },
+  routes = {
+    {
+      view = "vsplit",
+      filter = { min_height = 20 },
+    },
+    {
+      filter = {
+        event = "msg_show",
+        any = {
+          { find = "%d+L, %d+B" },
+          { find = "; after #%d+" },
+          { find = "; before #%d+" },
+        },
+      },
+      view = "mini",
     },
   },
 }
