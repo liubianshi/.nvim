@@ -732,7 +732,8 @@ Plug.add("nvimdev/indentmini.nvim", {
 -- Tools ---------------------------------------------------------------- {{{2
 -- liubianshi/cmp-lsp-rimels: ------------------------------------------- {{{3
 Plug.add("liubianshi/cmp-lsp-rimels", {
-  event = "VeryLazy",
+  -- event = "VeryLazy",
+  keys = {{"<localleader>f", mode = "i"}},
   dev = true,
 })
 
@@ -1027,7 +1028,8 @@ Plug.add("sirver/UltiSnips", {
 -- completation framework and relative sources -------------------------- {{{3
 Plug.add("folke/neodev.nvim", {opts = {}})
 Plug.add("neovim/nvim-lspconfig", {
-  event = { "BufReadPre", "BufNewFile", "BufWinEnter" },
+  -- event = { "BufReadPre", "BufNewFile", "BufWinEnter" },
+  ft = {"lua", "perl", "markdown", "bash", "r", "python", "vim"},
   dependencies= {"folke/neodev.nvim"},
 })
 Plug.add("liubianshi/cmp-r", { dev = true, lazy = true})
@@ -1053,6 +1055,7 @@ Plug.add("hrsh7th/nvim-cmp", {
   event = "InsertEnter",
   dependencies = cmp_dependencies,
 })
+
 
 -- Formatter and linter ------------------------------------------------- {{{2
 -- mfussenegger/nvim-dap

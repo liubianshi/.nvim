@@ -132,8 +132,8 @@ set magic                  " 对正则表达式开启 magic
 
 " 自动排版相关 ========================================================== {{{1
 set expandtab              " 将制表符扩展为空格
-set tabstop=4              " 设置编辑时制表符占用空格数
-set shiftwidth=4           " 设置格式化时制表符占用空格数
+set tabstop=2              " 设置编辑时制表符占用空格数
+set shiftwidth=2           " 设置格式化时制表符占用空格数
 set smarttab               " Be Smart When using tabs
 set shiftround             " 运用 > < 推广缩进至 tabs 整数倍
 set wrapmargin=0           " 指定拆行处与编辑窗口右边缘之间空出的字符数
