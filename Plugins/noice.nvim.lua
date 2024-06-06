@@ -16,8 +16,8 @@ require("noice").setup {
     lsp_doc_border = false, -- add a border to hover docs and signature help
   },
   messages = {
-    enabled = true,
-    view = "mini",
+    enabled = false,
+    view = "notify",
     view_warn = "mini",
   },
   popupmenu = {
