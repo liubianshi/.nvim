@@ -85,7 +85,7 @@ if !has('mac')
         \ :r  !xclip -o -t text/html -sel clip \| pandoc -f html -t markdown_strict<cr>
 endif
 
-setlocal formatoptions=tcq,ro/,n,lm]1,Bj tabstop=4 shiftwidth=4
+setlocal formatoptions=tcq,ro/,n,lm]1,Bj tabstop=2 shiftwidth=2
 
 setlocal foldexpr=nvim_treesitter#foldexpr() foldmethod=expr foldlevel=99 foldlevelstart=99
 

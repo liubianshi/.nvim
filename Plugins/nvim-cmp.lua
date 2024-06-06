@@ -2,7 +2,7 @@
 local cmp = require "cmp"
 local compare = require "cmp.config.compare"
 local cmp_ultisnips_mappings = require "cmp_nvim_ultisnips.mappings"
--- require("cmp_r").setup({filetypes = {"r", "rmd", "markdown", "rdoc"}})
+require("cmp_r").setup({filetypes = {"r", "rmd", "markdown", "rdoc"}})
 vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 
 -- source config functions ---------------------------------------------- {{{2
