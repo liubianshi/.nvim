@@ -28,6 +28,7 @@ vimkey('<leader>bn', 'Next Buffer', '<cmd>bn<cr>')
 vimkey('<leader>bq', 'Quit Buffer', '<cmd>q<cr>')
 vimkey('<leader>bQ', 'Quit Buffer (force)', '<cmd>q!<cr>')
 vimkey('<leader>bf', 'Close Float Buffer', '<cmd>fclose<cr>')
+vimkey('<leader>bl', "Pick Buffer on BufferLine", '<cmd>BufferLinePick<cr>')
 
 --- tab ----------------------------------------------------------------- {{{1
 vimkey('<leader>tt', 'Tab: New', '<cmd>tabnew<cr>')

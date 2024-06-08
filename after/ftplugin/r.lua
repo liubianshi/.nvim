@@ -52,9 +52,6 @@ local r_popup = function(debug)
     popup:mount()
     return popup
 end
-
-
-
 local wk = require "which-key"
 local vimkey = function(key, desc, cmd, opts)
     opts = vim.tbl_extend('keep', opts or {}, {
@@ -78,6 +75,8 @@ vimkey("<localleader>dd", "devtools: update document", "<cmd>RSend devtools::doc
 vimkey("<localleader>dB", "devtools: trace back",      "<cmd>RSend rlang::trace_back()<cr>")
 vimkey("<localleader>db", "Debug", string.format('<cmd>RSend debug(%s)<cr>', vim.fn.expand('<cword>')))
 vimkey("<localleader>du", "Debug", string.format('<cmd>RSend undebug(%s)<cr>', vim.fn.expand('<cword>')))
+vimkey("<localleader>dl", "Test Start",  '<cmd>RSend local(browser())<cr>')
+vimkey("<localleader>de", "Test End",    '<cmd>RSend f<cr>')
 
 vimkey("<localleader>tv", "view data: head+tail",   "yiw<cmd>call utils#R_view_df_sample('ht')<cr>")
 vimkey("<localleader>tr", "view data: random",      "yiw<cmd>call utils#R_view_df_sample('r')<cr>")

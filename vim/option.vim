@@ -151,7 +151,7 @@ set shiftround
 " 折叠相关 ============================================================== {{{1 
 " set foldtext=fold#FoldText()
 set foldlevel=99             " 折叠层级
-set foldcolumn=auto:1
+set foldcolumn=0
 set formatoptions=tcn,1mp],Bj,oq
 " t: 自动回绕文本
 " c: 自动回绕注释
