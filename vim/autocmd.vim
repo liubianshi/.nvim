@@ -64,6 +64,20 @@ function! s:adjust_window_based_on_zen_mode_status() abort
     endif
 endfunction
 
+function! s:disable_touchpad() abort
+  let hostn = trim(system("hostname"))
+  if hostn ==? "lbsgram"
+    call system("touchpad off")
+  endif
+endfunction
+
+function! s:enable_touchpad() abort
+  let hostn = trim(system("hostname"))
+  if hostn ==? "lbsgram"
+    call system("touchpad on")
+  endif
+endfunction
+
 " 初始 ================================================================== {{{1
 augroup LOAD_ENTER
 autocmd!
@@ -75,8 +89,10 @@ autocmd!
 
 
 " cmd: global setting --------------------------------------------------- {{{2
-autocmd InsertLeave,WinEnter *  setlocal cursorline
 autocmd InsertEnter,WinLeave *  setlocal nocursorline
+autocmd InsertEnter * call s:disable_touchpad()
+autocmd InsertLeave,WinEnter *  setlocal cursorline | 
+autocmd InsertLeave * call s:enable_touchpad()
 autocmd TermOpen             *  setlocal nonumber norelativenumber bufhidden=hide foldcolumn=0
 autocmd FileType   r,stata,vim  call s:FoldMethodSetting()
 autocmd FileType   norg,org,markdown,rmd,rmarkdown

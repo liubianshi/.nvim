@@ -27,7 +27,12 @@ vimkey('<leader>bp', 'Previous Buffer', '<cmd>bp<cr>')
 vimkey('<leader>bn', 'Next Buffer', '<cmd>bn<cr>')
 vimkey('<leader>bq', 'Quit Buffer', '<cmd>q<cr>')
 vimkey('<leader>bQ', 'Quit Buffer (force)', '<cmd>q!<cr>')
-vimkey('<leader>bf', 'Close Float Buffer', '<cmd>fclose<cr>')
+vimkey('<leader>bf', 'Goto Float Buffer', function()
+  local popup_win_id = vim.g['popup#highest_zindex_window']
+  if not popup_win_id then return end
+  vim.fn.win_gotoid(popup_win_id)
+end)
+vimkey('<leader>bF', 'Close Float Buffer', '<cmd>fclose<cr>')
 vimkey('<leader>bl', "Pick Buffer on BufferLine", '<cmd>BufferLinePick<cr>')
 
 --- tab ----------------------------------------------------------------- {{{1

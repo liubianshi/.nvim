@@ -54,7 +54,7 @@ Plug.get = function()
 end
 
 -- 配置插件 ------------------------------------------------------------- {{{1
--- Plug.add("vhyrro/luarocks.nvim", { priority = 1000, config = true })
+Plug.add("vhyrro/luarocks.nvim", { priority = 1000, config = true })
 -- GUI
 -- Plug.add("equalsraf/neovim-gui-shim")
 -- UI ------------------------------------------------------------------- {{{2
@@ -340,10 +340,7 @@ Plug.add("nvim-telescope/telescope.nvim", {
 })
 
 Plug.add("nvim-telescope/telescope-fzf-native.nvim", {
-  build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release "
-    .. "&& cmake --build build --config Release "
-    .. "&& cmake --install build --prefix build",
-  lazy = true,
+  build = "make", lazy = true,
 })
 Plug.add("FeiyouG/command_center.nvim", { lazy = true })
 Plug.add("nvim-telescope/telescope-frecency.nvim", {
@@ -766,7 +763,7 @@ Plug.add("liubianshi/icon-picker.nvim", {
 
 -- brenoprata10/nvim-highlight-colors: Highlight colors for neovim ------ {{{3
 Plug.add("brenoprata10/nvim-highlight-colors", {
-  ft = { "html", "lua", "css", "vim" },
+  ft = { "html", "lua", "css", "vim", "cpp" },
 })
 
 -- nvimdev/lspsaga.nvim: ------------------------------------------------ {{{3

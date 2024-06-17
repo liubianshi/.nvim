@@ -56,9 +56,9 @@ lspconfig.bashls.setup {
 
 -- Python (pyright) ----------------------------------------------------- {{{2
 -- lspconfig.pyright.setup({ on_attach = on_attach_custom })
-lspconfig.jedi_language_server.setup {
-  capabilities = capabilities,
-}
+-- lspconfig.jedi_language_server.setup {
+--   capabilities = capabilities,
+-- }
 
 -- vim (vimls) ---------------------------------------------------------- {{{2
 lspconfig.vimls.setup {
