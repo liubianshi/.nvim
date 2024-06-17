@@ -67,50 +67,35 @@ date: "\`r Sys.Date()\`"
 tags: ["$1"]
 ---
 
-<!-- 设置 R session 环境 {{{-->
 \`\`\`\{r setup, include = F\}
-library("magrittr")
-library("data.table")
-library("showtext")
+box::use
+box::use(magrittr[\`%>%\`, \`%<>%\`, \`%T>%\`])
+box::use(stringr[glue = str_glue])
+box::use(data.table[setDT, as.data.table, data.table, setnames])
 knitr::opts_chunk$set(
 	include = TRUE,   echo         = FALSE, eval      = TRUE,
 	message = FALSE,  warning      = FALSE, error     = FALSE,
 	dpi     = 600,    fig.asp      = 0.75,  fig.width = 6,
 	results = "asis", fig.showtext = TRUE
 )
-if (knitr::is_latex_output()) {
-	showtext_auto()
-	if (Sys.info()["sysname"]=="Darwin") {
-		font_add("LXGW Mono", "LXGWWenKaiMono-Regular.ttf")
-	} else {
-		font_add("LXGW Mono", "LXGWWenKaiMono-Regular.ttf")
-	}
-}
 \`\`\`
-<!--}}}-->
 
 $0
 endsnippet
 
-snippet setup "Rmd Setup" b
-<!-- 设置 R session 环境 {{{-->
-\`\`\`\{r, setup, include = F\}
-library("magrittr")
-library("data.table")
+snippet setup_r "Rmd Setup" b
+\`\`\`\{r setup, include = F\}
+box::use
+box::use(magrittr[\`%>%\`, \`%<>%\`, \`%T>%\`])
+box::use(stringr[glue = str_glue])
+box::use(data.table[setDT, as.data.table, data.table, setnames])
 knitr::opts_chunk$set(
 	include = TRUE,   echo         = FALSE, eval      = TRUE,
 	message = FALSE,  warning      = FALSE, error     = FALSE,
 	dpi     = 600,    fig.asp      = 0.75,  fig.width = 6,
 	results = "asis", fig.showtext = TRUE
 )
-if (knitr::is_latex_output()) showtext_auto()
-if (Sys.info()["sysname"]=="Darwin") {
-	font_add("LXGW Mono", "LXGWWenKaiMono-Regular.ttf")
-} else {
-	font_add("LXGW Mono", "LXGWWenKaiMono-Regular.ttf")
-}
 \`\`\`
-<!--}}}-->
 
 $0
 endsnippet
