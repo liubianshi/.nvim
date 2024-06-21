@@ -297,7 +297,7 @@ fzfmap('<leader>ot', 'Run async tasks', function()
           ['default'] = function(selected)
             local str = fzflua.utils.strsplit(selected[1], ' ')
             local command = 'AsyncTask ' .. vim.fn.fnameescape(str[1]);
-            vim.api.nvim_exec2(command)
+            vim.api.nvim_exec2(command, {output = false})
           end
         },
         fzf_opts = {
