@@ -412,18 +412,18 @@ Plug.add("junegunn/vim-easy-align", {
 })
 
 -- beauwilliams/focus.nvim: Auto Ajust the size of focused window ------- {{{3
--- Plug.add("nvim-focus/focus.nvim", {
---   keys = {
---     { "<leader>wh", "<cmd>FocusSplitLeft<cr>", desc = "Focus Split Left" },
---     { "<leader>wl", "<cmd>FocusSplitRight<cr>", desc = "Focus Split Right" },
---     { "<leader>wj", "<cmd>FocusSplitDown<cr>", desc = "Focus Split Down" },
---     { "<leader>wk", "<cmd>FocusSplitUp<cr>", desc = "Focus Split Up" },
---     { "<leader>wm", "<cmd>FocusMaximise<cr>", desc = "Focus Maximise" },
---     { "<leader>we", "<cmd>FocusEqualise<cr>", desc = "Focus Equalise" },
---     { "<leader>ww", "<cmd>FocusSplitNicely<cr>", desc = "Focus Equalise" },
---   },
---   cmd = { "FocusToggle", "FocusEnable" },
--- })
+Plug.add("nvim-focus/focus.nvim", {
+  keys = {
+    { "<leader>wh", "<cmd>FocusSplitLeft<cr>", desc = "Focus Split Left" },
+    { "<leader>wl", "<cmd>FocusSplitRight<cr>", desc = "Focus Split Right" },
+    { "<leader>wj", "<cmd>FocusSplitDown<cr>", desc = "Focus Split Down" },
+    { "<leader>wk", "<cmd>FocusSplitUp<cr>", desc = "Focus Split Up" },
+    { "<leader>wm", "<cmd>FocusMaximise<cr>", desc = "Focus Maximise" },
+    { "<leader>we", "<cmd>FocusEqualise<cr>", desc = "Focus Equalise" },
+    { "<leader>ww", "<cmd>FocusSplitNicely<cr>", desc = "Focus Equalise" },
+  },
+  cmd = { "FocusToggle", "FocusEnable" },
+})
 
 -- folke/zen-mode.nvim: Distraction-free coding for Neovim -------------- {{{3
 Plug.add("folke/zen-mode.nvim", {

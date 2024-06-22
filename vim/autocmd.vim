@@ -92,7 +92,7 @@ autocmd!
 autocmd InsertEnter,WinLeave *  setlocal nocursorline
 autocmd InsertEnter * call s:disable_touchpad()
 autocmd InsertLeave,WinEnter *  setlocal cursorline | 
-autocmd InsertLeave,FocusLost * call s:enable_touchpad()
+autocmd InsertLeave * call s:enable_touchpad()
 autocmd TermOpen             *  setlocal nonumber norelativenumber bufhidden=hide foldcolumn=0
 autocmd FileType   r,stata,vim  call s:FoldMethodSetting()
 autocmd FileType   norg,org,markdown,rmd,rmarkdown
