@@ -50,8 +50,11 @@ require('rimels').setup({
     },
     cmp_keymaps = {
       disable = {
-        numbers = false,
-        space = false,
+        space     = false,
+        numbers   = false,
+        enter     = false,
+        brackets  = false,
+        backspace = false,
       }
     }
 })
