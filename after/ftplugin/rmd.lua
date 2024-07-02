@@ -1,8 +1,8 @@
 if vim.fn.exists('b:rmd_plugin_on') ~= 0 and vim.api.nvim_buf_get_var(0, "rmd_plugin_on") then return end
 vim.api.nvim_buf_set_var(0, "rmd_plugin_on", true)
 
-vim.bo.filetype = 'r'
-vim.bo.filetype = 'rmd'
+-- vim.bo.filetype = 'r'
+-- vim.bo.filetype = 'rmd'
 vim.cmd [[
     UltiSnipsAddFiletype rmd.r.markdown.pandoc
 ]]

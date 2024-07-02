@@ -151,7 +151,7 @@ end
 vimkey(';j',     "Esc",           [[<C-\><C-n>]],        { mode = "t" })
 
 --- notifications ------------------------------------------------------- {{{1
-vimkey('<leader>hn', "Display Notifications", '<cmd>Notifications<cr>')
+-- vimkey('<leader>hn', "Display Notifications", '<cmd>Notifications<cr>')
 vimkey('<leader>hN', "Redir Notifications",   '<cmd>Redir Notifications<cr>')
 vimkey('<leader>hm', "Display messages",      '<cmd>messages<cr>')
 vimkey('<leader>hM', "Redir messages",        '<cmd>Redir messages<cr>')

@@ -79,6 +79,7 @@ Plug.add("is0n/fm-nvim", {
 })
 
 -- nvim-neo-tree/neo-tree.nvim: browse tree like structures ------------- {{{3
+Plug.add("s1n7ax/nvim-window-picker", { lazy = true, config = true})
 Plug.add("nvim-neo-tree/neo-tree.nvim", {
   cmd = "Neotree",
   keys = {
@@ -343,6 +344,21 @@ Plug.add("nvim-telescope/telescope-fzf-native.nvim", {
   build = "make", lazy = true,
 })
 Plug.add("FeiyouG/command_center.nvim", { lazy = true })
+Plug.add("danielfalk/smart-open.nvim", {
+  branch = "0.2.x",
+  dependencies = {
+    "kkharji/sqlite.lua",
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  },
+  config = function()
+    require("telescope").load_extension("smart_open")
+  end,
+  keys = {
+    {"<leader>so", function()
+      require('telescope').extensions.smart_open.smart_open()
+    end, desc = "telescope: smart-open"}
+  }
+})
 Plug.add("nvim-telescope/telescope-frecency.nvim", {
   dependencies = {
     "kkharji/sqlite.lua",
@@ -483,9 +499,6 @@ Plug.add("rcarriga/nvim-notify", {
 -- 
 Plug.add("folke/noice.nvim", {
   event = "VeryLazy",
-  opts = {
-    -- add any options here
-  },
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
     "MunifTanjim/nui.nvim",
@@ -493,7 +506,12 @@ Plug.add("folke/noice.nvim", {
     --   `nvim-notify` is only needed, if you want to use the notification view.
     --   If not available, we use `mini` as the fallback
     "rcarriga/nvim-notify",
-  }
+  },
+  keys = {
+    {
+      "<leader>hn", "<cmd>NoiceTelescope<cr>", desc = "Noice: Search Notifications",
+    },
+  },
 })
 
 
@@ -690,9 +708,21 @@ Plug.add('goolord/alpha-nvim')
 -- nvim-tree/nvim-web-devicons: file type icons ------------------------- {{{3
 Plug.add("nvim-tree/nvim-web-devicons", { config = true })
 
-
 -- windwp/nvim-autopairs: autopair tools -------------------------------- {{{3
 Plug.add("windwp/nvim-autopairs")
+-- Plug.add('altermo/ultimate-autopair.nvim', {
+--   event = {'InsertEnter', 'CmdlineEnter'},
+--   branch = 'v0.6',
+--   config = function()
+--     require('ultimate-autopair').setup({
+--       {'$', '$', suround=true, ft={'markdown'}},
+--       {"`", "'", suround=true, ft={'stata'}},
+--       config_internal_pairs = {
+--         {'`', '`', ft = {'markdown'}},
+--       }
+--     })
+--   end,
+-- })
 
 -- stevearc/dressing.nvim: improve the default vim.ui interfaces -------- {{{3
 Plug.add("stevearc/dressing.nvim", {
@@ -879,7 +909,10 @@ Plug.add("skywind3000/asynctasks.vim", {
 })
 
 -- liubianshi/vimcmdline: send lines to interpreter --------------------- {{{3
-Plug.add("liubianshi/vimcmdline")
+Plug.add("liubianshi/vimcmdline", {
+  ft = {'stata', 'sh', 'bash'},
+  dev = true,
+})
 Plug.add("voldikss/vim-translator", {
   cmd = {"Translate"},
   keys = {
@@ -907,6 +940,13 @@ Plug.add("3rd/image.nvim", {
   ft = { "markdown", "pandoc", "rmd", "rmarkdown", "norg", "org", "newsboat" },
 })
 
+-- OXY2DEV/markview.nvim: Experimental markdown preview for neovim 
+Plug.add("OXY2DEV/markview.nvim", {
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+  },
+  ft = { "markdown", "pandoc", "rmd", "rmarkdown"}
+})
 
 -- gbprod/yanky.nvim: Improved Yank and Put functionalities for Neovim -- {{{3
 Plug.add("gbprod/yanky.nvim", {
@@ -1005,7 +1045,7 @@ Plug.add("sainnhe/everforest", {
     vim.g.everforest_better_performance = 1
     vim.g.everforest_background = "hard"
     vim.g.everforest_enable_italic = 1
-    vim.g.everforest_transparent_background = 0
+    vim.g.everforest_transparent_background = 1
     vim.g.everforest_dim_inactive_windows = 0
   end,
   lazy = false,

@@ -102,8 +102,13 @@ capabilities_oxide.workspace = {
       dynamicRegistration = true,
     },
 }
+local markdown_oxide_cmd = vim.env.HOME .. "/.cargo/bin/markdown-oxide"
+if vim.fn.executable("markdown-oxide") then
+  markdown_oxide_cmd = "markdown-oxide"
+end
+
 lspconfig.markdown_oxide.setup {
-  cmd = { vim.env.HOME .. "/.cargo/bin/markdown-oxide" },
+  cmd = {markdown_oxide_cmd},
   filetype = {'markdown', "rmd", "rmarkdown"},
   root_dir = util.root_pattern(".obsidian", ".git", ".vim"),
   capabilities = capabilities_oxide,

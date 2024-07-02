@@ -41,6 +41,10 @@ telescope.setup {
             case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
                                             -- the default case_mode is "smart_case"
         },
+        smart_open = {
+          match_algorithm = "fzf",
+          disable_devicons = false,
+        },
         frecency = {
             show_scores = false,
             show_unindexed = true,
