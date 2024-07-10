@@ -54,7 +54,7 @@ Plug.get = function()
 end
 
 -- 配置插件 ------------------------------------------------------------- {{{1
-Plug.add("vhyrro/luarocks.nvim", { priority = 1000, config = true })
+-- Plug.add("vhyrro/luarocks.nvim", { priority = 1000, config = true })
 -- GUI
 -- Plug.add("equalsraf/neovim-gui-shim")
 -- UI ------------------------------------------------------------------- {{{2
@@ -409,14 +409,15 @@ Plug.add("mg979/vim-visual-multi", {
   },
 })
 -- andymass/vim-matchup: 显示匹配符号之间的内容 ------------------------- {{{3
-Plug.add("andymass/vim-matchup")
+Plug.add("andymass/vim-matchup", { event = {"VeryLazy"} })
 
 -- numToStr/Comment.nvim: Smart and powerful comment plugin for neovim -- {{{3
-Plug.add('numToStr/Comment.nvim', { lazy = false })
+Plug.add('numToStr/Comment.nvim', {  event = {"VeryLazy"}  })
 
 -- folke/todo-comments.nvim: Highlight, list and search todo comments --- {{{3
 Plug.add("folke/todo-comments.nvim", {
   dependencies = { "nvim-lua/plenary.nvim" },
+  event = {"VeryLazy"},
 })
 
 -- junegunn/vim-easy-align: text alignment tool ------------------------- {{{3
@@ -441,13 +442,13 @@ Plug.add("nvim-focus/focus.nvim", {
   cmd = { "FocusToggle", "FocusEnable" },
 })
 
--- folke/zen-mode.nvim: Distraction-free coding for Neovim -------------- {{{3
-Plug.add("folke/zen-mode.nvim", {
-  cmd = "ZenMode",
-  keys = {
-    { "<leader>oZ", "<cmd>ZenMode<cr>", desc = "Toggle Zen Mode" },
-  },
-})
+-- -- folke/zen-mode.nvim: Distraction-free coding for Neovim -------------- {{{3
+-- Plug.add("folke/zen-mode.nvim", {
+--   cmd = "ZenMode",
+--   keys = {
+--     { "<leader>oZ", "<cmd>ZenMode<cr>", desc = "Toggle Zen Mode" },
+--   },
+-- })
 
 -- machakann/vim-sandwich: add/delete/replace surroundings -------------- {{{3
 Plug.add("machakann/vim-sandwich", {
@@ -499,6 +500,9 @@ Plug.add("rcarriga/nvim-notify", {
 -- 
 Plug.add("folke/noice.nvim", {
   event = "VeryLazy",
+  init = function()
+    vim.api.nvim_set_option_value("cmdheight", 0, { scope = "global" })
+  end,
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
     "MunifTanjim/nui.nvim",
@@ -675,8 +679,9 @@ Plug.add("chrisgrieser/nvim-origami", {
 -- kevinhwang91/nvim-ufo: ultra fold in Neovim -------------------------- {{{3
 Plug.add("kevinhwang91/nvim-ufo", {
   dependencies = "kevinhwang91/promise-async",
+	event = "BufReadPost", -- later or on keypress would prevent saving folds
   init = function()
-    vim.o.foldcolumn = "1" -- '0' is not bad
+    vim.o.foldcolumn = "0" -- '0' is not bad
     vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
     vim.o.foldlevelstart = 99
     vim.o.foldenable = true
@@ -703,7 +708,7 @@ Plug.add("akinsho/bufferline.nvim", {
 Plug.add("nvim-lualine/lualine.nvim")
 
 -- goolord/alpha-nvim: a lua powered greeter ---------------------------- {{{3
-Plug.add('goolord/alpha-nvim')
+-- Plug.add('goolord/alpha-nvim')
 
 -- nvim-tree/nvim-web-devicons: file type icons ------------------------- {{{3
 Plug.add("nvim-tree/nvim-web-devicons", { config = true })
@@ -759,9 +764,19 @@ Plug.add("nvimdev/indentmini.nvim", {
 -- Tools ---------------------------------------------------------------- {{{2
 -- liubianshi/cmp-lsp-rimels: ------------------------------------------- {{{3
 Plug.add("liubianshi/cmp-lsp-rimels", {
-  -- event = "VeryLazy",
+  event = {"InsertEnter"},
+  ft = {'md', "rmd"},
   keys = {{"<localleader>f", mode = "i"}},
   dev = true,
+})
+
+-- LinTaoAmons/scratch.nvim: Create temporary playground files ---------- {{{3
+Plug.add("LinTaoAmons/scratch.nvim", {
+  event = "VeryLazy",
+  cmd = "Scratch",
+  keys = {
+    {"<leader>os", "<cmd>Scratch<cr>",  desc = "Creates a new scratch file"}
+  }
 })
 
 -- ziontee113/icon-picker.nvim: pick Nerd Font Icons, Symbols & Emojis -- {{{3
@@ -941,12 +956,12 @@ Plug.add("3rd/image.nvim", {
 })
 
 -- OXY2DEV/markview.nvim: Experimental markdown preview for neovim 
-Plug.add("OXY2DEV/markview.nvim", {
-  dependencies = {
-    "nvim-tree/nvim-web-devicons",
-  },
-  ft = { "markdown", "pandoc", "rmd", "rmarkdown"}
-})
+-- Plug.add("OXY2DEV/markview.nvim", {
+--   dependencies = {
+--     "nvim-tree/nvim-web-devicons",
+--   },
+--   ft = { "markdown", "pandoc", "rmd", "rmarkdown"}
+-- })
 
 -- gbprod/yanky.nvim: Improved Yank and Put functionalities for Neovim -- {{{3
 Plug.add("gbprod/yanky.nvim", {
@@ -995,10 +1010,10 @@ Plug.add('sindrets/diffview.nvim', {
 })
 
 -- ThePrimeagen/harpoon:
-Plug.add("ThePrimeagen/harpoon", {
-  branch = "harpoon2",
-  dependencies = { "nvim-lua/plenary.nvim" },
-})
+-- Plug.add("ThePrimeagen/harpoon", {
+--   branch = "harpoon2",
+--   dependencies = { "nvim-lua/plenary.nvim" },
+-- })
 
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
@@ -1063,11 +1078,24 @@ Plug.add("sirver/UltiSnips", {
 })
 
 -- completation framework and relative sources -------------------------- {{{3
-Plug.add("folke/neodev.nvim", {opts = {}})
+Plug.add("folke/lazydev.nvim", {
+  ft = "lua",
+  opts = {
+    library = {
+      { path = "luvit-meta/library", words = { "vim%.uv" } },
+    },
+    enabled = function(root_dir)
+      if vim.uv.fs_stat(root_dir .. "/luarc.json") then
+        return false
+      end
+      return vim.g.lazydev_enabled == nil and true or vim.g.lazydev_enabled
+    end
+  }
+})
+Plug.add("Bilal2453/luvit-meta", { lazy = true })
 Plug.add("neovim/nvim-lspconfig", {
   -- event = { "BufReadPre", "BufNewFile", "BufWinEnter" },
   ft = {"lua", "perl", "markdown", "bash", "r", "python", "vim"},
-  dependencies= {"folke/neodev.nvim"},
 })
 Plug.add("liubianshi/cmp-r", { dev = true, lazy = true})
 
@@ -1220,11 +1248,7 @@ Plug.add("epwalsh/obsidian.nvim", {
 -- 文件类型相关插件 ----------------------------------------------------- {{{2
 -- nvim-neorg/neorg: new org-mode in neovim ----------------------------- {{{3
 Plug.add("nvim-neorg/neorg", {
-  dependencies = {
-    {"vhyrro/luarocks.nvim",  priority = 1000, config = true },
-    "nvim-lua/plenary.nvim",
-    "nvim-neorg/neorg-telescope",
-  },
+  version = "*",
   ft = { "norg" },
   cmd = { "Neorg" },
   keys = {
@@ -1339,3 +1363,4 @@ end
 _G.PlugExist = function(plug)
   return (Util.has(plug))
 end
+

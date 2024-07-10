@@ -87,9 +87,8 @@ set showmatch              " 高亮显示匹配括号
 set number                 " 开启行号显示
 set relativenumber         " 相对行号
 set noruler                " 显示光标当前位置
-set cmdheight=1            " 命令行高度
+" set cmdheight=1            " 命令行高度
 set laststatus=3           " 总是显示状态栏
-set cmdheight=1
 set list
 set listchars=tab:\ \ ,trail:\ ,precedes:<,extends:>
 let &formatlistpat = '\v^\s*(\d{1,2}\.|\(\d{1,2}\)|\[\d{1,2}\]|[-+*])\s+'
@@ -104,8 +103,8 @@ set splitright
 set matchpairs+=<:>,（:）,「:」,『:』,【:】,“:”,‘:’,《:》
 
 set pumheight=10  " Maximum number of items to show in popup menu
-set pumblend=10  " pseudo transparency for completion menu
-set winblend=20  " pseudo transparency for floating window
+set pumblend=5  " pseudo transparency for completion menu
+set winblend=5  " pseudo transparency for floating window
 
 " change fillchars for folding, vertical split, end of buffer, and message separator
 set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾

@@ -6,7 +6,7 @@ local m_header = {
   icon_width = 1,
 }
 local m_code_block = {}
-local m_inline_code = {} 
+local m_inline_code = {}
 local m_block_quote = {}
 local m_horizontal_rule = {}
 local m_hyperlink = {}

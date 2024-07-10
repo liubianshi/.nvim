@@ -86,7 +86,7 @@ chatgpt.setup {
     win_options = {
       wrap = true,
       linebreak = true,
-      foldcolumn = "1",
+      foldcolumn = "0",
       -- winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
       winhighlight = "Normal:TelescopeNormal,FloatBorder:TelescopeBorder",
     },
@@ -105,7 +105,7 @@ chatgpt.setup {
     win_options = {
       wrap = true,
       linebreak = true,
-      foldcolumn = "2",
+      foldcolumn = "0",
       -- winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
       winhighlight = "Normal:TelescopeNormal,FloatBorder:TelescopeBorder",
     },

@@ -5,7 +5,9 @@ neotree.setup({
    open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "Outline" },
    filesystem = {
       bind_to_cwd = false,
-      follow_current_file = true,
+      follow_current_file = {
+        enabled = true,
+      },
       use_libuv_file_watcher = true,
    },
    default_component_configs = {

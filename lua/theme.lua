@@ -128,6 +128,7 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
       "highlight MyBorder guifg=" .. vim.g.lbs_colors.orange .. " guibg=NONE"
     )
     vim.cmd("highlight ChatGptBorder guibg=NONE")
+    vim.cmd("highlight DiagnosticSignInfo guibg=NONE")
     -- Setting the color scheme of the Complement window
     local pallete = {
       background = vim.g.lbs_colors.yellow,

@@ -41,3 +41,6 @@ call <SID>Load("abbr")
 
 " 设置 UI
 lua require("theme")
+
+" 初始化后的操作
+lua require("after_init")

@@ -34,7 +34,7 @@ true_zen.setup {
         showtabline = 0,
         signcolumn = "no",
         statusline = "",
-        cmdheight = 1,
+        cmdheight = 0,
         laststatus = 0,
         showcmd = false,
         showmode = false,

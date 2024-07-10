@@ -44,7 +44,7 @@ function! s:adjust_zen_mode(event)
                 call luaeval('vim.api.nvim_set_option_value("foldcolumn", "0",      { win = _A})', win)
             else
                 call luaeval('vim.api.nvim_set_option_value("signcolumn", "yes:1",  { win = _A})', win)
-                call luaeval('vim.api.nvim_set_option_value("foldcolumn", "auto:1", { win = _A})', win)
+                call luaeval('vim.api.nvim_set_option_value("foldcolumn", vim.o.foldcolumn, { win = _A})', win)
             endif
         endif
     endfor

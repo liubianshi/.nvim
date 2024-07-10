@@ -157,7 +157,7 @@ local cmp_config = {
       -- [ "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" ]
       -- border = { '', '', '',  '', '', '', '', {'│', "MyBorder"} },
       border = { "", "", "", "", "", "", "", "" },
-      winhighlight = "CursorLine:PmenuSel,Normal:MyPmenu,Pmenu:MyPmenu,FloatBorder:Pmenu,Search:None",
+      -- winhighlight = "CursorLine:PmenuSel,Normal:MyPmenu,Pmenu:MyPmenu,FloatBorder:Pmenu,Search:None",
       col_offset = 0,
       side_padding = 0,
     },
@@ -235,6 +235,12 @@ cmp.setup.filetype({ "r", "rmd" }, {
 -- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
   sources = construct_cmp_source { { name = "cmp_git" } },
+})
+
+cmp.setup.filetype('lua', {
+  sources = construct_cmp_source {
+    { name = "lazydev", group_index = 0 }
+  }
 })
 
 -- Set -- Set configuration for sql
