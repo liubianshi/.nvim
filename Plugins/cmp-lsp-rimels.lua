@@ -42,6 +42,7 @@ require('rimels').setup({
     keys = { start = ";f", stop = ";;", esc = ";j" },
     cmd = vim.lsp.rpc.connect("127.0.0.1", 9257),
     always_incomplete = false,
+    schema_trigger_character = "&",
     detectors = {
         with_treesitter = {
             norg = detector_for_norg,
@@ -54,6 +55,7 @@ require('rimels').setup({
       }
     }
 })
+
 
 vim.api.nvim_create_user_command("RimeDeleteLockFile", function()
   local rime_user_dir = require('rimels').opts.rime_user_dir

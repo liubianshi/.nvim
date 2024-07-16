@@ -12,8 +12,8 @@ inoreabbrev <expr> __
             \ '<c-o>:silent! TableModeDisable<cr>' : '__'
 
 lua <<EOF
-require('util').wk_reg(
-    { t = { name = "Table Mode .."} },
-    { prefix = '<localleader>'}
-)
+
+require('util').wk_reg({
+  { "<localleader>t", group = "Table Mode .." },
+})
 EOF

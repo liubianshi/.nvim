@@ -670,10 +670,9 @@ Plug.add("yianwillis/vimcdoc", {
 
 -- Konfekt/FastFold: updating folds only when called-for ---------------- {{{3
 -- Plug.add("Konfekt/FastFold")
-
+-- chrisgrieser/nvim-origami: Fold with relentless elegance ------------- {{{3
 Plug.add("chrisgrieser/nvim-origami", {
 	event = "BufReadPost", -- later or on keypress would prevent saving folds
-	opts = true, -- needed even when using default config
 })
 
 -- kevinhwang91/nvim-ufo: ultra fold in Neovim -------------------------- {{{3
@@ -1106,6 +1105,7 @@ local cmp_dependencies = {
   "hrsh7th/cmp-omni", -- omnifunc
   "hrsh7th/cmp-buffer", -- buffer words
   "hrsh7th/cmp-cmdline", -- command line keywords
+  "uga-rosa/cmp-dictionary", -- A dictionary completation source for nvim-cmp
   "FelipeLema/cmp-async-path", -- filesystem paths
   "ray-x/cmp-treesitter", -- treesitter nodes
   "onsails/lspkind.nvim", -- adds vscode-like pictograms

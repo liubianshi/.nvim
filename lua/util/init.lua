@@ -384,7 +384,7 @@ end
 function M.wk_reg(mapping, opts)
   local wk_ok, wk = pcall(require, "which-key")
   if not wk_ok then return end
-  wk.register(mapping, opts)
+  wk.add(mapping, opts)
 end
 
 return M

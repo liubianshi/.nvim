@@ -114,6 +114,9 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
       highlight Folded         gui=bold guifg=LightGreen guibg=bg
       highlight SignColumn     guibg=bg
       highlight LineNr         guibg=bg
+      highlight NormalFloat    guibg=NONE
+      highlight FloatBorder    guibg=NONE
+      highlight FloatTitle     guibg=NONE
     ]]
   end,
   desc = "remove unnecessary background",
@@ -127,7 +130,6 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
     vim.cmd(
       "highlight MyBorder guifg=" .. vim.g.lbs_colors.orange .. " guibg=NONE"
     )
-    vim.cmd("highlight ChatGptBorder guibg=NONE")
     vim.cmd("highlight DiagnosticSignInfo guibg=NONE")
     -- Setting the color scheme of the Complement window
     local pallete = {

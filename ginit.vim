@@ -17,7 +17,7 @@ if exists("g:neovide")
         let g:neovide_padding_left = 0
     else
         let &guifont =  "Maple Mono NF,LXGW WenKai Mono,Noto Color Emoji:h11:w-0.5"
-        let &linespace = 15
+        let &linespace = 13
         let g:neovide_padding_top = 0
         let g:neovide_padding_bottom = 0
         let g:neovide_padding_right = 0

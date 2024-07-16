@@ -174,17 +174,17 @@ vimkey(
   "<cmd>call    utils#R_view_srdm_var()<cr>"
 )
 
-wk.register({
-  ["a"] = { name = "Send file / ALE" },
-  ["b"] = { name = "Send block / debug" },
-  ["d"] = { name = "devtools/testthat" },
-  ["f"] = { name = "Send function" },
-  ["k"] = { name = "Rmarkdown / Knitr" },
-  ["p"] = { name = "Send paragraphs" },
-  ["r"] = { name = "R command" },
-  ["s"] = { name = "Send Selection" },
-  ["t"] = { name = "View Data Frame" },
-  ["u"] = { name = "Undebug" },
-  ["v"] = { name = "View Object" },
-  ["x"] = { name = "R comment" },
-}, { buffer = 0, prefix = "<localleader>" })
+wk.add {
+  { "<localleader>a", buffer = 0, group = "Send file / ALE" },
+  { "<localleader>b", buffer = 0, group = "Send block / debug" },
+  { "<localleader>d", buffer = 0, group = "devtools/testthat" },
+  { "<localleader>f", buffer = 0, group = "Send function" },
+  { "<localleader>k", buffer = 0, group = "Rmarkdown / Knitr" },
+  { "<localleader>p", buffer = 0, group = "Send paragraphs" },
+  { "<localleader>r", buffer = 0, group = "R command" },
+  { "<localleader>s", buffer = 0, group = "Send Selection" },
+  { "<localleader>t", buffer = 0, group = "View Data Frame" },
+  { "<localleader>u", buffer = 0, group = "Undebug" },
+  { "<localleader>v", buffer = 0, group = "View Object" },
+  { "<localleader>x", buffer = 0, group = "R comment" },
+}

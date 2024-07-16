@@ -30,6 +30,7 @@ local function construct_cmp_source(sources)
   end
   local default = gen_cmp_source {
     { name = "ultisnips" }, -- For ultisnips users.
+    { name = "dictionary", keyword_length = 2},
     { name = "async_path", option = { trailing_slash = true } },
     {
       name = "nvim_lsp",
@@ -39,7 +40,7 @@ local function construct_cmp_source(sources)
         --   keyword_pattern = "[-_$:A-Za-z0-9]\\+",
         -- },
         rime_ls = {
-          keyword_pattern = "[-?:<>,{}*\\.a-z0-9]\\+",
+          keyword_pattern = "[-?:&<>,{}*\\.a-z0-9]\\+",
         },
         markdown_oxide = {
           keyword_pattern = [[\(\k\| \|\/\|#\)\+]],

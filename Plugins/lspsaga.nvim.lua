@@ -19,9 +19,7 @@ sagamap("<localleader>ca", "Code Action",   "<cmd>Lspsaga code_action<cr>")
 sagamap("<localleader>cv", "Outline",       "<cmd>Lspsaga outline<cr>")
 sagamap("<localleader>cb", "Toggle winbar", "<cmd>Lspsaga winbar_toggle<cr>")
 
-require('which-key').register(
-    {
-        ["c"] = { name = "LSP"}
-    },
-    { prefix = "<localleader>"}
-)
+require('which-key').add {
+  { "<localleader>c", group = "LSP" },
+}
+
