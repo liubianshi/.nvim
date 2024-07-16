@@ -47,7 +47,7 @@ local function construct_cmp_source(sources)
         },
       },
     },
-    { name = "nvim_lsp_signature_help" },
+    -- { name = "nvim_lsp_signature_help" },
     -- { name = 'latex_symbols' },
     -- { name = 'orgmode' },
     -- { name = 'treesitter' },
@@ -93,8 +93,8 @@ vim.lsp.protocol.CompletionItemKind = {
 
 -- key adjust ----------------------------------------------------------- {{{2
 local keymap_config = {
-  ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-  ["<C-f>"] = cmp.mapping.scroll_docs(4),
+  ["<C-k>"] = cmp.mapping.scroll_docs(-4),
+  ["<C-j>"] = cmp.mapping.scroll_docs(4),
   ["<C-e>"] = cmp.mapping.abort(),
   ["<C-Space>"] = cmp.mapping.confirm {
     behavior = cmp.ConfirmBehavior.Replace,
@@ -164,7 +164,7 @@ local cmp_config = {
     },
     documentation = {
       border = { "", "", "", "", "", "", "", { "│", "MyBorder" } },
-      winhighlight = "CursorLine:PmenuSel,Normal:MyPmenu,Pmenu:MyPmenu,FloatBorder:Pmenu,Search:None",
+      -- winhighlight = "CursorLine:PmenuSel,Normal:MyPmenu,Pmenu:MyPmenu,FloatBorder:Pmenu,Search:None",
       col_offset = 0,
       side_padding = 0,
     },
