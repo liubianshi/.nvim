@@ -7,6 +7,9 @@ vim.cmd [[
     UltiSnipsAddFiletype rmd.r.markdown.pandoc
 ]]
 
+vim.api.nvim_set_option_value('formatprg', "text_wrap", { scope = 'local' })
+
+
 local fexport = function(oformat, ofile)
     local bufnr = vim.api.nvim_get_current_buf()
     local fname = vim.fn.expand('%')
@@ -56,12 +59,15 @@ for type, key in pairs(format_desc) do
     )
 end
 
-require('which-key').register(
-    {
-        ["x"] = { name = "Export ..."}
-    },
-    { prefix = "<localleader>"}
-)
+require('which-key').add {
+  { "<localleader>x", group = "Export ..." },
+}
 
+vim.keymap.set("n", "<c-x>", function()
+  require("util").bibkey_action(vim.fn.expand "<cword>")
+end, { desc = "Show action related bibkey" })
 
+vim.keymap.set({"n", "i"}, "<localleader>il", function()
+  vim.fn['ref_link#add']()
+end, { desc = "Add Link"})
 

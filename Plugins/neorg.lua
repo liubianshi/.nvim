@@ -1,15 +1,13 @@
 -- register keybinds ---------------------------------------------------- {{{1
 local status_ok, wk = pcall(require, "which-key")
 if status_ok then
-  wk.register {
-    ["<localleader>"] = {
-      ["i"] = { name = "+Insert" },
-      ["l"] = { name = "+List" },
-      ["m"] = { name = "+Move" },
-      ["n"] = { name = "+Note" },
-      ["t"] = { name = "+Task" },
-      ["s"] = { name = "+search node" },
-    },
+  wk.add {
+    { "<localleader>i", group = "Insert" },
+    { "<localleader>l", group = "List" },
+    { "<localleader>m", group = "Move" },
+    { "<localleader>n", group = "Note" },
+    { "<localleader>s", group = "search node" },
+    { "<localleader>t", group = "Task" },
   }
 end
 
@@ -105,8 +103,12 @@ require("neorg").setup {
         },
       },
     },
-    -- ['core.ui.calendar'] = {}, -- at least Neovim 0.10.0 is required to run
-    ["core.integrations.telescope"] = {},
+    ["core.latex.renderer"] = {
+      renderer = "core.integrations.image",
+      render_on_enter = true,
+      dpi = 600,
+      scale = 0.5,
+    },
   },
 }
 

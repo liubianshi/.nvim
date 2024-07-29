@@ -96,8 +96,10 @@ set fillchars=fold:\
 set signcolumn=yes:1
 set mat=2                  " 设置匹配括号时闪缩的时间
 set scrolloff=3            " 光标上下两侧最少保留的屏幕行数
+set smoothscroll
 set splitbelow
 set splitright
+set conceallevel=2
 
 " Set matching pairs of characters and highlight matching brackets
 set matchpairs+=<:>,（:）,「:」,『:』,【:】,“:”,‘:’,《:》
@@ -185,7 +187,7 @@ set diffopt+=internal,indent-heuristic,algorithm:histogram
 
 " External program to use for grep command ============================== {{{1
 if executable('rg')
-  set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+  set grepprg=rg\ --vimgrep
   set grepformat=%f:%l:%c:%m
 endif
 

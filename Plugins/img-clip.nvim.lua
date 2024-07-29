@@ -1,23 +1,58 @@
-local dirpath = "img"
+local in_blog = function()
+  local parent_dir = vim.fn.expand('%:h')
+  if parent_dir == "content/posts" or parent_dir:match('^content/posts/') then
+    return true
+  else
+    return false
+  end
+end
 
-local rmd_template = [[
-```{r $LABEL, echo = FALSE, out.width = '80%', fig.pos = 'h', fig.show = 'hode'}
-knitr::include_graphics("$FILE_PATH")
-```
+local in_obisidian_vault = function()
+  local root_dir = require('util').get_root()
+  if root_dir and root_dir:match('/vaults/') then
+    return true
+  else
+    return false
+  end
+end
 
-$CURSOR
-]]
+local get_img_dirpath = function()
+  local filename = vim.fn.expand('%:t:r')
+  return string.format('static/assets/%s_files/figure-html', filename)
+end
+
+local rmd_template = function(context)
+  local file_path = context.file_path
+  if in_blog() then
+    local _, j = file_path:find('static/assets/')
+    file_path = file_path:sub(j + 1)
+  end
+
+  return string.format(
+    '```{r %s, echo=F, out.width="80%%", fig.pos="h", fig.show="hold"}\n knitr::include_graphics("%s")\n```\n\n%s',
+    context.label,
+    file_path,
+    context.cursor
+  )
+end
+
+local markdown_template = function(context)
+  local file_path = context.file_path
+  if in_blog() then
+    local _, j = file_path:find('static/assets/')
+    file_path = file_path:sub(j + 1)
+  end
+  return string.format('![](%s)%s', file_path, context.cursor)
+end
 
 local neorg_template = [[
 .image $FILE_PATH
 $CURSOR
 ]]
 
-local obisdian_template = "![[$FILE_PATH]]$CURSOR"
-
 require("img-clip").setup {
   default = {
-    dir_path = dirpath,
+    dir_path = "img",
     file_name = "img-%Y%m%d%H%M%S",
     prompt_for_file_name = true,
     show_dir_path_in_prompt = true,
@@ -26,8 +61,20 @@ require("img-clip").setup {
     rmd      = { template = rmd_template },
     norg     = { template = neorg_template },
     markdown = {
-        template = obisdian_template,
+        template = markdown_template,
         relative_to_current_file = true,
     },
   },
+  custom = {
+    {
+      trigger = in_blog,
+      dir_path = get_img_dirpath,
+      show_dir_path_in_prompt = false,
+      relative_to_current_file = false,
+    },
+    {
+      trigger = in_obisidian_vault,
+      template = "![[$FILE_PATH]]$CURSOR",
+    }
+  }
 }

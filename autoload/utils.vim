@@ -669,7 +669,7 @@ function! utils#Trans_string(str)
     let re = systemlist(cmd)
     let engine = re[0]
     let re = join(re[1:], "\n")
-    echom re
+    " echom re
     if v:shell_error != 0
         return ""
     else
@@ -706,7 +706,7 @@ function! utils#Trans_Subs()
     if string_translated == ""
         let string_translated = string_ori
     endif
-    call luaeval('vim.api.nvim_put({_A.str}, "c", true, true)', {'str': string_translated})
+    call luaeval('vim.api.nvim_put({_A.str}, "c", false, true)', {'str': string_translated})
 endfunction
 
 

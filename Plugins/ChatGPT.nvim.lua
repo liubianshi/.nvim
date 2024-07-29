@@ -1,5 +1,12 @@
 local chatgpt = require "chatgpt"
 local home = vim.fn.expand "$HOME"
+local my_border = require('util').border('═', 'top', true)
+local prompt_border
+if vim.fn.exists("g:neovide") == 1 then
+  prompt_border = { '', '─', '', '', '', '', '', ''}
+else
+  prompt_border = { '', '─', '', '', '', {'═', "MyBorder"}, '', ''}
+end
 
 chatgpt.setup {
   api_key_cmd = home .. "/.private_info.sh openai",
@@ -29,7 +36,7 @@ chatgpt.setup {
       inactive_sign = " 󰄱 ",
       current_line_sign = "",
       border = {
-        style = { '', {'═', "MyBorder"}, '', '', '', '', '', ''},
+        style = my_border,
         text = {
           top = " Sessions ",
         },
@@ -76,7 +83,7 @@ chatgpt.setup {
   },
   popup_window = {
     border = {
-      style = { '', {'═', "MyBorder"}, '', '', '', '', '', ''},
+      style = my_border,
       text = {
         top = " ChatGPT ",
       },
@@ -93,7 +100,7 @@ chatgpt.setup {
   },
   system_window = {
     border = {
-      style = { '', {'═', "MyBorder"}, '', '', '', '', '', ''},
+      style = my_border,
       text = {
         top = " SYSTEM ",
       },
@@ -108,7 +115,7 @@ chatgpt.setup {
   popup_input = {
     prompt = "  ",
     border = {
-      style = { '', '─', '', '', '', {'═', "MyBorder"}, '', ''},
+      style = prompt_border,
       text = {
         top_align = "center",
         top = " Prompt ",
@@ -124,7 +131,7 @@ chatgpt.setup {
   settings_window = {
     setting_sign = "  ",
     border = {
-      style = { '', {'═', "MyBorder"}, '', '', '', '', '', ''},
+      style = my_border,
       text = {
         top = " Settings ",
       },
@@ -135,12 +142,7 @@ chatgpt.setup {
   },
   help_window = {
     setting_sign = "  ",
-    border = {
-      style = { '', {'═', "MyBorder"}, '', '', '', '', '', ''},
-      text = {
-        top = " Help ",
-      },
-    },
+    border = my_border,
     win_options = {
       winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
     },

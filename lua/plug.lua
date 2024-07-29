@@ -497,7 +497,7 @@ Plug.add("rcarriga/nvim-notify", {
   end,
 })
 
--- 
+--
 Plug.add("folke/noice.nvim", {
   event = "VeryLazy",
   init = function()
@@ -710,7 +710,28 @@ Plug.add("nvim-lualine/lualine.nvim")
 -- Plug.add('goolord/alpha-nvim')
 
 -- nvim-tree/nvim-web-devicons: file type icons ------------------------- {{{3
-Plug.add("nvim-tree/nvim-web-devicons", { config = true })
+Plug.add("nvim-tree/nvim-web-devicons", { config = true, lazy = true })
+Plug.add("echasnovski/mini.icons", {
+  lazy = true,
+  opts = {
+    file = {
+      [".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
+      ["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
+    },
+    filetype = {
+      dotenv = { glyph = "", hl = "MiniIconsYellow" },
+    },
+  },
+  init = function()
+    package.preload["nvim-web-devicons"] = function()
+      require("mini.icons").mock_nvim_web_devicons()
+      return package.loaded["nvim-web-devicons"]
+    end
+  end,
+  config = true,
+})
+
+
 
 -- windwp/nvim-autopairs: autopair tools -------------------------------- {{{3
 Plug.add("windwp/nvim-autopairs")
@@ -829,7 +850,7 @@ Plug.add("jackMort/ChatGPT.nvim", {
   event = "VeryLazy",
 })
 
--- 
+--
 Plug.add("robitx/gp.nvim", {
   cmd = {
     "GpAgent",
@@ -954,7 +975,7 @@ Plug.add("3rd/image.nvim", {
   ft = { "markdown", "pandoc", "rmd", "rmarkdown", "norg", "org", "newsboat" },
 })
 
--- OXY2DEV/markview.nvim: Experimental markdown preview for neovim 
+-- OXY2DEV/markview.nvim: Experimental markdown preview for neovim
 -- Plug.add("OXY2DEV/markview.nvim", {
 --   dependencies = {
 --     "nvim-tree/nvim-web-devicons",
@@ -1037,7 +1058,42 @@ Plug.add("ludovicchabant/vim-gutentags", {
 })
 
 -- folke/trouble.nvim: diagnostics solution ----------------------------- {{{3
-Plug.add("folke/trouble.nvim", { ft = {"c", "lua", "perl", "sh", "r"} })
+Plug.add("folke/trouble.nvim", {
+  cmd = {'Trouble'},
+  config = true,
+  keys = {
+    {
+      "<leader>xx",
+      "<cmd>Trouble diagnostics toggle<cr>",
+      desc = "Diagnostics (Trouble)",
+    },
+    {
+      "<leader>xX",
+      "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+      desc = "Buffer Diagnostics (Trouble)",
+    },
+    {
+      "<leader>cs",
+      "<cmd>Trouble symbols toggle focus=false<cr>",
+      desc = "Symbols (Trouble)",
+    },
+    {
+      "<leader>cl",
+      "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+      desc = "LSP Definitions / references / ... (Trouble)",
+    },
+    {
+      "<leader>xl",
+      "<cmd>Trouble loclist toggle<cr>",
+      desc = "Location List (Trouble)",
+    },
+    {
+      "<leader>xq",
+      "<cmd>Trouble qflist toggle<cr>",
+      desc = "Quickfix List (Trouble)",
+    },
+  },
+})
 
 -- tpope/vim-fugitive: Git ---------------------------------------------- {{{3
 Plug.add("tpope/vim-fugitive", { cmd = "G" })
@@ -1153,7 +1209,7 @@ Plug.add("vim-pandoc/vim-pandoc-syntax", {
 Plug.add("ellisonleao/glow.nvim", {
   cmd = {"Glow"},
   config = function()
-    require('glow').setup { style = "dark", width = 86}
+    require('glow').setup({ style = "dark", width = 86})
   end
 })
 
@@ -1339,6 +1395,7 @@ Plug.add("Wansmer/treesj", {
 Plug.add("AckslD/nvim-FeMaco.lua", {
   dependencies = { "nvim-treesitter/nvim-treesitter" },
   cmd = "FeMaco",
+  ft = {'markdown', 'rmarkdown', 'norg'},
   keys = {
     { "<localleader>o", "<cmd>FeMaco<cr>", desc = "FeMaco: Edit Code Block" },
   },
@@ -1363,4 +1420,3 @@ end
 _G.PlugExist = function(plug)
   return (Util.has(plug))
 end
-

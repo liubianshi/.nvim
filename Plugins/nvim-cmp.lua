@@ -30,7 +30,6 @@ local function construct_cmp_source(sources)
   end
   local default = gen_cmp_source {
     { name = "ultisnips" }, -- For ultisnips users.
-    { name = "dictionary", keyword_length = 2},
     { name = "async_path", option = { trailing_slash = true } },
     {
       name = "nvim_lsp",
@@ -61,35 +60,6 @@ local function construct_cmp_source(sources)
   }
   return (cmp.config.sources(gen_cmp_source(sources, default), fallback))
 end
-
--- Item Kind ------------------------------------------------------------ {{{2
-vim.lsp.protocol.CompletionItemKind = {
-  " [text]",
-  " [method]",
-  " [function]",
-  " [constructor]",
-  "ﰠ [field]",
-  " [variable]",
-  " [class]",
-  " [interface]",
-  " [module]",
-  " [property]",
-  " [unit]",
-  " [value]",
-  " [enum]",
-  " [key]",
-  "﬌ [snippet]",
-  " [color]",
-  " [file]",
-  " [reference]",
-  " [folder]",
-  " [enum member]",
-  " [constant]",
-  " [struct]",
-  "⌘ [event]",
-  " [operator]",
-  "« [type]",
-}
 
 -- key adjust ----------------------------------------------------------- {{{2
 local keymap_config = {
@@ -144,6 +114,7 @@ local sorting_config = {
   },
 }
 -- cmp_config ----------------------------------------------------------- {{{2
+local border = require('util').border('▔', "bottom")
 local cmp_config = {
   menu = {},
   completion = { keyword_length = 2 },
@@ -155,16 +126,16 @@ local cmp_config = {
   },
   window = {
     completion = {
-      -- [ "╔", "═" ,"╗", "║", "╝", "═", "╚", "║" ]
-      -- border = { '', '', '',  '', '', '', '', {'│', "MyBorder"} },
-      border = { "", "", "", "", "", "", "", "" },
-      -- winhighlight = "CursorLine:PmenuSel,Normal:MyPmenu,Pmenu:MyPmenu,FloatBorder:Pmenu,Search:None",
+      border = border,
+      -- border = { "", "", "", "", "", "", "", "" },
+      -- winhighlight = "CursorLine:PmenSel,Normal:MyPmenu,Pmenu:MyPmenu,FloatBorder:Pmenu,Search:None",
+      winhighlight = "Pmenu:NormalFloat",
       col_offset = 0,
       side_padding = 0,
     },
     documentation = {
-      border = { "", "", "", "", "", "", "", { "│", "MyBorder" } },
-      -- winhighlight = "CursorLine:PmenuSel,Normal:MyPmenu,Pmenu:MyPmenu,FloatBorder:Pmenu,Search:None",
+      border = border,
+      -- winhighlight = "CursorLine:PmenuSel,NormalFloat:MyPmenu,Pmenu:MyPmenu,FloatBorder:Pmenu,Search:None",
       col_offset = 0,
       side_padding = 0,
     },
@@ -214,11 +185,11 @@ cmp.setup.filetype({ "stata" }, {
   sources = construct_cmp_source { { name = "omni" } },
 })
 
--- cmp.setup.filetype({'pandoc', 'markdown', 'rmd', 'rmarkdown'}, {
---     sources = construct_cmp_source({
---         {name = 'cmp_zotcite'},
---     })
--- })
+cmp.setup.filetype({'pandoc', 'markdown'}, {
+  sources = construct_cmp_source({
+    { name = "dictionary", keyword_length = 2},
+  })
+})
 
 cmp.setup.filetype({ "r", "rmd" }, {
   sources = construct_cmp_source {

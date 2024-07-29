@@ -127,9 +127,11 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
   callback = function()
     -- 解决 vim 帮助文件的示例代码的不够突显的问题
     vim.cmd "hi def link helpExample Special"
-    vim.cmd(
-      "highlight MyBorder guifg=" .. vim.g.lbs_colors.orange .. " guibg=NONE"
-    )
+    if vim.fn.exists('g:neovide') == 1 then
+      vim.cmd("highlight MyBorder guifg=bg guibg=NONE")
+    else
+      vim.cmd("highlight MyBorder guifg="  .. vim.g.lbs_colors.orange .. " guibg=NONE")
+    end
     vim.cmd("highlight DiagnosticSignInfo guibg=NONE")
     -- Setting the color scheme of the Complement window
     local pallete = {

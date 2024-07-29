@@ -1,11 +1,12 @@
 local wk = require "which-key"
+local my_border = require('util').border('═', 'top', true)
 wk.setup {
   preset = "modern",
   layout = {
     height = { min = 1, max = 15 },
   },
   win = {
-    border = { '', {'═', "MyBorder"}, '', '', '', '', '', ''},
+    border = my_border,
   },
   replace = {
     key = {
@@ -22,6 +23,9 @@ wk.setup {
     separator = "󰮺", -- symbol used between a key and it's label
     group = "+", -- symbol prepended to a group
   },
+  disable = {
+    bt = { 'terminal' },
+  }
 }
 
 -- register keymap ------------------------------------------------------ {{{1

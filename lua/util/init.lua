@@ -387,4 +387,20 @@ function M.wk_reg(mapping, opts)
   wk.add(mapping, opts)
 end
 
+function M.border(symbol, type, neovide, highlight)
+  symbol = symbol or "═"
+  type = type or "top"
+  neovide = neovide or false
+  highlight = "MyBorder"
+
+  if vim.fn.exists("g:neovide") == 1 and not neovide then
+    return "none"
+  end
+
+  if type == "top" then
+    return { '', {symbol, highlight}, '', '', '', '', '', ''}
+  elseif type == "bottom" then
+    return { '', '', '', '', '', {symbol, highlight}, '', ''}
+  end
+end
 return M

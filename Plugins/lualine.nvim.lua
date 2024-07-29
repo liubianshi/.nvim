@@ -7,6 +7,19 @@ local lualine = require "lualine"
 local colors = vim.g.lbs_colors
 
 -- conponent
+local buffers = {
+  "buffers",
+  buffers_color = {
+    active = { bg = colors.yellow, fg = colors.black, gui = "bold" },
+    inactive = { bg = colors.grey, fg = colors.cream, gui = "italic" },
+  },
+  symbols = {
+    modified = " ●",
+    alternate_file = " ",
+    directory = "",
+  },
+  mode = 2,
+}
 local fname = {
   "filename",
   file_status = true, -- displays file status (readonly status, modified status)
@@ -54,8 +67,8 @@ local encoding = {
 -- rime-ls status
 local rime_status = {
   function()
-    if require('rimels.utils').global_rime_enabled() then
-      if require('rimels.utils').buf_rime_enabled() then
+    if require("rimels.utils").global_rime_enabled() then
+      if require("rimels.utils").buf_rime_enabled() then
         return "· ㄓ"
       else
         return "· ㄨ"
@@ -113,7 +126,9 @@ local rsttcolor = function()
 end
 
 local current_time = {
-  function() return os.date("%H:%M") end,
+  function()
+    return os.date "%H:%M"
+  end,
   padding = { left = 1, right = 1 },
   colors = { bg = colors.fg, fg = colors.bg },
 }
@@ -140,20 +155,30 @@ lualine.setup {
   },
   sections = {
     -- these are to remove the defaults
-    lualine_a = { { "mode", separator = { left = "", right = "" } } },
+    lualine_a = {
+      { "mode", separator = { left = "", right = "" } },
+    },
     lualine_b = {},
     lualine_c = {
+      diff,
+      diagnostics,
+    },
+    lualine_x = {
       {
         "progress",
         padding = { left = 1, right = 0 },
         color = { fg = colors.yellow },
       },
       "location",
-      diff,
-      diagnostics,
+      fname,
     },
-    lualine_x = { fname },
-    lualine_y = { "filetype", encoding, {rstatus, color = rsttcolor}, foldmethod, rime_status },
+    lualine_y = {
+      "filetype",
+      encoding,
+      { rstatus, color = rsttcolor },
+      foldmethod,
+      rime_status,
+    },
     lualine_z = { "selectioncount", "searchcount", current_time },
   },
   inactive_sections = {
