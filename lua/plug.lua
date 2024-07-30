@@ -54,9 +54,13 @@ Plug.get = function()
 end
 
 -- 配置插件 ------------------------------------------------------------- {{{1
--- Plug.add("vhyrro/luarocks.nvim", { priority = 1000, config = true })
--- GUI
--- Plug.add("equalsraf/neovim-gui-shim")
+-- Utils ---------------------------------------------------------------- {{{1
+Plug.add("nvim-lua/plenary.nvim",       { lazy = true })
+Plug.add("nvim-tree/nvim-web-devicons", { lazy = true })
+Plug.add("MunifTanjim/nui.nvim",        { lazy = true })
+Plug.add("s1n7ax/nvim-window-picker",   { lazy = true })
+Plug.add("kkharji/sqlite.lua",          { lazy = true })
+
 -- UI ------------------------------------------------------------------- {{{2
 -- lambdalisue/suda.vim: Read and write with sudo command --------------- {{{3
 Plug.add("lambdalisue/suda.vim", { cmd = { "SudaWrite", "SudaRead" } })
@@ -104,12 +108,6 @@ Plug.add("nvim-neo-tree/neo-tree.nvim", {
       end,
     },
   },
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-    "nvim-tree/nvim-web-devicons",
-    "MunifTanjim/nui.nvim",
-    "s1n7ax/nvim-window-picker",
-  },
   deactivate = function()
     vim.cmd [[Neotree close]]
   end,
@@ -130,7 +128,6 @@ Plug.add("s1n7ax/nvim-window-picker", { name = "window-picker", lazy = true })
 -- ibhagwan/fzf-lua: Fzf Search ----------------------------------------- {{{3
 Plug.add("ibhagwan/fzf-lua", {
   branch = "main",
-  dependencies = { "skywind3000/asynctasks.vim" },
   cmd = { "FzfLua", "Shelp", "Urlopen", "RoamNodeFind", "Cheat" },
   keys = {
     "<leader>pp",
@@ -201,12 +198,10 @@ Plug.add("ibhagwan/fzf-lua", {
 })
 
 -- nvim-telescope/telescope.nvim: Find, Filter, Preview, Pick ----------- {{{3
+Plug.add("fhill2/telescope-ultisnips.nvim", { lazy = true })
+Plug.add("FeiyouG/command_center.nvim",     { lazy = true })
+Plug.add("nvim-telescope/telescope-fzf-native.nvim", { build = "make", lazy = true, })
 Plug.add("nvim-telescope/telescope.nvim", {
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-    "fhill2/telescope-ultisnips.nvim",
-    "FeiyouG/command_center.nvim",
-  },
   keys = {
     {
       "<leader>ff",
@@ -339,17 +334,8 @@ Plug.add("nvim-telescope/telescope.nvim", {
   },
   cmd = "Telescope",
 })
-
-Plug.add("nvim-telescope/telescope-fzf-native.nvim", {
-  build = "make", lazy = true,
-})
-Plug.add("FeiyouG/command_center.nvim", { lazy = true })
 Plug.add("danielfalk/smart-open.nvim", {
   branch = "0.2.x",
-  dependencies = {
-    "kkharji/sqlite.lua",
-    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-  },
   config = function()
     require("telescope").load_extension("smart_open")
   end,
@@ -360,10 +346,6 @@ Plug.add("danielfalk/smart-open.nvim", {
   }
 })
 Plug.add("nvim-telescope/telescope-frecency.nvim", {
-  dependencies = {
-    "kkharji/sqlite.lua",
-    "nvim-telescope/telescope.nvim",
-  },
   keys = {
     {
       "<leader>fp",
@@ -415,10 +397,7 @@ Plug.add("andymass/vim-matchup", { event = {"VeryLazy"} })
 Plug.add('numToStr/Comment.nvim', {  event = {"VeryLazy"}  })
 
 -- folke/todo-comments.nvim: Highlight, list and search todo comments --- {{{3
-Plug.add("folke/todo-comments.nvim", {
-  dependencies = { "nvim-lua/plenary.nvim" },
-  event = {"VeryLazy"},
-})
+Plug.add("folke/todo-comments.nvim", { event = {"VeryLazy"} })
 
 -- junegunn/vim-easy-align: text alignment tool ------------------------- {{{3
 Plug.add("junegunn/vim-easy-align", {
@@ -469,7 +448,6 @@ Plug.add("tpope/vim-repeat", {
 Plug.add("nvim-pack/nvim-spectre", {
   cmd = "Spectre",
   opts = { open_cmd = "noswapfile vnew" },
-  dependencies = { "nvim-lua/plenary.nvim" },
   keys = {
     {
       "<leader>R",
@@ -495,6 +473,7 @@ Plug.add("rcarriga/nvim-notify", {
   init = function()
     vim.notify = require "notify"
   end,
+  event = {'VeryLazy'},
 })
 
 --
@@ -503,14 +482,6 @@ Plug.add("folke/noice.nvim", {
   init = function()
     vim.api.nvim_set_option_value("cmdheight", 0, { scope = "global" })
   end,
-  dependencies = {
-    -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    "MunifTanjim/nui.nvim",
-    -- OPTIONAL:
-    --   `nvim-notify` is only needed, if you want to use the notification view.
-    --   If not available, we use `mini` as the fallback
-    "rcarriga/nvim-notify",
-  },
   keys = {
     {
       "<leader>hn", "<cmd>NoiceTelescope<cr>", desc = "Noice: Search Notifications",
@@ -572,7 +543,6 @@ Plug.add("easymotion/vim-easymotion", {
     vim.g.EasyMotion_smartcase = 1
     vim.g.EasyMotion_use_migemo = 1
   end,
-  dependencies = { "zzhirong/vim-easymotion-zh" },
   keys = {
     {
       "<localleader>s",
@@ -676,8 +646,8 @@ Plug.add("chrisgrieser/nvim-origami", {
 })
 
 -- kevinhwang91/nvim-ufo: ultra fold in Neovim -------------------------- {{{3
+Plug.add("kevinhwang91/promise-async", { lazy = true })
 Plug.add("kevinhwang91/nvim-ufo", {
-  dependencies = "kevinhwang91/promise-async",
 	event = "BufReadPost", -- later or on keypress would prevent saving folds
   init = function()
     vim.o.foldcolumn = "0" -- '0' is not bad
@@ -696,7 +666,6 @@ Plug.add("vim-voom/VOoM", {
 
 -- akinsho/bufferline.nvim: buffer line with minimal tab integration ---- {{{3
 Plug.add("akinsho/bufferline.nvim", {
-  dependencies = "nvim-tree/nvim-web-devicons",
   event = "VeryLazy",
   keys = {
     { "<leader>B", "<cmd>BufferLinePick<cr>", desc = "Choose Buffer" },
@@ -832,23 +801,10 @@ Plug.add("brenoprata10/nvim-highlight-colors", {
 })
 
 -- nvimdev/lspsaga.nvim: ------------------------------------------------ {{{3
-Plug.add("nvimdev/lspsaga.nvim", {
-  event = 'LspAttach',
-  dependencies = {
-    'nvim-treesitter/nvim-treesitter',
-    'nvim-tree/nvim-web-devicons',
-  }
-})
+Plug.add("nvimdev/lspsaga.nvim", { event = 'LspAttach' })
 
 -- jackMort/ChatGPT.nvim: Effortless Natural Language Generation -------- {{{3
-Plug.add("jackMort/ChatGPT.nvim", {
-  dependencies = {
-    "MunifTanjim/nui.nvim",
-    "nvim-lua/plenary.nvim",
-    "nvim-telescope/telescope.nvim",
-  },
-  event = "VeryLazy",
-})
+Plug.add("jackMort/ChatGPT.nvim", { event = "VeryLazy" })
 
 --
 Plug.add("robitx/gp.nvim", {
@@ -930,13 +886,10 @@ Plug.add("akinsho/toggleterm.nvim", {
 -- willothy/flatten.nvim: open files in your current neovim instance ---- {{{3
 Plug.add("willothy/flatten.nvim", { lazy = false, priority = 1001 })
 -- skywind3000/asyncrun.vim: run async shell command -------------------- {{{3
-Plug.add("skywind3000/asyncrun.vim")
+Plug.add("skywind3000/asyncrun.vim", { lazy = true })
 
 -- skywind3000/asynctasks.vim: modern Task System ----------------------- {{{3
 Plug.add("skywind3000/asynctasks.vim", {
-  dependencies = {
-    "skywind3000/asyncrun.vim",
-  },
   cmd = { "AsyncTask", "AsyncTaskList" },
   keys = {
     { "<leader>ot", desc = "Run AsnycTask" },
@@ -975,17 +928,8 @@ Plug.add("3rd/image.nvim", {
   ft = { "markdown", "pandoc", "rmd", "rmarkdown", "norg", "org", "newsboat" },
 })
 
--- OXY2DEV/markview.nvim: Experimental markdown preview for neovim
--- Plug.add("OXY2DEV/markview.nvim", {
---   dependencies = {
---     "nvim-tree/nvim-web-devicons",
---   },
---   ft = { "markdown", "pandoc", "rmd", "rmarkdown"}
--- })
-
 -- gbprod/yanky.nvim: Improved Yank and Put functionalities for Neovim -- {{{3
 Plug.add("gbprod/yanky.nvim", {
-  dependencies = {"kkharji/sqlite.lua"},
   keys = {
     {
       "<leader>sp", function()
@@ -1029,28 +973,9 @@ Plug.add('sindrets/diffview.nvim', {
   },
 })
 
--- ThePrimeagen/harpoon:
--- Plug.add("ThePrimeagen/harpoon", {
---   branch = "harpoon2",
---   dependencies = { "nvim-lua/plenary.nvim" },
--- })
-
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
-Plug.add("ahmedkhalf/project.nvim")
--- Plug.add("olimorris/persisted.nvim", {
---   dependencies = { "nvim-telescope/telescope.nvim"},
---   cmd = {"SessionLoad", "SessionLoadLast"},
---   keys = {
---     {
---       "<leader>ls", function()
---         require("telescope").extensions.persisted.persisted()
---       end,
---       desc = "Select Sessions",
---     }
---   },
---   config = true
--- })
+Plug.add("ahmedkhalf/project.nvim", { event = "VeryLazy" })
 
 -- ludovicchabant/vim-gutentags: tag file management -------------------- {{{3
 Plug.add("ludovicchabant/vim-gutentags", {
@@ -1126,8 +1051,8 @@ Plug.add("projekt0n/github-nvim-theme", { lazy = false, priority = 1000 })
 
 -- 补全和代码片断 ------------------------------------------------------- {{{2
 -- sirver/UltiSnips: Ultimate snippet solution -------------------------- {{{3
+Plug.add("honza/vim-snippets", { lazy = true } )
 Plug.add("sirver/UltiSnips", {
-  dependencies = { "honza/vim-snippets" },
   cmd = { "UltiSnipsAddFiletypes" },
   event = "InsertEnter",
 })
@@ -1172,17 +1097,13 @@ local cmp_dependencies = {
 for _, k in ipairs(cmp_dependencies) do
   Plug.add(k, { lazy = true })
 end
-Plug.add("hrsh7th/nvim-cmp", {
-  event = "InsertEnter",
-  dependencies = cmp_dependencies,
-})
+Plug.add("hrsh7th/nvim-cmp", { event = "InsertEnter" })
 
 
 -- Formatter and linter ------------------------------------------------- {{{2
 -- mfussenegger/nvim-dap
 -- Plug.add("mfussenegger/nvim-dap")
 -- Plug.add("rcarriga/nvim-dap-ui", {
---   dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
 --   config = true,
 -- })
 
@@ -1212,23 +1133,6 @@ Plug.add("ellisonleao/glow.nvim", {
     require('glow').setup({ style = "dark", width = 86})
   end
 })
-
--- Plug.add( "denstiny/styledoc.nvim", {
---   dependencies = {
---     "nvim-treesitter/nvim-treesitter",
---     "vhyrro/luarocks.nvim",
---     "3rd/image.nvim",
---   },
---   opts = true,
---   ft = "markdown",
--- })
-
-
-
--- Plug.add('vim-pandoc/vim-pandoc', {
---     dependencies = {'vim-pandoc/vim-pandoc-syntax'},
---     ft = {'rmd', 'markdown', 'rmarkdown', 'pandoc'}
--- })
 
 -- ferrine/md-img-paste.vim: paste image to markdown -------------------- {{{3
 Plug.add("img-paste-devs/img-paste.vim", {
@@ -1282,9 +1186,6 @@ Plug.add("dhruvasagar/vim-table-mode", {
 -- epwalsh/obsidian.nvim
 Plug.add("epwalsh/obsidian.nvim", {
   version = "*",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-  },
   ft = {"markdown"},
   cmd = {"ObsidianQuickSwitch", "ObsidianNew", "ObsidianSearch"},
   keys = {
@@ -1296,11 +1197,6 @@ Plug.add("epwalsh/obsidian.nvim", {
   },
 })
 
--- lukas-reineke/headlines.nvim  adds horizontal highlights ------------- {{{3
--- Plug.add("lukas-reineke/headlines.nvim", {
---   ft = {"markdown", "org", "rmd", "rmarkdown", "norg"},
---   dependencies = "nvim-treesitter/nvim-treesitter",
--- })
 -- 文件类型相关插件 ----------------------------------------------------- {{{2
 -- nvim-neorg/neorg: new org-mode in neovim ----------------------------- {{{3
 Plug.add("nvim-neorg/neorg", {
@@ -1317,9 +1213,9 @@ Plug.add("nvim-neorg/neorg", {
 })
 
 -- kristijanhusak/vim-dadbod-ui: simple UI for vim-dadbod --------------- {{{3
+Plug.add("tpope/vim-dadbod", { lazy = true})
 Plug.add("kristijanhusak/vim-dadbod-ui", {
   cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
-  dependencies = { "tpope/vim-dadbod" },
 })
 
 -- -- liubianshi/Nvim-R: Vim plugin to work with R ------------------------- {{{3
@@ -1351,16 +1247,13 @@ Plug.add("kevinhwang91/nvim-bqf", { ft = "qf" })
 
 -- nvim-orgmode/orgmode: Orgmode clone written in Lua ------------------- {{{3
 Plug.add("nvim-orgmode/orgmode", {
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter",
-    {"akinsho/org-bullets.nvim", config = true}
-  },
   ft = "org",
   keys = {
     { "<leader>oa", desc = "Orgmode: agenda prompt" },
     { "<leader>oc", desc = "Orgmode: capture prompt" },
   },
 })
+Plug.add("akinsho/org-bullets.nvim", { config = true, lazy = true })
 
 -- fladson/vim-kitty: kitty config syntax highlighting for vim ---------- {{{3
 Plug.add("fladson/vim-kitty", { ft = "kitty" })
@@ -1377,7 +1270,6 @@ Plug.add("nvim-treesitter/nvim-treesitter", {
 })
 
 Plug.add("nvim-treesitter/nvim-treesitter-textobjects", {
-  dependencies = { "nvim-treesitter/nvim-treesitter" },
   event = { "BufReadPost", "BufNewFile" },
 })
 
@@ -1393,7 +1285,6 @@ Plug.add("Wansmer/treesj", {
 
 -- AckslD/nvim-FeMaco.lua: Fenced Markdown Code-block editing ----------- {{{3
 Plug.add("AckslD/nvim-FeMaco.lua", {
-  dependencies = { "nvim-treesitter/nvim-treesitter" },
   cmd = "FeMaco",
   ft = {'markdown', 'rmarkdown', 'norg'},
   keys = {
