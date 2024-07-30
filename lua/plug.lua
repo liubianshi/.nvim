@@ -886,7 +886,7 @@ Plug.add("akinsho/toggleterm.nvim", {
 -- willothy/flatten.nvim: open files in your current neovim instance ---- {{{3
 Plug.add("willothy/flatten.nvim", { lazy = false, priority = 1001 })
 -- skywind3000/asyncrun.vim: run async shell command -------------------- {{{3
-Plug.add("skywind3000/asyncrun.vim", { lazy = true })
+Plug.add("skywind3000/asyncrun.vim", { cmd = {'AsyncRun'} })
 
 -- skywind3000/asynctasks.vim: modern Task System ----------------------- {{{3
 Plug.add("skywind3000/asynctasks.vim", {

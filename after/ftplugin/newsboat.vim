@@ -178,7 +178,7 @@ function! s:cache_link_snapshot()
         call insert(url_list, url['url'] . "\t" . url['type'])
     endfor
     call system("cat >" . tmpfile, url_list)
-    call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, "cache_url_snapshot " . tmpfile)
+    call jobstart("cache_url_snapshot " . tmpfile, {'on_exit': {j,d,e->luaeval('vim.notify("Link snapshot cached")')}})
     let b:newsboat_link_cached = v:true
 endfunction
 
