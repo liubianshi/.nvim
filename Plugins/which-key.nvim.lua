@@ -8,6 +8,9 @@ wk.setup {
   win = {
     border = my_border,
   },
+  triggers = {
+    {"<auto>", mode = "nixsotc"},
+  },
   replace = {
     key = {
       {"<Space>", "SPC"},

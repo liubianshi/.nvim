@@ -5,6 +5,50 @@ local cmp_ultisnips_mappings = require "cmp_nvim_ultisnips.mappings"
 require("cmp_r").setup({filetypes = {"r", "rmd", "markdown", "rdoc"}})
 vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 
+
+-- kinds icons
+local icon_kinds = {
+  Array         = " ",
+  Boolean       = "󰨙 ",
+  Class         = " ",
+  Codeium       = "󰘦 ",
+  Color         = " ",
+  Control       = " ",
+  Collapsed     = " ",
+  Constant      = "󰏿 ",
+  Constructor   = " ",
+  Copilot       = " ",
+  Enum          = " ",
+  EnumMember    = " ",
+  Event         = " ",
+  Field         = " ",
+  File          = " ",
+  Folder        = " ",
+  Function      = "󰊕 ",
+  Interface     = " ",
+  Key           = " ",
+  Keyword       = " ",
+  Method        = "󰊕 ",
+  Module        = " ",
+  Namespace     = "󰦮 ",
+  Null          = " ",
+  Number        = "󰎠 ",
+  Object        = " ",
+  Operator      = " ",
+  Package       = " ",
+  Property      = " ",
+  Reference     = " ",
+  Snippet       = " ",
+  String        = " ",
+  Struct        = "󰆼 ",
+  TabNine       = "󰏚 ",
+  Text          = " ",
+  TypeParameter = " ",
+  Unit          = " ",
+  Value         = " ",
+  Variable      = "󰀫 ",
+}
+
 -- source config functions ---------------------------------------------- {{{2
 local function construct_cmp_source(sources)
   local function not_exists(s, b)
@@ -149,14 +193,14 @@ local cmp_config = {
         ellipsis_char = "...", -- the truncated part when popup menu exceed maxwidth
       }(entry, vim_item)
       local strings = vim.split(kind.kind, "%s", { trimempty = true })
-      kind.kind = " " .. strings[1] .. " "
+      kind.kind = " " .. (icon_kinds[strings[1]] or strings[1] .. " ")
       if strings[2] == nil then
-        kind.menu = "    [other]"
+        kind.menu = "    [" .. (strings[1] or "other") .. "] "
       elseif strings[2] == "Text" then
         kind.kind = ""
         kind.menu = ""
       else
-        kind.menu = "    [" .. strings[2] .. "]"
+        kind.menu = "    [" .. strings[2] .. "] "
       end
       return kind
     end,

@@ -41,6 +41,7 @@ ts.setup {
     "latex",
     "jq",
     "rnoweb",
+    "yaml"
   },
   sync_install = false,
   auto_install = false,
@@ -62,7 +63,7 @@ ts.setup {
   },
   textobjects = {
     select = {
-      enable = false,
+      enable = true,
       lookahead = true,
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm

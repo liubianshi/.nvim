@@ -90,9 +90,9 @@ autocmd!
 
 " cmd: global setting --------------------------------------------------- {{{2
 autocmd InsertEnter,WinLeave *  setlocal nocursorline
-autocmd InsertEnter * call s:disable_touchpad()
+"autocmd InsertEnter * call s:disable_touchpad()
 autocmd InsertLeave,WinEnter *  setlocal cursorline | 
-autocmd InsertLeave * call s:enable_touchpad()
+" autocmd InsertLeave * call s:enable_touchpad()
 autocmd TermOpen             *  setlocal nonumber norelativenumber bufhidden=hide foldcolumn=0
 autocmd FileType   r,stata,vim  call s:FoldMethodSetting()
 autocmd FileType   norg,org,markdown,rmd,rmarkdown
@@ -106,7 +106,7 @@ autocmd LspAttach * set formatoptions-=cro
 
 
 " Fasd ------------------------------------------------------------------ {{{2
-autocmd BufNewFile * call s:fasd_update()
+autocmd BufRead,BufNew,BufNewFile * call s:fasd_update()
 
 " Resize all windows when we resize the terminal ------------------------ {{{2
 " From:

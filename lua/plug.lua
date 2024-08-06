@@ -1,13 +1,13 @@
 -- vim: set foldmethod=marker:
 -- 使用 lazyvim 加载插件
-package.path = package.path
-  .. ";"
-  .. vim.fn.expand "$HOME"
-  .. "/.luarocks/share/lua/5.1/?/init.lua;"
-package.path = package.path
-  .. ";"
-  .. vim.fn.expand "$HOME"
-  .. "/.luarocks/share/lua/5.1/?.lua;"
+-- package.path = package.path
+--   .. ";"
+--   .. vim.fn.expand "$HOME"
+--   .. "/.luarocks/share/lua/5.1/?/init.lua;"
+-- package.path = package.path
+--   .. ";"
+--   .. vim.fn.expand "$HOME"
+--   .. "/.luarocks/share/lua/5.1/?.lua;"
 
 -- 在 lazyvim 尚未安装时安装 -------------------------------------------- {{{1
 local lazypath = vim.fn.stdpath("data")  .. "/lazy/lazy.nvim"
@@ -804,9 +804,11 @@ Plug.add("brenoprata10/nvim-highlight-colors", {
 Plug.add("nvimdev/lspsaga.nvim", { event = 'LspAttach' })
 
 -- jackMort/ChatGPT.nvim: Effortless Natural Language Generation -------- {{{3
-Plug.add("jackMort/ChatGPT.nvim", { event = "VeryLazy" })
+Plug.add("jackMort/ChatGPT.nvim", {
+  event = "VeryLazy",
+  cmd = { "ChatGPT" },
+})
 
---
 Plug.add("robitx/gp.nvim", {
   cmd = {
     "GpAgent",
@@ -1054,6 +1056,7 @@ Plug.add("projekt0n/github-nvim-theme", { lazy = false, priority = 1000 })
 Plug.add("honza/vim-snippets", { lazy = true } )
 Plug.add("sirver/UltiSnips", {
   cmd = { "UltiSnipsAddFiletypes" },
+  dependencies = { "honza/vim-snippets" },
   event = "InsertEnter",
 })
 
@@ -1097,7 +1100,7 @@ local cmp_dependencies = {
 for _, k in ipairs(cmp_dependencies) do
   Plug.add(k, { lazy = true })
 end
-Plug.add("hrsh7th/nvim-cmp", { event = "InsertEnter" })
+Plug.add("hrsh7th/nvim-cmp", { event = "InsertEnter", dependencies = cmp_dependencies })
 
 
 -- Formatter and linter ------------------------------------------------- {{{2
@@ -1266,6 +1269,7 @@ Plug.add("kmonad/kmonad-vim", { ft = "kbd" })
 Plug.add("nvim-treesitter/nvim-treesitter", {
   build = ":TSUpdate",
   cmd = "TSEnable",
+  ft = {"r"},
   event = { "BufReadPost", "BufNewFile" },
 })
 

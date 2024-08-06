@@ -96,7 +96,7 @@ vimkey('<leader>ek', "Neovim Keymap",       '<cmd>edit ~/.config/nvim/lua/keymap
 vimkey('<leader>eo', "Neovim Options",      '<cmd>edit ~/.config/nvim/vim/option.vim<cr>')
 vimkey('<leader>er', "R Profile",           '<cmd>edit ~/.Rprofile<cr>')
 vimkey('<leader>es', "Stata profile",       '<cmd>edit ~/.config/stata/profile.do<cr>')
-vimkey('<leader>ez', "Zshrc",               '<cmd>edit ~/.zshrc<cr>')
+vimkey('<leader>ez', "Zshrc",               '<cmd>edit ~/.config/zsh/.zshrc<cr>')
 vimkey('<leader>eZ', "User Zshrc",          '<cmd>edit ~/useScript/usr.zshrc<cr>')
 vimkey('<leader>ea', "Alias",               '<cmd>edit ~/useScript/alias<cr>')
 vimkey('<leader>eu', "Snippets",            '<cmd>edit ~/.config/nvim/UltiSnips<cr>')
