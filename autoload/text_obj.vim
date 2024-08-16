@@ -120,11 +120,10 @@ function! text_obj#MdCodeBlock(type) abort
     let start_row += 1
     let end_row -= 1
   endif
-  " echo a:type start_row end_row
 
   call setpos("'<", [buf_num, start_row, 1, 0])
   call setpos("'>", [buf_num, end_row, 1, 0])
-  execute 'normal! `<V`>'
+  execute 'normal! gv$'
 endfunction
 
 " org-mode block ======================================================== {{{1

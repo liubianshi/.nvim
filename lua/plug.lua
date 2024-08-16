@@ -1,13 +1,11 @@
 -- vim: set foldmethod=marker:
 -- 使用 lazyvim 加载插件
--- package.path = package.path
---   .. ";"
---   .. vim.fn.expand "$HOME"
---   .. "/.luarocks/share/lua/5.1/?/init.lua;"
--- package.path = package.path
---   .. ";"
---   .. vim.fn.expand "$HOME"
---   .. "/.luarocks/share/lua/5.1/?.lua;"
+local luarocks_path = vim.env.XDG_CONFIG_HOME and
+  (vim.env.XDG_CONFIG_HOME .. "/luarocks") or
+  (vim.env.HOME  .. "/.luarocks")
+package.path = package.path .. ";"
+  .. (luarocks_path .. "/share/lua/5.1/?/init.lua") .. ";"
+  .. (luarocks_path .. "/share/lua/5.1/?.lua")
 
 -- 在 lazyvim 尚未安装时安装 -------------------------------------------- {{{1
 local lazypath = vim.fn.stdpath("data")  .. "/lazy/lazy.nvim"
@@ -159,6 +157,11 @@ Plug.add("ibhagwan/fzf-lua", {
       desc = "FzfLua: tags",
     },
     {
+      '<leader>sk',
+      "<cmd>FzfLua keymaps<cr>",
+      desc = "FzfLua: keymaps table",
+    },
+    {
       "<leader>sT",
       "<cmd>FzfLua btags<cr>",
       desc = "FzfLua: buffer tags",
@@ -227,11 +230,6 @@ Plug.add("nvim-telescope/telescope.nvim", {
       "<leader>fR",
       Util.telescope("oldfiles", { cwd = vim.fn.expand "%:p:h" }),
       desc = "Telescope: Recent (cwd)",
-    },
-    {
-      "<leader>sk",
-      Util.telescope "keymaps",
-      desc = "Telescope: Keymaps",
     },
     {
       "<leader>sj",
@@ -390,8 +388,9 @@ Plug.add("mg979/vim-visual-multi", {
     { "<A-k>", "<Plug>(VM-Add-Cursor-Up)", desc = "Add Cursors Up" },
   },
 })
+
 -- andymass/vim-matchup: 显示匹配符号之间的内容 ------------------------- {{{3
-Plug.add("andymass/vim-matchup", { event = {"VeryLazy"} })
+Plug.add("andymass/vim-matchup")
 
 -- numToStr/Comment.nvim: Smart and powerful comment plugin for neovim -- {{{3
 Plug.add('numToStr/Comment.nvim', {  event = {"VeryLazy"}  })
@@ -536,6 +535,23 @@ Plug.add("folke/flash.nvim", {
   },
 })
 
+Plug.add("rainzm/flash-zh.nvim", {
+  event = "VeryLazy",
+  keys = {
+    {
+      "sc",
+      mode = {"n", "x", "o"},
+      function()
+        require("flash-zh").jump({
+          chinese_only = true,
+          labels = " ;,.123456789[]",
+        })
+      end,
+      desc = "Flash between Chinese"
+    }
+  }
+})
+
 -- easymotion/vim-easymotion: motion tools ------------------------------ {{{3
 Plug.add("easymotion/vim-easymotion", {
   init = function()
@@ -554,11 +570,6 @@ Plug.add("easymotion/vim-easymotion", {
       "s.",
       "<Plug>(easymotion-repeat)",
       desc = "EasyMotion: Repeat last motion",
-    },
-    {
-      "sc",
-      "<Plug>(easymotion-s2)",
-      desc = "EasyMotion: Search for 2 chars",
     },
     {
       "sl",
@@ -700,23 +711,8 @@ Plug.add("echasnovski/mini.icons", {
   config = true,
 })
 
-
-
 -- windwp/nvim-autopairs: autopair tools -------------------------------- {{{3
 Plug.add("windwp/nvim-autopairs")
--- Plug.add('altermo/ultimate-autopair.nvim', {
---   event = {'InsertEnter', 'CmdlineEnter'},
---   branch = 'v0.6',
---   config = function()
---     require('ultimate-autopair').setup({
---       {'$', '$', suround=true, ft={'markdown'}},
---       {"`", "'", suround=true, ft={'stata'}},
---       config_internal_pairs = {
---         {'`', '`', ft = {'markdown'}},
---       }
---     })
---   end,
--- })
 
 -- stevearc/dressing.nvim: improve the default vim.ui interfaces -------- {{{3
 Plug.add("stevearc/dressing.nvim", {
@@ -753,9 +749,8 @@ Plug.add("nvimdev/indentmini.nvim", {
 -- Tools ---------------------------------------------------------------- {{{2
 -- liubianshi/cmp-lsp-rimels: ------------------------------------------- {{{3
 Plug.add("liubianshi/cmp-lsp-rimels", {
-  event = {"InsertEnter"},
-  ft = {'md', "rmd"},
   keys = {{"<localleader>f", mode = "i"}},
+  cond = true,
   dev = true,
 })
 
@@ -975,6 +970,13 @@ Plug.add('sindrets/diffview.nvim', {
   },
 })
 
+-- abecodes/tabout.nvim: tabout plugin for neovim ----------------------- {{{3
+Plug.add("abecodes/tabout.nvim", {
+  lazy = true,
+  event = "InsertCharPre",
+  dependencies = {"hrsh7th/nvim-cmp"}
+})
+
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
 Plug.add("ahmedkhalf/project.nvim", { event = "VeryLazy" })
@@ -1020,6 +1022,13 @@ Plug.add("folke/trouble.nvim", {
       desc = "Quickfix List (Trouble)",
     },
   },
+})
+
+-- rachartier/tiny-inline-diagnostic.nvim ------------------------------- {{{3
+Plug.add("rachartier/tiny-inline-diagnostic.nvim", {
+  init = vim.diagnostic.config({ virtual_text = false }),
+  event = "VeryLazy",
+  config = true,
 })
 
 -- tpope/vim-fugitive: Git ---------------------------------------------- {{{3
@@ -1078,7 +1087,7 @@ Plug.add("folke/lazydev.nvim", {
 Plug.add("Bilal2453/luvit-meta", { lazy = true })
 Plug.add("neovim/nvim-lspconfig", {
   -- event = { "BufReadPre", "BufNewFile", "BufWinEnter" },
-  ft = {"lua", "perl", "markdown", "bash", "r", "python", "vim"},
+  ft = {"lua", "perl", "markdown", "bash", "r", "python", "vim", "rmd"},
 })
 Plug.add("liubianshi/cmp-r", { dev = true, lazy = true})
 
@@ -1101,7 +1110,6 @@ for _, k in ipairs(cmp_dependencies) do
   Plug.add(k, { lazy = true })
 end
 Plug.add("hrsh7th/nvim-cmp", { event = "InsertEnter", dependencies = cmp_dependencies })
-
 
 -- Formatter and linter ------------------------------------------------- {{{2
 -- mfussenegger/nvim-dap
@@ -1132,9 +1140,11 @@ Plug.add("vim-pandoc/vim-pandoc-syntax", {
 })
 Plug.add("ellisonleao/glow.nvim", {
   cmd = {"Glow"},
-  config = function()
-    require('glow').setup({ style = "dark", width = 86})
-  end
+  opts = {
+    style = "dark",
+    width = 86,
+  },
+  config = true
 })
 
 -- ferrine/md-img-paste.vim: paste image to markdown -------------------- {{{3
@@ -1281,9 +1291,9 @@ Plug.add("nvim-treesitter/nvim-treesitter-textobjects", {
 Plug.add("Wansmer/treesj", {
   cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
   keys = {
-    { "<leader>cj", "<cmd>TSJJoin<cr>",   desc = "Join Code Block"       },
-    { "<leader>cs", "<cmd>TSJSplit<cr>",  desc = "Split Code Block"      },
-    { "<leader>cm", "<cmd>TSJToggle<cr>", desc = "Join/Split Code Block" },
+    { "<leader>mj", "<cmd>TSJJoin<cr>",   desc = "Join Code Block"       },
+    { "<leader>ms", "<cmd>TSJSplit<cr>",  desc = "Split Code Block"      },
+    { "<leader>mm", "<cmd>TSJToggle<cr>", desc = "Join/Split Code Block" },
   }
 })
 
@@ -1295,6 +1305,7 @@ Plug.add("AckslD/nvim-FeMaco.lua", {
     { "<localleader>o", "<cmd>FeMaco<cr>", desc = "FeMaco: Edit Code Block" },
   },
 })
+
 
 -- 安装并加载插件 ------------------------------------------------------- {{{1
 local lazy = require("lazy")

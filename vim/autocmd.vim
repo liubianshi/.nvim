@@ -124,13 +124,14 @@ autocmd FocusGained,CursorHold * call <SID>checktime()
 augroup END
 
 " Input Method Toggle =================================================== {{{1
-augroup Method_Toggle
-    autocmd!
-    autocmd InsertLeavePre *   call input_method#LeaveInsertMode()
-    autocmd InsertEnter *      call input_method#RestoreInsertMode()
-    autocmd CmdlineLeave *     call system(g:lbs_input_method_inactivate)
-    autocmd CmdlineEnter [/\?] call input_method#RestoreInsertMode()
-augroup END
+" augroup Method_Toggle
+"     autocmd!
+"     autocmd InsertLeavePre *   call input_method#LeaveInsertMode()
+"     autocmd InsertEnter *      call input_method#RestoreInsertMode()
+"     autocmd CmdlineLeave *     call system(g:lbs_input_method_inactivate)
+"     autocmd CmdlineEnter [/\?] call input_method#RestoreInsertMode()
+" augroup END
+
 "
 " Keywordprg
 augroup Keyword_Group

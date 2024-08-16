@@ -1,10 +1,12 @@
-if vim.fn.exists('b:rmd_plugin_on') ~= 0 and vim.api.nvim_buf_get_var(0, "rmd_plugin_on") then return end
+if vim.fn.exists('b:rmd_plugin_on') ~= 0 and vim.api.nvim_buf_get_var(0, "rmd_plugin_on") then
+  return
+end
 vim.api.nvim_buf_set_var(0, "rmd_plugin_on", true)
 
 -- vim.bo.filetype = 'r'
 -- vim.bo.filetype = 'rmd'
 vim.cmd [[
-    UltiSnipsAddFiletype rmd.r.markdown.pandoc
+  UltiSnipsAddFiletype rmd.r.markdown.pandoc
 ]]
 
 vim.api.nvim_set_option_value('formatprg', "text_wrap", { scope = 'local' })
@@ -25,7 +27,7 @@ local fexport = function(oformat, ofile)
     local cmd = string.format(
         'fexport --from=rmd --to="%s" --outfile="%s" "%s"',
         oformat, ofile, fname
-    ) 
+    )
     print(cmd)
     require('util').execute_async(cmd)
     return ofile
@@ -71,3 +73,10 @@ vim.keymap.set({"n", "i"}, "<localleader>il", function()
   vim.fn['ref_link#add']()
 end, { desc = "Add Link"})
 
+vim.keymap.set({"x", "o"}, "ic", function()
+  vim.fn['text_obj#MdCodeBlock']('i')
+  end, {desc = "Chunk i", silent = true, buffer = true})
+
+vim.keymap.set({"x", "o"}, "ac", function()
+  vim.fn['text_obj#MdCodeBlock']('a')
+  end, {desc = "Chunk a", silent = true, buffer = true})

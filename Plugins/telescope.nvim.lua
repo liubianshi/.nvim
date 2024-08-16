@@ -37,6 +37,11 @@ telescope.setup {
       },
     },
   },
+  pickers = {
+    man_pages = {
+      sections = { "ALL" },
+    },
+  },
   extensions = {
     fzf = {
       fuzzy = true, -- false will only do exact matching

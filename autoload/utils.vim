@@ -704,9 +704,9 @@ function! utils#Trans_Subs()
     let string_translated = trim(utils#Trans_string(string_ori))
     echom string_translated
     if string_translated == ""
-        let string_translated = string_ori
+        let string_translated = "= " . string_ori
     endif
-    call luaeval('vim.api.nvim_put({_A.str}, "c", false, true)', {'str': string_translated})
+    call luaeval('vim.api.nvim_put({_A.str}, "c", true, true)', {'str': string_translated})
 endfunction
 
 

@@ -69,19 +69,18 @@ local opts = {
         function(tbl) add_namespace(tbl.fargs) end,
         { nargs = "+" }
       )
-
-      require('util').wk_reg({
-        A = {
-          ":exec 'RAdd ' . expand('<cword>')<cr>",
-          "Add package for completion"
-        },
-      }, {buffer = 0, prefix = "<localleader>r", mode = "n"})
-
-      require('util').wk_reg({
-        l = {
-          "<Plug>RSendSelection", "Send to R visually selected lines or part of a line"
-        },
-      }, {buffer = 0, prefix = "<localleader>", mode = "v"})
+      vim.keymap.set(
+        "n",
+        "<localleader>rA",
+        "<cmd>exec 'RAdd ' . expand('<cword>')<cr>",
+        {buffer = true, desc = "Add package for completion"}
+      )
+      vim.keymap.set(
+        "v",
+        "<localleader>rl",
+        "<Plug>RSendSelection",
+        { buffer = true, desc = "Send to R visually selected lines or part of a line"}
+      )
     end
   },
   hl_term = true,

@@ -1,4 +1,4 @@
-local in_blog = function()
+local in_blog = function(_)
   local parent_dir = vim.fn.expand('%:h')
   if parent_dir == "content/posts" or parent_dir:match('^content/posts/') then
     return true
@@ -7,7 +7,7 @@ local in_blog = function()
   end
 end
 
-local in_obisidian_vault = function()
+local in_obisidian_vault = function(_)
   local root_dir = require('util').get_root()
   if root_dir and root_dir:match('/vaults/') then
     return true
@@ -67,14 +67,14 @@ require("img-clip").setup {
   },
   custom = {
     {
+      trigger = in_obisidian_vault,
+      template = "![[$FILE_PATH]]$CURSOR",
+    },
+    {
       trigger = in_blog,
       dir_path = get_img_dirpath,
       show_dir_path_in_prompt = false,
       relative_to_current_file = false,
     },
-    {
-      trigger = in_obisidian_vault,
-      template = "![[$FILE_PATH]]$CURSOR",
-    }
   }
 }

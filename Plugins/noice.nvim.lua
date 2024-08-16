@@ -6,19 +6,23 @@ require("noice").setup {
       ["vim.lsp.util.stylize_markdown"] = true,
       ["cmp.entry.get_documentation"] = true,
     },
+    -- progress = { enabled = false }, -- forbidden rime-ls info
   },
   -- you can enable a preset for easier configuration
   presets = {
-    bottom_search = true, -- use a classic bottom cmdline for search
+    bottom_search = false, -- use a classic bottom cmdline for search
     command_palette = true, -- position the cmdline and popupmenu together
-    long_message_to_split = false, -- long messages will be sent to a split
+    long_message_to_split = true, -- long messages will be sent to a split
     inc_rename = false, -- enables an input dialog for inc-rename.nvim
     lsp_doc_border = false, -- add a border to hover docs and signature help
   },
   messages = {
-    enabled = false,
+    enabled = true,
     view = "notify",
-    view_warn = "mini",
+    view_error = "notify", -- view for errors
+    view_warn = "notify", -- view for warnings
+    view_history = "messages", -- view for :messages
+    view_search = "virtualtext",
   },
   popupmenu = {
     backend = "nui",
@@ -37,18 +41,18 @@ require("noice").setup {
         icon = " ",
         lang = "regex",
         opts = {
-          position = {
-            row = "100%", -- 将行位置设置为 100%，即底部
-            col = "50%", -- 将列位置设置为 50%，即居中
-          },
+          -- position = {
+          --   row = "100%", -- 将行位置设置为 100%，即底部
+          --   col = "50%", -- 将列位置设置为 50%，即居中
+          -- },
         },
       },
       search_up = {
         opts = {
-          position = {
-            row = "100%", -- 将行位置设置为 100%，即底部
-            col = "50%", -- 将列位置设置为 50%，即居中
-          },
+          -- position = {
+          --   row = "100%", -- 将行位置设置为 100%，即底部
+          --   col = "50%", -- 将列位置设置为 50%，即居中
+          -- },
         },
         kind = "search",
         pattern = "^%?",
@@ -59,8 +63,17 @@ require("noice").setup {
   },
   routes = {
     {
+      filter = {
+        event = "msg_show",
+        any = {
+          { find = "%[>?%d+/>?%d+%]$" } -- search count
+        }
+      },
+      opts = { skip = true }
+    },
+    {
       view = "vsplit",
-      filter = { min_height = 20 },
+      filter = { min_height = 20, event = "msg_show" },
     },
     {
       filter = {
@@ -72,6 +85,23 @@ require("noice").setup {
         },
       },
       view = "mini",
+    },
+    {
+      filter = {
+        event = "msg_show",
+        kind = {"echo", "echomsg"},
+      },
+      view = "mini"
+    },
+    {
+      filter = {
+        event = "lsp",
+        kind = {"progress"},
+        any = {
+          {find = "rime_ls"}
+        }
+      },
+      opts = {skip = true}
     },
   },
 }

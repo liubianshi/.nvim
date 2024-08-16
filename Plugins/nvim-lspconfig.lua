@@ -178,17 +178,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
--- -- refresh codelens on TextChanged and InsertLeave as well
--- vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave', 'CursorHold', 'LspAttach' }, {
---     group = 'UserLspConfig',
---     buffer = vim.api.nvim_get_current_buf(),
---     callback = function(_)
---         if vim.lsp.codelens then
---             vim.lsp.codelens.refresh()
---         end
---     end,
--- })
 
--- -- trigger codelens refresh
+-- Minimal configuration for testing the rime-ls
+if false then
+  require('rimels_test').setup_rime()
+end
+
+-- trigger codelens refresh
 vim.api.nvim_exec_autocmds("User", { pattern = "LspAttached" })
+
 

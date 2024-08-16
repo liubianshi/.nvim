@@ -11,9 +11,12 @@ if status_ok then
   }
 end
 
--- setup ---------------------------------------------------------------- {{{1
-require("neorg").setup {
-  load = {
+local image_render_exist = function()
+  PlugExist "image.nvim"
+end
+
+local get_modules = function()
+  local modules = {
     ["core.defaults"] = {},
     ["core.keybinds"] = {
       config = {
@@ -103,13 +106,21 @@ require("neorg").setup {
         },
       },
     },
-    ["core.latex.renderer"] = {
+  }
+  if image_render_exist() then
+    modules["core.latex.renderer"] = {
       renderer = "core.integrations.image",
       render_on_enter = true,
       dpi = 600,
       scale = 0.5,
-    },
-  },
+    }
+  end
+  return modules
+end
+
+-- setup ---------------------------------------------------------------- {{{1
+require("neorg").setup {
+  load = get_modules(),
 }
 
 --- keybinds ------------------------------------------------------------ {{{1

@@ -83,24 +83,24 @@ local function construct_cmp_source(sources)
         --   keyword_pattern = "[-_$:A-Za-z0-9]\\+",
         -- },
         rime_ls = {
-          keyword_pattern = "[-?:&<>,{}*\\.a-z0-9]\\+",
+          keyword_pattern = "[-?:<>,&{}!\\.a-z0-9]\\+",
         },
         markdown_oxide = {
           keyword_pattern = [[\(\k\| \|\/\|#\)\+]],
         },
       },
     },
+    { name = "buffer" },
+    { name = 'ctags' },
     -- { name = "nvim_lsp_signature_help" },
     -- { name = 'latex_symbols' },
     -- { name = 'orgmode' },
     -- { name = 'treesitter' },
-    -- { name = 'ctags' },
     -- { name = 'vim-dadbod-completion' },
     -- { name = 'omni' },
   }
   local fallback = gen_cmp_source {
     { name = "omni" },
-    { name = "buffer" },
   }
   return (cmp.config.sources(gen_cmp_source(sources, default), fallback))
 end

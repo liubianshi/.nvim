@@ -1,5 +1,6 @@
 local flash = require "flash"
 flash.setup {
+  style = "right_align",
   modes = {
     char = {
       enabled = false,
