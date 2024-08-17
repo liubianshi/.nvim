@@ -25,6 +25,7 @@ require("noice").setup {
     view_search = "virtualtext",
   },
   popupmenu = {
+    enabled = true,
     backend = "nui",
   },
   cmdline = {
@@ -86,13 +87,16 @@ require("noice").setup {
       },
       view = "mini",
     },
-    {
-      filter = {
-        event = "msg_show",
-        kind = {"echo", "echomsg"},
-      },
-      view = "mini"
-    },
+    -- {
+    --   filter = {
+    --     event = "msg_show",
+    --     kind = {"echo", "echomsg"},
+    --     any = {
+    --       {find = "<Enter>"}
+    --     }
+    --   },
+    --   view = "confirm" ,
+    -- },
     {
       filter = {
         event = "lsp",

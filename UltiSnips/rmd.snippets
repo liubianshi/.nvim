@@ -13,7 +13,6 @@ endsnippet
 snippet rmd "Header Bookdown Document" b
 ---
 title: "`!p snip.rv = snip.basename`"
-author: "罗伟"
 date: "\`r Sys.Date()\`"
 bibliography: "\`r Sys.getenv('HOME')\`/Documents/paper_ref.bib"
 fontsize: 11pt
@@ -24,7 +23,6 @@ endsnippet
 snippet head "Header Normal Document" b
 ---
 title: "`!p snip.rv = snip.basename`"
-author: "罗伟"
 date: `date +%Y-%m-%d`
 # bibliography: "`!p snip.rv = snip.basename`.bib"
 output:
@@ -46,7 +44,6 @@ endsnippet
 snippet bookdown "Header" b
 ---
 title: "$1"
-author: "罗伟"
 date: "\`r Sys.Date()\`"
 documentclass: article
 bibliography: "ref.bib"
@@ -130,7 +127,6 @@ endsnippet
 snippet bhead "Rmarkdown Beamer Header" b
 ---
 title: "`!p snip.rv = snip.basename`"
-author: "罗伟"
 date: `date +%Y-%m-%d`
 output:
 	beamer_presentation:

@@ -299,7 +299,7 @@ end, { nargs = 0, desc = "FzfLua: Open urls" })
 -- From:
 -- https://github.com/skywind3000/asynctasks.vim/wiki/UI-Integration
 fzfmap("<leader>ot", "Run async tasks", function()
-  local rows = vim.fn["asynctasks#source"](vim.go.columns * 48 / 100)
+  local rows = vim.fn["asynctasks#source"](math.floor(vim.go.columns * 48 / 100))
   if #rows == 0 then
     local LOG_LEVEL_WARN = 3
     vim.notify(

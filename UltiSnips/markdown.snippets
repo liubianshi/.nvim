@@ -16,7 +16,6 @@ $2
 $0
 endsnippet
 
-
 snippet lua "code block" b
 \`\`\`lua
 $2
@@ -38,10 +37,9 @@ $1
 $0
 endsnippet
 
-snippet head "Header" b
+snippet yaml "Header" b
 ---
 title: "`!p snip.rv = snip.basename`"
-author: "罗伟"
 date: `date +%Y-%m-%d`
 # bibliography: "`!p snip.rv = snip.basename`.bib"
 output:
@@ -60,25 +58,14 @@ output:
 ---
 endsnippet
 
-snippet ] "inline code"
+snippet ']x' "inline code"
 `${1:${VISUAL}}`$0
 endsnippet
 
 
-snippet work_abac "ABAC Template"
-# ${1}
-
-| 文件编号：$2
-| 提交方：$3
-
-## 提案简介
-
-$0
-
-## 中方立场建议
-
+snippet txx
+<tag>${VISUAL:inside text/should/is/g}</tag>
 endsnippet
-
 
 # 自动输入中文标点符号
 snippet "(?<![A-z0-9\)\"\'];)([,.!:;\\?\[\]])\ " "修正标点符号" r

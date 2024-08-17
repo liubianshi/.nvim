@@ -25,7 +25,7 @@ local rmd_template = function(context)
   local file_path = context.file_path
   if in_blog() then
     local _, j = file_path:find('static/assets/')
-    file_path = file_path:sub(j + 1)
+    file_path = "/assets/" .. file_path:sub(j + 1)
   end
 
   return string.format(

@@ -4,7 +4,7 @@ re_quote = re.compile(r'\s+((["\'])([^\2]+)\2|[^"\'\s]+)')
 re_map = re.compile(r';([^;]+)')
 endglobal
 
-snippet head "Rscript Header" b
+snippet libs "Rscript Header" b
 box::use(magrittr[\`%>%\`, \`%<>%\`, \`%T>%\`])
 box::use(stringr[glue = str_glue])
 box::use(data.table[setDT, as.data.table, data.table, setnames])
