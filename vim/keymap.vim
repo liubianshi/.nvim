@@ -147,10 +147,6 @@ inoremap <silent> <A-j> <esc>:call utils#AutoFormatNewline()<cr>a
 " if has("mac")
 "     inoremap <silent> ∆ <esc>:call utils#AutoFormatNewline()<cr>a
 " endif
-let g:UltiSnipsExpandTrigger            = "<c-l>"
-let g:UltiSnipsJumpForwardTrigger       = "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger      = "<c-k>"
-let g:UltiSnipsRemoveSelectModeMappings = 0
 inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <silent><expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
 

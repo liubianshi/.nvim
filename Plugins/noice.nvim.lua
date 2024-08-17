@@ -6,7 +6,7 @@ require("noice").setup {
       ["vim.lsp.util.stylize_markdown"] = true,
       ["cmp.entry.get_documentation"] = true,
     },
-    -- progress = { enabled = false }, -- forbidden rime-ls info
+    progress = { enabled = false }, -- forbidden rime-ls info
   },
   -- you can enable a preset for easier configuration
   presets = {
@@ -67,7 +67,7 @@ require("noice").setup {
       filter = {
         event = "msg_show",
         any = {
-          { find = "%[>?%d+/>?%d+%]$" } -- search count
+          { find = "%[>?%d+/>?%d+%]$" }, -- search count
         }
       },
       opts = { skip = true }
@@ -100,9 +100,9 @@ require("noice").setup {
     {
       filter = {
         event = "lsp",
-        kind = {"progress"},
         any = {
-          {find = "rime_ls"}
+          { find = "rime_ls", kind = {"progress"}},
+          { find = "Use an initialized rime instance" },
         }
       },
       opts = {skip = true}

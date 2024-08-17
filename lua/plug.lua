@@ -420,23 +420,14 @@ Plug.add("nvim-focus/focus.nvim", {
   cmd = { "FocusToggle", "FocusEnable" },
 })
 
--- -- folke/zen-mode.nvim: Distraction-free coding for Neovim -------------- {{{3
--- Plug.add("folke/zen-mode.nvim", {
---   cmd = "ZenMode",
---   keys = {
---     { "<leader>oZ", "<cmd>ZenMode<cr>", desc = "Toggle Zen Mode" },
---   },
--- })
-
--- machakann/vim-sandwich: add/delete/replace surroundings -------------- {{{3
-Plug.add("machakann/vim-sandwich", {
-  init = function()
-    vim.g.operator_sandwich_no_default_key_mappings = 1
-  end,
-  keys = { "ds", "cs", "ys", {"S", mode = {"v", "x"} } },
+-- echasnovski/mini.surround: Fast and feature-rich surround actions ---- {{{3
+Plug.add("echasnovski/mini.surround", {
+  version = '*',
+  opts = { silent = true },
+  config = true,
 })
 
--- tpope/vim-repeat: 重复插件操作 --------------------------------------- {{{3
+-- tpope/vim-repeat: repeat operation ----------------------------------- {{{3
 Plug.add("tpope/vim-repeat", {
   keys = {
     { ".", mode = { "n", "v", "x" } },
@@ -732,9 +723,7 @@ Plug.add("stevearc/dressing.nvim", {
 })
 
 -- Make your nvim window separators colorful ---------------------------- {{{3
-Plug.add("nvim-zh/colorful-winsep.nvim", {
-  event = { "WinNew" },
-})
+Plug.add("nvim-zh/colorful-winsep.nvim", { event = { "WinNew" } })
 
 -- "lukas-reineke/indent-blankline.nvim"
 -- Plug.add("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
@@ -746,6 +735,7 @@ Plug.add("nvimdev/indentmini.nvim", {
     })
   end,
 })
+
 -- Tools ---------------------------------------------------------------- {{{2
 -- liubianshi/cmp-lsp-rimels: ------------------------------------------- {{{3
 Plug.add("liubianshi/cmp-lsp-rimels", {
@@ -1065,6 +1055,12 @@ Plug.add("projekt0n/github-nvim-theme", { lazy = false, priority = 1000 })
 Plug.add("honza/vim-snippets", { lazy = true } )
 Plug.add("sirver/UltiSnips", {
   cmd = { "UltiSnipsAddFiletypes" },
+  init = function()
+    vim.g.UltiSnipsExpandTrigger            = "<c-l>"
+    vim.g.UltiSnipsJumpForwardTrigger       = "<c-j>"
+    vim.g.UltiSnipsJumpBackwardTrigger      = "<c-k>"
+    vim.g.UltiSnipsRemoveSelectModeMappings = 0
+  end,
   dependencies = { "honza/vim-snippets" },
   event = "InsertEnter",
 })
@@ -1129,40 +1125,23 @@ Plug.add("mhartington/formatter.nvim", {
 Plug.add("vim-pandoc/vim-pandoc-syntax", {
   init = function()
     vim.g.tex_conceal = "adgm"
-    vim.cmd [[
-            let g:pandoc#syntax#codeblocks#embeds#langs = [
-                        \ "ruby",    "perl",       "r",
-                        \ "bash=sh", "stata",      "vim",
-                        \ "python",  "perl6=raku", "c"]
-        ]]
+    vim.g['pandoc#syntax#codeblocks#embeds#langs'] = {
+      "perl", "r", "bash=sh", "stata", "vim", "python", "rakue", "c"
+    }
   end,
   ft = { "markdown", "pandoc", "markdown.pandoc" },
 })
+
+-- ellisonleao/glow.nvim: A markdown preview directly in your neovim. --- {{{3
 Plug.add("ellisonleao/glow.nvim", {
   cmd = {"Glow"},
-  opts = {
-    style = "dark",
-    width = 86,
-  },
+  opts = { style = "dark", width = 86 },
   config = true
 })
 
 -- ferrine/md-img-paste.vim: paste image to markdown -------------------- {{{3
-Plug.add("img-paste-devs/img-paste.vim", {
-  ft = { "rmd", "markdown", "rmarkdown", "pandoc", "org" },
-})
-
 Plug.add("HakonHarnes/img-clip.nvim", {
-  ft = {
-    "rmd",
-    "markdown",
-    "rmarkdown",
-    "pandoc",
-    "org",
-    "tex",
-    "html",
-    "norg",
-  },
+  ft = { "rmd", "markdown", "rmarkdown", "pandoc", "org", "tex", "html", "norg" },
   keys = {
     { "<leader>ip", "<cmd>PasteImage<cr>", desc = "Paste clipboard image" },
   },
@@ -1170,16 +1149,7 @@ Plug.add("HakonHarnes/img-clip.nvim", {
 
 -- hotoo/pangu.vim: 『盘古之白』中文排版自动规范化 ---------------------- {{{3
 Plug.add("hotoo/pangu.vim", {
-  ft = {
-    "rmd",
-    "markdown",
-    "rmarkdown",
-    "pandoc",
-    "norg",
-    "org",
-    "newsboat",
-    "html",
-  },
+  ft = { "rmd", "markdown", "rmarkdown", "pandoc", "norg", "org", "newsboat", "html" },
   init = function()
     vim.g.pangu_rule_fullwidth_punctuation = 0
     vim.g.pangu_rule_spacing_punctuation = 1
@@ -1226,16 +1196,11 @@ Plug.add("nvim-neorg/neorg", {
 })
 
 -- kristijanhusak/vim-dadbod-ui: simple UI for vim-dadbod --------------- {{{3
-Plug.add("tpope/vim-dadbod", { lazy = true})
 Plug.add("kristijanhusak/vim-dadbod-ui", {
   cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
+  dependencies = {"tpope/vim-dadbod"}
 })
 
--- -- liubianshi/Nvim-R: Vim plugin to work with R ------------------------- {{{3
--- Plug.add("liubianshi/Nvim-R", {
---   ft = { "r", "rmd", "qml" },
---   cmd = { "RStart" },
--- })
 
 Plug.add("liubianshi/R.nvim", { dev = true, lazy = false })
 
@@ -1305,7 +1270,6 @@ Plug.add("AckslD/nvim-FeMaco.lua", {
     { "<localleader>o", "<cmd>FeMaco<cr>", desc = "FeMaco: Edit Code Block" },
   },
 })
-
 
 -- 安装并加载插件 ------------------------------------------------------- {{{1
 local lazy = require("lazy")

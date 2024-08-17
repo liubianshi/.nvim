@@ -10,6 +10,7 @@ wk.setup {
   },
   triggers = {
     {"<auto>", mode = "nixsotc"},
+    {"s", mode = {"n", "v"}}
   },
   replace = {
     key = {

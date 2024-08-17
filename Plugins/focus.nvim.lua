@@ -1,10 +1,11 @@
 require("focus").setup {
   width = 86,
-  minwidth = 0,
   bufnew = false,
   autoresize = {
-    width = 100,
     enable = true,
+    width = 100,
+    minwidth = 20,
+    minheigth = 5,
     height_quickfix = 10, -- Set the height of quickfix panel
   },
   ui = {
@@ -25,7 +26,7 @@ local ignore_filetypes = {
 
 local ignore_buftypes = {
   "help",
-  -- "terminal",
+  "terminal",
   "nofile",
   "promp",
   "popup",
@@ -49,9 +50,9 @@ vim.api.nvim_create_autocmd("FileType", {
   group = augroup,
   callback = function(_)
     if vim.tbl_contains(ignore_filetypes, vim.bo.filetype) then
-      vim.w.focus_disable = true
+      vim.b.focus_disable = true
     else
-      vim.w.focus_disable = false
+      vim.b.focus_disable = false
     end
   end,
   desc = "Disable focus autoresize for FileType",
