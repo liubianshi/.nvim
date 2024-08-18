@@ -449,6 +449,29 @@ Plug.add("nvim-pack/nvim-spectre", {
   },
 })
 
+-- MagicDuck/grug-far.nvim: Find And Replace plugin for neovim ---------- {{{3
+Plug.add("MagicDuck/grug-far.nvim", {
+  opts = { headerMaxWidth = 80 },
+  cmd = "GrugFar",
+  keys = {
+    {
+      "<leader>sr",
+      function()
+        local grug = require("grug-far")
+        local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+        grug.grug_far({
+          transient = true,
+          prefills = {
+            filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+          },
+        })
+      end,
+      mode = { "n", "v" },
+      desc = "Search and Replace",
+    },
+  },
+})
+
 -- rcarriga/nvim-notify: notification manager --------------------------- {{{3
 Plug.add("rcarriga/nvim-notify", {
   keys = {
@@ -960,13 +983,6 @@ Plug.add('sindrets/diffview.nvim', {
   },
 })
 
--- abecodes/tabout.nvim: tabout plugin for neovim ----------------------- {{{3
-Plug.add("abecodes/tabout.nvim", {
-  lazy = true,
-  event = "InsertCharPre",
-  dependencies = {"hrsh7th/nvim-cmp"}
-})
-
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
 Plug.add("ahmedkhalf/project.nvim", { event = "VeryLazy" })
@@ -1105,7 +1121,10 @@ local cmp_dependencies = {
 for _, k in ipairs(cmp_dependencies) do
   Plug.add(k, { lazy = true })
 end
-Plug.add("hrsh7th/nvim-cmp", { event = "InsertEnter", dependencies = cmp_dependencies })
+Plug.add("hrsh7th/nvim-cmp", {
+  event = "InsertEnter",
+  dependencies = cmp_dependencies,
+})
 
 -- Formatter and linter ------------------------------------------------- {{{2
 -- mfussenegger/nvim-dap
