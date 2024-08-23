@@ -28,7 +28,7 @@ inoremap <buffer><silent> <localleader><enter>
 
 " preview markdown snippet ============================================== {{{1
 nnoremap <A-v> vip:call utils#MdPreview()<cr>
-nnoremap <A-V>V vip:call utils#MdPreview(1)<cr>
+nnoremap <A-V> vip:call utils#MdPreview(1)<cr>
 vnoremap <A-v> :call utils#MdPreview()<cr>
 vnoremap <A-V> :call utils#MdPreview(1)<cr>
 

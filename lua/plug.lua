@@ -392,8 +392,6 @@ Plug.add("mg979/vim-visual-multi", {
 -- andymass/vim-matchup: 显示匹配符号之间的内容 ------------------------- {{{3
 Plug.add("andymass/vim-matchup")
 
--- numToStr/Comment.nvim: Smart and powerful comment plugin for neovim -- {{{3
-Plug.add('numToStr/Comment.nvim', {  event = {"VeryLazy"}  })
 
 -- folke/todo-comments.nvim: Highlight, list and search todo comments --- {{{3
 Plug.add("folke/todo-comments.nvim", { event = {"VeryLazy"} })
@@ -1145,7 +1143,7 @@ Plug.add("vim-pandoc/vim-pandoc-syntax", {
   init = function()
     vim.g.tex_conceal = "adgm"
     vim.g['pandoc#syntax#codeblocks#embeds#langs'] = {
-      "perl", "r", "bash=sh", "stata", "vim", "python", "rakue", "c"
+      "perl", "r", "bash=sh", "stata", "vim", "python", "raku", "c"
     }
   end,
   ft = { "markdown", "pandoc", "markdown.pandoc" },
@@ -1154,7 +1152,6 @@ Plug.add("vim-pandoc/vim-pandoc-syntax", {
 -- ellisonleao/glow.nvim: A markdown preview directly in your neovim. --- {{{3
 Plug.add("ellisonleao/glow.nvim", {
   cmd = {"Glow"},
-  opts = { style = "dark", width = 86 },
   config = true
 })
 

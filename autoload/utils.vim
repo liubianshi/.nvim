@@ -808,34 +808,44 @@ function! utils#DeleteMdPreview(zen, close_preview_buffer = v:false) abort
     endif
 endfun
 
-function! utils#MdPreview(method = "FocusSplitDown") range  abort
-    let bg = synIDattr(synIDtrans(hlID("StatusLine")), "bg#")
-    if !(($TERM ==? "xterm-kitty" || $WEZTERM_EXECUTABLE != "") && v:lua.PlugExist('hologram.nvim'))
-        let outfile = shellescape(stdpath('cache') . "/vim_markdown_preview.png")
-        let command = "mdviewer --wname " . sha256(expand('.')) . 
-                    \ " --outfile " . outfile . " --bg '" . bg . "'"
-        Lazy! load asyncrun.vim
-        call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command, 1, a:firstline, a:lastline)
-        return
-    endif
+function! utils#MdPreview(method = "infile") range  abort
+  if executable('surf')
+    let outfile = shellescape(stdpath('cache') . "/vim_markdown_preview.html")
+    let command = "mdviewer --wname " . sha256(expand('.')) . 
+      \ " --to html --outfile " . outfile
+    Lazy! load asyncrun.vim
+    call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command, 1, a:firstline, a:lastline)
+    return
+  endif
 
-    let outfile = stdpath('cache') . "/kitty_markdown_preview.png"
-    let command = "mdviewer --outfile " . outfile . " --quietly --bg '" . bg . "'"
-    let lines = getline(a:firstline, a:lastline)
-    call system(command, lines)
+  let bg = synIDattr(synIDtrans(hlID("StatusLine")), "bg#")
 
-    let zen_mode = v:false
-    nnoremap <buffer><silent> <localleader>id <Nop>
-    if has_key(g:, "lbs_zen_mode") && g:lbs_zen_mode == v:true
-        close " quit zen_mode before preview content
-        nnoremap <buffer><silent> <localleader>id
-            \ :<c-u>call utils#DeleteMdPreview(v:true, v:true)<cr>
-    else
-        nnoremap <buffer><silent> <localleader>id
-            \ :<c-u>call utils#DeleteMdPreview(v:false, v:true)<cr>
-    endif
-    call utils#DeleteMdPreview(v:false)
-    exec "PreviewImage " . a:method . " " . outfile
+  if !(($TERM ==? "xterm-kitty" || $WEZTERM_EXECUTABLE != "") && v:lua.PlugExist('image.nvim') && has('mac')) 
+    let outfile = shellescape(stdpath('cache') . "/vim_markdown_preview.png")
+    let command = "mdviewer --wname " . sha256(expand('.')) . 
+                \ " --outfile " . outfile
+    Lazy! load asyncrun.vim
+    call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command, 1, a:firstline, a:lastline)
+    return
+  endif
+
+  let outfile = stdpath('cache') . "/kitty_markdown_preview.png"
+  let command = "mdviewer --outfile " . outfile . " --quietly --bg '" . bg . "'"
+  let lines = getline(a:firstline, a:lastline)
+  call system(command, lines)
+
+  let zen_mode = v:false
+  nnoremap <buffer><silent> <localleader>id <Nop>
+  if has_key(g:, "lbs_zen_mode") && g:lbs_zen_mode == v:true
+      close " quit zen_mode before preview content
+      nnoremap <buffer><silent> <localleader>id
+          \ :<c-u>call utils#DeleteMdPreview(v:true, v:true)<cr>
+  else
+      nnoremap <buffer><silent> <localleader>id
+          \ :<c-u>call utils#DeleteMdPreview(v:false, v:true)<cr>
+  endif
+  call utils#DeleteMdPreview(v:false)
+  exec "PreviewImage " . a:method . " " . outfile
 endfunction
 
 
