@@ -64,44 +64,20 @@ function! s:adjust_window_based_on_zen_mode_status() abort
     endif
 endfunction
 
-function! s:disable_touchpad() abort
-  let hostn = trim(system("hostname"))
-  if hostn ==? "lbsgram"
-    call system("touchpad off")
-  endif
-endfunction
-
-function! s:enable_touchpad() abort
-  let hostn = trim(system("hostname"))
-  if hostn ==? "lbsgram"
-    call system("touchpad on")
-  endif
-endfunction
-
 " 初始 ================================================================== {{{1
 augroup LOAD_ENTER
 autocmd!
 
-" Error when closing Neovim with VimLeavePre autocommands that execute shell
-" commands. #21856
-" https://github.com/neovim/neovim/issues/21856
-" autocmd VimLeave * call jobstart('notify-send "Neovim Exit!"', {"detach": v:true})
-
-
 " cmd: global setting --------------------------------------------------- {{{2
 autocmd InsertEnter,WinLeave *  setlocal nocursorline
-"autocmd InsertEnter * call s:disable_touchpad()
 autocmd InsertLeave,WinEnter *  setlocal cursorline | 
-" autocmd InsertLeave * call s:enable_touchpad()
 autocmd TermOpen             *  setlocal nonumber norelativenumber bufhidden=hide foldcolumn=0
 autocmd FileType   r,stata,vim  call s:FoldMethodSetting()
-autocmd FileType   norg,org,markdown,rmd,rmarkdown
-            \ syntax match NonText /​/ conceal
+autocmd FileType   norg,org,markdown,rmd,rmarkdown syntax match NonText /​/ conceal
 autocmd WinResized           * call s:adjust_zen_mode(v:event)
 " autocmd BufWinLeave          * call utils#ZenMode_Leave(v:false)
 " autocmd BufWinEnter,BufRead,BufEnter  * call utils#ZenMode_Insert(v:false)
 autocmd BufWinEnter,BufRead,BufEnter  * call s:adjust_window_based_on_zen_mode_status()
-" autocmd VimEnter * lua require('lspconfig').rime_ls.launch()
 autocmd LspAttach * set formatoptions-=cro
 
 

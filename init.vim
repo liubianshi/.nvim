@@ -10,8 +10,8 @@ endfunction
 
 runtime plugin/man.lua
 
-" 加载全局变量
-call <SID>Load("global")
+" 加载全局变量并设置选项
+lua require('options')
 
 " 加载自定义 lua 全局函数
 lua require('global_functions')
@@ -24,7 +24,6 @@ else
 endif
 
 " 设置选项
-call <SID>Load("option")
 
 " 设置 KeyMap
 call <SID>Load("keymap")

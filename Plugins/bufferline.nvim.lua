@@ -19,7 +19,7 @@ bufferline.setup {
       bg = color_bg,
       underline = false,
     },
-    separator = { bg = color_bg, fg = "bg" },
+    separator = { bg = color_bg, fg = color_bg },
     separator_selected = {
       bg = color_bg,
       fg = color.bg_pmenu,

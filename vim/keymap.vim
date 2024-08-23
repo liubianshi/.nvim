@@ -93,9 +93,6 @@ onoremap <silent> il :normal vil<cr>
 xnoremap <silent> al ^o$
 onoremap <silent> al :normal val<cr>
 
-
-" Terminal =============================================================== {{{1
-
 " 管理 quickfix ========================================================== {{{1
 nnoremap <leader>qq :call utils#QuickfixToggle()<cr>
 

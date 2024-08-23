@@ -63,7 +63,7 @@ Plug.add("kkharji/sqlite.lua",          { lazy = true })
 -- lambdalisue/suda.vim: Read and write with sudo command --------------- {{{3
 Plug.add("lambdalisue/suda.vim", { cmd = { "SudaWrite", "SudaRead" } })
 -- romainl/vim-cool: disables search highlighting automatic ------------- {{{3
-Plug.add("romainl/vim-cool", { event = "VeryLazy" })
+-- Plug.add("romainl/vim-cool", { event = "VeryLazy" })
 -- ojroques/vim-oscyank: copy text through SSH with OSC52 --------------- {{{3
 Plug.add("ojroques/vim-oscyank", { cmd = "OSCYank" })
 
@@ -84,6 +84,7 @@ Plug.add("is0n/fm-nvim", {
 Plug.add("s1n7ax/nvim-window-picker", { lazy = true, config = true})
 Plug.add("nvim-neo-tree/neo-tree.nvim", {
   cmd = "Neotree",
+  dependencies = {"s1n7ax/nvim-window-picker"},
   keys = {
     {
       "<leader>fe",
@@ -175,11 +176,6 @@ Plug.add("ibhagwan/fzf-lua", {
       "<leader>sC",
       "<cmd>FzfLua colorschemes<cr>",
       desc = "FzfLua: colorschemes",
-    },
-    {
-      "<leader>sr",
-      "<cmd>FzfLua grep<cr>",
-      desc = "FzfLua: Grep lines",
     },
     {
       "<leader>sR",
@@ -368,13 +364,21 @@ Plug.add("kevinhwang91/nvim-hlslens", {
 Plug.add("mg979/vim-visual-multi", {
   init = function()
     if Util.has "nvim-hlslens" then
-      vim.cmd [[
-                aug VMlens
-                    au!
-                    au User visual_multi_start lua require('vmlens').start()
-                    au User visual_multi_exit  lua require('vmlens').exit()
-                aug END
-            ]]
+      vim.api.nvim_create_augroup("VMlens", {clear = true})
+      vim.api.nvim_create_autocmd({"User"}, {
+        group = "VMlens",
+        pattern = "visual_multi_start",
+        callback = function()
+          require('vmlens').start()
+        end,
+      })
+      vim.api.nvim_create_autocmd({"User"}, {
+        group = "VMlens",
+        pattern = "visual_multi_exit",
+        callback = function()
+          require('vmlens').exit()
+        end,
+      })
     end
   end,
   branch = "master",
@@ -390,8 +394,10 @@ Plug.add("mg979/vim-visual-multi", {
 })
 
 -- andymass/vim-matchup: 显示匹配符号之间的内容 ------------------------- {{{3
-Plug.add("andymass/vim-matchup")
+Plug.add("andymass/vim-matchup", { event = { "VeryLazy" }})
 
+-- numToStr/Comment.nvim: Smart and powerful comment plugin for neovim -- {{{3
+Plug.add('numToStr/Comment.nvim', { event = {"VeryLazy"} })
 
 -- folke/todo-comments.nvim: Highlight, list and search todo comments --- {{{3
 Plug.add("folke/todo-comments.nvim", { event = {"VeryLazy"} })
@@ -407,12 +413,12 @@ Plug.add("junegunn/vim-easy-align", {
 -- beauwilliams/focus.nvim: Auto Ajust the size of focused window ------- {{{3
 Plug.add("nvim-focus/focus.nvim", {
   keys = {
-    { "<leader>wh", "<cmd>FocusSplitLeft<cr>", desc = "Focus Split Left" },
-    { "<leader>wl", "<cmd>FocusSplitRight<cr>", desc = "Focus Split Right" },
-    { "<leader>wj", "<cmd>FocusSplitDown<cr>", desc = "Focus Split Down" },
-    { "<leader>wk", "<cmd>FocusSplitUp<cr>", desc = "Focus Split Up" },
-    { "<leader>wm", "<cmd>FocusMaximise<cr>", desc = "Focus Maximise" },
-    { "<leader>we", "<cmd>FocusEqualise<cr>", desc = "Focus Equalise" },
+    { "<leader>wh", "<cmd>FocusSplitLeft<cr>",   desc = "Focus Split Left" },
+    { "<leader>wl", "<cmd>FocusSplitRight<cr>",  desc = "Focus Split Right" },
+    { "<leader>wj", "<cmd>FocusSplitDown<cr>",   desc = "Focus Split Down" },
+    { "<leader>wk", "<cmd>FocusSplitUp<cr>",     desc = "Focus Split Up" },
+    { "<leader>wm", "<cmd>FocusMaximise<cr>",    desc = "Focus Maximise" },
+    { "<leader>we", "<cmd>FocusEqualise<cr>",    desc = "Focus Equalise" },
     { "<leader>ww", "<cmd>FocusSplitNicely<cr>", desc = "Focus Equalise" },
   },
   cmd = { "FocusToggle", "FocusEnable" },
@@ -1048,14 +1054,13 @@ Plug.add("Mofiqul/vscode.nvim",              { priority = 100 })
 Plug.add("rmehri01/onenord.nvim",            { priority = 100 })
 Plug.add("nyoom-engineering/oxocarbon.nvim", { priority = 100 })
 Plug.add("Verf/deepwhite.nvim",              { lazy = false, priority = 100  })
-
 Plug.add("mhartington/oceanic-next",         { lazy = false })
 Plug.add("sainnhe/everforest", {
   init = function()
     vim.g.everforest_better_performance = 1
     vim.g.everforest_background = "hard"
     vim.g.everforest_enable_italic = 1
-    vim.g.everforest_transparent_background = 1
+    vim.g.everforest_transparent_background = 0
     vim.g.everforest_dim_inactive_windows = 0
   end,
   lazy = false,

@@ -1,6 +1,7 @@
 require("window-picker").setup {
   autoselect_one = true,
   include_current = false,
+  hint = 'floating-big-letter',
   filter_rules = {
     -- filter using buffer options
     bo = {
