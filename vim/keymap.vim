@@ -129,46 +129,46 @@ nnoremap <silent> <leader>dl :diffget LOCAL<CR>:diffupdate<CR>
 nnoremap <silent> <leader>dr :diffget REMOTE<CR>:diffupdate<CR>
 
 " add content ============================================================ {{{1
-nnoremap <silent> <leader>z- :<c-u>call utils#AddFoldMark("-")<cr>
-nnoremap <silent> <leader>z= :<c-u>call utils#AddFoldMark("=")<cr>
-nnoremap <silent> <leader>z. :<c-u>call utils#AddFoldMark(".")<cr>
-nnoremap <silent> <leader>z* :<c-u>call utils#AddFoldMark("*")<cr>
-nnoremap <silent> <leader>a- :<c-u>call utils#AddDash("-")<cr>
-nnoremap <silent> <leader>a= :<c-u>call utils#AddDash("=")<cr>
-nnoremap <silent> <leader>a. :<c-u>call utils#AddDash(".")<cr>
-nnoremap <silent> <leader>a* :<c-u>call utils#AddDash("*")<cr>
+" nnoremap <silent> <leader>z- :<c-u>call utils#AddFoldMark("-")<cr>
+" nnoremap <silent> <leader>z= :<c-u>call utils#AddFoldMark("=")<cr>
+" nnoremap <silent> <leader>z. :<c-u>call utils#AddFoldMark(".")<cr>
+" nnoremap <silent> <leader>z* :<c-u>call utils#AddFoldMark("*")<cr>
+" nnoremap <silent> <leader>a- :<c-u>call utils#AddDash("-")<cr>
+" nnoremap <silent> <leader>a= :<c-u>call utils#AddDash("=")<cr>
+" nnoremap <silent> <leader>a. :<c-u>call utils#AddDash(".")<cr>
+" nnoremap <silent> <leader>a* :<c-u>call utils#AddDash("*")<cr>
 
 " 补全相关 =============================================================== {{{1
-inoremap <silent> <A-j> <esc>:call utils#AutoFormatNewline()<cr>a
-" 注释掉的原因：导致 mac iterm2 输入中文引号时乱码
-" if has("mac")
-"     inoremap <silent> ∆ <esc>:call utils#AutoFormatNewline()<cr>a
-" endif
-inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <silent><expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
+" inoremap <silent> <A-j> <esc>:call utils#AutoFormatNewline()<cr>a
+" " 注释掉的原因：导致 mac iterm2 输入中文引号时乱码
+" " if has("mac")
+" "     inoremap <silent> ∆ <esc>:call utils#AutoFormatNewline()<cr>a
+" " endif
+" inoremap <silent><expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
+" inoremap <silent><expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
 
 
 " Navigation ============================================================= {{{1
-noremap j gj
-noremap k gk
-nnoremap ]b :<c-u>bnext<cr>
-nnoremap [b :<c-u>bprevious<cr>
-nnoremap ]B :<c-u>blast<cr>
-nnoremap [B :<c-u>bfirst<cr>
-nnoremap ]t :<c-u>tabnext<cr>
-nnoremap [t :<c-u>tabprevious<cr>
-nnoremap ]T :<c-u>tablast<cr>
-nnoremap [T :<c-u>tabfirst<cr>
+" noremap j gj
+" noremap k gk
+" nnoremap ]b :<c-u>bnext<cr>
+" nnoremap [b :<c-u>bprevious<cr>
+" nnoremap ]B :<c-u>blast<cr>
+" nnoremap [B :<c-u>bfirst<cr>
+" nnoremap ]t :<c-u>tabnext<cr>
+" nnoremap [t :<c-u>tabprevious<cr>
+" nnoremap ]T :<c-u>tablast<cr>
+" nnoremap [T :<c-u>tabfirst<cr>
 
 " Visual mode pressing * or # searches for the current selection ========= {{{1
-vnoremap <silent> * :<C-u>call utils#VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call utils#VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>:
+" vnoremap <silent> * :<C-u>call utils#VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+" vnoremap <silent> # :<C-u>call utils#VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>:
 
 " Fold: 折叠 ============================================================= {{{1
-nnoremap <silent> <leader>zf g_a <esc>3a{<esc>
-nnoremap <silent> <leader>z1 g_a <esc>3a{<esc>a1<esc>
-nnoremap <silent> <leader>z2 g_a <esc>3a{<esc>a2<esc>
-nnoremap <silent> <leader>z3 g_a <esc>3a{<esc>a3<esc>
+" nnoremap <silent> <leader>zf g_a <esc>3a{<esc>
+" nnoremap <silent> <leader>z1 g_a <esc>3a{<esc>a1<esc>
+" nnoremap <silent> <leader>z2 g_a <esc>3a{<esc>a2<esc>
+" nnoremap <silent> <leader>z3 g_a <esc>3a{<esc>a3<esc>
 
 " 输入法 ================================================================= {{{1
 inoremap ;<space> ;

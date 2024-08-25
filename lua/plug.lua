@@ -52,7 +52,7 @@ Plug.get = function()
 end
 
 -- 配置插件 ------------------------------------------------------------- {{{1
--- Utils ---------------------------------------------------------------- {{{1
+-- Utils ---------------------------------------------------------------- {{{2
 Plug.add("nvim-lua/plenary.nvim",       { lazy = true })
 Plug.add("nvim-tree/nvim-web-devicons", { lazy = true })
 Plug.add("MunifTanjim/nui.nvim",        { lazy = true })
@@ -394,7 +394,7 @@ Plug.add("mg979/vim-visual-multi", {
 })
 
 -- andymass/vim-matchup: 显示匹配符号之间的内容 ------------------------- {{{3
-Plug.add("andymass/vim-matchup", { event = { "VeryLazy" }})
+Plug.add("andymass/vim-matchup")
 
 -- numToStr/Comment.nvim: Smart and powerful comment plugin for neovim -- {{{3
 Plug.add('numToStr/Comment.nvim', { event = {"VeryLazy"} })
@@ -424,12 +424,8 @@ Plug.add("nvim-focus/focus.nvim", {
   cmd = { "FocusToggle", "FocusEnable" },
 })
 
--- echasnovski/mini.surround: Fast and feature-rich surround actions ---- {{{3
-Plug.add("echasnovski/mini.surround", {
-  version = '*',
-  opts = { silent = true },
-  config = true,
-})
+-- kylechui/nvim-surround: Surround selections, stylishly --------------- {{{3
+Plug.add("kylechui/nvim-surround", { version = "*", event = "VeryLazy" })
 
 -- tpope/vim-repeat: repeat operation ----------------------------------- {{{3
 Plug.add("tpope/vim-repeat", {
@@ -506,8 +502,6 @@ Plug.add("folke/noice.nvim", {
   },
 })
 
-
-
 -- folke/flash.nvim: Navigate tools ------------------------------------- {{{3
 Plug.add("folke/flash.nvim", {
   event = "VeryLazy",
@@ -545,7 +539,7 @@ Plug.add("folke/flash.nvim", {
       desc = "Toggle Flash Search",
     },
     {
-      "S",
+      "st",
       mode = { "n", "x", "o" },
       function() require("flash").treesitter() end,
       desc = "Flash Treesitter",
@@ -566,7 +560,7 @@ Plug.add("rainzm/flash-zh.nvim", {
         })
       end,
       desc = "Flash between Chinese"
-    }
+    },
   }
 })
 
@@ -703,6 +697,9 @@ Plug.add("akinsho/bufferline.nvim", {
 
 -- nvim-lualine/lualine.nvim: neovim statusline plugin ------------------ {{{3
 Plug.add("nvim-lualine/lualine.nvim")
+
+-- luukvbaal/statuscol: Status column plugin ---------------------------- {{{3
+-- Plug.add("luukvbaal/statuscol.nvim", { config = true })
 
 -- goolord/alpha-nvim: a lua powered greeter ---------------------------- {{{3
 -- Plug.add('goolord/alpha-nvim')

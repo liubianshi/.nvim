@@ -7,7 +7,7 @@ local disable_treesitter = function(lang, buf)
   end
 
   local lines = vim.api.nvim_buf_get_lines(buf, 0, 1, true)
-  if string.match(lines[1], "^# topic: %?$") then
+  if lines and lines[1] and string.match(lines[1], "^# topic: %?$") then
     return true
   end
 
@@ -17,6 +17,7 @@ local disable_treesitter = function(lang, buf)
     return true
   end
 end
+
 local ts = require "nvim-treesitter.configs"
 vim.treesitter.language.register("markdown", "rmd")
 ts.setup {

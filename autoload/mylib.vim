@@ -130,7 +130,7 @@ function! s:mylib_note(method = "") abort
     let method = a:method
     let notepath = fnameescape(b:mylib_note)
     if method ==? "popup"
-        exec 'lua require("ui").mylib_popup(' . bufnr . ')'
+        exec 'lua require("util.ui").mylib_popup(' . bufnr . ')'
     elseif method == "" &&  &columns < 120
         exec "split " . notepath
     elseif method == "" &&  &columns >= 120

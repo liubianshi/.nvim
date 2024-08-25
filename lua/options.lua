@@ -6,6 +6,9 @@ local opt_get = function(name, scope)
   return vim.api.nvim_get_option_value(name, { scope = scope })
 end
 
+-- Resolving Errors Opening Man Files
+vim.cmd [[runtime plugin/man.lua]]
+
 -- Environment Variables ================================================ {{{1
 vim.env.GTAGSLABEL = "native-pygments"
 vim.env.GTAGSCONF = vim.env.HOME .. "/.globalrc"
@@ -37,6 +40,12 @@ vim.g.plug_manage_tool = "lazyvim"
 -- LSP, treesitter and other ft plugins will be disabled.
 -- mini.animate will also be disabled.
 vim.g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
+
+-- Options for the LazyVim statuscolumn --------------------------------- {{{2
+vim.g.lazyvim_statuscolumn = {
+  folds_open = true, -- show fold sign when fold is open
+  folds_githl = true, -- highlight fold sign with git sign color
+}
 
 -- Man page ------------------------------------------------------------- {{{2
 vim.g.ft_man_open_mode = "vert"
@@ -106,7 +115,9 @@ opt.fillchars = {
   eob = " ",
 }
 opt.foldcolumn = "0"
+-- opt.foldexpr = "v:lua.require('util.ui').foldexpr()"
 opt.foldlevel = 99
+opt.foldmethod = "expr"
 opt.formatlistpat =
   "\\v^\\s*(\\d{1,2}\\.|\\(\\d{1,2}\\)|\\[\\d{1,2}\\]|[-+*])\\s+"
 opt.formatoptions = "tcn,1mp],Bj,oq"
@@ -159,6 +170,7 @@ opt.splitbelow = true
 opt.splitkeep = "screen"
 opt.splitright = true
 opt.startofline = false
+opt.statuscolumn = [[%!v:lua.require('util.ui').statuscolumn()]]
 opt.swapfile = true
 opt.tabstop = 2 -- 设置编辑时制表符占用空格数
 opt.tags = "./tags,tags"

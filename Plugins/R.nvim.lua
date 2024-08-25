@@ -63,6 +63,7 @@ local opts = {
       )
 
       require('r.send').cmd('nvimcom_update_libs()')
+      vim.opt_local.keywordprg = ":RHelp"
 
       vim.api.nvim_create_user_command(
         "RAdd",
