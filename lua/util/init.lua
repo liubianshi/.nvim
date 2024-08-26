@@ -180,41 +180,41 @@ end
 function M.bibkey_action(bibkey)
   if not bibkey then return end
   bibkey = "@" .. bibkey
-  local open_app = vim.fn.has('mac') == 1 and "open " or "xdg-open "
-  local command = {
-    e = function() get_item_info(bibkey, "note",     "edit ")   end,
-    v = function() get_item_info(bibkey, "note",     "vsplit ") end,
-    t = function() get_item_info(bibkey, "note",     "tabnew ") end,
-    s = function() get_item_info(bibkey, "note",     "split ")  end,
-    o = function() get_item_info(bibkey, "path",     "Lf ")     end,
-    n = function() get_item_info(bibkey, "newsboat", "edit ")   end,
-    p = function()
-      local pdf_file = get_item_info(bibkey, "pdf")
-      if not pdf_file or vim.fn.filereadable(pdf_file) == 0 then return end
-      vim.fn.system( open_app .. '"' .. pdf_file .. '"')
-    end,
-    u = function()
-      vim.fn.system( open_app .. get_item_info(bibkey, "url"))
-    end,
-  }
-
-  local bib_title = get_item_info(bibkey, "title")
-  local prompt = {
-    bib_title .. ", Choose a action: ",
-    "-------------------------------------------------------------------------------",
-    "(p): open pdf file   (u): open url      (o): open dir          (n): newsboat",
-    "(e): edit note       (s): split note    (v): vsplite note      (t): tabnew note",
-    "-------------------------------------------------------------------------------",
-    "q: Quit",
-    "",
-    "Please key for an action:",
-  }
-  vim.cmd(string.format('echon "%s"', table.concat(prompt, '\\n')))
-  local choice = vim.fn.nr2char(vim.fn.getchar())
-  vim.cmd('redraw!')
-  if vim.tbl_contains({"p", "u", "o", "e", "s", "v", "t"}, choice) then
-    command[choice]()
+  local bibkey_action = function(key)
+    local command = {
+      ['e'] = function() get_item_info(bibkey, "note",     "edit ")   end,
+      ['v'] = function() get_item_info(bibkey, "note",     "vsplit ") end,
+      ['t'] = function() get_item_info(bibkey, "note",     "tabnew ") end,
+      ['s'] = function() get_item_info(bibkey, "note",     "split ")  end,
+      ['o'] = function() get_item_info(bibkey, "path",     "Lf ")     end,
+      ['n'] = function() get_item_info(bibkey, "newsboat", "edit ")   end,
+      ['p'] = function()
+        local pdf_file = get_item_info(bibkey, "pdf")
+        if not pdf_file or vim.fn.filereadable(pdf_file) == 0 then return end
+        vim.ui.open(pdf_file)
+      end,
+      ['u'] = function()
+        local url = get_item_info(bibkey, "url")
+        if not url then return end
+        vim.ui.open(url)
+      end,
+    }
+    return command[key]
   end
+  local items = {
+    { key = "e", text = "edit note"       },
+    { key = "n", text = "newsboat"        },
+    { key = "o", text = "open dir"        },
+    { key = "p", text = "open pdf file"   },
+    { key = "s", text = "split note"      },
+    { key = "t", text = "tabnew note"     },
+    { key = "u", text = "open url"        },
+    { key = "v", text = "vsplite note"    },
+    { key = "",  text = "---------------" },
+    { key = "q", text = "Quit"            },
+  }
+  local select = require('util.ui').select
+  select(items, { title = "Choose an action:", callback = bibkey_action, })
 end
 
 function M.execute_async(command, callback_funs)

@@ -294,4 +294,37 @@ M.mylib_popup = function(bufnr)
   return popup
 end
 
+--- @class select_item
+--- @field key? string
+--- @field text string
+--- @field callback? function
+--- @param items  select_item[]
+--- @param opts? {title: string, callback?: function}
+M.select = function(items, opts)
+  opts = opts or {}
+  local command, prompt, texts = {}, {}, {}
+  for _, item in ipairs(items) do
+    if not item.key or item.key == "" then
+      table.insert(prompt, item.text)
+    else
+      table.insert(prompt, string.format("(%s) %s", item.key, item.text))
+      command[item.key] = item.callback or (opts.callback and opts.callback(item.key))
+      texts[item.key] = item.text
+    end
+  end
+
+  vim.notify(table.concat(prompt, '\n'), vim.log.levels.INFO, {
+    title = opts.title or "Choose an item:"
+  })
+
+  vim.schedule(function()
+    local choice = vim.fn.nr2char(vim.fn.getchar())
+    vim.cmd('redraw!')
+    require("notify").dismiss { silent = true, pending = true }
+    if command[choice] then
+      command[choice](texts[choice])
+    end
+  end)
+end
+
 return M
