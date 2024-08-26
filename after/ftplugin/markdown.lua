@@ -1,5 +1,7 @@
-vim.keymap.set("n", "<c-x>", function()
-  require("util").bibkey_action(vim.fn.expand "<cword>")
+vim.keymap.set("n", "<c-x>m", function()
+  vim.cmd.normal("EvT@")
+  local text = require('util').get_visual_selection()
+  require("util").bibkey_action(text)
 end, { desc = "Show action related bibkey" })
 
 vim.keymap.set({"n", "i"}, "<localleader>il", function()

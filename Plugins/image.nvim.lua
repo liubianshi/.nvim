@@ -4,6 +4,7 @@ if vim.env.TERM == "xterm-kitty" or vim.env.WEZTERM_EXECUTABLE ~= "" then
   backend = "kitty"
 end
 
+--- @diagnostic disable: missing-fields
 image.setup {
   backend = backend,
   integrations = {
@@ -74,6 +75,7 @@ local display_image = function(file, opts)
     buffer = window.buffer,
     with_virtual_padding = true,
   })
+  if not preview_image then return end
   preview_image:render()
   preview_image:move(display_column, display_row)
 

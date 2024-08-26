@@ -1,7 +1,3 @@
--- from:
--- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/init.lua
-local Util = require "lazy.core.util"
-
 local M = {}
 
 M.root_patterns = { ".git", "lua", ".obsidian", ".vim", '.exercism' }
@@ -37,7 +33,7 @@ end
 function M.get_root(path)
   ---@type string?
   path = path or vim.api.nvim_buf_get_name(0)
-  path = path ~= "" and vim.loop.fs_realpath(path) or nil
+  path = path ~= "" and vim.uv.fs_realpath(path) or nil
   ---@type string[]
   local roots = {}
   if path then
@@ -194,7 +190,7 @@ function M.bibkey_action(bibkey)
     n = function() get_item_info(bibkey, "newsboat", "edit ")   end,
     p = function()
       local pdf_file = get_item_info(bibkey, "pdf")
-      if vim.fn.filereadable(pdf_file) == 0 then return end
+      if not pdf_file or vim.fn.filereadable(pdf_file) == 0 then return end
       vim.fn.system( open_app .. '"' .. pdf_file .. '"')
     end,
     u = function()

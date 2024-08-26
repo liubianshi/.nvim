@@ -72,7 +72,7 @@ require("gp").setup {
   },
 }
 
-require("which-key").register({
+require("which-key").add({
   ["<c-g>"] = {
     g = { name = "generate into new .." },
     w = { name = "Whisper" },

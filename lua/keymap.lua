@@ -220,7 +220,7 @@ vimkey('al', "Object: current line (with \\n)", "<cmd>normal val<cr>",          
 -- Translate ------------------------------------------------------------ {{{1
 vimkey('L', "Translate", 'utils#Trans2clip()', {mode = {'v', 'n'}, expr = true})
 imap('<localleader>l', 'Translate', '<esc>:call utils#Trans_Subs()<cr>')
-nmap('<c-l>', 'Translate', function()
+nmap('<c-x>l', 'Translate', function()
   local input = require('util.ui').prompt("Translate", function(value)
     local re = vim.fn['utils#Trans_string'](value)
     if not re or re == "" then
