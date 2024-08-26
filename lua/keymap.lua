@@ -47,7 +47,7 @@ nmap("[T",       "tabfirst",                        "<cmd>tabfirst<cr>")
 imap(";a",       "Goto end of line",                "<esc>A")
 imap(";<enter>", "Wrap line before punctuation",    '<esc>?\\v[,.:?")，。)，。：》”；？、」） ]<cr>:noh<cr>a<enter><esc>`^A')
 nmap('<A-M>',    "Shift cursor To:",                "<cmd>call utils#ShiftLine(line('.') + 1, col('.') - 1)<cr>")
-imap('<A-M',     "Move cursor to:",                 "<esc>:call utils#MoveCursorTo('')<cr>a")
+imap('<A-M>',    "Move cursor to:",                 "<esc>:call utils#MoveCursorTo('')<cr>a")
 vimkey('<A-m>',  "Move cursor To:",                 '<cmd>call utils#MoveCursorTo()<cr>',     {mode ={'n', 'i'}})
 
 
@@ -218,8 +218,18 @@ vimkey('al', "Object: current line (with \\n)", "^o$",                          
 vimkey('al', "Object: current line (with \\n)", "<cmd>normal val<cr>",             {mode = "o"})
 
 -- Translate ------------------------------------------------------------ {{{1
-vimkey('L', "Translate", function() vim.fn['utils#Trans2clip']() end, {mode = {'v', 'n'}})
+vimkey('L', "Translate", 'utils#Trans2clip()', {mode = {'v', 'n'}, expr = true})
 imap('<localleader>l', 'Translate', '<esc>:call utils#Trans_Subs()<cr>')
+nmap('<c-l>', 'Translate', function()
+  local input = require('util.ui').prompt("Translate", function(value)
+    local re = vim.fn['utils#Trans_string'](value)
+    if not re or re == "" then
+      vim.notify("Failed to translate")
+    end
+    vim.fn.setreg('+', re)
+  end)
+  input:mount()
+end)
 
 -- File manager --------------------------------------------------------- {{{1
 nmap('<leader>fs', "Save File", '<cmd>write<cr>')

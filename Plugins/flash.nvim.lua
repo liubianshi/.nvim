@@ -13,7 +13,7 @@ flash.setup {
     },
   },
   jump = {
-    autojump = true,
+    autojump = false,
   }
 }
 

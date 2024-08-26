@@ -160,6 +160,13 @@ local sorting_config = {
 -- cmp_config ----------------------------------------------------------- {{{2
 local border = require('util').border('▔', "bottom")
 local cmp_config = {
+  enabled = function()
+    local disabled = false
+    -- disabled = disabled or (vim.api.nvim_get_option_value('buftype', { buf = 0 }) == 'prompt')
+    disabled = disabled or (vim.fn.reg_recording() ~= '')
+    disabled = disabled or (vim.fn.reg_executing() ~= '')
+    return not disabled
+  end,
   menu = {},
   completion = { keyword_length = 2 },
   sorting = sorting_config,
@@ -285,5 +292,18 @@ cmp.setup.cmdline(":", {
     { name = "cmdline" },
   }),
 })
+
+cmp.setup.cmdline("@", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = "path" },
+    { name = "nvim_lsp"}
+  }, {
+    { name = "cmdline" },
+  }),
+})
+
+
+
 
 -- vim: set fdm=marker: ------------------------------------------------- {{{1

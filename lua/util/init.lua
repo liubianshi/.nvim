@@ -283,4 +283,44 @@ function M.border(symbol, type, neovide, highlight)
   end
 end
 
+-- https://github.com/ibhagwan/nvim-lua/blob/main/lua/utils.lua
+function M.get_visual_selection(nl_literal)
+  -- this will exit visual mode
+  -- use 'gv' to reselect the text
+  local _, csrow, cscol, cerow, cecol
+  local mode = vim.fn.mode()
+  if mode == "v" or mode == "V" or mode == "" then
+    -- if we are in visual mode use the live position
+    _, csrow, cscol, _ = unpack(vim.fn.getpos("."))
+    _, cerow, cecol, _ = unpack(vim.fn.getpos("v"))
+    if mode == "V" then
+      -- visual line doesn't provide columns
+      cscol, cecol = 0, 999
+    end
+  else
+    -- otherwise, use the last known visual position
+    _, csrow, cscol, _ = unpack(vim.fn.getpos("'<"))
+    _, cerow, cecol, _ = unpack(vim.fn.getpos("'>"))
+  end
+  -- swap vars if needed
+  if cerow < csrow then csrow, cerow = cerow, csrow end
+  if cecol < cscol then cscol, cecol = cecol, cscol end
+  local lines = vim.api.nvim_buf_get_lines(0, csrow - 1, cerow, false)
+  -- local n = cerow-csrow+1
+  local n = #lines
+  if n <= 0 then return "" end
+  lines[n] = string.sub(lines[n], 1, cecol)
+  lines[1] = string.sub(lines[1], cscol)
+  return table.concat(lines, nl_literal and "\\n" or "\n")
+end
+
+-- https://github.com/ibhagwan/nvim-lua/blob/main/lua/utils.lua
+M.win_is_float = function(winnr)
+  local wincfg = vim.api.nvim_win_get_config(winnr)
+  if wincfg and (wincfg.external or wincfg.relative and #wincfg.relative > 0) then
+    return true
+  end
+  return false
+end
+
 return M

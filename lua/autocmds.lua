@@ -1,30 +1,28 @@
--- This file is automatically loaded by lazyvim.config.init.
-
+-- vim: set fdm=marker: -------------------------------------------------
+local aucmd = vim.api.nvim_create_autocmd
 local function augroup(name)
   return vim.api.nvim_create_augroup("LBS_" .. name, { clear = true })
 end
 
-
--- Highlight for special filetype
-vim.api.nvim_create_autocmd({"FileType"}, {
-  group = augroup("Highlight_FileType"),
-  pattern = {"norg", "org", "markdown", "rmd", "rmarkdown"},
+-- Highlight for special filetype --------------------------------------- {{{1
+aucmd({ "FileType" }, {
+  group = augroup "Highlight_FileType",
+  pattern = { "norg", "org", "markdown", "rmd", "rmarkdown" },
   callback = function()
-    vim.cmd([[syntax match NonText /​/ conceal]])
-  end
+    vim.cmd [[syntax match NonText /​/ conceal]]
+  end,
 })
 
--- Lsp related
-vim.api.nvim_create_autocmd({"LspAttach"}, {
-  group = augroup("LspAttach"),
+-- Lsp related ---------------------------------------------------------- {{{1
+aucmd({ "LspAttach" }, {
+  group = augroup "LspAttach",
   callback = function()
-    vim.opt.formatoptions:remove('cro')
-  end
+    vim.opt.formatoptions:remove "cro"
+  end,
 })
 
-
--- Zen mode related
-vim.api.nvim_create_autocmd({ "WinResized" }, {
+-- Zen mode related ----------------------------------------------------- {{{1
+aucmd({ "WinResized" }, {
   group = augroup "Zen",
   callback = function()
     local windows = vim.v.event.windows
@@ -72,7 +70,7 @@ vim.api.nvim_create_autocmd({ "WinResized" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufWinEnter", "BufRead", "BufEnter" }, {
+aucmd({ "BufWinEnter", "BufRead", "BufEnter" }, {
   group = augroup "Zen",
   callback = function(ev)
     local bufnr = ev.buf
@@ -98,28 +96,28 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "BufRead", "BufEnter" }, {
 })
 
 -- Keywordprg ----------------------------------------------------------- {{{1
-vim.api.nvim_create_autocmd({ "FileType" }, {
+aucmd({ "FileType" }, {
   group = augroup "Keywordprg",
   pattern = { "perl", "perldoc" },
   callback = function(ev)
     vim.bo[ev.buf].keywordprg = ":Perldoc"
   end,
 })
-vim.api.nvim_create_autocmd({ "FileType" }, {
+aucmd({ "FileType" }, {
   group = augroup "Keywordprg",
   pattern = { "stata", "statadoc" },
   callback = function(ev)
     vim.bo[ev.buf].keywordprg = ":Shelp"
   end,
 })
-vim.api.nvim_create_autocmd({ "FileType" }, {
+aucmd({ "FileType" }, {
   group = augroup "Keywordprg",
   pattern = { "man", "sh", "bash" },
   callback = function(ev)
     vim.bo[ev.buf].keywordprg = ":Man"
   end,
 })
-vim.api.nvim_create_autocmd({ "FileType" }, {
+aucmd({ "FileType" }, {
   group = augroup "Keywordprg",
   pattern = { "r", "rmd", "rdoc" },
   callback = function(ev)
@@ -132,7 +130,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 -- Fasd Update ---------------------------------------------------------- {{{1
-vim.api.nvim_create_autocmd({ "BufNew", "BufNewFile" }, {
+aucmd({ "BufNew", "BufNewFile" }, {
   group = augroup "FASD_UPDATE",
   callback = function(ev)
     if
@@ -145,22 +143,19 @@ vim.api.nvim_create_autocmd({ "BufNew", "BufNewFile" }, {
 })
 
 -- cursorline ----------------------------------------------------------- {{{1
-vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
+-- https://github.com/ibhagwan/nvim-lua/blob/main/lua/autocmd.lua
+aucmd({ "InsertEnter", "WinLeave", "BufLeave" }, {
   group = augroup "Cursor_Highlight",
-  callback = function()
-    vim.opt_local.cursorline = false
-  end,
+  command = "if &cursorline && ! &pvw | setlocal nocursorline | endif",
 })
 
-vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
+aucmd({ "InsertLeave", "WinEnter", "BufEnter" }, {
   group = augroup "Cursor_Highlight",
-  callback = function()
-    vim.opt_local.cursorline = true
-  end,
+  command = "if ! &cursorline && ! &pvw | setlocal cursorline | endif",
 })
 
 -- Term Open ------------------------------------------------------------ {{{1
-vim.api.nvim_create_autocmd({ "TermOpen" }, {
+aucmd({ "TermOpen" }, {
   group = augroup "Term_Open",
   callback = function()
     vim.opt_local.number = false
@@ -171,7 +166,7 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 })
 
 -- Check if we need to reload the file when it changed ------------------ {{{1
-vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+aucmd({ "FocusGained", "TermClose", "TermLeave" }, {
   group = augroup "checktime",
   callback = function()
     if vim.o.buftype ~= "nofile" and vim.fn.getcmdwintype() == "" then
@@ -180,7 +175,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "FileChangedShellPost" }, {
+aucmd({ "FileChangedShellPost" }, {
   group = augroup "checktime",
   callback = function()
     vim.notify(
@@ -192,15 +187,34 @@ vim.api.nvim_create_autocmd({ "FileChangedShellPost" }, {
 })
 
 -- Highlight on yank ---------------------------------------------------- {{{1
-vim.api.nvim_create_autocmd("TextYankPost", {
+-- https://github.com/ibhagwan/nvim-lua/blob/main/lua/autocmd.lua
+aucmd("TextYankPost", {
   group = augroup "highlight_yank",
   callback = function()
     vim.highlight.on_yank()
   end,
 })
 
+aucmd("InsertEnter", {
+  group = augroup "highlight_yank",
+  callback = function()
+    vim.schedule(function()
+      vim.cmd "nohlsearch"
+    end)
+  end,
+})
+
+aucmd("CursorMoved", {
+  group = augroup "highlight_yank",
+  callback = function()
+    if vim.v.hlsearch == 1 and vim.fn.searchcount().exact_match == 0 then
+      vim.schedule(function() vim.cmd.nohlsearch() end)
+    end
+  end,
+})
+
 -- close some filetypes with <q> ----------------------------------------
-vim.api.nvim_create_autocmd("FileType", {
+aucmd("FileType", {
   group = augroup "close_with_q",
   pattern = {
     "PlenaryTestPopup",
@@ -230,7 +244,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- make it easier to close man-files when opened inline ----------------- {{{1
-vim.api.nvim_create_autocmd("FileType", {
+aucmd("FileType", {
   group = augroup "man_unlisted",
   pattern = { "man" },
   callback = function(event)
@@ -240,7 +254,8 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Auto create dir when saving a file ----------------------------------- {{{1
 -- in case some intermediate directory does not exist
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
+aucmd({ "BufWritePre" }, {
   group = augroup "auto_create_dir",
   callback = function(event)
     if event.match:match "^%w%w+:[\\/][\\/]" then
@@ -251,6 +266,8 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   end,
 })
 
+-- Handle Bigfile ------------------------------------------------------- {{{1
+-- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 vim.filetype.add {
   pattern = {
     [".*"] = {
@@ -266,7 +283,7 @@ vim.filetype.add {
   },
 }
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
+aucmd({ "FileType" }, {
   group = augroup "bigfile",
   pattern = "bigfile",
   callback = function(ev)
@@ -275,4 +292,67 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
       vim.bo[ev.buf].syntax = vim.filetype.match { buf = ev.buf } or ""
     end)
   end,
+})
+
+-- auto-delete fugitive buffers ----------------------------------------- {{{1
+-- https://github.com/ibhagwan/nvim-lua/blob/main/lua/autocmd.lua
+aucmd("BufReadPost", {
+  group = augroup 'Fugitive',
+  pattern = "fugitive:*",
+  command = "set bufhidden=delete"
+})
+
+-- Display help|man in vertical splits and map 'q' to quit -------------- {{{1
+-- https://github.com/ibhagwan/nvim-lua/blob/main/lua/autocmd.lua
+local augroup_help = augroup "Help"
+local function open_vert()
+  -- do nothing for floating windows or if this is
+  -- the fzf-lua minimized help window (height=1)
+  local cfg = vim.api.nvim_win_get_config(0)
+  if cfg and (cfg.external or cfg.relative and #cfg.relative > 0)
+      or vim.api.nvim_win_get_height(0) == 1 then
+    return
+  end
+  -- do not run if Diffview is open
+  if vim.g.diffview_nvim_loaded and
+      require "diffview.lib".get_current_view() then
+    return
+  end
+  local width = math.floor(vim.o.columns * 0.75)
+  vim.cmd("wincmd L")
+  vim.cmd("vertical resize " .. width)
+  vim.keymap.set("n", "q", "<CMD>q<CR>", { buffer = true })
+end
+
+aucmd("FileType", {
+  group = augroup_help,
+  pattern = "help,man",
+  callback = open_vert,
+})
+
+-- we also need this auto command or help
+-- still opens in a split on subsequent opens
+aucmd("BufEnter", {
+  group = augroup_help,
+  pattern = "*.txt",
+  callback = function()
+    if vim.bo.buftype == "help" then
+      open_vert()
+    end
+  end
+})
+
+aucmd("BufHidden", {
+  group = augroup_help,
+  pattern = "man://*",
+  callback = function()
+    if vim.bo.filetype == "man" then
+      local bufnr = vim.api.nvim_get_current_buf()
+      vim.defer_fn(function()
+        if vim.api.nvim_buf_is_valid(bufnr) then
+          vim.api.nvim_buf_delete(bufnr, { force = true })
+        end
+      end, 0)
+    end
+  end
 })
