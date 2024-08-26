@@ -163,10 +163,11 @@ end
 
 local get_item_info = function(b, field, command)
   field = field or "note"
+  local valid_items = {"note", "pdf", "bib", "newsboat", "html", "md", "path", "title", "url"}
   local item_path
   if field == "note" then
     item_path = vim.fn.trim(vim.fn.system("mylib note @" .. b))
-  elseif vim.tbl_contains({"pdf", "bib", "newsboat", "html", "md", "path", "title"}, field) then
+  elseif vim.tbl_contains(valid_items, field) then
     item_path = vim.fn.trim(vim.fn.system("mylib get " .. field .. " -- @" .. b))
   end
   if command then
