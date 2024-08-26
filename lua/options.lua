@@ -13,6 +13,14 @@ vim.cmd [[runtime plugin/man.lua]]
 vim.env.GTAGSLABEL = "native-pygments"
 vim.env.GTAGSCONF = vim.env.HOME .. "/.globalrc"
 
+-- Lua library ========================================================== {{{1
+local luarocks_path = vim.env.XDG_CONFIG_HOME and
+  (vim.env.XDG_CONFIG_HOME .. "/luarocks") or
+  (vim.env.HOME  .. "/.luarocks")
+package.path = package.path .. ";"
+  .. (luarocks_path .. "/share/lua/5.1/?/init.lua") .. ";"
+  .. (luarocks_path .. "/share/lua/5.1/?.lua")
+
 -- Global variables ===================================================== {{{1
 vim.g.mapleader = " "
 vim.g.maplocalleader = ";"

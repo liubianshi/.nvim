@@ -1,12 +1,4 @@
 -- vim: set foldmethod=marker:
--- 使用 lazyvim 加载插件 ------------------------------------------------ {{{1
-local luarocks_path = vim.env.XDG_CONFIG_HOME and
-  (vim.env.XDG_CONFIG_HOME .. "/luarocks") or
-  (vim.env.HOME  .. "/.luarocks")
-package.path = package.path .. ";"
-  .. (luarocks_path .. "/share/lua/5.1/?/init.lua") .. ";"
-  .. (luarocks_path .. "/share/lua/5.1/?.lua")
-
 -- 在 lazyvim 尚未安装时安装 -------------------------------------------- {{{1
 local lazypath = vim.fn.stdpath("data")  .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
