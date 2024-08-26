@@ -1288,7 +1288,7 @@ add_plug("AckslD/nvim-FeMaco.lua", {
 })
 
 -- 安装并加载插件 ------------------------------------------------------- {{{1
-local lazy = require("lazy").setup(Plugins, require('plugins.lazy'))
+require("lazy").setup(Plugins, require('plugins.lazy'))
 
 -- 创建辅助函数 --------------------------------------------------------- {{{1
 _G.LoadedPlugins = function()
