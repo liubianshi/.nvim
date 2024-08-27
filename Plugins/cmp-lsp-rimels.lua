@@ -25,21 +25,7 @@ local detector_for_norg = function(info)
   return englist_env
 end
 
--- local function is_rime_ls_running()
---   local handle = io.popen("pgrep -f 'rime_ls --listen 127.0.0.1:9257'")
---   if not handle then return false end
---   local result = handle:read("*a")
---   handle:close()
---   return result ~= ""
--- end
---
--- if not is_rime_ls_running() then
---   os.execute("nohup rime_ls --listen 127.0.0.1:9257 >/dev/null 2>/dev/null &")
---   vim.wait(300, function() return is_rime_ls_running() end)
--- end
-
 vim.system { "rime_ls", "--listen", "127.0.0.1:9257" }
--- os.execute("nohup rime_ls --listen  >/dev/null 2>/dev/null &")
 require("rimels").setup {
   keys = { start = ";f", stop = ";;", esc = ";j" },
   cmd = vim.lsp.rpc.connect("127.0.0.1", 9257),

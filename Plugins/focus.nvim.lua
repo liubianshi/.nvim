@@ -25,7 +25,6 @@ local ignore_filetypes = {
 }
 
 local ignore_buftypes = {
-  "help",
   "terminal",
   "nofile",
   "promp",
@@ -42,6 +41,8 @@ vim.api.nvim_create_autocmd("FileType", {
       vim.tbl_contains(ignore_buftypes, vim.bo[ev.buf].buftype)
     then
       vim.b[ev.buf].focus_disable = true
+    else
+      vim.b[ev.buf].focus_disable = false
     end
   end,
   desc = "Disable focus autoresize",

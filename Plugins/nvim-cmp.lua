@@ -2,51 +2,50 @@
 local cmp = require "cmp"
 local compare = require "cmp.config.compare"
 local cmp_ultisnips_mappings = require "cmp_nvim_ultisnips.mappings"
-require("cmp_r").setup({filetypes = {"r", "rmd", "markdown", "rdoc"}})
+require("cmp_r").setup { filetypes = { "r", "rmd", "markdown", "rdoc" } }
 vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
-
 
 -- kinds icons
 local icon_kinds = {
-  Array         = " ",
-  Boolean       = "󰨙 ",
-  Class         = " ",
-  Codeium       = "󰘦 ",
-  Color         = " ",
-  Control       = " ",
-  Collapsed     = " ",
-  Constant      = "󰏿 ",
-  Constructor   = " ",
-  Copilot       = " ",
-  Enum          = " ",
-  EnumMember    = " ",
-  Event         = " ",
-  Field         = " ",
-  File          = " ",
-  Folder        = " ",
-  Function      = "󰊕 ",
-  Interface     = " ",
-  Key           = " ",
-  Keyword       = " ",
-  Method        = "󰊕 ",
-  Module        = " ",
-  Namespace     = "󰦮 ",
-  Null          = " ",
-  Number        = "󰎠 ",
-  Object        = " ",
-  Operator      = " ",
-  Package       = " ",
-  Property      = " ",
-  Reference     = " ",
-  Snippet       = " ",
-  String        = " ",
-  Struct        = "󰆼 ",
-  TabNine       = "󰏚 ",
-  Text          = " ",
+  Array = " ",
+  Boolean = "󰨙 ",
+  Class = " ",
+  Codeium = "󰘦 ",
+  Color = " ",
+  Control = " ",
+  Collapsed = " ",
+  Constant = "󰏿 ",
+  Constructor = " ",
+  Copilot = " ",
+  Enum = " ",
+  EnumMember = " ",
+  Event = " ",
+  Field = " ",
+  File = " ",
+  Folder = " ",
+  Function = "󰊕 ",
+  Interface = " ",
+  Key = " ",
+  Keyword = " ",
+  Method = "󰊕 ",
+  Module = " ",
+  Namespace = "󰦮 ",
+  Null = " ",
+  Number = "󰎠 ",
+  Object = " ",
+  Operator = " ",
+  Package = " ",
+  Property = " ",
+  Reference = " ",
+  Snippet = " ",
+  String = " ",
+  Struct = "󰆼 ",
+  TabNine = "󰏚 ",
+  Text = " ",
   TypeParameter = " ",
-  Unit          = " ",
-  Value         = " ",
-  Variable      = "󰀫 ",
+  Unit = " ",
+  Value = " ",
+  Variable = "󰀫 ",
 }
 
 -- source config functions ---------------------------------------------- {{{2
@@ -91,8 +90,8 @@ local function construct_cmp_source(sources)
       },
     },
     { name = "buffer" },
-    { name = 'ctags' },
-    -- { name = "nvim_lsp_signature_help" },
+    { name = "ctags" },
+    { name = "nvim_lsp_signature_help" },
     -- { name = 'latex_symbols' },
     -- { name = 'orgmode' },
     -- { name = 'treesitter' },
@@ -158,13 +157,13 @@ local sorting_config = {
   },
 }
 -- cmp_config ----------------------------------------------------------- {{{2
-local border = require('util').border('▔', "bottom")
+local border = require("util").border("▔", "bottom")
 local cmp_config = {
   enabled = function()
     local disabled = false
     -- disabled = disabled or (vim.api.nvim_get_option_value('buftype', { buf = 0 }) == 'prompt')
-    disabled = disabled or (vim.fn.reg_recording() ~= '')
-    disabled = disabled or (vim.fn.reg_executing() ~= '')
+    disabled = disabled or (vim.fn.reg_recording() ~= "")
+    disabled = disabled or (vim.fn.reg_executing() ~= "")
     return not disabled
   end,
   menu = {},
@@ -236,10 +235,10 @@ cmp.setup.filetype({ "stata" }, {
   sources = construct_cmp_source { { name = "omni" } },
 })
 
-cmp.setup.filetype({'pandoc', 'markdown'}, {
-  sources = construct_cmp_source({
-    { name = "dictionary", keyword_length = 2},
-  })
+cmp.setup.filetype({ "pandoc", "markdown" }, {
+  sources = construct_cmp_source {
+    { name = "dictionary", keyword_length = 2 },
+  },
 })
 
 cmp.setup.filetype({ "r", "rmd" }, {
@@ -260,10 +259,10 @@ cmp.setup.filetype("gitcommit", {
   sources = construct_cmp_source { { name = "cmp_git" } },
 })
 
-cmp.setup.filetype('lua', {
+cmp.setup.filetype("lua", {
   sources = construct_cmp_source {
-    { name = "lazydev", group_index = 0 }
-  }
+    { name = "lazydev", group_index = 0 },
+  },
 })
 
 -- Set -- Set configuration for sql
@@ -297,13 +296,10 @@ cmp.setup.cmdline("@", {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
     { name = "path" },
-    { name = "nvim_lsp"}
+    { name = "nvim_lsp" },
   }, {
     { name = "cmdline" },
   }),
 })
-
-
-
 
 -- vim: set fdm=marker: ------------------------------------------------- {{{1

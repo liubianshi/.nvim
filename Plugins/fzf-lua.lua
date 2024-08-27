@@ -181,9 +181,15 @@ fzfmap("<leader>ic", "Insert Citation Keys", function()
           "bibtex-cite -prefix='@' -postfix='' -separator='; @'",
           selected
         )
-        vim.api.nvim_command("normal! i" .. r)
-        vim.fn.feedkeys("a", "n")
+        vim.api.nvim_put({"​" .. r .. "​"}, 'c', true, true)
       end,
+      ['<c-x>'] = function(selected, _)
+        local r = vim.fn.system(
+          "bibtex-cite -prefix='@' -postfix='' -separator='; @'",
+          selected
+        )
+        vim.api.nvim_put({"​[" .. r .. "]​"}, 'c', true, true)
+      end
     },
   })
 end)

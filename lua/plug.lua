@@ -399,13 +399,14 @@ add_plug("junegunn/vim-easy-align", {
 -- beauwilliams/focus.nvim: Auto Ajust the size of focused window ------- {{{3
 add_plug("nvim-focus/focus.nvim", {
   keys = {
-    { "<leader>wh", "<cmd>FocusSplitLeft<cr>",   desc = "Focus Split Left" },
-    { "<leader>wl", "<cmd>FocusSplitRight<cr>",  desc = "Focus Split Right" },
-    { "<leader>wj", "<cmd>FocusSplitDown<cr>",   desc = "Focus Split Down" },
-    { "<leader>wk", "<cmd>FocusSplitUp<cr>",     desc = "Focus Split Up" },
-    { "<leader>wm", "<cmd>FocusMaximise<cr>",    desc = "Focus Maximise" },
-    { "<leader>we", "<cmd>FocusEqualise<cr>",    desc = "Focus Equalise" },
-    { "<leader>ww", "<cmd>FocusSplitNicely<cr>", desc = "Focus Equalise" },
+    { "<leader>wh", "<cmd>FocusSplitLeft<cr>",    desc = "Focus Split Left" },
+    { "<leader>wl", "<cmd>FocusSplitRight<cr>",   desc = "Focus Split Right" },
+    { "<leader>wj", "<cmd>FocusSplitDown<cr>",    desc = "Focus Split Down" },
+    { "<leader>wk", "<cmd>FocusSplitUp<cr>",      desc = "Focus Split Up" },
+    { "<leader>wm", "<cmd>FocusMaximise<cr>",     desc = "Focus Maximise" },
+    { "<leader>we", "<cmd>FocusEqualise<cr>",     desc = "Focus Equalise" },
+    { "<leader>ww", "<cmd>FocusToggle<cr>",       desc = "Focus Toggle" },
+    { "<leader>wb", "<cmd>FocusToggleBuffer<cr>", desc = "Focus Toggle Buffer" },
   },
   cmd = { "FocusToggle", "FocusEnable" },
 })
@@ -488,6 +489,9 @@ add_plug("folke/noice.nvim", {
   keys = {
     {
       "<leader>hn", "<cmd>NoiceTelescope<cr>", desc = "Noice: Search Notifications",
+    },
+    {
+      "<c-f>", function() require('noice.lsp').signature() end, mode = "i", desc = "Noice: Show lsp documents"
     },
   },
 })
@@ -1297,3 +1301,4 @@ end
 _G.PlugExist = function(plug)
   return (Util.has(plug))
 end
+

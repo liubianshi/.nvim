@@ -4,15 +4,6 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("LBS_" .. name, { clear = true })
 end
 
--- Highlight for special filetype --------------------------------------- {{{1
-aucmd({ "FileType" }, {
-  group = augroup "Highlight_FileType",
-  pattern = { "norg", "org", "markdown", "rmd", "rmarkdown" },
-  callback = function()
-    vim.cmd [[syntax match NonText /​/ conceal]]
-  end,
-})
-
 -- Lsp related ---------------------------------------------------------- {{{1
 aucmd({ "LspAttach" }, {
   group = augroup "LspAttach",
@@ -318,9 +309,9 @@ local function open_vert()
       require "diffview.lib".get_current_view() then
     return
   end
-  local width = math.floor(vim.o.columns * 0.75)
   vim.cmd("wincmd L")
-  vim.cmd("vertical resize " .. width)
+  -- local width = math.floor(vim.o.columns * 0.75)
+  -- vim.cmd("vertical resize " .. width)
   vim.keymap.set("n", "q", "<CMD>q<CR>", { buffer = true })
 end
 

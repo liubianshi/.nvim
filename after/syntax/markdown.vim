@@ -36,4 +36,5 @@ exe 'syn region pandocPythonChunk '.
 
 syn region pandocInlinePython matchgroup=Operator start=/`python\s/ end=/`/ contains=@Python concealends
 
+syntax match NonText /​/ conceal
 hi pandocStrong gui=underline

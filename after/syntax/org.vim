@@ -14,6 +14,7 @@
 "
 exec "hi OrgTSBlock guifg=" . g:lbs_colors['blue']
 exec "hi OrgTSDirective cterm=bold guifg=" . g:lbs_colors['orange']
+syntax match NonText /​/ conceal
 " hi def link orgQuoteMarker Underlined
 
 
