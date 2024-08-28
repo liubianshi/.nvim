@@ -186,8 +186,6 @@ local cmp_config = {
     documentation = {
       border = border,
       -- winhighlight = "CursorLine:PmenuSel,NormalFloat:MyPmenu,Pmenu:MyPmenu,FloatBorder:Pmenu,Search:None",
-      col_offset = 0,
-      side_padding = 0,
     },
   },
   formatting = {

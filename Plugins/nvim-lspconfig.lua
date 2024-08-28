@@ -41,18 +41,18 @@ lspconfig.bashls.setup {
 }
 
 -- R (r_language_server) ------------------------------------------------ {{{2
--- lspconfig.r_language_server.setup {
---   cmd = {
---     "R",
---     "--slave",
---     "--default-packages=" .. vim.g.R_start_libs,
---     "-e",
---     "languageserver::run()",
---   },
---   capabilities = capabilities,
---   root_dir = util.root_pattern(".git", ".vim", "NAMESPACE", "R"),
---   single_file_support = true,
--- }
+lspconfig.r_language_server.setup {
+  cmd = {
+    "R",
+    "--slave",
+    "--default-packages=" .. vim.g.R_start_libs,
+    "-e",
+    "languageserver::run()",
+  },
+  capabilities = capabilities,
+  root_dir = util.root_pattern(".git", ".vim", "NAMESPACE", "R"),
+  single_file_support = true,
+}
 
 -- Python (pyright) ----------------------------------------------------- {{{2
 -- lspconfig.pyright.setup({ on_attach = on_attach_custom })
@@ -185,6 +185,6 @@ if false then
 end
 
 -- trigger codelens refresh
-vim.api.nvim_exec_autocmds("User", { pattern = "LspAttached" })
+-- gvim.api.nvim_exec_autocmds("User", { pattern = "LspAttached" })
 
 
