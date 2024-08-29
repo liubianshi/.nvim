@@ -133,23 +133,23 @@ vim.api.nvim_create_autocmd("FileType", {
     )
     kmap(
       "<localleader><tab>",
-      "<Plug>((neorg.telescope.switch_workspace))",
+      "<Plug>(neorg.telescope.switch_workspace)",
       { desc = "Switch Workspace" }
     )
     kmap("<localleader>sl",
-      "<Plug>((neorg.telescope.find_linkable))",
+      "<Plug>(neorg.telescope.find_linkable)",
       { desc = "Find Linkable" }
     )
     kmap("<localleader>sf",
-      "<Plug>((neorg.telescope.find_norg_files))",
+      "<Plug>(neorg.telescope.find_norg_files)",
       { desc = "Find Norg Files" }
     )
     kmap("<localleader>sh",
-      "<Plug>((neorg.telescope.search_headings))",
+      "<Plug>(neorg.telescope.search_headings)",
       { desc = "Search Headings" }
     )
     kmap("<localleader>st",
-      "<Plug>((neorg.telescope.find_context_tasks))",
+      "<Plug>(neorg.telescope.find_context_tasks)",
       { desc = "Find Context Tasks" }
     )
     kmap("<localleader>sT",
