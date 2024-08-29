@@ -21,43 +21,6 @@ local get_modules = function()
     ["core.keybinds"] = {
       config = {
         default_keybinds = true,
-        hook = function(keybinds)
-          keybinds.map(
-            "norg",
-            "n",
-            "<localleader>sH",
-            "<cmd>Neorg toc qflist<cr>",
-            { desc = "Search Headings through qflist" }
-          )
-          keybinds.map(
-            "norg",
-            "n",
-            "<localleader>o",
-            "<cmd>Neorg keybind all core.looking-glass.magnify-code-block<cr>",
-            { desc = "Edit Code Chunk" }
-          )
-          keybinds.map(
-            "norg",
-            "n",
-            "<localleader>S",
-            "<cmd>Neorg generate-workspace-summary<cr>",
-            { desc = "Display Summary" }
-          )
-          keybinds.map(
-            "norg",
-            "n",
-            "<localleader>nj",
-            "<cmd>Neorg journal today<cr>",
-            { desc = "Open today's journal" }
-          )
-          keybinds.map(
-            "norg",
-            "n",
-            "<localleader>ni",
-            "<cmd>Neorg index<cr>",
-            { desc = "Return to Index Page" }
-          )
-        end,
       },
     },
     ["core.summary"] = {},
@@ -93,7 +56,8 @@ local get_modules = function()
             icons = { "1", "A", "a", "⑴", "Ⓐ", "ⓐ" },
           },
           list = {
-            icons = { "", "", "󰻂", "", "󱥸", "" },
+            -- icons = { "", "", "󰻂", "", "󱥸", "" },
+            icons = { "󰻂", "󰻂", "󰻂", "󰻂", "󰻂", "󰻂" },
           },
         },
       },
@@ -103,10 +67,13 @@ local get_modules = function()
         workspaces = {
           lbs = "~/Documents/Writing/Norg",
           journal = "~/Documents/Writing/journal",
+          meeting = "~/Documents/Writing/meeting",
         },
       },
     },
+    ["core.integrations.telescope"] = {},
   }
+
   if image_render_exist() then
     modules["core.latex.renderer"] = {
       renderer = "core.integrations.image",
@@ -124,68 +91,92 @@ require("neorg").setup {
 }
 
 --- keybinds ------------------------------------------------------------ {{{1
-local neorg_callbacks = require "neorg.core.callbacks"
-neorg_callbacks.on_event(
-  "core.keybinds.events.enable_keybinds",
-  function(_, keybinds)
-    -- Map all the below keybinds only when the "norg" mode is active
-    keybinds.map_event_to_mode("norg", {
-      n = { -- Bind keys in normal mode
-        {
-          "<localleader><tab>",
-          "core.integrations.telescope.switch_workspace",
-          opts = { desc = "Switch Workspace" },
-        },
-        {
-          "<localleader>sl",
-          "core.integrations.telescope.find_linkable",
-          opts = { desc = "Find Linkable" },
-        },
-        {
-          "<localleader>sf",
-          "core.integrations.telescope.find_norg_files",
-          opts = { desc = "Find Norg Files" },
-        },
-        {
-          "<localleader>sh",
-          "core.integrations.telescope.search_headings",
-          opts = { desc = "Search Headings" },
-        },
-        {
-          "<localleader>st",
-          "core.integrations.telescope.find_context_tasks",
-          opts = { desc = "Find Context Tasks" },
-        },
-        {
-          "<localleader>sT",
-          "core.integrations.telescope.find_project_tasks",
-          opts = { desc = "Find Project Tasks" },
-        },
-        {
-          "<localleader>sa",
-          "core.integrations.telescope.find_aof_tasks",
-          opts = { desc = "Find AOF Tasks" },
-        },
-        {
-          "<localleader>sA",
-          "core.integrations.telescope.find_aof_project_tasks",
-          opts = { desc = "Find AOF Project Tasks" },
-        },
-      },
-      i = { -- Bind in insert mode
-        {
-          "<localleader>ll",
-          "core.integrations.telescope.insert_link",
-          opts = { desc = "Insert Link" },
-        },
-        {
-          "<localleader>lf",
-          "core.integrations.telescope.insert_file_link",
-          opts = { desc = "Insert File Link" },
-        },
-      },
-    }, { silent = true, noremap = true })
-  end
-)
+local kmap = function(key, cmd, opts)
+  opts = vim.tbl_extend('keep', opts or {}, {
+    silent = true,
+    noremap = true,
+    buffer = true,
+  })
+  local mode = opts.mode or "n"
+  opts.mode = nil
+  vim.keymap.set(mode, key, cmd, opts)
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("LBS_Neorg_Keymaps", {clear = true}),
+  pattern = "norg",
+  callback = function()
+    kmap(
+      "<localleader>sH",
+      "<cmd>Neorg toc qflist<cr>",
+      { desc = "Search Headings through qflist" }
+    )
+    kmap(
+      "<localleader>o",
+      "<cmd>Neorg keybind all core.looking-glass.magnify-code-block<cr>",
+      { desc = "Edit Code Chunk" }
+    )
+    kmap(
+      "<localleader>S",
+      "<cmd>Neorg generate-workspace-summary<cr>",
+      { desc = "Display Summary" }
+    )
+    kmap(
+      "<localleader>nj",
+      "<cmd>Neorg journal today<cr>",
+      { desc = "Open today's journal" }
+    )
+    kmap(
+      "<localleader>ni",
+      "<cmd>Neorg index<cr>",
+      { desc = "Return to Index Page" }
+    )
+    kmap(
+      "<localleader><tab>",
+      "<Plug>((neorg.telescope.switch_workspace))",
+      { desc = "Switch Workspace" }
+    )
+    kmap("<localleader>sl",
+      "<Plug>((neorg.telescope.find_linkable))",
+      { desc = "Find Linkable" }
+    )
+    kmap("<localleader>sf",
+      "<Plug>((neorg.telescope.find_norg_files))",
+      { desc = "Find Norg Files" }
+    )
+    kmap("<localleader>sh",
+      "<Plug>((neorg.telescope.search_headings))",
+      { desc = "Search Headings" }
+    )
+    kmap("<localleader>st",
+      "<Plug>((neorg.telescope.find_context_tasks))",
+      { desc = "Find Context Tasks" }
+    )
+    kmap("<localleader>sT",
+      "<Plug>(neorg.telescope.find_project_tasks)",
+      { desc = "Find Project Tasks" }
+    )
+    kmap("<localleader>sa",
+      "<Plug>(neorg.telescope.find_aof_tasks)",
+      { desc = "Find AOF Tasks" }
+    )
+    kmap("<localleader>sA",
+      "<Plug>(neorg.telescope.find_aof_project_tasks)",
+      { desc = "Find AOF Project Tasks" }
+    )
+    kmap("<localleader>ll",
+      "<Plug>(neorg.telescope.insert_link)",
+      { mode = "i", desc = "Insert Link" }
+    )
+    kmap("<localleader>lf",
+      "<Plug>(neorg.telescope.insert_file_link)",
+      { mode = "i", desc = "Insert File Link" }
+    )
+  end,
+})
+
+
+
+
 
 -- vim: set fdm=marker: ------------------------------------------------- {{{1

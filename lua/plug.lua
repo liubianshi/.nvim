@@ -1198,6 +1198,7 @@ add_plug("nvim-neorg/neorg", {
   version = "*",
   ft = { "norg" },
   cmd = { "Neorg" },
+  dependencies = { { "nvim-lua/plenary.nvim" }, { "nvim-neorg/neorg-telescope" }  },
   keys = {
     {
       "<leader>ej",
