@@ -744,15 +744,15 @@ add_plug("stevearc/dressing.nvim", {
 add_plug("nvim-zh/colorful-winsep.nvim", { event = { "WinNew" } })
 
 -- "lukas-reineke/indent-blankline.nvim"
--- add_plug("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
-add_plug("nvimdev/indentmini.nvim", {
-  config = function()
-    require("indentmini").setup({
-       char = "│",
-       exclude = {"markdown", "alpha", "norg", "help"}
-    })
-  end,
-})
+add_plug("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
+-- add_plug("nvimdev/indentmini.nvim", {
+--   config = function()
+--     require("indentmini").setup({
+--        char = "│",
+--        exclude = {"markdown", "alpha", "norg", "help"}
+--     })
+--   end,
+-- })
 
 -- Tools ---------------------------------------------------------------- {{{2
 -- liubianshi/cmp-lsp-rimels: ------------------------------------------- {{{3
