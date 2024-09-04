@@ -5,6 +5,9 @@ local hook = {
         require("r.packages").update_compl_packages(tbl.fargs)
       end, { nargs = "+" })
 
+    -- Setting box-related shortcuts
+    require('r_box').set_keymap()
+
     vim.keymap.set("n", "<Enter>", "<Plug>RDSendLine", { buffer = true })
     vim.keymap.set("v", "<Enter>", "<Plug>RSendSelection", { buffer = true })
     vim.keymap.set(
