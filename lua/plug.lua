@@ -744,7 +744,17 @@ add_plug("stevearc/dressing.nvim", {
 add_plug("nvim-zh/colorful-winsep.nvim", { event = { "WinNew" } })
 
 -- "lukas-reineke/indent-blankline.nvim"
-add_plug("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
+-- add_plug("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
+add_plug(  "shellRaining/hlchunk.nvim", {
+  event = { "BufReadPre", "BufNewFile" },
+  config = function()
+    require("hlchunk").setup({
+      chunk    = { enable = true },
+      indent   = { enable = false },
+      line_num = { enable = true },
+    })
+  end
+})
 -- add_plug("nvimdev/indentmini.nvim", {
 --   config = function()
 --     require("indentmini").setup({
@@ -1216,6 +1226,7 @@ add_plug("kristijanhusak/vim-dadbod-ui", {
 
 
 add_plug("liubianshi/R.nvim", { dev = true, lazy = false })
+-- add_plug("R-nvim/R.nvim", { lazy = false })
 
 
 -- lervag/vimtex: filetype plugin for LaTeX files ----------------------- {{{3

@@ -50,6 +50,7 @@ local r_popup = function()
   popup:mount()
   return popup
 end
+
 local wk = require "which-key"
 local vimkey = function(key, desc, cmd, opts)
   opts = vim.tbl_extend("keep", opts or {}, {

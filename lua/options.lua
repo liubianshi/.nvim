@@ -84,7 +84,7 @@ vim.g.r_indent_ess_compatible = 0
 vim.g.r_indent_op_pattern = [[\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\)\s*$]]
 vim.g.R_start_libs = "base,stats,graphics,grDevices,utils,methods,"
   .. "rlang,data.table,readxl,haven,lbs,purrr,stringr,"
-  .. "fst,box,future,devtools,ggplot,fixest"
+  .. "fst,future,devtools,ggplot2,fixest"
 
 -- Options ============================================================== {{{1
 opt.autoindent = true -- 自动缩进
