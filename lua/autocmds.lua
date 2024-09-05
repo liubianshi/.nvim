@@ -309,7 +309,7 @@ local function open_vert()
       require "diffview.lib".get_current_view() then
     return
   end
-  vim.cmd("wincmd L")
+  -- vim.cmd("wincmd L")
   -- local width = math.floor(vim.o.columns * 0.75)
   -- vim.cmd("vertical resize " .. width)
   vim.keymap.set("n", "q", "<CMD>q<CR>", { buffer = true })

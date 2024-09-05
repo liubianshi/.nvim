@@ -1,26 +1,26 @@
--- require("neodev").setup {
---   library = {
---     enabled = true, -- when not enabled, nodev will not change any settings to the LSP server
---     -- these settings will be used for your Neovim config directory
---     runtime = true, -- runtime path
---     types = true, -- full signature, docs and completion of vim.api, vim.treesitter, vim.lsp and others
---     plugins = true, -- installed opt or start plugins in packpath
---     -- you can also specify the list of plugins to make available as a workspace library
---     -- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
---   },
---   override = function(_, library)
---       library.enabled = true
---       library.plugins = false
---   end,
---   setup_jsonls = true, -- configures jsonls to provide completion for project specific .luarc.json files
---   lspconfig = true,
---   pathStrict = true,
--- }
 local lspconfig = require "lspconfig"
 local util = require "lspconfig.util"
-vim.lsp.set_log_level "ERROR"
+vim.lsp.set_log_level(vim.log.levels.ERROR)
 
--- Preconfiguration ----------------------------------------------------------- {{{2
+-- Used to block unwanted information ----------------------------------- {{{2
+local function custom_show_message(_, result, ctx)
+  if
+    result.type == vim.lsp.protocol.MessageType.Info
+    and string.find(result.message, "rime")
+  then
+    return
+  end
+
+  vim.lsp.handlers['window/showMessage'](nil, result, ctx)
+end
+
+util.default_config = vim.tbl_deep_extend(
+  'force',
+  lspconfig.util.default_config,
+  { handlers = { ['window/showMessage'] = custom_show_message } }
+)
+
+-- Preconfiguration ----------------------------------------------------- {{{2
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 local cmp_lsp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 local ufo_ok, _ = pcall(require, 'ufo')
@@ -110,7 +110,7 @@ end
 lspconfig.markdown_oxide.setup {
   cmd = {markdown_oxide_cmd},
   filetype = {'markdown', "rmd", "rmarkdown"},
-  root_dir = util.root_pattern(".obsidian", ".git", ".vim"),
+  root_dir = util.root_pattern(".obsidian", ".git"),
   capabilities = capabilities_oxide,
   single_file_support = false,
   on_attach = function(client, _) -- _ bufnr
@@ -186,5 +186,3 @@ end
 
 -- trigger codelens refresh
 -- gvim.api.nvim_exec_autocmds("User", { pattern = "LspAttached" })
-
-

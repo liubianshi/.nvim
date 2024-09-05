@@ -1,6 +1,7 @@
 -- Load custom tree-sitter grammar for org filetype
 local orglib = "~/Documents/Writing/"
 
+---@diagnostic disable: missing-fields, unused-local
 require('orgmode').setup({
   org_agenda_files = { orglib .. '*.org'},
   org_default_notes_file = orglib .. 'refile.org',
@@ -23,5 +24,11 @@ require('orgmode').setup({
         },
   },
 })
+
+vim.api.nvim_create_user_command("OrgCapture", function()
+  require("orgmode").action("capture.prompt")
+  vim.schedule(function() vim.cmd[[only!]] end)
+end, { nargs = 0, desc = "Org Capture"})
+
 
 -- vim: set foldlevel=99 :

@@ -486,6 +486,7 @@ add_plug("folke/noice.nvim", {
   init = function()
     vim.api.nvim_set_option_value("cmdheight", 0, { scope = "global" })
   end,
+  cmd = {'NoiceEnable'},
   keys = {
     {
       "<leader>hn", "<cmd>NoiceTelescope<cr>", desc = "Noice: Search Notifications",
@@ -696,7 +697,7 @@ add_plug("nvim-lualine/lualine.nvim")
 -- add_plug("luukvbaal/statuscol.nvim", { config = true })
 
 -- goolord/alpha-nvim: a lua powered greeter ---------------------------- {{{3
--- add_plug('goolord/alpha-nvim')
+add_plug('goolord/alpha-nvim')
 
 -- nvim-tree/nvim-web-devicons: file type icons ------------------------- {{{3
 add_plug("nvim-tree/nvim-web-devicons", { config = true, lazy = true })
@@ -1250,6 +1251,7 @@ add_plug("kevinhwang91/nvim-bqf", { ft = "qf" })
 -- nvim-orgmode/orgmode: Orgmode clone written in Lua ------------------- {{{3
 add_plug("nvim-orgmode/orgmode", {
   ft = "org",
+  cmd = {'OrgCapture'},
   keys = {
     { "<leader>oa", desc = "Orgmode: agenda prompt" },
     { "<leader>oc", desc = "Orgmode: capture prompt" },
