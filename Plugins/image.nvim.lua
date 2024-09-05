@@ -69,15 +69,18 @@ local display_image = function(file, opts)
   if window and window.scroll_y > 3 then
     display_row = display_row - 1
   end
-  local display_column = vim.fn.getline(line):match("^%s*"):len()
+  local display_column = vim.fn.getline(line):match("^%s*"):len() + 7
 
   local preview_image = require("image").from_file(file, {
     buffer = window.buffer,
     with_virtual_padding = true,
+    inline = true,
+    x = display_column,
+    y = display_row - window.scroll_y,
   })
   if not preview_image then return end
   preview_image:render()
-  preview_image:move(display_column, display_row)
+  -- preview_image:move(display_column, display_row)
 
   vim.api.nvim_create_user_command("DeleteImage", function(o)
     preview_image:clear()

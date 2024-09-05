@@ -11,7 +11,7 @@ cmd('Bclose',
 
 cmd('Mylib',
   function(opts)
-    vim.fn['mylib#run'](string.format('%q', opts.args))
+    vim.fn['mylib#run'](unpack(opts.fargs))
   end,
   {
     nargs = '+',

@@ -12,6 +12,8 @@ require("gp").setup {
   hooks = {
     Translator = gp_trans,
   },
+  whisper = { disable = true },
+  image = { disable = false },
   agents = {
     {
       name = "ChatGPT4",
@@ -72,11 +74,3 @@ require("gp").setup {
   },
 }
 
-require("which-key").add({
-  ["<c-g>"] = {
-    g = { name = "generate into new .." },
-    w = { name = "Whisper" },
-  },
-}, {
-  mode = { "v", "x", "i" },
-})

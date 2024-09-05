@@ -56,6 +56,7 @@ require("img-clip").setup {
     file_name = "img-%Y%m%d%H%M%S",
     prompt_for_file_name = true,
     show_dir_path_in_prompt = true,
+    copy_images = true,
   },
   filetypes = {
     rmd      = { template = rmd_template },
