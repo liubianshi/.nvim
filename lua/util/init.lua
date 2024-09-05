@@ -320,4 +320,26 @@ M.win_is_float = function(winnr)
   return false
 end
 
+--- Generate file paths that meet a specific format based on today's date
+---@param ext? string
+---@param base? string|string[]
+---@param pre? string
+---@return string
+M.get_daily_filepath = function(ext, base, pre)
+  ext = ext and ("." .. ext) or ""
+  pre = pre and (pre .. "-") or ""
+  if not base then
+    base = "/"
+  elseif type(base) == "table" then
+    base = "/" .. table.concat(base, "/") .. "/"
+  else
+    base = "/" .. base .. "/"
+  end
+  local writing_room =
+    vim.env.WRITING_LIB
+    or vim.env.HOME .. "/Documents/writing"
+  local basename = os.date('%Y%m%d')
+  return writing_room .. base .. pre .. basename .. ext
+end
+
 return M

@@ -179,6 +179,7 @@ opt.splitkeep = "screen"
 opt.splitright = true
 opt.startofline = false
 opt.statuscolumn = [[%!v:lua.require('util.ui').statuscolumn()]]
+opt.synmaxcol = 1000
 opt.swapfile = true
 opt.tabstop = 2 -- 设置编辑时制表符占用空格数
 opt.tags = "./tags,tags"

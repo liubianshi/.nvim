@@ -12,7 +12,7 @@ dashboard.section.header.val = {
 }
 
 dashboard.section.buttons.val = {
-  dashboard.button("e",       "  > New file",      ":ene <BAR> startinsert <CR>"),
+  dashboard.button("e",       "  > New file",      ":silent ene <BAR> startinsert <CR>"),
   dashboard.button("SPC f f", "󰈞  > Find file",     ":cd $HOME/Documents/Writing | Telescope find_files<CR>"),
   dashboard.button("SPC f r", "  > Recent",        ":Telescope oldfiles<CR>"),
   dashboard.button("SPC n l", "  > Obsidian Note", ":ObsidianQuickSwitch<CR>"),

@@ -655,6 +655,7 @@ endfunction
 " 翻译操作符 ============================================================= {{{1
 function! utils#Trans_string(str)
     let cmd = "deepl \"%s\" 2>/dev/null"
+    let daily_trans_file = luaeval('require"util".get_daily_filepath("md", "ReciteWords")')
     if len(split(a:str, ' ')) == 1 && a:str =~? '\v^[a-z]'
         let cmd = "sdcv -j " .. a:str
         let re = system(cmd)
@@ -667,17 +668,18 @@ function! utils#Trans_string(str)
         let re = substitute(re, '\v(\*\[[^\]]+\])\ze\n', '\1*', "")
         let re = substitute(re, "\n", "\n>\n> ", "g")
         let re = "> [!ANKI word] " . wd . "\n>\n> " . re
+        call writefile([""] + split(re, "\n") + [""], daily_trans_file, 'a')
         return re
     endif
     let cmd = printf(cmd, a:str)
     let re = systemlist(cmd)
     let engine = re[0]
     let re = join(re[1:], "\n")
-    " echom re
     if v:shell_error != 0
         return ""
     else
         call luaeval("vim.notify(_A[1] .. '\\n' .. _A[2], vim.log.levels.INFO, {title = _A[3]})", [a:str, re, engine])
+        call writefile(["", a:str, ""] + split(re, "\n") + [""], daily_trans_file, 'a')
         return re
     endif
 endfunction

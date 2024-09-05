@@ -153,7 +153,7 @@ nmap("<c-l>", "vertical resize +2",                "<cmd>vertical resize +2<cr>"
 --- edit special files -------------------------------------------------- {{{1
 nmap("<leader>ev", "Neovim Plugin List", "<cmd>edit ~/.config/nvim/lua/plug.lua<cr>")
 nmap("<leader>ek", "Neovim Keymap",      "<cmd>edit ~/.config/nvim/lua/keymap.lua<cr>")
-nmap("<leader>eo", "Neovim Options",     "<cmd>edit ~/.config/nvim/vim/option.vim<cr>")
+nmap("<leader>eo", "Neovim Options",     "<cmd>edit ~/.config/nvim/lua/options.lua<cr>")
 nmap("<leader>er", "R Profile",          "<cmd>edit ~/.Rprofile<cr>")
 nmap("<leader>es", "Stata profile",      "<cmd>edit ~/.config/stata/profile.do<cr>")
 nmap("<leader>ez", "Zshrc",              "<cmd>edit ~/.config/zsh/.zshrc<cr>")
@@ -162,6 +162,9 @@ nmap("<leader>ea", "Alias",              "<cmd>edit ~/useScript/alias<cr>")
 nmap("<leader>eu", "Snippets",           "<cmd>edit ~/.config/nvim/UltiSnips<cr>")
 nmap("<leader>et", "Open Plan to Do",    "<cmd>edit +ToggleZenMode ~/Documents/Writing/plantodo.norg<cr>zt")
 nmap("<leader>eT", "Open Plan to Do",    "<cmd>edit +$ ~/Documents/Writing/todo.norg<cr>zt")
+nmap("<leader>ew", "Open Daily Englist", function()
+  vim.cmd("edit " .. require('util').get_daily_filepath('md', 'ReciteWords'))
+end)
 
 --- Teminal ------------------------------------------------------------- {{{1
 local newterm = function(direction)
