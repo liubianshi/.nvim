@@ -645,6 +645,9 @@ endfunction
 function! utils#Trans_string(str)
     let cmd = "deepl \"%s\" 2>/dev/null"
     let daily_trans_file = luaeval('require"util".get_daily_filepath("md", "ReciteWords")')
+    if ! filereadable(daily_trans_file)
+      call writefile(["# Daily translation ", ""], daily_trans_file, "a")
+    endif
     if len(split(a:str, ' ')) == 1 && a:str =~? '\v^[a-z]'
         let cmd = "sdcv -j " .. a:str
         let re = system(cmd)
@@ -668,7 +671,9 @@ function! utils#Trans_string(str)
         return ""
     else
         call luaeval("vim.notify(_A[1] .. '\\n' .. _A[2], vim.log.levels.INFO, {title = _A[3]})", [a:str, re, engine])
-        call writefile(["", a:str, ""] + split(re, "\n") + [""], daily_trans_file, 'a')
+        let prefix = ["", "<!-- start_anki trans -->", "### " . a:str, ""]
+        let suffix = ["<!-- end_anki -->", ""]
+        call writefile(prefix + split(re, "\n") + suffix, daily_trans_file, 'a')
         return re
     endif
 endfunction

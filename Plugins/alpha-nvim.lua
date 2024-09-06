@@ -12,12 +12,12 @@ dashboard.section.header.val = {
 }
 
 dashboard.section.buttons.val = {
-  dashboard.button("e", "🪡 New file",      ":silent ene <BAR> startinsert <CR>"),
-  dashboard.button("f", "📂 Find file",     ":cd $HOME/Documents/Writing | Telescope find_files<CR>"),
-  dashboard.button("n", "📝 Obsidian Note", ":ObsidianQuickSwitch<CR>"),
-  dashboard.button("p", "📚 Open Project",  ":ProjectChange<CR>"),
-  dashboard.button("r", "🗃️ Recent",        ":Telescope oldfiles<CR>"),
-  dashboard.button("q", "❌ Quit",     ":qa<CR>"),
+  dashboard.button("e", "  New file",      ":silent ene <BAR> startinsert <CR>"),
+  dashboard.button("f", "  Find file",     ":cd $HOME/Documents/Writing | Telescope find_files<CR>"),
+  dashboard.button("n", "  Obsidian Note", ":ObsidianQuickSwitch<CR>"),
+  dashboard.button("p", "  Open Project",  ":ProjectChange<CR>"),
+  dashboard.button("r", "  Recent",        ":Telescope oldfiles<CR>"),
+  dashboard.button("q", "  Quit",           ":qa<CR>"),
 }
 
 local handle = io.popen "fortune"
