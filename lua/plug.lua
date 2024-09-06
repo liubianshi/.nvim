@@ -113,7 +113,7 @@ add_plug("s1n7ax/nvim-window-picker", { name = "window-picker", lazy = true })
 -- ibhagwan/fzf-lua: Fzf Search ----------------------------------------- {{{3
 add_plug("ibhagwan/fzf-lua", {
   branch = "main",
-  cmd = { "FzfLua", "Shelp", "Urlopen", "RoamNodeFind", "Cheat" },
+  cmd = { "FzfLua", "Shelp", "Urlopen", "RoamNodeFind", "Cheat", "ProjectChange" },
   keys = {
     "<leader>pp",
     "<leader>ic",
@@ -409,6 +409,7 @@ add_plug("nvim-focus/focus.nvim", {
     { "<leader>wb", "<cmd>FocusToggleBuffer<cr>", desc = "Focus Toggle Buffer" },
   },
   cmd = { "FocusToggle", "FocusEnable" },
+  event = {"WinNew"}
 })
 
 -- kylechui/nvim-surround: Surround selections, stylishly --------------- {{{3

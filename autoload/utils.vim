@@ -170,7 +170,6 @@ function! utils#OpenUrl(url, in = "", type = "")
     let command = "linkhandler " . (type ==# "image" ? "-t image " : "")
     if a:in ==# "in"
         let image_path = system(command . "-V " . "'".url."'")
-        echom image_path
         exec "ImageToggle " . image_path
     else
         Lazy! load asyncrun.vim
@@ -287,11 +286,6 @@ function! utils#RoamOpenNode(method = "edit")
     elseif id =~ '\v\s*id:'
         let filepath = system("org-mode-roam-node -j " . shellescape(id))
         exec a:method . " " . filepath
-    else
-        try
-            DeleteImage
-            catch /Not an editor command/
-        endtry
     endif
 endfunction
 
@@ -301,13 +295,8 @@ function! utils#Preview_image_under_cursor(filename)
     if fname !~? '\v\.png$' || ! filereadable(fname)
         return
     endif
-
-    try
-        DeleteImage
-        catch /Not an editor command/
-    endtry
-    exec "PreviewImage infile " . fname 
-endfunction    
+    exec "PreviewImage! infile " . fname 
+endfunction
 
 " insert rmd-style picture =============================================== {{{1
 function! utils#RmdClipBoardImage()
@@ -796,20 +785,6 @@ function! utils#StataGenHelpDocs(keywords, oft = "txt") abort
 endfunction
 
 " Markdown Snippets Preview ============================================== {{{1
-function! utils#DeleteMdPreview(zen, close_preview_buffer = v:false) abort
-    try
-        if a:close_preview_buffer
-            DeleteImage
-        else
-            DeleteImage!
-        endif
-        catch /Not an editor command/
-    endtry
-    if a:zen
-        ZenMode
-    endif
-endfun
-
 function! utils#MdPreview(method = "infile") range  abort
   if executable('surf')
     let outfile = shellescape(stdpath('cache') . "/vim_markdown_preview.html")
@@ -836,18 +811,7 @@ function! utils#MdPreview(method = "infile") range  abort
   let lines = getline(a:firstline, a:lastline)
   call system(command, lines)
 
-  let zen_mode = v:false
-  nnoremap <buffer><silent> <localleader>id <Nop>
-  if has_key(g:, "lbs_zen_mode") && g:lbs_zen_mode == v:true
-      close " quit zen_mode before preview content
-      nnoremap <buffer><silent> <localleader>id
-          \ :<c-u>call utils#DeleteMdPreview(v:true, v:true)<cr>
-  else
-      nnoremap <buffer><silent> <localleader>id
-          \ :<c-u>call utils#DeleteMdPreview(v:false, v:true)<cr>
-  endif
-  call utils#DeleteMdPreview(v:false)
-  exec "PreviewImage " . a:method . " " . outfile
+  exec "PreviewImage! " . a:method . " " . outfile
 endfunction
 
 

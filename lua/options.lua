@@ -49,6 +49,9 @@ vim.g.plug_manage_tool = "lazyvim"
 -- mini.animate will also be disabled.
 vim.g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
 
+-- Method of previewing images
+vim.g.method_previewing_images = "system"
+
 -- Options for the LazyVim statuscolumn --------------------------------- {{{2
 vim.g.lazyvim_statuscolumn = {
   folds_open = true, -- show fold sign when fold is open

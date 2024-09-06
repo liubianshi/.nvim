@@ -7,6 +7,7 @@ function! s:get_link_under_cursur_line()
         let content = substitute(content, '\v.*\(link #([0-9]+)\).*$', '\1', '')
         return b:newsboat_url_dict[content]
     else
+        ImageClear
         return {}
     endif
 endfunction
@@ -207,7 +208,7 @@ function! s:pangu()
 endfunction
 
 " set options ----------------------------------------------------------- {{{1
-set nocindent nosmartindent nowrap 
+set nocindent nosmartindent nowrap nonumber norelativenumber
 let &l:formatprg = "text_wrap -tonewsboat"
 set fo-=q
 setlocal scrolloff=10

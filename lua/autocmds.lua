@@ -309,7 +309,7 @@ local function open_vert()
       require "diffview.lib".get_current_view() then
     return
   end
-  -- vim.cmd("wincmd L")
+  vim.cmd("wincmd L")
   -- local width = math.floor(vim.o.columns * 0.75)
   -- vim.cmd("vertical resize " .. width)
   vim.keymap.set("n", "q", "<CMD>q<CR>", { buffer = true })
@@ -323,11 +323,11 @@ aucmd("FileType", {
 
 -- we also need this auto command or help
 -- still opens in a split on subsequent opens
-aucmd("BufEnter", {
+aucmd("BufNew", {
   group = augroup_help,
-  pattern = "*.txt",
-  callback = function()
-    if vim.bo.buftype == "help" then
+  pattern = {"*.txt", "*.cnx", "*.md"},
+  callback = function(ev)
+    if vim.bo[ev.buf].buftype == "help" then
       open_vert()
     end
   end

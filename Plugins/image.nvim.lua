@@ -34,8 +34,69 @@ image.setup {
   hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" }, -- render image files as images when opened
 }
 
--- Define Global Command
-local display_image = function(file, opts)
+local image_is_rendered = function(id)
+  if not id then return end
+  local rendered_images = require("image").get_images()
+  for _, img in pairs(rendered_images) do
+    if
+      img.id == id
+      and img.is_rendered
+      and vim.tbl_contains(vim.api.nvim_list_wins(), img.window)
+    then
+      return img
+    end
+  end
+end
+
+local image_clear = function(img)
+  if not img or not img.is_rendered then return end
+  local buffer = img.buffer
+  img:clear()
+  if vim.bo[buffer].filetype == 'kittypreviewimage' then
+      vim.api.nvim_buf_delete(buffer, { unload = true })
+  end
+end
+
+local function clear_single_image(id)
+  if not id then return end
+  local images = require("image").get_images() or {}
+  for _, img in ipairs(images) do
+    if img.id == id then image_clear(img) end
+  end
+end
+
+local function win_clear_images()
+  local win_id = vim.api.nvim_get_current_win()
+  local images = require("image").get_images() or {}
+  local win_images = vim.w[win_id].win_images or {}
+  for _, img in ipairs(images) do
+    if vim.tbl_contains(win_images, img.id) then
+      image_clear(img)
+    end
+  end
+end
+
+local open_window_for_preview = function(method)
+  if not method or method == "infile" then
+    return vim.api.nvim_get_current_win()
+  end
+
+  win_clear_images()
+  local cache_file = vim.fn.stdpath "cache" .. "kitty_image_preview"
+  vim.fn["utils#Preview_data"](cache_file, "kitty_image_preview_buf", method, "n", "kittypreview")
+
+  vim.wo.number = false
+  vim.wo.relativenumber = false
+  vim.wo.cursorline = false
+  vim.bo.filetype = "kittypreviewimage"
+  vim.cmd.resize(12)
+  local win_id = vim.api.nvim_get_current_win()
+
+  return win_id
+end
+
+local gen_id_with = function(file)
+  if not file then return end
   file = vim.fn.fnamemodify(file, ":p")
   if
     vim.fn.filereadable(file) == 0
@@ -43,59 +104,64 @@ local display_image = function(file, opts)
   then
     return nil
   end
-  local default_opts = { method = "infile" }
-  opts = vim.tbl_extend("force", default_opts, opts or {})
+  return vim.fn.sha256(file)
+end
 
-  local cache_file = vim.fn.stdpath "cache" .. "kitty_image_preview"
-  if opts.method ~= "infile" then
-    vim.fn["utils#Preview_data"](
-      cache_file,
-      "kitty_image_preview_buf",
-      opts.method,
-      "n",
-      "kittypreview"
-    )
-    vim.wo.number = false
-    vim.wo.relativenumber = false
-  end
-
-  -- local window_shift   = vim.fn.wincol()
-  local line = opts.line or vim.fn["utils#GetNearestEmptyLine"]()
-  local window_id = vim.fn.win_getid()
+local generate_image = function(file, image_id, linenr)
+  local window_id = vim.api.nvim_get_current_win()
+  local buffer_id = vim.api.nvim_win_get_buf(window_id)
+  local line = linenr or vim.fn["utils#GetNearestEmptyLine"]()
   local window = require("image.utils.window").get_window(window_id)
   if not window then return end
-  local display_row = line - 1
-  -- local display_row    = (line - window.scroll_y)
-  if window and window.scroll_y > 3 then
-    display_row = display_row - 1
-  end
-  local display_column = vim.fn.getline(line):match("^%s*"):len() + 7
 
+  local display_row = line - (window.scroll_y > 3 and 2 or 1) - window.scroll_y
+  if display_row < 1 then display_row = 1 end
   local preview_image = require("image").from_file(file, {
-    buffer = window.buffer,
+    id = image_id or gen_id_with(file),
+    window = window_id,
+    buffer = buffer_id,
     with_virtual_padding = true,
     inline = true,
-    x = display_column,
-    y = display_row - window.scroll_y,
+    x = 0,
+    y = display_row,
   })
+  return preview_image
+end
+
+-- Define Global Command
+local display_image = function(file, opts)
+  file = vim.fn.fnamemodify(file, ":p")
+  local image_id = gen_id_with(file)
+  if not image_id then return end
+
+  local opts_default = { method = "infile", update = false }
+  opts = vim.tbl_extend("keep", opts or {}, opts_default)
+
+  local oriwin_ind = vim.api.nvim_get_current_win()
+  local curor_pos = vim.api.nvim_win_get_cursor(0)
+
+  local preview_image = image_is_rendered(image_id)
+  if preview_image then
+    if not opts.update then return end
+    preview_image:clear()
+  end
+
+  open_window_for_preview(opts.method)
+  preview_image = generate_image(file, image_id, opts.line)
   if not preview_image then return end
   preview_image:render()
-  -- preview_image:move(display_column, display_row)
+  vim.schedule(function()
+    local window_width = vim.api.nvim_win_get_width(0)
+    local image_width = preview_image.rendered_geometry.width
+    local display_col = math.ceil((window_width - image_width) / 2)
+    preview_image:move(display_col, preview_image.geometry.y)
+  end)
 
-  vim.api.nvim_create_user_command("DeleteImage", function(o)
-    preview_image:clear()
-    if not o.bang and opts.method ~= "infile" then
-      vim.fn["utils#Preview_data"](
-        cache_file,
-        "kitty_image_preview_buf",
-        opts.method,
-        "y",
-        "kittypreview"
-      )
-    end
-  end, { bang = true, nargs = 0, desc = "Delete Image" })
-
-  return preview_image
+  vim.fn.win_gotoid(oriwin_ind)
+  local win_images = vim.w.win_images or {}
+  table.insert(win_images, preview_image.id)
+  vim.w.win_images = win_images
+  vim.api.nvim_win_set_cursor(0, curor_pos)
 end
 
 vim.api.nvim_create_user_command("PreviewImage", function(args)
@@ -105,72 +171,27 @@ vim.api.nvim_create_user_command("PreviewImage", function(args)
   if args_number > 1 then
     method = args.fargs[1]
   end
-  display_image(file, { method = method })
-  -- vim.cmd([[wincmd w]])
-end, { nargs = "+", desc = "Preview image" })
-
--- local function is_image_rendered(bufnr, file)
---     bufnr = bufnr or vim.api.nvim_get_current_buf()
---
---     local images = require('image').get_images()
---     for _, img in ipairs(images) do
---         if  img.buffer and img.buffer == bufnr
---         and (
---             (file and img.path and img.path == file) or (
---                 img.geometry and img.geometry.y and
---                 img.geometry.y == vim.fn['utils#GetNearestEmptyLine']()
---             )
---         )
---         then
---             return true
---         end
---     end
---     return false
--- end
-
-local function clear_image(bufnr, file)
-  bufnr = bufnr or vim.api.nvim_get_current_buf()
-
-  local images = require("image").get_images()
-  for _, img in ipairs(images) do
-    if
-      img.buffer and img.buffer == bufnr
-      and (
-        (file and img.path and img.path == file)
-        or (
-          img.geometry
-          and img.geometry.y
-          and (
-            img.geometry.y == vim.fn["utils#GetNearestEmptyLine"]()
-            or img.geometry.y >= vim.fn.line "." - 1
-            or img.geometry.y <= vim.fn.line "." + 1
-          )
-        )
-      )
-    then
-      img:clear()
-      return true
-    end
-  end
-  return false
-end
+  display_image(file, { method = method, update = args.bang })
+end, { bang = true, nargs = "+", desc = "Preview image" })
 
 vim.api.nvim_create_user_command("ImageClear", function(args)
-  local args_number = #args.fargs
-  local file = nil
-  if args_number > 0 then
-    file = args.fargs[1]
+  local file = args.fargs[1] or nil
+  if file then
+    clear_single_image(vim.fn.sha256(vim.fn.fnamemodify(file, ":p")))
+  else
+    win_clear_images()
   end
-  clear_image(nil, file)
 end, { nargs = "?", desc = "Clear image preview" })
 
 vim.api.nvim_create_user_command("ImageToggle", function(args)
   local args_number = #args.fargs
-  local file = nil
-  if args_number > 0 then
-    file = args.fargs[1]
+  local file = args_number > 0 and args.fargs[1] or nil
+  local method = args.bang and "infile" or "split"
+  if not file then return end
+  local preview_image = image_is_rendered(vim.fn.sha256(file))
+  if preview_image then
+    image_clear(preview_image)
+    return
   end
-  if not clear_image(nil, file) and file then
-    display_image(file, { method = "infile" })
-  end
-end, { nargs = "?", desc = "Toggle image preview" })
+  display_image(file, { method = method })
+end, { bang = true, nargs = "?", desc = "Toggle image preview" })

@@ -170,6 +170,9 @@ local projects = function(opts)
   end)()
 end
 fzfmap("<leader>pp", "Select Project", projects)
+vim.api.nvim_create_user_command( "ProjectChange", projects, {
+  nargs = 0, desc = "Change Project"
+})
 
 -- 插入参考文献的引用 --------------------------------------------------- {{{2
 fzfmap("<leader>ic", "Insert Citation Keys", function()

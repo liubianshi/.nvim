@@ -12,11 +12,12 @@ dashboard.section.header.val = {
 }
 
 dashboard.section.buttons.val = {
-  dashboard.button("e",       "  > New file",      ":silent ene <BAR> startinsert <CR>"),
-  dashboard.button("SPC f f", "󰈞  > Find file",     ":cd $HOME/Documents/Writing | Telescope find_files<CR>"),
-  dashboard.button("SPC f r", "  > Recent",        ":Telescope oldfiles<CR>"),
-  dashboard.button("SPC n l", "  > Obsidian Note", ":ObsidianQuickSwitch<CR>"),
-  dashboard.button("q",       "󰅚  Quit NVIM",       ":qa<CR>"),
+  dashboard.button("e", "🪡 New file",      ":silent ene <BAR> startinsert <CR>"),
+  dashboard.button("f", "📂 Find file",     ":cd $HOME/Documents/Writing | Telescope find_files<CR>"),
+  dashboard.button("n", "📝 Obsidian Note", ":ObsidianQuickSwitch<CR>"),
+  dashboard.button("p", "📚 Open Project",  ":ProjectChange<CR>"),
+  dashboard.button("r", "🗃️ Recent",        ":Telescope oldfiles<CR>"),
+  dashboard.button("q", "❌ Quit",     ":qa<CR>"),
 }
 
 local handle = io.popen "fortune"
@@ -28,12 +29,22 @@ end
 
 dashboard.config.opts.noautocmd = true
 
-vim.cmd [[autocmd User AlphaReady echo 'ready']]
+local alpha_group = vim.api.nvim_create_augroup("Alpha_Autocmd", { clear = true })
+-- vim.cmd [[autocmd User AlphaReady echo 'ready']]
+vim.api.nvim_create_autocmd({'User'}, {
+  group = alpha_group,
+  pattern = "AlphaReady",
+  command = "echo 'ready'"
+})
 
 -- Send config to alpha
 alpha.setup(dashboard.config)
 
 -- Disable folding on alpha buffer
-vim.cmd [[
-    autocmd FileType alpha setlocal nofoldenable
-]]
+vim.api.nvim_create_autocmd({'FileType'}, {
+  group = alpha_group,
+  pattern = "*.alpha",
+  command = "setlocal nofoldenable nocursorline"
+})
+
+

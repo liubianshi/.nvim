@@ -22,6 +22,7 @@ local ignore_filetypes = {
   "fzf",
   "voomtree",
   "neo-tree",
+  "kittypreviewimage"
 }
 
 local ignore_buftypes = {
