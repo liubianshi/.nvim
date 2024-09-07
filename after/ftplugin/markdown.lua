@@ -34,3 +34,4 @@ vim.keymap.set("n", "<localleader>rf", function()
   -- }
   cmp.setup.buffer { sources = cmp.config.sources(cmp_sources) }
 end, { desc = "Start R.nvim" })
+

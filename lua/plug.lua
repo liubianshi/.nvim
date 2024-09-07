@@ -416,6 +416,7 @@ add_plug("nvim-focus/focus.nvim", {
 add_plug("kylechui/nvim-surround", {
   version = "*",
   event = "VeryLazy",
+  ft = {"markdown", "stata"},
   keys = {'ys', 'ds', 'cs'},
 })
 
