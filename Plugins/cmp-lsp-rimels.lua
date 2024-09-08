@@ -25,7 +25,7 @@ local detector_for_norg = function(info)
   return englist_env
 end
 
-vim.system { "rime_ls", "--listen", "127.0.0.1:9257" }
+vim.system( { "rime_ls", "--listen", "127.0.0.1:9257" }):wait()
 require("rimels").setup {
   keys = { start = ";f", stop = ";;", esc = ";j" },
   cmd = vim.lsp.rpc.connect("127.0.0.1", 9257),
@@ -47,8 +47,3 @@ require("rimels").setup {
   },
 }
 
-vim.api.nvim_create_user_command("RimeDeleteLockFile", function()
-  local rime_user_dir = require("rimels").opts.rime_user_dir
-  rime_user_dir = vim.fn.expand(rime_user_dir)
-  vim.uv.fs_unlink(rime_user_dir .. "/rime_ice.userdb/LOCK")
-end, { nargs = 0, desc = "Delete Lock file of Rime" })

@@ -96,7 +96,7 @@ local projects = function(opts)
     opts = {}
   end
   local project_hist = vim.fn.stdpath "data" .. "/project_nvim/project_history"
-  if not vim.loop.fs_stat(project_hist) then
+  if not vim.uv.fs_stat(project_hist) then
     return
   end
 
@@ -480,3 +480,27 @@ vim.api.nvim_create_user_command("Cheat", function(_)
   })
 end, { nargs = "*", desc = "FzfLua: Cheat" })
 
+local handle_mylib_selected = function(selected, method)
+  method = method or "edit"
+  local key = vim.split(selected[1], [[%s+]])[1]
+  local re = vim.system( {"mylib", "get", "file_for_open", "--", key}, {text = true}):wait()
+  local file = string.gsub(re.stdout, "\n", "")
+  if vim.tbl_contains({"newsboat", "md", "bibtex", "bib"}, vim.fn.fnamemodify(file, ":e")) then
+    vim.cmd[method](file)
+    vim.api.nvim_buf_set_var(0, "mylib_key", key)
+  else
+    vim.ui.open(file)
+  end
+end
+
+vim.keymap.set("n", "<leader>sq", function()
+  fzflua.fzf_exec("mylib list", {
+    actions = {
+      ["default"] = function(selected, _) handle_mylib_selected(selected, "edit")    end,
+      ["ctrl-v"]  = function(selected, _) handle_mylib_selected(selected, "vsplit")  end,
+      ["ctrl-x"]  = function(selected, _) handle_mylib_selected(selected, "split")   end,
+      ["ctrl-t"]  = function(selected, _) handle_mylib_selected(selected, "tabedit") end,
+    },
+    preview = [[mylib get file_for_preview -- {1} | tr '\n' '\0' | xargs -0 -I _ scope '_']]
+  })
+end, { desc = "Open my library file", silent = true, noremap = true})

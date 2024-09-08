@@ -116,6 +116,7 @@ add_plug("ibhagwan/fzf-lua", {
   cmd = { "FzfLua", "Shelp", "Urlopen", "RoamNodeFind", "Cheat", "ProjectChange" },
   keys = {
     "<leader>pp",
+    "<leader>sq",
     "<leader>ic",
     "<leader>fz",
     "<leader>bB",
