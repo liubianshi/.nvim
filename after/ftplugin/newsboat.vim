@@ -217,6 +217,7 @@ call s:generate_url_dict()
 call utils#Fetch_urls()
 call s:cache_link_snapshot()
 " call s:pangu()
+:%s/\v^(　+|\s+$)//e
 call utils#ToggleZenMode()
 
 " Keymap ---------------------------------------------------------------- {{{1

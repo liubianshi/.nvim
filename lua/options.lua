@@ -24,6 +24,9 @@ package.path = package.path .. ";"
 -- Global variables ===================================================== {{{1
 vim.g.mapleader = " "
 vim.g.maplocalleader = ";"
+vim.g.showtabline = 2
+vim.g.laststatus = 3
+
 if vim.fn.has "mac" == 1 then
   vim.g.lbs_input_method_on = 0
   vim.g.lbs_input_method_off = 1
@@ -140,7 +143,7 @@ opt.inccommand = "nosplit" -- preview incremental substitute
 opt.incsearch = true -- 开启实时搜索功能
 opt.isfname:remove { "=", "," }
 opt.jumpoptions = "view"
-opt.laststatus = 3 -- 总是显示状态栏
+opt.laststatus = vim.g.laststatus
 opt.linebreak = false -- 折行
 opt.list = true -- show some invisible characters
 opt.magic = true -- 对正则表达式开启 magic

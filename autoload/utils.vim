@@ -390,8 +390,6 @@ function! utils#ZenMode_Insert(start = v:true) abort
                 \ 'scrolloff': &l:scrolloff,
                 \ 'relativenumber': &l:relativenumber,
                 \ 'foldenable': &l:foldenable,
-                \ 'laststatus': &l:laststatus,
-                \ 'showtabline': &showtabline,
                 \ 'showcmd': &l:showcmd,
                 \ }
         else
@@ -421,9 +419,7 @@ function! utils#ZenMode_Leave(exit = v:true) abort
         return
     endif
     for attr in keys(b:zen_oriwin)
-        if attr ==# "showtabline"
-          let &showtabline = b:zen_oriwin['showtabline']
-        elseif attr != 'zenmode'
+        if attr != 'zenmode'
             exec 'let &l:' . attr . " = '" . b:zen_oriwin[attr] . "'"
         endif
     endfor

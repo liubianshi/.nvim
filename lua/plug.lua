@@ -1,4 +1,3 @@
--- vim: set foldmethod=marker:
 -- 在 lazyvim 尚未安装时安装 -------------------------------------------- {{{1
 local lazypath = vim.fn.stdpath("data")  .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -343,9 +342,7 @@ add_plug("nvim-telescope/telescope-frecency.nvim", {
 add_plug("machakann/vim-highlightedyank")
 
 -- kevinhwang91/nvim-hlslens: Hlsearch Lens for Neovim ------------------ {{{3
-add_plug("kevinhwang91/nvim-hlslens", {
-  event = { "SearchWrapped", "CursorMoved" },
-})
+add_plug("kevinhwang91/nvim-hlslens", { event = { "SearchWrapped", "CursorMoved" }, })
 
 -- mg979/vim-visual-multi: 多重选择 ------------------------------------- {{{3
 add_plug("mg979/vim-visual-multi", {
@@ -659,8 +656,6 @@ add_plug("yianwillis/vimcdoc", {
 --   end,
 -- })
 
--- Konfekt/FastFold: updating folds only when called-for ---------------- {{{3
--- add_plug("Konfekt/FastFold")
 -- chrisgrieser/nvim-origami: Fold with relentless elegance ------------- {{{3
 add_plug("chrisgrieser/nvim-origami", {
 	event = "BufReadPost", -- later or on keypress would prevent saving folds
@@ -695,9 +690,6 @@ add_plug("akinsho/bufferline.nvim", {
 
 -- nvim-lualine/lualine.nvim: neovim statusline plugin ------------------ {{{3
 add_plug("nvim-lualine/lualine.nvim")
-
--- luukvbaal/statuscol: Status column plugin ---------------------------- {{{3
--- add_plug("luukvbaal/statuscol.nvim", { config = true })
 
 -- goolord/alpha-nvim: a lua powered greeter ---------------------------- {{{3
 add_plug('goolord/alpha-nvim')

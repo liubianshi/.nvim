@@ -3,66 +3,82 @@ local aucmd = vim.api.nvim_create_autocmd
 local function augroup(name)
   return vim.api.nvim_create_augroup("LBS_" .. name, { clear = true })
 end
+local augroups = vim.tbl_map(
+  function(name) return augroup(name) end,
+  {
+    "Auto_create_dir",
+    "Bigfile",
+    "Checktime",
+    "Close_with_q",
+    "Cursor",
+    "FASD",
+    "Fugitive",
+    "Help",
+    "Keywordprg",
+    "LspAttach",
+    "Man",
+    "Term",
+    "Yank",
+    "Zen",
+  }
+)
 
 -- Lsp related ---------------------------------------------------------- {{{1
 aucmd({ "LspAttach" }, {
-  group = augroup "LspAttach",
+  group = augroups.LspAttach,
   callback = function()
     vim.opt.formatoptions:remove "cro"
   end,
 })
 
 -- Zen mode related ----------------------------------------------------- {{{1
-aucmd({ "WinResized" }, {
-  group = augroup "Zen",
-  callback = function()
-    local windows = vim.v.event.windows
-    local function process_win(win)
-      local winnr = vim.fn.win_id2win(win)
-      if winnr == 0 then
-        return
-      end
+local function process_win(win)
+  local winnr = vim.fn.win_id2win(win)
+  if winnr == 0 then return end
 
-      local ww = vim.api.nvim_win_get_width(win)
-      local bufnr = vim.api.nvim_win_get_buf(win)
-      local _, zen_oriwin = pcall(vim.api.nvim_buf_get_var, bufnr, "zen_oriwin")
+  local ww = vim.api.nvim_win_get_width(win)
+  local bufnr = vim.api.nvim_win_get_buf(win)
+  local _, zen_oriwin = pcall(vim.api.nvim_buf_get_var, bufnr, "zen_oriwin")
 
-      if vim.bo[bufnr].syntax == "rbrowser" then
-        if ww <= 30 then
-          return
-        end
-        vim.cmd("vertical " .. winnr .. "resize 30")
-        return "break"
-      end
-
-      if zen_oriwin and type(zen_oriwin) == "table" and zen_oriwin.zenmode then
-        if ww <= 84 then
-          vim.wo[win].signcolumn = "yes:1"
-        elseif ww <= 126 then
-          vim.wo[win].signcolumn = "yes:"
-            .. math.min(math.floor((ww - 81) / 4), 9)
-        end
-      else
-        if ww <= 40 then
-          vim.wo[win].signcolumn = "no"
-          vim.wo[win].foldcolumn = "0"
-        else
-          vim.wo[win].signcolumn = "yes:1"
-          vim.wo[win].foldcolumn = vim.o.foldcolumn
-        end
-      end
+  if vim.bo[bufnr].syntax == "rbrowser" then
+    if ww <= 30 then
+      return
     end
+    vim.cmd("vertical " .. winnr .. "resize 30")
+    return "break"
+  end
+
+  if zen_oriwin and type(zen_oriwin) == "table" and zen_oriwin.zenmode then
+    if ww <= 84 then
+      vim.wo[win].signcolumn = "yes:1"
+    elseif ww <= 126 then
+      vim.wo[win].signcolumn = "yes:"
+      .. math.min(math.floor((ww - 81) / 4), 9)
+    end
+  else
+    if ww <= 40 then
+      vim.wo[win].signcolumn = "no"
+      vim.wo[win].foldcolumn = "0"
+    else
+      vim.wo[win].signcolumn = "yes:1"
+      vim.wo[win].foldcolumn = vim.o.foldcolumn
+    end
+  end
+end
+
+aucmd({ "WinResized" }, {
+  group = augroups.Zen,
+  callback = function(_)
+    local windows = vim.v.event.windows
     for _, win in ipairs(windows) do
       local rc = process_win(win)
-      if rc == "break" then
-        return
-      end
+      if rc == "break" then return end
     end
   end,
 })
 
 aucmd({ "BufWinEnter", "BufRead", "BufEnter" }, {
-  group = augroup "Zen",
+  group = augroups.Zen,
   callback = function(ev)
     local bufnr = ev.buf
     local winid = vim.fn.bufwinid(bufnr)
@@ -73,8 +89,20 @@ aucmd({ "BufWinEnter", "BufRead", "BufEnter" }, {
     local zen_oriwin = vim.b[bufnr].zen_oriwin
     local is_zen_buffer = zen_oriwin and zen_oriwin.zenmode
     local is_zen_window = vim.w[winid].zen_mode
+      local _, lualine = pcall(require, 'lualine')
 
-    if not is_zen_buffer == not is_zen_window then
+    if is_zen_window and is_zen_buffer then
+      vim.go.showtabline = 0
+      vim.go.laststatus = 0
+      ---@diagnostic disable: missing-fields
+      if lualine then lualine.hide({}) end
+      return
+    end
+    if not is_zen_buffer and not is_zen_window then
+      vim.go.showtabline = vim.g.showtabline or 1
+      vim.go.laststatus = vim.g.laststatus or 3
+      ---@diagnostic disable: missing-fields
+      if lualine then lualine.hide({ unhide = true }) end
       return
     end
 
@@ -82,34 +110,36 @@ aucmd({ "BufWinEnter", "BufRead", "BufEnter" }, {
       vim.fn["utils#ZenMode_Insert"](false)
     else
       vim.fn["utils#ZenMode_Leave"](false)
+      vim.go.showtabline = vim.g.showtabline or 1
+      vim.go.laststatus = vim.g.laststatus or 3
     end
   end,
 })
 
 -- Keywordprg ----------------------------------------------------------- {{{1
 aucmd({ "FileType" }, {
-  group = augroup "Keywordprg",
+  group = augroups.Keywordprg,
   pattern = { "perl", "perldoc" },
   callback = function(ev)
     vim.bo[ev.buf].keywordprg = ":Perldoc"
   end,
 })
 aucmd({ "FileType" }, {
-  group = augroup "Keywordprg",
+  group = augroups.Keywordprg,
   pattern = { "stata", "statadoc" },
   callback = function(ev)
     vim.bo[ev.buf].keywordprg = ":Shelp"
   end,
 })
 aucmd({ "FileType" }, {
-  group = augroup "Keywordprg",
+  group = augroups.Keywordprg,
   pattern = { "man", "sh", "bash" },
   callback = function(ev)
     vim.bo[ev.buf].keywordprg = ":Man"
   end,
 })
 aucmd({ "FileType" }, {
-  group = augroup "Keywordprg",
+  group = augroups.Keywordprg,
   pattern = { "r", "rmd", "rdoc" },
   callback = function(ev)
     if vim.g.R_Nvim_status and vim.g.R_Nvim_status == 7 then
@@ -122,7 +152,7 @@ aucmd({ "FileType" }, {
 
 -- Fasd Update ---------------------------------------------------------- {{{1
 aucmd({ "BufNew", "BufNewFile" }, {
-  group = augroup "FASD_UPDATE",
+  group = augroups.FASD,
   callback = function(ev)
     if
       (vim.bo[ev.buf].buftype == "" or vim.bo[ev.buf].filetype == "dirvish")
@@ -136,18 +166,18 @@ aucmd({ "BufNew", "BufNewFile" }, {
 -- cursorline ----------------------------------------------------------- {{{1
 -- https://github.com/ibhagwan/nvim-lua/blob/main/lua/autocmd.lua
 aucmd({ "InsertEnter", "WinLeave", "BufLeave" }, {
-  group = augroup "Cursor_Highlight",
+  group = augroups.Cursor,
   command = "if &cursorline && ! &pvw | setlocal nocursorline | endif",
 })
 
 aucmd({ "InsertLeave", "WinEnter", "BufEnter" }, {
-  group = augroup "Cursor_Highlight",
+  group = augroups.Cursor,
   command = "if ! &cursorline && ! &pvw | setlocal cursorline | endif",
 })
 
 -- Term Open ------------------------------------------------------------ {{{1
 aucmd({ "TermOpen" }, {
-  group = augroup "Term_Open",
+  group = augroups.Term,
   callback = function()
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
@@ -158,7 +188,7 @@ aucmd({ "TermOpen" }, {
 
 -- Check if we need to reload the file when it changed ------------------ {{{1
 aucmd({ "FocusGained", "TermClose", "TermLeave" }, {
-  group = augroup "checktime",
+  group = augroups.Checktime,
   callback = function()
     if vim.o.buftype ~= "nofile" and vim.fn.getcmdwintype() == "" then
       vim.cmd "checktime"
@@ -167,7 +197,7 @@ aucmd({ "FocusGained", "TermClose", "TermLeave" }, {
 })
 
 aucmd({ "FileChangedShellPost" }, {
-  group = augroup "checktime",
+  group = augroups.Checktime,
   callback = function()
     vim.notify(
       "File changed on disk. Buffer reloaded!",
@@ -180,14 +210,14 @@ aucmd({ "FileChangedShellPost" }, {
 -- Highlight on yank ---------------------------------------------------- {{{1
 -- https://github.com/ibhagwan/nvim-lua/blob/main/lua/autocmd.lua
 aucmd("TextYankPost", {
-  group = augroup "highlight_yank",
+  group = augroups.Yank,
   callback = function()
     vim.highlight.on_yank()
   end,
 })
 
 aucmd("InsertEnter", {
-  group = augroup "highlight_yank",
+  group = augroups.Yank,
   callback = function()
     vim.schedule(function()
       vim.cmd "nohlsearch"
@@ -196,7 +226,7 @@ aucmd("InsertEnter", {
 })
 
 aucmd("CursorMoved", {
-  group = augroup "highlight_yank",
+  group = augroups.Yank,
   callback = function()
     if vim.v.hlsearch == 1 and vim.fn.searchcount().exact_match == 0 then
       vim.schedule(function() vim.cmd.nohlsearch() end)
@@ -206,7 +236,7 @@ aucmd("CursorMoved", {
 
 -- close some filetypes with <q> ----------------------------------------
 aucmd("FileType", {
-  group = augroup "close_with_q",
+  group = augroups.Close_with_q,
   pattern = {
     "PlenaryTestPopup",
     "grug-far",
@@ -236,7 +266,7 @@ aucmd("FileType", {
 
 -- make it easier to close man-files when opened inline ----------------- {{{1
 aucmd("FileType", {
-  group = augroup "man_unlisted",
+  group = augroups.Man,
   pattern = { "man" },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
@@ -247,7 +277,7 @@ aucmd("FileType", {
 -- in case some intermediate directory does not exist
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 aucmd({ "BufWritePre" }, {
-  group = augroup "auto_create_dir",
+  group = augroups.Auto_create_dir,
   callback = function(event)
     if event.match:match "^%w%w+:[\\/][\\/]" then
       return
@@ -275,7 +305,7 @@ vim.filetype.add {
 }
 
 aucmd({ "FileType" }, {
-  group = augroup "bigfile",
+  group = augroups.Bigfile,
   pattern = "bigfile",
   callback = function(ev)
     vim.b.minianimate_disable = true
@@ -288,14 +318,13 @@ aucmd({ "FileType" }, {
 -- auto-delete fugitive buffers ----------------------------------------- {{{1
 -- https://github.com/ibhagwan/nvim-lua/blob/main/lua/autocmd.lua
 aucmd("BufReadPost", {
-  group = augroup 'Fugitive',
+  group = augroups.Fugitive,
   pattern = "fugitive:*",
   command = "set bufhidden=delete"
 })
 
 -- Display help|man in vertical splits and map 'q' to quit -------------- {{{1
 -- https://github.com/ibhagwan/nvim-lua/blob/main/lua/autocmd.lua
-local augroup_help = augroup "Help"
 local function open_vert()
   -- do nothing for floating windows or if this is
   -- the fzf-lua minimized help window (height=1)
@@ -316,7 +345,7 @@ local function open_vert()
 end
 
 aucmd("FileType", {
-  group = augroup_help,
+  group = augroups.Help,
   pattern = "help,man",
   callback = open_vert,
 })
@@ -324,7 +353,7 @@ aucmd("FileType", {
 -- we also need this auto command or help
 -- still opens in a split on subsequent opens
 aucmd("BufNew", {
-  group = augroup_help,
+  group = augroups.Help,
   pattern = {"*.txt", "*.cnx", "*.md"},
   callback = function(ev)
     if vim.bo[ev.buf].buftype == "help" then
@@ -334,7 +363,7 @@ aucmd("BufNew", {
 })
 
 aucmd("BufHidden", {
-  group = augroup_help,
+  group = augroups.Help,
   pattern = "man://*",
   callback = function()
     if vim.bo.filetype == "man" then
