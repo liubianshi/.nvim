@@ -327,4 +327,25 @@ M.select = function(items, opts)
   end)
 end
 
+M.get_highest_zindex_win = function(tab)
+  local wins = vim.tbl_filter(
+    function(win)
+      local bufnr = vim.api.nvim_win_get_buf(win)
+      return vim.bo[bufnr].filetype ~= 'notify'
+    end,
+    vim.api.nvim_tabpage_list_wins(tab or 0)
+  )
+
+  local highest_zindex = -1
+  local highest_win = nil
+  for _, win in ipairs(wins) do
+    local config = vim.api.nvim_win_get_config(win)
+    if config and config.zindex and config.zindex > highest_zindex then
+      highest_win = win
+    end
+  end
+
+  return highest_win
+end
+
 return M

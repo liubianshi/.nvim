@@ -9,14 +9,14 @@ image.setup {
   backend = backend,
   integrations = {
     markdown = {
-      enabled = true,
+      enabled = false,
       clear_in_insert_mode = false,
       download_remote_images = false,
       only_render_image_at_cursor = true,
       filetypes = { "markdown", "vimwiki", "rmd" }, -- markdown extensions (ie. quarto) can go here
     },
     neorg = {
-      enabled = true,
+      enabled = false,
       clear_in_insert_mode = false,
       download_remote_images = true,
       only_render_image_at_cursor = false,
@@ -26,7 +26,7 @@ image.setup {
   max_width = nil,
   max_height = nil,
   max_width_window_percentage = nil,
-  max_height_window_percentage = 50,
+  max_height_window_percentage = 120,
   window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
   window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
   editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
@@ -50,11 +50,18 @@ end
 
 local image_clear = function(img)
   if not img or not img.is_rendered then return end
-  local buffer = img.buffer
+  local bufid = img.buffer
+  local winid = img.window
+  local on_popup_window = vim.api.nvim_win_get_config(winid).relative ~= ""
   img:clear()
-  if vim.bo[buffer].filetype == 'kittypreviewimage' then
-      vim.api.nvim_buf_delete(buffer, { unload = true })
-  end
+  vim.schedule(function()
+    if vim.bo[bufid].filetype == 'kittypreviewimage' then
+      vim.api.nvim_buf_delete(bufid, { unload = true })
+    elseif on_popup_window then
+      vim.api.nvim_win_close(winid, true)
+      -- vim.api.nvim_buf_delete(bufid, { force = true })
+    end
+  end)
 end
 
 local function clear_single_image(id)
@@ -76,31 +83,59 @@ local function win_clear_images()
   end
 end
 
+local open_popup_window = function()
+  local popup = require('util.ui').popup({
+    relative = "win",
+    position = {row = '95%', col = '50%'},
+    size = {width = '100%', height = '30%' },
+    win_options = {
+      winblend = 0
+    }
+  })
+  popup:map("n", "q", function() popup:unmount() end, { noremap = true })
+  popup:mount()
+  local win_id = vim.api.nvim_get_current_win()
+  vim.api.nvim_set_var('popup#highest_zindex_window', win_id)
+
+  return win_id
+end
+
+
 local open_window_for_preview = function(method)
-  if not method or method == "infile" then
+  if not method or method == "popup" then
+    return open_popup_window()
+  end
+
+  if method == "infile" then
     return vim.api.nvim_get_current_win()
   end
 
   win_clear_images()
-  local cache_file = vim.fn.stdpath "cache" .. "kitty_image_preview"
+  local cache_file = vim.fn.stdpath("cache") .. "/kitty_image_preview"
   vim.fn["utils#Preview_data"](cache_file, "kitty_image_preview_buf", method, "n", "kittypreview")
 
   vim.wo.number = false
   vim.wo.relativenumber = false
   vim.wo.cursorline = false
   vim.bo.filetype = "kittypreviewimage"
-  vim.cmd.resize(12)
-  local win_id = vim.api.nvim_get_current_win()
 
+  if method == 'split' then
+    vim.cmd.resize(12)
+  elseif method == "vsplit" then
+    vim.cmd [[vertical resize 70]]
+  end
+
+  local win_id = vim.api.nvim_get_current_win()
   return win_id
 end
 
 local gen_id_with = function(file)
   if not file then return end
   file = vim.fn.fnamemodify(file, ":p")
+  local ext = vim.fn.fnamemodify(file, ":e")
   if
     vim.fn.filereadable(file) == 0
-    or not (file:match "%.png$" or file:match "%.jpe?g$")
+    or not vim.tbl_contains({"png", "jpeg", "jpg", "gif", "webp"}, ext)
   then
     return nil
   end
@@ -114,18 +149,32 @@ local generate_image = function(file, image_id, linenr)
   local window = require("image.utils.window").get_window(window_id)
   if not window then return end
 
-  local display_row = line - (window.scroll_y > 3 and 2 or 1) - window.scroll_y
-  if display_row < 1 then display_row = 1 end
-  local preview_image = require("image").from_file(file, {
+  local display_opts = {
     id = image_id or gen_id_with(file),
     window = window_id,
     buffer = buffer_id,
-    with_virtual_padding = true,
-    inline = true,
-    x = 0,
-    y = display_row,
-  })
+    with_virtual_padding = false,
+    inline = false,
+    x = 0
+  }
+  local display_row = line - (window.scroll_y > 3 and 2 or 1) - window.scroll_y
+  if display_row > 1 then display_opts.y = display_row end
+  local preview_image = require("image").from_file(file, display_opts)
   return preview_image
+end
+
+local centered_image_in_popup_window = function(img)
+  if
+    not image
+    or not img.is_rendered
+    or vim.api.nvim_win_get_config(img.window).relative == ""
+  then
+    return
+  end
+  local window_width = vim.api.nvim_win_get_width(img.window)
+  local image_width = img.rendered_geometry.width
+  local display_col = math.ceil((window_width - image_width) / 2)
+  img:move(display_col, img.geometry.y)
 end
 
 -- Define Global Command
@@ -137,7 +186,7 @@ local display_image = function(file, opts)
   local opts_default = { method = "infile", update = false }
   opts = vim.tbl_extend("keep", opts or {}, opts_default)
 
-  local oriwin_ind = vim.api.nvim_get_current_win()
+  local oriwin_id = vim.api.nvim_get_current_win()
   local curor_pos = vim.api.nvim_win_get_cursor(0)
 
   local preview_image = image_is_rendered(image_id)
@@ -147,51 +196,89 @@ local display_image = function(file, opts)
   end
 
   open_window_for_preview(opts.method)
-  preview_image = generate_image(file, image_id, opts.line)
-  if not preview_image then return end
-  preview_image:render()
   vim.schedule(function()
-    local window_width = vim.api.nvim_win_get_width(0)
-    local image_width = preview_image.rendered_geometry.width
-    local display_col = math.ceil((window_width - image_width) / 2)
-    preview_image:move(display_col, preview_image.geometry.y)
+    preview_image = generate_image(file, image_id, opts.line)
+    if not preview_image then return end
+    preview_image:render()
+    centered_image_in_popup_window(preview_image)
+    vim.fn.win_gotoid(oriwin_id)
+    local win_images = vim.w.win_images or {}
+    table.insert(win_images, preview_image.id)
+    vim.w.win_images = win_images
+    vim.api.nvim_win_set_cursor(0, curor_pos)
   end)
-
-  vim.fn.win_gotoid(oriwin_ind)
-  local win_images = vim.w.win_images or {}
-  table.insert(win_images, preview_image.id)
-  vim.w.win_images = win_images
-  vim.api.nvim_win_set_cursor(0, curor_pos)
 end
 
 vim.api.nvim_create_user_command("PreviewImage", function(args)
   local args_number = #args.fargs
   local file = args.fargs[args_number]
-  local method = "infile"
-  if args_number > 1 then
-    method = args.fargs[1]
-  end
+  local method = "popup"
+  if args_number > 1 then method = args.fargs[1] end
   display_image(file, { method = method, update = args.bang })
 end, { bang = true, nargs = "+", desc = "Preview image" })
 
 vim.api.nvim_create_user_command("ImageClear", function(args)
   local file = args.fargs[1] or nil
+  local img_id = gen_id_with(file)
+  if file and not img_id then return end
   if file then
-    clear_single_image(vim.fn.sha256(vim.fn.fnamemodify(file, ":p")))
+    clear_single_image(img_id)
   else
     win_clear_images()
   end
 end, { nargs = "?", desc = "Clear image preview" })
 
-vim.api.nvim_create_user_command("ImageToggle", function(args)
-  local args_number = #args.fargs
-  local file = args_number > 0 and args.fargs[1] or nil
-  local method = args.bang and "infile" or "split"
-  if not file then return end
-  local preview_image = image_is_rendered(vim.fn.sha256(file))
+local image_toggle = function(args)
+  args = args or {}
+  local args_number = args.fargs and #args.fargs or 0
+  local file = args_number > 0 and args.fargs[1] or vim.fn.expand("<cfile>")
+  local img_id = gen_id_with(file)
+  if not img_id then return end
+  local method = args.bang and "infile" or "popup"
+
+  local preview_image = image_is_rendered(img_id)
   if preview_image then
     image_clear(preview_image)
     return
   end
   display_image(file, { method = method })
-end, { bang = true, nargs = "?", desc = "Toggle image preview" })
+end
+
+vim.api.nvim_create_user_command(
+  "ImageToggle",
+  image_toggle,
+  { bang = true, nargs = "?", desc = "Toggle image preview" }
+)
+
+local augruoup_iamge = vim.api.nvim_create_augroup("LBS_Image_Adjust", {clear = true})
+vim.api.nvim_create_autocmd({"WinResized"}, {
+  group = augruoup_iamge,
+  callback = function()
+    local imgs = require('image').get_images()
+    for _, img in ipairs(imgs) do
+      centered_image_in_popup_window(img)
+    end
+  end
+})
+
+vim.api.nvim_create_autocmd({"FileType"}, {
+  group = augruoup_iamge,
+  pattern = {"markdown", "rmd", "norg", "org"},
+  callback = function(_)
+    vim.keymap.set("n", "<cr>", function()
+      local file = vim.fn.expand("<cfile>")
+      local img_id = gen_id_with(file)
+      if not img_id then
+        win_clear_images()
+      else
+        image_toggle({file})
+      end
+    end, {
+      desc = "Display image file under cursor",
+      noremap = true,
+      silent = true,
+      buffer = true,
+    })
+  end
+})
+

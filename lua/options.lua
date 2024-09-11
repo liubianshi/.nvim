@@ -103,7 +103,8 @@ opt.backupskip = opt_get "wildignore"
 opt.breakindent = true -- 回绕行保持视觉上的缩进
 -- only set clipboard if not in ssh, to make sure the OSC 52
 -- integration works automatically. Requires Neovim >= 0.10.0
-opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
+-- opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
+opt.clipboard:append("unnamedplus" ) -- Sync with system clipboard
 opt.cmdheight = 1
 opt.completeopt = "menu,noinsert,menuone,noselect"
 opt.conceallevel = 2

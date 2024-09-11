@@ -84,14 +84,6 @@ nmap("<leader>bp", "Previous Buffer",           "<cmd>bp<cr>")
 nmap("<leader>bn", "Next Buffer",               "<cmd>bn<cr>")
 nmap("<leader>bq", "Quit Buffer",               "<cmd>q<cr>")
 nmap("<leader>bQ", "Quit Buffer (force)",       "<cmd>q!<cr>")
-nmap("<leader>bf", "Goto Float Buffer",         function()
-  local popup_win_id = vim.g["popup#highest_zindex_window"]
-  if not popup_win_id then
-    return
-  end
-  vim.fn.win_gotoid(popup_win_id)
-end)
-nmap("<leader>bF", "Close Float Buffer",        "<cmd>fclose<cr>")
 nmap("<leader>bl", "Pick Buffer on BufferLine", "<cmd>BufferLinePick<cr>")
 
 --- tab ----------------------------------------------------------------- {{{1
@@ -134,6 +126,12 @@ nmap("wv",    "Vertical Split Current Buffer",     "<c-w>v")
 nmap("ws",    "Split Current Buffer",              "<c-w>s")
 nmap("ww",    "Move cursor to window below/right", "<c-w>w")
 nmap("wW",    "Move cursor to window above/left",  "<c-w>W")
+nmap("wf", "Goto Float Buffer", function()
+  local popup_win_id = require('util.ui').get_highest_zindex_win()
+  if not popup_win_id then return end
+  vim.fn.win_gotoid(popup_win_id)
+end)
+nmap("wF",    "Close Float Buffer",        "<cmd>fclose<cr>")
 nmap("wh",    "Move cursor to window left",        "<c-w>h")
 nmap("wj",    "Move cursor to window below",       "<c-w>j")
 nmap("wk",    "Move cursor to window above",       "<c-w>k")

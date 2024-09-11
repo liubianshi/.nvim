@@ -8,7 +8,7 @@ local hook = {
     -- Setting box-related shortcuts
     require('r_box').set_keymap()
 
-    vim.keymap.set("n", "<Enter>", "<Plug>RDSendLine", { buffer = true })
+    -- vim.keymap.set("n", "<Enter>", "<Plug>RDSendLine", { buffer = true })
     vim.keymap.set("v", "<Enter>", "<Plug>RSendSelection", { buffer = true })
     vim.keymap.set(
       "n",
@@ -46,7 +46,6 @@ local hook = {
   end,
   after_config = function()
     if vim.o.syntax ~= "rbrowser" then
-      vim.api.nvim_buf_set_keymap(0, "n", "<Enter>", "<Plug>RDSendLine", {})
       vim.api.nvim_buf_set_keymap(0, "v", "<Enter>", "<Plug>RSendSelection", {})
     else
       vim.api.nvim_set_option_value("filetype", "rbrowser", { scope = "local" })
