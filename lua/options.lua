@@ -92,6 +92,24 @@ vim.g.R_start_libs = "base,stats,graphics,grDevices,utils,methods,"
   .. "rlang,data.table,readxl,haven,lbs,purrr,stringr,"
   .. "fst,future,devtools,ggplot2,fixest"
 
+if vim.env.SSH_TTY and vim.env.TERM == "xterm-kitty" then
+  opt.clipboard = ""
+  vim.g.clipboard = {
+    name = "Kitten clipboard",
+    copy = {
+        ["+"] = {'kitten', "clipboard"},
+        ["*"] = {'kitten', "clipboard"},
+    },
+    paste = {
+        ["+"] = {'kitten', "clipboard", "--get-clipboard"},
+        ["*"] = {'kitten', "clipboard", "--get-clipboard", "-p"},
+    },
+    cache_enabled = 0,
+  }
+else
+  opt.clipboard = "unnamedplus"
+end
+
 -- Options ============================================================== {{{1
 opt.autoindent = true -- 自动缩进
 opt.autoread = true
@@ -101,10 +119,6 @@ opt.backupcopy = "yes"
 opt.backupdir = cache_path .. "/.backup//"
 opt.backupskip = opt_get "wildignore"
 opt.breakindent = true -- 回绕行保持视觉上的缩进
--- only set clipboard if not in ssh, to make sure the OSC 52
--- integration works automatically. Requires Neovim >= 0.10.0
--- opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
-opt.clipboard:append("unnamedplus" ) -- Sync with system clipboard
 opt.cmdheight = 1
 opt.completeopt = "menu,noinsert,menuone,noselect"
 opt.conceallevel = 2

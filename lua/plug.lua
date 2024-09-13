@@ -50,7 +50,7 @@ add_plug("lambdalisue/suda.vim", { cmd = { "SudaWrite", "SudaRead" } })
 -- romainl/vim-cool: disables search highlighting automatic ------------- {{{3
 -- add_plug("romainl/vim-cool", { event = "VeryLazy" })
 -- ojroques/vim-oscyank: copy text through SSH with OSC52 --------------- {{{3
-add_plug("ojroques/vim-oscyank", { cmd = "OSCYank" })
+add_plug("ojroques/vim-oscyank", { cmd = {"OSCYankVisual"} })
 
 -- typicode/bg.nvim: Automatically sync your terminal background -------- {{{3
 add_plug( "typicode/bg.nvim", { lazy = false })
@@ -643,12 +643,12 @@ add_plug("zzhirong/vim-easymotion-zh", { lazy = true })
 -- folke/which-key.nvim: displays a popup with possible keybindings ----- {{{3
 add_plug("folke/which-key.nvim", { event = "VeryLazy" })
 
--- yianwillis/vimcdoc: Chinese version of vim documents ----------------- {{{3
-add_plug("yianwillis/vimcdoc", {
-  keys = { "<F1>" },
-  event = { "CmdwinEnter", "CmdlineEnter" },
-})
-
+-- -- yianwillis/vimcdoc: Chinese version of vim documents ----------------- {{{3
+-- add_plug("yianwillis/vimcdoc", {
+--   keys = { "<F1>" },
+--   event = { "CmdwinEnter", "CmdlineEnter" },
+-- })
+--
 -- zhimsel/vim-stay: Make Vim persist editing state without fuss -------- {{{3
 -- add_plug("zhimsel/vim-stay", {
 --   init = function()
