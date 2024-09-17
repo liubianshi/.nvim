@@ -1,4 +1,5 @@
 let s:mylib_command_list = ['new', 'tag', 'note', 'edit', 'open']
+let s:note_type = "obsidian"
 
 function! s:mylib_open(method = "vsplit")
     call s:mylib_new()
@@ -113,7 +114,7 @@ endfunction
 function! s:mylib_note(method = "") abort
     call s:mylib_new()
     if ! has_key(b:, "mylib_note")
-        let b:mylib_note = system("mylib note --type obsidian " . b:mylib_key)
+        let b:mylib_note = system("mylib note --type " . s:note_type . " " . b:mylib_key)
     endif
     if b:mylib_note ==# @%  | return | endif
 
@@ -147,6 +148,15 @@ function! s:mylib_tag(...)
     if ! has_key(b:, "mylib_key") | return | endif
     let tags = system("mylib tag -o " . tags . " -- " . b:mylib_key)
     if tags == "" | return | endif
+
+    let notes = systemlist("mylib get note -- " . b:mylib_key)
+    let no_notes = v:true
+    for nt in notes
+      if split(note, ":")[0] == s:note_type 
+        let no_notes = v:false
+      endif
+    endfor
+    if no_notes | return | end
 
     Mylib note popup
     normal! mmgg

@@ -692,7 +692,7 @@ add_plug("akinsho/bufferline.nvim", {
 add_plug("nvim-lualine/lualine.nvim")
 
 -- goolord/alpha-nvim: a lua powered greeter ---------------------------- {{{3
-add_plug('goolord/alpha-nvim')
+-- add_plug('goolord/alpha-nvim')
 
 -- nvim-tree/nvim-web-devicons: file type icons ------------------------- {{{3
 add_plug("nvim-tree/nvim-web-devicons", { config = true, lazy = true })
@@ -727,7 +727,7 @@ add_plug("stevearc/dressing.nvim", {
       win_options = { winhighlight = "Normal:Normal,NormalNC:Normal" },
     },
     select = {
-      backend = { "telescope", "builtin" },
+      backend = { "telescope", "fzf_lua", "builtin" },
       builtin = {
         win_options = { winhighlight = "Normal:Normal,NormalNC:Normal" },
       },
@@ -810,7 +810,26 @@ add_plug("brenoprata10/nvim-highlight-colors", {
 })
 
 -- nvimdev/lspsaga.nvim: ------------------------------------------------ {{{3
-add_plug("nvimdev/lspsaga.nvim", { event = 'LspAttach' })
+-- add_plug("nvimdev/lspsaga.nvim", { event = 'LspAttach' })
+add_plug {
+  'stevearc/aerial.nvim',
+  config = function()
+    require('aerial').setup{
+      backends = { "treesitter", "lsp", "markdown", "asciidoc", "man" },
+      on_attach = function(bufnr)
+        -- Jump forwards/backwards with '{' and '}'
+        vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+        vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+      end,
+    }
+  end,
+  keys = {
+    {"<localleader>v", "<cmd>AerialToggle!<CR>", {desc = "Toggle aerial"}}
+  },
+  cmd = {"AerialToggle"}
+  
+}
+
 
 -- jackMort/ChatGPT.nvim: Effortless Natural Language Generation -------- {{{3
 add_plug("jackMort/ChatGPT.nvim", {

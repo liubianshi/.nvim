@@ -1,5 +1,13 @@
 -- Selecting to open a draft file when no file has been passed in
-if vim.fn.argc() == 0 and vim.bo.modifiable and not vim.bo.readonly then
+local no_spectial_arg = true
+for _, arg in ipairs(vim.v.argv) do
+  if arg ~= "nvim" and arg ~= "--embed" then
+    no_spectial_arg = false
+    break
+  end
+end
+
+if no_spectial_arg then
   local current_date = os.date("*t")
   local formatted_date = string.format("scratch_%d-%d-%d", current_date.year, current_date.month, current_date.day)
   local scatch_dir = vim.fn.stdpath('cache') .. "/scratch/"

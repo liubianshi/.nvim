@@ -8,7 +8,7 @@ require('commands')
 require('autocmds')
 require('keymap')
 require("theme")
--- require("after_init")
+require("after_init")
 
 
 
