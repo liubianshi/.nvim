@@ -326,12 +326,13 @@ fzfmap("<leader>ot", "Run async tasks", function()
         .. color.cyan(e[2])
         .. ": "
         .. color.yellow(e[3])
+      if #rows == 1 then line = line .. "\n" end
       cb(line)
     end
     cb()
   end, {
     actions = {
-      ["default"] = function(selected)
+      ["default"] = function(selected, _)
         local str = fzflua.utils.strsplit(selected[1], " ")
         local command = "AsyncTask " .. vim.fn.fnameescape(str[1])
         vim.api.nvim_exec2(command, { output = false })
@@ -343,7 +344,8 @@ fzfmap("<leader>ot", "Run async tasks", function()
       ["--nth"] = "1",
     },
     winopts = {
-      height = 0.6,
+      row = 0.9,
+      height = #rows + 1,
       width = 0.6,
     },
   })

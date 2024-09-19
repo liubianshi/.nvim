@@ -65,6 +65,14 @@ require('which-key').add {
   { "<localleader>x", group = "Export ..." },
 }
 
+vim.keymap.set("i", "<A-=>",
+  function() vim.api.nvim_put({"<- "}, "c", at_end_of_line(), true) end,
+  { buffer = true, desc = "Assign operator", silent = true }
+)
+vim.keymap.set( "i", "<A-\\>",
+  function() vim.api.nvim_put({"%>%"}, "c", at_end_of_line(), true) end,
+  { buffer = true, desc = "Pipe operator", silent = true }
+)
 vim.keymap.set("n", "<c-x>", function()
   require("util").bibkey_action(vim.fn.expand "<cword>")
 end, { desc = "Show action related bibkey" })

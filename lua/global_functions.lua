@@ -1,3 +1,16 @@
+function _G.at_end_of_line(buf)
+  local mode = vim.fn.mode()
+  local col = vim.fn.col('.')
+  local line_end = vim.fn.col('$')
+  if mode:find("^n") then
+    return (col + 1 == line_end)
+  elseif mode:find("^i") then
+    return (col == line_end)
+  else
+    return false
+  end
+end
+
 function _G.extract_hl_group_link(buf, row, col)
   local info = vim.inspect_pos(buf, row, col)
   local syntax = info.syntax

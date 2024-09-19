@@ -1,5 +1,5 @@
 local disable_treesitter = function(lang, buf)
-  local disable_lang_list = { "tsv", "perl", "markdown", "markdown_inline" }
+  local disable_lang_list = { "tsv", "perl" }
   for _, v in ipairs(disable_lang_list) do
     if v == lang then
       return true
