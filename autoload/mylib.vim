@@ -149,14 +149,17 @@ function! s:mylib_tag(...)
     let tags = system("mylib tag -o " . tags . " -- " . b:mylib_key)
     if tags == "" | return | endif
 
-    let notes = systemlist("mylib get note -- " . b:mylib_key)
-    let no_notes = v:true
-    for nt in notes
-      if split(note, ":")[0] == s:note_type 
-        let no_notes = v:false
-      endif
-    endfor
-    if no_notes | return | end
+    if ! has_key(b:, "mylib_note") 
+      let notes = systemlist("mylib get note -- " . b:mylib_key)
+      let no_notes = v:true
+      for nt in notes
+        if split(nt, ":")[0] == s:note_type 
+          let no_notes = v:false
+          break
+        endif
+      endfor
+      if no_notes | return | end
+    endif
 
     Mylib note popup
     normal! mmgg

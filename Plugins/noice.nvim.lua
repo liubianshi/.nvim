@@ -74,6 +74,9 @@ require("noice").setup {
         event = "msg_show",
         any = {
           { find = "%[>?%d+/>?%d+%]$" }, -- search count
+          { find = "%d+L, %d+B$" }, -- search count
+          { find = '%.newsboat%" %d+L'},
+          { find = 'more lines$'},
         }
       },
       opts = { skip = true }

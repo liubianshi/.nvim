@@ -144,7 +144,7 @@ function! s:mylib_send_clipboard_to_note(method = "quiet")
 
     if @+ == "" | return | end
     let content = trim(@+)
-    if b:mylib_note =~? '\.org$'
+    if has_key(b:, "mylib_note") && b:mylib_note =~? '\.org$'
         let content = "#+begin_quote\n" . content. "\n#+end_quote\n"
     elseif b:mylib_note =~? '\v\.(md|norg)$'
         let content = join(map(split(content, "\n"), '"> " . v:val'), "\n")
