@@ -1,12 +1,11 @@
 local hook = {
   on_filetype = function()
-    vim.api.nvim_create_user_command("RAdd",
-      function(tbl)
-        require("r.packages").update_compl_packages(tbl.fargs)
-      end, { nargs = "+" })
+    vim.api.nvim_create_user_command("RAdd", function(tbl)
+      require("r.packages").update_compl_packages(tbl.fargs)
+    end, { nargs = "+" })
 
     -- Setting box-related shortcuts
-    require('r_box').set_keymap()
+    require("r_box").set_keymap()
 
     -- vim.keymap.set("n", "<Enter>", "<Plug>RDSendLine", { buffer = true })
     vim.keymap.set("v", "<Enter>", "<Plug>RSendSelection", { buffer = true })
@@ -16,15 +15,10 @@ local hook = {
       "<cmd>exec 'RAdd ' . expand('<cword>')<cr>",
       { buffer = true, desc = "Add package for completion" }
     )
-    vim.keymap.set(
-      "v",
-      "<localleader>rl",
-      "<Plug>RSendSelection",
-      {
-        buffer = true,
-        desc = "Send to R visually selected lines or part of a line",
-      }
-    )
+    vim.keymap.set("v", "<localleader>rl", "<Plug>RSendSelection", {
+      buffer = true,
+      desc = "Send to R visually selected lines or part of a line",
+    })
 
     -- Increase the width of which-key to handle the longer r-nvim descriptions
     local wk = require "which-key"

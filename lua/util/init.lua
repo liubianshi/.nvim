@@ -342,4 +342,12 @@ M.get_daily_filepath = function(ext, base, pre)
   return writing_room .. base .. pre .. basename .. ext
 end
 
+
+function M.in_obsidian_vault()
+  local root_dir = M.get_root()
+  if root_dir and root_dir:match('/vaults/') then
+    return root_dir
+  end
+end
+
 return M

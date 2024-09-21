@@ -243,6 +243,7 @@ cmp.setup.filetype({ "r", "rmd" }, {
   sources = construct_cmp_source {
     {
       name = "cmp_r",
+      trigger_characters = {" ", ":", "(", '"', "@", "$"},
       keyword_pattern = "[`\\._@\\$:_[:digit:][:lower:][:upper:]]*",
     },
   },

@@ -1,6 +1,6 @@
 require("project_nvim").setup( {
     detection_methods = { "pattern", "lsp" },
-    patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", ".vim", ".root",
+    patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", ".root", ".project", "R",
                  ".obsidian", "Makefile", "package.json", "namespace",
                  "VERSION", ".exercism" },
     -- your configuration comes here

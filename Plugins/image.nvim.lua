@@ -244,6 +244,7 @@ local generate_image = function(file, image_id, linenr)
   }
   local display_row = line - (window.scroll_y > 3 and 2 or 1) - window.scroll_y
   if display_row > 1 then display_opts.y = display_row end
+
   local preview_image = require("image").from_file(file, display_opts)
   return preview_image
 end
@@ -294,7 +295,11 @@ vim.api.nvim_create_user_command("ImageClear", function(args)
 end, { nargs = "?", desc = "Clear image preview" })
 
 local image_toggle = function(args)
-  args = args or {}
+  if args and not args.fargs and type(args) == 'table' then
+    args = { fargs = args }
+  elseif not args then
+    args = {}
+  end
   local args_number = args.fargs and #args.fargs or 0
   local file = args_number > 0 and args.fargs[1] or vim.fn.expand("<cfile>")
   local img_id = gen_id_with(file)
@@ -336,6 +341,14 @@ vim.api.nvim_create_autocmd({"FileType"}, {
   callback = function(_)
     vim.keymap.set("n", "<cr>", function()
       local file = vim.fn.expand("<cfile>")
+      -- sometimes, the image path may relative to the file path, rather than root
+      if (require('util').in_obsidian_vault()) then
+        local file_relative_file = vim.fn.expand('%:h') .. "/" .. file
+        if vim.uv.fs_stat(file_relative_file) then
+          file = vim.fn.expand('%:h') .. "/" .. file
+        end
+      end
+      file = vim.fn.fnamemodify(file, ":p")
       local img_id = gen_id_with(file)
       if not img_id then
         win_clear_images()

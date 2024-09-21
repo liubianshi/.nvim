@@ -77,6 +77,7 @@ require("noice").setup {
           { find = "%d+L, %d+B$" }, -- search count
           { find = '%.newsboat%" %d+L'},
           { find = 'more lines$'},
+          -- { find = 'r%/job'},
         }
       },
       opts = { skip = true }
