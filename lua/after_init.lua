@@ -14,5 +14,6 @@ if no_spectial_arg then
   if not vim.uv.fs_access(scatch_dir, "R") then
     vim.uv.fs_mkdir(scatch_dir, tonumber("0755", 8))
   end
-  vim.cmd("edit " .. scatch_dir .. formatted_date)
+  -- vim.cmd("edit " .. scatch_dir .. formatted_date)
+  vim.cmd.Neotree()
 end

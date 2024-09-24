@@ -16,7 +16,7 @@ end
 local insert_pkg = function()
   local box_lib = vim.env.R_BOX_LIBRARY or (vim.env.HOME .. "/Repositories/R-script/box")
   local bash_code = {
-    [[fd -t f -e r '.' R 2>/dev/null]],
+    '[[ "$PWD" = "$HOME" ]] || fd -t f -e r "." R 2>/dev/null',
     "cd '" .. box_lib .. "'",
     [[fd '[.][Rr]$']],
     [[Rscript --no-restore --no-save --no-init-file -e 'cat(installed.packages() |> rownames(), sep = "\n")']]

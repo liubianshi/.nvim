@@ -65,6 +65,12 @@ add_plug("is0n/fm-nvim", {
   },
 })
 
+add_plug {
+  'stevearc/oil.nvim',
+  dependencies = {
+    { "echasnovski/mini.icons", opts = {} }
+  },
+}
 -- nvim-neo-tree/neo-tree.nvim: browse tree like structures ------------- {{{3
 add_plug("s1n7ax/nvim-window-picker", { lazy = true, config = true})
 add_plug("nvim-neo-tree/neo-tree.nvim", {
@@ -396,6 +402,34 @@ add_plug("junegunn/vim-easy-align", {
 
 -- beauwilliams/focus.nvim: Auto Ajust the size of focused window ------- {{{3
 add_plug("nvim-focus/focus.nvim", {
+  init = function()
+    local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
+    local ignore_filetypes = { "rbrowser", "sagaoutline", "floaterm", "rdoc", "fzf", "voomtree", "neo-tree", "kittypreviewimage" }
+    local ignore_buftypes = { "terminal", "nofile", "promp", "popup" }
+    vim.api.nvim_create_autocmd("FileType", {
+      group = augroup,
+      pattern = {"neo-tree"},
+      callback = function(ev)
+        if vim.b[ev.buf].focus_disable then return end
+        if
+          vim.tbl_contains(ignore_filetypes, vim.bo[ev.buf].filetype) or
+          vim.tbl_contains(ignore_buftypes, vim.bo[ev.buf].buftype)
+        then
+          vim.b[ev.buf].focus_disable = true
+        else
+          vim.b[ev.buf].focus_disable = false
+        end
+      end,
+      desc = "Disable focus autoresize",
+    })
+
+    vim.api.nvim_create_autocmd("VimResized", {
+      group = vim.api.nvim_create_augroup("FocusResize", { clear = true }),
+      callback = function()
+        require('focus').resize()
+      end,
+    })
+  end,
   keys = {
     { "<leader>wh", "<cmd>FocusSplitLeft<cr>",    desc = "Focus Split Left" },
     { "<leader>wl", "<cmd>FocusSplitRight<cr>",   desc = "Focus Split Right" },
@@ -1121,6 +1155,7 @@ add_plug("neovim/nvim-lspconfig", {
   ft = {"lua", "perl", "markdown", "bash", "r", "python", "vim", "rmd"},
 })
 add_plug("liubianshi/cmp-r", { dev = true, lazy = true})
+-- add_plug("R-nvim/cmp-r", { lazy = true})
 
 -- hrsh7th/nvim-cmp: A completion plugin for neovim ----------------- {{{4
 local cmp_dependencies = {

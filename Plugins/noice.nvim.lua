@@ -40,6 +40,11 @@ require("noice").setup {
         row = "90%", -- 将行位置设置为 100%，即底部
         col = "50%", -- 将列位置设置为 50%，即居中
       },
+      win_options = {
+        winhighlight = {
+          FloatBorder = "NoiceCmdlinePopupBorder",
+         },
+      }
     },
     format = {
       search_down = {
@@ -77,7 +82,6 @@ require("noice").setup {
           { find = "%d+L, %d+B$" }, -- search count
           { find = '%.newsboat%" %d+L'},
           { find = 'more lines$'},
-          -- { find = 'r%/job'},
         }
       },
       opts = { skip = true }
@@ -120,4 +124,6 @@ require("noice").setup {
   },
 }
 
+vim.api.nvim_set_hl(0, "NoiceCmdlineIconSearch",       {link = "NoiceCmdlineIcon"})
+vim.api.nvim_set_hl(0, "NoiceCmdlinePopupTitleSearch", {link = "NoiceCmdlinePopupTitle"})
 
