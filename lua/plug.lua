@@ -404,11 +404,13 @@ add_plug("junegunn/vim-easy-align", {
 add_plug("nvim-focus/focus.nvim", {
   init = function()
     local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
-    local ignore_filetypes = { "rbrowser", "sagaoutline", "floaterm", "rdoc", "fzf", "voomtree", "neo-tree", "kittypreviewimage" }
+    local ignore_filetypes = {
+      "rbrowser", "sagaoutline", "floaterm", "rdoc", "fzf",
+      "voomtree", "neo-tree", "kittypreviewimage", "aerial",
+    }
     local ignore_buftypes = { "terminal", "nofile", "promp", "popup" }
     vim.api.nvim_create_autocmd("FileType", {
       group = augroup,
-      pattern = {"neo-tree"},
       callback = function(ev)
         if vim.b[ev.buf].focus_disable then return end
         if
@@ -771,20 +773,31 @@ add_plug("stevearc/dressing.nvim", {
 })
 
 -- Make your nvim window separators colorful ---------------------------- {{{3
-add_plug("nvim-zh/colorful-winsep.nvim", { event = { "WinNew" } })
-
--- "lukas-reineke/indent-blankline.nvim"
--- add_plug("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
-add_plug(  "shellRaining/hlchunk.nvim", {
-  event = { "BufReadPre", "BufNewFile" },
+add_plug("nvim-zh/colorful-winsep.nvim", {
+  event = { "WinNew" },
   config = function()
-    require("hlchunk").setup({
-      chunk    = { enable = true },
-      indent   = { enable = false },
-      line_num = { enable = true },
+    require("colorful-winsep").setup({
+      no_exec_files = {
+        "packer", "TelescopePrompt", "mason", "CompetiTest", "NvimTree",
+        "aerial", "neo-tree"
+      },
+      symbols = { "─", "│", "┌", "┐", "└", "┘" },
     })
   end
 })
+
+-- "lukas-reineke/indent-blankline.nvim"
+add_plug("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
+-- add_plug(  "shellRaining/hlchunk.nvim", {
+--   event = { "BufReadPre", "BufNewFile" },
+--   config = function()
+--     require("hlchunk").setup({
+--       chunk    = { enable = true },
+--       indent   = { enable = false },
+--       line_num = { enable = false },
+--     })
+--   end
+-- })
 -- add_plug("nvimdev/indentmini.nvim", {
 --   config = function()
 --     require("indentmini").setup({

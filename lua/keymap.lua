@@ -85,6 +85,7 @@ nmap("<leader>bn", "Next Buffer",               "<cmd>bn<cr>")
 nmap("<leader>bq", "Quit Buffer",               "<cmd>q<cr>")
 nmap("<leader>bQ", "Quit Buffer (force)",       "<cmd>q!<cr>")
 nmap("<leader>bl", "Pick Buffer on BufferLine", "<cmd>BufferLinePick<cr>")
+nmap("<leader>bF", "Close Float buffer",        "<cmd>fclose<cr>")
 
 --- tab ----------------------------------------------------------------- {{{1
 nmap("<leader>tt", "Tab: New",      "<cmd>tabnew<cr>")

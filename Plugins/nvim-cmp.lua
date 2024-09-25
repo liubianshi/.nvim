@@ -115,7 +115,7 @@ local keymap_config = {
   },
   ["<TAB>"] = cmp.mapping {
     i = function(fallback)
-      if cmp.visible() then
+      if cmp.visible() and vim.fn.getline('.'):sub(0, vim.fn.col('.') - 1):find("[^%s]") then
         cmp.select_next_item { behavior = cmp.SelectBehavior.select }
       else
         fallback()
@@ -139,7 +139,15 @@ local keymap_config = {
     end,
   },
   ["<S-Tab>"] = cmp.mapping(function(fallback)
-    cmp_ultisnips_mappings.jump_backwards(fallback)
+    if vim.fn.getline('.'):sub(0, vim.fn.col('.') - 1):find("[^%s]") then
+      cmp_ultisnips_mappings.jump_backwards(fallback)
+    else
+      vim.cmd [[
+        stopinsert
+        normal <<
+        startinsert
+      ]]
+    end
   end, { "i", "s" }),
 }
 -- sorting -------------------------------------------------------------- {{{2

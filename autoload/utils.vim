@@ -653,7 +653,7 @@ function! utils#Trans_string(str)
         let re = trim(re[0]['definition'])
         call luaeval("vim.notify(_A[2], vim.log.levels.INFO, {title = _A[1]})", [a:str, re])
 
-        let re = substitute(re, '\v(\*\[[^\]]+\])\ze\n', '\1*', "")
+        let re = substitute(re, '\v\*(\[[^\]]+\])\ze\n', '`\1`', "")
         let re = substitute(re, "\n", "\n>\n> ", "g")
         let re = "> [!ANKI word] " . wd . "\n>\n> " . re
         call writefile([""] + split(re, "\n") + [""], daily_trans_file, 'a')
