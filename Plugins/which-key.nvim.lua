@@ -27,9 +27,7 @@ wk.setup {
     separator = "󰮺", -- symbol used between a key and it's label
     group = "+", -- symbol prepended to a group
   },
-  disable = {
-    bt = { 'terminal' },
-  }
+  disable = {},
 }
 
 -- register keymap ------------------------------------------------------ {{{1
