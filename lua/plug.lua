@@ -728,7 +728,7 @@ add_plug("akinsho/bufferline.nvim", {
 add_plug("nvim-lualine/lualine.nvim")
 
 -- goolord/alpha-nvim: a lua powered greeter ---------------------------- {{{3
--- add_plug('goolord/alpha-nvim')
+add_plug('goolord/alpha-nvim')
 
 -- nvim-tree/nvim-web-devicons: file type icons ------------------------- {{{3
 add_plug("nvim-tree/nvim-web-devicons", { config = true, lazy = true })

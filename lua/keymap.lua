@@ -155,7 +155,7 @@ nmap("<leader>ek", "Neovim Keymap",      "<cmd>edit ~/.config/nvim/lua/keymap.lu
 nmap("<leader>eo", "Neovim Options",     "<cmd>edit ~/.config/nvim/lua/options.lua<cr>")
 nmap("<leader>er", "R Profile",          "<cmd>edit ~/.Rprofile<cr>")
 nmap("<leader>es", "Stata profile",      "<cmd>edit ~/.config/stata/profile.do<cr>")
-nmap("<leader>ez", "Zshrc",              "<cmd>edit ~/.config/zsh/.zshrc<cr>")
+nmap("<leader>ez", "Zshrc",              "<cmd>edit ~/.zshrc<cr>")
 nmap("<leader>eZ", "User Zshrc",         "<cmd>edit ~/useScript/usr.zshrc<cr>")
 nmap("<leader>ea", "Alias",              "<cmd>edit ~/useScript/alias<cr>")
 nmap("<leader>eu", "Snippets",           "<cmd>edit ~/.config/nvim/UltiSnips<cr>")
