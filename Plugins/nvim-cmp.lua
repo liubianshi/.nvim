@@ -218,9 +218,9 @@ local cmp_config = {
     end,
   },
   experimental = {
-    ghost_text = {
-      hl_group = "CmpGhostText",
-    },
+    -- ghost_text = {
+    --   hl_group = "CmpGhostText",
+    -- },
   },
   matching = {
     disallow_fuzzy_matching = true,
@@ -241,11 +241,11 @@ cmp.setup.filetype({ "stata" }, {
   sources = construct_cmp_source { { name = "omni" } },
 })
 
-cmp.setup.filetype({ "pandoc", "markdown" }, {
-  sources = construct_cmp_source {
-    { name = "dictionary", keyword_length = 2 },
-  },
-})
+-- cmp.setup.filetype({ "pandoc", "markdown" }, {
+--   sources = construct_cmp_source {
+--     { name = "dictionary", keyword_length = 2 },
+--   },
+-- })
 
 cmp.setup.filetype({ "r", "rmd" }, {
   sources = construct_cmp_source {

@@ -950,11 +950,11 @@ add_plug("akinsho/toggleterm.nvim", {
   cmd = "ToggleTerm",
   keys = {
     {
-      "<space><space>",
+      "<C-CR>",
       "<cmd>ToggleTerm<cr>",
       desc = "Toogle Terminal",
       silent = true,
-      mode = { "n", "t" },
+      mode = { "n", "t"},
       noremap = true,
     },
   },

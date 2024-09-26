@@ -9,7 +9,7 @@ wk.setup {
     border = my_border,
   },
   triggers = {
-    {"<auto>", mode = "nixsotc"},
+    {"<auto>", mode = "nixsoc"},
     {"s", mode = {"n", "v"}}
   },
   replace = {
