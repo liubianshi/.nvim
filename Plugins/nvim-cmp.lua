@@ -309,4 +309,20 @@ cmp.setup.cmdline("@", {
   }),
 })
 
--- vim: set fdm=marker: ------------------------------------------------- {{{1
+local function restart_cmp()
+  local config = require "cmp.config"
+  local cmp_sources = {}
+
+  for _, s in ipairs(config.get().sources) do
+    local source_config = config.get_source_config(s.name)
+    if source_config then
+      table.insert(cmp_sources, source_config)
+    end
+  end
+
+  -- vim.notify(vim.inspect(cmp_sources))
+  cmp.setup.buffer { sources = cmp.config.sources(cmp_sources) }
+end
+vim.api.nvim_create_user_command('CmpRestart', restart_cmp, { desc = 'Restart cmp' })
+
+
