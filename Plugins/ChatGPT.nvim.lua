@@ -121,6 +121,7 @@ chatgpt.setup {
         top = " Prompt ",
       },
     },
+    zindex = 100,
     win_options = {
       winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
     },

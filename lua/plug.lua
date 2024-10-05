@@ -874,7 +874,6 @@ add_plug {
     {"<localleader>v", "<cmd>AerialToggle!<CR>", {desc = "Toggle aerial"}}
   },
   cmd = {"AerialToggle"}
-  
 }
 
 
@@ -1196,9 +1195,9 @@ add_plug("hrsh7th/nvim-cmp", {
 -- Formatter and linter ------------------------------------------------- {{{2
 -- mfussenegger/nvim-dap
 -- add_plug("mfussenegger/nvim-dap")
--- add_plug("rcarriga/nvim-dap-ui", {
---   config = true,
--- })
+add_plug("rcarriga/nvim-dap-ui", {
+  dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
+})
 
 -- mhartington/formatter.nvim: autoformat tool -------------------------- {{{3
 add_plug("mhartington/formatter.nvim", {
@@ -1326,6 +1325,9 @@ add_plug("fladson/vim-kitty", { ft = "kitty" })
 
 -- kmonad/kmonad-vim: Vim syntax highlighting for .kbd files ------------ {{{3
 add_plug("kmonad/kmonad-vim", { ft = "kbd" })
+
+-- andis-sprinkis/lf-vim: Vim syntax highlighting for the lf config ----- {{{3
+add_plug("andis-sprinkis/lf-vim", { ft = "lf" })
 
 -- TreeSitter ----------------------------------------------------------- {{{2
 -- nvim-treesitter/nvim-treesitter: Treesitter configurations ----------- {{{3

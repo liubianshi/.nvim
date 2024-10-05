@@ -40,6 +40,7 @@ endfunction
 
 augroup filetypedetect
     autocmd BufNewFile,BufRead *.sxhkdrc                      set filetype=sxhkd
+    autocmd BufNewFile,BufRead *.lfrc                         set filetype=lf
     autocmd BufNewFile,BufRead *.tsv                          set filetype=tsv
     autocmd BufNewFile,BufRead *.[Rr]md,*.[Rr]markdown        set filetype=rmd
     autocmd BufNewFile,BufRead *.sthlp                        set filetype=smcl

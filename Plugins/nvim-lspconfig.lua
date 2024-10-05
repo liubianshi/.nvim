@@ -67,11 +67,7 @@ lspconfig.vimls.setup {
 
 -- perl (perlls) -------------------------------------------------------- {{{2
 lspconfig.perlnavigator.setup {
-  cmd = {
-    "node",
-    vim.env.HOME .. "/Repositories/PerlNavigator/server/out/server.js",
-    "--stdio",
-  },
+  cmd = { "perlnavigator" },
   capabilities = capabilities,
   single_file_support = true,
 }

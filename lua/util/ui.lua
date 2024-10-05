@@ -341,6 +341,7 @@ M.get_highest_zindex_win = function(tab)
   for _, win in ipairs(wins) do
     local config = vim.api.nvim_win_get_config(win)
     if config and config.zindex and config.zindex > highest_zindex then
+      highest_zindex = config.zindex
       highest_win = win
     end
   end
