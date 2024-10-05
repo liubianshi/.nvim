@@ -9,7 +9,15 @@ require("obsidian").setup({
     {
       name = "research",
       path = "~/Documents/Writing/vaults/research",
-    }
+    },
+    {
+      name = "bb",
+      path = "~/Documents/Writing/vaults/bb",
+    },
+    {
+      name = "organize",
+      path = "~/Documents/Writing/vaults/organize",
+    },
   },
 
   -- Optional, if you keep notes in a specific subdirectory of your vault.

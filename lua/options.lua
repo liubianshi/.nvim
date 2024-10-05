@@ -134,8 +134,8 @@ opt.expandtab = true -- 将制表符扩展为空格
 opt.fileencodings =
   "ucs-bom,utf-8,cp936,gb2312,gb18030,big5,enc-jp,enc-krlatin1"
 opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
+  foldopen = "·",
+  foldclose = "",
   msgsep = "‾",
   vert = "│",
   fold = " ",
