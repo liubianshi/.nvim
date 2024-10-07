@@ -117,6 +117,10 @@ vim.api.nvim_create_autocmd({ "ColorScheme" }, {
       highlight NormalFloat    guibg=NONE
       highlight FloatBorder    guibg=NONE
       highlight FloatTitle     guibg=NONE
+      highlight DiagnosticSignInfo guibg=NONE
+      highlight DiagnosticSignHint guibg=NONE
+      highlight DiagnosticSignWarn guibg=NONE
+      highlight DiagnosticSignError guibg=NONE
     ]]
   end,
   desc = "remove unnecessary background",

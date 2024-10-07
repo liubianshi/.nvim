@@ -1,30 +1,48 @@
-local m_header = {
-  style = "padded_icon",
-  line_hl = "markview_h1",
-  sign = "",
-  sign_hl = "rainbow1",
-  icon_width = 1,
+local opts = {
+  heading = {
+    style = "icon",
+    sign = " ",
+  }
 }
-local m_code_block = {}
-local m_inline_code = {}
-local m_block_quote = {}
-local m_horizontal_rule = {}
-local m_hyperlink = {}
-local m_image = {}
-local m_table = {}
-local m_list_item = {}
-local m_checkbox = {}
+local hl_normal = vim.api.nvim_get_hl(0, { name = "Normal"})
+local hl_code = vim.api.nvim_get_hl(0, { name = "MarkviewCode"})
+local hl_code_info = vim.api.nvim_get_hl(0, { name = "MarkviewCodeInfo"})
+hl_code.bg = hl_normal.bg
+hl_code_info.bg = hl_normal.bg
 
 require("markview").setup {
-  header          = m_header,
-  code_block      = m_code_block,
-  inline_code     = m_inline_code,
-  block_quote     = m_block_quote,
-  horizontal_rule = m_horizontal_rule,
-  hyperlink       = m_hyperlink,
-  image           = m_image,
-  table           = m_table,
-  list_item       = m_list_item,
-  checkbox        = m_checkbox,
+  headings = {
+    enable = true,
+    shift_width = 0,
+    heading_1 = opts.heading,
+    heading_2 = opts.heading,
+    heading_3 = opts.heading,
+    heading_4 = opts.heading,
+    heading_5 = opts.heading,
+    heading_6 = opts.heading,
+  },
+  code_blocks = {
+    enable = true,
+    icons = "mini",
+    style = "simple",
+    hl = hl_code,
+    info_hl = hl_code_info,
+    pad_amount = 0,
+    sign = true,
+    language_direction = "right",
+  },
+  inline_codes = {
+    enable = false,
+  },
+  links = {
+    enable = true,
+  }
 }
+
+for i = 1, 6 do
+  vim.api.nvim_set_hl(0, "MarkviewHeading" .. i, {
+    bg = "NONE",
+    bold = true,
+  })
+end
 

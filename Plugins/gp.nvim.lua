@@ -75,7 +75,7 @@ require("gp").setup {
   },
 }
 
-local gp_group = vim.api.nvim_create_augroup("GpAuto", { clear = TRUE})
+local gp_group = vim.api.nvim_create_augroup("GpAuto", { clear = true})
 vim.api.nvim_create_autocmd({"FileType"}, {
   group = gp_group,
   pattern = "markdown",

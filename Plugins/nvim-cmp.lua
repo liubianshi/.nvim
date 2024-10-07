@@ -4,6 +4,10 @@ local compare = require "cmp.config.compare"
 local cmp_ultisnips_mappings = require "cmp_nvim_ultisnips.mappings"
 require("cmp_r").setup { filetypes = { "r", "rmd", "markdown", "rdoc" } }
 vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
+if not PlugExist('cmp-lsp-rimels') then
+  vim.notify("Launch rimels minimal config for test", vim.log.levels.INFO)
+  require('rimels_test').setup_rime()
+end
 
 -- kinds icons
 local icon_kinds = {

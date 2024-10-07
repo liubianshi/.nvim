@@ -47,6 +47,13 @@ add_plug("kkharji/sqlite.lua",          { lazy = true })
 -- UI ------------------------------------------------------------------- {{{2
 -- lambdalisue/suda.vim: Read and write with sudo command --------------- {{{3
 add_plug("lambdalisue/suda.vim", { cmd = { "SudaWrite", "SudaRead" } })
+
+-- chentoast/marks.nvim: viewing and interacting with vim marks --------- {{{3
+add_plug("chentoast/marks.nvim", {
+  event = "VeryLazy",
+  config = true,
+})
+
 -- romainl/vim-cool: disables search highlighting automatic ------------- {{{3
 -- add_plug("romainl/vim-cool", { event = "VeryLazy" })
 -- ojroques/vim-oscyank: copy text through SSH with OSC52 --------------- {{{3
@@ -1187,7 +1194,9 @@ local cmp_dependencies = {
 for _, k in ipairs(cmp_dependencies) do
   add_plug(k, { lazy = true })
 end
-add_plug("hrsh7th/nvim-cmp", {
+-- add_plug("hrsh7th/nvim-cmp", {
+add_plug("iguanacucumber/magazine.nvim", {
+  name = "nvim-cmp",
   event = "InsertEnter",
   dependencies = cmp_dependencies,
 })
@@ -1205,7 +1214,6 @@ add_plug("mhartington/formatter.nvim", {
 })
 
 -- Writing and knowledge management ------------------------------------- {{{2
-
 -- vim-pandoc/vim-pandoc: pandoc integration and utilities for vim ------ {{{3
 add_plug("vim-pandoc/vim-pandoc-syntax", {
   init = function()
@@ -1221,6 +1229,15 @@ add_plug("vim-pandoc/vim-pandoc-syntax", {
 add_plug("ellisonleao/glow.nvim", {
   cmd = {"Glow"},
   config = true
+})
+
+-- OXY2DEV/markview.nvim ------------------------------------------------ {{{3
+add_plug('OXY2DEV/markview.nvim', {
+  lazy = false,
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-tree/nvim-web-devicons"
+  }
 })
 
 -- ferrine/md-img-paste.vim: paste image to markdown -------------------- {{{3
