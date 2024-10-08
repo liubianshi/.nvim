@@ -7,6 +7,7 @@ local augroups = vim.tbl_map(
   function(name) return augroup(name) end,
   {
     "Auto_create_dir",
+    "Buffer",
     "Bigfile",
     "Checktime",
     "Close_with_q",
@@ -22,6 +23,13 @@ local augroups = vim.tbl_map(
     "Zen",
   }
 )
+
+-- Buffer --------------------------------------------------------------- {{{1
+aucmd({"BufWritePre"}, {
+  group = augroups.Buffer,
+  command = [[%s/\v\s+$//e]],
+  desc = "Delete suffix space before writing",
+})
 
 -- Lsp related ---------------------------------------------------------- {{{1
 aucmd({ "LspAttach" }, {

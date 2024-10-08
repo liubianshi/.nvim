@@ -17,7 +17,16 @@ require("markview").setup {
   headings = {
     enable = true,
     shift_width = 0,
-    heading_1 = opts.heading,
+    heading_1 = {
+      style = "label",
+      align = "left",
+      icon = "",
+      sign = " ",
+      corner_left = " ░▒▓",
+      padding_left = " ",
+      corner_left_hl = "@comment.warning",
+
+    },
     heading_2 = opts.heading,
     heading_3 = opts.heading,
     heading_4 = opts.heading,
@@ -27,12 +36,12 @@ require("markview").setup {
   code_blocks = {
     enable = true,
     icons = "mini",
-    style = "simple",
+    style = "language",
     hl = hl_code,
     info_hl = hl_code_info,
-    pad_amount = 1,
+    pad_amount = 0,
     sign = false,
-    language_direction = "right",
+    language_direction = "left",
   },
   list_items = {
     enable = false,

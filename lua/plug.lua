@@ -1215,15 +1215,15 @@ add_plug("mhartington/formatter.nvim", {
 
 -- Writing and knowledge management ------------------------------------- {{{2
 -- vim-pandoc/vim-pandoc: pandoc integration and utilities for vim ------ {{{3
-add_plug("vim-pandoc/vim-pandoc-syntax", {
-  init = function()
-    vim.g.tex_conceal = "adgm"
-    vim.g['pandoc#syntax#codeblocks#embeds#langs'] = {
-      "perl", "r", "bash=sh", "stata", "vim", "python", "raku", "c"
-    }
-  end,
-  ft = { "markdown", "pandoc", "markdown.pandoc" },
-})
+-- add_plug("vim-pandoc/vim-pandoc-syntax", {
+--   init = function()
+--     vim.g.tex_conceal = "adgm"
+--     vim.g['pandoc#syntax#codeblocks#embeds#langs'] = {
+--       "perl", "r", "bash=sh", "stata", "vim", "python", "raku", "c"
+--     }
+--   end,
+--   ft = { "markdown", "pandoc", "markdown.pandoc" },
+-- })
 
 -- ellisonleao/glow.nvim: A markdown preview directly in your neovim. --- {{{3
 add_plug("ellisonleao/glow.nvim", {
