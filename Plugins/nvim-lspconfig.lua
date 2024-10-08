@@ -70,6 +70,11 @@ lspconfig.perlnavigator.setup {
   cmd = { "perlnavigator" },
   capabilities = capabilities,
   single_file_support = true,
+  perlPath = 'perl',
+  enableWarnings = true,
+  perltidyProfile = '',
+  perlcriticProfile = '',
+  perlcriticEnabled = true,
 }
 
 -- lua (lua-language-server) -------------------------------------------- {{{2

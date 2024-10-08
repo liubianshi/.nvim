@@ -53,7 +53,8 @@ local function process_win(win)
       vim.wo[win].signcolumn = "auto:1"
     elseif ww <= 126 then
       vim.wo[win].signcolumn = "auto:1"
-      .. math.min(math.floor((ww - 81) / 4), 9)
+    else
+      vim.wo[win].signcolumn = "yes:" .. math.min(math.floor((ww - 81) / 4), 9)
     end
   else
     if ww <= 40 then

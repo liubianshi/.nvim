@@ -173,6 +173,7 @@ require("obsidian").setup({
   -- Optional, set to true to force ':ObsidianOpen' to bring the app to the foreground.
   open_app_foreground = false,
 
+  ---@diagnostic disable: missing-fields, unused-local
   picker = {
     -- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', or 'mini.pick'.
     name = "telescope.nvim",
@@ -201,7 +202,7 @@ require("obsidian").setup({
   -- Optional, configure additional syntax highlighting / extmarks.
   -- This requires you have `conceallevel` set to 1 or 2. See `:help conceallevel` for more details.
   ui = {
-    enable = false,  -- set to false to disable all additional syntax features
+    enable = true,  -- set to false to disable all additional syntax features
     update_debounce = 200,  -- update delay after a text change (in milliseconds)
     -- Define how various check-boxes are displayed
     checkboxes = {
@@ -217,7 +218,7 @@ require("obsidian").setup({
       -- You can also add more custom ones...
     },
     -- Use bullet marks for non-checkbox lists.
-    bullets = { char = "•", hl_group = "ObsidianBullet" },
+    bullets = { char = "", hl_group = "ObsidianBullet" },
     external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
     -- Replace the above with this if you don't have a patched font:
     reference_text = { hl_group = "ObsidianRefText" },
@@ -238,6 +239,7 @@ require("obsidian").setup({
   },
 
   -- Specify how to handle attachments.
+  ---@diagnostic disable: missing-fields, unused-local
   attachments = {
     -- The default folder to place images in via `:ObsidianPasteImg`.
     -- If this is a relative path it will be interpreted as relative to the vault root.
@@ -250,14 +252,14 @@ require("obsidian").setup({
     img_text_func = function(_, path)
       local link_path
       local buffer_dir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p:h")
-      local abs_path = vim.fn.fnamemodify(path, ":p")
+      local abs_path = vim.fn.fnamemodify(path.filename, ":p")
       local start_pos, end_pos = string.find(abs_path, buffer_dir .. "/img/", 1, true)
 
       if start_pos and end_pos then
         link_path = "img/" .. string.sub(abs_path, end_pos + 1, -1)
       else
         link_path = "img/" .. vim.fs.basename(abs_path)
-        vim.loop.fs_link(abs_path, (buffer_dir .. "/" .. link_path))
+        vim.uv.fs_link(abs_path, (buffer_dir .. "/" .. link_path))
       end
 
       local display_name = vim.fs.basename(link_path)

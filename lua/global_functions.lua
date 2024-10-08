@@ -55,3 +55,4 @@ function _G.BufIsBig(bufnr)
     return false
   end
 end
+

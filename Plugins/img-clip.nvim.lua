@@ -7,15 +7,6 @@ local in_blog = function(_)
   end
 end
 
-local in_obisidian_vault = function(_)
-  local root_dir = require('util').get_root()
-  if root_dir and root_dir:match('/vaults/') then
-    return true
-  else
-    return false
-  end
-end
-
 local get_img_dirpath = function()
   local filename = vim.fn.expand('%:t:r')
   return string.format('static/assets/%s_files/figure-html', filename)
@@ -68,7 +59,7 @@ require("img-clip").setup {
   },
   custom = {
     {
-      trigger = in_obisidian_vault,
+      trigger = require('util').in_obsidian_vault,
       template = "![[$FILE_PATH]]$CURSOR",
     },
     {

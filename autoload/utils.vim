@@ -422,8 +422,9 @@ function! utils#ZenMode_Leave(exit = v:true) abort
         if attr != 'zenmode'
             exec 'let &l:' . attr . " = '" . b:zen_oriwin[attr] . "'"
         endif
+        let &showtabline = get("g", "showtabline", 1)
     endfor
-    if a:exit 
+    if a:exit
         unlet b:zen_oriwin
     endif
     lua require('lualine').hide({unhide=true})

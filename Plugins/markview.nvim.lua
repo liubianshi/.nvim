@@ -11,6 +11,9 @@ hl_code.bg = hl_normal.bg
 hl_code_info.bg = hl_normal.bg
 
 require("markview").setup {
+	modes = { "n", "i", "c", ":", "no", "io", "co" },
+	hybrid_modes = { "i", "n" },
+  ignore_nodes = { "list_item", "fenced_code_block" },
   headings = {
     enable = true,
     shift_width = 0,
@@ -27,15 +30,18 @@ require("markview").setup {
     style = "simple",
     hl = hl_code,
     info_hl = hl_code_info,
-    pad_amount = 0,
-    sign = true,
+    pad_amount = 1,
+    sign = false,
     language_direction = "right",
+  },
+  list_items = {
+    enable = false,
   },
   inline_codes = {
     enable = false,
   },
   links = {
-    enable = true,
+    enable = false,
   }
 }
 
