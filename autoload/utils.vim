@@ -17,7 +17,7 @@ endfunction
 function! s:GetLeftContentBetween(left, right, col = -1)
     if a:left == "" || a:right == "" | return -1 | endif
     let col = a:col == -1 ? col('.') : a:col
-    
+
     let line = getline('.')
     let len_l = len(a:left)
     let len_r = len(a:right)
@@ -58,7 +58,7 @@ endfunction
 function! s:GetRightContentBetween(left, right, col = -1)
     if a:left == "" || a:right == "" | return -1 | endif
     let col = a:col == -1 ? col('.') : a:col
-    
+
     let line = getline('.')
     let len_l = len(a:left)
     let len_r = len(a:right)
@@ -104,7 +104,7 @@ endfunction
 
 function! utils#GetContentBetween(left, right, col = -1)
     if a:left == "" || a:right == "" | return "" | endif
-    
+
     let l = s:GetLeftContentBetween(a:left, a:right, a:col)
     if type(l) != v:t_dict | return "" | endif
 
@@ -131,7 +131,7 @@ function! utils#GetContentBetween(left, right, col = -1)
 
     let rline = getline(r['row'])
     if r['col'] >= 1
-        let content = add(content, rline[0:(r['col']-1)]) 
+        let content = add(content, rline[0:(r['col']-1)])
     endif
 
     return join(content, "\n")
@@ -193,7 +193,7 @@ function! utils#AddDash(symbol, line = "") abort
     endif
 
     " when the line is empty, keep the number of symbol euqal to {{{2
-    " display width of previous line, and keep the indentation 
+    " display width of previous line, and keep the indentation
     if lo =~ '^\s*$'
         let lo_pre      = getline(line('.') - 1)
         let space_pre   = substitute(lo_pre, '\v^(\s*)(.*)$', '\1', 'g')
@@ -205,10 +205,10 @@ function! utils#AddDash(symbol, line = "") abort
 
     let w = &l:textwidth == 0 ? 78 : &l:textwidth
     if &l:foldmarker =~ '\V' . lo[-4:-2]
-        let le = " " . lo[-4:-1] 
+        let le = " " . lo[-4:-1]
         let lo = lo[0:-5]
-    elseif &l:foldmarker =~ '\V' . lo[-3:-1] 
-        let le = " " . lo[-3:-1] 
+    elseif &l:foldmarker =~ '\V' . lo[-3:-1]
+        let le = " " . lo[-3:-1]
         let lo = lo[0:-4]
     else
         let le = ""
@@ -249,8 +249,8 @@ function! utils#RFormat() range
     call AddForDeletion(g:rplugin.tmpdir . "/unformatted_code")
     let cmd = "styler::style_text(readLines(\"" . g:rplugin.tmpdir . "/unformatted_code\"), transformers = styler::tidyverse_style(strict = FALSE, indent_by = 4))"
     silent exe a:firstline . "," . a:lastline . "delete"
-    silent exe ':normal k' 
-    call RInsert(cmd, "here") 
+    silent exe ':normal k'
+    call RInsert(cmd, "here")
 endfunction
 
 " insert org-mode roam node ============================================= {{{1
@@ -295,14 +295,14 @@ function! utils#Preview_image_under_cursor(filename)
     if fname !~? '\v\.png$' || ! filereadable(fname)
         return
     endif
-    exec "PreviewImage! infile " . fname 
+    exec "PreviewImage! infile " . fname
 endfunction
 
 " insert rmd-style picture =============================================== {{{1
 function! utils#RmdClipBoardImage()
     execute "normal! i```{r, out.width = '70%', fig.pos = 'h', fig.show = 'hold'}\n"
     call mdip#MarkdownClipboardImage()
-    execute "normal! \<esc>g_\"iyi)VCknitr::include_graphics(\"\")\<esc>F\"\"iPo```\n" 
+    execute "normal! \<esc>g_\"iyi)VCknitr::include_graphics(\"\")\<esc>F\"\"iPo```\n"
 endfunction
 
 " RmarkdownPasteImage for md-img-paste
@@ -351,7 +351,7 @@ function! utils#ShiftLine(lnum, col)
     let line_content = substitute(getline(a:lnum), '^\s*', "" , "")
     if ! &l:expandtab
         let tab_num = a:col / shiftwidth()
-        let left_space_num -= tab_num * shiftwidth() 
+        let left_space_num -= tab_num * shiftwidth()
         let prefix_space = repeat("\t", tab_num) . repeat(" ", let_space_num)
     else
         let prefix_space = repeat(" ", a:col)
@@ -370,13 +370,13 @@ function! utils#MoveCursorTo(...)
     endif
     if symbol == ""
         let space_num = match(previous_line, '\S')
-    else 
+    else
         let space_num = stridx(previous_line, symbol)
     endif
     call utils#ShiftLine(line('.'), space_num)
 endfunction
 
-" Zen {{{1 
+" Zen {{{1
 function! utils#ZenMode_Insert(start = v:true) abort
     let ww = winwidth(0)
     if ! exists('b:zen_oriwin') || ! b:zen_oriwin['zenmode']
@@ -422,7 +422,7 @@ function! utils#ZenMode_Leave(exit = v:true) abort
         if attr != 'zenmode'
             exec 'let &l:' . attr . " = '" . b:zen_oriwin[attr] . "'"
         endif
-        let &showtabline = get("g", "showtabline", 1)
+        let &showtabline = get(g:, "showtabline", 1)
     endfor
     if a:exit
         unlet b:zen_oriwin
@@ -455,20 +455,20 @@ function! utils#R_view_df_sample(method)
 endfunction
 function! utils#R_view_df_full(max_width)
     let dfname = @"
-    let row = 0 
+    let row = 0
     let method = 'ht'
     return utils#R_view_df(dfname, row, method, a:max_width)
 endfunction
 function! utils#R_view_srdm_table()
     let dfname = "srdm_tables"
-    let row = 0 
+    let row = 0
     let method = 'ht'
     let max_width = 40
     return utils#R_view_df(dfname, row, method, max_width)
 endfunction
 function! utils#R_view_srdm_var()
     let dfname = "srdm_vars"
-    let row = 0 
+    let row = 0
     let method = 'ht'
     let max_width = 40
     return utils#R_view_df(dfname, row, method, max_width)
@@ -487,7 +487,7 @@ function! utils#RunDoLines()
     call writefile(selectedLines, temp)
 
     if(has("mac"))
-        silent exec "!open /tmp/statacmd.do" 
+        silent exec "!open /tmp/statacmd.do"
     else
         silent exec "! nohup bash ~/.config/nvim/runStata.sh >/dev/null 2>&1 &"
     endif
@@ -709,7 +709,7 @@ endfunction
 
 " tab, window, buffer related ============================================ {{{1
 " 查找 bufnr 所在的标签序号 ---------------------------------------------- {{{2
-function! s:find_buftabnr(buffernr) abort 
+function! s:find_buftabnr(buffernr) abort
     let l:tabnr = -1
     for tnr in range(1, tabpagenr('$'))
         for bnr in tabpagebuflist(tnr)
@@ -775,7 +775,7 @@ function! utils#StataGenHelpDocs(keywords, oft = "txt") abort
         return ""
     endif
     let l:target = system(",sh -v " . a:keywords)
-    if l:target !~? '^\(\s*Cannot.*\|\s*\)$'  
+    if l:target !~? '^\(\s*Cannot.*\|\s*\)$'
         if &ft ==? "statadoc"
             exec "edit " . l:target
         else
@@ -790,7 +790,7 @@ endfunction
 function! utils#MdPreview(method = "infile") range  abort
   if executable('surf')
     let outfile = shellescape(stdpath('cache') . "/vim_markdown_preview.html")
-    let command = "mdviewer --wname " . sha256(expand('.')) . 
+    let command = "mdviewer --wname " . sha256(expand('.')) .
       \ " --to html --outfile " . outfile
     Lazy! load asyncrun.vim
     call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command, 1, a:firstline, a:lastline)
@@ -799,9 +799,9 @@ function! utils#MdPreview(method = "infile") range  abort
 
   let bg = synIDattr(synIDtrans(hlID("StatusLine")), "bg#")
 
-  if !(($TERM ==? "xterm-kitty" || $WEZTERM_EXECUTABLE != "") && v:lua.PlugExist('image.nvim') && has('mac')) 
+  if !(($TERM ==? "xterm-kitty" || $WEZTERM_EXECUTABLE != "") && v:lua.PlugExist('image.nvim') && has('mac'))
     let outfile = shellescape(stdpath('cache') . "/vim_markdown_preview.png")
-    let command = "mdviewer --wname " . sha256(expand('.')) . 
+    let command = "mdviewer --wname " . sha256(expand('.')) .
                 \ " --outfile " . outfile
     Lazy! load asyncrun.vim
     call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command, 1, a:firstline, a:lastline)
@@ -864,7 +864,7 @@ function! utils#Bclose(bang, buffer)
         return
     endif
     if empty(a:bang) && getbufvar(btarget, '&modified')
-        call utils#Warn('No write since last change for buffer ' . 
+        call utils#Warn('No write since last change for buffer ' .
                      \  btarget . ' (use :Bclose!)')
         return
     endif
@@ -941,11 +941,11 @@ function! utils#InsertLine(content, target, bufnr = 0, check = v:null, after = v
         exec "buffer " . a:bufnr
     endif
     if a:check != v:null && search(a:check, 'n') != 0
-        exec "buffer " . cur_bufnr     
-        return -1 
+        exec "buffer " . cur_bufnr
+        return -1
     endif
     let target_linenr = search(a:target, 'n')
-    if target_linenr == 0 
+    if target_linenr == 0
         let target_linenr = line('$')
     endif
     if a:after
@@ -953,7 +953,7 @@ function! utils#InsertLine(content, target, bufnr = 0, check = v:null, after = v
     else
         call append(target_linenr - 1, a:content)
     endif
-    exec "buffer " . cur_bufnr     
+    exec "buffer " . cur_bufnr
     return 1
 endfunction
 
