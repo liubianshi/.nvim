@@ -91,6 +91,9 @@ local function construct_cmp_source(sources)
         markdown_oxide = {
           keyword_pattern = [[\(\k\| \|\/\|#\)\+]],
         },
+        marksman = {
+          keyword_pattern = [[\(\k\| \|\/\|#\)\+]],
+        },
       },
     },
     { name = "buffer" },
