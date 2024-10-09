@@ -37,6 +37,10 @@ end
 
 -- bashls (bash-language-server) ---------------------------------------- {{{2
 lspconfig.bashls.setup {
+  cmd = { "bash-language-server", "start" },
+  filetpyes = {"sh"},
+  root_dir = util.root_pattern(".git", ".root", ".project"),
+  single_file_support = true,
   capabilities = capabilities,
 }
 
@@ -70,11 +74,15 @@ lspconfig.perlnavigator.setup {
   cmd = { "perlnavigator" },
   capabilities = capabilities,
   single_file_support = true,
-  perlPath = 'perl',
-  enableWarnings = true,
-  perltidyProfile = '',
-  perlcriticProfile = '',
-  perlcriticEnabled = true,
+  settings = {
+    perlnavigator = {
+      perlPath = 'perl',
+      enableWarnings = true,
+      perltidyProfile = '',
+      perlcriticProfile = '',
+      perlcriticEnabled = true,
+    }
+  }
 }
 
 -- lua (lua-language-server) -------------------------------------------- {{{2
