@@ -344,7 +344,7 @@ end
 
 
 function M.in_obsidian_vault(buf)
-  local root_dir = M.get_root(vim.api.nvim_buf_get_name(buf))
+  local root_dir = M.get_root(vim.api.nvim_buf_get_name(buf or 0))
 
   if root_dir and root_dir:match('/vaults/') then
     return root_dir

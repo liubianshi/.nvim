@@ -13,7 +13,7 @@ hl_code_info.bg = hl_normal.bg
 require("markview").setup {
 	modes = { "n", "i", "c", ":", "no", "io", "co" },
 	hybrid_modes = { "i", "n" },
-  ignore_nodes = { "list_item", "fenced_code_block" },
+  ignore_nodes = { "list_item", "fenced_code_block", "block_quote" },
   headings = {
     enable = true,
     shift_width = 0,
