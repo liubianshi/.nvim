@@ -447,6 +447,7 @@ add_plug("nvim-focus/focus.nvim", {
     { "<leader>wm", "<cmd>FocusMaximise<cr>",     desc = "Focus Maximise" },
     { "<leader>we", "<cmd>FocusEqualise<cr>",     desc = "Focus Equalise" },
     { "<leader>ww", "<cmd>FocusToggle<cr>",       desc = "Focus Toggle" },
+    { "ww", "<cmd>FocusToggle<cr>",       desc = "Focus Toggle" },
     { "<leader>wb", "<cmd>FocusToggleBuffer<cr>", desc = "Focus Toggle Buffer" },
   },
   cmd = { "FocusToggle", "FocusEnable" },

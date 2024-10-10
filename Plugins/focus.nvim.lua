@@ -2,7 +2,7 @@ require("focus").setup {
   width = 86,
   bufnew = false,
   autoresize = {
-    enable = true,
+    enable = false,
     width = 100,
     minwidth = 20,
     minheigth = 5,
