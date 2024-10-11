@@ -35,10 +35,10 @@ if vim.fn.has "mac" == 1 then
   vim.g.lbs_input_method_activate = "os_input_change -s 0"
 else
   vim.g.lbs_input_status = "fcitx5-remote"
-  vim.g.lbs_input_method_inactivate = "fcitx5-remote -c"
-  vim.g.lbs_input_method_activate = "fcitx5-remote -o"
-  vim.g.lbs_input_method_off = 1
-  vim.g.lbs_input_method_on = 2
+  vim.g.lbs_input_method_inactivate = {"fcitx5-remote", "-c"}
+  vim.g.lbs_input_method_activate = {"fcitx5-remote", "-o"}
+  vim.g.lbs_input_method_off = "1"
+  vim.g.lbs_input_method_on = "2"
 end
 
 vim.g.plugs_lbs_conf = {} -- 用于记录插件个人配置文件的载入情况

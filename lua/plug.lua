@@ -819,7 +819,8 @@ add_plug("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
 -- liubianshi/cmp-lsp-rimels: ------------------------------------------- {{{3
 add_plug("liubianshi/cmp-lsp-rimels", {
   keys = {{"<localleader>f", mode = "i"}},
-  cond = true,
+  -- cond = vim.fn.has('nvim.0.10.2') ~= 1,
+  cond = false,
   dev = true,
 })
 

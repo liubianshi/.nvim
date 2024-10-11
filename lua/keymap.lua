@@ -208,6 +208,7 @@ nmap("<leader>hM", "Redir messages",      "<cmd>Redir messages<cr>")
 
 -- format --------------------------------------------------------------- {{{1
 imap("<localleader>w", "Format Line",    "<esc>gqq0A")
+imap("<A-;>",          "Format Line",    "<esc>gqq0A")
 nmap('gQ',             "gq after Pangu", 'vip:Pangu<cr>gqip')
 vmap('gQ',             "gq after Pangu", ':Pangu<cr>vgvgq')
 
