@@ -1222,6 +1222,28 @@ add_plug("mhartington/formatter.nvim", {
   ft = { "lua", "sh", "perl", "r", "html", "xml", "css", "markdown", "javascript" },
 })
 
+-- neo451/feed.nvim: nvim web feed reader
+add_plug('neo451/feed.nvim', {
+  dependencies = {
+    'neo451/treedoc.nvim',
+    'stevearc/conform.nvim',
+    'j-hui/fidget.nvim',
+    'nvim-lua/plenary.nvim',
+    'nvim-treesitter/nvim-treesitter',
+  },
+  config = function()
+    vim.g.feed_config = {
+      feeds = {
+        "https://sspai.com/feed",
+        "https://feeds.feedburner.com/ruanyifeng",
+        "https://neovim.io/news.xml",
+      },
+    }
+    require("feed")
+  end,
+  cmd = "Feed",
+})
+
 -- Writing and knowledge management ------------------------------------- {{{2
 -- vim-pandoc/vim-pandoc: pandoc integration and utilities for vim ------ {{{3
 -- add_plug("vim-pandoc/vim-pandoc-syntax", {

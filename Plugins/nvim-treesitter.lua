@@ -30,6 +30,8 @@ ts.setup {
     "lua",
     "dot",
     "perl",
+    "html",
+    "xml",
     "markdown",
     "markdown_inline",
     "bibtex",
