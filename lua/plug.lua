@@ -817,12 +817,19 @@ add_plug("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
 
 -- Tools ---------------------------------------------------------------- {{{2
 -- liubianshi/cmp-lsp-rimels: ------------------------------------------- {{{3
-add_plug("liubianshi/cmp-lsp-rimels", {
-  keys = {{"<localleader>f", mode = "i"}},
-  -- cond = vim.fn.has('nvim.0.10.2') ~= 1,
-  cond = false,
-  dev = true,
-})
+if vim.fn.has('linux') == 1 then
+  add_plug("liubianshi/ime-toggle", {
+    keys = {{"<localleader>f", mode = "i"}},
+    dev = true,
+    config = true,
+  })
+else
+  add_plug("liubianshi/cmp-lsp-rimels", {
+    keys = {{"<localleader>f", mode = "i"}},
+    dev = true,
+  })
+end
+
 
 -- LinTaoAmons/scratch.nvim: Create temporary playground files ---------- {{{3
 add_plug("LinTaoAmons/scratch.nvim", {

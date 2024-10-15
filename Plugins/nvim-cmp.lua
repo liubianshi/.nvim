@@ -157,6 +157,12 @@ local keymap_config = {
     end
   end, { "i", "s" }),
 }
+
+local ime_ok, ime = pcall(require, "ime-toggle.cmp-setting")
+if ime_ok then
+  keymap_config = vim.tbl_extend("force", keymap_config, ime.mapping)
+end
+
 -- sorting -------------------------------------------------------------- {{{2
 local sorting_config = {
   priority_weight = 2,
