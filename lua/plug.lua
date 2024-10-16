@@ -817,7 +817,7 @@ add_plug("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
 
 -- Tools ---------------------------------------------------------------- {{{2
 -- liubianshi/cmp-lsp-rimels: ------------------------------------------- {{{3
-if vim.fn.has('linux') == 1 then
+if vim.fn.has('linux') == 1 and (not vim.env.SSH_TTY or vim.env.SSH_TTY == "") then
   add_plug("liubianshi/ime-toggle", {
     keys = {{"<localleader>f", mode = "i"}},
     dev = true,
