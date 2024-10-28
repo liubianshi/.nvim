@@ -1130,7 +1130,14 @@ add_plug("rebelot/kanagawa.nvim",            { lazy = false, priority = 100 })
 add_plug("olimorris/onedarkpro.nvim",        { priority = 100 })
 add_plug("Mofiqul/vscode.nvim",              { priority = 100 })
 add_plug("rmehri01/onenord.nvim",            { priority = 100 })
-add_plug("nyoom-engineering/oxocarbon.nvim", { priority = 100 })
+add_plug("nyoom-engineering/oxocarbon.nvim", {
+  init = function()
+    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+  end,
+  priority = 100,
+})
 add_plug("Verf/deepwhite.nvim",              { lazy = false, priority = 100  })
 add_plug("mhartington/oceanic-next",         { lazy = false })
 add_plug("sainnhe/everforest", {
@@ -1203,9 +1210,9 @@ local cmp_dependencies = {
 for _, k in ipairs(cmp_dependencies) do
   add_plug(k, { lazy = true })
 end
--- add_plug("hrsh7th/nvim-cmp", {
-add_plug("iguanacucumber/magazine.nvim", {
-  name = "nvim-cmp",
+add_plug("hrsh7th/nvim-cmp", {
+-- add_plug("iguanacucumber/magazine.nvim", {
+  -- name = "nvim-cmp",
   event = "InsertEnter",
   dependencies = cmp_dependencies,
 })
@@ -1223,7 +1230,8 @@ add_plug("mhartington/formatter.nvim", {
 })
 
 -- neo451/feed.nvim: nvim web feed reader
-add_plug('neo451/feed.nvim', {
+add_plug({
+  'neo451/feed.nvim',
   dependencies = {
     'neo451/treedoc.nvim',
     'stevearc/conform.nvim',
@@ -1232,16 +1240,15 @@ add_plug('neo451/feed.nvim', {
     'nvim-treesitter/nvim-treesitter',
   },
   config = function()
-    vim.g.feed_config = {
+    require("feed").setup({
       feeds = {
         "https://sspai.com/feed",
         "https://feeds.feedburner.com/ruanyifeng",
         "https://neovim.io/news.xml",
       },
-    }
-    require("feed")
+      colorscheme = "kanagawa-wave",
+    })
   end,
-  cmd = "Feed",
 })
 
 -- Writing and knowledge management ------------------------------------- {{{2

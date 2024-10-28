@@ -3,21 +3,24 @@ set mouse=a
 if exists("g:neovide")
     " use light colorscheme during daytime
     let current_time = strftime("%H:%M")
-    if current_time >= "07:00" && current_time <= "17:00"
-        call setenv("NVIM_BACKGROUND", "light")
-        call setenv("NVIM_COLOR_SCHEME_DARK", "default")
-        call setenv("NVIM_COLOR_SCHEME_LIGHT", "deepwhite")
-    endif
-    if has('mac') 
-        let &guifont =  "Maple Mono NF,LXGW WenKai Mono:Apple Color Emoji:h16:w-1.5"
+    " if current_time >= "07:00" && current_time <= "17:00"
+    "     call setenv("NVIM_BACKGROUND", "light")
+    "     call setenv("NVIM_COLOR_SCHEME_DARK", "default")
+    "     call setenv("NVIM_COLOR_SCHEME_LIGHT", "default")
+    " endif
+    call setenv("NVIM_BACKGROUND", "dark")
+    call setenv("NVIM_COLOR_SCHEME_DARK", "ayu")
+    if has('mac')
+        let &guifont =  "Maple Mono NF,LXGW WenKai Mono,Symbols Nerd Font Mono,Apple Color Emoji:h16:w-1.5"
         let &linespace = 18
         let g:neovide_padding_top = 0
         let g:neovide_padding_bottom = 0
         let g:neovide_padding_right = 0
         let g:neovide_padding_left = 0
     else
-        let &guifont =  "Maple Mono NF,LXGW WenKai Mono,Noto Color Emoji:h11:w-0.5"
-        let &linespace = 0
+        " let &guifont =  "Fira Code,FZJuZhenXinFangS-R-GB,Symbols Nerd Font Mono,Noto Color Emoji:h11:w-0.5"
+        " let &guifont =  "FiraCode Nerd Font,FZJuZhenXinFangS-R-GB,Noto Color Emoji:h11:w-0.5"
+        let &linespace = 12
         let g:neovide_padding_top = 0
         let g:neovide_padding_bottom = 0
         let g:neovide_padding_right = 0
@@ -36,7 +39,7 @@ if exists("g:neovide")
     let g:neovide_border = [['', 'NormalFloat'], ['', 'NormalFloat']]
     let g:neovide_confirm_quit = v:true
     let g:neovide_cursor_vfx_mode = "railgun"
-    let g:neovide_scale_factor = 1.0
+    let g:neovide_scale_factor = 1.05
     " 动态调整 Neovide 的字体大小 / Dynamically resize Neovide's fonts
     function! ChangeScaleFactor(delta)
         let g:neovide_scale_factor = g:neovide_scale_factor * a:delta

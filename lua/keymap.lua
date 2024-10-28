@@ -100,7 +100,6 @@ nmap("<leader>og", "Display Highlight Group", function()
   vim.fn["utils#Extract_hl_group_link"]()
 end)
 
-
 --- insert special symbol ----------------------------------------------- {{{1
 imap("<localleader><space>", "Semicolons: ;",                     ";")
 imap("<localleader>0",       "Special Symbol: zero-width spaces", "<C-v>u200b")
