@@ -3,13 +3,11 @@ set mouse=a
 if exists("g:neovide")
     " use light colorscheme during daytime
     let current_time = strftime("%H:%M")
-    " if current_time >= "07:00" && current_time <= "17:00"
-    "     call setenv("NVIM_BACKGROUND", "light")
-    "     call setenv("NVIM_COLOR_SCHEME_DARK", "default")
-    "     call setenv("NVIM_COLOR_SCHEME_LIGHT", "default")
-    " endif
-    call setenv("NVIM_BACKGROUND", "dark")
-    call setenv("NVIM_COLOR_SCHEME_DARK", "ayu")
+    if current_time >= "07:00" && current_time <= "17:00"
+        call setenv("NVIM_BACKGROUND", "light")
+        call setenv("NVIM_COLOR_SCHEME_DARK", "ayu")
+        call setenv("NVIM_COLOR_SCHEME_LIGHT", "delek")
+    endif
     if has('mac')
         let &guifont =  "Maple Mono NF,LXGW WenKai Mono,Symbols Nerd Font Mono,Apple Color Emoji:h16:w-1.5"
         let &linespace = 18
@@ -35,7 +33,7 @@ if exists("g:neovide")
     let g:neovide_cursor_animate_in_insert_mode = v:false
     let g:neovide_floating_blur_amount_x = 0
     let g:neovide_floating_blur_amount_y = 0
-    let g:neovide_transparency = 0.98
+    " let g:neovide_transparency = 0.98
     let g:neovide_border = [['', 'NormalFloat'], ['', 'NormalFloat']]
     let g:neovide_confirm_quit = v:true
     let g:neovide_cursor_vfx_mode = "railgun"

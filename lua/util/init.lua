@@ -342,9 +342,11 @@ M.get_daily_filepath = function(ext, base, pre)
   return writing_room .. base .. pre .. basename .. ext
 end
 
-
 function M.in_obsidian_vault(buf)
-  local root_dir = M.get_root(vim.api.nvim_buf_get_name(buf or 0))
+  if not buf or (type(buf) == "table" and #buf == 0) then
+    buf = 0
+  end
+  local root_dir = M.get_root(vim.api.nvim_buf_get_name(buf))
 
   if root_dir and root_dir:match('/vaults/') then
     return root_dir
