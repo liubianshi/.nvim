@@ -56,6 +56,11 @@ require("img-clip").setup {
         template = markdown_template,
         relative_to_current_file = true,
     },
+    quarto = {
+      url_encode_path = true,
+      template = '![$CURSOR]($FILE_PATH)',
+      relative_to_current_file = true,
+    },
   },
   custom = {
     {

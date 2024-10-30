@@ -1269,6 +1269,16 @@ add_plug("ellisonleao/glow.nvim", {
   config = true
 })
 
+-- quarto-dev/quarto-nvim: Quarto mode for Neovim
+add_plug {
+  "quarto-dev/quarto-nvim",
+  ft = { 'quarto' },
+  dependencies = {
+    "jmbuhr/otter.nvim",
+    "nvim-treesitter/nvim-treesitter",
+  },
+}
+
 -- OXY2DEV/markview.nvim ------------------------------------------------ {{{3
 add_plug('OXY2DEV/markview.nvim', {
   lazy = false,
@@ -1280,7 +1290,7 @@ add_plug('OXY2DEV/markview.nvim', {
 
 -- ferrine/md-img-paste.vim: paste image to markdown -------------------- {{{3
 add_plug("HakonHarnes/img-clip.nvim", {
-  ft = { "rmd", "markdown", "rmarkdown", "pandoc", "org", "tex", "html", "norg" },
+  ft = { "rmd", "markdown", "rmarkdown", "pandoc", "org", "tex", "html", "norg", "quarto" },
   keys = {
     { "<leader>ip", "<cmd>PasteImage<cr>", desc = "Paste clipboard image" },
   },
@@ -1343,7 +1353,7 @@ add_plug("kristijanhusak/vim-dadbod-ui", {
 
 
 add_plug("liubianshi/R.nvim", { dev = true, lazy = false })
--- add_plug("R-nvim/R.nvim", { lazy = false })
+-- add_plug("R-nvim/R.nvim", { lazy = false, branch = "fix_no_args_compl" })
 
 
 -- lervag/vimtex: filetype plugin for LaTeX files ----------------------- {{{3
