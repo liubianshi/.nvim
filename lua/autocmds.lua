@@ -1,7 +1,8 @@
 -- vim: set fdm=marker: -------------------------------------------------
 local aucmd = vim.api.nvim_create_autocmd
 local function augroup(name)
-  return vim.api.nvim_create_augroup("LBS_" .. name, { clear = true })
+  name = "LBS_" .. name
+  return vim.api.nvim_create_augroup(name, { clear = true })
 end
 local augroups = vim.tbl_map(
   function(name) return augroup(name) end,
@@ -56,11 +57,20 @@ local function process_win(win)
     return "break"
   end
 
-  if zen_oriwin and type(zen_oriwin) == "table" and zen_oriwin.zenmode then
+
+  if vim.g.lbs_zen_mode then
     if ww <= 84 then
       vim.wo[win].signcolumn = "auto:1"
-    elseif ww <= 126 then
+    elseif ww <= 100 then
+      vim.wo[win].signcolumn = "yes:4"
+    else
+      vim.wo[win].signcolumn = "yes:" .. math.min(math.floor((ww - 81) / 4), 6)
+    end
+  elseif zen_oriwin and type(zen_oriwin) == "table" and zen_oriwin.zenmode then
+    if ww <= 84 then
       vim.wo[win].signcolumn = "auto:1"
+    elseif ww <= 100 then
+      vim.wo[win].signcolumn = "yes:4"
     else
       vim.wo[win].signcolumn = "yes:" .. math.min(math.floor((ww - 81) / 4), 9)
     end
@@ -79,7 +89,14 @@ aucmd({ "WinResized" }, {
   group = augroups.Zen,
   callback = function(_)
     local windows = vim.tbl_filter(
-      function(win) return vim.api.nvim_win_get_config(win).relative == "" end,
+      function(win)
+        return
+          vim.api.nvim_win_get_config(win).relative == ""
+          or (
+            vim.g.lbs_zen_mode
+            and vim.api.nvim_get_option_value('buftype', { buf = vim.api.nvim_win_get_buf(win) }) == ""
+          )
+      end,
       vim.v.event.windows
     )
     for _, win in ipairs(windows) do

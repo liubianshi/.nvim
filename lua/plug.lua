@@ -1262,6 +1262,15 @@ add_plug({
 --   end,
 --   ft = { "markdown", "pandoc", "markdown.pandoc" },
 -- })
+--
+
+-- folke/zen-mode.nvim: 🧘 Distraction-free coding for Neovim ----------- {{{3
+add_plug {
+  "folke/zen-mode.nvim",
+  keys = {
+    { "<leader>oZ", "<cmd>ZenMode<cr>", desc = "Zen Mode" }
+  }
+}
 
 -- ellisonleao/glow.nvim: A markdown preview directly in your neovim. --- {{{3
 add_plug("ellisonleao/glow.nvim", {

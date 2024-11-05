@@ -379,7 +379,7 @@ endfunction
 " Zen {{{1
 function! utils#ZenMode_Insert(start = v:true) abort
     let ww = winwidth(0)
-    if ! exists('b:zen_oriwin') || ! b:zen_oriwin['zenmode']
+    if ! (exists('b:zen_oriwin') && b:zen_oriwin['zenmode'])
         if a:start
             let b:zen_oriwin = {
                 \ 'zenmode': v:true,
@@ -789,11 +789,7 @@ endfunction
 " Markdown Snippets Preview ============================================== {{{1
 function! utils#MdPreview(method = "infile") range  abort
   if executable('surf')
-    let outfile = shellescape(stdpath('cache') . "/vim_markdown_preview.html")
-    let command = "mdviewer --wname " . sha256(expand('.')) .
-      \ " --to html --outfile " . outfile
-    Lazy! load asyncrun.vim
-    call asyncrun#run("", {'silent': 1, 'pos': 'hide'}, command, 1, a:firstline, a:lastline)
+    lua require('util').md_preview()
     return
   endif
 

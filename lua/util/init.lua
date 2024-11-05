@@ -353,4 +353,35 @@ function M.in_obsidian_vault(buf)
   end
 end
 
+function M.get_selected_lines()
+  -- 获取当前窗口
+  local win = vim.api.nvim_get_current_win()
+  -- 获取当前缓冲区
+  local buf = vim.api.nvim_win_get_buf(win)
+  -- 获取当前选区的起始和结束位置
+  local start_line, start_col = unpack(vim.api.nvim_buf_get_mark(buf, '<'))
+  local end_line, end_col = unpack(vim.api.nvim_buf_get_mark(buf, '>'))
+  -- 获取选中的行内容
+  local lines = vim.api.nvim_buf_get_lines(buf, start_line - 1, end_line, false)
+  return lines
+end
+
+function M.is_process_running(pid)
+  local success = pcall(function() vim.uv.kill(pid, 0) end)
+  return success
+end
+
+function M.md_preview(input)
+  input = input or M.get_selected_lines()
+  if not input then return end
+
+  local outfile = vim.fn.stdpath('cache') .. "/vim_markdown_preview.html"
+  vim.system(
+    { "mdviewer", "--to", "html", "--outfile", outfile },
+    {text = true, stdin = input},
+    function() end
+  )
+
+end
+
 return M
