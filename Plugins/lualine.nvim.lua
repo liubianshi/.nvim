@@ -1,3 +1,19 @@
+-- @param trunc_width number trunctates component when screen width is less then trunc_width
+--- @param trunc_len number truncates component to trunc_len number of chars
+--- @param hide_width number hides component when window width is smaller then hide_width
+--- @param no_ellipsis boolean whether to disable adding '...' at end after truncation
+--- return function that can format the component accordingly
+local function trunc(trunc_width, trunc_len, hide_width, no_ellipsis)
+  return function(str)
+    local win_width = vim.fn.winwidth(0)
+    if hide_width and win_width < hide_width then return ''
+    elseif trunc_width and trunc_len and win_width < trunc_width and #str > trunc_len then
+       return str:sub(1, trunc_len) .. (no_ellipsis and '' or '...')
+    end
+    return str
+  end
+end
+
 -- Eviline config for lualine
 -- Author: shadmansaleh
 -- Credit: glepnir
@@ -6,7 +22,13 @@ local lualine = require "lualine"
 -- Color table for highlights
 local colors = vim.g.lbs_colors
 
+-- window
+local function window()
+  return vim.api.nvim_win_get_number(0)
+end
+
 -- conponent
+--- @diagnostic disable: unused-local
 local buffers = {
   "buffers",
   buffers_color = {
@@ -31,10 +53,9 @@ local fname = {
     readonly = "[-]", -- if the file is not modifiable or readonly
     unnamed = "[No Name]", -- default display name for unnamed buffers
   },
-  color = { fg = colors.orange, gui = "bold" },
+  color = { fg = colors.black, gui = "bold" },
   separator = { left = "", right = "" },
 }
-
 local diagnostics = {
   "diagnostics",
   sources = { "nvim_lsp" },
@@ -43,7 +64,6 @@ local diagnostics = {
   color_warn = colors.yellow,
   color_info = colors.cyan,
 }
-
 local diff = {
   "diff",
   -- Is it me or the symbol for modified us really weird
@@ -53,7 +73,6 @@ local diff = {
   color_modified = colors.orange,
   color_removed = colors.red,
 }
-
 local encoding = {
   function()
     if vim.bo.fileencoding == "utf-8" then
@@ -63,12 +82,11 @@ local encoding = {
     end
   end,
 }
-
--- rime-ls status
 local rime_status = {
   function()
-    if require("rimels.utils").global_rime_enabled() then
-      if require("rimels.utils").buf_rime_enabled() then
+    local ime = require("ime-toggle.input-method")
+    if ime.buf_rime_enabled() then
+      if ime.global_rime_enabled() then
         return "· ㄓ"
       else
         return "· ㄨ"
@@ -80,8 +98,6 @@ local rime_status = {
   padding = { left = 0, right = 1 },
   color = { fg = colors.orange },
 }
-
--- Fold Method
 local foldmethod = {
   function()
     local fdm = vim.wo.foldmethod
@@ -156,7 +172,13 @@ lualine.setup {
   sections = {
     -- these are to remove the defaults
     lualine_a = {
-      { "mode", separator = { left = "", right = "" } },
+      {
+        "mode",
+        fmt = trunc(80, 4, 0, true),
+        separator = { left = "", right = "" },
+      },
+      window,
+      fname,
     },
     lualine_b = {},
     lualine_c = {
@@ -170,7 +192,6 @@ lualine.setup {
         color = { fg = colors.yellow },
       },
       "location",
-      fname,
     },
     lualine_y = {
       "filetype",

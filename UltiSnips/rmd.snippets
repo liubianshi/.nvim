@@ -32,11 +32,11 @@ output:
 				- "/home/liubianshi/useScript/header.tex"
 				- "/home/liubianshi/useScript/code.tex"
 		latex_engine: xelatex
-		pandoc_args: 
+		pandoc_args:
 			- "--listings"
-	word_document: 
+	word_document:
 		pandoc_args: ["--from=markdown+east_asian_line_breaks"]
-	html_document: 
+	html_document:
 		css: ~/useScript/vue.css
 ---
 endsnippet
@@ -138,20 +138,15 @@ output:
 endsnippet
 
 snippet cols "beamer cols" b
-
-\begin{columns}
-\begin{column}{0.48\textwidth}
-
+:::: columns
+::: column
 $1
+:::
 
-\end{column}
-\begin{column}{.48\textwidth}
-
+::: column
 $2
-
-\end{column}
-\end{columns}
-
+:::
+::::
 $0
 endsnippet
 
