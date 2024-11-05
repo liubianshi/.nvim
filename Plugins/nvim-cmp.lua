@@ -2,7 +2,7 @@
 local cmp = require "cmp"
 local compare = require "cmp.config.compare"
 local cmp_ultisnips_mappings = require "cmp_nvim_ultisnips.mappings"
-require("cmp_r").setup { filetypes = { "r", "rmd", "markdown", "rdoc" } }
+require("cmp_r").setup { filetypes = { "r", "rmd", "markdown", "rdoc", "quarto" } }
 vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 -- if not PlugExist('cmp-lsp-rimels') and vim.fn.has('nvim-0.10.2') ~= 1 then
 --   vim.notify("Launch rimels minimal config for test", vim.log.levels.INFO)
@@ -260,7 +260,7 @@ cmp.setup.filetype({ "stata" }, {
 --   },
 -- })
 
-cmp.setup.filetype({ "r", "rmd" }, {
+cmp.setup.filetype({ "r", "rmd", "quarto", "rdoc" }, {
   sources = construct_cmp_source {
     {
       name = "cmp_r",
