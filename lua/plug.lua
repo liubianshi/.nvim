@@ -830,6 +830,11 @@ else
   })
 end
 
+-- tpope/vim-rsi: Readline style insertion ------------------------------ {{{3
+add_plug("tpope/vim-rsi", {
+  init = function() vim.g.rsi_no_meta = 1 end,
+})
+
 
 -- LinTaoAmons/scratch.nvim: Create temporary playground files ---------- {{{3
 add_plug("LinTaoAmons/scratch.nvim", {

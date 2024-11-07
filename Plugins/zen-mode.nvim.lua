@@ -15,7 +15,7 @@ zenmode.setup {
     end,
     height = vim.api.nvim_get_option_value("lines", { scope = "global" }) ,
     options = {
-      signcolumn = "yes:6",
+      signcolumn = "yes:4",
       number = false, -- disable number column
       relativenumber = false, -- disable relative numbers
       cursorline = false, -- disable cursorline
