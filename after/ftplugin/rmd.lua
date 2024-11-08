@@ -25,8 +25,8 @@ local fexport = function(oformat, ofile)
     end
 
     local cmd = string.format(
-        'fexport --from=rmd --to="%s" --outfile="%s" "%s"',
-        oformat, ofile, fname
+        'fexport --from=%s --to="%s" --outfile="%s" "%s"',
+        vim.bo.filetype, oformat, ofile, fname
     )
     print(cmd)
     require('util').execute_async(cmd)

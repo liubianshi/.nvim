@@ -1283,7 +1283,7 @@ add_plug("ellisonleao/glow.nvim", {
   config = true
 })
 
--- quarto-dev/quarto-nvim: Quarto mode for Neovim
+-- quarto-dev/quarto-nvim: Quarto mode for Neovim ----------------------- {{{3
 add_plug {
   "quarto-dev/quarto-nvim",
   ft = { 'quarto' },
@@ -1380,7 +1380,7 @@ add_plug("poliquin/stata-vim", { ft = "stata" }) -- stata 语法高亮
 add_plug("mechatroner/rainbow_csv", { ft = { "csv", "tsv" } })
 
 -- WolfgangMehner/perl-support: filetype plugin for perl files ---------- {{{3
-add_plug("WolfgangMehner/perl-support", { ft = "perl" })
+-- add_plug("WolfgangMehner/perl-support", { ft = "perl" })
 
 -- liuchengxu/graphviz.vim: Graphviz dot -------------------------------- {{{3
 add_plug("liuchengxu/graphviz.vim", { ft = "dot" })
