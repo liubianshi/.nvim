@@ -1,6 +1,5 @@
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-local neotree = require("neo-tree")
-neotree.setup({
+local opts = {
    sources = { "filesystem", "buffers", "git_status", "document_symbols" },
    open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "Outline" },
    filesystem = {
@@ -45,7 +44,23 @@ neotree.setup({
          ["h"] = "close_node",
       }
    }
-})
+}
+
+-- From:
+-- https://github.com/folke/snacks.nvim/blob/main/docs/rename.md
+--- @diagnostic disable: undefined-global, undefined-field
+if Snacks == nil or #Snacks == 0 then
+  local events = require("neo-tree.events")
+  local function on_move(data)
+    Snacks.rename.on_rename_file(data.source, data.destination)
+  end
+  opts.event_handlers = {
+    { event = events.FILE_MOVED, handler = on_move },
+    { event = events.FILE_RENAMED, handler = on_move },
+  }
+end
+
+require("neo-tree").setup(opts)
 
 vim.api.nvim_create_autocmd("TermClose", {
    pattern = "*lazygit",

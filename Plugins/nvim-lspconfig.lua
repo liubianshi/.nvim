@@ -139,15 +139,13 @@ lspconfig.markdown_oxide.setup {
 
 -- Global mappings ------------------------------------------------------ {{{2
 local lspmap = function(key, desc, cmd, opts)
-  opts = opts or {}
-  local mode = opts.mode or "n"
-  opts.mode = nil
   opts = vim.tbl_extend("keep", opts or {}, {
-    desc = "LSP: " .. desc,
+    key, cmd,
+    desc = "LSP:" .. desc,
     silent = true,
     noremap = true,
   })
-  vim.keymap.set(mode, key, cmd, opts)
+  require('util').keymap(opts)
 end
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

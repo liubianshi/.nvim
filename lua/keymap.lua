@@ -1,13 +1,13 @@
+local keymap = require('util').keymap
 local vimkey = function(key, desc, cmd, opts)
-  opts = vim.tbl_extend("keep", opts or {}, {
+  local mapping = vim.tbl_extend("keep", opts or {}, {
+    key, cmd,
     mode = "n",
     desc = desc,
     silent = true,
     noremap = true,
   })
-  local mode = opts.mode
-  opts.mode = nil
-  vim.keymap.set(mode, key, cmd, opts)
+  keymap(mapping)
 end
 local nmap = vimkey
 local function imap(key, desc, cmd, opts)
@@ -78,7 +78,7 @@ nmap("<leader>oz",      "Toggle Zen Mode (diy)",                 "<cmd>call util
 nmap("<leader><enter>", "Redraw / Clear hlsearch / Diff Update", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>")
 
 --- buffer --------------------------------------------------------------- {{{1
-nmap("<leader>bd", "Delete Buffer",             "<cmd>Bclose<cr>")
+-- nmap("<leader>bd", "Delete Buffer",             "<cmd>Bclose<cr>")
 nmap("<leader>bD", "Delete Buffer (force)",     "<cmd>Bclose!<cr>")
 nmap("<leader>bp", "Previous Buffer",           "<cmd>bp<cr>")
 nmap("<leader>bn", "Next Buffer",               "<cmd>bn<cr>")
@@ -212,6 +212,8 @@ nmap('gQ',             "gq after Pangu", 'vip:Pangu<cr>gqip')
 vmap('gQ',             "gq after Pangu", ':Pangu<cr>vgvgq')
 
 -- object --------------------------------------------------------------- {{{1
+keymap({'i', mode = {'x', 'o'}, group = "Object: inner",  icon = {icon = "", hl = "WhichKeyIconOrange"}})
+keymap({'a', mode = {'x', 'o'}, group = "Object: outter", icon = {icon = "", hl = "WhichKeyIconOrange"}})
 vimkey('iB', "Object: Buffer",                  "<cmd>call text_obj#Buffer()<cr>", {mode = {"x", "o"} })
 vimkey('iu', "Object: URL",                     "<cmd>call text_obj#URL()<cr>",    {mode = {"x",  "o"}})
 vimkey('il', "Object: current line",            "^o$h",                            {mode = "x"})
@@ -236,3 +238,4 @@ end)
 -- File manager --------------------------------------------------------- {{{1
 nmap('<leader>fs', "Save File", '<cmd>write<cr>')
 nmap('<leader>fS', "Save File (force)", '<cmd>write!<cr>')
+

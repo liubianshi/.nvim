@@ -33,7 +33,7 @@ wk.setup {
 -- register keymap ------------------------------------------------------ {{{1
 wk.add {
   { "<leader>.", desc = "Open File" },
-  { "<leader>a", group = "Attach ..." },
+  { "<leader>a", group = "Attach ...", icon = { icon = "󰹴", hl = "WhichKeyIconBlue" }},
   { "<leader>a*", desc = "Attach Symbol *" },
   { "<leader>a-", desc = "Attach Symbol -" },
   { "<leader>a.", desc = "Attach Symbol ." },
@@ -49,18 +49,27 @@ wk.add {
   { "<leader>fz", desc = "FASD" },
   { "<leader>g", group = "Git ..." },
   { "<leader>h", group = "Help/Notification ..." },
-  { "<leader>i", group = "Insert ..." },
+  { "<leader>i", group = "Insert ...", icon = { icon = "↡", hl = "WhichKeyIconBlue" }},
   { "<leader>ic", desc = "Insert Citation" },
   { "<leader>l", group = "Session Manager ..." },
   { "<leader>ls", desc = "List Saved Session" },
-  { "<leader>n", group = "Obsidian ..." },
-  { "<leader>o", group = "Open Command ..." },
-  { "<leader>p", group = "Project ..." },
+  { "<leader>m", group = "Modify ...", icon = { icon = "", hl = "WhichKeyIconBlue" }},
+  { "<leader>n", group = "Obsidian ...", icon = { icon = "", hl = "WhichKeyIconBlue" }},
+  { "<leader>o", group = "Open Command ...", icon = { icon = "󱓞", hl = "WhichKeyIconBlue" }},
+  { "<leader>p", group = "Project ...", icon = { icon = "󰳐", hl = "WhichKeyIconBlue" }},
   { "<leader>q", group = "Quickfix ..." },
   { "<leader>s", group = "Search ..." },
   { "<leader>t", group = "Tab/Translate ..." },
   { "<leader>w", group = "Window ..." },
-  { "<leader>x", group = "Trouble ..." },
-  { "<leader>z", group = "Fold ..." },
+  { "<leader>x", group = "Trouble ...", icon = { icon = "", hl = "WhichKeyIconBlue" }},
+  { "<leader>z", group = "Fold ...", icon = { icon = "", hl = "WhichKeyIconBlue" }},
+  { "<leader>u", group = "Snacks ...", icon = { icon = "󰘵", hl = "WhichKeyIconBlue" }},
+  { "<leader>v", desc = "Voom Outline ...", icon = { icon = "󰠶", hl = "WhichKeyIconBlue" }},
+  { "<leader><leader>", group = "Terminal ...", icon = { icon = "", hl = "WhichKeyIconBlue" }},
   { "w", group = "window ..." },
 }
+
+
+
+
+

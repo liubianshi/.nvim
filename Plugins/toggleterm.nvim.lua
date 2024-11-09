@@ -12,6 +12,7 @@ local uniform_background_color = function(conf)
     local degree = is_bright and -3 or 1
     local amount = conf.shading_factor * degree
     local normal_bg = colors.get_hex("Normal", "bg")
+    --- @diagnostic disable: unused-local
     local shade_color = conf.shade_terminals and colors.shade_color(normal_bg, amount) or normal_bg
 
     conf.highlights.FoldColumn = { guibg = "NONE" }

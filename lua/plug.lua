@@ -68,7 +68,7 @@ add_plug("is0n/fm-nvim", {
   keys = {
     { "<leader>fo", "<cmd>Lf '%:p:h'<cr>", desc = "Open File with Lf" },
     { "<leader>fn", "<cmd>Nnn '%:p:h'<cr>", desc = "Open File with nnn" },
-    { "<leader>gg", "<cmd>Lazygit<cr>", desc = "Open Lazy Git" },
+    -- { "<leader>gg", "<cmd>Lazygit<cr>", desc = "Open Lazy Git" },
   },
 })
 
@@ -128,12 +128,12 @@ add_plug("ibhagwan/fzf-lua", {
   cmd = { "FzfLua", "Shelp", "Urlopen", "RoamNodeFind", "Cheat", "ProjectChange" },
   keys = {
     "<leader>pp",
-    "<leader>sq",
+    {"<leader>sq", desc = "Open my library file"},
     "<leader>ic",
     "<leader>fz",
     "<leader>bB",
     "<leader>.",
-    "<leader>ot",
+    {"<leader>ot", desc = "Run async tasks"},
     "<A-x>",
     {
       "<leader>:",
@@ -147,7 +147,7 @@ add_plug("ibhagwan/fzf-lua", {
       desc = "FzfLua: Select buffer",
     },
     {
-      "<leader>u",
+      "<leader>ou",
       "<cmd>Urlopen<cr>",
       desc = "FzfLua: Open urls",
     },
@@ -727,9 +727,6 @@ add_plug("vim-voom/VOoM", {
 -- akinsho/bufferline.nvim: buffer line with minimal tab integration ---- {{{3
 add_plug("akinsho/bufferline.nvim", {
   event = "VeryLazy",
-  keys = {
-    { "<leader>B", "<cmd>BufferLinePick<cr>", desc = "Choose Buffer" },
-  },
 })
 
 -- nvim-lualine/lualine.nvim: neovim statusline plugin ------------------ {{{3
@@ -835,6 +832,8 @@ add_plug("tpope/vim-rsi", {
   init = function() vim.g.rsi_no_meta = 1 end,
 })
 
+-- folke/snacks.nvim: A collection of small QoL plugins ----------------- {{{3
+add_plug { "folke/snacks.nvim", priority = 1000, lazy = false }
 
 -- LinTaoAmons/scratch.nvim: Create temporary playground files ---------- {{{3
 add_plug("LinTaoAmons/scratch.nvim", {
@@ -892,7 +891,7 @@ add_plug {
     }
   end,
   keys = {
-    {"<localleader>v", "<cmd>AerialToggle!<CR>", {desc = "Toggle aerial"}}
+    {"<localleader>v", "<cmd>AerialToggle!<CR>", desc = "Toggle aerial"}
   },
   cmd = {"AerialToggle"}
 }
@@ -998,26 +997,19 @@ add_plug("liubianshi/vimcmdline", {
   ft = {'stata', 'sh', 'bash'},
   dev = true,
 })
-add_plug("voldikss/vim-translator", {
-  cmd = {"Translate"},
-  keys = {
-    {"<leader>k", desc = "Translate", mode = {"n", "v"}},
-  }
-})
 
--- potamides/pantran.nvim: trans without leave neovim ------------------- {{{3
-add_plug("potamides/pantran.nvim", {
-  keys = {
-    { "<leader>tr", mode = { "x", "n" }, desc = "Pantran: translate" },
-    { "<leader>trr", mode = { "n" }, desc = "Pantran: translate" },
-    {
-      "<leader>T",
-      "<cmd>Pantran target=en<cr>",
-      desc = "Pantran: to English",
-      mode = { "n", "v" },
-    },
-  },
-})
+-- -- potamides/pantran.nvim: trans without leave neovim ------------------- {{{3
+-- add_plug("potamides/pantran.nvim", {
+--   keys = {
+--     { "<leader>tr", mode = { "x", "n" }, desc = "Pantran: translate" },
+--     {
+--       "<leader>T",
+--       "<cmd>Pantran target=en<cr>",
+--       desc = "Pantran: to English",
+--       mode = { "n", "v" },
+--     },
+--   },
+-- })
 
 -- 3rd/image.nvim: 🖼️ Bringing images to Neovim.
 add_plug("3rd/image.nvim", {
@@ -1055,9 +1047,8 @@ add_plug("gbprod/yanky.nvim", {
 
 add_plug('liubianshi/anki-panky', {
   dev = true,
-  -- ft = { 'markdown' },
+  ft = { 'markdown' },
   cmd = {'AnkiNew', 'AnkiPush'},
-  keys = {'<localleader>aa', '<localleader>af'},
   config = true,
 })
 
@@ -1065,8 +1056,8 @@ add_plug('liubianshi/anki-panky', {
 add_plug('sindrets/diffview.nvim', {
   cmd = { "DiffviewOpen", "DiffviewFileHistory" },
   keys = {
-    { "<leader>dd", "<cmd>DiffviewOpen<cr>", desc = "DiffviewOpen"},
-    { "<leader>dh", "<cmd>DiffviewFileHistory<cr>", desc = "DiffviewOpen"},
+    { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "DiffviewOpen"},
+    { "<leader>gh", "<cmd>DiffviewFileHistory<cr>", desc = "DiffviewOpen"},
   },
 })
 

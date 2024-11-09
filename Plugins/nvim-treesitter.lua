@@ -20,6 +20,8 @@ end
 
 local ts = require "nvim-treesitter.configs"
 vim.treesitter.language.register("markdown", "rmd")
+vim.treesitter.language.register("markdown", "qmd")
+vim.treesitter.language.register("markdown_inline", "qmd")
 ts.setup {
   modules = {},
   ensure_installed = {

@@ -14,7 +14,7 @@ dashboard.section.header.val = {
 dashboard.section.buttons.val = {
   dashboard.button("e", "  New file",      ":silent ene <BAR> startinsert <CR>"),
   dashboard.button("f", "  Find file",     ":lua require('telescope').extensions.smart_open.smart_open()<CR>"),
-  dashboard.button("n", "  Obsidian Note", ":ObsidianQuickSwitch<CR>"),
+  dashboard.button("n", "  Obsidian Note", ":ObsidianQuickSwitch<CR>"),
   dashboard.button("p", "  Open Project",  ":ProjectChange<CR>"),
   dashboard.button("r", "  Recent",        ":lua vim.cmd.normal(vim.g.mapleader .. 'fz')<cr>"),
   dashboard.button("q", "  Quit",          ":qa<CR>"),

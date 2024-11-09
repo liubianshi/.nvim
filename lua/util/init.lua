@@ -384,4 +384,18 @@ function M.md_preview(input)
 
 end
 
+function M.keymap(mapping)
+  local wk_ok, wk = pcall(require, "which-key")
+  if wk_ok then
+    wk.add(mapping)
+    return
+  end
+  local mode = mapping.mode or "n"
+  local lhs = mapping:remove(1)
+  local rhs = mapping:remove(1)
+  mapping.mode = nil
+  mapping.icon = nil
+  vim.keymap.set(mode, lhs, rhs, mapping)
+end
+
 return M
