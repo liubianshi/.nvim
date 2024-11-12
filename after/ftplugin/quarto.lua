@@ -18,7 +18,6 @@ vim.api.nvim_set_hl(ns, '@markup.strikethrough', { strikethrough = false })
 vim.api.nvim_set_hl(ns, '@markup.doublestrikethrough', { strikethrough = true })
 vim.api.nvim_win_set_hl_ns(0, ns)
 
-
 vim.cmd [[
   UltiSnipsAddFiletype quarto.r.markdown
 ]]
@@ -73,8 +72,32 @@ for type, key in pairs(format_desc) do
     )
 end
 
+local keymap = require("util").keymap
+keymap {
+  "<localleader>xp",
+  function()
+    local file = vim.fn.expand('%')
+    local job = vim.system(
+      {"fexport", "--to", "html", "--preview", file},
+      {text = true},
+      function() end
+    )
+    keymap {
+      "<localleader>xP",
+      function()
+        if job then job:kill(15) end
+      end,
+      desc = "Stop Quarto Prview",
+      buffer = true,
+    }
+  end,
+  desc = "Start Quarto preview",
+  icon = { icon = '', hl = "WhichKeyIconCyan"},
+  buffer = true,
+}
+
 require('which-key').add {
-  { "<localleader>x", group = "Export ..." },
+  { "<localleader>x", group = "Export ..."},
 }
 
 vim.keymap.set("i", "<A-=>",
