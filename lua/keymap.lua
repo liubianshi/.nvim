@@ -68,6 +68,10 @@ nmap("<leader>z1", "Add Fold Marker 1",                   'g_a <esc>3a{<esc>a1<e
 nmap("<leader>z2", "Add Fold Marker 2",                   'g_a <esc>3a{<esc>a2<esc>')
 nmap("<leader>z3", "Add Fold Marker 3",                   'g_a <esc>3a{<esc>a3<esc>')
 
+-- diff ----------------------------------------------------------------- {{{1
+keymap {"<leader>d", group = "Diff", icon = {icon = "", hl = "WhichKeyIconOrange"}}
+nmap("<leader>dl", "Diffget Local", "<cmd>diffget LOCAL<cr>:diffupdate<cr>")
+nmap("<leader>dr", "Diffget Remote", "<cmd>diffget REMOTE<cr>:diffupdate<cr>")
 
 --- run ------------------------------------------------------------------ {{{1
 nmap("<leader>o:",      "Open Terminal",                         "<cmd>ToggleTerm<cr>")

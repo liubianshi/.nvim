@@ -20,6 +20,10 @@ vim.api.nvim_win_set_hl_ns(0, ns)
 
 vim.cmd [[
   UltiSnipsAddFiletype quarto.r.markdown
+  nnoremap <A-v> vip:call utils#MdPreview()<cr>
+  nnoremap <A-V> vip:call utils#MdPreview(1)<cr>
+  vnoremap <A-v> :call utils#MdPreview()<cr>
+  vnoremap <A-V> :call utils#MdPreview(1)<cr>
 ]]
 vim.api.nvim_set_option_value('formatprg', "text_wrap", { scope = 'local' })
 

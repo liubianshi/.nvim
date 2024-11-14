@@ -18,7 +18,10 @@ local repeat_symbol = {
   end,
   text = "─",
   hl = {
-    "MarkviewGradient1", "MarkviewGradient2", "MarkviewGradient3", "MarkviewGradient4", "MarkviewGradient5", "MarkviewGradient6", "MarkviewGradient7", "MarkviewGradient8", "MarkviewGradient9", "MarkviewGradient10"
+    "MarkviewGradient1", "MarkviewGradient2", "MarkviewGradient3",
+    "MarkviewGradient4", "MarkviewGradient5", "MarkviewGradient6",
+    "MarkviewGradient7", "MarkviewGradient8", "MarkviewGradient9",
+    "MarkviewGradient10"
   },
   --- Placement direction of the gradient.
   ---@type "left" | "right"
@@ -57,6 +60,9 @@ require("markview").setup {
     pad_amount = 0,
     sign = false,
     language_direction = "left",
+  },
+  latex = {
+    block = { enable = false },
   },
   list_items = {
     enable = false,

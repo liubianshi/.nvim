@@ -7,7 +7,7 @@ require('snacks').setup {
   quickfile = { enabled = true },
   terminal = { enabled = true },
   statuscolumn = {
-    enabled = true,
+    enabled = false,
     folds = {
       open = true,
       git_hl = true,
