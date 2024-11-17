@@ -84,7 +84,8 @@ local encoding = {
 }
 local rime_status = {
   function()
-    local ime = require("ime-toggle.input-method")
+    local ime_ok, ime = pcall(require, "ime-toggle.input-method")
+    if not ime_ok then return "" end
     if ime.buf_rime_enabled() then
       if ime.global_rime_enabled() then
         return "· ㄓ"
@@ -177,8 +178,6 @@ lualine.setup {
         fmt = trunc(80, 4, 0, true),
         separator = { left = "", right = "" },
       },
-      window,
-      fname,
     },
     lualine_b = {},
     lualine_c = {
@@ -186,6 +185,7 @@ lualine.setup {
       diagnostics,
     },
     lualine_x = {
+      fname,
       {
         "progress",
         padding = { left = 1, right = 0 },

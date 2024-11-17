@@ -54,8 +54,6 @@ add_plug("chentoast/marks.nvim", {
   config = true,
 })
 
--- romainl/vim-cool: disables search highlighting automatic ------------- {{{3
--- add_plug("romainl/vim-cool", { event = "VeryLazy" })
 -- ojroques/vim-oscyank: copy text through SSH with OSC52 --------------- {{{3
 add_plug("ojroques/vim-oscyank", { cmd = {"OSCYankVisual"} })
 
@@ -72,14 +70,15 @@ add_plug("is0n/fm-nvim", {
   },
 })
 
+-- stevearc/oil.nvim: file explorer: edit your filesystem like a buffer - {{{3
 add_plug {
   'stevearc/oil.nvim',
   dependencies = {
     { "echasnovski/mini.icons", opts = {} }
   },
 }
+
 -- nvim-neo-tree/neo-tree.nvim: browse tree like structures ------------- {{{3
-add_plug("s1n7ax/nvim-window-picker", { lazy = true, config = true})
 add_plug("nvim-neo-tree/neo-tree.nvim", {
   cmd = "Neotree",
   dependencies = {"s1n7ax/nvim-window-picker"},
@@ -128,7 +127,7 @@ add_plug("ibhagwan/fzf-lua", {
   cmd = { "FzfLua", "Shelp", "Urlopen", "RoamNodeFind", "Cheat", "ProjectChange" },
   keys = {
     "<leader>pp",
-    {"<leader>sq", desc = "Open my library file"},
+    {"<leader>sq", desc =  "Open my library file"},
     "<leader>ic",
     "<leader>fz",
     "<leader>bB",
@@ -197,7 +196,6 @@ add_plug("ibhagwan/fzf-lua", {
 
 -- nvim-telescope/telescope.nvim: Find, Filter, Preview, Pick ----------- {{{3
 add_plug("fhill2/telescope-ultisnips.nvim", { lazy = true })
-add_plug("FeiyouG/command_center.nvim",     { lazy = true })
 add_plug("nvim-telescope/telescope-fzf-native.nvim", { build = "make", lazy = true, })
 add_plug("nvim-telescope/telescope.nvim", {
   keys = {
@@ -508,23 +506,22 @@ add_plug("MagicDuck/grug-far.nvim", {
 })
 
 -- rcarriga/nvim-notify: notification manager --------------------------- {{{3
-add_plug("rcarriga/nvim-notify", {
-  keys = {
-    {
-      "<leader>nu",
-      function()
-        require("notify").dismiss { silent = true, pending = true }
-      end,
-      desc = "Dismiss all Notifications",
-    },
-  },
-  init = function()
-    vim.notify = require "notify"
-  end,
-  event = {'VeryLazy'},
-})
+-- add_plug("rcarriga/nvim-notify", {
+--   keys = {
+--     {
+--       "<leader>nu",
+--       function()
+--         require("notify").dismiss { silent = true, pending = true }
+--       end,
+--       desc = "Dismiss all Notifications",
+--     },
+--   },
+--   init = function()
+--     vim.notify = require "notify"
+--   end,
+--   event = {'VeryLazy'},
+-- })
 
---
 add_plug("folke/noice.nvim", {
   event = "VeryLazy",
   init = function()
@@ -682,7 +679,7 @@ add_plug("easymotion/vim-easymotion", {
 })
 
 -- zzhirong/vim-easymotion-zh: motion in Chinese text ------------------- {{{3
-add_plug("zzhirong/vim-easymotion-zh", { lazy = true })
+-- add_plug("zzhirong/vim-easymotion-zh", { lazy = true })
 
 -- folke/which-key.nvim: displays a popup with possible keybindings ----- {{{3
 add_plug("folke/which-key.nvim", { event = "VeryLazy" })
@@ -981,6 +978,7 @@ add_plug("akinsho/toggleterm.nvim", {
 
 -- willothy/flatten.nvim: open files in your current neovim instance ---- {{{3
 add_plug("willothy/flatten.nvim", { lazy = false, priority = 1001 })
+
 -- skywind3000/asyncrun.vim: run async shell command -------------------- {{{3
 add_plug("skywind3000/asyncrun.vim", { cmd = {'AsyncRun'} })
 
@@ -1011,7 +1009,7 @@ add_plug("liubianshi/vimcmdline", {
 --   },
 -- })
 
--- 3rd/image.nvim: 🖼️ Bringing images to Neovim.
+-- 3rd/image.nvim: Bringing images to Neovim.
 add_plug("3rd/image.nvim", {
   cond = (vim.fn.exists("g:neovide") == 0),
   ft = { "markdown", "pandoc", "rmd", "rmarkdown", "norg", "org", "newsboat" },
@@ -1044,7 +1042,7 @@ add_plug("gbprod/yanky.nvim", {
     { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put before applying a filter" },
   }
 })
-
+-- liubianshi/anki-panky ------------------------------------------------ {{{3
 add_plug('liubianshi/anki-panky', {
   dev = true,
   ft = { 'markdown' },
@@ -1207,44 +1205,20 @@ for _, k in ipairs(cmp_dependencies) do
   add_plug(k, { lazy = true })
 end
 add_plug("hrsh7th/nvim-cmp", {
--- add_plug("iguanacucumber/magazine.nvim", {
-  -- name = "nvim-cmp",
-  event = "InsertEnter",
+  event = {"InsertEnter", "CmdlineEnter"},
   dependencies = cmp_dependencies,
 })
 
 -- Formatter and linter ------------------------------------------------- {{{2
 -- mfussenegger/nvim-dap
 -- add_plug("mfussenegger/nvim-dap")
-add_plug("rcarriga/nvim-dap-ui", {
-  dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
-})
+-- add_plug("rcarriga/nvim-dap-ui", {
+--   dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
+-- })
 
 -- mhartington/formatter.nvim: autoformat tool -------------------------- {{{3
 add_plug("mhartington/formatter.nvim", {
   ft = { "lua", "sh", "perl", "r", "html", "xml", "css", "markdown", "javascript" },
-})
-
--- neo451/feed.nvim: nvim web feed reader
-add_plug({
-  'neo451/feed.nvim',
-  dependencies = {
-    'neo451/treedoc.nvim',
-    'stevearc/conform.nvim',
-    'j-hui/fidget.nvim',
-    'nvim-lua/plenary.nvim',
-    'nvim-treesitter/nvim-treesitter',
-  },
-  config = function()
-    require("feed").setup({
-      feeds = {
-        "https://sspai.com/feed",
-        "https://feeds.feedburner.com/ruanyifeng",
-        "https://neovim.io/news.xml",
-      },
-      colorscheme = "kanagawa-wave",
-    })
-  end,
 })
 
 -- Writing and knowledge management ------------------------------------- {{{2
@@ -1275,14 +1249,14 @@ add_plug("ellisonleao/glow.nvim", {
 })
 
 -- quarto-dev/quarto-nvim: Quarto mode for Neovim ----------------------- {{{3
-add_plug {
-  "quarto-dev/quarto-nvim",
-  ft = { 'quarto' },
-  dependencies = {
-    "jmbuhr/otter.nvim",
-    "nvim-treesitter/nvim-treesitter",
-  },
-}
+-- add_plug {
+--   "quarto-dev/quarto-nvim",
+--   ft = { 'quarto' },
+--   dependencies = {
+--     "jmbuhr/otter.nvim",
+--     "nvim-treesitter/nvim-treesitter",
+--   },
+-- }
 
 -- OXY2DEV/markview.nvim ------------------------------------------------ {{{3
 add_plug('OXY2DEV/markview.nvim', {
@@ -1404,7 +1378,6 @@ add_plug("andis-sprinkis/lf-vim", { ft = "lf" })
 add_plug("nvim-treesitter/nvim-treesitter", {
   build = ":TSUpdate",
   cmd = "TSEnable",
-  ft = {"r"},
   event = { "BufReadPost", "BufNewFile" },
 })
 

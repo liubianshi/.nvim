@@ -354,15 +354,15 @@ function M.in_obsidian_vault(buf)
 end
 
 function M.get_selected_lines()
-  -- 获取当前窗口
-  local win = vim.api.nvim_get_current_win()
-  -- 获取当前缓冲区
-  local buf = vim.api.nvim_win_get_buf(win)
-  -- 获取当前选区的起始和结束位置
-  local start_line, start_col = unpack(vim.api.nvim_buf_get_mark(buf, '<'))
-  local end_line, end_col = unpack(vim.api.nvim_buf_get_mark(buf, '>'))
-  -- 获取选中的行内容
-  local lines = vim.api.nvim_buf_get_lines(buf, start_line - 1, end_line, false)
+  local mode = vim.api.nvim_get_mode().mode
+  if mode ~= 'v' and mode ~= 'V' and mode ~= '\22' then
+    return
+  end
+
+  local buf = vim.api.nvim_get_current_buf()
+  local start_line = vim.fn.line('v') - 1
+  local end_line = vim.fn.line(".")
+  local lines = vim.api.nvim_buf_get_lines(buf, start_line, end_line, false)
   return lines
 end
 
@@ -372,13 +372,15 @@ function M.is_process_running(pid)
 end
 
 function M.md_preview(input)
-  input = input or M.get_selected_lines()
-  if not input then return end
+  if not input then
+    input = M.get_selected_lines()
+  end
+  if not input or #input == 0 then return end
 
   local outfile = vim.fn.stdpath('cache') .. "/vim_markdown_preview.html"
   vim.system(
     { "mdviewer", "--to", "html", "--outfile", outfile },
-    {text = true, stdin = input},
+    { text = true, stdin = input },
     function() end
   )
 

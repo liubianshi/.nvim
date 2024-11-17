@@ -9,6 +9,7 @@ vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 --   require('rimels_test').setup_rime()
 -- end
 
+
 -- kinds icons
 local icon_kinds = {
   Array = " ",
@@ -96,7 +97,7 @@ local function construct_cmp_source(sources)
         },
       },
     },
-    { name = "buffer" },
+    -- { name = "buffer" },
     { name = "ctags" },
     { name = "nvim_lsp_signature_help" },
     -- { name = 'latex_symbols' },

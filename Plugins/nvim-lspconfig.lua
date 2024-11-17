@@ -11,34 +11,34 @@ local function custom_show_message(_, result, ctx)
     return
   end
 
-  vim.lsp.handlers['window/showMessage'](nil, result, ctx)
+  vim.lsp.handlers["window/showMessage"](nil, result, ctx)
 end
 
 util.default_config = vim.tbl_deep_extend(
-  'force',
+  "force",
   lspconfig.util.default_config,
-  { handlers = { ['window/showMessage'] = custom_show_message } }
+  { handlers = { ["window/showMessage"] = custom_show_message } }
 )
 
 -- Preconfiguration ----------------------------------------------------- {{{2
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 local cmp_lsp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-local ufo_ok, _ = pcall(require, 'ufo')
+local ufo_ok, _ = pcall(require, "ufo")
 if cmp_lsp_ok then
-  capabilities.textDocument.completion = cmp_nvim_lsp.default_capabilities().textDocument.completion
+  capabilities.textDocument.completion =
+    cmp_nvim_lsp.default_capabilities().textDocument.completion
 end
 if ufo_ok then
   capabilities.textDocument.foldingRange = {
-      dynamicRegistration = false,
-      lineFoldingOnly = true
+    dynamicRegistration = false,
+    lineFoldingOnly = true,
   }
 end
-
 
 -- bashls (bash-language-server) ---------------------------------------- {{{2
 lspconfig.bashls.setup {
   cmd = { "bash-language-server", "start" },
-  filetpyes = {"sh"},
+  filetpyes = { "sh" },
   root_dir = util.root_pattern(".git", ".root", ".project"),
   single_file_support = true,
   capabilities = capabilities,
@@ -76,13 +76,13 @@ lspconfig.perlnavigator.setup {
   single_file_support = true,
   settings = {
     perlnavigator = {
-      perlPath = 'perl',
+      perlPath = "perl",
       enableWarnings = true,
-      perltidyProfile = '',
-      perlcriticProfile = '',
+      perltidyProfile = "",
+      perlcriticProfile = "",
       perlcriticEnabled = true,
-    }
-  }
+    },
+  },
 }
 
 -- lua (lua-language-server) -------------------------------------------- {{{2
@@ -107,18 +107,18 @@ lspconfig.lua_ls.setup {
 -- markdown_oxide ------------------------------------------------------- {{{2
 local capabilities_oxide = capabilities
 capabilities_oxide.workspace = {
-    didChangeWatchedFiles = {
-      dynamicRegistration = true,
-    },
+  didChangeWatchedFiles = {
+    dynamicRegistration = true,
+  },
 }
 local markdown_oxide_cmd = vim.env.HOME .. "/.cargo/bin/markdown-oxide"
-if vim.fn.executable("markdown-oxide") then
+if vim.fn.executable "markdown-oxide" then
   markdown_oxide_cmd = "markdown-oxide"
 end
 
 lspconfig.markdown_oxide.setup {
-  cmd = {markdown_oxide_cmd},
-  filetype = {'markdown', "rmd", "rmarkdown"},
+  cmd = { markdown_oxide_cmd },
+  filetype = { "markdown", "rmd", "rmarkdown", "quarto" },
   root_dir = util.root_pattern(".obsidian", ".git"),
   capabilities = capabilities_oxide,
   single_file_support = false,
@@ -140,12 +140,13 @@ lspconfig.markdown_oxide.setup {
 -- Global mappings ------------------------------------------------------ {{{2
 local lspmap = function(key, desc, cmd, opts)
   opts = vim.tbl_extend("keep", opts or {}, {
-    key, cmd,
+    key,
+    cmd,
     desc = "LSP:" .. desc,
     silent = true,
     noremap = true,
   })
-  require('util').keymap(opts)
+  require("util").keymap(opts)
 end
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -185,10 +186,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
-
 -- Minimal configuration for testing the rime-ls
 if false then
-  require('rimels_test').setup_rime()
+  require("rimels_test").setup_rime()
 end
 
 -- trigger codelens refresh

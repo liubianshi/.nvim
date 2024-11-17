@@ -53,7 +53,7 @@ ts.setup {
   ignore_install = { "javascript", "css", "json" },
   highlight = {
     enable = true,
-    -- additional_vim_regex_highlighting = { "markdown" },
+    additional_vim_regex_highlighting = { "markdown" },
     disable = disable_treesitter,
   },
   indent = {

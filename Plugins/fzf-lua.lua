@@ -176,21 +176,26 @@ vim.api.nvim_create_user_command( "ProjectChange", projects, {
 
 -- 插入参考文献的引用 --------------------------------------------------- {{{2
 fzfmap("<leader>ic", "Insert Citation Keys", function()
+  local cursor = vim.api.nvim_win_get_cursor(0)
   require("fzf-lua").fzf_exec("bibtex-ls ~/Documents/url_ref.bib", {
     preview = "",
     actions = {
       ["default"] = function(selected, _)
-        local r = vim.fn.system(
-          "bibtex-cite -prefix='@' -postfix='' -separator='; @'",
-          selected
-        )
+        local obj = vim.system(
+          { "bibtex-cite", "-prefix=@", "-postfix=", "-separator=; @"},
+          { text = true, stdin = selected }
+        ):wait(50)
+        local r = obj.stdout
+        vim.api.nvim_win_set_cursor(0, cursor)
         vim.api.nvim_put({" " .. r .. " "}, 'c', true, true)
       end,
       ["ctrl-x"] = function(selected, _)
-        local r = vim.fn.system(
-          "bibtex-cite -prefix='@' -postfix='' -separator='; @'",
-          selected
-        )
+        local obj = vim.system(
+          { "bibtex-cite", "-prefix=@", "-postfix=", "-separator=; @"},
+          { text = true, stdin = selected }
+        ):wait(50)
+        local r = obj.stdout
+        vim.api.nvim_win_set_cursor(0, cursor)
         vim.api.nvim_put({" [ " .. r .. " ]"}, 'c', true, true)
       end
     },
