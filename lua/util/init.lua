@@ -24,13 +24,39 @@ function M.opts(name)
   return Plugin.values(plugin, "opts", false)
 end
 
+--- Gets the git root for a buffer or path.
+--- Defaults to the current buffer.
+--- Based on function from:
+--- https://github.com/folke/snacks.nvim/blob/main/lua/snacks/git.lua
+function M.get_git_root(path)
+  path = path or 0
+  path = type(path) == "number" and vim.api.nvim_buf_get_name(path) or path --[[@as string]]
+  path = vim.fs.normalize(path)
+  path = path == "" and (vim.uv or vim.loop).cwd() or path
+  if vim.fn.isdirectory(path .. "/.git") == 1 then
+    return path
+  end
+  local git_root ---@type string?
+  for dir in vim.fs.parents(path) do
+    if vim.fn.isdirectory(dir .. "/.git") == 1 then
+      git_root = dir
+      break
+    end
+  end
+  return git_root and vim.fs.normalize(git_root) or nil
+end
+
 -- returns the root directory based on:
 -- * lsp workspace folders
--- * lsp root_dir
+-- * lsp rootdir
 -- * root pattern of filename of the current buffer
 -- * root pattern of cwd
 ---@return string
-function M.get_root(path)
+function M.get_root(path, root_patterns)
+  root_patterns = root_patterns or M.root_patterns
+  if type(root_patterns) ~= "table" then
+    root_patterns = {root_patterns}
+  end
   ---@type string?
   path = path or vim.api.nvim_buf_get_name(0)
   path = path ~= "" and vim.uv.fs_realpath(path) or nil
@@ -59,9 +85,9 @@ function M.get_root(path)
   ---@type string?
   local root = roots[1]
   if not root then
-    path = path and vim.fs.dirname(path) or vim.loop.cwd()
+    path = path and vim.fs.dirname(path) or vim.uv.cwd()
     ---@type string?
-    root = vim.fs.find(M.root_patterns, { path = path, upward = true })[1]
+    root = vim.fs.find(root_patterns, { path = path, upward = true })[1]
     root = root and vim.fs.dirname(root) or vim.loop.cwd()
   end
   ---@cast root string

@@ -26,7 +26,46 @@ local insert_pkg = function()
   if not items or #items == 0 then return end
   if #items == 1 then return items[1] end
 
-  vim.ui.select( items, { prompt = "Select: "}, handle_choice )
+  local fzfok, fzflua = pcall(require, "fzf-lua")
+  if not fzfok then
+    vim.ui.select( items, { prompt = "Select: "}, handle_choice )
+    return
+  end
+
+  fzflua.fzf_exec(items, {
+    preview = {
+      type = "cmd",
+      fn = function(selects)
+        local item = selects[1]
+        if item:find("%.[Rr]$") then
+          local path
+          if item:find("^R%/") then
+            path = "./" .. item
+          else
+            path = vim.env.R_BOX_LIBRARY and vim.env.R_BOX_LIBRARY or
+              vim.env.HOME .. "/Repositories/R-script/box/" .. item
+          end
+          return string.format("pistol '%s'", path)
+        end
+        return string.format(
+          "R --no-save --no-restore --no-echo --no-init-file -e '"
+          .. 'packageDescription("%s", fields = c("Title", "Description", "Version"));'
+          .. 'cat("\nNamespace:\n");'
+          .. 'ls(getNamespace("%s"))'
+          .. "'",
+          item,
+          item
+        )
+      end,
+    },
+    actions = {
+      ["default"] = function(selected, _)
+        handle_choice(selected[1]);
+      end,
+    }
+  })
+
+
 end
 
 local function get_box_pkg()

@@ -1,5 +1,48 @@
+
 require('snacks').setup {
   bigfile = { enabled = true },
+  dashboard = {
+    width = 60,
+    preset = {
+      keys = {
+        { icon = " ", key = "f", desc = "Find File", action = ":Oil" },
+        { icon = " ", key = "e", desc = "New File", action = ":silent ene <BAR> startinsert" },
+        { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+        { icon = " ", key = "n", desc = "Obsidian Note", action = ":ObsidianQuickSwitch"},
+        { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+        { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+        { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
+        { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+      },
+    },
+    sections = {
+      { section = "header" },
+      { section = "keys", padding = 1, gap = 0 },
+      { pane = 1, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+      {
+        pane = 1,
+        icon = " ",
+        title = "Git Status",
+        section = "terminal",
+        enabled = require('util').get_git_root("") ~= nil,
+        cmd = "git status --short --branch --renames",
+        height = 5,
+        padding = 1,
+        ttl = 5 * 60,
+        indent = 3,
+      },
+      {
+        pane = 1,
+        section = "terminal",
+        enabled = require('util').get_git_root("") == nil,
+        cmd = "fortune -s -e 先秦 两汉 魏晋 南北朝 隋代 唐代 五代 宋代",
+        height = 7,
+        indent = 1,
+        padding = 1,
+      },
+      { section = "startup" },
+    },
+  },
   notifier = {
     enabled = true,
     timeout = 3000,

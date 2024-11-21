@@ -245,6 +245,7 @@ end)
 -- 通过 fasd 跳转文件 {{{2
 fzfmap("<leader>fz", "Jump with fasd", function()
   fzflua.fzf_exec("fasd -al", {
+    preview = 'pistol {1..}',
     actions = {
       ["default"] = actions.file_edit,
       ["ctrl-s"] = actions.file_split,
