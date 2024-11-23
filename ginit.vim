@@ -4,8 +4,8 @@ if exists("g:neovide")
     " use light colorscheme during daytime
     let current_time = strftime("%H:%M")
     if current_time >= "07:00" && current_time <= "17:00"
-        call setenv("NVIM_BACKGROUND", "light")
-        call setenv("NVIM_COLOR_SCHEME_DARK", "ayu")
+        call setenv("NVIM_BACKGROUND", "dark")
+        call setenv("NVIM_COLOR_SCHEME_DARK", "default")
         call setenv("NVIM_COLOR_SCHEME_LIGHT", "delek")
     endif
     if has('mac')

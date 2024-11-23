@@ -5,8 +5,8 @@ require('snacks').setup {
     width = 60,
     preset = {
       keys = {
+        { icon = " ", key = "e", desc = "New File", action = ":silent ene | startinsert" },
         { icon = " ", key = "f", desc = "Find File", action = ":Oil" },
-        { icon = " ", key = "e", desc = "New File", action = ":silent ene <BAR> startinsert" },
         { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
         { icon = " ", key = "n", desc = "Obsidian Note", action = ":ObsidianQuickSwitch"},
         { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
