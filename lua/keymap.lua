@@ -34,6 +34,8 @@ vimkey("c", "Change text without putting it into register", '"_c', {
 -- Navigation ----------------------------------------------------------- {{{1
 nmap("j",        "Display line downwards",          "gj")
 nmap("k",        "Display line upwards",            "gk")
+vmap("j",        "Display line downwards",          "gj")
+vmap("k",        "Display line upwards",            "gk")
 vmap("<",        "Shift selection line leftwords",  "<gv")
 vmap(">",        "Shift selection line rightwords", ">gv")
 nmap("]b",       "bnext",                           "<cmd>bnext<cr>")

@@ -19,6 +19,7 @@ vim.api.nvim_set_hl(ns, "@markup.doublestrikethrough", { strikethrough = true })
 vim.api.nvim_win_set_hl_ns(0, ns)
 
 vim.cmd.UltiSnipsAddFiletype "quarto.r.markdown"
+vim.api.nvim_set_option_value("formatexpr", nil, { scope = "local" })
 vim.api.nvim_set_option_value("formatprg", "text_wrap", { scope = "local" })
 
 local keymap = require("util").keymap
