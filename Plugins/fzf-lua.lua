@@ -185,7 +185,7 @@ local function insert_citation()
   local suffix = char_after_cursor ~= " " and " " or ""
 
   require("fzf-lua").fzf_exec("bibtex-ls ~/Documents/url_ref.bib", {
-    preview = "",
+    preview = 'pistol "$(mylib get bibtex -- \'{-1}\')"',
     actions = {
       ["default"] = function(selected, _)
         local obj = vim.system(
