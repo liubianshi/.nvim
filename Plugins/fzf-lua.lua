@@ -175,8 +175,12 @@ vim.api.nvim_create_user_command( "ProjectChange", projects, {
 })
 
 -- 插入参考文献的引用 --------------------------------------------------- {{{2
-fzfmap("<leader>ic", "Insert Citation Keys", function()
+local function insert_citation()
   local cursor = vim.api.nvim_win_get_cursor(0)
+  local line = vim.api.nvim_buf_get_lines(0, cursor[1] - 1, cursor[1], true)[1]
+  local char_before_cursor = line:sub(cursor[2] + 1, cursor[2] + 1)
+  local prefix = (cursor[2] ~= 0 and char_before_cursor ~= " ") and " " or ""
+
   require("fzf-lua").fzf_exec("bibtex-ls ~/Documents/url_ref.bib", {
     preview = "",
     actions = {
@@ -187,7 +191,7 @@ fzfmap("<leader>ic", "Insert Citation Keys", function()
         ):wait(50)
         local r = obj.stdout
         vim.api.nvim_win_set_cursor(0, cursor)
-        vim.api.nvim_put({" " .. r .. " "}, 'c', true, true)
+        vim.api.nvim_put({prefix .. r .. " "}, 'c', true, true)
       end,
       ["ctrl-x"] = function(selected, _)
         local obj = vim.system(
@@ -196,11 +200,14 @@ fzfmap("<leader>ic", "Insert Citation Keys", function()
         ):wait(50)
         local r = obj.stdout
         vim.api.nvim_win_set_cursor(0, cursor)
-        vim.api.nvim_put({" [ " .. r .. " ]"}, 'c', true, true)
+        vim.api.nvim_put({prefix .. "[ " .. r .. " ]"}, 'c', true, true)
       end
     },
   })
-end)
+end
+
+fzfmap("<leader>ic", "Insert Citation Keys", insert_citation)
+fzfmap("<localleader>c", "Insert Citation Keys", insert_citation, "i")
 
 -- 列出所有 buffers ----------------------------------------------------- {{{2
 fzfmap("<leader>bB", "List All Buffers", function()

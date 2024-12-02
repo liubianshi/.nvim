@@ -129,6 +129,7 @@ add_plug("ibhagwan/fzf-lua", {
     "<leader>pp",
     {"<leader>sq", desc =  "Open my library file"},
     "<leader>ic",
+    {"<localleader>c", mode = "i"},
     "<leader>fz",
     "<leader>bB",
     "<leader>.",
