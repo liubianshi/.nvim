@@ -186,6 +186,7 @@ local function insert_citation()
 
   require("fzf-lua").fzf_exec("bibtex-ls ~/Documents/url_ref.bib", {
     preview = 'pistol "$(mylib get bibtex -- \'{-1}\')"',
+    fzf_opts = { ["--multi"] = "" },
     actions = {
       ["default"] = function(selected, _)
         local obj = vim.system(
