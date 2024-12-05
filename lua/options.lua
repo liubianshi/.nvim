@@ -173,7 +173,8 @@ opt.matchpairs:append {
   "《:》",
 }
 opt.matchtime = 2 -- 设置匹配括号时闪缩的时间
-opt.mouse = "vh"
+opt.mouse = "nvh"
+opt.mousemoveevent = true
 opt.number = true
 opt.pumblend = 5 -- pseudo transparency for completion menu
 opt.pumheight = 10 -- Maximum number of items to show in popup menu

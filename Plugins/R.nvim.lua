@@ -58,7 +58,6 @@ local opts = {
   Rout_more_colors = true,
   min_editor_width = 72,
   rconsole_width = 78,
-  csv_app = "terminal:vd",
   compl_method = "buffer",
   objbr_openlist = true,
   objbr_place = "console,left",

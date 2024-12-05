@@ -727,6 +727,16 @@ add_plug("akinsho/bufferline.nvim", {
   event = "VeryLazy",
 })
 
+-- Bekaboo/dropbar.nvim: IDE-like breadcrumbs, out of the box ----------- {{{3
+add_plug({
+  'Bekaboo/dropbar.nvim',
+  dependencies = {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    build = 'make'
+  },
+  config = true,
+})
+
 -- nvim-lualine/lualine.nvim: neovim statusline plugin ------------------ {{{3
 add_plug("nvim-lualine/lualine.nvim")
 
