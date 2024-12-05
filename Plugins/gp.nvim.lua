@@ -9,11 +9,12 @@ local function gp_polish(gp, params)
   local template =
     "Having following from {{filename}}:\n\n"
     .. "```{{filetype}}\n{{selection}}\n```\n\n"
-  	.. "Please act as an economics professor."
+    .. "Please act as an economics professor."
     .. " Correct any spelling mistakes and improve the expression to enhance clarity and coherence."
     .. " Additionally, optimize the text to align with the style and tone of an academic paper in the field of economics."
-  	.. "\n\nRespond exclusively with the snippet that should replace the selection above."
-  local agent = gp.get_command_agent()
+    .. " Please ensure that the language is the same as the original language."
+    .. "\n\nRespond exclusively with the snippet that should replace the selection above."
+  local agent = gp.agents['CodeGPT4']
   gp.logger.info("Implementing selection with agent: " .. agent.name)
   gp.Prompt(
     params,
@@ -67,6 +68,26 @@ require("gp").setup {
         .. "START AND END YOUR ANSWER WITH:\n\n```",
     },
     {
+      name = "ChatGPT4o-mini",
+      provider = "openai",
+      chat = true,
+      command = false,
+      -- string with model name or table with model name and parameters
+      model = { model = "gpt-4o-mini", temperature = 1.1, top_p = 1 },
+      -- system prompt (use this to specify the persona/role of the AI)
+      system_prompt = require("gp.defaults").chat_system_prompt,
+    },
+    {
+      provider = "openai",
+      name = "CodeGPT4o-mini",
+      chat = false,
+      command = true,
+      -- string with model name or table with model name and parameters
+      model = { model = "gpt-4o-mini", temperature = 0.7, top_p = 1 },
+      -- system prompt (use this to specify the persona/role of the AI)
+      system_prompt = "Please return ONLY code snippets.\nSTART AND END YOUR ANSWER WITH:\n\n```",
+    },
+    {
       name = "CodeGPT3-5",
       chat = false,
       command = true,
@@ -109,4 +130,3 @@ vim.api.nvim_create_autocmd({"FileType"}, {
     })
   end
 })
-
