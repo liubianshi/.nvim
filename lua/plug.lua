@@ -924,7 +924,8 @@ add_plug("robitx/gp.nvim", {
     "GpTranslator",
   },
   keys = {
-    { "<M-o>",      "<cmd>GpTextOptimize<cr>",      desc = "Optimize Text",          nowait = true, mode = { "n", "v" }},
+    { "<M-o>",      "<cmd>GpTextOptimize<cr>",      desc = "Optimize Text",          nowait = true, mode = { "n"}},
+    { "<M-o>",      ":<C-u>'<,'>GpTextOptimize<cr>",      desc = "Optimize Text",          nowait = true, mode = { "v" }},
     { "<C-g>c",     "<cmd>GpChatNew vsplit<cr>",    desc = "GPT prompt New Chat",    nowait = true },
     { "<C-g>t",     "<cmd>GpChatToggle vsplit<cr>", desc = "GPT prompt Toggle Chat", nowait = true },
     { "<C-g>f",     "<cmd>GpChatFinder<cr>",        desc = "GPT prompt Chat Finder", nowait = true },

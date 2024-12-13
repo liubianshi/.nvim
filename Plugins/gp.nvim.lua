@@ -14,7 +14,7 @@ local function gp_polish(gp, params)
     .. " Additionally, optimize the text to align with the style and tone of an academic paper in the field of economics."
     .. " Please ensure that the language is the same as the original language."
     .. "\n\nRespond exclusively with the snippet that should replace the selection above."
-  local agent = gp.agents['CodeGPT4']
+  local agent = gp.agents['CodeGPT4o-mini']
   gp.logger.info("Implementing selection with agent: " .. agent.name)
   gp.Prompt(
     params,
