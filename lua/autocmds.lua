@@ -59,7 +59,7 @@ local function process_win(win)
 
 
   if vim.g.lbs_zen_mode then
-    if ww <= 84 then
+    if ww <= 88 then
       vim.wo[win].signcolumn = "auto:1"
     elseif ww <= 100 then
       vim.wo[win].signcolumn = "yes:4"
@@ -67,7 +67,7 @@ local function process_win(win)
       vim.wo[win].signcolumn = "yes:" .. math.min(math.floor((ww - 81) / 4), 6)
     end
   elseif zen_oriwin and type(zen_oriwin) == "table" and zen_oriwin.zenmode then
-    if ww <= 84 then
+    if ww <= 88 then
       vim.wo[win].signcolumn = "auto:1"
     elseif ww <= 100 then
       vim.wo[win].signcolumn = "yes:4"

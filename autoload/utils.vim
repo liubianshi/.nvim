@@ -404,10 +404,10 @@ function! utils#ZenMode_Insert(start = v:true) abort
     let winh = winheight(0)
     let &l:scrolloff = float2nr(min([winh / 3, max([0, winh - 6])]))
     let &l:foldcolumn = "0"
-    if ww < 85
+    if ww < 89
         let &l:signcolumn = "yes:1"
     else
-        let &l:signcolumn = "yes:" . min([float2nr((ww - 81) / 4), 9])
+        let &l:signcolumn = "yes:" . min([float2nr((ww - 85) / 4), 9])
     endif
     lua require('lualine').hide()
     let w:zen_mode = v:true
