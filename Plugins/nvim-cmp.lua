@@ -266,7 +266,7 @@ cmp.setup.filetype({ "r", "rmd", "quarto", "rdoc" }, {
     {
       name = "cmp_r",
       trigger_characters = {" ", ":", "(", '"', "@", "$"},
-      keyword_pattern = "[`\\._@\\$:_[:digit:][:lower:][:upper:]]*",
+      keyword_pattern = "[-`\\._@\\$:_[:digit:][:lower:][:upper:]]*",
     },
   },
 })

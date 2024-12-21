@@ -51,6 +51,9 @@ require("markview").setup {
     heading_5 = opts.heading,
     heading_6 = opts.heading,
   },
+  footnotes = {
+    enable = false,
+  },
   code_blocks = {
     enable = true,
     icons = "mini",

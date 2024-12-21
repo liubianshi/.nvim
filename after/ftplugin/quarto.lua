@@ -4,7 +4,7 @@ vim.b["reticulate_running"] = false
 
 -- wrap text, but by word no character
 -- indent the wrappped line
-vim.wo.wrap = true
+vim.wo.wrap = false
 vim.wo.linebreak = false
 vim.wo.breakindent = true
 -- vim.wo.showbreak = '|'
