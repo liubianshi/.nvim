@@ -44,6 +44,9 @@ require('snacks').setup {
       { section = "startup" },
     },
   },
+  indent = {
+    enabled = true,
+  },
   notifier = {
     enabled = true,
     timeout = 3000,
@@ -57,6 +60,7 @@ require('snacks').setup {
       git_hl = true,
     }
   },
+  scoll = {enabled = true},
   words = { enabled = true },
   styles = {
     notification = {
@@ -90,6 +94,9 @@ vim.api.nvim_create_autocmd("User", {
     Snacks.toggle.treesitter():map("<leader>uT")
     Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
     Snacks.toggle.inlay_hints():map("<leader>uh")
+    Snacks.toggle.animate():map("<leader>ua")
+    Snacks.toggle.zen():map("<leader>uz")
+    Snacks.toggle.dim():map("<leader>ud")
   end,
 })
 

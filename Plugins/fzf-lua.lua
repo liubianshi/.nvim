@@ -153,7 +153,6 @@ local projects = function(opts)
       end
       _previous_cwd = vim.loop.cwd()
       local newcwd = selected[1]:match "[A-Za-z0-9_.].*$"
-      print(newcwd)
       newcwd = require("fzf-lua.path").is_absolute(newcwd) and newcwd
         or require("fzf-lua.path").join { vim.fn.expand "$HOME", newcwd }
       return newcwd
@@ -277,14 +276,7 @@ fzfmap("<leader>fz", "Jump with fasd", function()
   })
 end)
 
--- 查看当前文件所在文件夹下的其他文件 ----------------------------------- {{{2
-fzfmap("<leader>.", "List all buffers", function()
-  fzflua.fzf_exec("fd -H -t f . " .. vim.fn.expand "%:p:h", {
-    actions = fileactions,
-  })
-end)
-
--- 定义查询 stata 帮助文件的命令 --{{{2
+-- 定义查询 stata 帮助文件的命令 ---------------------------------------- {{{2
 local Shelp_Action = function(vimcmd)
   return function(selected, _)
     local path = string.gsub(selected[1], "^.*\t", "")

@@ -132,7 +132,6 @@ add_plug("ibhagwan/fzf-lua", {
     {"<localleader>c", mode = "i"},
     "<leader>fz",
     "<leader>bB",
-    "<leader>.",
     {"<leader>ot", desc = "Run async tasks"},
     "<A-x>",
     {
@@ -800,7 +799,7 @@ add_plug("nvim-zh/colorful-winsep.nvim", {
 })
 
 -- "lukas-reineke/indent-blankline.nvim"
-add_plug("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
+-- add_plug("lukas-reineke/indent-blankline.nvim", { main = "ibl" })
 -- add_plug(  "shellRaining/hlchunk.nvim", {
 --   event = { "BufReadPre", "BufNewFile" },
 --   config = function()
@@ -841,16 +840,24 @@ add_plug("tpope/vim-rsi", {
 })
 
 -- folke/snacks.nvim: A collection of small QoL plugins ----------------- {{{3
-add_plug { "folke/snacks.nvim", priority = 1000, lazy = false }
+add_plug {
+  "folke/snacks.nvim",
+  priority = 1000,
+  lazy = false,
+  keys = {
+    { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+    { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+  }
+}
 
 -- LinTaoAmons/scratch.nvim: Create temporary playground files ---------- {{{3
-add_plug("LinTaoAmons/scratch.nvim", {
-  event = "VeryLazy",
-  cmd = "Scratch",
-  keys = {
-    {"<leader>os", "<cmd>Scratch<cr>",  desc = "Creates a new scratch file"}
-  }
-})
+-- add_plug("LinTaoAmons/scratch.nvim", {
+--   event = "VeryLazy",
+--   cmd = "Scratch",
+--   keys = {
+--     {"<leader>os", "<cmd>Scratch<cr>",  desc = "Creates a new scratch file"}
+--   }
+-- })
 
 -- ziontee113/icon-picker.nvim: pick Nerd Font Icons, Symbols & Emojis -- {{{3
 add_plug("liubianshi/icon-picker.nvim", {

@@ -1,5 +1,6 @@
 local wk = require "which-key"
 local my_border = require('util').border('═', 'top', true)
+--- @diagnostic disable: missing-fields
 wk.setup {
   preset = "modern",
   layout = {
@@ -34,7 +35,6 @@ wk.setup {
 
 -- register keymap ------------------------------------------------------ {{{1
 wk.add {
-  { "<leader>.", desc = "Open File" },
   { "<leader>a", group = "Attach ...", icon = { icon = "󰹴", hl = "WhichKeyIconBlue" }},
   { "<leader>a*", desc = "Attach Symbol *" },
   { "<leader>a-", desc = "Attach Symbol -" },
