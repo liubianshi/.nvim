@@ -18,6 +18,9 @@ end
 local get_modules = function()
   local modules = {
     ["core.defaults"] = {},
+    ["core.esupports.hop"] = {},
+    ["core.esupports.indent"] = {},
+    ["core.esupports.metagen"] = {},
     ["core.keybinds"] = {
       config = {
         default_keybinds = true,
@@ -166,11 +169,15 @@ vim.api.nvim_create_autocmd("FileType", {
     )
     kmap("<localleader>ll",
       "<Plug>(neorg.telescope.insert_link)",
-      { mode = "i", desc = "Insert Link" }
+      { mode = "n", desc = "Insert Link" }
     )
     kmap("<localleader>lf",
       "<Plug>(neorg.telescope.insert_file_link)",
-      { mode = "i", desc = "Insert File Link" }
+      { mode = "n", desc = "Insert File Link" }
+    )
+    kmap("<cr>",
+      "<Plug>(neorg.esupports.hop.hop-link)",
+      { mode = "n", desc = "hop to the destination of the link under the cursor"}
     )
   end,
 })

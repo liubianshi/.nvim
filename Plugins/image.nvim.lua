@@ -339,7 +339,7 @@ vim.api.nvim_create_autocmd({"FileType"}, {
   group = augruoup_iamge,
   pattern = {"markdown", "rmd", "norg", "org"},
   callback = function(_)
-    vim.keymap.set("n", "<cr>", function()
+    vim.keymap.set("n", "<S-CR>", function()
       local file = vim.fn.expand("<cfile>")
       -- sometimes, the image path may relative to the file path, rather than root
       if (require('util').in_obsidian_vault()) then
@@ -359,7 +359,6 @@ vim.api.nvim_create_autocmd({"FileType"}, {
       desc = "Display image file under cursor",
       noremap = true,
       silent = true,
-      buffer = true,
     })
   end
 })

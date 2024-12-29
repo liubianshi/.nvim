@@ -1,8 +1,8 @@
 local default_opts = {
   background = "dark",
   colorscheme = {
-    -- dark = "kanagawa-wave",
-    dark = "everforest",
+    dark = "kanagawa-wave",
+    -- dark = "everforest",
     -- dark = "default",
     light = "default",
   },

@@ -46,6 +46,12 @@ require('snacks').setup {
   },
   indent = {
     enabled = true,
+    filter = function(buf)
+      return vim.g.snacks_indent ~= false
+        and vim.b[buf].snacks_indent ~= false
+        and vim.bo[buf].buftype == ""
+        and vim.bo[buf].filetype ~= "norg"
+    end,
   },
   notifier = {
     enabled = true,
