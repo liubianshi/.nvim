@@ -1,5 +1,5 @@
 local wk = require "which-key"
-local my_border = require('util').border('═', 'top', true)
+local my_border = require("util").border("═", "top", true)
 --- @diagnostic disable: missing-fields
 wk.setup {
   preset = "modern",
@@ -10,20 +10,19 @@ wk.setup {
     border = my_border,
   },
   triggers = {
-    {"<auto>", mode = "nixsoc"},
-    {"s", mode = {"n", "v"}},
-    {",", mode = {"n"}},
-
+    { "<auto>", mode = "nixsoc" },
+    { "s", mode = { "n", "v" } },
+    { ",", mode = { "n" } },
   },
   replace = {
     key = {
-      {"<Space>", "SPC"},
-      {"<cr>", "RET"},
-      { "<tab>", "TAB"},
+      { "<Space>", "SPC" },
+      { "<cr>", "RET" },
+      { "<tab>", "TAB" },
       function(key)
         return require("which-key.view").format(key)
       end,
-    }
+    },
   },
   icons = {
     breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
@@ -35,7 +34,11 @@ wk.setup {
 
 -- register keymap ------------------------------------------------------ {{{1
 wk.add {
-  { "<leader>a", group = "Attach ...", icon = { icon = "󰹴", hl = "WhichKeyIconBlue" }},
+  {
+    "<leader>a",
+    group = "Attach ...",
+    icon = { icon = "󰹴", hl = "WhichKeyIconBlue" },
+  },
   { "<leader>a*", desc = "Attach Symbol *" },
   { "<leader>a-", desc = "Attach Symbol -" },
   { "<leader>a.", desc = "Attach Symbol ." },
@@ -51,27 +54,62 @@ wk.add {
   { "<leader>fz", desc = "FASD" },
   { "<leader>g", group = "Git ..." },
   { "<leader>h", group = "Help/Notification ..." },
-  { "<leader>i", group = "Insert ...", icon = { icon = "↡", hl = "WhichKeyIconBlue" }},
+  {
+    "<leader>i",
+    group = "Insert ...",
+    icon = { icon = "↡", hl = "WhichKeyIconBlue" },
+  },
   { "<leader>ic", desc = "Insert Citation" },
   { "<leader>l", group = "Session Manager ..." },
   { "<leader>ls", desc = "List Saved Session" },
-  { "<leader>m", group = "Modify ...", icon = { icon = "", hl = "WhichKeyIconBlue" }},
-  { "<leader>n", group = "Obsidian ...", icon = { icon = "", hl = "WhichKeyIconBlue" }},
-  { "<leader>o", group = "Open Command ...", icon = { icon = "󱓞", hl = "WhichKeyIconBlue" }},
-  { "<leader>p", group = "Project ...", icon = { icon = "󰳐", hl = "WhichKeyIconBlue" }},
+  {
+    "<leader>m",
+    group = "Modify ...",
+    icon = { icon = "", hl = "WhichKeyIconBlue" },
+  },
+  {
+    "<leader>n",
+    group = "Obsidian ...",
+    icon = { icon = "", hl = "WhichKeyIconBlue" },
+  },
+  {
+    "<leader>o",
+    group = "Open Command ...",
+    icon = { icon = "󱓞", hl = "WhichKeyIconBlue" },
+  },
+  {
+    "<leader>p",
+    group = "Project ...",
+    icon = { icon = "󰳐", hl = "WhichKeyIconBlue" },
+  },
   { "<leader>q", group = "Quickfix ..." },
   { "<leader>s", group = "Search ..." },
   { "<leader>t", group = "Tab/Translate ..." },
   { "<leader>w", group = "Window ..." },
-  { "<leader>x", group = "Trouble ...", icon = { icon = "", hl = "WhichKeyIconBlue" }},
-  { "<leader>z", group = "Fold ...", icon = { icon = "", hl = "WhichKeyIconBlue" }},
-  { "<leader>u", group = "Snacks ...", icon = { icon = "󰘵", hl = "WhichKeyIconBlue" }},
-  { "<leader>v", desc = "Voom Outline ...", icon = { icon = "󰠶", hl = "WhichKeyIconBlue" }},
-  { "<leader><leader>", group = "Terminal ...", icon = { icon = "", hl = "WhichKeyIconBlue" }},
+  {
+    "<leader>x",
+    group = "Trouble ...",
+    icon = { icon = "", hl = "WhichKeyIconBlue" },
+  },
+  {
+    "<leader>z",
+    group = "Fold ...",
+    icon = { icon = "", hl = "WhichKeyIconBlue" },
+  },
+  {
+    "<leader>u",
+    group = "Snacks ...",
+    icon = { icon = "󰘵", hl = "WhichKeyIconBlue" },
+  },
+  {
+    "<leader>v",
+    desc = "Voom Outline ...",
+    icon = { icon = "󰠶", hl = "WhichKeyIconBlue" },
+  },
+  {
+    "<leader><leader>",
+    group = "Terminal ...",
+    icon = { icon = "", hl = "WhichKeyIconBlue" },
+  },
   { "w", group = "window ..." },
 }
-
-
-
-
-

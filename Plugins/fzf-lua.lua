@@ -169,52 +169,57 @@ local projects = function(opts)
   end)()
 end
 fzfmap("<leader>pp", "Select Project", projects)
-vim.api.nvim_create_user_command( "ProjectChange", projects, {
-  nargs = 0, desc = "Change Project"
+vim.api.nvim_create_user_command("ProjectChange", projects, {
+  nargs = 0,
+  desc = "Change Project",
 })
 
 -- 插入参考文献的引用 --------------------------------------------------- {{{2
 local function insert_citation()
-  local normal_mode = vim.fn.mode():find("^n")
+  local normal_mode = vim.fn.mode():find "^n"
   local cursor = vim.api.nvim_win_get_cursor(0)
   local line = vim.api.nvim_buf_get_lines(0, cursor[1] - 1, cursor[1], true)[1]
   local char_before_cursor = line:sub(cursor[2] + 1, cursor[2] + 1)
-  local char_after_cursor  = line:sub(cursor[2] + 2, cursor[2] + 2)
+  local char_after_cursor = line:sub(cursor[2] + 2, cursor[2] + 2)
   local prefix = (cursor[2] ~= 0 and char_before_cursor ~= " ") and " " or ""
   local suffix = char_after_cursor ~= " " and " " or ""
 
   require("fzf-lua").fzf_exec("bibtex-ls ~/Documents/url_ref.bib", {
-    preview = 'pistol "$(mylib get bibtex -- \'{-1}\')"',
+    preview = "pistol \"$(mylib get bibtex -- '{-1}')\"",
     fzf_opts = { ["--multi"] = "" },
     actions = {
       ["default"] = function(selected, _)
-        local obj = vim.system(
-          { "bibtex-cite", "-prefix=@", "-postfix=", "-separator=; @"},
-          { text = true, stdin = selected }
-        ):wait(50)
+        local obj = vim
+          .system(
+            { "bibtex-cite", "-prefix=@", "-postfix=", "-separator=; @" },
+            { text = true, stdin = selected }
+          )
+          :wait(50)
         local r = obj.stdout
         vim.api.nvim_win_set_cursor(0, cursor)
         vim.api.nvim_put(
-          {prefix .. r .. suffix},
-          'c',
+          { prefix .. r .. suffix },
+          "c",
           (normal_mode and cursor[2] ~= 0) or at_end_of_line(),
           true
         )
       end,
       ["ctrl-x"] = function(selected, _)
-        local obj = vim.system(
-          { "bibtex-cite", "-prefix=@", "-postfix=", "-separator=; @"},
-          { text = true, stdin = selected }
-        ):wait(50)
+        local obj = vim
+          .system(
+            { "bibtex-cite", "-prefix=@", "-postfix=", "-separator=; @" },
+            { text = true, stdin = selected }
+          )
+          :wait(50)
         local r = obj.stdout
         vim.api.nvim_win_set_cursor(0, cursor)
         vim.api.nvim_put(
-          {prefix .. "[" .. r .. "]" .. suffix},
-          'c',
+          { prefix .. "[" .. r .. "]" .. suffix },
+          "c",
           (normal_mode and cursor[2] ~= 0) or at_end_of_line(),
           true
         )
-      end
+      end,
     },
   })
 end
@@ -265,7 +270,7 @@ end)
 -- 通过 fasd 跳转文件 {{{2
 fzfmap("<leader>fz", "Jump with fasd", function()
   fzflua.fzf_exec("fasd -al", {
-    preview = 'pistol {1..}',
+    preview = "pistol {1..}",
     actions = {
       ["default"] = actions.file_edit,
       ["ctrl-s"] = actions.file_split,
@@ -327,7 +332,8 @@ end, { nargs = 0, desc = "FzfLua: Open urls" })
 -- From:
 -- https://github.com/skywind3000/asynctasks.vim/wiki/UI-Integration
 fzfmap("<leader>ot", "Run async tasks", function()
-  local rows = vim.fn["asynctasks#source"](math.floor(vim.go.columns * 48 / 100))
+  local rows =
+    vim.fn["asynctasks#source"](math.floor(vim.go.columns * 48 / 100))
   if #rows == 0 then
     local LOG_LEVEL_WARN = 3
     vim.notify(
@@ -345,7 +351,9 @@ fzfmap("<leader>ot", "Run async tasks", function()
         .. color.cyan(e[2])
         .. ": "
         .. color.yellow(e[3])
-      if #rows == 1 then line = line .. "\n" end
+      if #rows == 1 then
+        line = line .. "\n"
+      end
       cb(line)
     end
     cb()
@@ -504,9 +512,16 @@ end, { nargs = "*", desc = "FzfLua: Cheat" })
 local handle_mylib_selected = function(selected, method)
   method = method or "edit"
   local key = vim.split(selected[1], [[%s+]])[1]
-  local re = vim.system( {"mylib", "get", "file_for_open", "--", key}, {text = true}):wait()
+  local re = vim
+    .system({ "mylib", "get", "file_for_open", "--", key }, { text = true })
+    :wait()
   local file = string.gsub(re.stdout, "\n", "")
-  if vim.tbl_contains({"newsboat", "md", "bibtex", "bib"}, vim.fn.fnamemodify(file, ":e")) then
+  if
+    vim.tbl_contains(
+      { "newsboat", "md", "bibtex", "bib" },
+      vim.fn.fnamemodify(file, ":e")
+    )
+  then
     vim.cmd[method](file)
     vim.api.nvim_buf_set_var(0, "mylib_key", key)
   else
@@ -517,11 +532,19 @@ end
 vim.keymap.set("n", "<leader>sq", function()
   fzflua.fzf_exec("mylib list", {
     actions = {
-      ["default"] = function(selected, _) handle_mylib_selected(selected, "edit")    end,
-      ["ctrl-v"]  = function(selected, _) handle_mylib_selected(selected, "vsplit")  end,
-      ["ctrl-x"]  = function(selected, _) handle_mylib_selected(selected, "split")   end,
-      ["ctrl-t"]  = function(selected, _) handle_mylib_selected(selected, "tabedit") end,
+      ["default"] = function(selected, _)
+        handle_mylib_selected(selected, "edit")
+      end,
+      ["ctrl-v"] = function(selected, _)
+        handle_mylib_selected(selected, "vsplit")
+      end,
+      ["ctrl-x"] = function(selected, _)
+        handle_mylib_selected(selected, "split")
+      end,
+      ["ctrl-t"] = function(selected, _)
+        handle_mylib_selected(selected, "tabedit")
+      end,
     },
-    preview = [[mylib get file_for_preview -- {1} | tr '\n' '\0' | xargs -0 -I _ scope '_']]
+    preview = [[mylib get file_for_preview -- {1} | tr '\n' '\0' | xargs -0 -I _ scope '_']],
   })
-end, { desc = "Open my library file", silent = true, noremap = true})
+end, { desc = "Open my library file", silent = true, noremap = true })

@@ -1,152 +1,173 @@
 local lspconfig = require "lspconfig"
 local util = require "lspconfig.util"
+
+local opts = {
+  diagnostics = {
+    underline = true,
+    update_in_insert = false,
+    virtual_text = {
+      spacing = 4,
+      source = "if_many",
+      prefix = "●",
+      -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+      -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+      -- prefix = "icons",
+    },
+    severity_sort = true,
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = " ",
+        [vim.diagnostic.severity.WARN] = " ",
+        [vim.diagnostic.severity.HINT] = " ",
+        [vim.diagnostic.severity.INFO] = " ",
+      },
+    },
+  },
+  -- add any global capabilities here
+  capabilities = {
+    workspace = {
+      fileOperations = {
+        didRename = true,
+        willRename = true,
+      },
+    },
+  },
+  servers = {
+    bashls = {
+      cmd = { "bash-language-server", "start" },
+      filetpyes = { "sh" },
+      root_dir = util.root_pattern(".git", ".root", ".project"),
+      single_file_support = true,
+    },
+    r_language_server = {
+      cmd = {
+        "R",
+        "--slave",
+        -- "--default-packages=" .. vim.g.R_start_libs,
+        "-e",
+        "languageserver::run()",
+      },
+      root_dir = util.root_pattern(
+        ".git",
+        "NAMESPACE",
+        "R",
+        ".root",
+        ".project"
+      ),
+      single_file_support = true,
+    },
+    vimls = {},
+    perlnavigator = {
+      cmd = { "perlnavigator" },
+      single_file_support = true,
+      settings = {
+        perlnavigator = {
+          perlPath = "perl",
+          enableWarnings = true,
+          perltidyProfile = "",
+          perlcriticProfile = "",
+          perlcriticEnabled = true,
+        },
+      },
+    },
+    lua_ls = {
+      single_file_support = true,
+      settings = {
+        Lua = {
+          workspace = {
+            checkThirdParty = false,
+          },
+          codeLens = {
+            enable = true,
+          },
+          completion = {
+            callSnippet = "Replace",
+          },
+        },
+      },
+    },
+    markdown_oxide = {
+      cmd = {
+        vim.fn.executable "markdown-oxide" == 1 and "markdown-oxide"
+          or vim.env.HOME .. "/.cargo/bin/markdown-oxide",
+      },
+      filetype = { "markdown", "rmd", "rmarkdown", "quarto" },
+      root_dir = util.root_pattern(".obsidian", ".git"),
+      capabilities = {
+        workspace = {
+          didChangeWatchedFiles = {
+            dynamicRegistration = true,
+          },
+        },
+      },
+      single_file_support = false,
+      on_attach = function(client, _) -- _ bufnr
+        client.handlers["textDocument/publishDiagnostics"] = function() end
+      end,
+    },
+  },
+}
+
 vim.lsp.set_log_level(vim.log.levels.ERROR)
 
 -- Used to block unwanted information ----------------------------------- {{{2
-local function custom_show_message(_, result, ctx)
-  if
-    result.type == vim.lsp.protocol.MessageType.Info
-    and string.find(result.message, "rime")
-  then
+util.default_config =
+  vim.tbl_deep_extend("force", lspconfig.util.default_config, {
+    handlers = {
+      ["window/showMessage"] = function(_, result, ctx)
+        if
+          result.type == vim.lsp.protocol.MessageType.Info
+          and string.find(result.message, "rime")
+        then
+          return
+        end
+
+        vim.lsp.handlers["window/showMessage"](nil, result, ctx)
+      end,
+    },
+  })
+
+vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
+for server, server_opts in pairs(opts.servers) do
+  local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+  local has_blink, blink = pcall(require, "blink.cmp")
+  local has_ufo, _ = pcall(require, "ufo")
+  local capabilities = vim.tbl_deep_extend(
+    "force",
+    {},
+    vim.lsp.protocol.make_client_capabilities(),
+    has_cmp and cmp_nvim_lsp.default_capabilities() or {},
+    has_blink and blink.get_lsp_capabilities() or {},
+    has_ufo
+        and {
+          textDocument = {
+            foldingRange = {
+              dynamicRegistration = false,
+              lineFoldingOnly = true,
+            },
+          },
+        }
+      or {}
+  )
+  server_opts = vim.tbl_deep_extend("force", {
+    capabilities = vim.deepcopy(capabilities),
+  }, server_opts or {})
+  if server_opts.enabled == false then
     return
   end
-
-  vim.lsp.handlers["window/showMessage"](nil, result, ctx)
+  require("lspconfig")[server].setup(server_opts)
 end
-
-util.default_config = vim.tbl_deep_extend(
-  "force",
-  lspconfig.util.default_config,
-  { handlers = { ["window/showMessage"] = custom_show_message } }
-)
-
--- Preconfiguration ----------------------------------------------------- {{{2
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-local cmp_lsp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-local ufo_ok, _ = pcall(require, "ufo")
-if cmp_lsp_ok then
-  capabilities.textDocument.completion =
-    cmp_nvim_lsp.default_capabilities().textDocument.completion
-end
-if ufo_ok then
-  capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true,
-  }
-end
-
--- bashls (bash-language-server) ---------------------------------------- {{{2
-lspconfig.bashls.setup {
-  cmd = { "bash-language-server", "start" },
-  filetpyes = { "sh" },
-  root_dir = util.root_pattern(".git", ".root", ".project"),
-  single_file_support = true,
-  capabilities = capabilities,
-}
-
--- R (r_language_server) ------------------------------------------------ {{{2
-lspconfig.r_language_server.setup {
-  cmd = {
-    "R",
-    "--slave",
-    -- "--default-packages=" .. vim.g.R_start_libs,
-    "-e",
-    "languageserver::run()",
-  },
-  capabilities = capabilities,
-  root_dir = util.root_pattern(".git", "NAMESPACE", "R", ".root", ".project"),
-  single_file_support = true,
-}
-
--- Python (pyright) ----------------------------------------------------- {{{2
--- lspconfig.pyright.setup({ on_attach = on_attach_custom })
--- lspconfig.jedi_language_server.setup {
---   capabilities = capabilities,
--- }
-
--- vim (vimls) ---------------------------------------------------------- {{{2
-lspconfig.vimls.setup {
-  capabilities = capabilities,
-}
-
--- perl (perlls) -------------------------------------------------------- {{{2
-lspconfig.perlnavigator.setup {
-  cmd = { "perlnavigator" },
-  capabilities = capabilities,
-  single_file_support = true,
-  settings = {
-    perlnavigator = {
-      perlPath = "perl",
-      enableWarnings = true,
-      perltidyProfile = "",
-      perlcriticProfile = "",
-      perlcriticEnabled = true,
-    },
-  },
-}
-
--- lua (lua-language-server) -------------------------------------------- {{{2
-lspconfig.lua_ls.setup {
-  capabilities = capabilities,
-  single_file_support = true,
-  settings = {
-    Lua = {
-      workspace = {
-        checkThirdParty = false,
-      },
-      codeLens = {
-        enable = true,
-      },
-      completion = {
-        callSnippet = "Replace",
-      },
-    },
-  },
-}
-
--- markdown_oxide ------------------------------------------------------- {{{2
-local capabilities_oxide = capabilities
-capabilities_oxide.workspace = {
-  didChangeWatchedFiles = {
-    dynamicRegistration = true,
-  },
-}
-local markdown_oxide_cmd = vim.env.HOME .. "/.cargo/bin/markdown-oxide"
-if vim.fn.executable "markdown-oxide" then
-  markdown_oxide_cmd = "markdown-oxide"
-end
-
-lspconfig.markdown_oxide.setup {
-  cmd = { markdown_oxide_cmd },
-  filetype = { "markdown", "rmd", "rmarkdown", "quarto" },
-  root_dir = util.root_pattern(".obsidian", ".git"),
-  capabilities = capabilities_oxide,
-  single_file_support = false,
-  on_attach = function(client, _) -- _ bufnr
-    client.handlers["textDocument/publishDiagnostics"] = function() end
-  end,
-}
-
--- ltex ----------------------------------------------------------------- {{{2
--- lspconfig.ltex.setup({
---     root_dir = util.root_pattern(".obsidian", ".git", ".vim"),
---     settings = {
---         ltex = {
---             language = "zh-CN",
---         },
---     },
--- })
 
 -- Global mappings ------------------------------------------------------ {{{2
-local lspmap = function(key, desc, cmd, opts)
-  opts = vim.tbl_extend("keep", opts or {}, {
+local lspmap = function(key, desc, cmd, opt)
+  opt = vim.tbl_extend("keep", opt or {}, {
     key,
     cmd,
     desc = "LSP:" .. desc,
     silent = true,
     noremap = true,
   })
-  require("util").keymap(opts)
+  require("util").keymap(opt)
 end
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -185,11 +206,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
     )
   end,
 })
-
--- Minimal configuration for testing the rime-ls
-if false then
-  require("rimels_test").setup_rime()
-end
-
--- trigger codelens refresh
--- gvim.api.nvim_exec_autocmds("User", { pattern = "LspAttached" })

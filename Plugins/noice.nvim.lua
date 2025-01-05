@@ -82,11 +82,20 @@ require("noice").setup {
           { find = "%d+L, %d+B$" }, -- search count
           { find = '%.newsboat%" %d+L'},
           { find = 'more lines$'},
-          { find = "Pattern not found:" }
+          { find = "Pattern not found:" },
         }
       },
       opts = { skip = true }
     },
+    {
+      filter = {
+        any = {
+          { find = "multiple different client offset_encodings" }
+        }
+      },
+      opts = { skip = true }
+    },
+
     {
       view = "vsplit",
       filter = { min_height = 20, event = "msg_show" },
@@ -124,6 +133,7 @@ require("noice").setup {
     },
   },
 }
+
 
 vim.api.nvim_set_hl(0, "NoiceCmdlineIconSearch",       {link = "NoiceCmdlineIcon"})
 vim.api.nvim_set_hl(0, "NoiceCmdlinePopupTitleSearch", {link = "NoiceCmdlinePopupTitle"})

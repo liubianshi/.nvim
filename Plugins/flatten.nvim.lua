@@ -1,10 +1,11 @@
 local saved_terminal
+local flatten = require("flatten")
 
-require("flatten").setup {
+flatten.setup {
   window = {
     open = "alternate",
   },
-  callbacks = {
+  hooks = {
     should_block = function(argv)
       -- Note that argv contains all the parts of the CLI command, including
       -- Neovim's path, commands, options and files.
@@ -23,13 +24,14 @@ require("flatten").setup {
       local termid = term.get_focused_id()
       saved_terminal = term.get(termid)
     end,
-    post_open = function(bufnr, winnr, ft, is_blocking)
-      if is_blocking and saved_terminal then
+    post_open = function(opts)
+
+      if opts.is_blocking and saved_terminal then
         -- Hide the terminal while it's blocking
         saved_terminal:close()
       else
         -- If it's a normal file, just switch to its window
-        vim.api.nvim_set_current_win(winnr)
+        vim.api.nvim_set_current_win(opts.winnr)
 
         -- If we're in a different wezterm pane/tab, switch to the current one
         -- Requires willothy/wezterm.nvim
@@ -38,12 +40,12 @@ require("flatten").setup {
 
       -- If the file is a git commit, create one-shot autocmd to delete its buffer on write
       -- If you just want the toggleable terminal integration, ignore this bit
-      if ft == "gitcommit" or ft == "gitrebase" then
+      if opts.filetype == "gitcommit" or opts.filetype == "gitrebase" then
         vim.api.nvim_create_autocmd("BufWritePost", {
-          buffer = bufnr,
+          buffer = opts.bufnr,
           once = true,
           callback = vim.schedule_wrap(function()
-            vim.api.nvim_buf_delete(bufnr, {})
+            vim.api.nvim_buf_delete(opts.bufnr, {})
           end),
         })
       end
@@ -57,7 +59,7 @@ require("flatten").setup {
         end
       end)
     end,
-    pipe_path = require("flatten").default_pipe_path,
+    pipe_path = flatten.hooks.pipe_path,
     one_per = {
       kitty = true,
       wezterm = true,

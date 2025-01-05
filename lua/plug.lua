@@ -1,36 +1,40 @@
 -- 在 lazyvim 尚未安装时安装 -------------------------------------------- {{{1
-local lazypath = vim.fn.stdpath("data")  .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({
+  vim.fn.system {
     "git",
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
     "--branch=stable", -- latest stable release
     lazypath,
-  })
+  }
 end
 vim.opt.rtp:prepend(lazypath)
 
 -- 初始化 --------------------------------------------------------------- {{{1
-local Util = require("util")
+local Util = require "util"
 local Plugins = {}
 local add_plug = function(plug, opts)
   opts = opts or {}
-  if type(plug) == 'table' then
+  if type(plug) == "table" then
     opts = vim.tbl_extend("keep", plug, opts)
     plug = plug[1]
   else
     table.insert(opts, 1, plug)
   end
   local plug_name = opts.name or string.match(plug, "/([^/]+)$")
-  local config_file_name = vim.fn.stdpath("config") .. "/Plugins/" .. plug_name
+  local config_file_name = vim.fn.stdpath "config" .. "/Plugins/" .. plug_name
   config_file_name = vim.fn.fnameescape(config_file_name)
   if not opts.config then
     if vim.fn.filereadable(config_file_name .. ".lua") == 1 then
-      opts.config = function() dofile(config_file_name .. ".lua") end
+      opts.config = function()
+        dofile(config_file_name .. ".lua")
+      end
     elseif vim.fn.filereadable(config_file_name .. ".vim") == 1 then
-      opts.config = function() vim.cmd("source " .. config_file_name .. ".vim") end
+      opts.config = function()
+        vim.cmd("source " .. config_file_name .. ".vim")
+      end
     end
   end
   table.insert(Plugins, opts)
@@ -38,11 +42,11 @@ end
 
 -- 配置插件 ------------------------------------------------------------- {{{1
 -- Utils ---------------------------------------------------------------- {{{2
-add_plug("nvim-lua/plenary.nvim",       { lazy = true })
+add_plug("nvim-lua/plenary.nvim", { lazy = true })
 add_plug("nvim-tree/nvim-web-devicons", { lazy = true })
-add_plug("MunifTanjim/nui.nvim",        { lazy = true })
-add_plug("s1n7ax/nvim-window-picker",   { lazy = true })
-add_plug("kkharji/sqlite.lua",          { lazy = true })
+add_plug("MunifTanjim/nui.nvim", { lazy = true })
+add_plug("s1n7ax/nvim-window-picker", { lazy = true })
+add_plug("kkharji/sqlite.lua", { lazy = true })
 
 -- UI ------------------------------------------------------------------- {{{2
 -- lambdalisue/suda.vim: Read and write with sudo command --------------- {{{3
@@ -55,10 +59,10 @@ add_plug("chentoast/marks.nvim", {
 })
 
 -- ojroques/vim-oscyank: copy text through SSH with OSC52 --------------- {{{3
-add_plug("ojroques/vim-oscyank", { cmd = {"OSCYankVisual"} })
+add_plug("ojroques/vim-oscyank", { cmd = { "OSCYankVisual" } })
 
 -- typicode/bg.nvim: Automatically sync your terminal background -------- {{{3
-add_plug( "typicode/bg.nvim", { lazy = false })
+add_plug("typicode/bg.nvim", { lazy = false })
 
 -- is0n/fm-nvim: open terminal file manager or other terminal app ------- {{{3
 add_plug("is0n/fm-nvim", {
@@ -72,16 +76,16 @@ add_plug("is0n/fm-nvim", {
 
 -- stevearc/oil.nvim: file explorer: edit your filesystem like a buffer - {{{3
 add_plug {
-  'stevearc/oil.nvim',
+  "stevearc/oil.nvim",
   dependencies = {
-    { "echasnovski/mini.icons", opts = {} }
+    { "echasnovski/mini.icons", opts = {} },
   },
 }
 
 -- nvim-neo-tree/neo-tree.nvim: browse tree like structures ------------- {{{3
 add_plug("nvim-neo-tree/neo-tree.nvim", {
   cmd = "Neotree",
-  dependencies = {"s1n7ax/nvim-window-picker"},
+  dependencies = { "s1n7ax/nvim-window-picker" },
   keys = {
     {
       "<leader>fe",
@@ -124,22 +128,29 @@ add_plug("s1n7ax/nvim-window-picker", { name = "window-picker", lazy = true })
 -- ibhagwan/fzf-lua: Fzf Search ----------------------------------------- {{{3
 add_plug("ibhagwan/fzf-lua", {
   branch = "main",
-  cmd = { "FzfLua", "Shelp", "Urlopen", "RoamNodeFind", "Cheat", "ProjectChange" },
+  cmd = {
+    "FzfLua",
+    "Shelp",
+    "Urlopen",
+    "RoamNodeFind",
+    "Cheat",
+    "ProjectChange",
+  },
   keys = {
     "<leader>pp",
-    {"<leader>sq", desc =  "Open my library file"},
+    { "<leader>sq", desc = "Open my library file" },
     "<leader>ic",
-    {"<localleader>c", mode = "i"},
+    { "<localleader>c", mode = "i" },
     "<leader>fz",
     "<leader>bB",
-    {"<leader>ot", desc = "Run async tasks"},
+    { "<leader>ot", desc = "Run async tasks" },
     "<A-x>",
     {
       "<leader>:",
       "<cmd>FzfLua command_history<cr>",
       desc = "FzfLua: Command History",
     },
-    {"<leader>hc", "<cmd>Cheat<cr>", desc = "FzfLua: Cheatsheet"},
+    { "<leader>hc", "<cmd>Cheat<cr>", desc = "FzfLua: Cheatsheet" },
     {
       "<leader>bb",
       "<cmd>FzfLua buffers<cr>",
@@ -156,7 +167,7 @@ add_plug("ibhagwan/fzf-lua", {
       desc = "FzfLua: tags",
     },
     {
-      '<leader>sk',
+      "<leader>sk",
       "<cmd>FzfLua keymaps<cr>",
       desc = "FzfLua: keymaps table",
     },
@@ -196,7 +207,10 @@ add_plug("ibhagwan/fzf-lua", {
 
 -- nvim-telescope/telescope.nvim: Find, Filter, Preview, Pick ----------- {{{3
 add_plug("fhill2/telescope-ultisnips.nvim", { lazy = true })
-add_plug("nvim-telescope/telescope-fzf-native.nvim", { build = "make", lazy = true, })
+add_plug(
+  "nvim-telescope/telescope-fzf-native.nvim",
+  { build = "make", lazy = true }
+)
 add_plug("nvim-telescope/telescope.nvim", {
   keys = {
     {
@@ -226,13 +240,13 @@ add_plug("nvim-telescope/telescope.nvim", {
     },
     {
       "<leader>sj",
-      Util.telescope("jumplist"),
-      desc = "Telescope: Jumplist"
+      Util.telescope "jumplist",
+      desc = "Telescope: Jumplist",
     },
     {
       "<leader>sl",
-      Util.telescope("current_buffer_fuzzy_find"),
-      desc = "Telescope: Search Current Buffer"
+      Util.telescope "current_buffer_fuzzy_find",
+      desc = "Telescope: Search Current Buffer",
     },
     {
       "<leader>sm",
@@ -242,10 +256,10 @@ add_plug("nvim-telescope/telescope.nvim", {
     {
       "<leader>sn",
       function()
-        require('telescope.builtin').live_grep({
+        require("telescope.builtin").live_grep {
           prompt_title = "Search in Personal Library ...",
-          cwd = (vim.env.WRITING_LIB or vim.env.HOME .. "/Documents/writing")
-        })
+          cwd = (vim.env.WRITING_LIB or vim.env.HOME .. "/Documents/writing"),
+        }
       end,
       desc = "Telescope: Search Personal Notes",
     },
@@ -328,13 +342,17 @@ add_plug("nvim-telescope/telescope.nvim", {
 add_plug("danielfalk/smart-open.nvim", {
   branch = "0.2.x",
   config = function()
-    require("telescope").load_extension("smart_open")
+    require("telescope").load_extension "smart_open"
   end,
   keys = {
-    {"<leader>so", function()
-      require('telescope').extensions.smart_open.smart_open()
-    end, desc = "telescope: smart-open"}
-  }
+    {
+      "<leader>so",
+      function()
+        require("telescope").extensions.smart_open.smart_open()
+      end,
+      desc = "telescope: smart-open",
+    },
+  },
 })
 add_plug("nvim-telescope/telescope-frecency.nvim", {
   keys = {
@@ -350,28 +368,31 @@ add_plug("nvim-telescope/telescope-frecency.nvim", {
 })
 
 -- machakann/vim-highlightedyank: 高亮显示复制区域 ---------------------- {{{3
-add_plug("machakann/vim-highlightedyank")
+add_plug "machakann/vim-highlightedyank"
 
 -- kevinhwang91/nvim-hlslens: Hlsearch Lens for Neovim ------------------ {{{3
-add_plug("kevinhwang91/nvim-hlslens", { event = { "SearchWrapped", "CursorMoved" }, })
+add_plug(
+  "kevinhwang91/nvim-hlslens",
+  { event = { "SearchWrapped", "CursorMoved" } }
+)
 
 -- mg979/vim-visual-multi: 多重选择 ------------------------------------- {{{3
 add_plug("mg979/vim-visual-multi", {
   init = function()
     if Util.has "nvim-hlslens" then
-      vim.api.nvim_create_augroup("VMlens", {clear = true})
-      vim.api.nvim_create_autocmd({"User"}, {
+      vim.api.nvim_create_augroup("VMlens", { clear = true })
+      vim.api.nvim_create_autocmd({ "User" }, {
         group = "VMlens",
         pattern = "visual_multi_start",
         callback = function()
-          require('vmlens').start()
+          require("vmlens").start()
         end,
       })
-      vim.api.nvim_create_autocmd({"User"}, {
+      vim.api.nvim_create_autocmd({ "User" }, {
         group = "VMlens",
         pattern = "visual_multi_exit",
         callback = function()
-          require('vmlens').exit()
+          require("vmlens").exit()
         end,
       })
     end
@@ -389,13 +410,13 @@ add_plug("mg979/vim-visual-multi", {
 })
 
 -- andymass/vim-matchup: 显示匹配符号之间的内容 ------------------------- {{{3
-add_plug("andymass/vim-matchup")
+add_plug "andymass/vim-matchup"
 
 -- numToStr/Comment.nvim: Smart and powerful comment plugin for neovim -- {{{3
-add_plug('numToStr/Comment.nvim', { event = {"VeryLazy"} })
+add_plug("numToStr/Comment.nvim", { event = { "VeryLazy" } })
 
 -- folke/todo-comments.nvim: Highlight, list and search todo comments --- {{{3
-add_plug("folke/todo-comments.nvim", { event = {"VeryLazy"} })
+add_plug("folke/todo-comments.nvim", { event = { "VeryLazy" } })
 
 -- junegunn/vim-easy-align: text alignment tool ------------------------- {{{3
 add_plug("junegunn/vim-easy-align", {
@@ -408,19 +429,29 @@ add_plug("junegunn/vim-easy-align", {
 -- beauwilliams/focus.nvim: Auto Ajust the size of focused window ------- {{{3
 add_plug("nvim-focus/focus.nvim", {
   init = function()
-    local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
+    local augroup =
+      vim.api.nvim_create_augroup("FocusDisable", { clear = true })
     local ignore_filetypes = {
-      "rbrowser", "sagaoutline", "floaterm", "rdoc", "fzf",
-      "voomtree", "neo-tree", "kittypreviewimage", "aerial",
+      "rbrowser",
+      "sagaoutline",
+      "floaterm",
+      "rdoc",
+      "fzf",
+      "voomtree",
+      "neo-tree",
+      "kittypreviewimage",
+      "aerial",
     }
     local ignore_buftypes = { "terminal", "nofile", "promp", "popup" }
     vim.api.nvim_create_autocmd("FileType", {
       group = augroup,
       callback = function(ev)
-        if vim.b[ev.buf].focus_disable then return end
+        if vim.b[ev.buf].focus_disable then
+          return
+        end
         if
-          vim.tbl_contains(ignore_filetypes, vim.bo[ev.buf].filetype) or
-          vim.tbl_contains(ignore_buftypes, vim.bo[ev.buf].buftype)
+          vim.tbl_contains(ignore_filetypes, vim.bo[ev.buf].filetype)
+          or vim.tbl_contains(ignore_buftypes, vim.bo[ev.buf].buftype)
         then
           vim.b[ev.buf].focus_disable = true
         else
@@ -433,31 +464,35 @@ add_plug("nvim-focus/focus.nvim", {
     vim.api.nvim_create_autocmd("VimResized", {
       group = vim.api.nvim_create_augroup("FocusResize", { clear = true }),
       callback = function()
-        require('focus').resize()
+        require("focus").resize()
       end,
     })
   end,
   keys = {
-    { "<leader>wh", "<cmd>FocusSplitLeft<cr>",    desc = "Focus Split Left" },
-    { "<leader>wl", "<cmd>FocusSplitRight<cr>",   desc = "Focus Split Right" },
-    { "<leader>wj", "<cmd>FocusSplitDown<cr>",    desc = "Focus Split Down" },
-    { "<leader>wk", "<cmd>FocusSplitUp<cr>",      desc = "Focus Split Up" },
-    { "<leader>wm", "<cmd>FocusMaximise<cr>",     desc = "Focus Maximise" },
-    { "<leader>we", "<cmd>FocusEqualise<cr>",     desc = "Focus Equalise" },
-    { "<leader>ww", "<cmd>FocusToggle<cr>",       desc = "Focus Toggle" },
-    { "ww", "<cmd>FocusToggle<cr>",       desc = "Focus Toggle" },
-    { "<leader>wb", "<cmd>FocusToggleBuffer<cr>", desc = "Focus Toggle Buffer" },
+    { "<leader>wh", "<cmd>FocusSplitLeft<cr>", desc = "Focus Split Left" },
+    { "<leader>wl", "<cmd>FocusSplitRight<cr>", desc = "Focus Split Right" },
+    { "<leader>wj", "<cmd>FocusSplitDown<cr>", desc = "Focus Split Down" },
+    { "<leader>wk", "<cmd>FocusSplitUp<cr>", desc = "Focus Split Up" },
+    { "<leader>wm", "<cmd>FocusMaximise<cr>", desc = "Focus Maximise" },
+    { "<leader>we", "<cmd>FocusEqualise<cr>", desc = "Focus Equalise" },
+    { "<leader>ww", "<cmd>FocusToggle<cr>", desc = "Focus Toggle" },
+    { "ww", "<cmd>FocusToggle<cr>", desc = "Focus Toggle" },
+    {
+      "<leader>wb",
+      "<cmd>FocusToggleBuffer<cr>",
+      desc = "Focus Toggle Buffer",
+    },
   },
   cmd = { "FocusToggle", "FocusEnable" },
-  event = {"WinNew"}
+  event = { "WinNew" },
 })
 
 -- kylechui/nvim-surround: Surround selections, stylishly --------------- {{{3
 add_plug("kylechui/nvim-surround", {
   version = "*",
   event = "VeryLazy",
-  ft = {"markdown", "stata"},
-  keys = {'ys', 'ds', 'cs'},
+  ft = { "markdown", "stata" },
+  keys = { "ys", "ds", "cs" },
 })
 
 -- tpope/vim-repeat: repeat operation ----------------------------------- {{{3
@@ -490,14 +525,14 @@ add_plug("MagicDuck/grug-far.nvim", {
     {
       "<leader>sr",
       function()
-        local grug = require("grug-far")
-        local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
-        grug.open({
+        local grug = require "grug-far"
+        local ext = vim.bo.buftype == "" and vim.fn.expand "%:e"
+        grug.open {
           transient = true,
           prefills = {
             filesFilter = ext and ext ~= "" and "*." .. ext or nil,
           },
-        })
+        }
       end,
       mode = { "n", "v" },
       desc = "Search and Replace",
@@ -527,13 +562,20 @@ add_plug("folke/noice.nvim", {
   init = function()
     vim.api.nvim_set_option_value("cmdheight", 0, { scope = "global" })
   end,
-  cmd = {'NoiceEnable'},
+  cmd = { "NoiceEnable" },
   keys = {
     {
-      "<leader>hn", "<cmd>NoiceTelescope<cr>", desc = "Noice: Search Notifications",
+      "<leader>hn",
+      "<cmd>NoiceTelescope<cr>",
+      desc = "Noice: Search Notifications",
     },
     {
-      "<c-f>", function() require('noice.lsp').signature() end, mode = "i", desc = "Noice: Show lsp documents"
+      "<c-f>",
+      function()
+        require("noice.lsp").signature()
+      end,
+      mode = "i",
+      desc = "Noice: Show lsp documents",
     },
   },
 })
@@ -577,7 +619,9 @@ add_plug("folke/flash.nvim", {
     {
       "st",
       mode = { "n", "x", "o" },
-      function() require("flash").treesitter() end,
+      function()
+        require("flash").treesitter()
+      end,
       desc = "Flash Treesitter",
     },
   },
@@ -588,16 +632,16 @@ add_plug("rainzm/flash-zh.nvim", {
   keys = {
     {
       "sc",
-      mode = {"n", "x", "o"},
+      mode = { "n", "x", "o" },
       function()
-        require("flash-zh").jump({
+        require("flash-zh").jump {
           chinese_only = true,
           labels = " ;,.123456789[]",
-        })
+        }
       end,
-      desc = "Flash between Chinese"
+      desc = "Flash between Chinese",
     },
-  }
+  },
 })
 
 -- easymotion/vim-easymotion: motion tools ------------------------------ {{{3
@@ -699,13 +743,13 @@ add_plug("folke/which-key.nvim", { event = "VeryLazy" })
 
 -- chrisgrieser/nvim-origami: Fold with relentless elegance ------------- {{{3
 add_plug("chrisgrieser/nvim-origami", {
-	event = "BufReadPost", -- later or on keypress would prevent saving folds
+  event = "BufReadPost", -- later or on keypress would prevent saving folds
 })
 
 -- kevinhwang91/nvim-ufo: ultra fold in Neovim -------------------------- {{{3
 add_plug("kevinhwang91/promise-async", { lazy = true })
 add_plug("kevinhwang91/nvim-ufo", {
-	event = "BufReadPost", -- later or on keypress would prevent saving folds
+  event = "BufReadPost", -- later or on keypress would prevent saving folds
   init = function()
     vim.o.foldcolumn = "0" -- '0' is not bad
     vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
@@ -727,17 +771,17 @@ add_plug("akinsho/bufferline.nvim", {
 })
 
 -- Bekaboo/dropbar.nvim: IDE-like breadcrumbs, out of the box ----------- {{{3
-add_plug({
-  'Bekaboo/dropbar.nvim',
+add_plug {
+  "Bekaboo/dropbar.nvim",
   dependencies = {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'make'
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = "make",
   },
   config = true,
-})
+}
 
 -- nvim-lualine/lualine.nvim: neovim statusline plugin ------------------ {{{3
-add_plug("nvim-lualine/lualine.nvim")
+add_plug "nvim-lualine/lualine.nvim"
 
 -- goolord/alpha-nvim: a lua powered greeter ---------------------------- {{{3
 -- add_plug('goolord/alpha-nvim')
@@ -765,7 +809,7 @@ add_plug("echasnovski/mini.icons", {
 })
 
 -- windwp/nvim-autopairs: autopair tools -------------------------------- {{{3
-add_plug("windwp/nvim-autopairs")
+add_plug "windwp/nvim-autopairs"
 
 -- stevearc/dressing.nvim: improve the default vim.ui interfaces -------- {{{3
 add_plug("stevearc/dressing.nvim", {
@@ -788,14 +832,19 @@ add_plug("stevearc/dressing.nvim", {
 add_plug("nvim-zh/colorful-winsep.nvim", {
   event = { "WinNew" },
   config = function()
-    require("colorful-winsep").setup({
+    require("colorful-winsep").setup {
       no_exec_files = {
-        "packer", "TelescopePrompt", "mason", "CompetiTest", "NvimTree",
-        "aerial", "neo-tree"
+        "packer",
+        "TelescopePrompt",
+        "mason",
+        "CompetiTest",
+        "NvimTree",
+        "aerial",
+        "neo-tree",
       },
       symbols = { "─", "│", "┌", "┐", "└", "┘" },
-    })
-  end
+    }
+  end,
 })
 
 -- "lukas-reineke/indent-blankline.nvim"
@@ -820,23 +869,11 @@ add_plug("nvim-zh/colorful-winsep.nvim", {
 -- })
 
 -- Tools ---------------------------------------------------------------- {{{2
--- liubianshi/cmp-lsp-rimels: ------------------------------------------- {{{3
-if (vim.fn.has('linux') == 1 and vim.fn.has('nvim-0.10.0') == 0) and (not vim.env.SSH_TTY or vim.env.SSH_TTY == "") then
-  add_plug("liubianshi/ime-toggle", {
-    keys = {{"<localleader>f", mode = "i"}},
-    dev = true,
-    config = true,
-  })
-else
-  add_plug("liubianshi/cmp-lsp-rimels", {
-    keys = {{"<localleader>f", mode = "i"}},
-    dev = true,
-  })
-end
-
 -- tpope/vim-rsi: Readline style insertion ------------------------------ {{{3
 add_plug("tpope/vim-rsi", {
-  init = function() vim.g.rsi_no_meta = 1 end,
+  init = function()
+    vim.g.rsi_no_meta = 1
+  end,
 })
 
 -- folke/snacks.nvim: A collection of small QoL plugins ----------------- {{{3
@@ -845,9 +882,21 @@ add_plug {
   priority = 1000,
   lazy = false,
   keys = {
-    { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-    { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
-  }
+    {
+      "<leader>.",
+      function()
+        Snacks.scratch()
+      end,
+      desc = "Toggle Scratch Buffer",
+    },
+    {
+      "<leader>S",
+      function()
+        Snacks.scratch.select()
+      end,
+      desc = "Select Scratch Buffer",
+    },
+  },
 }
 
 -- LinTaoAmons/scratch.nvim: Create temporary playground files ---------- {{{3
@@ -863,27 +912,27 @@ add_plug {
 add_plug("liubianshi/icon-picker.nvim", {
   dev = true,
   config = function()
-    require("icon-picker").setup({ disable_legacy_commands = true })
+    require("icon-picker").setup { disable_legacy_commands = true }
   end,
-  cmd = { "IconPickerNormal", "IconPickerYank"},
+  cmd = { "IconPickerNormal", "IconPickerYank" },
   keys = {
     {
-      '<localleader>i',
-      '<cmd>IconPickerInsert history nerd_font_v3 alt_font symbols emoji<cr>',
-      desc = ' Pick Icon and insert it to the buffer',
+      "<localleader>i",
+      "<cmd>IconPickerInsert history nerd_font_v3 alt_font symbols emoji<cr>",
+      desc = " Pick Icon and insert it to the buffer",
       mode = "i",
       silent = true,
       noremap = true,
     },
     {
-      '<leader>si',
-      '<cmd>IconPickerYank history nerd_font_v3 alt_font symbols emoji<cr>',
-      desc = 'Pick Icon and yank it to register',
+      "<leader>si",
+      "<cmd>IconPickerYank history nerd_font_v3 alt_font symbols emoji<cr>",
+      desc = "Pick Icon and yank it to register",
       mode = "n",
       silent = true,
       noremap = true,
-    }
-  }
+    },
+  },
 })
 
 -- brenoprata10/nvim-highlight-colors: Highlight colors for neovim ------ {{{3
@@ -894,9 +943,9 @@ add_plug("brenoprata10/nvim-highlight-colors", {
 -- nvimdev/lspsaga.nvim: ------------------------------------------------ {{{3
 -- add_plug("nvimdev/lspsaga.nvim", { event = 'LspAttach' })
 add_plug {
-  'stevearc/aerial.nvim',
+  "stevearc/aerial.nvim",
   config = function()
-    require('aerial').setup{
+    require("aerial").setup {
       backends = { "treesitter", "lsp", "markdown", "asciidoc", "man" },
       on_attach = function(bufnr)
         -- Jump forwards/backwards with '{' and '}'
@@ -906,11 +955,10 @@ add_plug {
     }
   end,
   keys = {
-    {"<localleader>v", "<cmd>AerialToggle!<CR>", desc = "Toggle aerial"}
+    { "<localleader>v", "<cmd>AerialToggle!<CR>", desc = "Toggle aerial" },
   },
-  cmd = {"AerialToggle"}
+  cmd = { "AerialToggle" },
 }
-
 
 -- jackMort/ChatGPT.nvim: Effortless Natural Language Generation -------- {{{3
 add_plug("jackMort/ChatGPT.nvim", {
@@ -931,56 +979,254 @@ add_plug("robitx/gp.nvim", {
     "GpTranslator",
   },
   keys = {
-    { "<M-o>",      "<cmd>GpTextOptimize<cr>",      desc = "Optimize Text",          nowait = true, mode = { "n"}},
-    { "<M-o>",      ":<C-u>'<,'>GpTextOptimize<cr>",      desc = "Optimize Text",          nowait = true, mode = { "v" }},
-    { "<C-g>c",     "<cmd>GpChatNew vsplit<cr>",    desc = "GPT prompt New Chat",    nowait = true },
-    { "<C-g>t",     "<cmd>GpChatToggle vsplit<cr>", desc = "GPT prompt Toggle Chat", nowait = true },
-    { "<C-g>f",     "<cmd>GpChatFinder<cr>",        desc = "GPT prompt Chat Finder", nowait = true },
-    { "<leader>sc", "<cmd>GpChatFinder<cr>",        desc = "GPT prompt Chat Finder", nowait = true },
+    {
+      "<M-o>",
+      "<cmd>GpTextOptimize<cr>",
+      desc = "Optimize Text",
+      nowait = true,
+      mode = { "n" },
+    },
+    {
+      "<M-o>",
+      ":<C-u>'<,'>GpTextOptimize<cr>",
+      desc = "Optimize Text",
+      nowait = true,
+      mode = { "v" },
+    },
+    {
+      "<C-g>c",
+      "<cmd>GpChatNew vsplit<cr>",
+      desc = "GPT prompt New Chat",
+      nowait = true,
+    },
+    {
+      "<C-g>t",
+      "<cmd>GpChatToggle vsplit<cr>",
+      desc = "GPT prompt Toggle Chat",
+      nowait = true,
+    },
+    {
+      "<C-g>f",
+      "<cmd>GpChatFinder<cr>",
+      desc = "GPT prompt Chat Finder",
+      nowait = true,
+    },
+    {
+      "<leader>sc",
+      "<cmd>GpChatFinder<cr>",
+      desc = "GPT prompt Chat Finder",
+      nowait = true,
+    },
 
-    { "<C-g>c", ":<C-u>'<,'>GpChatNew<cr>",    desc = "GPT prompt Visual Chat New",    nowait = true, mode = "v" },
-    { "<C-g>p", ":<C-u>'<,'>GpChatPaste<cr>",  desc = "GPT prompt Visual Chat Paste",  nowait = true, mode = "v" },
-    { "<C-g>t", ":<C-u>'<,'>GpChatToggle<cr>", desc = "GPT prompt Visual Toggle Chat", nowait = true, mode = "v" },
+    {
+      "<C-g>c",
+      ":<C-u>'<,'>GpChatNew<cr>",
+      desc = "GPT prompt Visual Chat New",
+      nowait = true,
+      mode = "v",
+    },
+    {
+      "<C-g>p",
+      ":<C-u>'<,'>GpChatPaste<cr>",
+      desc = "GPT prompt Visual Chat Paste",
+      nowait = true,
+      mode = "v",
+    },
+    {
+      "<C-g>t",
+      ":<C-u>'<,'>GpChatToggle<cr>",
+      desc = "GPT prompt Visual Toggle Chat",
+      nowait = true,
+      mode = "v",
+    },
 
-    { "<C-g><C-x>", "<cmd>GpChatNew split<cr>",  desc = "GPT prompt New Chat split",  nowait = true },
-    { "<C-g><C-v>", "<cmd>GpChatNew vsplit<cr>", desc = "GPT prompt New Chat vsplit", nowait = true },
-    { "<C-g><C-t>", "<cmd>GpChatNew tabnew<cr>", desc = "GPT prompt New Chat tabnew", nowait = true },
+    {
+      "<C-g><C-x>",
+      "<cmd>GpChatNew split<cr>",
+      desc = "GPT prompt New Chat split",
+      nowait = true,
+    },
+    {
+      "<C-g><C-v>",
+      "<cmd>GpChatNew vsplit<cr>",
+      desc = "GPT prompt New Chat vsplit",
+      nowait = true,
+    },
+    {
+      "<C-g><C-t>",
+      "<cmd>GpChatNew tabnew<cr>",
+      desc = "GPT prompt New Chat tabnew",
+      nowait = true,
+    },
 
-    { "<C-g><C-x>", ":<C-u>'<,'>GpChatNew split<cr>",  desc = "GPT prompt Visual Chat New split",  nowait = true, mode = "v" },
-    { "<C-g><C-v>", ":<C-u>'<,'>GpChatNew vsplit<cr>", desc = "GPT prompt Visual Chat New vsplit", nowait = true, mode = "v" },
-    { "<C-g><C-t>", ":<C-u>'<,'>GpChatNew tabnew<cr>", desc = "GPT prompt Visual Chat New tabnew", nowait = true, mode = "v" },
+    {
+      "<C-g><C-x>",
+      ":<C-u>'<,'>GpChatNew split<cr>",
+      desc = "GPT prompt Visual Chat New split",
+      nowait = true,
+      mode = "v",
+    },
+    {
+      "<C-g><C-v>",
+      ":<C-u>'<,'>GpChatNew vsplit<cr>",
+      desc = "GPT prompt Visual Chat New vsplit",
+      nowait = true,
+      mode = "v",
+    },
+    {
+      "<C-g><C-t>",
+      ":<C-u>'<,'>GpChatNew tabnew<cr>",
+      desc = "GPT prompt Visual Chat New tabnew",
+      nowait = true,
+      mode = "v",
+    },
 
     -- Prompt commands
-    { "<C-g>r", "<cmd>GpRewrite<cr>", desc = "GPT prompt Inline Rewrite",   nowait = true },
-    { "<C-g>a", "<cmd>GpAppend<cr>",  desc = "GPT prompt Append (after)",   nowait = true },
-    { "<C-g>b", "<cmd>GpPrepend<cr>", desc = "GPT prompt Prepend (before)", nowait = true },
+    {
+      "<C-g>r",
+      "<cmd>GpRewrite<cr>",
+      desc = "GPT prompt Inline Rewrite",
+      nowait = true,
+    },
+    {
+      "<C-g>a",
+      "<cmd>GpAppend<cr>",
+      desc = "GPT prompt Append (after)",
+      nowait = true,
+    },
+    {
+      "<C-g>b",
+      "<cmd>GpPrepend<cr>",
+      desc = "GPT prompt Prepend (before)",
+      nowait = true,
+    },
 
-    { "<C-g>r", ":<C-u>'<,'>GpRewrite<cr>",   desc = "GPT prompt Visual Rewrite",          nowait = true, mode = "v" },
-    { "<C-g>a", ":<C-u>'<,'>GpAppend<cr>",    desc = "GPT prompt Visual Append (after)",   nowait = true, mode = "v" },
-    { "<C-g>b", ":<C-u>'<,'>GpPrepend<cr>",   desc = "GPT prompt Visual Prepend (before)", nowait = true, mode = "v" },
-    { "<C-g>i", ":<C-u>'<,'>GpImplement<cr>", desc = "GPT prompt Implement selection",     nowait = true, mode = "v" },
+    {
+      "<C-g>r",
+      ":<C-u>'<,'>GpRewrite<cr>",
+      desc = "GPT prompt Visual Rewrite",
+      nowait = true,
+      mode = "v",
+    },
+    {
+      "<C-g>a",
+      ":<C-u>'<,'>GpAppend<cr>",
+      desc = "GPT prompt Visual Append (after)",
+      nowait = true,
+      mode = "v",
+    },
+    {
+      "<C-g>b",
+      ":<C-u>'<,'>GpPrepend<cr>",
+      desc = "GPT prompt Visual Prepend (before)",
+      nowait = true,
+      mode = "v",
+    },
+    {
+      "<C-g>i",
+      ":<C-u>'<,'>GpImplement<cr>",
+      desc = "GPT prompt Implement selection",
+      nowait = true,
+      mode = "v",
+    },
 
-    { "<C-g>gp", "<cmd>GpPopup<cr>",  desc = "GPT prompt Popup",    nowait = true },
-    { "<C-g>ge", "<cmd>GpEnew<cr>",   desc = "GPT prompt GpEnew",   nowait = true },
-    { "<C-g>gn", "<cmd>GpNew<cr>",    desc = "GPT prompt GpNew",    nowait = true },
-    { "<C-g>gv", "<cmd>GpVnew<cr>",   desc = "GPT prompt GpVnew",   nowait = true },
-    { "<C-g>gt", "<cmd>GpTabnew<cr>", desc = "GPT prompt GpTabnew", nowait = true },
+    {
+      "<C-g>gp",
+      "<cmd>GpPopup<cr>",
+      desc = "GPT prompt Popup",
+      nowait = true,
+    },
+    {
+      "<C-g>ge",
+      "<cmd>GpEnew<cr>",
+      desc = "GPT prompt GpEnew",
+      nowait = true,
+    },
+    {
+      "<C-g>gn",
+      "<cmd>GpNew<cr>",
+      desc = "GPT prompt GpNew",
+      nowait = true,
+    },
+    {
+      "<C-g>gv",
+      "<cmd>GpVnew<cr>",
+      desc = "GPT prompt GpVnew",
+      nowait = true,
+    },
+    {
+      "<C-g>gt",
+      "<cmd>GpTabnew<cr>",
+      desc = "GPT prompt GpTabnew",
+      nowait = true,
+    },
 
-    { "<C-g>gp", ":<C-u>'<,'>GpPopup<cr>",  desc = "GPT prompt Visual Popup",    nowait = true, mode = "v" },
-    { "<C-g>ge", ":<C-u>'<,'>GpEnew<cr>",   desc = "GPT prompt Visual GpEnew",   nowait = true, mode = "v" },
-    { "<C-g>gn", ":<C-u>'<,'>GpNew<cr>",    desc = "GPT prompt Visual GpNew",    nowait = true, mode = "v" },
-    { "<C-g>gv", ":<C-u>'<,'>GpVnew<cr>",   desc = "GPT prompt Visual GpVnew",   nowait = true, mode = "v" },
-    { "<C-g>gt", ":<C-u>'<,'>GpTabnew<cr>", desc = "GPT prompt Visual GpTabnew", nowait = true, mode = "v" },
+    {
+      "<C-g>gp",
+      ":<C-u>'<,'>GpPopup<cr>",
+      desc = "GPT prompt Visual Popup",
+      nowait = true,
+      mode = "v",
+    },
+    {
+      "<C-g>ge",
+      ":<C-u>'<,'>GpEnew<cr>",
+      desc = "GPT prompt Visual GpEnew",
+      nowait = true,
+      mode = "v",
+    },
+    {
+      "<C-g>gn",
+      ":<C-u>'<,'>GpNew<cr>",
+      desc = "GPT prompt Visual GpNew",
+      nowait = true,
+      mode = "v",
+    },
+    {
+      "<C-g>gv",
+      ":<C-u>'<,'>GpVnew<cr>",
+      desc = "GPT prompt Visual GpVnew",
+      nowait = true,
+      mode = "v",
+    },
+    {
+      "<C-g>gt",
+      ":<C-u>'<,'>GpTabnew<cr>",
+      desc = "GPT prompt Visual GpTabnew",
+      nowait = true,
+      mode = "v",
+    },
 
-    { "<C-g>x", "<cmd>GpContext<cr>",       desc = "GPT prompt Toggle Context",        nowait = true },
-    { "<C-g>x", ":<C-u>'<,'>GpContext<cr>", desc = "GPT prompt Visual Toggle Context", nowait = true, mode = "v" },
+    {
+      "<C-g>x",
+      "<cmd>GpContext<cr>",
+      desc = "GPT prompt Toggle Context",
+      nowait = true,
+    },
+    {
+      "<C-g>x",
+      ":<C-u>'<,'>GpContext<cr>",
+      desc = "GPT prompt Visual Toggle Context",
+      nowait = true,
+      mode = "v",
+    },
 
-    { "<C-g>s", "<cmd>GpStop<cr>",      desc = "GPT prompt Stop",       nowait = true, mode = {"n", "v", "x"} },
-    { "<C-g>n", "<cmd>GpNextAgent<cr>", desc = "GPT prompt Next Agent", nowait = true, mode = {"n", "v", "x"} },
-
-  }
+    {
+      "<C-g>s",
+      "<cmd>GpStop<cr>",
+      desc = "GPT prompt Stop",
+      nowait = true,
+      mode = { "n", "v", "x" },
+    },
+    {
+      "<C-g>n",
+      "<cmd>GpNextAgent<cr>",
+      desc = "GPT prompt Next Agent",
+      nowait = true,
+      mode = { "n", "v", "x" },
+    },
+  },
 })
-
 
 -- akinsho/toggleterm.nvim: manage multiple terminal windows ------------ {{{3
 add_plug("akinsho/toggleterm.nvim", {
@@ -992,7 +1238,7 @@ add_plug("akinsho/toggleterm.nvim", {
       "<cmd>ToggleTerm<cr>",
       desc = "Toogle Terminal",
       silent = true,
-      mode = { "n", "t"},
+      mode = { "n", "t" },
       noremap = true,
     },
   },
@@ -1002,7 +1248,7 @@ add_plug("akinsho/toggleterm.nvim", {
 add_plug("willothy/flatten.nvim", { lazy = false, priority = 1001 })
 
 -- skywind3000/asyncrun.vim: run async shell command -------------------- {{{3
-add_plug("skywind3000/asyncrun.vim", { cmd = {'AsyncRun'} })
+add_plug("skywind3000/asyncrun.vim", { cmd = { "AsyncRun" } })
 
 -- skywind3000/asynctasks.vim: modern Task System ----------------------- {{{3
 add_plug("skywind3000/asynctasks.vim", {
@@ -1014,7 +1260,7 @@ add_plug("skywind3000/asynctasks.vim", {
 
 -- liubianshi/vimcmdline: send lines to interpreter --------------------- {{{3
 add_plug("liubianshi/vimcmdline", {
-  ft = {'stata', 'sh', 'bash'},
+  ft = { "stata", "sh", "bash" },
   dev = true,
 })
 
@@ -1033,7 +1279,7 @@ add_plug("liubianshi/vimcmdline", {
 
 -- 3rd/image.nvim: Bringing images to Neovim.
 add_plug("3rd/image.nvim", {
-  cond = (vim.fn.exists("g:neovide") == 0),
+  cond = (vim.fn.exists "g:neovide" == 0),
   ft = { "markdown", "pandoc", "rmd", "rmarkdown", "norg", "org", "newsboat" },
 })
 
@@ -1041,49 +1287,121 @@ add_plug("3rd/image.nvim", {
 add_plug("gbprod/yanky.nvim", {
   keys = {
     {
-      "<leader>sp", function()
-        require("telescope").extensions.yank_history.yank_history({ initial_mode = "normal"})
-      end, desc = "Open Yank History"
+      "<leader>sp",
+      function()
+        require("telescope").extensions.yank_history.yank_history {
+          initial_mode = "normal",
+        }
+      end,
+      desc = "Open Yank History",
     },
     { "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text" },
-    { "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after cursor" },
-    { "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before cursor" },
-    { "gp", "<Plug>(YankyGPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after selection" },
-    { "gP", "<Plug>(YankyGPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before selection" },
-    { "[y", "<Plug>(YankyCycleForward)", desc = "Cycle forward through yank history" },
-    { "]y", "<Plug>(YankyCycleBackward)", desc = "Cycle backward through yank history" },
-    { "]p", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
-    { "[p", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
-    { "]P", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Put indented after cursor (linewise)" },
-    { "[P", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Put indented before cursor (linewise)" },
-    { ">p", "<Plug>(YankyPutIndentAfterShiftRight)", desc = "Put and indent right" },
-    { "<p", "<Plug>(YankyPutIndentAfterShiftLeft)", desc = "Put and indent left" },
-    { ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put before and indent right" },
-    { "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", desc = "Put before and indent left" },
-    { "=p", "<Plug>(YankyPutAfterFilter)", desc = "Put after applying a filter" },
-    { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put before applying a filter" },
-  }
+    {
+      "p",
+      "<Plug>(YankyPutAfter)",
+      mode = { "n", "x" },
+      desc = "Put yanked text after cursor",
+    },
+    {
+      "P",
+      "<Plug>(YankyPutBefore)",
+      mode = { "n", "x" },
+      desc = "Put yanked text before cursor",
+    },
+    {
+      "gp",
+      "<Plug>(YankyGPutAfter)",
+      mode = { "n", "x" },
+      desc = "Put yanked text after selection",
+    },
+    {
+      "gP",
+      "<Plug>(YankyGPutBefore)",
+      mode = { "n", "x" },
+      desc = "Put yanked text before selection",
+    },
+    {
+      "[y",
+      "<Plug>(YankyCycleForward)",
+      desc = "Cycle forward through yank history",
+    },
+    {
+      "]y",
+      "<Plug>(YankyCycleBackward)",
+      desc = "Cycle backward through yank history",
+    },
+    {
+      "]p",
+      "<Plug>(YankyPutIndentAfterLinewise)",
+      desc = "Put indented after cursor (linewise)",
+    },
+    {
+      "[p",
+      "<Plug>(YankyPutIndentBeforeLinewise)",
+      desc = "Put indented before cursor (linewise)",
+    },
+    {
+      "]P",
+      "<Plug>(YankyPutIndentAfterLinewise)",
+      desc = "Put indented after cursor (linewise)",
+    },
+    {
+      "[P",
+      "<Plug>(YankyPutIndentBeforeLinewise)",
+      desc = "Put indented before cursor (linewise)",
+    },
+    {
+      ">p",
+      "<Plug>(YankyPutIndentAfterShiftRight)",
+      desc = "Put and indent right",
+    },
+    {
+      "<p",
+      "<Plug>(YankyPutIndentAfterShiftLeft)",
+      desc = "Put and indent left",
+    },
+    {
+      ">P",
+      "<Plug>(YankyPutIndentBeforeShiftRight)",
+      desc = "Put before and indent right",
+    },
+    {
+      "<P",
+      "<Plug>(YankyPutIndentBeforeShiftLeft)",
+      desc = "Put before and indent left",
+    },
+    {
+      "=p",
+      "<Plug>(YankyPutAfterFilter)",
+      desc = "Put after applying a filter",
+    },
+    {
+      "=P",
+      "<Plug>(YankyPutBeforeFilter)",
+      desc = "Put before applying a filter",
+    },
+  },
 })
 -- liubianshi/anki-panky ------------------------------------------------ {{{3
-add_plug('liubianshi/anki-panky', {
+add_plug("liubianshi/anki-panky", {
   dev = true,
-  ft = { 'markdown' },
-  cmd = {'AnkiNew', 'AnkiPush'},
+  ft = { "markdown" },
+  cmd = { "AnkiNew", "AnkiPush" },
   config = true,
 })
 
 -- sindrets/diffview.nvim: cycling through diffs for all modified files - {{{3
-add_plug('sindrets/diffview.nvim', {
+add_plug("sindrets/diffview.nvim", {
   cmd = { "DiffviewOpen", "DiffviewFileHistory" },
   keys = {
-    { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "DiffviewOpen"},
-    { "<leader>gh", "<cmd>DiffviewFileHistory<cr>", desc = "DiffviewOpen"},
+    { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "DiffviewOpen" },
+    { "<leader>gh", "<cmd>DiffviewFileHistory<cr>", desc = "DiffviewOpen" },
   },
 })
 
 -- Project management --------------------------------------------------- {{{2
 -- ahmedkhalf/project.nvim: superior project management solution -------- {{{3
-add_plug("ahmedkhalf/project.nvim", { event = "VeryLazy" })
+add_plug "ahmedkhalf/project.nvim"
 
 -- ludovicchabant/vim-gutentags: tag file management -------------------- {{{3
 add_plug("ludovicchabant/vim-gutentags", {
@@ -1092,7 +1410,7 @@ add_plug("ludovicchabant/vim-gutentags", {
 
 -- folke/trouble.nvim: diagnostics solution ----------------------------- {{{3
 add_plug("folke/trouble.nvim", {
-  cmd = {'Trouble'},
+  cmd = { "Trouble" },
   config = true,
   keys = {
     {
@@ -1130,7 +1448,7 @@ add_plug("folke/trouble.nvim", {
 
 -- rachartier/tiny-inline-diagnostic.nvim ------------------------------- {{{3
 add_plug("rachartier/tiny-inline-diagnostic.nvim", {
-  init = vim.diagnostic.config({ virtual_text = false }),
+  init = vim.diagnostic.config { virtual_text = false },
   event = "VeryLazy",
   config = true,
 })
@@ -1138,14 +1456,13 @@ add_plug("rachartier/tiny-inline-diagnostic.nvim", {
 -- tpope/vim-fugitive: Git ---------------------------------------------- {{{3
 add_plug("tpope/vim-fugitive", { cmd = "G" })
 
-
 -- Theme ---------------------------------------------------------------- {{{2
-add_plug("luisiacc/gruvbox-baby",            { lazy = false })
-add_plug("ayu-theme/ayu-vim",                { lazy = false })
-add_plug("rebelot/kanagawa.nvim",            { lazy = false, priority = 100 })
-add_plug("olimorris/onedarkpro.nvim",        { priority = 100 })
-add_plug("Mofiqul/vscode.nvim",              { priority = 100 })
-add_plug("rmehri01/onenord.nvim",            { priority = 100 })
+add_plug("luisiacc/gruvbox-baby", { lazy = false })
+add_plug("ayu-theme/ayu-vim", { lazy = false })
+add_plug("rebelot/kanagawa.nvim", { lazy = false, priority = 100 })
+add_plug("olimorris/onedarkpro.nvim", { priority = 100 })
+add_plug("Mofiqul/vscode.nvim", { priority = 100 })
+add_plug("rmehri01/onenord.nvim", { priority = 100 })
 add_plug("nyoom-engineering/oxocarbon.nvim", {
   init = function()
     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -1154,8 +1471,8 @@ add_plug("nyoom-engineering/oxocarbon.nvim", {
   end,
   priority = 100,
 })
-add_plug("Verf/deepwhite.nvim",              { lazy = false, priority = 100  })
-add_plug("mhartington/oceanic-next",         { lazy = false })
+add_plug("Verf/deepwhite.nvim", { lazy = false, priority = 100 })
+add_plug("mhartington/oceanic-next", { lazy = false })
 add_plug("sainnhe/everforest", {
   init = function()
     vim.g.everforest_better_performance = 1
@@ -1172,13 +1489,13 @@ add_plug("projekt0n/github-nvim-theme", { lazy = false, priority = 1000 })
 
 -- 补全和代码片断 ------------------------------------------------------- {{{2
 -- sirver/UltiSnips: Ultimate snippet solution -------------------------- {{{3
-add_plug("honza/vim-snippets", { lazy = true } )
+add_plug("honza/vim-snippets", { lazy = true })
 add_plug("sirver/UltiSnips", {
   cmd = { "UltiSnipsAddFiletypes" },
   init = function()
-    vim.g.UltiSnipsExpandTrigger            = "<c-l>"
-    vim.g.UltiSnipsJumpForwardTrigger       = "<c-j>"
-    vim.g.UltiSnipsJumpBackwardTrigger      = "<c-k>"
+    vim.g.UltiSnipsExpandTrigger = "<c-l>"
+    vim.g.UltiSnipsJumpForwardTrigger = "<c-j>"
+    vim.g.UltiSnipsJumpBackwardTrigger = "<c-k>"
     vim.g.UltiSnipsRemoveSelectModeMappings = 0
   end,
   dependencies = { "honza/vim-snippets" },
@@ -1197,39 +1514,82 @@ add_plug("folke/lazydev.nvim", {
         return false
       end
       return vim.g.lazydev_enabled == nil and true or vim.g.lazydev_enabled
-    end
-  }
+    end,
+  },
 })
 add_plug("Bilal2453/luvit-meta", { lazy = true })
 add_plug("neovim/nvim-lspconfig", {
   -- event = { "BufReadPre", "BufNewFile", "BufWinEnter" },
-  ft = {"lua", "perl", "markdown", "bash", "r", "python", "vim", "rmd"},
+  ft = { "lua", "perl", "markdown", "bash", "r", "python", "vim", "rmd" },
 })
-add_plug("liubianshi/cmp-r", { dev = true, lazy = true})
--- add_plug("R-nvim/cmp-r", { lazy = true})
 
--- hrsh7th/nvim-cmp: A completion plugin for neovim ----------------- {{{4
-local cmp_dependencies = {
-  "hrsh7th/cmp-nvim-lsp", -- neovim builtin LSP client
-  "hrsh7th/cmp-nvim-lsp-signature-help", -- displaying function signatures
-  "hrsh7th/cmp-omni", -- omnifunc
-  "hrsh7th/cmp-buffer", -- buffer words
-  "hrsh7th/cmp-cmdline", -- command line keywords
-  "uga-rosa/cmp-dictionary", -- A dictionary completation source for nvim-cmp
-  "FelipeLema/cmp-async-path", -- filesystem paths
-  "ray-x/cmp-treesitter", -- treesitter nodes
-  "onsails/lspkind.nvim", -- adds vscode-like pictograms
-  "quangnguyen30192/cmp-nvim-ultisnips", -- ultisnips
-  "kristijanhusak/vim-dadbod-completion", -- dadbod
-  "kdheepak/cmp-latex-symbols", -- latex symbol
-}
-for _, k in ipairs(cmp_dependencies) do
-  add_plug(k, { lazy = true })
+if true then
+  -- blink.nvim
+  add_plug {
+    "saghen/blink.compat",
+    lazy = true,
+    opts = {},
+  }
+  add_plug {
+    "saghen/blink.cmp",
+    event = { "InsertEnter", "CmdlineEnter" },
+    build = "cargo build --release",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "folke/lazydev.nvim",
+      { "liubianshi/cmp-r", dev = true, lazy = true },
+      "rafamadriz/friendly-snippets",
+    },
+  }
+
+  add_plug("liubianshi/cmp-lsp-rimels", {
+    keys = { { "<localleader>f", mode = "i" } },
+    branch = "blink.cmp",
+    -- dev = true,
+  })
+else
+  -- liubianshi/cmp-lsp-rimels: ------------------------------------------- {{{3
+  if
+    (vim.fn.has "linux" == 1 and vim.fn.has "nvim-0.10.0" == 0)
+    and (not vim.env.SSH_TTY or vim.env.SSH_TTY == "")
+  then
+    add_plug("liubianshi/ime-toggle", {
+      keys = { { "<localleader>f", mode = "i" } },
+      dev = true,
+      config = true,
+    })
+  else
+    add_plug("liubianshi/cmp-lsp-rimels", {
+      keys = { { "<localleader>f", mode = "i" } },
+      dev = true,
+    })
+  end
+
+  add_plug("liubianshi/cmp-r", { dev = true, lazy = true })
+  -- add_plug("R-nvim/cmp-r", { lazy = true})
+  -- hrsh7th/nvim-cmp: A completion plugin for neovim ----------------- {{{4
+  local cmp_dependencies = {
+    "hrsh7th/cmp-nvim-lsp", -- neovim builtin LSP client
+    "hrsh7th/cmp-nvim-lsp-signature-help", -- displaying function signatures
+    "hrsh7th/cmp-omni", -- omnifunc
+    "hrsh7th/cmp-buffer", -- buffer words
+    "hrsh7th/cmp-cmdline", -- command line keywords
+    "uga-rosa/cmp-dictionary", -- A dictionary completation source for nvim-cmp
+    "FelipeLema/cmp-async-path", -- filesystem paths
+    "ray-x/cmp-treesitter", -- treesitter nodes
+    "onsails/lspkind.nvim", -- adds vscode-like pictograms
+    "quangnguyen30192/cmp-nvim-ultisnips", -- ultisnips
+    "kristijanhusak/vim-dadbod-completion", -- dadbod
+    "kdheepak/cmp-latex-symbols", -- latex symbol
+  }
+  for _, k in ipairs(cmp_dependencies) do
+    add_plug(k, { lazy = true })
+  end
+  add_plug("hrsh7th/nvim-cmp", {
+    event = { "InsertEnter", "CmdlineEnter" },
+    dependencies = cmp_dependencies,
+  })
 end
-add_plug("hrsh7th/nvim-cmp", {
-  event = {"InsertEnter", "CmdlineEnter"},
-  dependencies = cmp_dependencies,
-})
 
 -- Formatter and linter ------------------------------------------------- {{{2
 -- mfussenegger/nvim-dap
@@ -1240,7 +1600,17 @@ add_plug("hrsh7th/nvim-cmp", {
 
 -- mhartington/formatter.nvim: autoformat tool -------------------------- {{{3
 add_plug("mhartington/formatter.nvim", {
-  ft = { "lua", "sh", "perl", "r", "html", "xml", "css", "markdown", "javascript" },
+  ft = {
+    "lua",
+    "sh",
+    "perl",
+    "r",
+    "html",
+    "xml",
+    "css",
+    "markdown",
+    "javascript",
+  },
 })
 
 -- Writing and knowledge management ------------------------------------- {{{2
@@ -1260,14 +1630,14 @@ add_plug("mhartington/formatter.nvim", {
 add_plug {
   "folke/zen-mode.nvim",
   keys = {
-    { "<leader>oZ", "<cmd>ZenMode<cr>", desc = "Zen Mode" }
-  }
+    { "<leader>oZ", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
+  },
 }
 
 -- ellisonleao/glow.nvim: A markdown preview directly in your neovim. --- {{{3
 add_plug("ellisonleao/glow.nvim", {
-  cmd = {"Glow"},
-  config = true
+  cmd = { "Glow" },
+  config = true,
 })
 
 -- quarto-dev/quarto-nvim: Quarto mode for Neovim ----------------------- {{{3
@@ -1281,17 +1651,27 @@ add_plug("ellisonleao/glow.nvim", {
 -- }
 
 -- OXY2DEV/markview.nvim ------------------------------------------------ {{{3
-add_plug('OXY2DEV/markview.nvim', {
+add_plug("OXY2DEV/markview.nvim", {
   lazy = false,
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
-    "nvim-tree/nvim-web-devicons"
-  }
+    "nvim-tree/nvim-web-devicons",
+  },
 })
 
 -- ferrine/md-img-paste.vim: paste image to markdown -------------------- {{{3
 add_plug("HakonHarnes/img-clip.nvim", {
-  ft = { "rmd", "markdown", "rmarkdown", "pandoc", "org", "tex", "html", "norg", "quarto" },
+  ft = {
+    "rmd",
+    "markdown",
+    "rmarkdown",
+    "pandoc",
+    "org",
+    "tex",
+    "html",
+    "norg",
+    "quarto",
+  },
   keys = {
     { "<leader>ip", "<cmd>PasteImage<cr>", desc = "Paste clipboard image" },
   },
@@ -1299,7 +1679,16 @@ add_plug("HakonHarnes/img-clip.nvim", {
 
 -- hotoo/pangu.vim: 『盘古之白』中文排版自动规范化 ---------------------- {{{3
 add_plug("hotoo/pangu.vim", {
-  ft = { "rmd", "markdown", "rmarkdown", "pandoc", "norg", "org", "newsboat", "html" },
+  ft = {
+    "rmd",
+    "markdown",
+    "rmarkdown",
+    "pandoc",
+    "norg",
+    "org",
+    "newsboat",
+    "html",
+  },
   init = function()
     vim.g.pangu_rule_fullwidth_punctuation = 0
     vim.g.pangu_rule_spacing_punctuation = 1
@@ -1312,21 +1701,41 @@ add_plug("dhruvasagar/vim-table-mode", {
   ft = { "markdown", "pandoc", "rmd", "org" },
   init = function()
     vim.g.table_mode_map_prefix = "<localleader>t"
-    vim.g.table_mode_corner = '|'
+    vim.g.table_mode_corner = "|"
   end,
 })
 
 -- epwalsh/obsidian.nvim
 add_plug("epwalsh/obsidian.nvim", {
   version = "*",
-  ft = {"markdown"},
-  cmd = {"ObsidianQuickSwitch", "ObsidianNew", "ObsidianSearch"},
+  ft = { "markdown" },
+  cmd = { "ObsidianQuickSwitch", "ObsidianNew", "ObsidianSearch" },
   keys = {
-    { "<leader>nl", "<cmd>ObsidianQuickSwitch<cr>", desc = "Obsidian: Switch Note"                             },
-    { "<leader>nn", "<cmd>ObsidianNew<cr>",         desc = "Obsidian: Create new note"                         },
-    { "<leader>no", "<cmd>ObsidianOpen<cr>",        desc = "Obsidian: open a note in the Obsidian app"         },
-    { "<leader>nj", "<cmd>ObsidianToday<cr>",       desc = "Obsidian: open/create a new daily note"            },
-    { "<leader>nf", "<cmd>ObsidianSearch<cr>",      desc = "Obsidian: search for (or create) notes"            },
+    {
+      "<leader>nl",
+      "<cmd>ObsidianQuickSwitch<cr>",
+      desc = "Obsidian: Switch Note",
+    },
+    {
+      "<leader>nn",
+      "<cmd>ObsidianNew<cr>",
+      desc = "Obsidian: Create new note",
+    },
+    {
+      "<leader>no",
+      "<cmd>ObsidianOpen<cr>",
+      desc = "Obsidian: open a note in the Obsidian app",
+    },
+    {
+      "<leader>nj",
+      "<cmd>ObsidianToday<cr>",
+      desc = "Obsidian: open/create a new daily note",
+    },
+    {
+      "<leader>nf",
+      "<cmd>ObsidianSearch<cr>",
+      desc = "Obsidian: search for (or create) notes",
+    },
   },
 })
 
@@ -1336,7 +1745,10 @@ add_plug("nvim-neorg/neorg", {
   version = "*",
   ft = { "norg" },
   cmd = { "Neorg" },
-  dependencies = { { "nvim-lua/plenary.nvim" }, { "nvim-neorg/neorg-telescope" }  },
+  dependencies = {
+    { "nvim-lua/plenary.nvim" },
+    { "nvim-neorg/neorg-telescope" },
+  },
   keys = {
     {
       "<leader>ej",
@@ -1349,13 +1761,11 @@ add_plug("nvim-neorg/neorg", {
 -- kristijanhusak/vim-dadbod-ui: simple UI for vim-dadbod --------------- {{{3
 add_plug("kristijanhusak/vim-dadbod-ui", {
   cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
-  dependencies = {"tpope/vim-dadbod"}
+  dependencies = { "tpope/vim-dadbod" },
 })
-
 
 add_plug("liubianshi/R.nvim", { dev = true, lazy = false })
 -- add_plug("R-nvim/R.nvim", { lazy = false, branch = "fix_no_args_compl" })
-
 
 -- lervag/vimtex: filetype plugin for LaTeX files ----------------------- {{{3
 add_plug("lervag/vimtex", { ft = "tex" })
@@ -1378,7 +1788,7 @@ add_plug("kevinhwang91/nvim-bqf", { ft = "qf" })
 -- nvim-orgmode/orgmode: Orgmode clone written in Lua ------------------- {{{3
 add_plug("nvim-orgmode/orgmode", {
   ft = "org",
-  cmd = {'OrgCapture'},
+  cmd = { "OrgCapture" },
   keys = {
     { "<leader>oa", desc = "Orgmode: agenda prompt" },
     { "<leader>oc", desc = "Orgmode: capture prompt" },
@@ -1411,23 +1821,23 @@ add_plug("nvim-treesitter/nvim-treesitter-textobjects", {
 add_plug("Wansmer/treesj", {
   cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
   keys = {
-    { "<leader>mj", "<cmd>TSJJoin<cr>",   desc = "Join Code Block"       },
-    { "<leader>ms", "<cmd>TSJSplit<cr>",  desc = "Split Code Block"      },
+    { "<leader>mj", "<cmd>TSJJoin<cr>", desc = "Join Code Block" },
+    { "<leader>ms", "<cmd>TSJSplit<cr>", desc = "Split Code Block" },
     { "<leader>mm", "<cmd>TSJToggle<cr>", desc = "Join/Split Code Block" },
-  }
+  },
 })
 
 -- AckslD/nvim-FeMaco.lua: Fenced Markdown Code-block editing ----------- {{{3
 add_plug("AckslD/nvim-FeMaco.lua", {
   cmd = "FeMaco",
-  ft = {'markdown', 'rmarkdown', 'norg'},
+  ft = { "markdown", "rmarkdown", "norg" },
   keys = {
     { "<localleader>o", "<cmd>FeMaco<cr>", desc = "FeMaco: Edit Code Block" },
   },
 })
 
 -- 安装并加载插件 ------------------------------------------------------- {{{1
-require("lazy").setup(Plugins, require('plugins.lazy'))
+require("lazy").setup(Plugins, require "plugins.lazy")
 
 -- 创建辅助函数 --------------------------------------------------------- {{{1
 _G.LoadedPlugins = function()

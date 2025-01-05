@@ -78,7 +78,13 @@ local function construct_cmp_source(sources)
   end
   local default = gen_cmp_source {
     { name = "ultisnips" }, -- For ultisnips users.
-    { name = "async_path", option = { trailing_slash = true } },
+    {
+      name = "async_path",
+      option = {
+        trailing_slash = true,
+        get_cwd = function(_) return require('util').get_root() end
+      }
+    },
     {
       name = "nvim_lsp",
       keyword_length = 1,
@@ -97,7 +103,7 @@ local function construct_cmp_source(sources)
         },
       },
     },
-    -- { name = "buffer" },
+    { name = "buffer" },
     { name = "ctags" },
     { name = "nvim_lsp_signature_help" },
     -- { name = 'latex_symbols' },
